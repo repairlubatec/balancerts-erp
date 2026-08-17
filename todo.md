@@ -15,7 +15,7 @@
 - [x] Cadeia navegável Documento → Lançamento → Conta → Relatório e percurso inverso
 - [x] Facturação e documentos comerciais com séries e numeração sequencial
 - [x] Máquina de estados DRAFT → VALIDATED → ISSUED → ACCOUNTED → CANCELLED
-- [ ] Imutabilidade pós-emissão e associação a cliente/fornecedor, itens, impostos, pagamentos e contabilidade
+- [x] Imutabilidade pós-emissão e associação a cliente/fornecedor, itens, impostos, pagamentos e contabilidade
 - [x] Motor fiscal versionado por vigência e evidência normativa
 - [x] Regimes de IVA exclusivamente Geral, Simplificado e Exclusão de Angola
 - [ ] Conformidade parametrizada com o Decreto Presidencial n.º 71/25 e requisitos da AGT
@@ -233,8 +233,8 @@
 - [x] Fazer rollback/limpeza dos registos temporários do tenant descartável e confirmar que a Repair Lubatec não foi alterada
 - [x] Provar no tenant descartável falha transitória→reprocessamento→lançamento persistido→replay idempotente sem duplicação; estados FAILED persistidos de integrações externas continuam separados
 - [ ] Expandir isolamento multi-tenant a exportações, operações persistentes de integração e superfícies futuras de cache/filas, com testes negativos por empresa/organização
-- [ ] Implementar entidades e associações de clientes/fornecedores, itens, impostos, pagamentos e contabilidade, com imutabilidade pós-emissão
-- [ ] Parametrizar de forma verificável o Decreto Presidencial n.º 71/25 e requisitos AGT, distinguindo evidência normativa interna de validação externa
+- [x] Implementar entidades e associações de clientes/fornecedores, itens, impostos, pagamentos e contabilidade, com imutabilidade pós-emissão
+- [x] Parametrizar de forma verificável o Decreto Presidencial n.º 71/25 e requisitos AGT, distinguindo evidência normativa interna de validação externa
 - [ ] Expandir módulos operacionais persistentes de clientes, fornecedores, caixa, bancos e tesouraria com RBAC, auditoria e reconciliação
 - [x] Adicionar testes de integração e migração para os quatro blocos expandidos, sem alterar dados da Repair Lubatec
 - [x] Criar migração 0015 não destrutiva para contrapartes, produtos, linhas/impostos documentais, pagamentos, caixa, tesouraria e regras normativas
@@ -249,3 +249,7 @@
 - [x] Implementar arquivo lógico idempotente de documentos anulados, preservando o original e registando evento auditado
 - [x] Expor matriz operacional versionada do Decreto 71/25 para emissão, rectificação, anulação, recibo, arquivo e certificação, com EXTERNAL_PENDING onde aplicável
 - [x] Persistir reconciliações de caixa/banco por conta, com diferença calculada a partir de movimentos, estado OPEN/RECONCILED, RBAC e auditoria
+- [x] Cobrir fornecedor e conta bancária no E2E operacional, incluindo consulta tenant-aware e reconciliação persistente de saldo zero
+- [x] Bloquear actualização de artigo/serviço usado por documento ISSUED, ACCOUNTED ou CANCELLED, com teste tenant-aware e auditoria para alterações permitidas
+- [x] Executar cenário fornecedor→documento emitido→lançamento POSTED com `sourceDocumentId`, validando associação contabilística e cleanup tenant-aware
+- [x] Cobrir fluxo bancário OUT com transferência, consulta de pagamentos, movimento de tesouraria e reconciliação persistente de saldo negativo

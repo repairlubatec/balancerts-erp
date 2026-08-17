@@ -403,6 +403,24 @@ async function assertCommercialDocumentMutable(input: { userId: number; companyI
   return row[0];
 }
 
+export async function updateProductForUser(input: { userId: number; companyId: number; productId: number; name?: string; taxCode?: string; unitCode?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const row = await db.select({ product: products, organizationId: companies.organizationId }).from(products).innerJoin(companies, eq(products.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(products.id, input.productId), eq(products.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!row[0]) throw new Error("PRODUCT_NOT_FOUND_OR_FORBIDDEN");
+  const linked = await db.select({ id: documentItems.id }).from(documentItems).innerJoin(businessDocuments, eq(documentItems.documentId, businessDocuments.id)).where(and(eq(documentItems.companyId, input.companyId), eq(documentItems.productId, input.productId), sql`${businessDocuments.status} IN ('ISSUED','ACCOUNTED','CANCELLED')`)).limit(1);
+  if (linked[0]) throw new Error("PRODUCT_IMMUTABLE_AFTER_DOCUMENT_ISSUANCE");
+  await db.update(products).set({ name: input.name, taxCode: input.taxCode, unitCode: input.unitCode }).where(eq(products.id, input.productId));
+  await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PRODUCT_UPDATED", entityType: "product", entityId: String(input.productId), beforeState: JSON.stringify(row[0].product), afterState: JSON.stringify({ ...row[0].product, ...input }), correlationId: `product:${input.productId}` });
+  return { id: input.productId };
+}
+
+export async function getPaymentsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ payment: payments }).from(payments).innerJoin(companies, eq(payments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(payments.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(desc(payments.createdAt));
+}
+
 export async function reconcileCashAccountForUser(input: { userId: number; companyId: number; cashAccountId: number; statementDate: Date; openingBalance: number; closingBalance: number }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");

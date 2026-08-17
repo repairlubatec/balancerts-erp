@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
 import { getDb } from "./db";
-import { auditEvents, businessDocuments, cashAccounts, cashReconciliations, counterparties, documentItems, documentSeries, documentTaxes, payments, products, treasuryTransactions } from "../drizzle/schema";
+import { auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, counterparties, documentItems, documentSeries, documentTaxes, fiscalPeriods, journalEntries, journalLines, payments, products, treasuryTransactions } from "../drizzle/schema";
 
 const COMPANY_ID = 30001;
 const ORGANIZATION_ID = 1;
@@ -26,6 +26,10 @@ describe("expanded tenant-aware operational modules", () => {
     let counterpartyId: number | undefined;
     let productId: number | undefined;
     let cashAccountId: number | undefined;
+    let bankAccountId: number | undefined;
+    let supplierId: number | undefined;
+    let supplierDocumentId: number | undefined;
+    let supplierEntryId: number | undefined;
     let paymentId: number | undefined;
     let treasuryTransactionId: number | undefined;
     let draftDocumentId: number | undefined;
@@ -36,6 +40,9 @@ describe("expanded tenant-aware operational modules", () => {
     let createdCorrectionSeries = false;
     let reconciliationId: number | undefined;
     let mismatchReconciliationId: number | undefined;
+    let bankPaymentId: number | undefined;
+    let bankTreasuryTransactionId: number | undefined;
+    let bankReconciliationId: number | undefined;
     try {
       const existingSeries = await db!.select({ id: documentSeries.id }).from(documentSeries).where(and(eq(documentSeries.companyId, COMPANY_ID), eq(documentSeries.code, "FT-TEST"), eq(documentSeries.documentType, "FT"))).limit(1);
       if (!existingSeries[0]) {
@@ -49,10 +56,36 @@ describe("expanded tenant-aware operational modules", () => {
       }
       const customer = await caller.counterparties.create({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, kind: "CUSTOMER", taxId: `999${suffix}`, name: `Cliente E2E ${suffix}`, email: `customer-${suffix}@example.invalid` });
       counterpartyId = customer.id;
+      const supplier = await caller.counterparties.create({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, kind: "SUPPLIER", taxId: `888${suffix}`, name: `Fornecedor E2E ${suffix}`, email: `supplier-${suffix}@example.invalid` });
+      supplierId = supplier.id;
+      expect((await caller.counterparties.list({ companyId: COMPANY_ID, kind: "SUPPLIER" })).some(({ counterparty }) => counterparty.id === supplierId)).toBe(true);
+      const supplierDraft = await caller.documents.createDraft({ companyId: COMPANY_ID, series: "FT-TEST", documentType: "FT", counterpartyId: supplierId, counterpartyType: "SUPPLIER", ivaRegime: "EXCLUSAO", items: [{ description: "Compra de serviço E2E", quantity: 1, unitPrice: 100, netAmount: 100, taxAmount: 0, totalAmount: 100, taxType: "IVA-EXCLUSAO", taxRate: 0 }] });
+      supplierDocumentId = supplierDraft.id;
+      await caller.documents.transition({ companyId: COMPANY_ID, documentId: supplierDocumentId, to: "VALIDATED", correlationId: `supplier-${suffix}-validated` });
+      await caller.documents.transition({ companyId: COMPANY_ID, documentId: supplierDocumentId, to: "ISSUED", correlationId: `supplier-${suffix}-issued` });
+      const period = await db!.select({ id: fiscalPeriods.id }).from(fiscalPeriods).where(eq(fiscalPeriods.companyId, COMPANY_ID)).limit(1);
+      const accounts = await db!.select({ id: chartAccounts.id }).from(chartAccounts).where(and(eq(chartAccounts.companyId, COMPANY_ID), eq(chartAccounts.postable, 1))).limit(2);
+      expect(period[0]).toBeTruthy();
+      expect(accounts.length).toBe(2);
+      const postedSupplier = await caller.accounting.post({ companyId: COMPANY_ID, periodId: period[0].id, sourceDocumentId: supplierDocumentId, idempotencyKey: `supplier-post-${suffix}`, description: "Lançamento fornecedor E2E", lines: [{ accountId: accounts[0].id, debit: 100, credit: 0, postable: true, validFrom: new Date("2023-09-01") }, { accountId: accounts[1].id, debit: 0, credit: 100, postable: true, validFrom: new Date("2023-09-01") }] });
+      supplierEntryId = postedSupplier.entryId;
+      const linkedEntry = await db!.select({ entry: journalEntries }).from(journalEntries).where(eq(journalEntries.id, supplierEntryId));
+      expect(linkedEntry[0]?.entry.sourceDocumentId).toBe(supplierDocumentId);
       const product = await caller.catalog.create({ companyId: COMPANY_ID, code: `SVC-${suffix}`, name: "Serviço E2E", kind: "SERVICE", taxCode: "IVA-EXCLUSAO" });
       productId = product.id;
       const cash = await caller.treasury.createAccount({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, name: `Caixa E2E ${suffix}`, kind: "CASH" });
       cashAccountId = cash.id;
+      const bank = await caller.treasury.createAccount({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, name: `Banco E2E ${suffix}`, kind: "BANK", accountNumber: `AO06${suffix}` });
+      bankAccountId = bank.id;
+      const emptyBankReconciliation = await caller.treasury.reconcile({ companyId: COMPANY_ID, cashAccountId: bankAccountId, statementDate: new Date("2026-08-18T23:00:00Z"), openingBalance: 0, closingBalance: 0 });
+      expect(emptyBankReconciliation).toMatchObject({ status: "RECONCILED", systemBalance: 0, difference: 0 });
+      bankReconciliationId = emptyBankReconciliation.id;
+      const bankPayment = await caller.treasury.createPayment({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, cashAccountId: bankAccountId, direction: "PAYMENT", amount: 50, paidAt: new Date("2026-08-18T12:00:00Z"), method: "BANK_TRANSFER", idempotencyKey: `bank-payment-e2e-${suffix}`, correlationId: `bank-payment-e2e-${suffix}` });
+      bankPaymentId = Number(bankPayment.payment.id);
+      bankTreasuryTransactionId = Number(bankPayment.treasuryTransactionId);
+      expect((await caller.treasury.payments({ companyId: COMPANY_ID })).some(({ payment }) => payment.id === bankPaymentId && payment.direction === "PAYMENT")).toBe(true);
+      const bankClosing = await caller.treasury.reconcile({ companyId: COMPANY_ID, cashAccountId: bankAccountId, statementDate: new Date("2026-08-19T23:00:00Z"), openingBalance: 0, closingBalance: -50 });
+      expect(bankClosing).toMatchObject({ status: "RECONCILED", systemBalance: -50, difference: 0 });
       const draft = await caller.documents.createDraft({ companyId: COMPANY_ID, series: "FT-TEST", documentType: "FT", counterpartyId, counterpartyType: "CUSTOMER", ivaRegime: "EXCLUSAO", items: [{ productId, description: "Serviço E2E", quantity: 1, unitPrice: 250, netAmount: 250, taxAmount: 0, totalAmount: 250, taxType: "IVA-EXCLUSAO", taxRate: 0 }] });
       draftDocumentId = draft.id;
       expect(draft).toMatchObject({ status: "DRAFT", counterpartyId });
@@ -78,6 +111,7 @@ describe("expanded tenant-aware operational modules", () => {
       await caller.documents.transition({ companyId: COMPANY_ID, documentId: draftDocumentId, to: "VALIDATED", correlationId: `doc-${suffix}-validated` });
       await caller.documents.transition({ companyId: COMPANY_ID, documentId: draftDocumentId, to: "ISSUED", correlationId: `doc-${suffix}-issued` });
       await expect(caller.counterparties.update({ companyId: COMPANY_ID, counterpartyId, name: "Nome proibido após emissão" })).rejects.toThrow("COUNTERPARTY_IMMUTABLE_AFTER_DOCUMENT_ISSUANCE");
+      await expect(caller.catalog.update({ companyId: COMPANY_ID, productId, name: "Produto proibido após emissão" })).rejects.toThrow("PRODUCT_IMMUTABLE_AFTER_DOCUMENT_ISSUANCE");
       await expect(caller.documents.updateItem({ companyId: COMPANY_ID, itemId, netAmount: 240 })).rejects.toThrow("DOCUMENT_IMMUTABLE_AFTER_ISSUANCE");
       await expect(caller.documents.updateTax({ companyId: COMPANY_ID, taxId, taxAmount: 1 })).rejects.toThrow("DOCUMENT_IMMUTABLE_AFTER_ISSUANCE");
       await expect(caller.treasury.updatePayment({ companyId: COMPANY_ID, paymentId, amount: 240 })).rejects.toThrow("DOCUMENT_IMMUTABLE_AFTER_ISSUANCE");
@@ -110,8 +144,20 @@ describe("expanded tenant-aware operational modules", () => {
       expect(audit.some(({ event }) => event.action === "PAYMENT_CREATED" && event.actorUserId === USER_ID && event.afterState)).toBe(true);
     } finally {
       if (reconciliationId) await db!.delete(cashReconciliations).where(eq(cashReconciliations.id, reconciliationId));
+      if (bankReconciliationId) await db!.delete(cashReconciliations).where(eq(cashReconciliations.id, bankReconciliationId));
+      if (bankTreasuryTransactionId) await db!.delete(treasuryTransactions).where(eq(treasuryTransactions.id, bankTreasuryTransactionId));
+      if (bankPaymentId) await db!.delete(payments).where(eq(payments.id, bankPaymentId));
       if (mismatchReconciliationId) await db!.delete(cashReconciliations).where(eq(cashReconciliations.id, mismatchReconciliationId));
       if (treasuryTransactionId) await db!.delete(treasuryTransactions).where(eq(treasuryTransactions.id, treasuryTransactionId));
+      if (supplierEntryId) {
+        await db!.delete(journalLines).where(eq(journalLines.entryId, supplierEntryId));
+        await db!.delete(journalEntries).where(eq(journalEntries.id, supplierEntryId));
+      }
+      if (supplierDocumentId) {
+        await db!.delete(documentTaxes).where(eq(documentTaxes.documentId, supplierDocumentId));
+        await db!.delete(documentItems).where(eq(documentItems.documentId, supplierDocumentId));
+        await db!.delete(businessDocuments).where(eq(businessDocuments.id, supplierDocumentId));
+      }
       if (correctionDocumentId) {
         await db!.delete(documentTaxes).where(eq(documentTaxes.documentId, correctionDocumentId));
         await db!.delete(documentItems).where(eq(documentItems.documentId, correctionDocumentId));
@@ -128,8 +174,10 @@ describe("expanded tenant-aware operational modules", () => {
       else await db!.update(documentSeries).set({ nextNumber: 1 }).where(and(eq(documentSeries.companyId, COMPANY_ID), eq(documentSeries.code, "FT-TEST"), eq(documentSeries.documentType, "NC")));
       if (paymentId) await db!.delete(payments).where(eq(payments.id, paymentId));
       if (cashAccountId) await db!.delete(cashAccounts).where(eq(cashAccounts.id, cashAccountId));
+      if (bankAccountId) await db!.delete(cashAccounts).where(eq(cashAccounts.id, bankAccountId));
       if (productId) await db!.delete(products).where(eq(products.id, productId));
       if (counterpartyId) await db!.delete(counterparties).where(eq(counterparties.id, counterpartyId));
+      if (supplierId) await db!.delete(counterparties).where(eq(counterparties.id, supplierId));
       await db!.delete(auditEvents).where(and(eq(auditEvents.companyId, COMPANY_ID), eq(auditEvents.correlationId, `payment-e2e-${suffix}`)));
       await db!.delete(auditEvents).where(and(eq(auditEvents.companyId, COMPANY_ID), eq(auditEvents.correlationId, `counterparty:${counterpartyId ?? -1}`)));
       await db!.delete(auditEvents).where(and(eq(auditEvents.companyId, COMPANY_ID), eq(auditEvents.correlationId, `product:${productId ?? -1}`)));
