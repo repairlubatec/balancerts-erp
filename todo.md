@@ -126,3 +126,4 @@
 - [x] Ligar a actividade recente da Home ao histórico auditado real do tenant actual, com estado vazio quando não existem eventos
 - [x] Remover alertas demonstrativos da Home e apresentar pendências apenas quando existir fonte persistente real
 - [ ] Enumerar e testar todas as mutações críticas suportadas em estado PENDING, além de reserva documental, transição/emissão e posting
+- [x] Cobrir RBAC do reports.fiscalRegister: Auditor autorizado e Operador bloqueado antes da persistência
