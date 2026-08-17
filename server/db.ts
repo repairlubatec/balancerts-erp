@@ -94,7 +94,9 @@ export async function recordStockMovement(input: { userId: number; organizationI
   const company = await db.select({ id: companies.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   const result = await db.insert(stockMovements).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, productCode: input.productCode, type: input.type, quantity: String(input.quantity), unitCost: String(input.unitCost), sourceDocumentId: input.sourceDocumentId, journalEntryId: input.journalEntryId, correlationId: input.correlationId });
-  return { id: result[0].insertId, ...input };
+  const movementId = Number(result[0].insertId);
+  await appendAuditEvent({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "STOCK_MOVEMENT_RECORDED", entityType: "stockMovement", entityId: String(movementId), afterState: JSON.stringify({ type: input.type, productCode: input.productCode, quantity: input.quantity, unitCost: input.unitCost }), correlationId: input.correlationId });
+  return { id: movementId, ...input };
 }
 
 export async function createFileAsset(input: { userId: number; organizationId: number; companyId: number; storageKey: string; filename: string; mimeType: string; size: number; sha256: string; allowedUserIds?: number[] }) {
@@ -194,7 +196,9 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
   if (!db) throw new Error("Database unavailable");
   const validation = validateBalancedEntry(input.lines);
   if (!validation.ok) throw new Error(validation.reason);
-  return db.transaction(async (tx) => {
+  const companyContext = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.createdBy))).limit(1);
+  if (!companyContext[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const result = await db.transaction(async (tx) => {
     const existing = await tx.select().from(journalEntries).where(eq(journalEntries.idempotencyKey, input.idempotencyKey)).limit(1);
     if (existing[0]) return { entry: existing[0], idempotent: true };
     const period = await tx.select().from(fiscalPeriods).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId))).limit(1);
@@ -204,4 +208,8 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
     await tx.insert(journalLines).values(input.lines.map((line) => ({ entryId, accountId: line.accountId, debit: line.debit.toFixed(2), credit: line.credit.toFixed(2), currency: line.currency ?? "AOA", exchangeRate: (line.exchangeRate ?? 1).toFixed(8) })));
     return { entryId, idempotent: false };
   });
+  if (!result.idempotent) {
+    await appendAuditEvent({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
+  }
+  return result;
 }

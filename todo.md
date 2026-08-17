@@ -63,3 +63,6 @@
 - [x] Implementar queries persistentes tenant-aware para Diário, Razão, Demonstração de Resultados e Balanço
 - [x] Expor endpoints protegidos dos relatórios principais e cadeia Documento → Lançamento → Conta
 - [ ] Completar relatórios auxiliares e fiscais com queries e validações AGT específicas
+- [x] Auditar movimentos de stock persistidos com actor, tenant, entidade, estado e correlationId
+- [x] Validar tenant da empresa antes de permitir posting contabilístico e auditar lançamentos novos
+- [ ] Integrar auditoria de negócio em todas as mutações críticas e disponibilizar reconstrução por entidade/empresa
