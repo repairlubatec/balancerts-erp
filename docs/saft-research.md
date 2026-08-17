@@ -12,3 +12,7 @@ Fontes consultadas:
 2. https://github.com/assoft-portugal/SAF-T-AO/tree/master/XSD — directório público do XSD, contendo `SAFTAO1.01_01.xsd`.
 
 Nota de conformidade: esta referência técnica não substitui a confirmação da versão normativa actualmente exigida pela AGT, da obrigação aplicável à empresa concreta ou da certificação do software. O exportador não deve ser declarado conforme nem submetido sem validação contra o XSD e revisão profissional/fiscal actualizada.
+
+## Nota de teste da Repair Lubatec
+
+Foi feita uma consulta somente de leitura à tabela `documentSeries` para localizar séries da Repair Lubatec. Não foi inserido nem reservado qualquer número. Na ausência de uma série operacional confirmada para o cenário de teste, a reserva real não será forçada, para evitar alterar numeração fiscal de uma empresa real apenas para fins de teste.
