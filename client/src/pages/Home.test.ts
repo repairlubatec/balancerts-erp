@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getActionPresentation, getQuickActions, getReportTraceRoutes, resolveNewAction } from "./Home";
+import { getAccountTraceRoutes, getActionPresentation, getQuickActions, getReportTraceRoutes, resolveNewAction } from "./Home";
 
 describe("BALANCERTS command palette flows", () => {
   it.each([
@@ -22,6 +22,14 @@ describe("BALANCERTS command palette flows", () => {
       account: "/contabilidade?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
       document: "/documentos?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
       audit: "/auditoria?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
+    });
+  });
+
+  it("resolves account trace routes back to reports and source records", () => {
+    expect(getAccountTraceRoutes("FT 2026/00482")).toEqual({
+      report: "/relatorios?focus=FT%202026%2F00482",
+      document: "/documentos?focus=FT%202026%2F00482",
+      audit: "/auditoria?focus=FT%202026%2F00482",
     });
   });
 
