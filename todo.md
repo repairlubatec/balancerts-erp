@@ -127,3 +127,4 @@
 - [x] Remover alertas demonstrativos da Home e apresentar pendências apenas quando existir fonte persistente real
 - [ ] Enumerar e testar todas as mutações críticas suportadas em estado PENDING, além de reserva documental, transição/emissão e posting
 - [x] Cobrir RBAC do reports.fiscalRegister: Auditor autorizado e Operador bloqueado antes da persistência
+- [x] Condicionar a actividade auditada da Home ao RBAC de leitura de auditoria, evitando queries proibidas para Operador

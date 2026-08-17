@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import {
@@ -103,9 +104,11 @@ function Metric({ label, value, delta, trend }: { label: string; value: string; 
 
 function Overview() {
   const [, setLocation] = useLocation();
+  const { user } = useAuth();
   const { data: companyRows, isLoading: companiesLoading } = trpc.companies.list.useQuery();
   const activeCompanyId = companyRows?.[0]?.company.id;
-  const { data: auditRows } = trpc.audit.list.useQuery({ companyId: activeCompanyId ?? 0 }, { enabled: Boolean(activeCompanyId) });
+  const canReadAudit = user?.role === "admin" || user?.role === "auditor";
+  const { data: auditRows } = trpc.audit.list.useQuery({ companyId: activeCompanyId ?? 0 }, { enabled: Boolean(activeCompanyId && canReadAudit) });
   const recentEvents = (auditRows ?? []).slice(0, 3).map(({ event }) => ({ title: event.action, meta: `${event.entityType} #${event.entityId} · ${new Date(event.createdAt).toLocaleString()}`, color: "bg-blue-100 text-blue-700", Icon: FileCheck2 }));
   const portfolioCompanies = (companyRows ?? []).map(({ company }) => ({
     name: company.name,
