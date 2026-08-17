@@ -1,0 +1,48 @@
+# BALANCERTS.ERP — Project TODO
+
+- [x] Shell de aplicação desktop com barra lateral persistente, barra de título, atalhos de teclado e layout de alta densidade informativa
+- [x] Identidade visual baseada no logótipo BALANCERTS, com paleta azul, verde, preto e tratamento profissional de software
+- [x] Experiência instalável como PWA e optimizada para desktop Windows/macOS
+- [x] Painel “Minhas Empresas” com estado de período, pendências, documentos, obrigações, integrações, tarefas e indicadores de fecho
+- [x] Navegação directa do alerta do dashboard para a origem operacional
+- [ ] Hierarquia multi-tenant Plataforma → Organização → Empresa → Exercício → Período
+- [ ] Isolamento multi-tenant aplicado e validado no backend em consultas, mutações, URLs, APIs, exportações, ficheiros, cache e filas
+- [ ] RBAC para Admin, Contabilista, Financeiro, Operador e Auditor
+- [ ] Segregação de funções por módulo e operação, validada no backend
+- [ ] Motor Contabilístico com partidas dobradas e débito igual a crédito
+- [ ] Invariantes de conta vigente/postável, período válido, origem, idempotência, atomicidade e imutabilidade
+- [ ] Mecanismo controlado de estorno e correcção com rastreabilidade
+- [ ] Cadeia navegável Documento → Lançamento → Conta → Relatório e percurso inverso
+- [ ] Facturação e documentos comerciais com séries e numeração sequencial
+- [ ] Máquina de estados DRAFT → VALIDATED → ISSUED → ACCOUNTED → CANCELLED
+- [ ] Imutabilidade pós-emissão e associação a cliente/fornecedor, itens, impostos, pagamentos e contabilidade
+- [ ] Motor fiscal versionado por vigência e evidência normativa
+- [ ] Regimes de IVA exclusivamente Geral, Simplificado e Exclusão de Angola
+- [ ] Conformidade parametrizada com o Decreto Presidencial n.º 71/25 e requisitos da AGT
+- [ ] Módulos de clientes, fornecedores, stock, caixa, bancos, tesouraria e imobilizado
+- [ ] Stock com valorização parametrizada, rastreabilidade e reconciliação contabilística
+- [ ] Imobilizado com depreciação versionada, auditável e ligada ao motor contabilístico
+- [ ] Multimoeda com moeda da operação, moeda funcional, taxa, fonte e data
+- [ ] Documentos e ficheiros com hash, metadados, ACL e validação no download
+- [ ] Auditoria de negócio separada dos logs técnicos, append-only e reconstruível
+- [ ] Operações críticas com actor, entidade, empresa, estado anterior/posterior, timestamp e correlação
+- [ ] Relatórios: Balancete, Diário, Razão, Demonstração de Resultados, Balanço, auxiliares e fiscais
+- [ ] Relatórios reconciliáveis com razão, auxiliares, documentos e origem
+- [ ] Fecho e reabertura com checklist configurável, bloqueios, validações, motivo e auditoria
+- [ ] Testes unitários para invariantes, fiscalidade, estados, idempotência, stock, depreciação, câmbio e permissões
+- [ ] Testes de integração e end-to-end dos ciclos comerciais, financeiros, fiscais e de fecho
+- [ ] Testes de isolamento multi-tenant e autorização directa por API
+- [ ] Testes de resiliência, reprocessamento, concorrência, reconciliação e recuperação
+- [x] Manifesto PWA, ícones, instalação e comportamento responsivo sem transformar a UI em landing page
+- [x] Rever todos os itens antes do checkpoint final
+- [x] Implementar atalhos de teclado reais com command palette, navegação por módulos, pesquisa rápida e acções globais
+- [x] Enriquecer cada empresa no painel “Minhas Empresas” com documentos por validar, obrigações fiscais, erros de integração, tarefas e pendências críticas
+- [x] Fazer os alertas abrirem a origem exacta com contexto e ID do registo afectado, não apenas a página genérica do módulo
+- [x] Implementar pesquisa funcional na command palette e acções globais reais, incluindo criar documento, abrir empresa, iniciar reconciliação e executar checklist
+- [x] Fazer os deep-links dos alertas seleccionar o registo exacto no módulo de destino, aplicando foco, filtro ou estado visível
+- [x] Implementar handlers reais para as acções globais da command palette, abrindo modal ou fluxo visível de criação de documento, reconciliação e checklist
+- [x] Fazer os módulos de destino consumir ?new= e activar a acção correspondente com feedback visual e testes básicos
+- [x] Adicionar testes básicos para os fluxos activados por ?new=, cobrindo criação de documento, reconciliação e checklist
+- [x] Adicionar teste de resolução da command palette até ao módulo de destino com ?new= aplicado
+- [x] Adicionar cobertura de UI dos três fluxos ?new=, verificando CTA inicial e feedback de fluxo iniciado
+- [x] Adicionar cobertura de integração da command palette, verificando filtragem, selecção e rota ?new=
