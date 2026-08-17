@@ -5,7 +5,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
-import { activateCompanyForUser, appendAuditEvent, appendAuditEventForUser, createCompanyForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { activateCompanyForUser, appendAuditEvent, appendAuditEventForUser, createCompanyForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getAgingForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
@@ -121,6 +121,8 @@ export const appRouter = router({
     entryChain: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), entryId: z.number().int().positive() })).query(({ ctx, input }) => getJournalDocumentChainForUserCompany(ctx.user.id, input.companyId, input.entryId)),
     trace: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), report: z.enum(["TRIAL_BALANCE", "INCOME_STATEMENT", "BALANCE_SHEET"]), accountCode: z.string().min(1).optional() })).query(({ ctx, input }) => getReportTraceForUserCompany(ctx.user.id, input.companyId, input.report, input.accountCode)),
     vatSummary: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getVatSummaryForUserCompany(ctx.user.id, input.companyId)),
+    customerAging: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), asOf: z.coerce.date() })).query(({ ctx, input }) => getAgingForUserCompany(ctx.user.id, input.companyId, "CUSTOMER", input.asOf)),
+    supplierAging: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), asOf: z.coerce.date() })).query(({ ctx, input }) => getAgingForUserCompany(ctx.user.id, input.companyId, "SUPPLIER", input.asOf)),
     fiscalRegister: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getFiscalRegisterForUserCompany(ctx.user.id, input.companyId)),
     agtValidation: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive(), year: z.number().int().min(2023).max(2100), month: z.number().int().min(1).max(12) })).query(async ({ ctx, input }) => {
       const companies = await getCompaniesForUser(ctx.user.id);

@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, organizations, platforms, stockMovements, users } from "../drizzle/schema";
-import { buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
+import { buildAgingReport, buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
@@ -316,6 +316,15 @@ export async function getReportTraceForUserCompany(userId: number, companyId: nu
   for (const documentId of documentIds) documents.set(documentId, await getDocumentAccountingChainForUserCompany(userId, companyId, documentId));
   const origins = scopedRows.map((row) => ({ entryId: row.entryId, account: { code: row.accountCode, name: row.accountName }, document: row.sourceDocumentId ? documents.get(row.sourceDocumentId) : null, sourceDocumentId: row.sourceDocumentId, description: row.description, debit: row.debit, credit: row.credit, createdAt: row.createdAt }));
   return { report, companyId, accountCode: accountCode ?? null, summary: reportRows, origins };
+}
+
+export async function getAgingForUserCompany(userId: number, companyId: number, counterpartyType: "CUSTOMER" | "SUPPLIER", asOf: Date) {
+  const documents = await getDocumentsForUserCompany(userId, companyId);
+  const items = documents
+    .map(({ document }) => document)
+    .filter((document) => document.counterpartyType === counterpartyType && document.status !== "CANCELLED" && document.dueDate !== null)
+    .map((document) => ({ id: document.id, partyName: document.customerName ?? "Contraparte não identificada", documentNumber: document.documentNumber, issuedAt: document.issuedAt ?? document.createdAt, dueDate: document.dueDate!, amount: Number(document.totalAmount), settledAmount: Number(document.settledAmount) }));
+  return buildAgingReport(items, asOf);
 }
 
 export async function getVatSummaryForUserCompany(userId: number, companyId: number) {

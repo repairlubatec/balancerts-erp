@@ -58,12 +58,16 @@ describe("Repair Lubatec router integration", () => {
     expect(await caller.reports.balanceSheet({ companyId: 1 })).toMatchObject({ rows: [] });
     expect(await caller.reports.trace({ companyId: 1, report: "TRIAL_BALANCE" })).toMatchObject({ origins: [] });
     expect(await caller.reports.vatSummary({ companyId: 1 })).toMatchObject({ rows: [], totals: { netAmount: 0, taxAmount: 0, totalAmount: 0 } });
+    expect(await caller.reports.customerAging({ companyId: 1, asOf: new Date("2026-08-17T00:00:00Z") })).toMatchObject({ rows: [], totals: { outstanding: 0 } });
+    expect(await caller.reports.supplierAging({ companyId: 1, asOf: new Date("2026-08-17T00:00:00Z") })).toMatchObject({ rows: [], totals: { outstanding: 0 } });
     expect((await caller.audit.list({ companyId: 1 })).length).toBeGreaterThanOrEqual(2);
 
     const missingCompanyId = 999999;
     expect(await caller.companies.documents({ companyId: missingCompanyId })).toEqual([]);
     expect(await caller.reports.fiscalRegister({ companyId: missingCompanyId })).toMatchObject({ entries: [], reconciled: true });
     expect(await caller.reports.trace({ companyId: missingCompanyId, report: "TRIAL_BALANCE" })).toMatchObject({ origins: [] });
+    expect(await caller.reports.customerAging({ companyId: missingCompanyId, asOf: new Date("2026-08-17T00:00:00Z") })).toMatchObject({ rows: [], totals: { outstanding: 0 } });
+    expect(await caller.reports.supplierAging({ companyId: missingCompanyId, asOf: new Date("2026-08-17T00:00:00Z") })).toMatchObject({ rows: [], totals: { outstanding: 0 } });
     await expect(caller.companies.activate({ companyId: missingCompanyId, confirmation: "ACTIVATE_COMPANY" })).rejects.toThrow();
   });
 });

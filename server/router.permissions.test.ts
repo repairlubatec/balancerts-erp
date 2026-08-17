@@ -82,6 +82,18 @@ describe("protected accounting procedures", () => {
     await expect(operator.reports.fiscalRegister({ companyId: 41 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
+  it("exposes tenant-scoped customer and supplier ageing reports", async () => {
+    const aging = vi.spyOn(db, "getAgingForUserCompany").mockResolvedValue({ asOf: new Date("2026-08-17T00:00:00Z"), rows: [], totals: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } });
+    const caller = appRouter.createCaller(contextWithRole("auditor"));
+    const asOf = new Date("2026-08-17T00:00:00Z");
+    await expect(caller.reports.customerAging({ companyId: 41, asOf })).resolves.toMatchObject({ rows: [], totals: { outstanding: 0 } });
+    await expect(caller.reports.supplierAging({ companyId: 41, asOf })).resolves.toMatchObject({ rows: [], totals: { outstanding: 0 } });
+    expect(aging).toHaveBeenNthCalledWith(1, 8, 41, "CUSTOMER", asOf);
+    expect(aging).toHaveBeenNthCalledWith(2, 8, 41, "SUPPLIER", asOf);
+    const operator = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operator.reports.customerAging({ companyId: 41, asOf })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("allows Auditor to query tenant-scoped audit history", async () => {
     const list = vi.spyOn(db, "getAuditEventsForUserCompany").mockResolvedValue([{ event: { id: 1, companyId: 41 } } as never]);
     const caller = appRouter.createCaller(contextWithRole("auditor"));
