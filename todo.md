@@ -69,3 +69,4 @@
 - [x] Expor reconstrução da auditoria por empresa com ordenação append-only e filtro tenant-aware
 - [x] Permitir validação de reconciliação de stock ao Contabilista sem ampliar permissões de execução do Operador
 - [x] Auditar registo de metadata de ficheiros após upload e reserva de numeração documental
+- [x] Implementar resumo fiscal auxiliar de IVA por regime, estado documental e totais monetários

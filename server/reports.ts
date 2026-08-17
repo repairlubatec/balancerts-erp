@@ -59,3 +59,20 @@ export function buildBalanceSheet(lines: PostedLine[]) {
   const netIncome = buildIncomeStatement(lines).netIncome;
   return { rows, assets, liabilities, equity: money(equity + netIncome), netIncome, reconciled: Math.abs(assets - liabilities - equity - netIncome) <= 0.005 };
 }
+
+export type VatDocumentRow = { status: string; ivaRegime: "GERAL" | "SIMPLIFICADO" | "EXCLUSAO"; netAmount: number; taxAmount: number; totalAmount: number };
+
+export function buildVatSummary(documents: VatDocumentRow[]) {
+  const groups = new Map<string, { regime: VatDocumentRow["ivaRegime"]; documentCount: number; netAmount: number; taxAmount: number; totalAmount: number }>();
+  for (const document of documents) {
+    const key = `${document.ivaRegime}:${document.status}`;
+    const current = groups.get(key) ?? { regime: document.ivaRegime, documentCount: 0, netAmount: 0, taxAmount: 0, totalAmount: 0 };
+    current.documentCount += 1;
+    current.netAmount = money(current.netAmount + document.netAmount);
+    current.taxAmount = money(current.taxAmount + document.taxAmount);
+    current.totalAmount = money(current.totalAmount + document.totalAmount);
+    groups.set(key, current);
+  }
+  const rows = Array.from(groups.entries()).map(([key, value]) => ({ key, ...value })).sort((a, b) => a.key.localeCompare(b.key));
+  return { rows, totals: { netAmount: money(rows.reduce((sum, row) => sum + row.netAmount, 0)), taxAmount: money(rows.reduce((sum, row) => sum + row.taxAmount, 0)), totalAmount: money(rows.reduce((sum, row) => sum + row.totalAmount, 0)) } };
+}

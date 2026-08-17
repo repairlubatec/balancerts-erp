@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalPeriods, journalEntries, journalLines, organizations, stockMovements, users } from "../drizzle/schema";
-import { buildBalanceSheet, buildIncomeStatement, buildJournal, buildLedger, buildTrialBalance, type JournalRow } from "./reports";
+import { buildBalanceSheet, buildIncomeStatement, buildJournal, buildLedger, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
@@ -187,6 +187,11 @@ export async function getIncomeStatementForUserCompany(userId: number, companyId
 export async function getBalanceSheetForUserCompany(userId: number, companyId: number) {
   const rows = await getJournalRowsForUserCompany(userId, companyId);
   return buildBalanceSheet(rows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
+}
+
+export async function getVatSummaryForUserCompany(userId: number, companyId: number) {
+  const documents = await getDocumentsForUserCompany(userId, companyId);
+  return buildVatSummary(documents.map(({ document }) => ({ status: document.status, ivaRegime: document.ivaRegime, netAmount: Number(document.netAmount), taxAmount: Number(document.taxAmount), totalAmount: Number(document.totalAmount) })));
 }
 
 export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED" }) {

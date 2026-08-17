@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildBalanceSheet, buildIncomeStatement, buildJournal, buildLedger, buildTrialBalance } from "./reports";
+import { buildBalanceSheet, buildIncomeStatement, buildJournal, buildLedger, buildTrialBalance, buildVatSummary } from "./reports";
 
 describe("reconciliable reports", () => {
   it("aggregates account movements and reconciles totals", () => {
@@ -25,6 +25,16 @@ describe("reconciliable reports", () => {
     ];
     expect(buildJournal(rows).entries[0].entryId).toBe(1);
     expect(buildLedger(rows, "11.1").closingBalance).toBe(80);
+  });
+
+  it("summarizes IVA by regime and document status", () => {
+    const result = buildVatSummary([
+      { status: "ISSUED", ivaRegime: "GERAL", netAmount: 100, taxAmount: 14, totalAmount: 114 },
+      { status: "ISSUED", ivaRegime: "GERAL", netAmount: 50, taxAmount: 7, totalAmount: 57 },
+      { status: "ISSUED", ivaRegime: "EXCLUSAO", netAmount: 80, taxAmount: 0, totalAmount: 80 },
+    ]);
+    expect(result.rows).toHaveLength(2);
+    expect(result.totals).toEqual({ netAmount: 230, taxAmount: 21, totalAmount: 251 });
   });
 
   it("reconciles income statement and balance sheet", () => {
