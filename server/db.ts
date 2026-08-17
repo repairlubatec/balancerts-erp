@@ -98,6 +98,12 @@ export async function createCompanyForUser(input: {
   return created[0];
 }
 
+export function getCompanyActivationTransition(configurationStatus: "PENDING" | "READY" | "BLOCKED") {
+  if (configurationStatus === "READY") throw new Error("COMPANY_ALREADY_READY");
+  if (configurationStatus === "BLOCKED") throw new Error("COMPANY_CONFIGURATION_BLOCKED");
+  return { before: "PENDING" as const, after: "READY" as const };
+}
+
 export async function activateCompanyForUser(input: { userId: number; companyId: number; confirmation: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
@@ -105,10 +111,11 @@ export async function activateCompanyForUser(input: { userId: number; companyId:
   const companyContext = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
   const current = companyContext[0];
   if (!current) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const transition = getCompanyActivationTransition(current.company.configurationStatus);
   const periods = await db.select({ id: fiscalPeriods.id }).from(fiscalPeriods).where(eq(fiscalPeriods.companyId, input.companyId)).limit(1);
   if (!current.company.nif || !current.company.legalForm || !current.company.address || !current.company.activity || !current.company.primaryLegalRepresentative || !periods[0]) throw new Error("COMPANY_CONFIGURATION_INCOMPLETE");
   await db.update(companies).set({ configurationStatus: "READY" }).where(eq(companies.id, input.companyId));
-  await appendAuditEvent({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "COMPANY_ACTIVATED", entityType: "company", entityId: String(input.companyId), beforeState: JSON.stringify({ configurationStatus: current.company.configurationStatus }), afterState: JSON.stringify({ configurationStatus: "READY" }), correlationId: `company:${input.companyId}:activation` });
+  await appendAuditEvent({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "COMPANY_ACTIVATED", entityType: "company", entityId: String(input.companyId), beforeState: JSON.stringify({ configurationStatus: transition.before }), afterState: JSON.stringify({ configurationStatus: transition.after }), correlationId: `company:${input.companyId}:activation` });
   return { companyId: input.companyId, configurationStatus: "READY" as const };
 }
 

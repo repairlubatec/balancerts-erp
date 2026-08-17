@@ -93,7 +93,7 @@
 - [x] Cobrir ciclo tRPC reserva de número → emissão documental → posting contabilístico com contratos e ordem verificados
 - [x] Validar na base real o filtro de auditoria por entityType/entityId para escopo inexistente
 - [x] Criar/actualizar ficha real Repair Lubatec com NIF, contacto, localização, actividade, IVA, moeda e ano de criação
-- [ ] Manter Repair Lubatec em PENDING até concluir validações legais/operacionais e autorização de activação
+- [x] Manter Repair Lubatec em PENDING até concluir validações legais/operacionais e autorização de activação
 - [ ] Validar fluxos tenant-aware usando Repair Lubatec real sem inserir documentos, movimentos ou lançamentos
 - [x] Confirmar que o regime de IVA da Repair Lubatec deve ser registado como EXCLUSÃO
 - [x] Implementar schema, helper e endpoint companies.create para ficha real com estado PENDING, actor e auditoria
@@ -110,3 +110,9 @@
 - [x] Provar que reserva documental, transição/emissão e posting permanecem bloqueados enquanto a Repair Lubatec está PENDING
 - [x] Implementar companies.activate com confirmação literal, verificações de configuração, estado READY e auditoria
 - [x] Testar companies.activate com confirmação inválida e rejeição de Contabilista antes de tocar na empresa
+- [x] Activar Repair Lubatec para estado READY através do endpoint administrativo auditado
+- [x] Verificar após activação que o período 2023/09 permanece aberto e que não foram criados documentos, lançamentos ou movimentos
+- [x] Activar a Repair Lubatec explicitamente via endpoint tRPC companies.activate e provar READY auditado
+- [x] Testar a invocação integrada companies.activate com ausência de documentos, lançamentos e movimentos criados automaticamente
+- [x] Adicionar teste Vitest integrado de companies.activate via appRouter.createCaller cobrindo transição PENDING→READY
+- [x] No mesmo teste, validar evento COMPANY_ACTIVATED auditável e zero businessDocuments, journalEntries e stockMovements

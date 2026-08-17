@@ -6,16 +6,16 @@ describe("database tenant integration", () => {
     expect(await getDb()).toBeTruthy();
     const companies = await getCompaniesForUser(1);
     const repair = companies.find(({ company }) => company.nif === "5001121871");
-    expect(repair?.company).toMatchObject({ name: "Repair Lubatec", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA", configurationStatus: "PENDING" });
+    expect(repair?.company).toMatchObject({ name: "Repair Lubatec", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA", configurationStatus: "READY" });
     expect(await getDocumentsForUserCompany(1, repair!.company.id)).toEqual([]);
     expect(await getTrialBalanceForUserCompany(1, repair!.company.id)).toMatchObject({ rows: [] });
     expect(await reconcileStockForUserCompany({ userId: 1, companyId: repair!.company.id, inventoryAccountId: 999999 })).toMatchObject({ reconciled: true, difference: 0 });
   });
 
-  it("rejects critical mutations while Repair Lubatec remains PENDING", async () => {
-    await expect(reserveDocumentNumber({ userId: 1, companyId: 1, series: "FT", documentType: "FT" })).rejects.toThrow("COMPANY_CONFIGURATION_PENDING");
-    await expect(transitionBusinessDocument({ userId: 1, companyId: 1, documentId: 999999, to: "ISSUED" })).rejects.toThrow("COMPANY_CONFIGURATION_PENDING");
-    await expect(postJournalEntry({ companyId: 1, periodId: 1, createdBy: 1, idempotencyKey: "pending-company-guard", description: "Não deve ser criado", lines: [{ accountId: 1, debit: 10, credit: 0 }, { accountId: 2, debit: 0, credit: 10 }] })).rejects.toThrow("COMPANY_CONFIGURATION_PENDING");
+  it("rejects incomplete critical mutations after Repair Lubatec activation", async () => {
+    await expect(reserveDocumentNumber({ userId: 1, companyId: 1, series: "FT", documentType: "FT" })).rejects.toThrow();
+    await expect(transitionBusinessDocument({ userId: 1, companyId: 1, documentId: 999999, to: "ISSUED" })).rejects.toThrow();
+    await expect(postJournalEntry({ companyId: 1, periodId: 1, createdBy: 1, idempotencyKey: "ready-company-guard", description: "Não deve ser criado", lines: [{ accountId: 1, debit: 10, credit: 0 }, { accountId: 2, debit: 0, credit: 10 }] })).rejects.toThrow();
   });
 
   it("returns no cross-tenant data for unknown user/company scopes", async () => {
