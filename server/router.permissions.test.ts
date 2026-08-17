@@ -38,6 +38,13 @@ describe("protected accounting procedures", () => {
     expect(post).toHaveBeenCalledWith(expect.objectContaining({ companyId: 1, periodId: 1, createdBy: 8, reversalOfEntryId: 12, description: expect.stringContaining("12") }));
   });
 
+  it("creates a company profile with pending configuration", async () => {
+    const create = vi.spyOn(db, "createCompanyForUser").mockResolvedValue({ company: { id: 41, name: "Repair Lubatec", nif: "5001121871", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA", configurationStatus: "PENDING" }, organization: { id: 5 } } as never);
+    const caller = appRouter.createCaller(contextWithRole("admin"));
+    await expect(caller.companies.create({ name: "Repair Lubatec", nif: "5001121871", functionalCurrency: "AOA", ivaRegime: "EXCLUSAO", legalForm: "Sociedade por Quotas", address: "Shopping Millennium, Loja 141", municipality: "Lubango", province: "Huíla", phone: "+244 921346544", email: "repairlubatec@gmail.com", activity: "Prestação de Serviço", incorporationYear: 2023 })).resolves.toMatchObject({ company: { configurationStatus: "PENDING" } });
+    expect(create).toHaveBeenCalledWith(expect.objectContaining({ userId: 8, nif: "5001121871", legalForm: "Sociedade por Quotas", ivaRegime: "EXCLUSAO" }));
+  });
+
   it("allows document emission for Contabilista and blocks Financeiro", async () => {
     const transition = vi.spyOn(db, "transitionBusinessDocument").mockResolvedValue({ id: 7, from: "VALIDATED", to: "ISSUED" });
     const accountant = appRouter.createCaller(contextWithRole("contabilista"));

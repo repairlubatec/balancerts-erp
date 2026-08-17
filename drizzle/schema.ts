@@ -26,6 +26,15 @@ export const companies = mysqlTable("companies", {
   nif: varchar("nif", { length: 32 }).notNull(),
   functionalCurrency: varchar("functionalCurrency", { length: 3 }).default("AOA").notNull(),
   ivaRegime: mysqlEnum("ivaRegime", ["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).notNull(),
+  legalForm: varchar("legalForm", { length: 80 }),
+  address: varchar("address", { length: 255 }),
+  municipality: varchar("municipality", { length: 120 }),
+  province: varchar("province", { length: 120 }),
+  phone: varchar("phone", { length: 40 }),
+  email: varchar("email", { length: 320 }),
+  activity: varchar("activity", { length: 180 }),
+  incorporationYear: int("incorporationYear"),
+  configurationStatus: mysqlEnum("configurationStatus", ["PENDING", "READY", "BLOCKED"]).default("PENDING").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 

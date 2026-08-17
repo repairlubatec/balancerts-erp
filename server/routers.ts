@@ -5,7 +5,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
-import { appendAuditEvent, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { appendAuditEvent, createCompanyForUser, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
@@ -37,6 +37,14 @@ export const appRouter = router({
   }),
   companies: router({
     list: roleProcedure("companies", "read").query(({ ctx }) => getCompaniesForUser(ctx.user.id)),
+    create: roleProcedure("companies", "create").input(z.object({ name: z.string().min(2), nif: z.string().min(5), functionalCurrency: z.string().length(3).default("AOA"), ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), legalForm: z.string().min(2), address: z.string().min(3), municipality: z.string().min(2), province: z.string().min(2), phone: z.string().min(5), email: z.string().email(), activity: z.string().min(2), incorporationYear: z.number().int().min(1900).max(new Date().getFullYear()) })).mutation(async ({ ctx, input }) => {
+      try {
+        return await createCompanyForUser({ ...input, userId: ctx.user.id });
+      } catch (error) {
+        if (error instanceof Error && error.message === "ORGANIZATION_REQUIRED") throw new TRPCError({ code: "PRECONDITION_FAILED", message: "ORGANIZATION_REQUIRED" });
+        throw error;
+      }
+    }),
     periods: roleProcedure("companies", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getPeriodsForUserCompany(ctx.user.id, input.companyId)),
     documents: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentsForUserCompany(ctx.user.id, input.companyId)),
   }),

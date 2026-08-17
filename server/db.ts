@@ -56,6 +56,46 @@ export async function getCompaniesForUser(userId: number) {
   return db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(eq(organizations.ownerUserId, userId)).orderBy(companies.name);
 }
 
+export async function createCompanyForUser(input: {
+  userId: number;
+  name: string;
+  nif: string;
+  functionalCurrency: string;
+  ivaRegime: "GERAL" | "SIMPLIFICADO" | "EXCLUSAO";
+  legalForm?: string;
+  address?: string;
+  municipality?: string;
+  province?: string;
+  phone?: string;
+  email?: string;
+  activity?: string;
+  incorporationYear?: number;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const organization = await db.select({ id: organizations.id }).from(organizations).where(eq(organizations.ownerUserId, input.userId)).limit(1);
+  if (!organization[0]) throw new Error("ORGANIZATION_REQUIRED");
+  const result = await db.insert(companies).values({
+    organizationId: organization[0].id,
+    name: input.name,
+    nif: input.nif,
+    functionalCurrency: input.functionalCurrency,
+    ivaRegime: input.ivaRegime,
+    legalForm: input.legalForm,
+    address: input.address,
+    municipality: input.municipality,
+    province: input.province,
+    phone: input.phone,
+    email: input.email,
+    activity: input.activity,
+    incorporationYear: input.incorporationYear,
+    configurationStatus: "PENDING",
+  });
+  await appendAuditEvent({ organizationId: organization[0].id, companyId: Number(result[0].insertId), actorUserId: input.userId, action: "COMPANY_CREATED_PENDING", entityType: "company", entityId: String(result[0].insertId), beforeState: null, afterState: JSON.stringify({ name: input.name, nif: input.nif, configurationStatus: "PENDING" }), correlationId: `company:${result[0].insertId}` });
+  const created = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, Number(result[0].insertId)), eq(organizations.ownerUserId, input.userId))).limit(1);
+  return created[0];
+}
+
 export async function getPeriodsForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
