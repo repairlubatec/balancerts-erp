@@ -38,6 +38,15 @@ describe("protected accounting procedures", () => {
     expect(post).toHaveBeenCalledWith(expect.objectContaining({ companyId: 1, periodId: 1, createdBy: 8, reversalOfEntryId: 12, description: expect.stringContaining("12") }));
   });
 
+  it("allows document emission for Contabilista and blocks Financeiro", async () => {
+    const transition = vi.spyOn(db, "transitionBusinessDocument").mockResolvedValue({ id: 7, from: "VALIDATED", to: "ISSUED" });
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.documents.transition({ companyId: 41, documentId: 7, to: "ISSUED" })).resolves.toMatchObject({ to: "ISSUED" });
+    expect(transition).toHaveBeenCalledWith({ companyId: 41, documentId: 7, to: "ISSUED", userId: 8 });
+    const finance = appRouter.createCaller(contextWithRole("financeiro"));
+    await expect(finance.documents.transition({ companyId: 41, documentId: 7, to: "ISSUED" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("rejects direct API close for Operador", async () => {
     const caller = appRouter.createCaller(contextWithRole("operador"));
     await expect(caller.closing.evaluate({ checks: [] })).rejects.toMatchObject({ code: "FORBIDDEN" });
