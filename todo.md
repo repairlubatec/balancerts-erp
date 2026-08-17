@@ -219,3 +219,4 @@
 - [x] Cobrir a sequência de recuperação FAILED→RETRY→COMPLETED no resolvedor de idempotência, separada da prova persistida E2E ainda pendente
 - [x] Documentar limites de verificação, evidência real da Repair Lubatec e lacunas persistidas que impedem afirmar conformidade AGT ou conclusão E2E
 - [x] Validar a cadeia append-only dos dez eventos críticos com ordem, correlationId e beforeState/afterState explícitos; a execução persistida completa permanece separada
+- [x] Expor exportBlockedReason no contrato SAF-T para distinguir MISSING_REQUIRED_ENTITIES de AGT_VALIDATION_REQUIRED, mantendo submissionEligible falso

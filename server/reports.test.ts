@@ -61,11 +61,12 @@ describe("reconciliable reports", () => {
 
   it("reports SAF-T coverage without claiming submission eligibility", () => {
     const complete = buildSaftReadiness({ companyName: "Repair Lubatec", nif: "5001121871", functionalCurrency: "AOA", periodStart: new Date("2023-09-01"), periodEnd: new Date("2023-09-30"), accountCount: 2, journalEntryCount: 1, documentCount: 1, customerCount: 1, supplierCount: 1, productCount: 1, taxRuleCount: 1 });
-    expect(complete).toMatchObject({ format: "SAFTAO1.01_01", ready: true, missing: [], submissionEligible: false });
+    expect(complete).toMatchObject({ format: "SAFTAO1.01_01", ready: true, missing: [], exportBlockedReason: "AGT_VALIDATION_REQUIRED", submissionEligible: false });
     const blocked = buildSaftReadiness({ companyName: "Repair Lubatec", nif: "5001121871", functionalCurrency: "AOA", periodStart: new Date("2023-09-01"), periodEnd: new Date("2023-09-30"), accountCount: 0, journalEntryCount: 0, documentCount: 0, customerCount: 0, supplierCount: 0, productCount: 0, taxRuleCount: 0 });
     expect(blocked.ready).toBe(false);
     expect(blocked.missing).toEqual(expect.arrayContaining(["MASTERFILES_ACCOUNTS", "GENERAL_LEDGER_ENTRIES", "SOURCE_DOCUMENTS", "MASTERFILES_CUSTOMERS", "MASTERFILES_SUPPLIERS", "MASTERFILES_PRODUCTS", "MASTERFILES_TAX_TABLES"]));
     expect(blocked.submissionEligible).toBe(false);
+    expect(blocked.exportBlockedReason).toBe("MISSING_REQUIRED_ENTITIES");
     expect(() => assertSaftExportReady(complete)).toThrow("SAFT_EXPORT_NOT_READY:AGT_VALIDATION_REQUIRED");
     expect(() => assertSaftExportReady(blocked)).toThrow("SAFT_EXPORT_NOT_READY:MASTERFILES_ACCOUNTS");
   });

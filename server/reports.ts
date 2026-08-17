@@ -186,5 +186,6 @@ export function buildSaftReadiness(input: SaftCoverageInput) {
   if (input.supplierCount === 0) missing.push("MASTERFILES_SUPPLIERS");
   if (input.productCount === 0) missing.push("MASTERFILES_PRODUCTS");
   if (input.taxRuleCount === 0) missing.push("MASTERFILES_TAX_TABLES");
-  return { format: "SAFTAO1.01_01", schemaVersion: SAFT_AO_SCHEMA_VERSION, namespace: SAFT_AO_NAMESPACE, ready: missing.length === 0, missing, submissionEligible: false as const };
+  const ready = missing.length === 0;
+  return { format: "SAFTAO1.01_01", schemaVersion: SAFT_AO_SCHEMA_VERSION, namespace: SAFT_AO_NAMESPACE, ready, missing, exportBlockedReason: ready ? "AGT_VALIDATION_REQUIRED" : "MISSING_REQUIRED_ENTITIES", submissionEligible: false as const };
 }
