@@ -376,6 +376,14 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
   const companyContext = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.createdBy))).limit(1);
   if (!companyContext[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   if (companyContext[0].company.configurationStatus !== "READY") throw new Error("COMPANY_CONFIGURATION_PENDING");
+  if (input.sourceDocumentId !== undefined) {
+    const source = await db.select({ id: businessDocuments.id }).from(businessDocuments).where(and(eq(businessDocuments.id, input.sourceDocumentId), eq(businessDocuments.companyId, input.companyId))).limit(1);
+    if (!source[0]) throw new Error("SOURCE_DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+  }
+  if (input.reversalOfEntryId !== undefined) {
+    const original = await db.select({ id: journalEntries.id }).from(journalEntries).where(and(eq(journalEntries.id, input.reversalOfEntryId), eq(journalEntries.companyId, input.companyId))).limit(1);
+    if (!original[0]) throw new Error("REVERSAL_ENTRY_NOT_FOUND_OR_FORBIDDEN");
+  }
   const validation = validateBalancedEntry(input.lines);
   if (!validation.ok) throw new Error(validation.reason);
   const result = await db.transaction(async (tx) => {

@@ -29,6 +29,8 @@ describe("database tenant integration", () => {
     await expect(reserveDocumentNumber({ userId: 1, companyId: 1, series: "FT", documentType: "FT" })).rejects.toThrow();
     await expect(transitionBusinessDocument({ userId: 1, companyId: 1, documentId: 999999, to: "ISSUED" })).rejects.toThrow();
     await expect(postJournalEntry({ companyId: 1, periodId: 1, createdBy: 1, idempotencyKey: "ready-company-guard", description: "Não deve ser criado", lines: [{ accountId: 1, debit: 10, credit: 0 }, { accountId: 2, debit: 0, credit: 10 }] })).rejects.toThrow();
+    await expect(postJournalEntry({ companyId: 1, periodId: 1, sourceDocumentId: 999999, createdBy: 1, idempotencyKey: "missing-source-document", description: "Não deve ser criado", lines: [{ accountId: 1, debit: 10, credit: 0 }, { accountId: 2, debit: 0, credit: 10 }] })).rejects.toThrow("SOURCE_DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+    await expect(postJournalEntry({ companyId: 1, periodId: 1, reversalOfEntryId: 999999, createdBy: 1, idempotencyKey: "missing-reversal-entry", description: "Não deve ser criado", lines: [{ accountId: 1, debit: 10, credit: 0 }, { accountId: 2, debit: 0, credit: 10 }] })).rejects.toThrow("REVERSAL_ENTRY_NOT_FOUND_OR_FORBIDDEN");
   });
 
   it("rejects forged organization scope before stock and file writes", async () => {
