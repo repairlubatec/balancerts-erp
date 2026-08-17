@@ -366,7 +366,8 @@ export async function getReportsReconciliationForUserCompany(userId: number, com
     getFiscalRegisterForUserCompany(userId, companyId),
     getDocumentOriginReconciliationForUserCompany(userId, companyId),
   ]);
-  return { companyId, ...buildReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister }), documentOrigin };
+  const aggregate = buildReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister });
+  return { companyId, ...aggregate, reconciled: aggregate.reconciled && documentOrigin.reconciled, documentOrigin };
 
 }
 
