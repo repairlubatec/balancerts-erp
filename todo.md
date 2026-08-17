@@ -52,7 +52,7 @@
 - [x] Ligar depreciação do imobilizado a lançamentos contabilísticos e registar auditoria de execução
 - [x] Expor endpoint real de download com validação ACL e signed URL, com testes de acesso autorizado e negado
 - [x] Registar evento de auditoria obrigatório na reabertura de período e testá-lo
-- [ ] Adicionar testes de integração tenant-aware sobre queries, mutações e ficheiros para provar isolamento real
+- [x] Adicionar testes de integração tenant-aware sobre queries, mutações e ficheiros para provar isolamento real
 - [x] Adicionar testes por role para cada módulo/procedimento crítico: empresas, documentos, ficheiros, relatórios, fiscal, reconciliação, imobilizado e stock
 - [x] Criar persistência de movimentos de stock e reconciliar esses movimentos com lançamentos/razão de forma tenant-aware
 - [x] Adicionar testes do endpoint files.downloadUrl cobrindo acesso autorizado e negado por ACL
