@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { criticalMutationAuditMatrix, getCriticalMutationAuditContract, validateCriticalMutationAuditEvent } from "./audit-mutation-matrix";
+import { criticalMutationAuditMatrix, getCriticalMutationAuditContract, getCriticalMutationForAuditAction, validateCriticalMutationAuditEvent } from "./audit-mutation-matrix";
 
 describe("critical mutation audit matrix", () => {
   it("declares an audit contract for every supported critical mutation", () => {
@@ -25,5 +25,8 @@ describe("critical mutation audit matrix", () => {
       entityType: "documentSeries",
     });
     expect(getCriticalMutationAuditContract("unknown.mutation")).toBeNull();
+    expect(getCriticalMutationForAuditAction("DOCUMENT_ISSUED", "businessDocument")).toBe("documents.transition");
+    expect(getCriticalMutationForAuditAction("JOURNAL_ENTRY_POSTED", "journalEntry")).toBe("accounting.post");
+    expect(getCriticalMutationForAuditAction("UNKNOWN", "unknown")).toBeNull();
   });
 });

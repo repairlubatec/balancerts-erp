@@ -15,6 +15,10 @@ export function getCriticalMutationAuditContract(mutation: string) {
   return criticalMutationAuditMatrix.find((item) => item.mutation === mutation) ?? null;
 }
 
+export function getCriticalMutationForAuditAction(action: string, entityType: string) {
+  return criticalMutationAuditMatrix.find((item) => (item.action === action || (item.action === "DOCUMENT_<TARGET_STATUS>" && /^DOCUMENT_[A-Z_]+$/.test(action))) && item.entityType === entityType)?.mutation ?? null;
+}
+
 export function validateCriticalMutationAuditEvent(input: { mutation: string; action: string; entityType: string; beforeState: string | null; afterState: string | null }) {
   const contract = getCriticalMutationAuditContract(input.mutation);
   if (!contract) return { valid: false as const, reason: "UNKNOWN_MUTATION" };
