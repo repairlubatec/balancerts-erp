@@ -31,6 +31,13 @@ describe("protected accounting procedures", () => {
     await expect(caller.reversal.preview({ originalEntryId: 1, reason: "Correcção auditada", lines: [{ accountId: 1, debit: 10, credit: 0, currency: "AOA", exchangeRate: 1 }, { accountId: 2, debit: 0, credit: 10, currency: "AOA", exchangeRate: 1 }] })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
+  it("posts a controlled reversal for an authorized accountant", async () => {
+    const post = vi.spyOn(db, "postJournalEntry").mockResolvedValue({ entryId: 99, idempotent: false });
+    const caller = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(caller.reversal.post({ companyId: 1, periodId: 1, originalEntryId: 12, reason: "Correcção de lançamento", idempotencyKey: "reverse-test-12", lines: [{ accountId: 1, debit: 10, credit: 0, currency: "AOA", exchangeRate: 1, postable: true, validFrom: new Date("2020-01-01") }, { accountId: 2, debit: 0, credit: 10, currency: "AOA", exchangeRate: 1, postable: true, validFrom: new Date("2020-01-01") }] })).resolves.toMatchObject({ entryId: 99 });
+    expect(post).toHaveBeenCalledWith(expect.objectContaining({ companyId: 1, periodId: 1, createdBy: 8, description: expect.stringContaining("12") }));
+  });
+
   it("rejects direct API close for Operador", async () => {
     const caller = appRouter.createCaller(contextWithRole("operador"));
     await expect(caller.closing.evaluate({ checks: [] })).rejects.toMatchObject({ code: "FORBIDDEN" });

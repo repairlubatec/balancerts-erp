@@ -201,6 +201,10 @@ export async function transitionBusinessDocument(input: { userId: number; compan
   const current = document[0];
   if (!current) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
   if (!validateDocumentTransition(current.document.status, input.to)) throw new Error("INVALID_DOCUMENT_TRANSITION");
+  if (input.to === "ACCOUNTED") {
+    const linkedEntry = await db.select({ id: journalEntries.id }).from(journalEntries).where(and(eq(journalEntries.sourceDocumentId, input.documentId), eq(journalEntries.companyId, input.companyId), eq(journalEntries.status, "POSTED"))).limit(1);
+    if (!linkedEntry[0]) throw new Error("DOCUMENT_REQUIRES_POSTED_ENTRY");
+  }
   const issuedAt = input.to === "ISSUED" ? new Date() : current.document.issuedAt;
   await db.update(businessDocuments).set({ status: input.to, issuedAt }).where(eq(businessDocuments.id, input.documentId));
   await appendAuditEvent({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: `DOCUMENT_${input.to}`, entityType: "businessDocument", entityId: String(input.documentId), beforeState: JSON.stringify({ status: current.document.status }), afterState: JSON.stringify({ status: input.to }), correlationId: crypto.randomUUID() });
