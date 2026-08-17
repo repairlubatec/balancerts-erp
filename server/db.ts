@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, organizations, platforms, stockMovements, users } from "../drizzle/schema";
@@ -158,6 +159,7 @@ export async function getDocumentsForUserCompany(userId: number, companyId: numb
 }
 
 export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
+  validateAuditSnapshotShape({ actorUserId: input.actorUserId, action: input.action, entityType: input.entityType, entityId: input.entityId, correlationId: input.correlationId, beforeState: input.beforeState, afterState: input.afterState });
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const previous = await db.select({ eventHash: auditEvents.eventHash }).from(auditEvents).orderBy(desc(auditEvents.id)).limit(1);

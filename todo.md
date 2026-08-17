@@ -147,3 +147,4 @@
 - [x] Adicionar teste integrado do percurso inverso Conta→Relatório que confirme consumo do parâmetro e selecção esperada no destino
 - [x] Testar auditoria de postDepreciation com actor, tenant, entidade, correlationId e estados CALCULATED→POSTED
 - [x] Bloquear recordStockMovement para empresas PENDING/BLOCKED antes da inserção e testar o guard operacional READY
+- [x] Validar no helper central de auditoria actor, action, entidade, correlationId e presença explícita de beforeState/afterState
