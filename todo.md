@@ -179,3 +179,4 @@
 - [x] Expor reports.reconciliation tenant-aware com checks agregados de Balancete, Diário, Balanço, IVA e registo fiscal
 - [x] Validar em integração real reports.reconciliation para Repair Lubatec e confirmar vazio seguro em escopo inexistente
 - [x] Testar RBAC de reports.reconciliation: Auditor autorizado, Operador bloqueado antes da consulta
+- [x] Apresentar na interface de Relatórios o estado real da reconciliação agregada e o número de verificações aprovadas
