@@ -108,3 +108,4 @@
 - [ ] Provar que mutações críticas permanecem bloqueadas ou não criam dados enquanto a Repair Lubatec está PENDING
 - [x] Testar via backend/router companies.list, periods, documents, reports e audit para a Repair Lubatec em escopo tenant-aware
 - [x] Provar que reserva documental, transição/emissão e posting permanecem bloqueados enquanto a Repair Lubatec está PENDING
+- [x] Implementar companies.activate com confirmação literal, verificações de configuração, estado READY e auditoria

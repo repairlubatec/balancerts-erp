@@ -98,6 +98,20 @@ export async function createCompanyForUser(input: {
   return created[0];
 }
 
+export async function activateCompanyForUser(input: { userId: number; companyId: number; confirmation: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  if (input.confirmation !== "ACTIVATE_COMPANY") throw new Error("ACTIVATION_CONFIRMATION_REQUIRED");
+  const companyContext = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = companyContext[0];
+  if (!current) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const periods = await db.select({ id: fiscalPeriods.id }).from(fiscalPeriods).where(eq(fiscalPeriods.companyId, input.companyId)).limit(1);
+  if (!current.company.nif || !current.company.legalForm || !current.company.address || !current.company.activity || !current.company.primaryLegalRepresentative || !periods[0]) throw new Error("COMPANY_CONFIGURATION_INCOMPLETE");
+  await db.update(companies).set({ configurationStatus: "READY" }).where(eq(companies.id, input.companyId));
+  await appendAuditEvent({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "COMPANY_ACTIVATED", entityType: "company", entityId: String(input.companyId), beforeState: JSON.stringify({ configurationStatus: current.company.configurationStatus }), afterState: JSON.stringify({ configurationStatus: "READY" }), correlationId: `company:${input.companyId}:activation` });
+  return { companyId: input.companyId, configurationStatus: "READY" as const };
+}
+
 async function assertCompanyReady(db: Awaited<ReturnType<typeof getDb>>, userId: number, companyId: number) {
   if (!db) throw new Error("Database unavailable");
   const rows = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, companyId), eq(organizations.ownerUserId, userId))).limit(1);

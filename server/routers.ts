@@ -5,7 +5,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
-import { appendAuditEvent, createCompanyForUser, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { activateCompanyForUser, appendAuditEvent, createCompanyForUser, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
@@ -37,6 +37,15 @@ export const appRouter = router({
   }),
   companies: router({
     list: roleProcedure("companies", "read").query(({ ctx }) => getCompaniesForUser(ctx.user.id)),
+    activate: roleProcedure("companies", "create").input(z.object({ companyId: z.number().int().positive(), confirmation: z.literal("ACTIVATE_COMPANY") })).mutation(async ({ ctx, input }) => {
+      try {
+        return await activateCompanyForUser({ ...input, userId: ctx.user.id });
+      } catch (error) {
+        if (error instanceof Error && error.message === "ACTIVATION_CONFIRMATION_REQUIRED") throw new TRPCError({ code: "BAD_REQUEST", message: error.message });
+        if (error instanceof Error && error.message === "COMPANY_CONFIGURATION_INCOMPLETE") throw new TRPCError({ code: "PRECONDITION_FAILED", message: error.message });
+        throw error;
+      }
+    }),
     create: roleProcedure("companies", "create").input(z.object({ name: z.string().min(2), nif: z.string().min(5), functionalCurrency: z.string().length(3).default("AOA"), ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), legalForm: z.string().min(2), address: z.string().min(3), municipality: z.string().min(2), province: z.string().min(2), phone: z.string().min(5), email: z.string().email(), activity: z.string().min(2), incorporationYear: z.number().int().min(1900).max(new Date().getFullYear()), legalRepresentatives: z.string().min(3) })).mutation(async ({ ctx, input }) => {
       try {
         return await createCompanyForUser({ ...input, userId: ctx.user.id });
