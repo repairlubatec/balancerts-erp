@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAuditEventsForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 
 describe("database tenant integration", () => {
   it("reads Repair Lubatec without exposing operational records", async () => {
@@ -8,7 +8,20 @@ describe("database tenant integration", () => {
     const repair = companies.find(({ company }) => company.nif === "5001121871");
     expect(repair?.company).toMatchObject({ name: "Repair Lubatec", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA", configurationStatus: "READY" });
     expect(await getDocumentsForUserCompany(1, repair!.company.id)).toEqual([]);
-    expect(await getTrialBalanceForUserCompany(1, repair!.company.id)).toMatchObject({ rows: [] });
+    const trialBalance = await getTrialBalanceForUserCompany(1, repair!.company.id);
+    const journal = await getJournalForUserCompany(1, repair!.company.id);
+    const ledger = await getLedgerForUserCompany(1, repair!.company.id);
+    const incomeStatement = await getIncomeStatementForUserCompany(1, repair!.company.id);
+    const balanceSheet = await getBalanceSheetForUserCompany(1, repair!.company.id);
+    const fiscalRegister = await getFiscalRegisterForUserCompany(1, repair!.company.id);
+    const vatSummary = await getVatSummaryForUserCompany(1, repair!.company.id);
+    expect(trialBalance).toMatchObject({ rows: [], reconciled: true });
+    expect(journal).toMatchObject({ entries: [], totals: { debit: 0, credit: 0 } });
+    expect(ledger).toMatchObject({ entries: [], closingBalance: 0 });
+    expect(incomeStatement).toMatchObject({ rows: [], revenue: 0, expenses: 0, netIncome: 0 });
+    expect(balanceSheet).toMatchObject({ rows: [], assets: 0, liabilities: 0, netIncome: 0, reconciled: true });
+    expect(fiscalRegister).toMatchObject({ entries: [], totals: { netAmount: 0, taxAmount: 0, totalAmount: 0 }, reconciled: true });
+    expect(vatSummary).toMatchObject({ rows: [], totals: { netAmount: 0, taxAmount: 0, totalAmount: 0 } });
     expect(await reconcileStockForUserCompany({ userId: 1, companyId: repair!.company.id, inventoryAccountId: 999999 })).toMatchObject({ reconciled: true, difference: 0 });
   });
 
