@@ -159,7 +159,9 @@ export const businessDocuments = mysqlTable("businessDocuments", {
   status: mysqlEnum("status", ["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]).default("DRAFT").notNull(),
   documentType: varchar("documentType", { length: 32 }).notNull(),
   customerName: varchar("customerName", { length: 180 }),
+  counterpartyId: int("counterpartyId"),
   counterpartyType: mysqlEnum("counterpartyType", ["CUSTOMER", "SUPPLIER"]).default("CUSTOMER").notNull(),
+  currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
   ivaRegime: mysqlEnum("ivaRegime", ["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).notNull(),
   netAmount: decimal("netAmount", { precision: 18, scale: 2 }).default("0").notNull(),
   taxAmount: decimal("taxAmount", { precision: 18, scale: 2 }).default("0").notNull(),
@@ -167,6 +169,125 @@ export const businessDocuments = mysqlTable("businessDocuments", {
   dueDate: timestamp("dueDate"),
   settledAmount: decimal("settledAmount", { precision: 18, scale: 2 }).default("0").notNull(),
   issuedAt: timestamp("issuedAt"),
+  createdBy: int("createdBy").notNull(),
+  immutableHash: varchar("immutableHash", { length: 64 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const counterparties = mysqlTable("counterparties", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  kind: mysqlEnum("kind", ["CUSTOMER", "SUPPLIER"]).notNull(),
+  taxId: varchar("taxId", { length: 32 }),
+  name: varchar("name", { length: 180 }).notNull(),
+  email: varchar("email", { length: 320 }),
+  phone: varchar("phone", { length: 40 }),
+  address: varchar("address", { length: 255 }),
+  municipality: varchar("municipality", { length: 120 }),
+  province: varchar("province", { length: 120 }),
+  active: int("active").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const products = mysqlTable("products", {
+  id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId").notNull(),
+  code: varchar("code", { length: 80 }).notNull(),
+  name: varchar("name", { length: 180 }).notNull(),
+  kind: mysqlEnum("kind", ["GOOD", "SERVICE"]).notNull(),
+  unitCode: varchar("unitCode", { length: 16 }).default("UN").notNull(),
+  taxCode: varchar("taxCode", { length: 40 }),
+  active: int("active").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const documentItems = mysqlTable("documentItems", {
+  id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId").notNull(),
+  documentId: int("documentId").notNull(),
+  lineNumber: int("lineNumber").notNull(),
+  productId: int("productId"),
+  description: varchar("description", { length: 255 }).notNull(),
+  quantity: decimal("quantity", { precision: 18, scale: 4 }).notNull(),
+  unitPrice: decimal("unitPrice", { precision: 18, scale: 4 }).notNull(),
+  netAmount: decimal("netAmount", { precision: 18, scale: 2 }).notNull(),
+  taxAmount: decimal("taxAmount", { precision: 18, scale: 2 }).default("0").notNull(),
+  totalAmount: decimal("totalAmount", { precision: 18, scale: 2 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const documentTaxes = mysqlTable("documentTaxes", {
+  id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId").notNull(),
+  documentId: int("documentId").notNull(),
+  itemId: int("itemId"),
+  taxType: varchar("taxType", { length: 40 }).notNull(),
+  regime: mysqlEnum("regime", ["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).notNull(),
+  rate: decimal("rate", { precision: 8, scale: 4 }).default("0").notNull(),
+  baseAmount: decimal("baseAmount", { precision: 18, scale: 2 }).notNull(),
+  taxAmount: decimal("taxAmount", { precision: 18, scale: 2 }).default("0").notNull(),
+  normativeRuleId: int("normativeRuleId"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const payments = mysqlTable("payments", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  documentId: int("documentId"),
+  direction: mysqlEnum("direction", ["RECEIPT", "PAYMENT"]).notNull(),
+  amount: decimal("amount", { precision: 18, scale: 2 }).notNull(),
+  currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
+  paidAt: timestamp("paidAt").notNull(),
+  method: mysqlEnum("method", ["CASH", "BANK_TRANSFER", "CARD", "OTHER"]).notNull(),
+  status: mysqlEnum("status", ["PENDING", "CONFIRMED", "CANCELLED"]).default("PENDING").notNull(),
+  journalEntryId: int("journalEntryId"),
+  idempotencyKey: varchar("idempotencyKey", { length: 160 }).notNull().unique(),
+  correlationId: varchar("correlationId", { length: 128 }).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const cashAccounts = mysqlTable("cashAccounts", {
+  id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId").notNull(),
+  name: varchar("name", { length: 160 }).notNull(),
+  kind: mysqlEnum("kind", ["CASH", "BANK"]).notNull(),
+  accountNumber: varchar("accountNumber", { length: 80 }),
+  currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
+  active: int("active").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const treasuryTransactions = mysqlTable("treasuryTransactions", {
+  id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId").notNull(),
+  cashAccountId: int("cashAccountId").notNull(),
+  paymentId: int("paymentId"),
+  direction: mysqlEnum("direction", ["IN", "OUT"]).notNull(),
+  amount: decimal("amount", { precision: 18, scale: 2 }).notNull(),
+  valueDate: timestamp("valueDate").notNull(),
+  reconciliationStatus: mysqlEnum("reconciliationStatus", ["UNRECONCILED", "RECONCILED", "EXCEPTION"]).default("UNRECONCILED").notNull(),
+  journalEntryId: int("journalEntryId"),
+  correlationId: varchar("correlationId", { length: 128 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const normativeRules = mysqlTable("normativeRules", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  code: varchar("code", { length: 80 }).notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  instrument: varchar("instrument", { length: 160 }).notNull(),
+  version: varchar("version", { length: 40 }).notNull(),
+  effectiveFrom: timestamp("effectiveFrom").notNull(),
+  effectiveTo: timestamp("effectiveTo"),
+  module: varchar("module", { length: 80 }).notNull(),
+  sourceUrl: varchar("sourceUrl", { length: 512 }),
+  verificationStatus: mysqlEnum("verificationStatus", ["INTERNAL_REVIEW", "EXTERNAL_PENDING", "EXTERNALLY_VERIFIED"]).default("INTERNAL_REVIEW").notNull(),
+  parameters: text("parameters").notNull(),
   createdBy: int("createdBy").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

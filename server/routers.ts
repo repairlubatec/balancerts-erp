@@ -5,7 +5,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
-import { activateCompanyForUser, appendAuditEvent, appendAuditEventForUser, assertAuditScopeForUser, assertClosedFiscalPeriodForUserCompany, createCompanyForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentOriginReconciliationForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getAgingForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getReportsReconciliationForUserCompany, getSaftReadinessForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { activateCompanyForUser, appendAuditEvent, appendAuditEventForUser, assertAuditScopeForUser, assertClosedFiscalPeriodForUserCompany, createCompanyForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentOriginReconciliationForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getAgingForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getReportsReconciliationForUserCompany, getSaftReadinessForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument, getCounterpartiesForUserCompany, createCounterpartyForUser, getProductsForUserCompany, createProductForUser, getCashAccountsForUserCompany, createCashAccountForUser, getTreasuryTransactionsForUserCompany, createPaymentForUser, getNormativeRulesForUserCompany } from "./db";
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
@@ -58,6 +58,23 @@ export const appRouter = router({
     exercises: roleProcedure("companies", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getExercisesForUserCompany(ctx.user.id, input.companyId)),
     periods: roleProcedure("companies", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getPeriodsForUserCompany(ctx.user.id, input.companyId)),
     documents: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentsForUserCompany(ctx.user.id, input.companyId)),
+  }),
+  counterparties: router({
+    list: roleProcedure("customers", "read").input(z.object({ companyId: z.number().int().positive(), kind: z.enum(["CUSTOMER", "SUPPLIER"]).optional() })).query(({ ctx, input }) => getCounterpartiesForUserCompany(ctx.user.id, input.companyId, input.kind)),
+    create: roleProcedure("customers", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), kind: z.enum(["CUSTOMER", "SUPPLIER"]), taxId: z.string().optional(), name: z.string().min(2), email: z.string().email().optional(), phone: z.string().optional(), address: z.string().optional(), municipality: z.string().optional(), province: z.string().optional() })).mutation(({ ctx, input }) => createCounterpartyForUser({ ...input, userId: ctx.user.id })),
+  }),
+  catalog: router({
+    list: roleProcedure("catalog", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getProductsForUserCompany(ctx.user.id, input.companyId)),
+    create: roleProcedure("catalog", "create").input(z.object({ companyId: z.number().int().positive(), code: z.string().min(1), name: z.string().min(2), kind: z.enum(["GOOD", "SERVICE"]), unitCode: z.string().optional(), taxCode: z.string().optional() })).mutation(({ ctx, input }) => createProductForUser({ ...input, userId: ctx.user.id })),
+  }),
+  treasury: router({
+    accounts: roleProcedure("treasury", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getCashAccountsForUserCompany(ctx.user.id, input.companyId)),
+    createAccount: roleProcedure("treasury", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), name: z.string().min(2), kind: z.enum(["CASH", "BANK"]), accountNumber: z.string().optional(), currency: z.string().length(3).optional() })).mutation(({ ctx, input }) => createCashAccountForUser({ ...input, userId: ctx.user.id })),
+    transactions: roleProcedure("treasury", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getTreasuryTransactionsForUserCompany(ctx.user.id, input.companyId)),
+    createPayment: roleProcedure("treasury", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), documentId: z.number().int().positive().optional(), direction: z.enum(["RECEIPT", "PAYMENT"]), amount: z.number().positive(), currency: z.string().length(3).optional(), cashAccountId: z.number().int().positive().optional(), paidAt: z.coerce.date(), method: z.enum(["CASH", "BANK_TRANSFER", "CARD", "OTHER"]), idempotencyKey: z.string().min(8), correlationId: z.string().min(1) })).mutation(({ ctx, input }) => createPaymentForUser({ ...input, userId: ctx.user.id })),
+  }),
+  normative: router({
+    list: roleProcedure("normative", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getNormativeRulesForUserCompany(ctx.user.id, input.companyId)),
   }),
   accounting: router({
     validateEntry: roleProcedure("accounting", "validate").input(z.object({

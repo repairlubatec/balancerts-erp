@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, organizations, platforms, stockMovements, users } from "../drizzle/schema";
+import { InsertUser, auditEvents, businessDocuments, cashAccounts, chartAccounts, companies, counterparties, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
@@ -42,6 +42,95 @@ export async function upsertUser(user: InsertUser): Promise<void> {
   values.lastSignedIn ??= new Date();
   updateSet.lastSignedIn ??= new Date();
   await db.insert(users).values(values).onDuplicateKeyUpdate({ set: updateSet });
+}
+
+export async function getCounterpartiesForUserCompany(userId: number, companyId: number, kind?: "CUSTOMER" | "SUPPLIER") {
+  const db = await getDb();
+  if (!db) return [];
+  const conditions = [eq(counterparties.companyId, companyId), eq(organizations.ownerUserId, userId)];
+  if (kind) conditions.push(eq(counterparties.kind, kind));
+  return db.select({ counterparty: counterparties }).from(counterparties).innerJoin(companies, eq(counterparties.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(...conditions)).orderBy(counterparties.name);
+}
+
+export async function createCounterpartyForUser(input: { userId: number; organizationId: number; companyId: number; kind: "CUSTOMER" | "SUPPLIER"; taxId?: string; name: string; email?: string; phone?: string; address?: string; municipality?: string; province?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const result = await db.insert(counterparties).values({ organizationId: input.organizationId, companyId: input.companyId, kind: input.kind, taxId: input.taxId, name: input.name, email: input.email, phone: input.phone, address: input.address, municipality: input.municipality, province: input.province });
+  const id = Number(result[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "COUNTERPARTY_CREATED", entityType: "counterparty", entityId: String(id), beforeState: null, afterState: JSON.stringify({ kind: input.kind, name: input.name, taxId: input.taxId ?? null }), correlationId: `counterparty:${id}` });
+  return { id, ...input };
+}
+
+export async function getProductsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ product: products }).from(products).innerJoin(companies, eq(products.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(products.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(products.code);
+}
+
+export async function createProductForUser(input: { userId: number; companyId: number; code: string; name: string; kind: "GOOD" | "SERVICE"; unitCode?: string; taxCode?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const company = await db.select({ organizationId: companies.organizationId }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const result = await db.insert(products).values({ companyId: input.companyId, code: input.code, name: input.name, kind: input.kind, unitCode: input.unitCode ?? "UN", taxCode: input.taxCode });
+  const id = Number(result[0].insertId);
+  await appendAuditEventForUser({ organizationId: company[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PRODUCT_CREATED", entityType: "product", entityId: String(id), beforeState: null, afterState: JSON.stringify({ code: input.code, name: input.name, kind: input.kind }), correlationId: `product:${id}` });
+  return { id, ...input };
+}
+
+export async function getCashAccountsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ account: cashAccounts }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(cashAccounts.name);
+}
+
+export async function createCashAccountForUser(input: { userId: number; organizationId: number; companyId: number; name: string; kind: "CASH" | "BANK"; accountNumber?: string; currency?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const result = await db.insert(cashAccounts).values({ companyId: input.companyId, name: input.name, kind: input.kind, accountNumber: input.accountNumber, currency: input.currency ?? "AOA" });
+  const id = Number(result[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CASH_ACCOUNT_CREATED", entityType: "cashAccount", entityId: String(id), beforeState: null, afterState: JSON.stringify({ name: input.name, kind: input.kind, currency: input.currency ?? "AOA" }), correlationId: `cash-account:${id}` });
+  return { id, ...input };
+}
+
+export async function getTreasuryTransactionsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ transaction: treasuryTransactions, account: cashAccounts }).from(treasuryTransactions).innerJoin(cashAccounts, eq(treasuryTransactions.cashAccountId, cashAccounts.id)).innerJoin(companies, eq(treasuryTransactions.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(treasuryTransactions.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(treasuryTransactions.valueDate);
+}
+
+export async function createPaymentForUser(input: { userId: number; organizationId: number; companyId: number; documentId?: number; cashAccountId?: number; direction: "RECEIPT" | "PAYMENT"; amount: number; currency?: string; paidAt: Date; method: "CASH" | "BANK_TRANSFER" | "CARD" | "OTHER"; idempotencyKey: string; correlationId: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  if (input.documentId) {
+    const document = await db.select({ id: businessDocuments.id }).from(businessDocuments).where(and(eq(businessDocuments.id, input.documentId), eq(businessDocuments.companyId, input.companyId))).limit(1);
+    if (!document[0]) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+  }
+  if (input.cashAccountId) {
+    const account = await db.select({ id: cashAccounts.id }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.id, input.cashAccountId), eq(cashAccounts.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+    if (!account[0]) throw new Error("CASH_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  }
+  const existing = await db.select().from(payments).where(eq(payments.idempotencyKey, input.idempotencyKey)).limit(1);
+  if (existing[0]) return { payment: existing[0], idempotent: true };
+  const result = await db.insert(payments).values({ organizationId: input.organizationId, companyId: input.companyId, documentId: input.documentId, direction: input.direction, amount: String(input.amount), currency: input.currency ?? "AOA", paidAt: input.paidAt, method: input.method, idempotencyKey: input.idempotencyKey, correlationId: input.correlationId, createdBy: input.userId });
+  const id = Number(result[0].insertId);
+  let treasuryTransactionId: number | undefined;
+  if (input.cashAccountId) {
+    const treasury = await db.insert(treasuryTransactions).values({ companyId: input.companyId, cashAccountId: input.cashAccountId, paymentId: id, direction: input.direction === "RECEIPT" ? "IN" : "OUT", amount: String(input.amount), valueDate: input.paidAt, correlationId: input.correlationId });
+    treasuryTransactionId = Number(treasury[0].insertId);
+    await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "TREASURY_TRANSACTION_CREATED", entityType: "treasuryTransaction", entityId: String(treasuryTransactionId), beforeState: null, afterState: JSON.stringify({ paymentId: id, cashAccountId: input.cashAccountId, direction: input.direction === "RECEIPT" ? "IN" : "OUT", amount: input.amount }), correlationId: input.correlationId });
+  }
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_CREATED", entityType: "payment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ direction: input.direction, amount: input.amount, documentId: input.documentId ?? null, cashAccountId: input.cashAccountId ?? null, status: "PENDING" }), correlationId: input.correlationId });
+  return { payment: { id, ...input, status: "PENDING" as const }, treasuryTransactionId, idempotent: false };
+}
+
+export async function getNormativeRulesForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ rule: normativeRules }).from(normativeRules).innerJoin(organizations, eq(normativeRules.organizationId, organizations.id)).where(and(eq(organizations.ownerUserId, userId), sql`(${normativeRules.companyId} IS NULL OR ${normativeRules.companyId} = ${companyId})`)).orderBy(desc(normativeRules.effectiveFrom));
 }
 
 export async function getUserByOpenId(openId: string) {
@@ -412,7 +501,8 @@ export async function transitionBusinessDocument(input: { userId: number; compan
     if (!linkedEntry[0]) throw new Error("DOCUMENT_REQUIRES_POSTED_ENTRY");
   }
   const issuedAt = input.to === "ISSUED" ? new Date() : current.document.issuedAt;
-  await db.update(businessDocuments).set({ status: input.to, issuedAt }).where(eq(businessDocuments.id, input.documentId));
+  const immutableHash = input.to === "ISSUED" ? createHash("sha256").update(JSON.stringify({ companyId: input.companyId, documentId: input.documentId, documentNumber: current.document.documentNumber, documentType: current.document.documentType, counterpartyId: current.document.counterpartyId, counterpartyType: current.document.counterpartyType, currency: current.document.currency, ivaRegime: current.document.ivaRegime, netAmount: current.document.netAmount, taxAmount: current.document.taxAmount, totalAmount: current.document.totalAmount, issuedAt: issuedAt?.toISOString() ?? null })).digest("hex") : current.document.immutableHash;
+  await db.update(businessDocuments).set({ status: input.to, issuedAt, immutableHash }).where(eq(businessDocuments.id, input.documentId));
   await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: `DOCUMENT_${input.to}`, entityType: "businessDocument", entityId: String(input.documentId), beforeState: JSON.stringify({ status: current.document.status }), afterState: JSON.stringify({ status: input.to }), correlationId: input.correlationId ?? `document:${input.documentId}:${input.to}` });
   return { id: input.documentId, from: current.document.status, to: input.to };
 }

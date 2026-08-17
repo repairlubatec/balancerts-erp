@@ -83,6 +83,9 @@ describe("disposable tenant persisted E2E cycle", () => {
 
       await transitionBusinessDocument({ userId: TEST_USER_ID, companyId: TEST_COMPANY_ID, documentId, to: "VALIDATED", correlationId: `${correlation}:validated` });
       await transitionBusinessDocument({ userId: TEST_USER_ID, companyId: TEST_COMPANY_ID, documentId, to: "ISSUED", correlationId: `${correlation}:issued` });
+      const issuedDocument = await db!.select({ immutableHash: businessDocuments.immutableHash, status: businessDocuments.status }).from(businessDocuments).where(and(eq(businessDocuments.id, documentId), eq(businessDocuments.companyId, TEST_COMPANY_ID))).limit(1);
+      expect(issuedDocument[0]).toMatchObject({ status: "ISSUED" });
+      expect(issuedDocument[0]?.immutableHash).toMatch(/^[a-f0-9]{64}$/);
       const posting = await postJournalEntry({
         companyId: TEST_COMPANY_ID,
         periodId: periodId!,

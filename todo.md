@@ -232,3 +232,12 @@
 - [x] Validar recuperação após falha parcial com estado persistido e reprocessamento idempotente no tenant descartável
 - [x] Fazer rollback/limpeza dos registos temporários do tenant descartável e confirmar que a Repair Lubatec não foi alterada
 - [x] Provar no tenant descartável falha transitória→reprocessamento→lançamento persistido→replay idempotente sem duplicação; estados FAILED persistidos de integrações externas continuam separados
+- [ ] Expandir isolamento multi-tenant a exportações, operações persistentes de integração e superfícies futuras de cache/filas, com testes negativos por empresa/organização
+- [ ] Implementar entidades e associações de clientes/fornecedores, itens, impostos, pagamentos e contabilidade, com imutabilidade pós-emissão
+- [ ] Parametrizar de forma verificável o Decreto Presidencial n.º 71/25 e requisitos AGT, distinguindo evidência normativa interna de validação externa
+- [ ] Expandir módulos operacionais persistentes de clientes, fornecedores, caixa, bancos e tesouraria com RBAC, auditoria e reconciliação
+- [ ] Adicionar testes de integração e migração para os quatro blocos expandidos, sem alterar dados da Repair Lubatec
+- [x] Criar migração 0015 não destrutiva para contrapartes, produtos, linhas/impostos documentais, pagamentos, caixa, tesouraria e regras normativas
+- [x] Expor routers tenant-aware de contrapartes, catálogo, caixa/banco, pagamentos, tesouraria e regras normativas com RBAC
+- [x] Cobrir em integração criação, leitura, auditoria, idempotência e rejeição de empresa forjada nos módulos expandidos
+- [x] Registar a regra interna AO-FATURAS-71-25 com fonte pública e EXTERNAL_PENDING, sem declarar certificação AGT

@@ -3,10 +3,10 @@ export type Permission = "read" | "create" | "validate" | "issue" | "post" | "re
 
 const matrix: Record<BalancertsRole, Partial<Record<string, Permission[]>>> = {
   admin: { "*": ["read", "create", "validate", "issue", "post", "reverse", "close", "reopen", "audit"] },
-  contabilista: { companies: ["read"], accounting: ["read", "create", "validate", "post", "reverse"], documents: ["read", "validate", "issue"], fiscal: ["read", "validate"], stock: ["read", "create", "validate"], reports: ["read"], close: ["read", "close", "reopen"] },
-  financeiro: { companies: ["read"], treasury: ["read", "create", "validate"], documents: ["read", "create"], reports: ["read"] },
-  operador: { companies: ["read"], documents: ["read", "create"], stock: ["read", "create"], treasury: ["read"] },
-  auditor: { companies: ["read"], accounting: ["read"], documents: ["read"], fiscal: ["read"], reports: ["read"], audit: ["read", "audit"] },
+  contabilista: { companies: ["read"], accounting: ["read", "create", "validate", "post", "reverse"], documents: ["read", "validate", "issue"], customers: ["read", "create"], suppliers: ["read", "create"], catalog: ["read", "create"], fiscal: ["read", "validate"], normative: ["read"], stock: ["read", "create", "validate"], treasury: ["read", "validate"], reports: ["read"], close: ["read", "close", "reopen"] },
+  financeiro: { companies: ["read"], customers: ["read", "create"], suppliers: ["read", "create"], catalog: ["read"], treasury: ["read", "create", "validate"], documents: ["read", "create"], normative: ["read"], reports: ["read"] },
+  operador: { companies: ["read"], customers: ["read", "create"], suppliers: ["read", "create"], catalog: ["read", "create"], documents: ["read", "create"], stock: ["read", "create"], treasury: ["read"] },
+  auditor: { companies: ["read"], customers: ["read"], suppliers: ["read"], catalog: ["read"], accounting: ["read"], documents: ["read"], fiscal: ["read"], normative: ["read"], treasury: ["read"], reports: ["read"], audit: ["read", "audit"] },
   user: {},
 };
 
