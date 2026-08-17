@@ -119,11 +119,16 @@ export async function activateCompanyForUser(input: { userId: number; companyId:
   return { companyId: input.companyId, configurationStatus: "READY" as const };
 }
 
+export function assertReadyConfiguration(status: "PENDING" | "READY" | "BLOCKED") {
+  if (status !== "READY") throw new Error("COMPANY_CONFIGURATION_PENDING");
+  return true as const;
+}
+
 async function assertCompanyReady(db: Awaited<ReturnType<typeof getDb>>, userId: number, companyId: number) {
   if (!db) throw new Error("Database unavailable");
   const rows = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, companyId), eq(organizations.ownerUserId, userId))).limit(1);
   if (!rows[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
-  if (rows[0].company.configurationStatus !== "READY") throw new Error("COMPANY_CONFIGURATION_PENDING");
+  assertReadyConfiguration(rows[0].company.configurationStatus);
   return rows[0];
 }
 
@@ -197,6 +202,7 @@ export async function reconcileStockForUserCompany(input: { userId: number; comp
 export async function recordStockMovement(input: { userId: number; organizationId: number; companyId: number; periodId: number; productCode: string; type: "IN" | "OUT"; quantity: number; unitCost: number; sourceDocumentId?: number; journalEntryId?: number; correlationId: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
   const company = await db.select({ id: companies.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   const result = await db.insert(stockMovements).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, productCode: input.productCode, type: input.type, quantity: String(input.quantity), unitCost: String(input.unitCost), sourceDocumentId: input.sourceDocumentId, journalEntryId: input.journalEntryId, correlationId: input.correlationId });
