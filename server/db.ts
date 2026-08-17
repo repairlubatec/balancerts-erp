@@ -1,6 +1,6 @@
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fiscalPeriods, journalEntries, journalLines, organizations, users } from "../drizzle/schema";
+import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalPeriods, journalEntries, journalLines, organizations, users } from "../drizzle/schema";
 import { buildTrialBalance } from "./reports";
 import { formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
@@ -71,6 +71,26 @@ export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
   if (!db) throw new Error("Database unavailable");
   const result = await db.insert(auditEvents).values(input);
   return result;
+}
+
+export async function createFileAsset(input: { userId: number; organizationId: number; companyId: number; storageKey: string; filename: string; mimeType: string; size: number; sha256: string; allowedUserIds?: number[] }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const company = await db.select({ id: companies.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const result = await db.insert(fileAssets).values({ organizationId: input.organizationId, companyId: input.companyId, ownerUserId: input.userId, storageKey: input.storageKey, filename: input.filename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, allowedUserIds: JSON.stringify(input.allowedUserIds ?? []) });
+  return { id: result[0].insertId, storageKey: input.storageKey };
+}
+
+export async function getFileAssetForUser(input: { userId: number; companyId: number; fileId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ file: fileAssets }).from(fileAssets).innerJoin(companies, eq(fileAssets.companyId, companies.id)).innerJoin(organizations, eq(fileAssets.organizationId, organizations.id)).where(and(eq(fileAssets.id, input.fileId), eq(fileAssets.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const file = rows[0]?.file;
+  if (!file) throw new Error("FILE_NOT_FOUND_OR_FORBIDDEN");
+  const allowed = JSON.parse(file.allowedUserIds ?? "[]") as number[];
+  if (file.ownerUserId !== input.userId && !allowed.includes(input.userId)) throw new Error("FILE_DOWNLOAD_FORBIDDEN");
+  return { ...file, allowedUserIds: allowed };
 }
 
 export async function reserveDocumentNumber(input: { userId: number; companyId: number; series: string; documentType: string }) {
