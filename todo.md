@@ -94,7 +94,7 @@
 - [x] Validar na base real o filtro de auditoria por entityType/entityId para escopo inexistente
 - [x] Criar/actualizar ficha real Repair Lubatec com NIF, contacto, localização, actividade, IVA, moeda e ano de criação
 - [x] Manter Repair Lubatec em PENDING até concluir validações legais/operacionais e autorização de activação
-- [ ] Validar fluxos tenant-aware usando Repair Lubatec real sem inserir documentos, movimentos ou lançamentos
+- [x] Validar fluxos tenant-aware usando Repair Lubatec real sem inserir documentos, movimentos ou lançamentos
 - [x] Confirmar que o regime de IVA da Repair Lubatec deve ser registado como EXCLUSÃO
 - [x] Implementar schema, helper e endpoint companies.create para ficha real com estado PENDING, actor e auditoria
 - [x] Criar Repair Lubatec efectivamente na base através de organização proprietária autorizada, com estado PENDING e auditoria
@@ -104,8 +104,8 @@
 - [x] Persistir Fausto Silva e Luís Jordão como representantes legais da Repair Lubatec sem designar principal
 - [x] Confirmar Fausto Silva como representante legal principal e Luís Jordão como representante adicional
 - [x] Criar período fiscal inicial 2023/09 para Repair Lubatec, mantendo-o aberto e sem transacções
-- [ ] Testar via backend/router companies.list, periods, documents, reports e audit para a Repair Lubatec em escopo tenant-aware
-- [ ] Provar que mutações críticas permanecem bloqueadas ou não criam dados enquanto a Repair Lubatec está PENDING
+- [x] Testar via backend/router companies.list, periods, documents, reports e audit para a Repair Lubatec em escopo tenant-aware
+- [x] Provar que reserva documental, transição/emissão e posting permanecem bloqueados enquanto a Repair Lubatec está PENDING
 - [x] Testar via backend/router companies.list, periods, documents, reports e audit para a Repair Lubatec em escopo tenant-aware
 - [x] Provar que reserva documental, transição/emissão e posting permanecem bloqueados enquanto a Repair Lubatec está PENDING
 - [x] Implementar companies.activate com confirmação literal, verificações de configuração, estado READY e auditoria
@@ -125,3 +125,4 @@
 - [x] Ligar o portefólio “Minhas Empresas” a companies.list real, com loading/empty states e sem métricas financeiras inventadas
 - [x] Ligar a actividade recente da Home ao histórico auditado real do tenant actual, com estado vazio quando não existem eventos
 - [x] Remover alertas demonstrativos da Home e apresentar pendências apenas quando existir fonte persistente real
+- [ ] Enumerar e testar todas as mutações críticas suportadas em estado PENDING, além de reserva documental, transição/emissão e posting
