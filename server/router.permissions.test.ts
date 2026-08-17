@@ -43,6 +43,13 @@ describe("protected accounting procedures", () => {
     await expect(caller.closing.evaluate({ checks: [] })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
+  it("allows fiscal validation with normative evidence and blocks Operador", async () => {
+    const caller = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(caller.fiscal.validateNormative({ area: "FISCAL_DOCUMENT", evidenceCodes: ["DP-71-25", "AGT-FAT-DOC"] })).resolves.toMatchObject({ valid: true });
+    const blocked = appRouter.createCaller(contextWithRole("operador"));
+    await expect(blocked.fiscal.validateNormative({ area: "FISCAL_DOCUMENT", evidenceCodes: [] })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("allows Auditor to query tenant-scoped audit history", async () => {
     const list = vi.spyOn(db, "getAuditEventsForUserCompany").mockResolvedValue([{ event: { id: 1, companyId: 41 } } as never]);
     const caller = appRouter.createCaller(contextWithRole("auditor"));
