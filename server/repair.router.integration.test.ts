@@ -57,5 +57,11 @@ describe("Repair Lubatec router integration", () => {
     expect(await caller.reports.trace({ companyId: 1, report: "TRIAL_BALANCE" })).toMatchObject({ origins: [] });
     expect(await caller.reports.vatSummary({ companyId: 1 })).toMatchObject({ rows: [], totals: { netAmount: 0, taxAmount: 0, totalAmount: 0 } });
     expect((await caller.audit.list({ companyId: 1 })).length).toBeGreaterThanOrEqual(2);
+
+    const missingCompanyId = 999999;
+    expect(await caller.companies.documents({ companyId: missingCompanyId })).toEqual([]);
+    expect(await caller.reports.fiscalRegister({ companyId: missingCompanyId })).toMatchObject({ entries: [], reconciled: true });
+    expect(await caller.reports.trace({ companyId: missingCompanyId, report: "TRIAL_BALANCE" })).toMatchObject({ origins: [] });
+    await expect(caller.companies.activate({ companyId: missingCompanyId, confirmation: "ACTIVATE_COMPANY" })).rejects.toThrow();
   });
 });
