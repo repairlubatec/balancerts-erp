@@ -12,6 +12,11 @@ describe("idempotent requests", () => {
     expect(resolveIdempotentRequest([{ key: "k1", status: "FAILED", error: "TIMEOUT" }], "k1")).toEqual({ action: "RETRY", error: "TIMEOUT" });
   });
 
+  it("supports failed-to-completed recovery after a retry", () => {
+    expect(resolveIdempotentRequest([{ key: "k-recovery", status: "FAILED", error: "TIMEOUT" }], "k-recovery")).toEqual({ action: "RETRY", error: "TIMEOUT" });
+    expect(resolveIdempotentRequest([{ key: "k-recovery", status: "COMPLETED", result: { reference: "AGT-1" } }], "k-recovery")).toEqual({ action: "RETURN_EXISTING", result: { reference: "AGT-1" } });
+  });
+
   it("rejects blank keys before any operation can execute", () => {
     expect(() => resolveIdempotentRequest([], "   ")).toThrow("IDEMPOTENCY_KEY_REQUIRED");
   });
