@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildTrialBalance, buildVatSummary } from "./reports";
+import { buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary } from "./reports";
 
 describe("reconciliable reports", () => {
   it("aggregates account movements and reconciles totals", () => {
@@ -51,6 +51,15 @@ describe("reconciliable reports", () => {
     const fiscalRegister = buildFiscalRegister([{ documentId: 1, documentNumber: "FT/000001", issueDate: new Date("2026-01-01"), customerNif: null, status: "ISSUED", ivaRegime: "GERAL", netAmount: 100, taxAmount: 14, totalAmount: 114 }]);
     expect(buildReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister }).reconciled).toBe(true);
     expect(buildReportReconciliation({ trialBalance: { ...trialBalance, reconciled: false }, journal, balanceSheet, vatSummary, fiscalRegister }).reconciled).toBe(false);
+  });
+
+  it("reports SAF-T coverage without claiming submission eligibility", () => {
+    const complete = buildSaftReadiness({ companyName: "Repair Lubatec", nif: "5001121871", functionalCurrency: "AOA", periodStart: new Date("2023-09-01"), periodEnd: new Date("2023-09-30"), accountCount: 2, journalEntryCount: 1, documentCount: 1, customerCount: 1, supplierCount: 1, productCount: 1, taxRuleCount: 1 });
+    expect(complete).toMatchObject({ format: "SAFTAO1.01_01", ready: true, missing: [], submissionEligible: false });
+    const blocked = buildSaftReadiness({ companyName: "Repair Lubatec", nif: "5001121871", functionalCurrency: "AOA", periodStart: new Date("2023-09-01"), periodEnd: new Date("2023-09-30"), accountCount: 0, journalEntryCount: 0, documentCount: 0, customerCount: 0, supplierCount: 0, productCount: 0, taxRuleCount: 0 });
+    expect(blocked.ready).toBe(false);
+    expect(blocked.missing).toEqual(expect.arrayContaining(["MASTERFILES_ACCOUNTS", "GENERAL_LEDGER_ENTRIES", "SOURCE_DOCUMENTS", "MASTERFILES_CUSTOMERS", "MASTERFILES_SUPPLIERS", "MASTERFILES_PRODUCTS", "MASTERFILES_TAX_TABLES"]));
+    expect(blocked.submissionEligible).toBe(false);
   });
 
   it("reconciles income statement and balance sheet", () => {

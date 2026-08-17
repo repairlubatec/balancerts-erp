@@ -133,3 +133,34 @@ export function buildReportReconciliation(input: {
   };
   return { checks, reconciled: Object.values(checks).every(Boolean) };
 }
+
+export type SaftCoverageInput = {
+  companyName: string | null;
+  nif: string | null;
+  functionalCurrency: string | null;
+  periodStart: Date | null;
+  periodEnd: Date | null;
+  accountCount: number;
+  journalEntryCount: number;
+  documentCount: number;
+  customerCount: number;
+  supplierCount: number;
+  productCount: number;
+  taxRuleCount: number;
+};
+
+export function buildSaftReadiness(input: SaftCoverageInput) {
+  const missing: string[] = [];
+  if (!input.companyName) missing.push("HEADER_COMPANY_NAME");
+  if (!input.nif) missing.push("HEADER_TAX_ID");
+  if (!input.functionalCurrency) missing.push("HEADER_CURRENCY");
+  if (!input.periodStart || !input.periodEnd) missing.push("HEADER_PERIOD");
+  if (input.accountCount === 0) missing.push("MASTERFILES_ACCOUNTS");
+  if (input.journalEntryCount === 0) missing.push("GENERAL_LEDGER_ENTRIES");
+  if (input.documentCount === 0) missing.push("SOURCE_DOCUMENTS");
+  if (input.customerCount === 0) missing.push("MASTERFILES_CUSTOMERS");
+  if (input.supplierCount === 0) missing.push("MASTERFILES_SUPPLIERS");
+  if (input.productCount === 0) missing.push("MASTERFILES_PRODUCTS");
+  if (input.taxRuleCount === 0) missing.push("MASTERFILES_TAX_TABLES");
+  return { format: "SAFTAO1.01_01", ready: missing.length === 0, missing, submissionEligible: false as const };
+}
