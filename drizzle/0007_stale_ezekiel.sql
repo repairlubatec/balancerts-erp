@@ -1,0 +1,1 @@
+ALTER TABLE `journalEntries` ADD `reversalOfEntryId` int;

@@ -198,6 +198,13 @@ export async function getBalanceSheetForUserCompany(userId: number, companyId: n
   return buildBalanceSheet(rows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
 }
 
+export async function getReportTraceForUserCompany(userId: number, companyId: number, report: "TRIAL_BALANCE" | "INCOME_STATEMENT" | "BALANCE_SHEET", accountCode?: string) {
+  const rows = await getJournalRowsForUserCompany(userId, companyId);
+  const scopedRows = accountCode ? rows.filter((row) => row.accountCode === accountCode) : rows;
+  const reportRows = report === "TRIAL_BALANCE" ? buildTrialBalance(scopedRows) : report === "INCOME_STATEMENT" ? buildIncomeStatement(scopedRows) : buildBalanceSheet(scopedRows);
+  return { report, companyId, accountCode: accountCode ?? null, summary: reportRows, origins: scopedRows.map((row) => ({ entryId: row.entryId, accountCode: row.accountCode, accountName: row.accountName, sourceDocumentId: row.sourceDocumentId, description: row.description, debit: row.debit, credit: row.credit, createdAt: row.createdAt })) };
+}
+
 export async function getVatSummaryForUserCompany(userId: number, companyId: number) {
   const documents = await getDocumentsForUserCompany(userId, companyId);
   return buildVatSummary(documents.map(({ document }) => ({ status: document.status, ivaRegime: document.ivaRegime, netAmount: Number(document.netAmount), taxAmount: Number(document.taxAmount), totalAmount: Number(document.totalAmount) })));
@@ -220,7 +227,7 @@ export async function transitionBusinessDocument(input: { userId: number; compan
   return { id: input.documentId, from: current.document.status, to: input.to };
 }
 
-export async function postJournalEntry(input: { companyId: number; periodId: number; sourceDocumentId?: number; idempotencyKey: string; description: string; createdBy: number; lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[] }) {
+export async function postJournalEntry(input: { companyId: number; periodId: number; sourceDocumentId?: number; reversalOfEntryId?: number; idempotencyKey: string; description: string; createdBy: number; lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[] }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const validation = validateBalancedEntry(input.lines);
@@ -232,13 +239,13 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
     if (existing[0]) return { entry: existing[0], idempotent: true };
     const period = await tx.select().from(fiscalPeriods).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId))).limit(1);
     if (!period[0] || period[0].status === "CLOSED") throw new Error("PERIOD_NOT_OPEN");
-    const inserted = await tx.insert(journalEntries).values({ companyId: input.companyId, periodId: input.periodId, sourceDocumentId: input.sourceDocumentId, idempotencyKey: input.idempotencyKey, description: input.description, createdBy: input.createdBy, status: "POSTED" });
+    const inserted = await tx.insert(journalEntries).values({ companyId: input.companyId, periodId: input.periodId, sourceDocumentId: input.sourceDocumentId, reversalOfEntryId: input.reversalOfEntryId, idempotencyKey: input.idempotencyKey, description: input.description, createdBy: input.createdBy, status: "POSTED" });
     const entryId = Number(inserted[0].insertId);
     await tx.insert(journalLines).values(input.lines.map((line) => ({ entryId, accountId: line.accountId, debit: line.debit.toFixed(2), credit: line.credit.toFixed(2), currency: line.currency ?? "AOA", exchangeRate: (line.exchangeRate ?? 1).toFixed(8) })));
     return { entryId, idempotent: false };
   });
   if (!result.idempotent) {
-    await appendAuditEvent({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
+    await appendAuditEvent({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: input.reversalOfEntryId ? "JOURNAL_ENTRY_REVERSED" : "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), beforeState: input.reversalOfEntryId ? JSON.stringify({ reversalOfEntryId: input.reversalOfEntryId }) : undefined, afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, reversalOfEntryId: input.reversalOfEntryId, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
   }
   return result;
 }

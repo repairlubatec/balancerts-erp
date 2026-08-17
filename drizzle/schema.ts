@@ -55,6 +55,7 @@ export const journalEntries = mysqlTable("journalEntries", {
   companyId: int("companyId").notNull(),
   periodId: int("periodId").notNull(),
   sourceDocumentId: int("sourceDocumentId"),
+  reversalOfEntryId: int("reversalOfEntryId"),
   idempotencyKey: varchar("idempotencyKey", { length: 120 }).notNull().unique(),
   status: mysqlEnum("status", ["POSTED", "REVERSED"]).default("POSTED").notNull(),
   description: text("description").notNull(),

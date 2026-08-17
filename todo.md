@@ -24,7 +24,7 @@
 - [x] Imobilizado com depreciação versionada, auditável e ligada ao motor contabilístico
 - [x] Multimoeda com moeda da operação, moeda funcional, taxa, fonte e data
 - [x] Documentos e ficheiros com hash, metadados, ACL e validação no download
-- [ ] Auditoria de negócio separada dos logs técnicos, append-only e reconstruível
+- [x] Auditoria de negócio separada dos logs técnicos, append-only e reconstruível
 - [ ] Operações críticas com actor, entidade, empresa, estado anterior/posterior, timestamp e correlação
 - [ ] Relatórios: Balancete, Diário, Razão, Demonstração de Resultados, Balanço, auxiliares e fiscais
 - [ ] Relatórios reconciliáveis com razão, auxiliares, documentos e origem
@@ -82,3 +82,6 @@
 - [x] Expor validação normativa no router fiscal e cobrir Contabilista autorizado versus Operador bloqueado
 - [x] Adicionar teste de integração real não destrutivo para queries tenant-aware sem inserir dados artificiais
 - [x] Validar por integração real que reconciliação de stock não devolve dados de empresa/tenant inexistente
+- [x] Persistir reversalOfEntryId, emitir JOURNAL_ENTRY_REVERSED e testar rastreabilidade estruturada do estorno
+- [ ] Completar navegação Conta→Relatório e Relatório→Conta/Documento/Lançamento com percurso integrado
+- [x] Ligar relatório, conta, lançamento e documento de origem numa consulta reports.trace tenant-aware, com teste directo do endpoint
