@@ -202,7 +202,11 @@ export async function getReportTraceForUserCompany(userId: number, companyId: nu
   const rows = await getJournalRowsForUserCompany(userId, companyId);
   const scopedRows = accountCode ? rows.filter((row) => row.accountCode === accountCode) : rows;
   const reportRows = report === "TRIAL_BALANCE" ? buildTrialBalance(scopedRows) : report === "INCOME_STATEMENT" ? buildIncomeStatement(scopedRows) : buildBalanceSheet(scopedRows);
-  return { report, companyId, accountCode: accountCode ?? null, summary: reportRows, origins: scopedRows.map((row) => ({ entryId: row.entryId, accountCode: row.accountCode, accountName: row.accountName, sourceDocumentId: row.sourceDocumentId, description: row.description, debit: row.debit, credit: row.credit, createdAt: row.createdAt })) };
+  const documentIds = Array.from(new Set(scopedRows.map((row) => row.sourceDocumentId).filter((id): id is number => id !== null)));
+  const documents = new Map<number, unknown>();
+  for (const documentId of documentIds) documents.set(documentId, await getDocumentAccountingChainForUserCompany(userId, companyId, documentId));
+  const origins = scopedRows.map((row) => ({ entryId: row.entryId, account: { code: row.accountCode, name: row.accountName }, document: row.sourceDocumentId ? documents.get(row.sourceDocumentId) : null, sourceDocumentId: row.sourceDocumentId, description: row.description, debit: row.debit, credit: row.credit, createdAt: row.createdAt }));
+  return { report, companyId, accountCode: accountCode ?? null, summary: reportRows, origins };
 }
 
 export async function getVatSummaryForUserCompany(userId: number, companyId: number) {

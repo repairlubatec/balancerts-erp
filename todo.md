@@ -85,3 +85,4 @@
 - [x] Persistir reversalOfEntryId, emitir JOURNAL_ENTRY_REVERSED e testar rastreabilidade estruturada do estorno
 - [ ] Completar navegação Conta→Relatório e Relatório→Conta/Documento/Lançamento com percurso integrado
 - [x] Ligar relatório, conta, lançamento e documento de origem numa consulta reports.trace tenant-aware, com teste directo do endpoint
+- [x] Validar reports.trace na base real com filtro accountCode e confirmação de que não existem origens fora do tenant
