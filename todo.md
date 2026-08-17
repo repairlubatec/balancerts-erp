@@ -215,3 +215,4 @@
 - [x] Reforçar buildVatSummary e buildReportReconciliation para rejeitar IVA positivo em EXCLUSÃO, com testes auxiliares e integração real sem dados
 - [x] Tornar reports.reconciliation conservador perante divergência de origem documental, sem alterar os cinco checks visualizados na Home
 - [x] Criar e testar buildCompleteReportReconciliation, fazendo a reconciliação global depender também da origem documental
+- [x] Explicitar por tabela os dez estados PENDING/READY e alinhar cada um com o contrato de auditoria; a prova de execução persistida continua separada

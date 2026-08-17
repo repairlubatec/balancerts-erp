@@ -24,8 +24,12 @@ describe("pending mutation policy", () => {
   });
 
   it("allows pending only for provisioning operations", () => {
-    expect(getPendingMutationPolicy("companies.create")?.allowsPending).toBe(true);
-    expect(getPendingMutationPolicy("companies.activate")?.allowsPending).toBe(true);
+    const expected = new Map([
+      ["companies.create", true], ["companies.activate", true], ["inventory.record", false], ["files.register", false],
+      ["documents.reserveNumber", false], ["documents.transition", false], ["accounting.post", false], ["reversal.post", false],
+      ["fixedAssets.postDepreciation", false], ["closing.validateReopen", false],
+    ]);
+    for (const [mutation, allowsPending] of expected) expect(getPendingMutationPolicy(mutation)?.allowsPending).toBe(allowsPending);
     expect(pendingMutationPolicy.filter((item) => !item.allowsPending).length).toBe(8);
   });
 });
