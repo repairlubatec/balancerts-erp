@@ -82,6 +82,7 @@ describe("database tenant integration", () => {
     const stock = await reconcileStockForUserCompany({ userId: 987654321, companyId: 987654321, inventoryAccountId: 987654321 });
     const trace = await getReportTraceForUserCompany(987654321, 987654321, "TRIAL_BALANCE", "11.1");
     const reconciliation = await getReportsReconciliationForUserCompany(987654321, 987654321);
+    await expect(getSaftReadinessForUserCompany(987654321, 987654321)).rejects.toThrow("COMPANY_NOT_FOUND_OR_FORBIDDEN");
 
     expect(companies).toEqual([]);
     expect(documents).toEqual([]);
