@@ -30,7 +30,7 @@ describe("commercial-to-accounting tRPC cycle", () => {
 
   it("completes fiscal validation and close evaluation after the accounting cycle", async () => {
     const scope = vi.spyOn(db, "assertAuditScopeForUser").mockResolvedValue(true);
-    const period = vi.spyOn(db, "assertFiscalPeriodForUserCompany").mockResolvedValue(true);
+    const period = vi.spyOn(db, "assertClosedFiscalPeriodForUserCompany").mockResolvedValue(true);
     const append = vi.spyOn(db, "appendAuditEventForUser").mockResolvedValue({} as never);
     const accountant = callerFor("contabilista");
     await expect(accountant.fiscal.calculateIva({ netAmount: 1000, regime: "GERAL", rule: { code: "IVA-GER-001", regime: "GERAL", validFrom: new Date("2026-01-01"), rate: 0.14, evidence: "AGT Calendário Fiscal 2026" } })).resolves.toMatchObject({ netAmount: 1000, taxAmount: 140, totalAmount: 1140 });

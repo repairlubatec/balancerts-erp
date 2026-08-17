@@ -164,3 +164,4 @@
 - [x] Unificar stock e ficheiros no guard central actor→organização→empresa antes da escrita e auditoria
 - [x] Provar na base real que stock e ficheiros rejeitam organizationId forjado da Repair Lubatec antes de persistir
 - [x] Validar periodId pertencente à empresa e ao tenant antes de reabertura/auditoria, com prova negativa na base real
+- [x] Impedir reabertura de períodos OPEN/CLOSING e validar estado CLOSED antes do evento PERIOD_REOPEN, com prova real na Repair Lubatec
