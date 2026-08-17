@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary } from "./reports";
+import { assertSaftExportReady, buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary } from "./reports";
 
 describe("reconciliable reports", () => {
   it("aggregates account movements and reconciles totals", () => {
@@ -60,6 +60,8 @@ describe("reconciliable reports", () => {
     expect(blocked.ready).toBe(false);
     expect(blocked.missing).toEqual(expect.arrayContaining(["MASTERFILES_ACCOUNTS", "GENERAL_LEDGER_ENTRIES", "SOURCE_DOCUMENTS", "MASTERFILES_CUSTOMERS", "MASTERFILES_SUPPLIERS", "MASTERFILES_PRODUCTS", "MASTERFILES_TAX_TABLES"]));
     expect(blocked.submissionEligible).toBe(false);
+    expect(() => assertSaftExportReady(complete)).toThrow("SAFT_EXPORT_NOT_READY:AGT_VALIDATION_REQUIRED");
+    expect(() => assertSaftExportReady(blocked)).toThrow("SAFT_EXPORT_NOT_READY:MASTERFILES_ACCOUNTS");
   });
 
   it("reconciles income statement and balance sheet", () => {

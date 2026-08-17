@@ -149,6 +149,11 @@ export type SaftCoverageInput = {
   taxRuleCount: number;
 };
 
+export function assertSaftExportReady(readiness: ReturnType<typeof buildSaftReadiness>) {
+  if (!readiness.ready || !readiness.submissionEligible) throw new Error(`SAFT_EXPORT_NOT_READY:${readiness.missing.join(",") || "AGT_VALIDATION_REQUIRED"}`);
+  return true as const;
+}
+
 export function buildSaftReadiness(input: SaftCoverageInput) {
   const missing: string[] = [];
   if (!input.companyName) missing.push("HEADER_COMPANY_NAME");

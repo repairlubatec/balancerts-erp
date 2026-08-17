@@ -24,7 +24,7 @@ describe("database tenant integration", () => {
     expect(vatSummary).toMatchObject({ rows: [], totals: { netAmount: 0, taxAmount: 0, totalAmount: 0 } });
     expect(await reconcileStockForUserCompany({ userId: 1, companyId: repair!.company.id, inventoryAccountId: 999999 })).toMatchObject({ reconciled: true, difference: 0 });
     expect(await getReportsReconciliationForUserCompany(1, repair!.company.id)).toMatchObject({ companyId: repair!.company.id, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } });
-  });
+  }, 15000);
 
   it("rejects incomplete critical mutations after Repair Lubatec activation", async () => {
     await expect(reserveDocumentNumber({ userId: 1, companyId: 1, series: "FT", documentType: "FT" })).rejects.toThrow();

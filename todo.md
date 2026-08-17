@@ -185,3 +185,5 @@
 - [x] Finalizar os cartões Volume Facturado, A Receber e Reconciliação da Home com fiscalRegister, customerAging e reports.reconciliation persistentes e tenant-aware
 - [x] Normalizar e testar snapshots beforeState/afterState estruturados na mutação fixedAssets.postDepreciation, incluindo actor, entidade, lançamento e correlação
 - [x] Normalizar e testar snapshots beforeState/afterState estruturados na mutação closing.validateReopen, incluindo período, motivo, actor e correlationId
+- [x] Adicionar guard assertSaftExportReady para impedir exportação SAF-T quando faltam entidades ou validação AGT/XSD, com cobertura de prontidão completa e incompleta
+- [x] Estabilizar o teste de integração de leitura tenant-aware com timeout explícito para latência de TiDB, sem alterar as asserções funcionais
