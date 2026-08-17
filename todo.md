@@ -236,8 +236,15 @@
 - [ ] Implementar entidades e associações de clientes/fornecedores, itens, impostos, pagamentos e contabilidade, com imutabilidade pós-emissão
 - [ ] Parametrizar de forma verificável o Decreto Presidencial n.º 71/25 e requisitos AGT, distinguindo evidência normativa interna de validação externa
 - [ ] Expandir módulos operacionais persistentes de clientes, fornecedores, caixa, bancos e tesouraria com RBAC, auditoria e reconciliação
-- [ ] Adicionar testes de integração e migração para os quatro blocos expandidos, sem alterar dados da Repair Lubatec
+- [x] Adicionar testes de integração e migração para os quatro blocos expandidos, sem alterar dados da Repair Lubatec
 - [x] Criar migração 0015 não destrutiva para contrapartes, produtos, linhas/impostos documentais, pagamentos, caixa, tesouraria e regras normativas
 - [x] Expor routers tenant-aware de contrapartes, catálogo, caixa/banco, pagamentos, tesouraria e regras normativas com RBAC
 - [x] Cobrir em integração criação, leitura, auditoria, idempotência e rejeição de empresa forjada nos módulos expandidos
 - [x] Registar a regra interna AO-FATURAS-71-25 com fonte pública e EXTERNAL_PENDING, sem declarar certificação AGT
+- [x] Rejeitar operações de integração com empresa/organização incompatíveis e impedir replay de chave fora do escopo
+- [x] Expor `reports.saftExport` tenant-aware, devolvendo metadados SAF-T AO e bloqueando XML até elegibilidade/validação externa
+- [x] Testar negativamente alterações de contraparte documental, itens, impostos e pagamentos após ISSUED/ACCOUNTED/CANCELLED
+- [x] Implementar e testar anulação com motivo obrigatório e rectificação NC/ND referenciada ao documento de origem, sem apagar o original
+- [x] Bloquear actualização de contraparte ligada a documento emitido, contabilizado ou anulado, com auditoria quando permitida
+- [x] Implementar arquivo lógico idempotente de documentos anulados, preservando o original e registando evento auditado
+- [x] Expor matriz operacional versionada do Decreto 71/25 para emissão, rectificação, anulação, recibo, arquivo e certificação, com EXTERNAL_PENDING onde aplicável

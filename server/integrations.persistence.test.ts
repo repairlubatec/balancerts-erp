@@ -27,6 +27,7 @@ describe("persisted integration recovery", () => {
       const replayed = await executePersistedIdempotentIntegration({ organizationId: TEST_ORGANIZATION_ID, companyId: TEST_COMPANY_ID, idempotencyKey: key, execute: async () => { throw new Error("MUST_NOT_EXECUTE"); } });
       expect(replayed).toMatchObject({ state: "COMPLETED", attempts: 2, result: { remoteId: "AO-RECOVERED-1" }, idempotent: true });
       expect((await db!.select({ id: integrationOperations.id }).from(integrationOperations).where(eq(integrationOperations.idempotencyKey, key)))).toHaveLength(1);
+      await expect(executePersistedIdempotentIntegration({ organizationId: TEST_ORGANIZATION_ID, companyId: 30002, idempotencyKey: key, execute: async () => ({ remoteId: "MUST_NOT_EXECUTE" }) })).rejects.toThrow("INTEGRATION_SCOPE_MISMATCH");
     } finally {
       await db?.delete(integrationOperations).where(eq(integrationOperations.idempotencyKey, key));
     }

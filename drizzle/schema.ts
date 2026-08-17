@@ -171,6 +171,9 @@ export const businessDocuments = mysqlTable("businessDocuments", {
   issuedAt: timestamp("issuedAt"),
   createdBy: int("createdBy").notNull(),
   immutableHash: varchar("immutableHash", { length: 64 }),
+  correctsDocumentId: int("correctsDocumentId"),
+  cancellationReason: varchar("cancellationReason", { length: 255 }),
+  archivedAt: timestamp("archivedAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 

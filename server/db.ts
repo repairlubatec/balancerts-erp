@@ -2,10 +2,10 @@ import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, cashAccounts, chartAccounts, companies, counterparties, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+import { InsertUser, auditEvents, businessDocuments, cashAccounts, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
-import { formatDocumentNumber } from "./documents";
+import { assertDocumentMutable, formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
 import { ENV } from "./_core/env";
 
@@ -361,6 +361,106 @@ export async function reserveDocumentNumber(input: { userId: number; companyId: 
   return result;
 }
 
+export async function createDraftBusinessDocumentForUser(input: { userId: number; companyId: number; series: string; documentType: string; counterpartyId: number; counterpartyType: "CUSTOMER" | "SUPPLIER"; ivaRegime: "GERAL" | "SIMPLIFICADO" | "EXCLUSAO"; currency?: string; dueDate?: Date; correctsDocumentId?: number; items: Array<{ productId?: number; description: string; quantity: number; unitPrice: number; netAmount: number; taxAmount: number; totalAmount: number; taxType?: string; taxRate?: number }>; normativeRuleId?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  const companyContext = await db.select({ organizationId: companies.organizationId, functionalCurrency: companies.functionalCurrency }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!companyContext[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const counterparty = await db.select({ id: counterparties.id, name: counterparties.name, kind: counterparties.kind }).from(counterparties).where(and(eq(counterparties.id, input.counterpartyId), eq(counterparties.companyId, input.companyId), eq(counterparties.kind, input.counterpartyType))).limit(1);
+  if (!counterparty[0]) throw new Error("COUNTERPARTY_NOT_FOUND_OR_FORBIDDEN");
+  if (["NC", "ND"].includes(input.documentType) && !input.correctsDocumentId) throw new Error("CORRECTION_ORIGIN_REQUIRED");
+  if (input.correctsDocumentId) {
+    const original = await db.select({ id: businessDocuments.id, status: businessDocuments.status }).from(businessDocuments).where(and(eq(businessDocuments.id, input.correctsDocumentId), eq(businessDocuments.companyId, input.companyId))).limit(1);
+    if (!original[0]) throw new Error("CORRECTION_ORIGIN_NOT_FOUND_OR_FORBIDDEN");
+    if (!["ISSUED", "ACCOUNTED", "CANCELLED"].includes(original[0].status)) throw new Error("CORRECTION_ORIGIN_NOT_EMITTED");
+  }
+  if (!input.items.length) throw new Error("DOCUMENT_ITEMS_REQUIRED");
+  const totals = input.items.reduce((sum, item) => ({ net: sum.net + item.netAmount, tax: sum.tax + item.taxAmount, total: sum.total + item.totalAmount }), { net: 0, tax: 0, total: 0 });
+  if (Math.abs(totals.net + totals.tax - totals.total) > 0.01) throw new Error("DOCUMENT_TOTALS_UNBALANCED");
+  const reserved = await reserveDocumentNumber({ userId: input.userId, companyId: input.companyId, series: input.series, documentType: input.documentType });
+  const inserted = await db.transaction(async (tx) => {
+    const documentResult = await tx.insert(businessDocuments).values({ companyId: input.companyId, documentNumber: reserved.formatted, series: input.series, status: "DRAFT", documentType: input.documentType, customerName: counterparty[0].name, counterpartyId: input.counterpartyId, counterpartyType: input.counterpartyType, correctsDocumentId: input.correctsDocumentId, currency: input.currency ?? companyContext[0].functionalCurrency, ivaRegime: input.ivaRegime, netAmount: totals.net.toFixed(2), taxAmount: totals.tax.toFixed(2), totalAmount: totals.total.toFixed(2), dueDate: input.dueDate, createdBy: input.userId });
+    const documentId = Number(documentResult[0].insertId);
+    for (let index = 0; index < input.items.length; index += 1) {
+      const item = input.items[index];
+      const itemResult = await tx.insert(documentItems).values({ companyId: input.companyId, documentId, lineNumber: index + 1, productId: item.productId, description: item.description, quantity: item.quantity.toFixed(4), unitPrice: item.unitPrice.toFixed(4), netAmount: item.netAmount.toFixed(2), taxAmount: item.taxAmount.toFixed(2), totalAmount: item.totalAmount.toFixed(2) });
+      const itemId = Number(itemResult[0].insertId);
+      if (item.taxAmount > 0 || item.taxType) await tx.insert(documentTaxes).values({ companyId: input.companyId, documentId, itemId, taxType: item.taxType ?? "IVA", regime: input.ivaRegime, rate: (item.taxRate ?? 0).toFixed(4), baseAmount: item.netAmount.toFixed(2), taxAmount: item.taxAmount.toFixed(2), normativeRuleId: input.normativeRuleId });
+    }
+    return { documentId };
+  });
+  await appendAuditEventForUser({ organizationId: companyContext[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "BUSINESS_DOCUMENT_CREATED", entityType: "businessDocument", entityId: String(inserted.documentId), beforeState: null, afterState: JSON.stringify({ documentNumber: reserved.formatted, status: "DRAFT", counterpartyId: input.counterpartyId, correctsDocumentId: input.correctsDocumentId ?? null, itemCount: input.items.length, netAmount: totals.net, taxAmount: totals.tax, totalAmount: totals.total }), correlationId: `${input.companyId}:${reserved.series}:${reserved.number}` });
+  return { id: inserted.documentId, documentNumber: reserved.formatted, status: "DRAFT" as const, counterpartyId: input.counterpartyId, totals };
+}
+
+async function assertCommercialDocumentMutable(input: { userId: number; companyId: number; documentId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const row = await db.select({ document: businessDocuments, organizationId: companies.organizationId }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(businessDocuments.id, input.documentId), eq(businessDocuments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!row[0]) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+  assertDocumentMutable(row[0].document.status);
+  return row[0];
+}
+
+export async function updateCounterpartyForUser(input: { userId: number; companyId: number; counterpartyId: number; name?: string; email?: string; phone?: string; address?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const row = await db.select({ counterparty: counterparties, organizationId: companies.organizationId }).from(counterparties).innerJoin(companies, eq(counterparties.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(counterparties.id, input.counterpartyId), eq(counterparties.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!row[0]) throw new Error("COUNTERPARTY_NOT_FOUND_OR_FORBIDDEN");
+  const linked = await db.select({ id: businessDocuments.id, status: businessDocuments.status }).from(businessDocuments).where(and(eq(businessDocuments.companyId, input.companyId), eq(businessDocuments.counterpartyId, input.counterpartyId))).limit(20);
+  if (linked.some((document) => ["ISSUED", "ACCOUNTED", "CANCELLED"].includes(document.status))) throw new Error("COUNTERPARTY_IMMUTABLE_AFTER_DOCUMENT_ISSUANCE");
+  await db.update(counterparties).set({ name: input.name, email: input.email, phone: input.phone, address: input.address }).where(eq(counterparties.id, input.counterpartyId));
+  await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "COUNTERPARTY_UPDATED", entityType: "counterparty", entityId: String(input.counterpartyId), beforeState: JSON.stringify(row[0].counterparty), afterState: JSON.stringify({ ...row[0].counterparty, ...input }), correlationId: `counterparty:${input.counterpartyId}` });
+  return { id: input.counterpartyId };
+}
+
+export async function updateDocumentItemForUser(input: { userId: number; companyId: number; itemId: number; description?: string; quantity?: number; unitPrice?: number; netAmount?: number; taxAmount?: number; totalAmount?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const item = await db.select({ item: documentItems }).from(documentItems).where(and(eq(documentItems.id, input.itemId), eq(documentItems.companyId, input.companyId))).limit(1);
+  if (!item[0]) throw new Error("DOCUMENT_ITEM_NOT_FOUND_OR_FORBIDDEN");
+  const document = await assertCommercialDocumentMutable({ userId: input.userId, companyId: input.companyId, documentId: item[0].item.documentId });
+  await db.update(documentItems).set({ description: input.description, quantity: input.quantity === undefined ? undefined : input.quantity.toFixed(4), unitPrice: input.unitPrice === undefined ? undefined : input.unitPrice.toFixed(4), netAmount: input.netAmount === undefined ? undefined : input.netAmount.toFixed(2), taxAmount: input.taxAmount === undefined ? undefined : input.taxAmount.toFixed(2), totalAmount: input.totalAmount === undefined ? undefined : input.totalAmount.toFixed(2) }).where(eq(documentItems.id, input.itemId));
+  await appendAuditEventForUser({ organizationId: document.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_ITEM_UPDATED", entityType: "documentItem", entityId: String(input.itemId), beforeState: JSON.stringify(item[0].item), afterState: JSON.stringify({ ...item[0].item, ...input }), correlationId: `document-item:${input.itemId}` });
+  return { id: input.itemId, documentId: item[0].item.documentId };
+}
+
+export async function updateDocumentTaxForUser(input: { userId: number; companyId: number; taxId: number; rate?: number; baseAmount?: number; taxAmount?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const tax = await db.select({ tax: documentTaxes }).from(documentTaxes).where(and(eq(documentTaxes.id, input.taxId), eq(documentTaxes.companyId, input.companyId))).limit(1);
+  if (!tax[0]) throw new Error("DOCUMENT_TAX_NOT_FOUND_OR_FORBIDDEN");
+  const document = await assertCommercialDocumentMutable({ userId: input.userId, companyId: input.companyId, documentId: tax[0].tax.documentId });
+  await db.update(documentTaxes).set({ rate: input.rate === undefined ? undefined : input.rate.toFixed(4), baseAmount: input.baseAmount === undefined ? undefined : input.baseAmount.toFixed(2), taxAmount: input.taxAmount === undefined ? undefined : input.taxAmount.toFixed(2) }).where(eq(documentTaxes.id, input.taxId));
+  await appendAuditEventForUser({ organizationId: document.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_TAX_UPDATED", entityType: "documentTax", entityId: String(input.taxId), beforeState: JSON.stringify(tax[0].tax), afterState: JSON.stringify({ ...tax[0].tax, ...input }), correlationId: `document-tax:${input.taxId}` });
+  return { id: input.taxId, documentId: tax[0].tax.documentId };
+}
+
+export async function archiveBusinessDocumentForUser(input: { userId: number; companyId: number; documentId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const row = await db.select({ document: businessDocuments, organizationId: companies.organizationId }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(businessDocuments.id, input.documentId), eq(businessDocuments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!row[0]) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+  if (row[0].document.status !== "CANCELLED") throw new Error("DOCUMENT_ARCHIVE_REQUIRES_CANCELLED");
+  if (row[0].document.archivedAt) return { id: input.documentId, archivedAt: row[0].document.archivedAt, idempotent: true };
+  const archivedAt = new Date();
+  await db.update(businessDocuments).set({ archivedAt }).where(eq(businessDocuments.id, input.documentId));
+  await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_ARCHIVED", entityType: "businessDocument", entityId: String(input.documentId), beforeState: JSON.stringify({ status: row[0].document.status, archivedAt: null }), afterState: JSON.stringify({ status: row[0].document.status, archivedAt }), correlationId: `document:${input.documentId}:archive` });
+  return { id: input.documentId, archivedAt, idempotent: false };
+}
+
+export async function updatePaymentForUser(input: { userId: number; companyId: number; paymentId: number; amount?: number; method?: "CASH" | "BANK_TRANSFER" | "CARD" | "OTHER"; status?: "PENDING" | "CONFIRMED" | "CANCELLED" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const payment = await db.select({ payment: payments, organizationId: companies.organizationId }).from(payments).innerJoin(companies, eq(payments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(payments.id, input.paymentId), eq(payments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!payment[0]) throw new Error("PAYMENT_NOT_FOUND_OR_FORBIDDEN");
+  if (payment[0].payment.documentId) await assertCommercialDocumentMutable({ userId: input.userId, companyId: input.companyId, documentId: payment[0].payment.documentId });
+  await db.update(payments).set({ amount: input.amount === undefined ? undefined : input.amount.toFixed(2), method: input.method, status: input.status }).where(eq(payments.id, input.paymentId));
+  await appendAuditEventForUser({ organizationId: payment[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_UPDATED", entityType: "payment", entityId: String(input.paymentId), beforeState: JSON.stringify(payment[0].payment), afterState: JSON.stringify({ ...payment[0].payment, ...input }), correlationId: `payment-update:${input.paymentId}` });
+  return { id: input.paymentId };
+}
+
 export async function getJournalDocumentChainForUserCompany(userId: number, companyId: number, entryId: number) {
   const db = await getDb();
   if (!db) return null;
@@ -488,7 +588,7 @@ export async function getSaftReadinessForUserCompany(userId: number, companyId: 
   });
 }
 
-export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED"; correlationId?: string }) {
+export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED"; cancellationReason?: string; correlationId?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertCompanyReady(db, input.userId, input.companyId);
@@ -496,14 +596,16 @@ export async function transitionBusinessDocument(input: { userId: number; compan
   const current = document[0];
   if (!current) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
   if (!validateDocumentTransition(current.document.status, input.to)) throw new Error("INVALID_DOCUMENT_TRANSITION");
+  if (input.to === "CANCELLED" && !input.cancellationReason?.trim()) throw new Error("CANCELLATION_REASON_REQUIRED");
   if (input.to === "ACCOUNTED") {
     const linkedEntry = await db.select({ id: journalEntries.id }).from(journalEntries).where(and(eq(journalEntries.sourceDocumentId, input.documentId), eq(journalEntries.companyId, input.companyId), eq(journalEntries.status, "POSTED"))).limit(1);
     if (!linkedEntry[0]) throw new Error("DOCUMENT_REQUIRES_POSTED_ENTRY");
   }
   const issuedAt = input.to === "ISSUED" ? new Date() : current.document.issuedAt;
   const immutableHash = input.to === "ISSUED" ? createHash("sha256").update(JSON.stringify({ companyId: input.companyId, documentId: input.documentId, documentNumber: current.document.documentNumber, documentType: current.document.documentType, counterpartyId: current.document.counterpartyId, counterpartyType: current.document.counterpartyType, currency: current.document.currency, ivaRegime: current.document.ivaRegime, netAmount: current.document.netAmount, taxAmount: current.document.taxAmount, totalAmount: current.document.totalAmount, issuedAt: issuedAt?.toISOString() ?? null })).digest("hex") : current.document.immutableHash;
-  await db.update(businessDocuments).set({ status: input.to, issuedAt, immutableHash }).where(eq(businessDocuments.id, input.documentId));
-  await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: `DOCUMENT_${input.to}`, entityType: "businessDocument", entityId: String(input.documentId), beforeState: JSON.stringify({ status: current.document.status }), afterState: JSON.stringify({ status: input.to }), correlationId: input.correlationId ?? `document:${input.documentId}:${input.to}` });
+  const cancellationReason = input.to === "CANCELLED" ? input.cancellationReason!.trim() : current.document.cancellationReason;
+  await db.update(businessDocuments).set({ status: input.to, issuedAt, immutableHash, cancellationReason }).where(eq(businessDocuments.id, input.documentId));
+  await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: `DOCUMENT_${input.to}`, entityType: "businessDocument", entityId: String(input.documentId), beforeState: JSON.stringify({ status: current.document.status, cancellationReason: current.document.cancellationReason }), afterState: JSON.stringify({ status: input.to, cancellationReason }), correlationId: input.correlationId ?? `document:${input.documentId}:${input.to}` });
   return { id: input.documentId, from: current.document.status, to: input.to };
 }
 

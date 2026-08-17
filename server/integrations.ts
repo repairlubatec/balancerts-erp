@@ -26,7 +26,7 @@ export async function executeIdempotentIntegration<T>(input: { idempotencyKey: s
 
 
 import { and, eq } from "drizzle-orm";
-import { integrationOperations } from "../drizzle/schema";
+import { companies, integrationOperations, organizations } from "../drizzle/schema";
 import { getDb } from "./db";
 
 export type PersistedIntegrationState = "PENDING" | "SENT" | "FAILED" | "RETRY" | "COMPLETED" | "RECONCILIATION_REQUIRED";
@@ -34,7 +34,11 @@ export type PersistedIntegrationState = "PENDING" | "SENT" | "FAILED" | "RETRY" 
 export async function executePersistedIdempotentIntegration<T>(input: { organizationId: number; companyId: number; idempotencyKey: string; execute: (signal?: AbortSignal) => Promise<T>; maxRetries?: number; timeoutMs?: number }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  const existing = await db.select().from(integrationOperations).where(and(eq(integrationOperations.organizationId, input.organizationId), eq(integrationOperations.companyId, input.companyId), eq(integrationOperations.idempotencyKey, input.idempotencyKey))).limit(1);
+  const companyContext = await db.select({ companyId: companies.id, organizationId: companies.organizationId }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId))).limit(1);
+  if (!companyContext[0]) throw new Error("INTEGRATION_SCOPE_MISMATCH");
+  const byKey = await db.select().from(integrationOperations).where(eq(integrationOperations.idempotencyKey, input.idempotencyKey)).limit(1);
+  if (byKey[0] && (byKey[0].organizationId !== input.organizationId || byKey[0].companyId !== input.companyId)) throw new Error("INTEGRATION_IDEMPOTENCY_SCOPE_MISMATCH");
+  const existing = byKey;
   let operation = existing[0];
   if (operation?.state === "COMPLETED") return { state: operation.state, idempotencyKey: input.idempotencyKey, attempts: operation.attempts, result: operation.resultPayload ? JSON.parse(operation.resultPayload) as T : undefined, idempotent: true };
   if (!operation) {
