@@ -210,3 +210,4 @@
 - [ ] Adicionar integração de base de dados que grave movimentos/lançamentos e valide estados reconciliado, divergente e isolamento entre empresas
 - [ ] Adicionar provas de reprocessamento e recuperação após falha parcial usando estado persistido, além de retries e timeout
 - [x] Incluir documentOrigin como evidência persistente na resposta de reports.reconciliation, preservando os checks agregados existentes e o contrato da Home
+- [x] Provar no percurso real da Repair Lubatec que reports.reconciliation inclui documentOrigin reconciliado e sem órfãos, mantendo os checks agregados

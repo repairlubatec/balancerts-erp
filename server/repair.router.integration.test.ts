@@ -53,6 +53,7 @@ describe("Repair Lubatec router integration", () => {
     expect(await caller.reports.agtValidation({ companyId: 1, year: 2023, month: 9 })).toMatchObject({ companyId: 1, period: { year: 2023, month: 9 }, regime: "EXCLUSAO", validation: { valid: true, errors: [] } });
     expect(await caller.reports.saftReadiness({ companyId: 1 })).toMatchObject({ format: "SAFTAO1.01_01", schemaVersion: "1.01_01", ready: false, submissionEligible: false });
     expect(await caller.reports.documentOriginReconciliation({ companyId: 1 })).toMatchObject({ companyId: 1, missingJournalDocumentIds: [], orphanJournalEntryIds: [], reconciled: true });
+    expect(await caller.reports.reconciliation({ companyId: 1 })).toMatchObject({ companyId: 1, reconciled: true, documentOrigin: { reconciled: true, missingJournalDocumentIds: [], orphanJournalEntryIds: [] } });
     expect(await caller.reports.trialBalance({ companyId: 1 })).toMatchObject({ rows: [] });
     expect(await caller.reports.journal({ companyId: 1 })).toMatchObject({ entries: [], totals: { debit: 0, credit: 0 } });
     expect(await caller.reports.ledger({ companyId: 1 })).toMatchObject({ entries: [] });
