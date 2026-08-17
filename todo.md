@@ -177,3 +177,4 @@
 - [x] Criar e testar contrato agregado de reconciliação para Balancete, Diário, Balanço, IVA e registo fiscal
 - [x] Testar imutabilidade pós-emissão na máquina documental: ACCOUNTED/CANCELLED não regressam a DRAFT/VALIDATED
 - [x] Expor reports.reconciliation tenant-aware com checks agregados de Balancete, Diário, Balanço, IVA e registo fiscal
+- [x] Validar em integração real reports.reconciliation para Repair Lubatec e confirmar vazio seguro em escopo inexistente

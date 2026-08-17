@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assertClosedFiscalPeriodForUserCompany, assertFiscalPeriodForUserCompany, createFileAsset, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, recordStockMovement, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { assertClosedFiscalPeriodForUserCompany, assertFiscalPeriodForUserCompany, createFileAsset, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getReportTraceForUserCompany, getReportsReconciliationForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, recordStockMovement, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 
 describe("database tenant integration", () => {
   it("reads Repair Lubatec without exposing operational records", async () => {
@@ -23,6 +23,7 @@ describe("database tenant integration", () => {
     expect(fiscalRegister).toMatchObject({ entries: [], totals: { netAmount: 0, taxAmount: 0, totalAmount: 0 }, reconciled: true });
     expect(vatSummary).toMatchObject({ rows: [], totals: { netAmount: 0, taxAmount: 0, totalAmount: 0 } });
     expect(await reconcileStockForUserCompany({ userId: 1, companyId: repair!.company.id, inventoryAccountId: 999999 })).toMatchObject({ reconciled: true, difference: 0 });
+    expect(await getReportsReconciliationForUserCompany(1, repair!.company.id)).toMatchObject({ companyId: repair!.company.id, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } });
   });
 
   it("rejects incomplete critical mutations after Repair Lubatec activation", async () => {
@@ -77,6 +78,7 @@ describe("database tenant integration", () => {
     const entityAudit = await getAuditEventsForUserCompany(987654321, 987654321, "journalEntry", "99");
     const stock = await reconcileStockForUserCompany({ userId: 987654321, companyId: 987654321, inventoryAccountId: 987654321 });
     const trace = await getReportTraceForUserCompany(987654321, 987654321, "TRIAL_BALANCE", "11.1");
+    const reconciliation = await getReportsReconciliationForUserCompany(987654321, 987654321);
 
     expect(companies).toEqual([]);
     expect(documents).toEqual([]);
@@ -85,6 +87,7 @@ describe("database tenant integration", () => {
     expect(entityAudit).toEqual([]);
     expect(stock).toMatchObject({ reconciled: true, difference: 0 });
     expect(trace).toMatchObject({ report: "TRIAL_BALANCE", accountCode: "11.1", origins: [] });
+    expect(reconciliation).toMatchObject({ companyId: 987654321, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } });
   });
 });
 
