@@ -163,3 +163,4 @@
 - [x] Proteger depreciação e reabertura contra organizationId/empresa fora do tenant antes da mutação, com teste negativo de ausência de posting parcial
 - [x] Unificar stock e ficheiros no guard central actor→organização→empresa antes da escrita e auditoria
 - [x] Provar na base real que stock e ficheiros rejeitam organizationId forjado da Repair Lubatec antes de persistir
+- [x] Validar periodId pertencente à empresa e ao tenant antes de reabertura/auditoria, com prova negativa na base real

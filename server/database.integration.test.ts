@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createFileAsset, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, recordStockMovement, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { assertFiscalPeriodForUserCompany, createFileAsset, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, recordStockMovement, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 
 describe("database tenant integration", () => {
   it("reads Repair Lubatec without exposing operational records", async () => {
@@ -36,6 +36,7 @@ describe("database tenant integration", () => {
     const repair = companies.find(({ company }) => company.nif === "5001121871");
     await expect(recordStockMovement({ userId: 1, organizationId: 999999, companyId: repair!.company.id, periodId: 1, productCode: "FORGED-SCOPE", type: "IN", quantity: 1, unitCost: 1, correlationId: "forged-org-stock" })).rejects.toThrow();
     await expect(createFileAsset({ userId: 1, organizationId: 999999, companyId: repair!.company.id, storageKey: "forged/scope", filename: "forged.txt", mimeType: "text/plain", size: 1, sha256: "0".repeat(64) })).rejects.toThrow();
+    await expect(assertFiscalPeriodForUserCompany({ actorUserId: 1, companyId: repair!.company.id, periodId: 999999 })).rejects.toThrow("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
   });
 
   it("returns no cross-tenant data for unknown user/company scopes", async () => {

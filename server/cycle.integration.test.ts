@@ -30,12 +30,14 @@ describe("commercial-to-accounting tRPC cycle", () => {
 
   it("completes fiscal validation and close evaluation after the accounting cycle", async () => {
     const scope = vi.spyOn(db, "assertAuditScopeForUser").mockResolvedValue(true);
+    const period = vi.spyOn(db, "assertFiscalPeriodForUserCompany").mockResolvedValue(true);
     const append = vi.spyOn(db, "appendAuditEventForUser").mockResolvedValue({} as never);
     const accountant = callerFor("contabilista");
     await expect(accountant.fiscal.calculateIva({ netAmount: 1000, regime: "GERAL", rule: { code: "IVA-GER-001", regime: "GERAL", validFrom: new Date("2026-01-01"), rate: 0.14, evidence: "AGT Calendário Fiscal 2026" } })).resolves.toMatchObject({ netAmount: 1000, taxAmount: 140, totalAmount: 1140 });
     await expect(accountant.closing.evaluate({ checks: [{ code: "BALANCE", label: "Balancete equilibrado", passed: true, blocking: true }, { code: "IVA", label: "IVA validado", passed: true, blocking: true }] })).resolves.toMatchObject({ canClose: true });
     await expect(accountant.closing.validateReopen({ organizationId: 41, companyId: 41, periodId: 9, reason: "Correcção fiscal", correlationId: "cycle-reopen-41-9" })).resolves.toEqual({ reason: "Correcção fiscal", audited: true });
     expect(scope).toHaveBeenCalledWith({ actorUserId: 8, organizationId: 41, companyId: 41 });
+    expect(period).toHaveBeenCalledWith({ actorUserId: 8, companyId: 41, periodId: 9 });
     expect(append).toHaveBeenCalledWith(expect.objectContaining({ action: "PERIOD_REOPEN", actorUserId: 8, correlationId: "cycle-reopen-41-9" }));
   });
 });

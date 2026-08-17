@@ -169,6 +169,14 @@ export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
   return result;
 }
 
+export async function assertFiscalPeriodForUserCompany(input: { actorUserId: number; companyId: number; periodId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const period = await db.select({ id: fiscalPeriods.id }).from(fiscalPeriods).innerJoin(companies, eq(fiscalPeriods.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId), eq(organizations.ownerUserId, input.actorUserId))).limit(1);
+  if (!period[0]) throw new Error("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
+  return true as const;
+}
+
 export async function assertAuditScopeForUser(input: { actorUserId: number; organizationId: number; companyId?: number | null }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
