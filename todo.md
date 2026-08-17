@@ -138,3 +138,6 @@
 - [x] Validar estruturalmente pacotes fiscais AGT quanto a período, regime, origem documental e totais reconciliados
 - [x] Expor reports.agtValidation sobre empresa e fiscalRegister reais, com teste integrado para Repair Lubatec
 - [x] Cobrir em teste tRPC a sequência comercial→contabilística→fiscal→fecho→reabertura auditada
+- [ ] Completar a auditoria de todas as mutações persistentes críticas, garantindo actor, empresa, entidade, correlationId e snapshots beforeState/afterState consistentes em cada operação
+- [ ] Adicionar testes específicos por mutação crítica (reserva/transição documental, posting/estorno, stock, ficheiros, depreciação, empresas e reabertura) validando evento auditado e reconstrução por company/entity
+- [x] Normalizar beforeState/afterState explícitos em eventos de criação e posting de stock, ficheiros, numeração e lançamentos

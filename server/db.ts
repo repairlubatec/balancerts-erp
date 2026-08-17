@@ -201,7 +201,7 @@ export async function recordStockMovement(input: { userId: number; organizationI
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   const result = await db.insert(stockMovements).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, productCode: input.productCode, type: input.type, quantity: String(input.quantity), unitCost: String(input.unitCost), sourceDocumentId: input.sourceDocumentId, journalEntryId: input.journalEntryId, correlationId: input.correlationId });
   const movementId = Number(result[0].insertId);
-  await appendAuditEvent({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "STOCK_MOVEMENT_RECORDED", entityType: "stockMovement", entityId: String(movementId), afterState: JSON.stringify({ type: input.type, productCode: input.productCode, quantity: input.quantity, unitCost: input.unitCost }), correlationId: input.correlationId });
+  await appendAuditEvent({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "STOCK_MOVEMENT_RECORDED", entityType: "stockMovement", entityId: String(movementId), beforeState: null, afterState: JSON.stringify({ type: input.type, productCode: input.productCode, quantity: input.quantity, unitCost: input.unitCost }), correlationId: input.correlationId });
   return { id: movementId, ...input };
 }
 
@@ -212,7 +212,7 @@ export async function createFileAsset(input: { userId: number; organizationId: n
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   const result = await db.insert(fileAssets).values({ organizationId: input.organizationId, companyId: input.companyId, ownerUserId: input.userId, storageKey: input.storageKey, filename: input.filename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, allowedUserIds: JSON.stringify(input.allowedUserIds ?? []) });
   const fileId = Number(result[0].insertId);
-  await appendAuditEvent({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FILE_ASSET_REGISTERED", entityType: "fileAsset", entityId: String(fileId), afterState: JSON.stringify({ filename: input.filename, mimeType: input.mimeType, sha256: input.sha256, size: input.size }), correlationId: input.storageKey });
+  await appendAuditEvent({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FILE_ASSET_REGISTERED", entityType: "fileAsset", entityId: String(fileId), beforeState: null, afterState: JSON.stringify({ filename: input.filename, mimeType: input.mimeType, sha256: input.sha256, size: input.size }), correlationId: input.storageKey });
   return { id: fileId, storageKey: input.storageKey };
 }
 
@@ -239,7 +239,7 @@ export async function reserveDocumentNumber(input: { userId: number; companyId: 
     await tx.update(documentSeries).set({ nextNumber: sql`${documentSeries.nextNumber} + 1` }).where(eq(documentSeries.id, current.series.id));
     return { organizationId: current.organization.id, series: input.series, documentType: input.documentType, number, formatted: formatDocumentNumber(input.series, number) };
   });
-  await appendAuditEvent({ organizationId: reserved.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_NUMBER_RESERVED", entityType: "documentSeries", entityId: `${reserved.series}:${reserved.documentType}`, afterState: JSON.stringify({ number: reserved.number, formatted: reserved.formatted }), correlationId: `${input.companyId}:${reserved.series}:${reserved.number}` });
+  await appendAuditEvent({ organizationId: reserved.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_NUMBER_RESERVED", entityType: "documentSeries", entityId: `${reserved.series}:${reserved.documentType}`, beforeState: null, afterState: JSON.stringify({ number: reserved.number, formatted: reserved.formatted }), correlationId: `${input.companyId}:${reserved.series}:${reserved.number}` });
   const { organizationId: _organizationId, ...result } = reserved;
   return result;
 }
@@ -352,7 +352,7 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
     return { entryId, idempotent: false };
   });
   if (!result.idempotent) {
-    await appendAuditEvent({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: input.reversalOfEntryId ? "JOURNAL_ENTRY_REVERSED" : "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), beforeState: input.reversalOfEntryId ? JSON.stringify({ reversalOfEntryId: input.reversalOfEntryId }) : undefined, afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, reversalOfEntryId: input.reversalOfEntryId, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
+    await appendAuditEvent({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: input.reversalOfEntryId ? "JOURNAL_ENTRY_REVERSED" : "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), beforeState: input.reversalOfEntryId ? JSON.stringify({ reversalOfEntryId: input.reversalOfEntryId }) : null, afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, reversalOfEntryId: input.reversalOfEntryId, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
   }
   return result;
 }
