@@ -133,3 +133,4 @@
 - [x] Adicionar painel de percurso a partir de um relatório seleccionado para Conta, Documento e Auditoria
 - [x] Testar a resolução determinística de rotas Relatório→Conta/Documento/Auditoria com registo seleccionado
 - [x] Testar a resolução determinística de rotas Conta→Relatório/Documento/Auditoria com lançamento seleccionado
+- [x] Ligar o módulo Empresas a companies.list real com NIF, moeda funcional, regime IVA e estado de configuração
