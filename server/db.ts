@@ -246,9 +246,9 @@ export async function reserveDocumentNumber(input: { userId: number; companyId: 
     if (!current) throw new Error("DOCUMENT_SERIES_NOT_FOUND_OR_FORBIDDEN");
     const number = current.series.nextNumber;
     await tx.update(documentSeries).set({ nextNumber: sql`${documentSeries.nextNumber} + 1` }).where(eq(documentSeries.id, current.series.id));
-    return { organizationId: current.organization.id, series: input.series, documentType: input.documentType, number, formatted: formatDocumentNumber(input.series, number) };
+    return { organizationId: current.organization.id, series: input.series, documentType: input.documentType, number, previousNextNumber: number, nextNumber: number + 1, formatted: formatDocumentNumber(input.series, number) };
   });
-  await appendAuditEvent({ organizationId: reserved.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_NUMBER_RESERVED", entityType: "documentSeries", entityId: `${reserved.series}:${reserved.documentType}`, beforeState: null, afterState: JSON.stringify({ number: reserved.number, formatted: reserved.formatted }), correlationId: `${input.companyId}:${reserved.series}:${reserved.number}` });
+  await appendAuditEvent({ organizationId: reserved.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_NUMBER_RESERVED", entityType: "documentSeries", entityId: `${reserved.series}:${reserved.documentType}`, beforeState: JSON.stringify({ nextNumber: reserved.previousNextNumber }), afterState: JSON.stringify({ nextNumber: reserved.nextNumber, number: reserved.number, formatted: reserved.formatted }), correlationId: `${input.companyId}:${reserved.series}:${reserved.number}` });
   const { organizationId: _organizationId, ...result } = reserved;
   return result;
 }
