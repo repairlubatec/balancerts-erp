@@ -169,3 +169,4 @@
 - [x] Exigir período tenant-aware no posting e impedir estornos duplicados, marcando o lançamento original como REVERSED na mesma transacção
 - [x] Provar em integração real que accounting.post rejeita utilizador fora da empresa e periodId inexistente antes da inserção
 - [x] Uniformizar JOURNAL_ENTRY_POSTED/JOURNAL_ENTRY_REVERSED através de appendAuditEventForUser após posting contabilístico
+- [x] Validar em integração real a forma dos eventos de auditoria persistidos da Repair Lubatec, incluindo actor, tenant, entidade, correlação e snapshots

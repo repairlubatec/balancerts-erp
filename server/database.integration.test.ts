@@ -48,6 +48,22 @@ describe("database tenant integration", () => {
     await expect(postJournalEntry({ companyId: 1, periodId: 999999, createdBy: 1, idempotencyKey: "missing-period-post", description: "Não deve ser criado", lines })).rejects.toThrow("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
   });
 
+  it("validates persisted audit shape for the real tenant", async () => {
+    const rows = await getAuditEventsForUserCompany(1, 1);
+    expect(rows.length).toBeGreaterThan(0);
+    for (const { event } of rows) {
+      expect(event.actorUserId).toBe(1);
+      expect(event.organizationId).toBe(1);
+      expect(event.companyId).toBe(1);
+      expect(event.entityType).toBeTruthy();
+      expect(event.entityId).toBeTruthy();
+      expect(event.action).toBeTruthy();
+      expect(event.correlationId).toBeTruthy();
+      expect(event).toHaveProperty("beforeState");
+      expect(event.afterState).toBeTruthy();
+    }
+  });
+
   it("returns no cross-tenant data for unknown user/company scopes", async () => {
     expect(await getDb()).toBeTruthy();
     const companies = await getCompaniesForUser(987654321);
