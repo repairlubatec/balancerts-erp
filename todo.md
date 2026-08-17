@@ -122,3 +122,4 @@
 - [x] Criar fiscalExercises como camada entre Company e FiscalPeriod e associar o período real Repair Lubatec 2023/09
 - [x] Expor reports.fiscalRegister com query persistente tenant-aware sobre businessDocuments e reconciliação fiscal
 - [x] Endurecer audit.append com validação de organização/empresa e testar rejeição de escopo fora do tenant
+- [x] Ligar o portefólio “Minhas Empresas” a companies.list real, com loading/empty states e sem métricas financeiras inventadas
