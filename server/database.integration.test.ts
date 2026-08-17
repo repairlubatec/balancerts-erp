@@ -42,6 +42,12 @@ describe("database tenant integration", () => {
     await expect(assertClosedFiscalPeriodForUserCompany({ actorUserId: 1, companyId: repair!.company.id, periodId: 1 })).rejects.toThrow("FISCAL_PERIOD_NOT_CLOSED_OR_FORBIDDEN");
   });
 
+  it("rejects accounting posting outside tenant scope before insertion", async () => {
+    const lines = [{ accountId: 1, debit: 10, credit: 0 }, { accountId: 2, debit: 0, credit: 10 }];
+    await expect(postJournalEntry({ companyId: 1, periodId: 1, createdBy: 987654321, idempotencyKey: "cross-tenant-post", description: "Não deve ser criado", lines })).rejects.toThrow("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+    await expect(postJournalEntry({ companyId: 1, periodId: 999999, createdBy: 1, idempotencyKey: "missing-period-post", description: "Não deve ser criado", lines })).rejects.toThrow("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
+  });
+
   it("returns no cross-tenant data for unknown user/company scopes", async () => {
     expect(await getDb()).toBeTruthy();
     const companies = await getCompaniesForUser(987654321);

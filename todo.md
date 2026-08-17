@@ -167,3 +167,4 @@
 - [x] Impedir reabertura de períodos OPEN/CLOSING e validar estado CLOSED antes do evento PERIOD_REOPEN, com prova real na Repair Lubatec
 - [x] Validar que posting rejeita sourceDocumentId e reversalOfEntryId inexistentes ou fora da empresa antes de persistir
 - [x] Exigir período tenant-aware no posting e impedir estornos duplicados, marcando o lançamento original como REVERSED na mesma transacção
+- [x] Provar em integração real que accounting.post rejeita utilizador fora da empresa e periodId inexistente antes da inserção
