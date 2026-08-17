@@ -5,7 +5,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
-import { activateCompanyForUser, appendAuditEvent, createCompanyForUser, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { activateCompanyForUser, appendAuditEvent, createCompanyForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
@@ -55,6 +55,7 @@ export const appRouter = router({
         throw error;
       }
     }),
+    exercises: roleProcedure("companies", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getExercisesForUserCompany(ctx.user.id, input.companyId)),
     periods: roleProcedure("companies", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getPeriodsForUserCompany(ctx.user.id, input.companyId)),
     documents: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentsForUserCompany(ctx.user.id, input.companyId)),
   }),

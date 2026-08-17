@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalPeriods, journalEntries, journalLines, organizations, stockMovements, users } from "../drizzle/schema";
+import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, organizations, stockMovements, users } from "../drizzle/schema";
 import { buildBalanceSheet, buildIncomeStatement, buildJournal, buildLedger, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
@@ -125,6 +125,12 @@ async function assertCompanyReady(db: Awaited<ReturnType<typeof getDb>>, userId:
   if (!rows[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   if (rows[0].company.configurationStatus !== "READY") throw new Error("COMPANY_CONFIGURATION_PENDING");
   return rows[0];
+}
+
+export async function getExercisesForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ exercise: fiscalExercises }).from(fiscalExercises).innerJoin(companies, eq(fiscalExercises.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(fiscalExercises.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(desc(fiscalExercises.year));
 }
 
 export async function getPeriodsForUserCompany(userId: number, companyId: number) {

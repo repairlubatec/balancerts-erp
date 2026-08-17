@@ -119,3 +119,4 @@
 - [x] Implementar calendário AGT parametrizado para 2026 com IVA Geral/Simplificado, SAF-T, filtragem por regime e datas válidas
 - [x] Implementar builders auxiliares de antiguidade de saldos e registo fiscal com reconciliação de totais
 - [x] Verificar o fluxo files.register com base64, chave tenant-aware, storagePut e metadata persistida antes do download ACL
+- [x] Criar fiscalExercises como camada entre Company e FiscalPeriod e associar o período real Repair Lubatec 2023/09

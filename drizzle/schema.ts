@@ -40,9 +40,18 @@ export const companies = mysqlTable("companies", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const fiscalExercises = mysqlTable("fiscalExercises", {
+  id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId").notNull(),
+  year: int("year").notNull(),
+  status: mysqlEnum("status", ["OPEN", "CLOSED"]).default("OPEN").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const fiscalPeriods = mysqlTable("fiscalPeriods", {
   id: int("id").autoincrement().primaryKey(),
   companyId: int("companyId").notNull(),
+  exerciseId: int("exerciseId"),
   year: int("year").notNull(),
   month: int("month").notNull(),
   status: mysqlEnum("status", ["OPEN", "CLOSING", "CLOSED", "REOPENED"]).default("OPEN").notNull(),
