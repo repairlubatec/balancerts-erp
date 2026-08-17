@@ -22,6 +22,13 @@
       "when": 1786978354176,
       "tag": "0002_milky_scarecrow",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1786978744708,
+      "tag": "0003_fluffy_squirrel_girl",
+      "breakpoints": true
     }
   ]
 }

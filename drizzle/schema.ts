@@ -72,6 +72,15 @@ export const journalLines = mysqlTable("journalLines", {
   exchangeRate: decimal("exchangeRate", { precision: 18, scale: 8 }).default("1").notNull(),
 });
 
+export const documentSeries = mysqlTable("documentSeries", {
+  id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId").notNull(),
+  code: varchar("code", { length: 32 }).notNull(),
+  documentType: varchar("documentType", { length: 32 }).notNull(),
+  nextNumber: int("nextNumber").default(1).notNull(),
+  active: int("active").default(1).notNull(),
+});
+
 export const businessDocuments = mysqlTable("businessDocuments", {
   id: int("id").autoincrement().primaryKey(),
   companyId: int("companyId").notNull(),

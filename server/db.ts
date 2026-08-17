@@ -1,7 +1,8 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, fiscalPeriods, journalEntries, journalLines, organizations, users } from "../drizzle/schema";
+import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fiscalPeriods, journalEntries, journalLines, organizations, users } from "../drizzle/schema";
 import { buildTrialBalance } from "./reports";
+import { formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
 import { ENV } from "./_core/env";
 
@@ -70,6 +71,19 @@ export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
   if (!db) throw new Error("Database unavailable");
   const result = await db.insert(auditEvents).values(input);
   return result;
+}
+
+export async function reserveDocumentNumber(input: { userId: number; companyId: number; series: string; documentType: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  return db.transaction(async (tx) => {
+    const rows = await tx.select({ series: documentSeries, organization: organizations }).from(documentSeries).innerJoin(companies, eq(documentSeries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(documentSeries.companyId, input.companyId), eq(documentSeries.code, input.series), eq(documentSeries.documentType, input.documentType), eq(documentSeries.active, 1), eq(organizations.ownerUserId, input.userId))).limit(1);
+    const current = rows[0];
+    if (!current) throw new Error("DOCUMENT_SERIES_NOT_FOUND_OR_FORBIDDEN");
+    const number = current.series.nextNumber;
+    await tx.update(documentSeries).set({ nextNumber: sql`${documentSeries.nextNumber} + 1` }).where(eq(documentSeries.id, current.series.id));
+    return { series: input.series, documentType: input.documentType, number, formatted: formatDocumentNumber(input.series, number) };
+  });
 }
 
 export async function getTrialBalanceForUserCompany(userId: number, companyId: number) {
