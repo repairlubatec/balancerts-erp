@@ -25,14 +25,14 @@
 - [x] Multimoeda com moeda da operação, moeda funcional, taxa, fonte e data
 - [x] Documentos e ficheiros com hash, metadados, ACL e validação no download
 - [x] Auditoria de negócio separada dos logs técnicos, append-only e reconstruível
-- [ ] Operações críticas com actor, entidade, empresa, estado anterior/posterior, timestamp e correlação
-- [ ] Relatórios: Balancete, Diário, Razão, Demonstração de Resultados, Balanço, auxiliares e fiscais
-- [ ] Relatórios reconciliáveis com razão, auxiliares, documentos e origem
+- [x] Operações críticas com actor, entidade, empresa, estado anterior/posterior, timestamp e correlação
+- [x] Relatórios: Balancete, Diário, Razão, Demonstração de Resultados, Balanço, auxiliares e fiscais
+- [x] Relatórios reconciliáveis com razão, auxiliares, documentos e origem
 - [x] Fecho e reabertura com checklist configurável, bloqueios, validações, motivo e auditoria
 - [x] Testes unitários para invariantes, fiscalidade, estados, idempotência, stock, depreciação, câmbio e permissões
-- [ ] Testes de integração e end-to-end dos ciclos comerciais, financeiros, fiscais e de fecho
+- [x] Testes de integração e end-to-end dos ciclos comerciais, financeiros, fiscais e de fecho
 - [x] Testes de isolamento multi-tenant e autorização directa por API
-- [ ] Testes de resiliência, reprocessamento, concorrência, reconciliação e recuperação
+- [x] Testes de resiliência, reprocessamento, concorrência, reconciliação e recuperação
 - [x] Manifesto PWA, ícones, instalação e comportamento responsivo sem transformar a UI em landing page
 - [x] Rever todos os itens antes do checkpoint final
 - [x] Implementar atalhos de teclado reais com command palette, navegação por módulos, pesquisa rápida e acções globais
@@ -59,13 +59,13 @@
 - [x] Adicionar teste do procedimento closing.validateReopen verificando evento de auditoria, correlationId, estados e actor
 - [x] Ligar a reconciliação backend de stock a movimentos persistidos e linhas do razão, com filtragem tenant-aware no helper e router
 - [x] Adicionar teste de files.downloadUrl em que o utilizador tem permissão de leitura mas a ACL do ficheiro nega o acesso
-- [ ] Adicionar teste de integração com base de dados para gravar movimentos/lançamentos e validar reconciliação reconciliada, divergente e entre empresas
+- [x] Adicionar teste de integração com base de dados para gravar movimentos/lançamentos e validar reconciliação reconciliada, divergente e entre empresas
 - [x] Implementar queries persistentes tenant-aware para Diário, Razão, Demonstração de Resultados e Balanço
 - [x] Expor endpoints protegidos dos relatórios principais e cadeia Documento → Lançamento → Conta
-- [ ] Completar relatórios auxiliares e fiscais com queries e validações AGT específicas
+- [x] Completar relatórios auxiliares e fiscais com queries e validações AGT específicas
 - [x] Auditar movimentos de stock persistidos com actor, tenant, entidade, estado e correlationId
 - [x] Validar tenant da empresa antes de permitir posting contabilístico e auditar lançamentos novos
-- [ ] Integrar auditoria de negócio nas mutações persistentes críticas e disponibilizar reconstrução por entidade/empresa
+- [x] Integrar auditoria de negócio nas mutações persistentes críticas e disponibilizar reconstrução por entidade/empresa
 - [x] Expor reconstrução da auditoria por empresa com ordenação append-only e filtro tenant-aware
 - [x] Permitir validação de reconciliação de stock ao Contabilista sem ampliar permissões de execução do Operador
 - [x] Auditar registo de metadata de ficheiros após upload e reserva de numeração documental
@@ -125,11 +125,11 @@
 - [x] Ligar o portefólio “Minhas Empresas” a companies.list real, com loading/empty states e sem métricas financeiras inventadas
 - [x] Ligar a actividade recente da Home ao histórico auditado real do tenant actual, com estado vazio quando não existem eventos
 - [x] Remover alertas demonstrativos da Home e apresentar pendências apenas quando existir fonte persistente real
-- [ ] Enumerar e testar todas as mutações críticas suportadas em estado PENDING, além de reserva documental, transição/emissão e posting
+- [x] Enumerar e testar todas as mutações críticas suportadas em estado PENDING, além de reserva documental, transição/emissão e posting
 - [x] Cobrir RBAC do reports.fiscalRegister: Auditor autorizado e Operador bloqueado antes da persistência
 - [x] Condicionar a actividade auditada da Home ao RBAC de leitura de auditoria, evitando queries proibidas para Operador
-- [ ] Completar os relatórios auxiliares e fiscais ainda pendentes com queries persistentes e validações AGT específicas, consolidando o item macro de relatórios
-- [ ] Adicionar prova integrada por teste de que cada relatório principal/auxiliar reconcilia com razão, documentos e origem persistida real, incluindo percurso completo de traceabilidade
+- [x] Completar os relatórios auxiliares e fiscais ainda pendentes com queries persistentes e validações AGT específicas, consolidando o item macro de relatórios
+- [x] Adicionar prova integrada por teste de que cada relatório principal/auxiliar reconcilia com razão, documentos e origem persistida real, incluindo percurso completo de traceabilidade
 - [x] Adicionar painel de percurso a partir de um relatório seleccionado para Conta, Documento e Auditoria
 - [x] Testar a resolução determinística de rotas Relatório→Conta/Documento/Auditoria com registo seleccionado
 - [x] Testar a resolução determinística de rotas Conta→Relatório/Documento/Auditoria com lançamento seleccionado
@@ -138,8 +138,8 @@
 - [x] Validar estruturalmente pacotes fiscais AGT quanto a período, regime, origem documental e totais reconciliados
 - [x] Expor reports.agtValidation sobre empresa e fiscalRegister reais, com teste integrado para Repair Lubatec
 - [x] Cobrir em teste tRPC a sequência comercial→contabilística→fiscal→fecho→reabertura auditada
-- [ ] Completar a auditoria de todas as mutações persistentes críticas, garantindo actor, empresa, entidade, correlationId e snapshots beforeState/afterState consistentes em cada operação
-- [ ] Adicionar testes específicos por mutação crítica (reserva/transição documental, posting/estorno, stock, ficheiros, depreciação, empresas e reabertura) validando evento auditado e reconstrução por company/entity
+- [x] Completar a auditoria de todas as mutações persistentes críticas, garantindo actor, empresa, entidade, correlationId e snapshots beforeState/afterState consistentes em cada operação
+- [x] Adicionar testes específicos por mutação crítica (reserva/transição documental, posting/estorno, stock, ficheiros, depreciação, empresas e reabertura) validando evento auditado e reconstrução por company/entity
 - [x] Normalizar beforeState/afterState explícitos em eventos de criação e posting de stock, ficheiros, numeração e lançamentos
 - [x] Fazer o módulo Contabilidade consumir ?entry= e seleccionar/abrir visivelmente o lançamento correspondente
 - [x] Adicionar teste de UI/integrado que prove a navegação do botão de traceabilidade até ao lançamento seleccionado
@@ -191,8 +191,8 @@
 - [x] Validar getSaftReadinessForUserCompany na base real da Repair Lubatec, confirmando escopo tenant-aware, lacunas persistentes e submissionEligible falso
 - [x] Provar na integração real que getSaftReadinessForUserCompany rejeita utilizador/empresa inexistentes sem devolver dados de outro tenant
 - [x] Fixar no contrato SAF-T o namespace urn:OECD:StandardAuditFile-Tax:AO_1.01_01 e a versão XSD 1.01_01, sem permitir submissão automática
-- [ ] Completar os relatórios auxiliares e fiscais ainda pendentes com queries persistentes e validações AGT específicas
-- [ ] Adicionar prova integrada por teste de que cada relatório principal/auxiliar reconcilia com razão, documentos e origem persistida real, incluindo percurso completo de traceabilidade
+- [x] Completar os relatórios auxiliares e fiscais ainda pendentes com queries persistentes e validações AGT específicas
+- [x] Adicionar prova integrada por teste de que cada relatório principal/auxiliar reconcilia com razão, documentos e origem persistida real, incluindo percurso completo de traceabilidade
 - [x] Reforçar validateAgtFiscalRecord para rejeitar IVA liquidado no regime EXCLUSÃO, com teste específico e totais reconciliados
 - [x] Cobrir em integração tRPC a superfície fiscal da Repair Lubatec: agtValidation, saftReadiness com XSD identificado e rejeição de empresa inexistente
 - [x] Ampliar o teste de ciclo comercial→contabilístico→fiscal→fecho para validar reports.reconciliation e reports.saftReadiness antes da reabertura auditada

@@ -1,8 +1,8 @@
 import { and, eq, like } from "drizzle-orm";
 import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
-import { businessDocuments, chartAccounts, fiscalPeriods, journalEntries, journalLines, stockMovements, auditEvents } from "../drizzle/schema";
-import { getDb, getReportsReconciliationForUserCompany, getDocumentAccountingChainForUserCompany, getAuditEventsForUserCompany, postJournalEntry, recordStockMovement, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { auditEvents, businessDocuments, chartAccounts, companies, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, stockMovements } from "../drizzle/schema";
+import { createFileAsset, getDb, getReportsReconciliationForUserCompany, getDocumentAccountingChainForUserCompany, getAuditEventsForUserCompany, postJournalEntry, recordStockMovement, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 
 const TEST_USER_ID = 1;
 const TEST_COMPANY_ID = 30001;
@@ -32,8 +32,34 @@ describe("disposable tenant persisted E2E cycle", () => {
     let orphanEntryId: number | undefined;
     let recoveryEntryId: number | undefined;
     let movementId: number | undefined;
+    let fileId: number | undefined;
+    let depreciationEntryId: number | undefined;
+    let reversalEntryId: number | undefined;
+    let createdCompanyId: number | undefined;
+    let createdExerciseId: number | undefined;
+    let createdPeriodId: number | undefined;
     const correlation = `disposable-e2e-${Date.now()}`;
     try {
+      const createdCompany = await caller.companies.create({ name: "BALANCERTS Audit Disposable", nif: `999${Date.now().toString().slice(-7)}`, functionalCurrency: "AOA", ivaRegime: "EXCLUSAO", legalForm: "Sociedade por Quotas", address: "Morada E2E", municipality: "Lubango", province: "Huíla", phone: "+244900000000", email: `audit-${Date.now()}@example.invalid`, activity: "Prestação de Serviço", incorporationYear: 2026, legalRepresentatives: "Representante E2E" });
+      createdCompanyId = createdCompany.company.id;
+      await db!.update(companies).set({ primaryLegalRepresentative: "Representante E2E" }).where(eq(companies.id, createdCompanyId));
+      const createdExercise = await db!.insert(fiscalExercises).values({ companyId: createdCompanyId, year: 2026, status: "OPEN" });
+      createdExerciseId = Number(createdExercise[0].insertId);
+      const createdPeriod = await db!.insert(fiscalPeriods).values({ companyId: createdCompanyId, exerciseId: createdExerciseId, year: 2026, month: 1, status: "OPEN" });
+      createdPeriodId = Number(createdPeriod[0].insertId);
+      const activatedDisposable = await caller.companies.activate({ companyId: createdCompanyId, confirmation: "ACTIVATE_COMPANY" });
+      expect(activatedDisposable).toMatchObject({ companyId: createdCompanyId, configurationStatus: "READY" });
+      const companyAudit = await getAuditEventsForUserCompany(TEST_USER_ID, createdCompanyId);
+      expect(companyAudit.some(({ event }) => event.action === "COMPANY_CREATED_PENDING" && event.entityId === String(createdCompanyId))).toBe(true);
+      expect(companyAudit.some(({ event }) => event.action === "COMPANY_ACTIVATED" && event.entityId === String(createdCompanyId))).toBe(true);
+      for (const { event } of companyAudit.filter(({ event }) => ["COMPANY_CREATED_PENDING", "COMPANY_ACTIVATED"].includes(event.action))) {
+        expect(event.actorUserId).toBe(TEST_USER_ID);
+        expect(event.companyId).toBe(createdCompanyId);
+        expect(event.createdAt).toBeTruthy();
+        expect(event.afterState).toBeTruthy();
+        expect(() => JSON.parse(event.afterState!)).not.toThrow();
+      }
+
       const reservation = await reserveDocumentNumber({ userId: TEST_USER_ID, companyId: TEST_COMPANY_ID, series: "FT-TEST", documentType: "FT" });
       expect(reservation.formatted).toMatch(/^FT-TEST\/\d{6}$/);
 
@@ -79,9 +105,44 @@ describe("disposable tenant persisted E2E cycle", () => {
 
       const reconciliation = await getReportsReconciliationForUserCompany(TEST_USER_ID, TEST_COMPANY_ID);
       expect(reconciliation).toMatchObject({ companyId: TEST_COMPANY_ID, reconciled: true, documentOrigin: { reconciled: true, missingJournalDocumentIds: [], orphanJournalEntryIds: [] } });
-      const chain = await getDocumentAccountingChainForUserCompany(TEST_USER_ID, TEST_COMPANY_ID, documentId);
-      expect(chain?.entries[0]?.entryId).toBe(entryId);
+      const [trialBalance, journal, ledger, incomeStatement, balanceSheet, fiscalRegister, vatSummary, ageing, supplierAging, trace, agtValidation, saftReadiness] = await Promise.all([
+        caller.reports.trialBalance({ companyId: TEST_COMPANY_ID }),
+        caller.reports.journal({ companyId: TEST_COMPANY_ID }),
+        caller.reports.ledger({ companyId: TEST_COMPANY_ID, accountCode: "11.1" }),
+        caller.reports.incomeStatement({ companyId: TEST_COMPANY_ID }),
+        caller.reports.balanceSheet({ companyId: TEST_COMPANY_ID }),
+        caller.reports.fiscalRegister({ companyId: TEST_COMPANY_ID }),
+        caller.reports.vatSummary({ companyId: TEST_COMPANY_ID }),
+        caller.reports.customerAging({ companyId: TEST_COMPANY_ID, asOf: new Date("2026-01-31T23:59:59Z") }),
+        caller.reports.supplierAging({ companyId: TEST_COMPANY_ID, asOf: new Date("2026-01-31T23:59:59Z") }),
+        caller.reports.trace({ companyId: TEST_COMPANY_ID, report: "TRIAL_BALANCE", accountCode: "11.1" }),
+        caller.reports.agtValidation({ companyId: TEST_COMPANY_ID, year: 2026, month: 1 }),
+        caller.reports.saftReadiness({ companyId: TEST_COMPANY_ID }),
+      ]);
+      expect(trialBalance.reconciled).toBe(true);
+      expect(journal.entries.some((entry) => entry.entryId === entryId)).toBe(true);
+      expect(ledger.entries.some((row) => row.entryId === entryId)).toBe(true);
+      expect(incomeStatement.netIncome).toBe(100);
+      expect(balanceSheet.reconciled).toBe(true);
+      expect(fiscalRegister.entries).toHaveLength(1);
+      expect(vatSummary.totals).toEqual({ netAmount: 100, taxAmount: 0, totalAmount: 100 });
+      expect(ageing.totals.outstanding).toBe(100);
+      expect(supplierAging.totals.outstanding).toBe(0);
+      expect(fiscalRegister.reconciled).toBe(true);
+      expect(vatSummary.reconciled).toBe(true);
+      expect(balanceSheet.rows.some((row) => row.accountCode === "11.1")).toBe(true);
+      expect(trace.origins.some((origin) => origin.entryId === entryId && origin.sourceDocumentId === documentId)).toBe(true);
+      expect(agtValidation.validation.valid).toBe(true);
+      expect(saftReadiness.submissionEligible).toBe(false);
 
+      const chainBeforeReversal = await getDocumentAccountingChainForUserCompany(TEST_USER_ID, TEST_COMPANY_ID, documentId);
+      expect(chainBeforeReversal?.entries[0]?.entryId).toBe(entryId);
+      const file = await createFileAsset({ userId: TEST_USER_ID, organizationId: TEST_ORGANIZATION_ID, companyId: TEST_COMPANY_ID, storageKey: `${correlation}:file`, filename: "e2e.txt", mimeType: "text/plain", size: 3, sha256: "a".repeat(64) });
+      fileId = Number(file.id);
+      const depreciation = await caller.fixedAssets.postDepreciation({ organizationId: TEST_ORGANIZATION_ID, companyId: TEST_COMPANY_ID, periodId: periodId!, assetId: 9001, amount: 10, expenseAccountId: debitAccount!.id, accumulatedDepreciationAccountId: creditAccount!.id, correlationId: `${correlation}:depreciation` });
+      depreciationEntryId = Number(depreciation.entry.entryId);
+      const reversal = await caller.reversal.post({ companyId: TEST_COMPANY_ID, periodId: periodId!, originalEntryId: entryId!, reason: "Correcção E2E auditável", idempotencyKey: `${correlation}:reversal`, lines: [{ accountId: debitAccount!.id, debit: 100, credit: 0, currency: "AOA", exchangeRate: 1, postable: true, validFrom: new Date("2026-01-01") }, { accountId: creditAccount!.id, debit: 0, credit: 100, currency: "AOA", exchangeRate: 1, postable: true, validFrom: new Date("2026-01-01") }] });
+      reversalEntryId = Number(reversal.entryId);
       const orphanInserted = await db!.insert(journalEntries).values({ companyId: TEST_COMPANY_ID, periodId: periodId!, sourceDocumentId: 999999, idempotencyKey: `${correlation}:orphan`, description: "Lançamento órfão temporário", createdBy: TEST_USER_ID, status: "POSTED" });
       orphanEntryId = Number(orphanInserted[0].insertId);
       await db!.insert(journalLines).values([
@@ -112,7 +173,47 @@ describe("disposable tenant persisted E2E cycle", () => {
       expect(audit.some(({ event }) => event.action === "DOCUMENT_ISSUED" && event.correlationId === `${correlation}:issued`)).toBe(true);
       expect(audit.some(({ event }) => event.action === "JOURNAL_ENTRY_POSTED" && event.correlationId === `${correlation}:post`)).toBe(true);
       expect(audit.some(({ event }) => event.action === "PERIOD_REOPEN" && event.correlationId === `${correlation}:reopen`)).toBe(true);
+      const requiredAudit = [
+        ["DOCUMENT_NUMBER_RESERVED", "documentSeries", "FT-TEST:FT"],
+        ["DOCUMENT_ISSUED", "businessDocument", String(documentId)],
+        ["JOURNAL_ENTRY_POSTED", "journalEntry", String(entryId)],
+        ["STOCK_MOVEMENT_RECORDED", "stockMovement", String(movementId)],
+        ["PERIOD_REOPEN", "FISCAL_PERIOD", String(periodId)],
+        ["FILE_ASSET_REGISTERED", "fileAsset", String(fileId)],
+        ["FIXED_ASSET_DEPRECIATION_POST", "FIXED_ASSET", "9001"],
+        ["JOURNAL_ENTRY_REVERSED", "journalEntry", String(reversalEntryId)],
+      ] as const;
+      for (const [action, entityType, entityId] of requiredAudit) {
+        const expectedCorrelation = action === "DOCUMENT_NUMBER_RESERVED" ? `${TEST_COMPANY_ID}:FT-TEST:${reservation.number}` : correlation;
+        const match = audit.find(({ event }) => event.action === action && event.entityType === entityType && event.entityId === entityId && event.correlationId.includes(expectedCorrelation));
+        expect(match, `Missing audit event ${action}/${entityType}/${entityId}; got ${audit.map(({ event }) => `${event.action}/${event.entityType}/${event.entityId}/${event.correlationId}`).join(",")}`).toBeTruthy();
+        const reconstructed = await getAuditEventsForUserCompany(TEST_USER_ID, TEST_COMPANY_ID, entityType, entityId);
+        const reconstructedMatch = reconstructed.find(({ event }) => event.action === action && event.correlationId.includes(expectedCorrelation));
+        expect(reconstructedMatch).toBeTruthy();
+        expect(reconstructedMatch!.event.actorUserId).toBe(TEST_USER_ID);
+        expect(reconstructedMatch!.event.companyId).toBe(TEST_COMPANY_ID);
+        expect(reconstructedMatch!.event.entityType).toBe(entityType);
+        expect(reconstructedMatch!.event.entityId).toBe(entityId);
+        expect(reconstructedMatch!.event.correlationId).toContain(expectedCorrelation);
+        expect(reconstructedMatch!.event.createdAt).toBeTruthy();
+        expect(reconstructedMatch!.event.afterState).toBeTruthy();
+        expect(() => JSON.parse(reconstructedMatch!.event.afterState!)).not.toThrow();
+        if (["DOCUMENT_ISSUED", "DOCUMENT_NUMBER_RESERVED", "COMPANY_ACTIVATED", "PERIOD_REOPEN", "JOURNAL_ENTRY_REVERSED"].includes(action)) {
+          expect(reconstructedMatch!.event.beforeState).toBeTruthy();
+          expect(() => JSON.parse(reconstructedMatch!.event.beforeState!)).not.toThrow();
+        }
+      }
     } finally {
+      if (reversalEntryId) {
+        await db!.delete(journalLines).where(eq(journalLines.entryId, reversalEntryId));
+        await db!.delete(journalEntries).where(eq(journalEntries.id, reversalEntryId));
+      }
+      if (depreciationEntryId) {
+        await db!.delete(journalLines).where(eq(journalLines.entryId, depreciationEntryId));
+        await db!.delete(journalEntries).where(eq(journalEntries.id, depreciationEntryId));
+      }
+      if (entryId) await db!.update(journalEntries).set({ status: "POSTED" }).where(eq(journalEntries.id, entryId));
+      if (fileId) await db!.delete(fileAssets).where(eq(fileAssets.id, fileId));
       if (movementId) await db!.delete(stockMovements).where(eq(stockMovements.id, movementId));
       if (orphanEntryId) {
         await db!.delete(journalLines).where(eq(journalLines.entryId, orphanEntryId));
@@ -127,6 +228,12 @@ describe("disposable tenant persisted E2E cycle", () => {
         await db!.delete(journalEntries).where(eq(journalEntries.id, entryId));
       }
       if (documentId) await db!.delete(businessDocuments).where(eq(businessDocuments.id, documentId));
+      if (createdPeriodId) await db!.delete(fiscalPeriods).where(eq(fiscalPeriods.id, createdPeriodId));
+      if (createdExerciseId) await db!.delete(fiscalExercises).where(eq(fiscalExercises.id, createdExerciseId));
+      if (createdCompanyId) {
+        await db!.delete(auditEvents).where(eq(auditEvents.companyId, createdCompanyId));
+        await db!.delete(companies).where(eq(companies.id, createdCompanyId));
+      }
       await db!.delete(auditEvents).where(and(eq(auditEvents.companyId, TEST_COMPANY_ID), like(auditEvents.correlationId, `${correlation}%`)));
     }
   }, 30000);
