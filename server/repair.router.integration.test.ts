@@ -71,5 +71,5 @@ describe("Repair Lubatec router integration", () => {
     expect(await caller.reports.supplierAging({ companyId: missingCompanyId, asOf: new Date("2026-08-17T00:00:00Z") })).toMatchObject({ rows: [], totals: { outstanding: 0 } });
     await expect(caller.reports.saftReadiness({ companyId: missingCompanyId })).rejects.toThrow("COMPANY_NOT_FOUND_OR_FORBIDDEN");
     await expect(caller.companies.activate({ companyId: missingCompanyId, confirmation: "ACTIVATE_COMPANY" })).rejects.toThrow();
-  });
+  }, 15000);
 });

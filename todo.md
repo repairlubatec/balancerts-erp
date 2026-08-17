@@ -195,3 +195,5 @@
 - [ ] Adicionar prova integrada por teste de que cada relatório principal/auxiliar reconcilia com razão, documentos e origem persistida real, incluindo percurso completo de traceabilidade
 - [x] Reforçar validateAgtFiscalRecord para rejeitar IVA liquidado no regime EXCLUSÃO, com teste específico e totais reconciliados
 - [x] Cobrir em integração tRPC a superfície fiscal da Repair Lubatec: agtValidation, saftReadiness com XSD identificado e rejeição de empresa inexistente
+- [x] Ampliar o teste de ciclo comercial→contabilístico→fiscal→fecho para validar reports.reconciliation e reports.saftReadiness antes da reabertura auditada
+- [x] Estabilizar o teste tRPC integrado de superfícies da Repair Lubatec com timeout explícito para latência de TiDB, sem reduzir cobertura funcional

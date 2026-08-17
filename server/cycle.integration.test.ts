@@ -33,8 +33,14 @@ describe("commercial-to-accounting tRPC cycle", () => {
     const period = vi.spyOn(db, "assertClosedFiscalPeriodForUserCompany").mockResolvedValue(true);
     const append = vi.spyOn(db, "appendAuditEventForUser").mockResolvedValue({} as never);
     const accountant = callerFor("contabilista");
+    const reconciliation = vi.spyOn(db, "getReportsReconciliationForUserCompany").mockResolvedValue({ companyId: 41, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } });
+    const readiness = vi.spyOn(db, "getSaftReadinessForUserCompany").mockResolvedValue({ format: "SAFTAO1.01_01", schemaVersion: "1.01_01", namespace: "urn:OECD:StandardAuditFile-Tax:AO_1.01_01", ready: false, missing: ["MASTERFILES_ACCOUNTS"], submissionEligible: false });
     await expect(accountant.fiscal.calculateIva({ netAmount: 1000, regime: "GERAL", rule: { code: "IVA-GER-001", regime: "GERAL", validFrom: new Date("2026-01-01"), rate: 0.14, evidence: "AGT Calendário Fiscal 2026" } })).resolves.toMatchObject({ netAmount: 1000, taxAmount: 140, totalAmount: 1140 });
     await expect(accountant.closing.evaluate({ checks: [{ code: "BALANCE", label: "Balancete equilibrado", passed: true, blocking: true }, { code: "IVA", label: "IVA validado", passed: true, blocking: true }] })).resolves.toMatchObject({ canClose: true });
+    await expect(accountant.reports.reconciliation({ companyId: 41 })).resolves.toMatchObject({ companyId: 41, reconciled: true });
+    await expect(accountant.reports.saftReadiness({ companyId: 41 })).resolves.toMatchObject({ format: "SAFTAO1.01_01", ready: false, submissionEligible: false });
+    expect(reconciliation).toHaveBeenCalledWith(8, 41);
+    expect(readiness).toHaveBeenCalledWith(8, 41);
     await expect(accountant.closing.validateReopen({ organizationId: 41, companyId: 41, periodId: 9, reason: "Correcção fiscal", correlationId: "cycle-reopen-41-9" })).resolves.toEqual({ reason: "Correcção fiscal", audited: true });
     expect(scope).toHaveBeenCalledWith({ actorUserId: 8, organizationId: 41, companyId: 41 });
     expect(period).toHaveBeenCalledWith({ actorUserId: 8, companyId: 41, periodId: 9 });
