@@ -1,6 +1,7 @@
 import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, companies, fiscalPeriods, journalEntries, journalLines, organizations, users } from "../drizzle/schema";
+import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, fiscalPeriods, journalEntries, journalLines, organizations, users } from "../drizzle/schema";
+import { buildTrialBalance } from "./reports";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
 import { ENV } from "./_core/env";
 
@@ -69,6 +70,13 @@ export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
   if (!db) throw new Error("Database unavailable");
   const result = await db.insert(auditEvents).values(input);
   return result;
+}
+
+export async function getTrialBalanceForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return buildTrialBalance([]);
+  const rows = await db.select({ code: chartAccounts.code, name: chartAccounts.name, debit: journalLines.debit, credit: journalLines.credit }).from(journalLines).innerJoin(journalEntries, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(organizations.ownerUserId, userId), eq(companies.id, companyId), eq(journalEntries.status, "POSTED")));
+  return buildTrialBalance(rows.map((row) => ({ accountCode: row.code, accountName: row.name, debit: Number(row.debit), credit: Number(row.credit) })));
 }
 
 export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED" }) {

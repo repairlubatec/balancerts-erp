@@ -5,7 +5,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
-import { appendAuditEvent, getCompaniesForUser, getDocumentsForUserCompany, getPeriodsForUserCompany, postJournalEntry, transitionBusinessDocument } from "./db";
+import { appendAuditEvent, getCompaniesForUser, getDocumentsForUserCompany, getPeriodsForUserCompany, getTrialBalanceForUserCompany, postJournalEntry, transitionBusinessDocument } from "./db";
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
 import { calculateIva } from "./fiscal";
 
@@ -41,6 +41,9 @@ export const appRouter = router({
   documents: router({
     validateTransition: protectedProcedure.input(z.object({ from: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]), to: z.string() })).query(({ input }) => ({ allowed: validateDocumentTransition(input.from, input.to) })),
     transition: roleProcedure("documents", "issue").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive(), to: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]) })).mutation(({ ctx, input }) => transitionBusinessDocument({ ...input, userId: ctx.user.id })),
+  }),
+  reports: router({
+    trialBalance: protectedProcedure.input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getTrialBalanceForUserCompany(ctx.user.id, input.companyId)),
   }),
   audit: router({
     append: adminProcedure.input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), action: z.string().min(1), entityType: z.string().min(1), entityId: z.string().min(1), beforeState: z.string().nullable().optional(), afterState: z.string().nullable().optional(), correlationId: z.string().min(1) })).mutation(({ ctx, input }) => appendAuditEvent({ ...input, actorUserId: ctx.user.id })),
