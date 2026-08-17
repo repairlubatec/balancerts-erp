@@ -151,3 +151,5 @@
 
 - [x] Estender o TraceabilityPanel ao modo Documento e validar Documento→Lançamento→Conta/Relatório/Auditoria com teste jsdom
 - [x] Acrescentar dados persistentes de vencimento, contraparte e liquidação para ageing de clientes/fornecedores
+- [x] Bloquear createFileAsset para empresas PENDING/BLOCKED antes da persistência e manter cobertura de upload/ACL
+- [x] Ligar customerAging/supplierAging à vista Relatórios com síntese real, estado vazio e cobertura jsdom
