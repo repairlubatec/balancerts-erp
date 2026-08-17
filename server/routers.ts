@@ -5,7 +5,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
-import { activateCompanyForUser, appendAuditEvent, createCompanyForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { activateCompanyForUser, appendAuditEvent, createCompanyForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
@@ -121,6 +121,7 @@ export const appRouter = router({
     entryChain: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), entryId: z.number().int().positive() })).query(({ ctx, input }) => getJournalDocumentChainForUserCompany(ctx.user.id, input.companyId, input.entryId)),
     trace: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), report: z.enum(["TRIAL_BALANCE", "INCOME_STATEMENT", "BALANCE_SHEET"]), accountCode: z.string().min(1).optional() })).query(({ ctx, input }) => getReportTraceForUserCompany(ctx.user.id, input.companyId, input.report, input.accountCode)),
     vatSummary: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getVatSummaryForUserCompany(ctx.user.id, input.companyId)),
+    fiscalRegister: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getFiscalRegisterForUserCompany(ctx.user.id, input.companyId)),
   }),
   audit: router({
     list: roleProcedure("audit", "read").input(z.object({ companyId: z.number().int().positive(), entityType: z.string().min(1).optional(), entityId: z.string().min(1).optional() })).query(({ ctx, input }) => getAuditEventsForUserCompany(ctx.user.id, input.companyId, input.entityType, input.entityId)),
