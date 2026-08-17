@@ -143,6 +143,15 @@ export async function reserveDocumentNumber(input: { userId: number; companyId: 
   return result;
 }
 
+export async function getJournalDocumentChainForUserCompany(userId: number, companyId: number, entryId: number) {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select({ entry: journalEntries, document: businessDocuments, line: journalLines, account: chartAccounts }).from(journalEntries).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(businessDocuments, eq(journalEntries.sourceDocumentId, businessDocuments.id)).innerJoin(journalLines, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).where(and(eq(journalEntries.id, entryId), eq(journalEntries.companyId, companyId), eq(organizations.ownerUserId, userId), eq(journalEntries.status, "POSTED")));
+  const first = rows[0];
+  if (!first) return null;
+  return { entry: first.entry, document: first.document, lines: rows.map((row) => ({ lineId: row.line.id, accountId: row.account.id, accountCode: row.account.code, accountName: row.account.name, debit: Number(row.line.debit), credit: Number(row.line.credit) })) };
+}
+
 export async function getDocumentAccountingChainForUserCompany(userId: number, companyId: number, documentId: number) {
   const db = await getDb();
   if (!db) return null;

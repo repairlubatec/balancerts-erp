@@ -74,3 +74,5 @@
 - [x] Cobrir por API o posting de estorno do Contabilista e a rejeição do Auditor
 - [x] Impedir que um documento passe a ACCOUNTED sem lançamento POSTED ligado por sourceDocumentId
 - [x] Reforçar testes de idempotência para chave vazia, processamento em curso, resultado concluído e retry após falha
+- [x] Testar leitura tenant-aware da auditoria pelo Auditor e rejeição por função antes do acesso à base de dados
+- [x] Expor cadeia inversa Lançamento → Documento de origem → Contas, com filtro tenant-aware

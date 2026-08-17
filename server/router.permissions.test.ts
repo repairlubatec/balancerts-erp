@@ -43,12 +43,20 @@ describe("protected accounting procedures", () => {
     await expect(caller.closing.evaluate({ checks: [] })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
+  it("allows Auditor to query tenant-scoped audit history", async () => {
+    const list = vi.spyOn(db, "getAuditEventsForUserCompany").mockResolvedValue([{ event: { id: 1, companyId: 41 } } as never]);
+    const caller = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(caller.audit.list({ companyId: 41 })).resolves.toHaveLength(1);
+    expect(list).toHaveBeenCalledWith(8, 41);
+  });
+
   it("rejects unauthorized critical modules before database access", async () => {
     const caller = appRouter.createCaller(contextWithRole("user"));
     await expect(caller.companies.list()).rejects.toMatchObject({ code: "FORBIDDEN" });
     await expect(caller.documents.validateTransition({ from: "DRAFT", to: "VALIDATED" })).rejects.toMatchObject({ code: "FORBIDDEN" });
     await expect(caller.files.downloadUrl({ companyId: 1, fileId: 1 })).rejects.toMatchObject({ code: "FORBIDDEN" });
     await expect(caller.reports.trialBalance({ companyId: 1 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.audit.list({ companyId: 1 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
   it("passes authenticated tenant scope to persisted stock reconciliation", async () => {
