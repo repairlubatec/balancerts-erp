@@ -19,6 +19,7 @@ import { buildReversalLines, reversalDescription } from "./reversal";
 import { createFileAsset, getFileAssetForUser, recordStockMovement } from "./db";
 import { prepareTenantFile } from "./files";
 import { storageGetSignedUrl, storagePut } from "./storage";
+import { buildAgtComplianceCalendar } from "./tax-compliance";
 
 const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) => protectedProcedure.use(({ ctx, next }) => {
   if (!can(ctx.user.role as BalancertsRole, module, permission)) throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
@@ -66,6 +67,7 @@ export const appRouter = router({
   fiscal: router({
     calculateIva: roleProcedure("fiscal", "validate").input(z.object({ netAmount: z.number().nonnegative(), regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), rule: z.object({ code: z.string().min(1), regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional(), rate: z.number().nonnegative().optional(), evidence: z.string().min(1) }) })).mutation(({ input }) => calculateIva(input)),
     validateNormative: roleProcedure("fiscal", "validate").input(z.object({ area: z.enum(["FISCAL_DOCUMENT", "ACCOUNTING"]), evidenceCodes: z.array(z.string().min(1)) })).query(({ input }) => validateNormativeCoverage(input)),
+    complianceCalendar: roleProcedure("fiscal", "read").input(z.object({ year: z.number().int().min(2025).max(2100), regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).optional() })).query(({ input }) => buildAgtComplianceCalendar(input)),
   }),
   documents: router({
     validateTransition: roleProcedure("documents", "validate").input(z.object({ from: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]), to: z.string() })).query(({ input }) => ({ allowed: validateDocumentTransition(input.from, input.to) })),

@@ -4,13 +4,22 @@ import * as db from "./db";
 import * as storage from "./storage";
 import type { TrpcContext } from "./_core/context";
 
-function context(role: "auditor" | "user"): TrpcContext {
+function context(role: "admin" | "auditor" | "user"): TrpcContext {
   return { user: { id: 52, openId: role, name: role, email: `${role}@example.com`, loginMethod: "test", role, createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() }, req: { protocol: "https", headers: {} } as TrpcContext["req"], res: { clearCookie: () => undefined } as TrpcContext["res"] };
 }
 
 afterEach(() => vi.restoreAllMocks());
 
-describe("files.downloadUrl", () => {
+describe("files router", () => {
+  it("registers a tenant file through storage before persisting metadata", async () => {
+    vi.spyOn(storage, "storagePut").mockResolvedValue({ key: "org/1/company/2/documents/test.txt", url: "/manus-storage/org/1/company/2/documents/test.txt" });
+    const asset = vi.spyOn(db, "createFileAsset").mockResolvedValue({ id: 8, storageKey: "org/1/company/2/documents/test.txt" } as never);
+    const result = await appRouter.createCaller(context("admin")).files.register({ organizationId: 1, companyId: 2, filename: "test.txt", mimeType: "text/plain", dataBase64: Buffer.from("hello").toString("base64"), allowedUserIds: [52] });
+    expect(result).toEqual({ id: 8, storageKey: "org/1/company/2/documents/test.txt" });
+    expect(storage.storagePut).toHaveBeenCalledWith(expect.stringContaining("org/1/company/2/documents/"), expect.any(Buffer), "text/plain");
+    expect(asset).toHaveBeenCalledWith(expect.objectContaining({ userId: 52, organizationId: 1, companyId: 2, storageKey: "org/1/company/2/documents/test.txt", filename: "test.txt", mimeType: "text/plain", size: 5 }));
+  });
+
   it("returns a signed URL after ACL metadata lookup", async () => {
     vi.spyOn(db, "getFileAssetForUser").mockResolvedValue({ id: 7, storageKey: "org/1/company/2/file.pdf", filename: "file.pdf", mimeType: "application/pdf", size: 10, sha256: "a".repeat(64) } as never);
     vi.spyOn(storage, "storageGetSignedUrl").mockResolvedValue("https://signed.example/file.pdf");

@@ -116,3 +116,6 @@
 - [x] Testar a invocação integrada companies.activate com ausência de documentos, lançamentos e movimentos criados automaticamente
 - [x] Adicionar teste Vitest integrado de companies.activate via appRouter.createCaller cobrindo transição PENDING→READY
 - [x] No mesmo teste, validar evento COMPANY_ACTIVATED auditável e zero businessDocuments, journalEntries e stockMovements
+- [x] Implementar calendário AGT parametrizado para 2026 com IVA Geral/Simplificado, SAF-T, filtragem por regime e datas válidas
+- [x] Implementar builders auxiliares de antiguidade de saldos e registo fiscal com reconciliação de totais
+- [x] Verificar o fluxo files.register com base64, chave tenant-aware, storagePut e metadata persistida antes do download ACL

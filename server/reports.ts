@@ -76,3 +76,43 @@ export function buildVatSummary(documents: VatDocumentRow[]) {
   const rows = Array.from(groups.entries()).map(([key, value]) => ({ key, ...value })).sort((a, b) => a.key.localeCompare(b.key));
   return { rows, totals: { netAmount: money(rows.reduce((sum, row) => sum + row.netAmount, 0)), taxAmount: money(rows.reduce((sum, row) => sum + row.taxAmount, 0)), totalAmount: money(rows.reduce((sum, row) => sum + row.totalAmount, 0)) } };
 }
+
+export type OpenItemRow = {
+  id: number;
+  partyName: string;
+  documentNumber: string;
+  issuedAt: Date;
+  dueDate: Date;
+  amount: number;
+  settledAmount: number;
+};
+
+export type AgingBucket = "CURRENT" | "DAYS_1_30" | "DAYS_31_60" | "DAYS_61_90" | "OVER_90";
+
+export function buildAgingReport(items: OpenItemRow[], asOf: Date) {
+  const rows = items.map((item) => {
+    const outstanding = money(Math.max(0, item.amount - item.settledAmount));
+    const daysPastDue = Math.max(0, Math.floor((asOf.getTime() - item.dueDate.getTime()) / 86_400_000));
+    const bucket: AgingBucket = daysPastDue === 0 ? "CURRENT" : daysPastDue <= 30 ? "DAYS_1_30" : daysPastDue <= 60 ? "DAYS_31_60" : daysPastDue <= 90 ? "DAYS_61_90" : "OVER_90";
+    return { ...item, outstanding, daysPastDue, bucket };
+  }).filter((row) => row.outstanding > 0).sort((a, b) => b.daysPastDue - a.daysPastDue || a.partyName.localeCompare(b.partyName));
+  const totals = rows.reduce((acc, row) => { acc.outstanding = money(acc.outstanding + row.outstanding); acc.byBucket[row.bucket] = money(acc.byBucket[row.bucket] + row.outstanding); return acc; }, { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } as Record<AgingBucket, number> });
+  return { asOf, rows, totals };
+}
+
+export type FiscalRegisterRow = {
+  documentId: number;
+  documentNumber: string;
+  issueDate: Date;
+  customerNif: string | null;
+  status: string;
+  ivaRegime: VatDocumentRow["ivaRegime"];
+  netAmount: number;
+  taxAmount: number;
+  totalAmount: number;
+};
+
+export function buildFiscalRegister(rows: FiscalRegisterRow[]) {
+  const entries = [...rows].sort((a, b) => a.issueDate.getTime() - b.issueDate.getTime() || a.documentId - b.documentId);
+  return { entries, totals: { netAmount: money(entries.reduce((sum, row) => sum + row.netAmount, 0)), taxAmount: money(entries.reduce((sum, row) => sum + row.taxAmount, 0)), totalAmount: money(entries.reduce((sum, row) => sum + row.totalAmount, 0)) }, reconciled: entries.every((row) => Math.abs(row.totalAmount - row.netAmount - row.taxAmount) <= 0.005) };
+}
