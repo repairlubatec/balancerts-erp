@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
 
-function contextWithRole(role: "financeiro" | "contabilista"): TrpcContext {
+function contextWithRole(role: "financeiro" | "contabilista" | "auditor" | "operador"): TrpcContext {
   return {
     user: { id: 8, openId: `test-${role}`, name: role, email: `${role}@example.com`, loginMethod: "test", role, createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() },
     req: { protocol: "https", headers: {} } as TrpcContext["req"],
@@ -23,5 +23,15 @@ describe("protected accounting procedures", () => {
         { accountId: 2, debit: 0, credit: 100, postable: true, validFrom: new Date("2020-01-01") },
       ],
     })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
+  it("rejects direct API reversal for Auditor", async () => {
+    const caller = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(caller.reversal.preview({ originalEntryId: 1, reason: "Correcção auditada", lines: [{ accountId: 1, debit: 10, credit: 0, currency: "AOA", exchangeRate: 1 }, { accountId: 2, debit: 0, credit: 10, currency: "AOA", exchangeRate: 1 }] })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
+  it("rejects direct API close for Operador", async () => {
+    const caller = appRouter.createCaller(contextWithRole("operador"));
+    await expect(caller.closing.evaluate({ checks: [] })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 });
