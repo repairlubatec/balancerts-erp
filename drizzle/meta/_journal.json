@@ -8,6 +8,20 @@
       "when": 1786977284080,
       "tag": "0000_cool_sunspot",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1786978261539,
+      "tag": "0001_blushing_unus",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1786978354176,
+      "tag": "0002_milky_scarecrow",
+      "breakpoints": true
     }
   ]
 }
