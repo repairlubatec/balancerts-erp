@@ -43,6 +43,13 @@
       "when": 1786979915789,
       "tag": "0005_wise_synch",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1786980513260,
+      "tag": "0006_ambitious_enchantress",
+      "breakpoints": true
     }
   ]
 }

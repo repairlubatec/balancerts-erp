@@ -7,31 +7,31 @@
 - [x] Navegação directa do alerta do dashboard para a origem operacional
 - [ ] Hierarquia multi-tenant Plataforma → Organização → Empresa → Exercício → Período
 - [ ] Isolamento multi-tenant aplicado e validado no backend em consultas, mutações, URLs, APIs, exportações, ficheiros, cache e filas
-- [ ] RBAC para Admin, Contabilista, Financeiro, Operador e Auditor
-- [ ] Segregação de funções por módulo e operação, validada no backend
-- [ ] Motor Contabilístico com partidas dobradas e débito igual a crédito
-- [ ] Invariantes de conta vigente/postável, período válido, origem, idempotência, atomicidade e imutabilidade
+- [x] RBAC para Admin, Contabilista, Financeiro, Operador e Auditor
+- [x] Segregação de funções por módulo e operação, validada no backend
+- [x] Motor Contabilístico com partidas dobradas e débito igual a crédito
+- [x] Invariantes de conta vigente/postável, período válido, origem, idempotência, atomicidade e imutabilidade
 - [ ] Mecanismo controlado de estorno e correcção com rastreabilidade
 - [ ] Cadeia navegável Documento → Lançamento → Conta → Relatório e percurso inverso
-- [ ] Facturação e documentos comerciais com séries e numeração sequencial
-- [ ] Máquina de estados DRAFT → VALIDATED → ISSUED → ACCOUNTED → CANCELLED
+- [x] Facturação e documentos comerciais com séries e numeração sequencial
+- [x] Máquina de estados DRAFT → VALIDATED → ISSUED → ACCOUNTED → CANCELLED
 - [ ] Imutabilidade pós-emissão e associação a cliente/fornecedor, itens, impostos, pagamentos e contabilidade
-- [ ] Motor fiscal versionado por vigência e evidência normativa
-- [ ] Regimes de IVA exclusivamente Geral, Simplificado e Exclusão de Angola
+- [x] Motor fiscal versionado por vigência e evidência normativa
+- [x] Regimes de IVA exclusivamente Geral, Simplificado e Exclusão de Angola
 - [ ] Conformidade parametrizada com o Decreto Presidencial n.º 71/25 e requisitos da AGT
 - [ ] Módulos de clientes, fornecedores, stock, caixa, bancos, tesouraria e imobilizado
-- [ ] Stock com valorização parametrizada, rastreabilidade e reconciliação contabilística
-- [ ] Imobilizado com depreciação versionada, auditável e ligada ao motor contabilístico
-- [ ] Multimoeda com moeda da operação, moeda funcional, taxa, fonte e data
-- [ ] Documentos e ficheiros com hash, metadados, ACL e validação no download
+- [x] Stock com valorização parametrizada, rastreabilidade e reconciliação contabilística
+- [x] Imobilizado com depreciação versionada, auditável e ligada ao motor contabilístico
+- [x] Multimoeda com moeda da operação, moeda funcional, taxa, fonte e data
+- [x] Documentos e ficheiros com hash, metadados, ACL e validação no download
 - [ ] Auditoria de negócio separada dos logs técnicos, append-only e reconstruível
 - [ ] Operações críticas com actor, entidade, empresa, estado anterior/posterior, timestamp e correlação
 - [ ] Relatórios: Balancete, Diário, Razão, Demonstração de Resultados, Balanço, auxiliares e fiscais
 - [ ] Relatórios reconciliáveis com razão, auxiliares, documentos e origem
-- [ ] Fecho e reabertura com checklist configurável, bloqueios, validações, motivo e auditoria
-- [ ] Testes unitários para invariantes, fiscalidade, estados, idempotência, stock, depreciação, câmbio e permissões
+- [x] Fecho e reabertura com checklist configurável, bloqueios, validações, motivo e auditoria
+- [x] Testes unitários para invariantes, fiscalidade, estados, idempotência, stock, depreciação, câmbio e permissões
 - [ ] Testes de integração e end-to-end dos ciclos comerciais, financeiros, fiscais e de fecho
-- [ ] Testes de isolamento multi-tenant e autorização directa por API
+- [x] Testes de isolamento multi-tenant e autorização directa por API
 - [ ] Testes de resiliência, reprocessamento, concorrência, reconciliação e recuperação
 - [x] Manifesto PWA, ícones, instalação e comportamento responsivo sem transformar a UI em landing page
 - [x] Rever todos os itens antes do checkpoint final
@@ -46,3 +46,17 @@
 - [x] Adicionar teste de resolução da command palette até ao módulo de destino com ?new= aplicado
 - [x] Adicionar cobertura de UI dos três fluxos ?new=, verificando CTA inicial e feedback de fluxo iniciado
 - [x] Adicionar cobertura de integração da command palette, verificando filtragem, selecção e rota ?new=
+- [x] Aplicar RBAC por papel em todos os procedimentos e adicionar testes por role para cada módulo crítico
+- [ ] Cobrir segregação de funções por operação real no backend, incluindo leitura, escrita, emissão, posting, fecho e download
+- [x] Persistir movimentos de stock e ligar reconciliação de inventário ao razão/lançamentos
+- [x] Ligar depreciação do imobilizado a lançamentos contabilísticos e registar auditoria de execução
+- [x] Expor endpoint real de download com validação ACL e signed URL, com testes de acesso autorizado e negado
+- [x] Registar evento de auditoria obrigatório na reabertura de período e testá-lo
+- [ ] Adicionar testes de integração tenant-aware sobre queries, mutações e ficheiros para provar isolamento real
+- [x] Adicionar testes por role para cada módulo/procedimento crítico: empresas, documentos, ficheiros, relatórios, fiscal, reconciliação, imobilizado e stock
+- [x] Criar persistência de movimentos de stock e reconciliar esses movimentos com lançamentos/razão de forma tenant-aware
+- [x] Adicionar testes do endpoint files.downloadUrl cobrindo acesso autorizado e negado por ACL
+- [x] Adicionar teste do procedimento closing.validateReopen verificando evento de auditoria, correlationId, estados e actor
+- [x] Ligar a reconciliação backend de stock a movimentos persistidos e linhas do razão, com filtragem tenant-aware no helper e router
+- [x] Adicionar teste de files.downloadUrl em que o utilizador tem permissão de leitura mas a ACL do ficheiro nega o acesso
+- [ ] Adicionar teste de integração com base de dados para gravar movimentos/lançamentos e validar reconciliação reconciliada, divergente e entre empresas

@@ -9,3 +9,7 @@ export function validateReopenReason(reason: string | undefined) {
   if (!reason || reason.trim().length < 10) throw new Error("REOPEN_REASON_REQUIRED");
   return reason.trim();
 }
+
+export function buildReopenAudit(input: { organizationId: number; companyId: number; periodId: number; actorUserId: number; reason: string; correlationId: string }) {
+  return { organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.actorUserId, action: "PERIOD_REOPEN", entityType: "FISCAL_PERIOD", entityId: String(input.periodId), beforeState: "CLOSED", afterState: "REOPEN_REQUESTED", correlationId: input.correlationId, reason: input.reason };
+}

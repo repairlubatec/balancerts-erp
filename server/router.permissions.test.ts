@@ -1,8 +1,9 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import * as db from "./db";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
 
-function contextWithRole(role: "financeiro" | "contabilista" | "auditor" | "operador"): TrpcContext {
+function contextWithRole(role: "admin" | "financeiro" | "contabilista" | "auditor" | "operador" | "user"): TrpcContext {
   return {
     user: { id: 8, openId: `test-${role}`, name: role, email: `${role}@example.com`, loginMethod: "test", role, createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() },
     req: { protocol: "https", headers: {} } as TrpcContext["req"],
@@ -33,5 +34,28 @@ describe("protected accounting procedures", () => {
   it("rejects direct API close for Operador", async () => {
     const caller = appRouter.createCaller(contextWithRole("operador"));
     await expect(caller.closing.evaluate({ checks: [] })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
+  it("rejects unauthorized critical modules before database access", async () => {
+    const caller = appRouter.createCaller(contextWithRole("user"));
+    await expect(caller.companies.list()).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.documents.validateTransition({ from: "DRAFT", to: "VALIDATED" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.files.downloadUrl({ companyId: 1, fileId: 1 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.reports.trialBalance({ companyId: 1 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
+  it("passes authenticated tenant scope to persisted stock reconciliation", async () => {
+    const reconcile = vi.spyOn(db, "reconcileStockForUserCompany").mockResolvedValue({ reconciled: true, difference: 0, inventoryValue: 300, ledgerValue: 300 });
+    const caller = appRouter.createCaller(contextWithRole("admin"));
+    await expect(caller.inventory.reconcile({ companyId: 41, inventoryAccountId: 12 })).resolves.toMatchObject({ reconciled: true });
+    expect(reconcile).toHaveBeenCalledWith({ userId: 8, companyId: 41, inventoryAccountId: 12 });
+  });
+
+  it("rejects role-incompatible fiscal, treasury, stock and fixed-asset operations", async () => {
+    const caller = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(caller.fiscal.calculateIva({ netAmount: 100, regime: "GERAL", rule: { code: "IVA", regime: "GERAL", validFrom: new Date("2026-01-01"), rate: 0.14, evidence: "DP-71/25" } })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.reconciliation.bank({ bank: [], ledger: [] })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.inventory.record({ organizationId: 1, companyId: 1, periodId: 1, productCode: "SKU-1", type: "IN", quantity: 1, unitCost: 10, correlationId: "stock-permission" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.fixedAssets.postDepreciation({ organizationId: 1, companyId: 1, periodId: 1, assetId: 1, amount: 10, expenseAccountId: 1, accumulatedDepreciationAccountId: 2, correlationId: "asset-permission" })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 });

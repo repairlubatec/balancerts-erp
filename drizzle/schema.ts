@@ -72,6 +72,21 @@ export const journalLines = mysqlTable("journalLines", {
   exchangeRate: decimal("exchangeRate", { precision: 18, scale: 8 }).default("1").notNull(),
 });
 
+export const stockMovements = mysqlTable("stockMovements", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  periodId: int("periodId").notNull(),
+  productCode: varchar("productCode", { length: 80 }).notNull(),
+  type: mysqlEnum("type", ["IN", "OUT"]).notNull(),
+  quantity: decimal("quantity", { precision: 18, scale: 4 }).notNull(),
+  unitCost: decimal("unitCost", { precision: 18, scale: 4 }).notNull(),
+  sourceDocumentId: int("sourceDocumentId"),
+  journalEntryId: int("journalEntryId"),
+  correlationId: varchar("correlationId", { length: 128 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const fileAssets = mysqlTable("fileAssets", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

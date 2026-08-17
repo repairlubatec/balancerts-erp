@@ -1,8 +1,9 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalPeriods, journalEntries, journalLines, organizations, users } from "../drizzle/schema";
+import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalPeriods, journalEntries, journalLines, organizations, stockMovements, users } from "../drizzle/schema";
 import { buildTrialBalance } from "./reports";
+import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
 import { ENV } from "./_core/env";
@@ -75,6 +76,25 @@ export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
   const eventHash = createHash("sha256").update(JSON.stringify({ ...input, previousHash })).digest("hex");
   const result = await db.insert(auditEvents).values({ ...input, previousHash, eventHash });
   return result;
+}
+
+export async function reconcileStockForUserCompany(input: { userId: number; companyId: number; inventoryAccountId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const movements = await db.select({ movement: stockMovements }).from(stockMovements).innerJoin(companies, eq(stockMovements.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(stockMovements.companyId, input.companyId), eq(organizations.ownerUserId, input.userId)));
+  const ledger = await db.select({ line: journalLines }).from(journalLines).innerJoin(journalEntries, eq(journalLines.entryId, journalEntries.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(journalEntries.companyId, input.companyId), eq(journalLines.accountId, input.inventoryAccountId), eq(organizations.ownerUserId, input.userId)));
+  const normalized = movements.map(({ movement }) => ({ type: movement.type, quantity: Number(movement.quantity), unitCost: Number(movement.unitCost) }));
+  const ledgerValue = ledger.reduce((total, { line }) => total + Number(line.debit) - Number(line.credit), 0);
+  return reconcileInventoryToLedger(normalized, ledgerValue);
+}
+
+export async function recordStockMovement(input: { userId: number; organizationId: number; companyId: number; periodId: number; productCode: string; type: "IN" | "OUT"; quantity: number; unitCost: number; sourceDocumentId?: number; journalEntryId?: number; correlationId: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const company = await db.select({ id: companies.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const result = await db.insert(stockMovements).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, productCode: input.productCode, type: input.type, quantity: String(input.quantity), unitCost: String(input.unitCost), sourceDocumentId: input.sourceDocumentId, journalEntryId: input.journalEntryId, correlationId: input.correlationId });
+  return { id: result[0].insertId, ...input };
 }
 
 export async function createFileAsset(input: { userId: number; organizationId: number; companyId: number; storageKey: string; filename: string; mimeType: string; size: number; sha256: string; allowedUserIds?: number[] }) {
