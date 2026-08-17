@@ -184,3 +184,4 @@
 - [x] Expor reports.saftReadiness com motivos de bloqueio persistentes e submissionEligible sempre falso até validação XSD/AGT
 - [x] Finalizar os cartões Volume Facturado, A Receber e Reconciliação da Home com fiscalRegister, customerAging e reports.reconciliation persistentes e tenant-aware
 - [x] Normalizar e testar snapshots beforeState/afterState estruturados na mutação fixedAssets.postDepreciation, incluindo actor, entidade, lançamento e correlação
+- [x] Normalizar e testar snapshots beforeState/afterState estruturados na mutação closing.validateReopen, incluindo período, motivo, actor e correlationId

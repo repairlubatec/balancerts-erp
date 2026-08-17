@@ -21,6 +21,6 @@ describe("closing.validateReopen integration", () => {
     expect(result).toEqual({ reason: "Correcção de documento emitido", audited: true });
     expect(scope).toHaveBeenCalledWith({ actorUserId: 41, organizationId: 7, companyId: 8 });
     expect(period).toHaveBeenCalledWith({ actorUserId: 41, companyId: 8, periodId: 9 });
-    expect(append).toHaveBeenCalledWith(expect.objectContaining({ organizationId: 7, companyId: 8, actorUserId: 41, entityId: "9", action: "PERIOD_REOPEN", beforeState: "CLOSED", afterState: "REOPEN_REQUESTED", correlationId: "reopen-7-9" }));
+    expect(append).toHaveBeenCalledWith(expect.objectContaining({ organizationId: 7, companyId: 8, actorUserId: 41, entityId: "9", action: "PERIOD_REOPEN", beforeState: JSON.stringify({ state: "CLOSED", periodId: 9 }), afterState: JSON.stringify({ state: "REOPEN_REQUESTED", periodId: 9, reason: "Correcção de documento emitido" }), correlationId: "reopen-7-9" }));
   });
 });
