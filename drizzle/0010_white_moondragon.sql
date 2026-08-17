@@ -1,0 +1,1 @@
+ALTER TABLE `companies` ADD `primaryLegalRepresentative` varchar(180);

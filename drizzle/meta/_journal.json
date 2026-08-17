@@ -71,6 +71,13 @@
       "when": 1786984359680,
       "tag": "0009_soft_supernaut",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1786984608743,
+      "tag": "0010_white_moondragon",
+      "breakpoints": true
     }
   ]
 }

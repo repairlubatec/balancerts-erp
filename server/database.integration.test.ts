@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAuditEventsForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, reconcileStockForUserCompany } from "./db";
+import { getAuditEventsForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 
 describe("database tenant integration", () => {
   it("reads Repair Lubatec without exposing operational records", async () => {
@@ -10,6 +10,12 @@ describe("database tenant integration", () => {
     expect(await getDocumentsForUserCompany(1, repair!.company.id)).toEqual([]);
     expect(await getTrialBalanceForUserCompany(1, repair!.company.id)).toMatchObject({ rows: [] });
     expect(await reconcileStockForUserCompany({ userId: 1, companyId: repair!.company.id, inventoryAccountId: 999999 })).toMatchObject({ reconciled: true, difference: 0 });
+  });
+
+  it("rejects critical mutations while Repair Lubatec remains PENDING", async () => {
+    await expect(reserveDocumentNumber({ userId: 1, companyId: 1, series: "FT", documentType: "FT" })).rejects.toThrow("COMPANY_CONFIGURATION_PENDING");
+    await expect(transitionBusinessDocument({ userId: 1, companyId: 1, documentId: 999999, to: "ISSUED" })).rejects.toThrow("COMPANY_CONFIGURATION_PENDING");
+    await expect(postJournalEntry({ companyId: 1, periodId: 1, createdBy: 1, idempotencyKey: "pending-company-guard", description: "Não deve ser criado", lines: [{ accountId: 1, debit: 10, credit: 0 }, { accountId: 2, debit: 0, credit: 10 }] })).rejects.toThrow("COMPANY_CONFIGURATION_PENDING");
   });
 
   it("returns no cross-tenant data for unknown user/company scopes", async () => {

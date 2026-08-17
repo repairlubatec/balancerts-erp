@@ -98,6 +98,14 @@ export async function createCompanyForUser(input: {
   return created[0];
 }
 
+async function assertCompanyReady(db: Awaited<ReturnType<typeof getDb>>, userId: number, companyId: number) {
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, companyId), eq(organizations.ownerUserId, userId))).limit(1);
+  if (!rows[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  if (rows[0].company.configurationStatus !== "READY") throw new Error("COMPANY_CONFIGURATION_PENDING");
+  return rows[0];
+}
+
 export async function getPeriodsForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
@@ -175,6 +183,7 @@ export async function getFileAssetForUser(input: { userId: number; companyId: nu
 export async function reserveDocumentNumber(input: { userId: number; companyId: number; series: string; documentType: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
   const reserved = await db.transaction(async (tx) => {
     const rows = await tx.select({ series: documentSeries, organization: organizations }).from(documentSeries).innerJoin(companies, eq(documentSeries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(documentSeries.companyId, input.companyId), eq(documentSeries.code, input.series), eq(documentSeries.documentType, input.documentType), eq(documentSeries.active, 1), eq(organizations.ownerUserId, input.userId))).limit(1);
     const current = rows[0];
@@ -262,6 +271,7 @@ export async function getVatSummaryForUserCompany(userId: number, companyId: num
 export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED" }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
   const document = await db.select({ document: businessDocuments, organization: organizations }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(businessDocuments.id, input.documentId), eq(businessDocuments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
   const current = document[0];
   if (!current) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
@@ -279,10 +289,11 @@ export async function transitionBusinessDocument(input: { userId: number; compan
 export async function postJournalEntry(input: { companyId: number; periodId: number; sourceDocumentId?: number; reversalOfEntryId?: number; idempotencyKey: string; description: string; createdBy: number; lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[] }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  const validation = validateBalancedEntry(input.lines);
-  if (!validation.ok) throw new Error(validation.reason);
   const companyContext = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.createdBy))).limit(1);
   if (!companyContext[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  if (companyContext[0].company.configurationStatus !== "READY") throw new Error("COMPANY_CONFIGURATION_PENDING");
+  const validation = validateBalancedEntry(input.lines);
+  if (!validation.ok) throw new Error(validation.reason);
   const result = await db.transaction(async (tx) => {
     const existing = await tx.select().from(journalEntries).where(eq(journalEntries.idempotencyKey, input.idempotencyKey)).limit(1);
     if (existing[0]) return { entry: existing[0], idempotent: true };
