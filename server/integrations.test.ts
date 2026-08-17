@@ -11,4 +11,9 @@ describe("external integrations", () => {
     const result = await executeIdempotentIntegration({ idempotencyKey: "agt-2", maxRetries: 1, timeoutMs: 20, execute: async () => { throw new Error("UPSTREAM_UNAVAILABLE"); } });
     expect(result).toMatchObject({ state: "RECONCILIATION_REQUIRED", attempts: 2, error: "UPSTREAM_UNAVAILABLE" });
   });
+
+  it("converts repeated upstream timeouts into an explicit reconciliation state", async () => {
+    const result = await executeIdempotentIntegration({ idempotencyKey: "agt-timeout", maxRetries: 2, timeoutMs: 5, execute: async () => new Promise((resolve) => setTimeout(() => resolve("late"), 25)) });
+    expect(result).toMatchObject({ state: "RECONCILIATION_REQUIRED", attempts: 3, error: "INTEGRATION_TIMEOUT" });
+  });
 });

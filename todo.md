@@ -77,3 +77,4 @@
 - [x] Testar leitura tenant-aware da auditoria pelo Auditor e rejeição por função antes do acesso à base de dados
 - [x] Expor cadeia inversa Lançamento → Documento de origem → Contas, com filtro tenant-aware
 - [x] Cobrir por API Documento→Lançamento e Lançamento→Documento com escopo tenant-aware
+- [x] Cobrir timeout repetido, limite de retries e estado RECONCILIATION_REQUIRED nas integrações externas
