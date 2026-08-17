@@ -376,13 +376,15 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
   const companyContext = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.createdBy))).limit(1);
   if (!companyContext[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   if (companyContext[0].company.configurationStatus !== "READY") throw new Error("COMPANY_CONFIGURATION_PENDING");
+  await assertFiscalPeriodForUserCompany({ actorUserId: input.createdBy, companyId: input.companyId, periodId: input.periodId });
   if (input.sourceDocumentId !== undefined) {
     const source = await db.select({ id: businessDocuments.id }).from(businessDocuments).where(and(eq(businessDocuments.id, input.sourceDocumentId), eq(businessDocuments.companyId, input.companyId))).limit(1);
     if (!source[0]) throw new Error("SOURCE_DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
   }
   if (input.reversalOfEntryId !== undefined) {
-    const original = await db.select({ id: journalEntries.id }).from(journalEntries).where(and(eq(journalEntries.id, input.reversalOfEntryId), eq(journalEntries.companyId, input.companyId))).limit(1);
+    const original = await db.select({ id: journalEntries.id, status: journalEntries.status }).from(journalEntries).where(and(eq(journalEntries.id, input.reversalOfEntryId), eq(journalEntries.companyId, input.companyId))).limit(1);
     if (!original[0]) throw new Error("REVERSAL_ENTRY_NOT_FOUND_OR_FORBIDDEN");
+    if (original[0].status === "REVERSED") throw new Error("REVERSAL_ALREADY_EXISTS");
   }
   const validation = validateBalancedEntry(input.lines);
   if (!validation.ok) throw new Error(validation.reason);
@@ -394,6 +396,7 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
     const inserted = await tx.insert(journalEntries).values({ companyId: input.companyId, periodId: input.periodId, sourceDocumentId: input.sourceDocumentId, reversalOfEntryId: input.reversalOfEntryId, idempotencyKey: input.idempotencyKey, description: input.description, createdBy: input.createdBy, status: "POSTED" });
     const entryId = Number(inserted[0].insertId);
     await tx.insert(journalLines).values(input.lines.map((line) => ({ entryId, accountId: line.accountId, debit: line.debit.toFixed(2), credit: line.credit.toFixed(2), currency: line.currency ?? "AOA", exchangeRate: (line.exchangeRate ?? 1).toFixed(8) })));
+    if (input.reversalOfEntryId !== undefined) await tx.update(journalEntries).set({ status: "REVERSED" }).where(and(eq(journalEntries.id, input.reversalOfEntryId), eq(journalEntries.companyId, input.companyId), eq(journalEntries.status, "POSTED")));
     return { entryId, idempotent: false };
   });
   if (!result.idempotent) {

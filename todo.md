@@ -166,3 +166,4 @@
 - [x] Validar periodId pertencente à empresa e ao tenant antes de reabertura/auditoria, com prova negativa na base real
 - [x] Impedir reabertura de períodos OPEN/CLOSING e validar estado CLOSED antes do evento PERIOD_REOPEN, com prova real na Repair Lubatec
 - [x] Validar que posting rejeita sourceDocumentId e reversalOfEntryId inexistentes ou fora da empresa antes de persistir
+- [x] Exigir período tenant-aware no posting e impedir estornos duplicados, marcando o lançamento original como REVERSED na mesma transacção
