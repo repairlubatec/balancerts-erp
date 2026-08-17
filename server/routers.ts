@@ -10,6 +10,7 @@ import { validateBalancedEntry, validateDocumentTransition } from "./accounting"
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
 import { calculateWeightedAverage } from "./inventory";
+import { calculateStraightLineDepreciation } from "./fixed-assets";
 
 const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) => protectedProcedure.use(({ ctx, next }) => {
   if (!can(ctx.user.role as BalancertsRole, module, permission)) throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
@@ -44,6 +45,9 @@ export const appRouter = router({
     validateTransition: protectedProcedure.input(z.object({ from: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]), to: z.string() })).query(({ input }) => ({ allowed: validateDocumentTransition(input.from, input.to) })),
     reserveNumber: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), series: z.string().min(1), documentType: z.string().min(1) })).mutation(({ ctx, input }) => reserveDocumentNumber({ ...input, userId: ctx.user.id })),
     transition: roleProcedure("documents", "issue").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive(), to: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]) })).mutation(({ ctx, input }) => transitionBusinessDocument({ ...input, userId: ctx.user.id })),
+  }),
+  fixedAssets: router({
+    depreciation: roleProcedure("accounting", "validate").input(z.object({ acquisitionCost: z.number().nonnegative(), residualValue: z.number().nonnegative(), usefulLifeMonths: z.number().int().positive(), elapsedMonths: z.number().int().nonnegative() })).mutation(({ input }) => calculateStraightLineDepreciation(input)),
   }),
   inventory: router({
     valuation: roleProcedure("stock", "validate").input(z.object({ movements: z.array(z.object({ type: z.enum(["IN", "OUT"]), quantity: z.number().positive(), unitCost: z.number().nonnegative() })) })).mutation(({ input }) => calculateWeightedAverage(input.movements)),
