@@ -38,6 +38,13 @@ describe("protected accounting procedures", () => {
     expect(post).toHaveBeenCalledWith(expect.objectContaining({ companyId: 1, periodId: 1, createdBy: 8, reversalOfEntryId: 12, description: expect.stringContaining("12") }));
   });
 
+  it("requires explicit activation confirmation and blocks non-admin roles", async () => {
+    const admin = appRouter.createCaller(contextWithRole("admin"));
+    await expect(admin.companies.activate({ companyId: 1, confirmation: "WRONG_CONFIRMATION" as "ACTIVATE_COMPANY" })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.companies.activate({ companyId: 1, confirmation: "ACTIVATE_COMPANY" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("creates a company profile with pending configuration", async () => {
     const create = vi.spyOn(db, "createCompanyForUser").mockResolvedValue({ company: { id: 41, name: "Repair Lubatec", nif: "5001121871", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA", configurationStatus: "PENDING" }, organization: { id: 5 } } as never);
     const caller = appRouter.createCaller(contextWithRole("admin"));

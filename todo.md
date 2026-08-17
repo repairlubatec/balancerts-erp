@@ -109,3 +109,4 @@
 - [x] Testar via backend/router companies.list, periods, documents, reports e audit para a Repair Lubatec em escopo tenant-aware
 - [x] Provar que reserva documental, transição/emissão e posting permanecem bloqueados enquanto a Repair Lubatec está PENDING
 - [x] Implementar companies.activate com confirmação literal, verificações de configuração, estado READY e auditoria
+- [x] Testar companies.activate com confirmação inválida e rejeição de Contabilista antes de tocar na empresa
