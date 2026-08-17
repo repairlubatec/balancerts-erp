@@ -7,3 +7,9 @@ export const angolaNormativeSources = [
 export function normativeEvidence(code: string) {
   return angolaNormativeSources.find((source) => source.code === code);
 }
+
+export function validateNormativeCoverage(input: { area: "FISCAL_DOCUMENT" | "ACCOUNTING"; evidenceCodes: string[] }) {
+  const required = input.area === "FISCAL_DOCUMENT" ? ["DP-71-25", "AGT-FAT-DOC"] : ["PGC-AO-82-01"];
+  const missing = required.filter((code) => !input.evidenceCodes.includes(code) || !normativeEvidence(code));
+  return { valid: missing.length === 0, required, missing, evidence: input.evidenceCodes.map(normativeEvidence).filter(Boolean) };
+}

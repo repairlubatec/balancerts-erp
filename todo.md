@@ -78,3 +78,4 @@
 - [x] Expor cadeia inversa Lançamento → Documento de origem → Contas, com filtro tenant-aware
 - [x] Cobrir por API Documento→Lançamento e Lançamento→Documento com escopo tenant-aware
 - [x] Cobrir timeout repetido, limite de retries e estado RECONCILIATION_REQUIRED nas integrações externas
+- [x] Parametrizar validação de evidência normativa por área fiscal-documental e contabilística, sem aceitar códigos desconhecidos
