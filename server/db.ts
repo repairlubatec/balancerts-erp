@@ -94,7 +94,7 @@ export async function createCompanyForUser(input: {
     configurationStatus: "PENDING",
     legalRepresentatives: input.legalRepresentatives,
   });
-  await appendAuditEvent({ organizationId: organization[0].id, companyId: Number(result[0].insertId), actorUserId: input.userId, action: "COMPANY_CREATED_PENDING", entityType: "company", entityId: String(result[0].insertId), beforeState: null, afterState: JSON.stringify({ name: input.name, nif: input.nif, configurationStatus: "PENDING" }), correlationId: `company:${result[0].insertId}` });
+  await appendAuditEventForUser({ organizationId: organization[0].id, companyId: Number(result[0].insertId), actorUserId: input.userId, action: "COMPANY_CREATED_PENDING", entityType: "company", entityId: String(result[0].insertId), beforeState: null, afterState: JSON.stringify({ name: input.name, nif: input.nif, configurationStatus: "PENDING" }), correlationId: `company:${result[0].insertId}` });
   const created = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, Number(result[0].insertId)), eq(organizations.ownerUserId, input.userId))).limit(1);
   return created[0];
 }
@@ -116,7 +116,7 @@ export async function activateCompanyForUser(input: { userId: number; companyId:
   const periods = await db.select({ id: fiscalPeriods.id }).from(fiscalPeriods).where(eq(fiscalPeriods.companyId, input.companyId)).limit(1);
   if (!current.company.nif || !current.company.legalForm || !current.company.address || !current.company.activity || !current.company.primaryLegalRepresentative || !periods[0]) throw new Error("COMPANY_CONFIGURATION_INCOMPLETE");
   await db.update(companies).set({ configurationStatus: "READY" }).where(eq(companies.id, input.companyId));
-  await appendAuditEvent({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "COMPANY_ACTIVATED", entityType: "company", entityId: String(input.companyId), beforeState: JSON.stringify({ configurationStatus: transition.before }), afterState: JSON.stringify({ configurationStatus: transition.after }), correlationId: `company:${input.companyId}:activation` });
+  await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "COMPANY_ACTIVATED", entityType: "company", entityId: String(input.companyId), beforeState: JSON.stringify({ configurationStatus: transition.before }), afterState: JSON.stringify({ configurationStatus: transition.after }), correlationId: `company:${input.companyId}:activation` });
   return { companyId: input.companyId, configurationStatus: "READY" as const };
 }
 
@@ -229,7 +229,7 @@ export async function recordStockMovement(input: { userId: number; organizationI
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
   const result = await db.insert(stockMovements).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, productCode: input.productCode, type: input.type, quantity: String(input.quantity), unitCost: String(input.unitCost), sourceDocumentId: input.sourceDocumentId, journalEntryId: input.journalEntryId, correlationId: input.correlationId });
   const movementId = Number(result[0].insertId);
-  await appendAuditEvent({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "STOCK_MOVEMENT_RECORDED", entityType: "stockMovement", entityId: String(movementId), beforeState: null, afterState: JSON.stringify({ type: input.type, productCode: input.productCode, quantity: input.quantity, unitCost: input.unitCost }), correlationId: input.correlationId });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "STOCK_MOVEMENT_RECORDED", entityType: "stockMovement", entityId: String(movementId), beforeState: null, afterState: JSON.stringify({ type: input.type, productCode: input.productCode, quantity: input.quantity, unitCost: input.unitCost }), correlationId: input.correlationId });
   return { id: movementId, ...input };
 }
 
@@ -240,7 +240,7 @@ export async function createFileAsset(input: { userId: number; organizationId: n
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
   const result = await db.insert(fileAssets).values({ organizationId: input.organizationId, companyId: input.companyId, ownerUserId: input.userId, storageKey: input.storageKey, filename: input.filename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, allowedUserIds: JSON.stringify(input.allowedUserIds ?? []) });
   const fileId = Number(result[0].insertId);
-  await appendAuditEvent({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FILE_ASSET_REGISTERED", entityType: "fileAsset", entityId: String(fileId), beforeState: null, afterState: JSON.stringify({ filename: input.filename, mimeType: input.mimeType, sha256: input.sha256, size: input.size }), correlationId: input.storageKey });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FILE_ASSET_REGISTERED", entityType: "fileAsset", entityId: String(fileId), beforeState: null, afterState: JSON.stringify({ filename: input.filename, mimeType: input.mimeType, sha256: input.sha256, size: input.size }), correlationId: input.storageKey });
   return { id: fileId, storageKey: input.storageKey };
 }
 
@@ -267,7 +267,7 @@ export async function reserveDocumentNumber(input: { userId: number; companyId: 
     await tx.update(documentSeries).set({ nextNumber: sql`${documentSeries.nextNumber} + 1` }).where(eq(documentSeries.id, current.series.id));
     return { organizationId: current.organization.id, series: input.series, documentType: input.documentType, number, previousNextNumber: number, nextNumber: number + 1, formatted: formatDocumentNumber(input.series, number) };
   });
-  await appendAuditEvent({ organizationId: reserved.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_NUMBER_RESERVED", entityType: "documentSeries", entityId: `${reserved.series}:${reserved.documentType}`, beforeState: JSON.stringify({ nextNumber: reserved.previousNextNumber }), afterState: JSON.stringify({ nextNumber: reserved.nextNumber, number: reserved.number, formatted: reserved.formatted }), correlationId: `${input.companyId}:${reserved.series}:${reserved.number}` });
+  await appendAuditEventForUser({ organizationId: reserved.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_NUMBER_RESERVED", entityType: "documentSeries", entityId: `${reserved.series}:${reserved.documentType}`, beforeState: JSON.stringify({ nextNumber: reserved.previousNextNumber }), afterState: JSON.stringify({ nextNumber: reserved.nextNumber, number: reserved.number, formatted: reserved.formatted }), correlationId: `${input.companyId}:${reserved.series}:${reserved.number}` });
   const { organizationId: _organizationId, ...result } = reserved;
   return result;
 }
