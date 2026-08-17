@@ -168,3 +168,4 @@
 - [x] Validar que posting rejeita sourceDocumentId e reversalOfEntryId inexistentes ou fora da empresa antes de persistir
 - [x] Exigir período tenant-aware no posting e impedir estornos duplicados, marcando o lançamento original como REVERSED na mesma transacção
 - [x] Provar em integração real que accounting.post rejeita utilizador fora da empresa e periodId inexistente antes da inserção
+- [x] Uniformizar JOURNAL_ENTRY_POSTED/JOURNAL_ENTRY_REVERSED através de appendAuditEventForUser após posting contabilístico
