@@ -19,7 +19,8 @@ describe("BALANCERTS command palette flows", () => {
 
   it("resolves report trace routes with the selected record", () => {
     expect(getReportTraceRoutes("Demonstração de Resultados")).toEqual({
-      account: "/contabilidade?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
+      account: "/contabilidade?focus=NC%202026%2F00017",
+      journal: "/contabilidade?entry=NC%202026%2F00017",
       document: "/documentos?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
       audit: "/auditoria?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
     });
@@ -27,7 +28,8 @@ describe("BALANCERTS command palette flows", () => {
 
   it("resolves account trace routes back to reports and source records", () => {
     expect(getAccountTraceRoutes("FT 2026/00482")).toEqual({
-      report: "/relatorios?focus=FT%202026%2F00482",
+      report: "/relatorios?focus=Balancete%20anal%C3%ADtico",
+      journal: "/contabilidade?entry=FT%202026%2F00482",
       document: "/documentos?focus=FT%202026%2F00482",
       audit: "/auditoria?focus=FT%202026%2F00482",
     });

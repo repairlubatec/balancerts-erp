@@ -83,7 +83,7 @@
 - [x] Adicionar teste de integração real não destrutivo para queries tenant-aware sem inserir dados artificiais
 - [x] Validar por integração real que reconciliação de stock não devolve dados de empresa/tenant inexistente
 - [x] Persistir reversalOfEntryId, emitir JOURNAL_ENTRY_REVERSED e testar rastreabilidade estruturada do estorno
-- [ ] Completar navegação Conta→Relatório e Relatório→Conta/Documento/Lançamento com percurso integrado
+- [x] Completar navegação Conta→Relatório e Relatório→Conta/Documento/Lançamento com percurso integrado
 - [x] Ligar relatório, conta, lançamento e documento de origem numa consulta reports.trace tenant-aware, com teste directo do endpoint
 - [x] Validar reports.trace na base real com filtro accountCode e confirmação de que não existem origens fora do tenant
 - [x] Tornar obrigatório no teste de integração que DATABASE_URL esteja operacional, evitando falsos positivos por fallback sem DB
@@ -141,3 +141,7 @@
 - [ ] Completar a auditoria de todas as mutações persistentes críticas, garantindo actor, empresa, entidade, correlationId e snapshots beforeState/afterState consistentes em cada operação
 - [ ] Adicionar testes específicos por mutação crítica (reserva/transição documental, posting/estorno, stock, ficheiros, depreciação, empresas e reabertura) validando evento auditado e reconstrução por company/entity
 - [x] Normalizar beforeState/afterState explícitos em eventos de criação e posting de stock, ficheiros, numeração e lançamentos
+- [x] Fazer o módulo Contabilidade consumir ?entry= e seleccionar/abrir visivelmente o lançamento correspondente
+- [x] Adicionar teste de UI/integrado que prove a navegação do botão de traceabilidade até ao lançamento seleccionado
+- [x] Adicionar teste integrado da Home que seleccione um registo, clique em Lançamento e confirme navegação para /contabilidade?entry= com o registo destacado
+- [x] Adicionar teste integrado do percurso inverso Conta→Relatório que confirme consumo do parâmetro e selecção esperada no destino
