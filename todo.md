@@ -145,3 +145,4 @@
 - [x] Adicionar teste de UI/integrado que prove a navegação do botão de traceabilidade até ao lançamento seleccionado
 - [x] Adicionar teste integrado da Home que seleccione um registo, clique em Lançamento e confirme navegação para /contabilidade?entry= com o registo destacado
 - [x] Adicionar teste integrado do percurso inverso Conta→Relatório que confirme consumo do parâmetro e selecção esperada no destino
+- [x] Testar auditoria de postDepreciation com actor, tenant, entidade, correlationId e estados CALCULATED→POSTED

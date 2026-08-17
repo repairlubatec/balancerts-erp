@@ -138,6 +138,15 @@ describe("protected accounting procedures", () => {
     expect(reconcile).toHaveBeenCalledWith({ userId: 8, companyId: 41, inventoryAccountId: 12 });
   });
 
+  it("audits fixed-asset depreciation posting with explicit before and after states", async () => {
+    const post = vi.spyOn(db, "postJournalEntry").mockResolvedValue({ entryId: 77, idempotent: false });
+    const append = vi.spyOn(db, "appendAuditEvent").mockResolvedValue({} as never);
+    const caller = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(caller.fixedAssets.postDepreciation({ organizationId: 7, companyId: 41, periodId: 9, assetId: 5, amount: 250, expenseAccountId: 68, accumulatedDepreciationAccountId: 39, correlationId: "dep-5-9" })).resolves.toMatchObject({ audited: true, entry: { entryId: 77 } });
+    expect(post).toHaveBeenCalledWith(expect.objectContaining({ companyId: 41, periodId: 9, createdBy: 8, idempotencyKey: "dep-5-9" }));
+    expect(append).toHaveBeenCalledWith(expect.objectContaining({ organizationId: 7, companyId: 41, actorUserId: 8, action: "FIXED_ASSET_DEPRECIATION_POST", entityType: "FIXED_ASSET", entityId: "5", beforeState: "CALCULATED", afterState: "POSTED", correlationId: "dep-5-9" }));
+  });
+
   it("rejects role-incompatible fiscal, treasury, stock and fixed-asset operations", async () => {
     const caller = appRouter.createCaller(contextWithRole("auditor"));
     await expect(caller.fiscal.calculateIva({ netAmount: 100, regime: "GERAL", rule: { code: "IVA", regime: "GERAL", validFrom: new Date("2026-01-01"), rate: 0.14, evidence: "DP-71/25" } })).rejects.toMatchObject({ code: "FORBIDDEN" });
