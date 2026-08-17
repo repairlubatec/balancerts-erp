@@ -204,3 +204,4 @@
 - [x] Expor reports.documentOriginReconciliation com queries persistentes tenant-aware, RBAC de leitura e contrato de documentos sem lançamento/lançamentos órfãos
 - [x] Alinhar por teste as dez mutações críticas entre a matriz PENDING/READY e a matriz de auditoria, sem operações críticas órfãs
 - [x] Cobrir RBAC de reports.documentOriginReconciliation: Auditor autorizado, Operador bloqueado e escopo tenant-aware antes da persistência
+- [x] Validar documentOriginReconciliation no router real da Repair Lubatec e em escopo inexistente, confirmando reconciliação vazia segura
