@@ -151,12 +151,23 @@ describe("protected accounting procedures", () => {
   });
 
   it("audits fixed-asset depreciation posting with explicit before and after states", async () => {
+    const scope = vi.spyOn(db, "assertAuditScopeForUser").mockResolvedValue(true);
     const post = vi.spyOn(db, "postJournalEntry").mockResolvedValue({ entryId: 77, idempotent: false });
-    const append = vi.spyOn(db, "appendAuditEvent").mockResolvedValue({} as never);
+    const append = vi.spyOn(db, "appendAuditEventForUser").mockResolvedValue({} as never);
     const caller = appRouter.createCaller(contextWithRole("contabilista"));
     await expect(caller.fixedAssets.postDepreciation({ organizationId: 7, companyId: 41, periodId: 9, assetId: 5, amount: 250, expenseAccountId: 68, accumulatedDepreciationAccountId: 39, correlationId: "dep-5-9" })).resolves.toMatchObject({ audited: true, entry: { entryId: 77 } });
+    expect(scope).toHaveBeenCalledWith({ actorUserId: 8, organizationId: 7, companyId: 41 });
     expect(post).toHaveBeenCalledWith(expect.objectContaining({ companyId: 41, periodId: 9, createdBy: 8, idempotencyKey: "dep-5-9" }));
     expect(append).toHaveBeenCalledWith(expect.objectContaining({ organizationId: 7, companyId: 41, actorUserId: 8, action: "FIXED_ASSET_DEPRECIATION_POST", entityType: "FIXED_ASSET", entityId: "5", beforeState: "CALCULATED", afterState: "POSTED", correlationId: "dep-5-9" }));
+  });
+
+  it("rejects fixed-asset posting before persistence when audit scope is forged", async () => {
+    const scope = vi.spyOn(db, "assertAuditScopeForUser").mockRejectedValue(new Error("AUDIT_SCOPE_FORBIDDEN"));
+    const post = vi.spyOn(db, "postJournalEntry").mockResolvedValue({ entryId: 88, idempotent: false });
+    const caller = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(caller.fixedAssets.postDepreciation({ organizationId: 999, companyId: 41, periodId: 9, assetId: 5, amount: 250, expenseAccountId: 68, accumulatedDepreciationAccountId: 39, correlationId: "dep-forged-scope" })).rejects.toThrow("AUDIT_SCOPE_FORBIDDEN");
+    expect(scope).toHaveBeenCalledWith({ actorUserId: 8, organizationId: 999, companyId: 41 });
+    expect(post).not.toHaveBeenCalled();
   });
 
   it("rejects role-incompatible fiscal, treasury, stock and fixed-asset operations", async () => {

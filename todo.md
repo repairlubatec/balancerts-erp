@@ -160,3 +160,4 @@
 - [x] Criar matriz testável das 10 mutações críticas actualmente suportadas, com tabelas, evento e entidade auditados
 - [x] Tornar a transição documental reprocessável/auditável com correlationId opcional determinístico no router e fallback compatível
 - [x] Provar em integração real que Balancete, Diário, Razão, DR, Balanço, registo fiscal, IVA e stock reconciliam para Repair Lubatec sem dados operacionais
+- [x] Proteger depreciação e reabertura contra organizationId/empresa fora do tenant antes da mutação, com teste negativo de ausência de posting parcial
