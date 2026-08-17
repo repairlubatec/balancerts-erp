@@ -135,3 +135,4 @@
 - [x] Testar a resolução determinística de rotas Conta→Relatório/Documento/Auditoria com lançamento seleccionado
 - [x] Ligar o módulo Empresas a companies.list real com NIF, moeda funcional, regime IVA e estado de configuração
 - [x] Validar em integração real que escopos inexistentes devolvem consultas vazias e que activation fora de empresa existente é bloqueada sem escrita
+- [x] Validar estruturalmente pacotes fiscais AGT quanto a período, regime, origem documental e totais reconciliados

@@ -24,6 +24,29 @@ export const AGT_2026_CORE_OBLIGATIONS: AgtObligationDefinition[] = [
   { code: "IVA_SIMPLIFICADO_SAFT", tax: "SAFT", title: "Submissão do ficheiro SAF-T no Portal do Contribuinte", regime: "SIMPLIFICADO", deadlineDaysByMonth: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], source: "AGT Calendário Fiscal 2026" },
 ];
 
+export type AgtFiscalRecord = {
+  companyId: number;
+  period: { year: number; month: number };
+  regime: TaxRegime;
+  sourceDocumentCount: number;
+  netAmount: number;
+  taxAmount: number;
+  totalAmount: number;
+};
+
+export function validateAgtFiscalRecord(record: AgtFiscalRecord) {
+  const errors: string[] = [];
+  if (!Number.isInteger(record.companyId) || record.companyId <= 0) errors.push("COMPANY_REQUIRED");
+  if (!Number.isInteger(record.period.year) || record.period.year < 2023) errors.push("PERIOD_YEAR_INVALID");
+  if (!Number.isInteger(record.period.month) || record.period.month < 1 || record.period.month > 12) errors.push("PERIOD_MONTH_INVALID");
+  if (!Number.isInteger(record.sourceDocumentCount) || record.sourceDocumentCount < 0) errors.push("SOURCE_DOCUMENT_COUNT_INVALID");
+  if (!["GERAL", "SIMPLIFICADO", "EXCLUSAO"].includes(record.regime)) errors.push("IVA_REGIME_INVALID");
+  if (![record.netAmount, record.taxAmount, record.totalAmount].every((amount) => Number.isFinite(amount) && amount >= 0)) errors.push("AMOUNT_INVALID");
+  if (Math.abs(record.totalAmount - (record.netAmount + record.taxAmount)) > 0.01) errors.push("TOTAL_NOT_RECONCILED");
+  if (record.sourceDocumentCount === 0 && (record.netAmount > 0 || record.taxAmount > 0 || record.totalAmount > 0)) errors.push("SOURCE_DOCUMENTS_REQUIRED");
+  return { valid: errors.length === 0, errors };
+}
+
 export function buildAgtComplianceCalendar(input: { year: number; regime?: TaxRegime; definitions?: AgtObligationDefinition[] }) {
   const definitions = input.definitions ?? (input.year === 2026 ? AGT_2026_CORE_OBLIGATIONS : []);
   const filtered = definitions.filter((definition) => !input.regime || definition.regime === input.regime || definition.regime === "GERAL_E_SIMPLIFICADO");
