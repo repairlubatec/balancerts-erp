@@ -183,3 +183,4 @@
 - [x] Criar e testar builder de prontidão SAF-T AO com lacunas explícitas e sem declarar elegibilidade de submissão
 - [x] Expor reports.saftReadiness com motivos de bloqueio persistentes e submissionEligible sempre falso até validação XSD/AGT
 - [x] Finalizar os cartões Volume Facturado, A Receber e Reconciliação da Home com fiscalRegister, customerAging e reports.reconciliation persistentes e tenant-aware
+- [x] Normalizar e testar snapshots beforeState/afterState estruturados na mutação fixedAssets.postDepreciation, incluindo actor, entidade, lançamento e correlação

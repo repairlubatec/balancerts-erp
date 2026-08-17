@@ -167,7 +167,7 @@ describe("protected accounting procedures", () => {
     await expect(caller.fixedAssets.postDepreciation({ organizationId: 7, companyId: 41, periodId: 9, assetId: 5, amount: 250, expenseAccountId: 68, accumulatedDepreciationAccountId: 39, correlationId: "dep-5-9" })).resolves.toMatchObject({ audited: true, entry: { entryId: 77 } });
     expect(scope).toHaveBeenCalledWith({ actorUserId: 8, organizationId: 7, companyId: 41 });
     expect(post).toHaveBeenCalledWith(expect.objectContaining({ companyId: 41, periodId: 9, createdBy: 8, idempotencyKey: "dep-5-9" }));
-    expect(append).toHaveBeenCalledWith(expect.objectContaining({ organizationId: 7, companyId: 41, actorUserId: 8, action: "FIXED_ASSET_DEPRECIATION_POST", entityType: "FIXED_ASSET", entityId: "5", beforeState: "CALCULATED", afterState: "POSTED", correlationId: "dep-5-9" }));
+    expect(append).toHaveBeenCalledWith(expect.objectContaining({ organizationId: 7, companyId: 41, actorUserId: 8, action: "FIXED_ASSET_DEPRECIATION_POST", entityType: "FIXED_ASSET", entityId: "5", correlationId: "dep-5-9", beforeState: JSON.stringify({ state: "CALCULATED", assetId: 5, amount: 250 }), afterState: JSON.stringify({ state: "POSTED", entryId: 77, assetId: 5, amount: 250 }) }));
   });
 
   it("rejects fixed-asset posting before persistence when audit scope is forged", async () => {
