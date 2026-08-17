@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, organizations, platforms, stockMovements, users } from "../drizzle/schema";
-import { buildAgingReport, buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
+import { buildAgingReport, buildBalanceSheet, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
@@ -350,6 +350,11 @@ export async function getAgingForUserCompany(userId: number, companyId: number, 
 export async function getVatSummaryForUserCompany(userId: number, companyId: number) {
   const documents = await getDocumentsForUserCompany(userId, companyId);
   return buildVatSummary(documents.map(({ document }) => ({ status: document.status, ivaRegime: document.ivaRegime, netAmount: Number(document.netAmount), taxAmount: Number(document.taxAmount), totalAmount: Number(document.totalAmount) })));
+}
+
+export async function getDocumentOriginReconciliationForUserCompany(userId: number, companyId: number) {
+  const [documents, journal] = await Promise.all([getDocumentsForUserCompany(userId, companyId), getJournalForUserCompany(userId, companyId)]);
+  return { companyId, ...buildDocumentOriginReconciliation(documents.map(({ document }) => ({ id: document.id, status: document.status })), journal.entries.map((entry) => ({ entryId: entry.entryId, sourceDocumentId: entry.sourceDocumentId }))) };
 }
 
 export async function getReportsReconciliationForUserCompany(userId: number, companyId: number) {
