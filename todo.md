@@ -155,3 +155,4 @@
 - [x] Ligar customerAging/supplierAging à vista Relatórios com síntese real, estado vazio e cobertura jsdom
 - [x] Registar beforeState/afterState explícitos na reserva de numeração documental (nextNumber anterior e seguinte)
 - [x] Restringir ageing a documentos emitidos/contabilizados e excluir rascunhos, validações e cancelamentos
+- [x] Remover empresas e métricas demonstrativas da grelha de Relatórios, usando Repair Lubatec real e estados Sem dados quando não há execução persistida

@@ -170,7 +170,7 @@ function ModulePage({ data, focus, entry, newAction }: { data: typeof moduleData
   const [agingAsOf] = useState(() => new Date());
   const { data: customerAging, isLoading: customerAgingLoading } = trpc.reports.customerAging.useQuery({ companyId: reportCompanyId ?? 0, asOf: agingAsOf }, { enabled: Boolean(isReportsPage && reportCompanyId) });
   const { data: supplierAging, isLoading: supplierAgingLoading } = trpc.reports.supplierAging.useQuery({ companyId: reportCompanyId ?? 0, asOf: agingAsOf }, { enabled: Boolean(isReportsPage && reportCompanyId) });
-  const displayRows = isCompaniesPage ? (realCompanyRows ?? []).map(({ company }) => [company.name, company.nif, "BALANCERTS Group", company.functionalCurrency, company.configurationStatus, company.ivaRegime]) : data.rows;
+  const displayRows = isCompaniesPage ? (realCompanyRows ?? []).map(({ company }) => [company.name, company.nif, "BALANCERTS Group", company.functionalCurrency, company.configurationStatus, company.ivaRegime]) : isReportsPage && realCompanyRows?.[0] ? data.rows.map((row) => [row[0], "Período activo", realCompanyRows[0].company.name, "Sem execução", "Sem dados", "Abrir"]) : data.rows;
   const [selected, setSelected] = useState<string | null>(null);
   const [actionDone, setActionDone] = useState(false);
   useEffect(() => {
