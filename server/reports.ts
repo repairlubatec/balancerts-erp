@@ -124,7 +124,7 @@ export function buildDocumentOriginReconciliation(documents: DocumentOriginRow[]
   const requiredDocumentIds = new Set(documents.filter((document) => document.status === "ISSUED" || document.status === "ACCOUNTED").map((document) => document.id));
   const linkedDocumentIds = new Set(journalEntries.flatMap((entry) => entry.sourceDocumentId === null ? [] : [entry.sourceDocumentId]));
   const missingJournalDocumentIds = Array.from(requiredDocumentIds).filter((documentId) => !linkedDocumentIds.has(documentId));
-  const orphanJournalEntryIds = journalEntries.filter((entry) => entry.sourceDocumentId !== null && !documents.some((document) => document.id === entry.sourceDocumentId)).map((entry) => entry.entryId);
+  const orphanJournalEntryIds = Array.from(new Set(journalEntries.filter((entry) => entry.sourceDocumentId !== null && !documents.some((document) => document.id === entry.sourceDocumentId)).map((entry) => entry.entryId)));
   return { missingJournalDocumentIds, orphanJournalEntryIds, reconciled: missingJournalDocumentIds.length === 0 && orphanJournalEntryIds.length === 0 };
 }
 

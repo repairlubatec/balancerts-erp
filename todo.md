@@ -222,3 +222,12 @@
 - [x] Expor exportBlockedReason no contrato SAF-T para distinguir MISSING_REQUIRED_ENTITIES de AGT_VALIDATION_REQUIRED, mantendo submissionEligible falso
 - [x] Adicionar assertDocumentMutable para bloquear alterações em ISSUED, ACCOUNTED e CANCELLED, com teste directo além da máquina de transições
 - [x] Validar no router real da Repair Lubatec exportBlockedReason=MISSING_REQUIRED_ENTITIES, além de namespace, versão e submissionEligible falso
+- [ ] Executar no tenant descartável o ciclo persistido de reserva/emissão, posting, validação fiscal, reconciliação, fecho e reabertura
+- [ ] Gravar movimentos e lançamentos no tenant descartável para validar reconciliado, divergente e isolamento entre empresas
+- [ ] Validar recuperação após falha parcial com estado persistido e reprocessamento idempotente no tenant descartável
+- [ ] Fazer rollback/limpeza do tenant descartável e confirmar que a Repair Lubatec não foi alterada
+- [x] Executar no tenant descartável o ciclo persistido de reserva/emissão, posting, validação fiscal, reconciliação, fecho e reabertura
+- [x] Gravar movimentos e lançamentos no tenant descartável para validar reconciliado, divergente e isolamento entre empresas
+- [ ] Validar recuperação após falha parcial com estado persistido e reprocessamento idempotente no tenant descartável
+- [x] Fazer rollback/limpeza dos registos temporários do tenant descartável e confirmar que a Repair Lubatec não foi alterada
+- [x] Provar no tenant descartável falha transitória→reprocessamento→lançamento persistido→replay idempotente sem duplicação; estados FAILED persistidos de integrações externas continuam separados

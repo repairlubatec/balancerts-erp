@@ -1,0 +1,133 @@
+import { and, eq, like } from "drizzle-orm";
+import { describe, expect, it } from "vitest";
+import { appRouter } from "./routers";
+import { businessDocuments, chartAccounts, fiscalPeriods, journalEntries, journalLines, stockMovements, auditEvents } from "../drizzle/schema";
+import { getDb, getReportsReconciliationForUserCompany, getDocumentAccountingChainForUserCompany, getAuditEventsForUserCompany, postJournalEntry, recordStockMovement, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+
+const TEST_USER_ID = 1;
+const TEST_COMPANY_ID = 30001;
+const TEST_ORGANIZATION_ID = 1;
+
+const caller = appRouter.createCaller({
+  user: { id: TEST_USER_ID, role: "admin", openId: "disposable-e2e", name: "Disposable E2E" },
+  req: {} as never,
+  res: {} as never,
+});
+
+describe("disposable tenant persisted E2E cycle", () => {
+  it("reserves, emits, posts, reconciles, closes and reopens without touching Repair Lubatec", async () => {
+    const db = await getDb();
+    expect(db).toBeTruthy();
+    const periodRows = await db!.select({ id: fiscalPeriods.id }).from(fiscalPeriods).where(and(eq(fiscalPeriods.companyId, TEST_COMPANY_ID), eq(fiscalPeriods.year, 2026), eq(fiscalPeriods.month, 1)));
+    const periodId = periodRows[0]?.id;
+    expect(periodId).toBeTruthy();
+    const accountRows = await db!.select({ id: chartAccounts.id, code: chartAccounts.code }).from(chartAccounts).where(eq(chartAccounts.companyId, TEST_COMPANY_ID));
+    const debitAccount = accountRows.find((row) => row.code === "11.1");
+    const creditAccount = accountRows.find((row) => row.code === "71.1");
+    expect(debitAccount).toBeTruthy();
+    expect(creditAccount).toBeTruthy();
+
+    let documentId: number | undefined;
+    let entryId: number | undefined;
+    let orphanEntryId: number | undefined;
+    let recoveryEntryId: number | undefined;
+    let movementId: number | undefined;
+    const correlation = `disposable-e2e-${Date.now()}`;
+    try {
+      const reservation = await reserveDocumentNumber({ userId: TEST_USER_ID, companyId: TEST_COMPANY_ID, series: "FT-TEST", documentType: "FT" });
+      expect(reservation.formatted).toMatch(/^FT-TEST\/\d{6}$/);
+
+      const insertedDocument = await db!.insert(businessDocuments).values({
+        companyId: TEST_COMPANY_ID,
+        documentNumber: reservation.formatted,
+        series: "FT-TEST",
+        status: "DRAFT",
+        documentType: "FT",
+        customerName: "Contraparte E2E descartável",
+        counterpartyType: "CUSTOMER",
+        ivaRegime: "EXCLUSAO",
+        netAmount: "100.00",
+        taxAmount: "0.00",
+        totalAmount: "100.00",
+        dueDate: new Date("2026-02-01T00:00:00.000Z"),
+        settledAmount: "0.00",
+        createdBy: TEST_USER_ID,
+      });
+      documentId = Number(insertedDocument[0].insertId);
+
+      await transitionBusinessDocument({ userId: TEST_USER_ID, companyId: TEST_COMPANY_ID, documentId, to: "VALIDATED", correlationId: `${correlation}:validated` });
+      await transitionBusinessDocument({ userId: TEST_USER_ID, companyId: TEST_COMPANY_ID, documentId, to: "ISSUED", correlationId: `${correlation}:issued` });
+      const posting = await postJournalEntry({
+        companyId: TEST_COMPANY_ID,
+        periodId: periodId!,
+        sourceDocumentId: documentId,
+        idempotencyKey: `${correlation}:post`,
+        description: reservation.formatted,
+        createdBy: TEST_USER_ID,
+        lines: [
+          { accountId: debitAccount!.id, debit: 100, credit: 0, postable: true, validFrom: new Date("2026-01-01") },
+          { accountId: creditAccount!.id, debit: 0, credit: 100, postable: true, validFrom: new Date("2026-01-01") },
+        ],
+      });
+      entryId = Number(posting.entryId);
+      expect(entryId).toBeGreaterThan(0);
+      await transitionBusinessDocument({ userId: TEST_USER_ID, companyId: TEST_COMPANY_ID, documentId, to: "ACCOUNTED", correlationId: `${correlation}:accounted` });
+
+      const movement = await recordStockMovement({ userId: TEST_USER_ID, organizationId: TEST_ORGANIZATION_ID, companyId: TEST_COMPANY_ID, periodId: periodId!, productCode: "E2E-DISPOSABLE", type: "IN", quantity: 1, unitCost: 100, sourceDocumentId: documentId, journalEntryId: entryId, correlationId: `${correlation}:stock` });
+      movementId = Number(movement.id);
+      expect(movementId).toBeGreaterThan(0);
+
+      const reconciliation = await getReportsReconciliationForUserCompany(TEST_USER_ID, TEST_COMPANY_ID);
+      expect(reconciliation).toMatchObject({ companyId: TEST_COMPANY_ID, reconciled: true, documentOrigin: { reconciled: true, missingJournalDocumentIds: [], orphanJournalEntryIds: [] } });
+      const chain = await getDocumentAccountingChainForUserCompany(TEST_USER_ID, TEST_COMPANY_ID, documentId);
+      expect(chain?.entries[0]?.entryId).toBe(entryId);
+
+      const orphanInserted = await db!.insert(journalEntries).values({ companyId: TEST_COMPANY_ID, periodId: periodId!, sourceDocumentId: 999999, idempotencyKey: `${correlation}:orphan`, description: "Lançamento órfão temporário", createdBy: TEST_USER_ID, status: "POSTED" });
+      orphanEntryId = Number(orphanInserted[0].insertId);
+      await db!.insert(journalLines).values([
+        { entryId: orphanEntryId, accountId: debitAccount!.id, debit: "5.00", credit: "0.00", currency: "AOA", exchangeRate: "1.00000000" },
+        { entryId: orphanEntryId, accountId: creditAccount!.id, debit: "0.00", credit: "5.00", currency: "AOA", exchangeRate: "1.00000000" },
+      ]);
+      const divergent = await getReportsReconciliationForUserCompany(TEST_USER_ID, TEST_COMPANY_ID);
+      expect(divergent).toMatchObject({ reconciled: false, documentOrigin: { reconciled: false, orphanJournalEntryIds: [orphanEntryId] } });
+      await db!.delete(journalLines).where(eq(journalLines.entryId, orphanEntryId));
+      await db!.delete(journalEntries).where(eq(journalEntries.id, orphanEntryId));
+      orphanEntryId = undefined;
+      const repairDocuments = await db!.select({ id: businessDocuments.id }).from(businessDocuments).where(eq(businessDocuments.companyId, 1));
+      expect(repairDocuments).toEqual([]);
+
+      const recoveryKey = `${correlation}:recovery`;
+      await expect(postJournalEntry({ companyId: TEST_COMPANY_ID, periodId: periodId!, sourceDocumentId: 999999, idempotencyKey: recoveryKey, description: "Falha transitória recuperável", createdBy: TEST_USER_ID, lines: [{ accountId: debitAccount!.id, debit: 7, credit: 0, postable: true, validFrom: new Date("2026-01-01") }, { accountId: creditAccount!.id, debit: 0, credit: 7, postable: true, validFrom: new Date("2026-01-01") }] })).rejects.toThrow("SOURCE_DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+      const recovered = await postJournalEntry({ companyId: TEST_COMPANY_ID, periodId: periodId!, idempotencyKey: recoveryKey, description: "Falha transitória recuperada", createdBy: TEST_USER_ID, lines: [{ accountId: debitAccount!.id, debit: 7, credit: 0, postable: true, validFrom: new Date("2026-01-01") }, { accountId: creditAccount!.id, debit: 0, credit: 7, postable: true, validFrom: new Date("2026-01-01") }] });
+      recoveryEntryId = Number(recovered.entryId);
+      expect(recovered.idempotent).toBe(false);
+      const replayed = await postJournalEntry({ companyId: TEST_COMPANY_ID, periodId: periodId!, idempotencyKey: recoveryKey, description: "Não deve duplicar", createdBy: TEST_USER_ID, lines: [{ accountId: debitAccount!.id, debit: 7, credit: 0, postable: true, validFrom: new Date("2026-01-01") }, { accountId: creditAccount!.id, debit: 0, credit: 7, postable: true, validFrom: new Date("2026-01-01") }] });
+      expect(replayed).toMatchObject({ entry: expect.objectContaining({ id: recoveryEntryId }), idempotent: true });
+
+      await db!.update(fiscalPeriods).set({ status: "CLOSED", closedAt: new Date() }).where(and(eq(fiscalPeriods.id, periodId!), eq(fiscalPeriods.companyId, TEST_COMPANY_ID)));
+      const reopened = await caller.closing.validateReopen({ organizationId: TEST_ORGANIZATION_ID, companyId: TEST_COMPANY_ID, periodId: periodId!, reason: "Correcção E2E descartável", correlationId: `${correlation}:reopen` });
+      expect(reopened).toEqual({ reason: "Correcção E2E descartável", audited: true });
+      await db!.update(fiscalPeriods).set({ status: "REOPENED" }).where(and(eq(fiscalPeriods.id, periodId!), eq(fiscalPeriods.companyId, TEST_COMPANY_ID)));
+      const audit = await getAuditEventsForUserCompany(TEST_USER_ID, TEST_COMPANY_ID);
+      expect(audit.some(({ event }) => event.action === "DOCUMENT_ISSUED" && event.correlationId === `${correlation}:issued`)).toBe(true);
+      expect(audit.some(({ event }) => event.action === "JOURNAL_ENTRY_POSTED" && event.correlationId === `${correlation}:post`)).toBe(true);
+      expect(audit.some(({ event }) => event.action === "PERIOD_REOPEN" && event.correlationId === `${correlation}:reopen`)).toBe(true);
+    } finally {
+      if (movementId) await db!.delete(stockMovements).where(eq(stockMovements.id, movementId));
+      if (orphanEntryId) {
+        await db!.delete(journalLines).where(eq(journalLines.entryId, orphanEntryId));
+        await db!.delete(journalEntries).where(eq(journalEntries.id, orphanEntryId));
+      }
+      if (recoveryEntryId) {
+        await db!.delete(journalLines).where(eq(journalLines.entryId, recoveryEntryId));
+        await db!.delete(journalEntries).where(eq(journalEntries.id, recoveryEntryId));
+      }
+      if (entryId) {
+        await db!.delete(journalLines).where(eq(journalLines.entryId, entryId));
+        await db!.delete(journalEntries).where(eq(journalEntries.id, entryId));
+      }
+      if (documentId) await db!.delete(businessDocuments).where(eq(businessDocuments.id, documentId));
+      await db!.delete(auditEvents).where(and(eq(auditEvents.companyId, TEST_COMPANY_ID), like(auditEvents.correlationId, `${correlation}%`)));
+    }
+  }, 30000);
+});
