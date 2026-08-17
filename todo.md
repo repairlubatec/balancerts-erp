@@ -181,3 +181,4 @@
 - [x] Testar RBAC de reports.reconciliation: Auditor autorizado, Operador bloqueado antes da consulta
 - [x] Apresentar na interface de Relatórios o estado real da reconciliação agregada e o número de verificações aprovadas
 - [x] Criar e testar builder de prontidão SAF-T AO com lacunas explícitas e sem declarar elegibilidade de submissão
+- [x] Expor reports.saftReadiness com motivos de bloqueio persistentes e submissionEligible sempre falso até validação XSD/AGT

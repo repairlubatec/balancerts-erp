@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, organizations, platforms, stockMovements, users } from "../drizzle/schema";
-import { buildAgingReport, buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
+import { buildAgingReport, buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
@@ -361,6 +361,35 @@ export async function getReportsReconciliationForUserCompany(userId: number, com
     getFiscalRegisterForUserCompany(userId, companyId),
   ]);
   return { companyId, ...buildReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister }) };
+}
+
+export async function getSaftReadinessForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const companyContext = await db.select({ company: companies }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, companyId), eq(organizations.ownerUserId, userId))).limit(1);
+  const company = companyContext[0]?.company;
+  if (!company) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const [periodRows, accountRows, journal, documents] = await Promise.all([
+    getPeriodsForUserCompany(userId, companyId),
+    db.select({ id: chartAccounts.id }).from(chartAccounts).where(eq(chartAccounts.companyId, companyId)),
+    getJournalForUserCompany(userId, companyId),
+    getDocumentsForUserCompany(userId, companyId),
+  ]);
+  const period = periodRows[0]?.period;
+  return buildSaftReadiness({
+    companyName: company.name,
+    nif: company.nif,
+    functionalCurrency: company.functionalCurrency,
+    periodStart: period ? new Date(Date.UTC(period.year, period.month - 1, 1)) : null,
+    periodEnd: period ? new Date(Date.UTC(period.year, period.month, 0, 23, 59, 59, 999)) : null,
+    accountCount: accountRows.length,
+    journalEntryCount: journal.entries.length,
+    documentCount: documents.length,
+    customerCount: 0,
+    supplierCount: 0,
+    productCount: 0,
+    taxRuleCount: 0,
+  });
 }
 
 export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED"; correlationId?: string }) {
