@@ -161,3 +161,4 @@
 - [x] Tornar a transição documental reprocessável/auditável com correlationId opcional determinístico no router e fallback compatível
 - [x] Provar em integração real que Balancete, Diário, Razão, DR, Balanço, registo fiscal, IVA e stock reconciliam para Repair Lubatec sem dados operacionais
 - [x] Proteger depreciação e reabertura contra organizationId/empresa fora do tenant antes da mutação, com teste negativo de ausência de posting parcial
+- [x] Unificar stock e ficheiros no guard central actor→organização→empresa antes da escrita e auditoria
