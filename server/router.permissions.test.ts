@@ -73,6 +73,15 @@ describe("protected accounting procedures", () => {
     await expect(blocked.fiscal.validateNormative({ area: "FISCAL_DOCUMENT", evidenceCodes: [] })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
+  it("allows Auditor to read aggregate reconciliation and blocks Operador", async () => {
+    const reconciliation = vi.spyOn(db, "getReportsReconciliationForUserCompany").mockResolvedValue({ companyId: 41, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } });
+    const auditor = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(auditor.reports.reconciliation({ companyId: 41 })).resolves.toMatchObject({ reconciled: true });
+    expect(reconciliation).toHaveBeenCalledWith(8, 41);
+    const operator = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operator.reports.reconciliation({ companyId: 41 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("allows Auditor to read fiscal register and blocks Operador", async () => {
     const register = vi.spyOn(db, "getFiscalRegisterForUserCompany").mockResolvedValue({ entries: [], totals: { netAmount: 0, taxAmount: 0, totalAmount: 0 }, reconciled: true });
     const auditor = appRouter.createCaller(contextWithRole("auditor"));
