@@ -194,3 +194,4 @@
 - [ ] Completar os relatórios auxiliares e fiscais ainda pendentes com queries persistentes e validações AGT específicas
 - [ ] Adicionar prova integrada por teste de que cada relatório principal/auxiliar reconcilia com razão, documentos e origem persistida real, incluindo percurso completo de traceabilidade
 - [x] Reforçar validateAgtFiscalRecord para rejeitar IVA liquidado no regime EXCLUSÃO, com teste específico e totais reconciliados
+- [x] Cobrir em integração tRPC a superfície fiscal da Repair Lubatec: agtValidation, saftReadiness com XSD identificado e rejeição de empresa inexistente
