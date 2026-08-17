@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, organizations, stockMovements, users } from "../drizzle/schema";
+import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, organizations, platforms, stockMovements, users } from "../drizzle/schema";
 import { buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
@@ -53,7 +53,7 @@ export async function getUserByOpenId(openId: string) {
 export async function getCompaniesForUser(userId: number) {
   const db = await getDb();
   if (!db) return [];
-  return db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(eq(organizations.ownerUserId, userId)).orderBy(companies.name);
+  return db.select({ company: companies, organization: organizations, platform: platforms }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(platforms, eq(organizations.platformId, platforms.id)).where(eq(organizations.ownerUserId, userId)).orderBy(companies.name);
 }
 
 export async function createCompanyForUser(input: {

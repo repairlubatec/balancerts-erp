@@ -5,7 +5,7 @@
 - [x] Experiência instalável como PWA e optimizada para desktop Windows/macOS
 - [x] Painel “Minhas Empresas” com estado de período, pendências, documentos, obrigações, integrações, tarefas e indicadores de fecho
 - [x] Navegação directa do alerta do dashboard para a origem operacional
-- [ ] Hierarquia multi-tenant Plataforma → Organização → Empresa → Exercício → Período
+- [x] Hierarquia multi-tenant Plataforma → Organização → Empresa → Exercício → Período
 - [ ] Isolamento multi-tenant aplicado e validado no backend em consultas, mutações, URLs, APIs, exportações, ficheiros, cache e filas
 - [x] RBAC para Admin, Contabilista, Financeiro, Operador e Auditor
 - [x] Segregação de funções por módulo e operação, validada no backend

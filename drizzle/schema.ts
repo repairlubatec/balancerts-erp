@@ -12,8 +12,15 @@ export const users = mysqlTable("users", {
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
 });
 
+export const platforms = mysqlTable("platforms", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 180 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const organizations = mysqlTable("organizations", {
   id: int("id").autoincrement().primaryKey(),
+  platformId: int("platformId"),
   name: varchar("name", { length: 180 }).notNull(),
   ownerUserId: int("ownerUserId").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),

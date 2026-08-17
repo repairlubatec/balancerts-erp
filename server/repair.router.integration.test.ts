@@ -41,6 +41,7 @@ describe("Repair Lubatec router integration", () => {
     const companies = await caller.companies.list();
     const repair = companies.find(({ company }) => company.nif === "5001121871");
     expect(repair?.company).toMatchObject({ id: 1, configurationStatus: "READY", primaryLegalRepresentative: "Fausto Silva" });
+    expect(repair?.platform).toMatchObject({ name: "BALANCERTS.ERP" });
 
     const exercises = await caller.companies.exercises({ companyId: 1 });
     expect(exercises.map(({ exercise }) => ({ year: exercise.year, status: exercise.status }))).toContainEqual({ year: 2023, status: "OPEN" });
