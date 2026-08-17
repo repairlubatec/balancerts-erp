@@ -70,3 +70,4 @@
 - [x] Permitir validação de reconciliação de stock ao Contabilista sem ampliar permissões de execução do Operador
 - [x] Auditar registo de metadata de ficheiros após upload e reserva de numeração documental
 - [x] Implementar resumo fiscal auxiliar de IVA por regime, estado documental e totais monetários
+- [x] Persistir estorno controlado como novo lançamento invertido, com motivo, correlação, permissão e imutabilidade do original
