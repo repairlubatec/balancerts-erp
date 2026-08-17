@@ -216,6 +216,7 @@ export async function recordStockMovement(input: { userId: number; organizationI
 export async function createFileAsset(input: { userId: number; organizationId: number; companyId: number; storageKey: string; filename: string; mimeType: string; size: number; sha256: string; allowedUserIds?: number[] }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
   const company = await db.select({ id: companies.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   const result = await db.insert(fileAssets).values({ organizationId: input.organizationId, companyId: input.companyId, ownerUserId: input.userId, storageKey: input.storageKey, filename: input.filename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, allowedUserIds: JSON.stringify(input.allowedUserIds ?? []) });
