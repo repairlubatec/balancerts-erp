@@ -92,9 +92,10 @@
 - [x] Testar emissão documental autorizada ao Contabilista e bloqueada ao Financeiro, além da escrita de posting já coberta
 - [x] Cobrir ciclo tRPC reserva de número → emissão documental → posting contabilístico com contratos e ordem verificados
 - [x] Validar na base real o filtro de auditoria por entityType/entityId para escopo inexistente
-- [ ] Criar/actualizar ficha real Repair Lubatec com NIF, contacto, localização, actividade, IVA, moeda e ano de criação
+- [x] Criar/actualizar ficha real Repair Lubatec com NIF, contacto, localização, actividade, IVA, moeda e ano de criação
 - [ ] Manter Repair Lubatec bloqueada para operações fiscais/contabilísticas até confirmar forma jurídica e restantes campos legais obrigatórios
 - [ ] Validar fluxos tenant-aware usando Repair Lubatec real sem inserir documentos, movimentos ou lançamentos
 - [x] Confirmar que o regime de IVA da Repair Lubatec deve ser registado como EXCLUSÃO
 - [x] Implementar schema, helper e endpoint companies.create para ficha real com estado PENDING, actor e auditoria
-- [ ] Criar Repair Lubatec efectivamente na base quando existir organização proprietária autorizada
+- [x] Criar Repair Lubatec efectivamente na base através de organização proprietária autorizada, com estado PENDING e auditoria
+- [x] Validar a ficha real da Repair Lubatec por integração tenant-aware e confirmar zero documentos, lançamentos, períodos e movimentos de stock
