@@ -114,7 +114,7 @@ export type FiscalRegisterRow = {
 
 export function buildFiscalRegister(rows: FiscalRegisterRow[]) {
   const entries = [...rows].sort((a, b) => a.issueDate.getTime() - b.issueDate.getTime() || a.documentId - b.documentId);
-  return { entries, totals: { netAmount: money(entries.reduce((sum, row) => sum + row.netAmount, 0)), taxAmount: money(entries.reduce((sum, row) => sum + row.taxAmount, 0)), totalAmount: money(entries.reduce((sum, row) => sum + row.totalAmount, 0)) }, reconciled: entries.every((row) => Math.abs(row.totalAmount - row.netAmount - row.taxAmount) <= 0.005) };
+  return { entries, totals: { netAmount: money(entries.reduce((sum, row) => sum + row.netAmount, 0)), taxAmount: money(entries.reduce((sum, row) => sum + row.taxAmount, 0)), totalAmount: money(entries.reduce((sum, row) => sum + row.totalAmount, 0)) }, reconciled: entries.every((row) => Math.abs(row.totalAmount - row.netAmount - row.taxAmount) <= 0.005 && !(row.ivaRegime === "EXCLUSAO" && Math.abs(row.taxAmount) > 0.01)) };
 }
 
 export function buildReportReconciliation(input: {

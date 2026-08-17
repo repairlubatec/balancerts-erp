@@ -19,5 +19,6 @@ describe("auxiliary reports", () => {
     expect(valid.reconciled).toBe(true);
     expect(valid.totals).toEqual({ netAmount: 100, taxAmount: 14, totalAmount: 114 });
     expect(buildFiscalRegister([{ documentId: 2, documentNumber: "FT 2", issueDate: new Date("2026-01-02"), customerNif: null, status: "ISSUED", ivaRegime: "EXCLUSAO", netAmount: 100, taxAmount: 0, totalAmount: 120 }]).reconciled).toBe(false);
+    expect(buildFiscalRegister([{ documentId: 3, documentNumber: "FT 3", issueDate: new Date("2026-01-03"), customerNif: null, status: "ISSUED", ivaRegime: "EXCLUSAO", netAmount: 100, taxAmount: 14, totalAmount: 114 }]).reconciled).toBe(false);
   });
 });

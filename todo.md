@@ -199,3 +199,4 @@
 - [x] Estabilizar o teste tRPC integrado de superfícies da Repair Lubatec com timeout explícito para latência de TiDB, sem reduzir cobertura funcional
 - [x] Criar validador agregado da matriz de auditoria para action, entityType e snapshots explicitamente presentes, com cobertura de documentos, posting e mutação desconhecida
 - [x] Adicionar resolução inversa de auditoria action/entity para mutação crítica, cobrindo DOCUMENT_ISSUED e JOURNAL_ENTRY_POSTED
+- [x] Alinhar buildFiscalRegister com a regra de IVA zero em EXCLUSÃO e testar divergência mesmo quando os totais aritméticos fecham
