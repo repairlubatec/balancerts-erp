@@ -14,3 +14,11 @@ export const criticalMutationAuditMatrix = [
 export function getCriticalMutationAuditContract(mutation: string) {
   return criticalMutationAuditMatrix.find((item) => item.mutation === mutation) ?? null;
 }
+
+export function validateCriticalMutationAuditEvent(input: { mutation: string; action: string; entityType: string; beforeState: string | null; afterState: string | null }) {
+  const contract = getCriticalMutationAuditContract(input.mutation);
+  if (!contract) return { valid: false as const, reason: "UNKNOWN_MUTATION" };
+  const actionMatches = contract.action === "DOCUMENT_<TARGET_STATUS>" ? /^DOCUMENT_[A-Z_]+$/.test(input.action) : input.action === contract.action;
+  const valid = actionMatches && input.entityType === contract.entityType && input.beforeState !== undefined && input.afterState !== undefined;
+  return { valid, reason: valid ? null : "AUDIT_CONTRACT_MISMATCH" };
+}
