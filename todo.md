@@ -190,3 +190,4 @@
 - [x] Cobrir RBAC de reports.saftReadiness: Auditor autorizado, Operador rejeitado antes da persistência e contrato submissionEligible conservador
 - [x] Validar getSaftReadinessForUserCompany na base real da Repair Lubatec, confirmando escopo tenant-aware, lacunas persistentes e submissionEligible falso
 - [x] Provar na integração real que getSaftReadinessForUserCompany rejeita utilizador/empresa inexistentes sem devolver dados de outro tenant
+- [x] Fixar no contrato SAF-T o namespace urn:OECD:StandardAuditFile-Tax:AO_1.01_01 e a versão XSD 1.01_01, sem permitir submissão automática
