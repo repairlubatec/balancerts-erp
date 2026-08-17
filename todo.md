@@ -80,3 +80,4 @@
 - [x] Cobrir timeout repetido, limite de retries e estado RECONCILIATION_REQUIRED nas integrações externas
 - [x] Parametrizar validação de evidência normativa por área fiscal-documental e contabilística, sem aceitar códigos desconhecidos
 - [x] Expor validação normativa no router fiscal e cobrir Contabilista autorizado versus Operador bloqueado
+- [x] Adicionar teste de integração real não destrutivo para queries tenant-aware sem inserir dados artificiais
