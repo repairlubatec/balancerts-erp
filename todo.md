@@ -206,8 +206,8 @@
 - [x] Cobrir RBAC de reports.documentOriginReconciliation: Auditor autorizado, Operador bloqueado e escopo tenant-aware antes da persistência
 - [x] Validar documentOriginReconciliation no router real da Repair Lubatec e em escopo inexistente, confirmando reconciliação vazia segura
 - [x] Reforçar resiliência de integrações externas com AbortSignal por tentativa e abortar operações em timeout antes de RECONCILIATION_REQUIRED
-- [ ] Implementar teste E2E persistido de reserva/emissão documental, posting contabilístico, validação fiscal, reconciliação, fecho e reabertura numa empresa autorizada
-- [ ] Adicionar integração de base de dados que grave movimentos/lançamentos e valide estados reconciliado, divergente e isolamento entre empresas
+- [x] Implementar teste E2E persistido de reserva/emissão documental, posting contabilístico, validação fiscal, reconciliação, fecho e reabertura numa empresa autorizada
+- [x] Adicionar integração de base de dados que grave movimentos/lançamentos e valide estados reconciliado, divergente e isolamento entre empresas
 - [ ] Adicionar provas de reprocessamento e recuperação após falha parcial usando estado persistido, além de retries e timeout
 - [x] Incluir documentOrigin como evidência persistente na resposta de reports.reconciliation, preservando os checks agregados existentes e o contrato da Home
 - [x] Provar no percurso real da Repair Lubatec que reports.reconciliation inclui documentOrigin reconciliado e sem órfãos, mantendo os checks agregados
@@ -222,10 +222,11 @@
 - [x] Expor exportBlockedReason no contrato SAF-T para distinguir MISSING_REQUIRED_ENTITIES de AGT_VALIDATION_REQUIRED, mantendo submissionEligible falso
 - [x] Adicionar assertDocumentMutable para bloquear alterações em ISSUED, ACCOUNTED e CANCELLED, com teste directo além da máquina de transições
 - [x] Validar no router real da Repair Lubatec exportBlockedReason=MISSING_REQUIRED_ENTITIES, além de namespace, versão e submissionEligible falso
-- [ ] Executar no tenant descartável o ciclo persistido de reserva/emissão, posting, validação fiscal, reconciliação, fecho e reabertura
-- [ ] Gravar movimentos e lançamentos no tenant descartável para validar reconciliado, divergente e isolamento entre empresas
+- [x] Implementar e testar builder XML determinístico SAF-T AO 1.01_01 com Header, contas, lançamentos e documentos, escapamento XML e ordenação estável; validação XSD/AGT externa permanece necessária
+- [x] Executar no tenant descartável o ciclo persistido de reserva/emissão, posting, validação fiscal, reconciliação, fecho e reabertura
+- [x] Gravar movimentos e lançamentos no tenant descartável para validar reconciliado, divergente e isolamento entre empresas
 - [ ] Validar recuperação após falha parcial com estado persistido e reprocessamento idempotente no tenant descartável
-- [ ] Fazer rollback/limpeza do tenant descartável e confirmar que a Repair Lubatec não foi alterada
+- [x] Fazer rollback/limpeza do tenant descartável e confirmar que a Repair Lubatec não foi alterada
 - [x] Executar no tenant descartável o ciclo persistido de reserva/emissão, posting, validação fiscal, reconciliação, fecho e reabertura
 - [x] Gravar movimentos e lançamentos no tenant descartável para validar reconciliado, divergente e isolamento entre empresas
 - [ ] Validar recuperação após falha parcial com estado persistido e reprocessamento idempotente no tenant descartável

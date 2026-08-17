@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assertSaftExportReady, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary } from "./reports";
+import { assertSaftExportReady, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftAoXml, buildSaftReadiness, buildTrialBalance, buildVatSummary } from "./reports";
 
 describe("reconciliable reports", () => {
   it("aggregates account movements and reconciles totals", () => {
@@ -69,6 +69,32 @@ describe("reconciliable reports", () => {
     expect(blocked.exportBlockedReason).toBe("MISSING_REQUIRED_ENTITIES");
     expect(() => assertSaftExportReady(complete)).toThrow("SAFT_EXPORT_NOT_READY:AGT_VALIDATION_REQUIRED");
     expect(() => assertSaftExportReady(blocked)).toThrow("SAFT_EXPORT_NOT_READY:MASTERFILES_ACCOUNTS");
+  });
+
+  it("builds deterministic SAF-T AO XML with escaped values and stable ordering", () => {
+    const xml = buildSaftAoXml({
+      companyName: "Repair & Lubatec",
+      nif: "5001121871",
+      address: "Shopping <Millennium>",
+      municipality: "Lubango",
+      province: "Huíla",
+      functionalCurrency: "AOA",
+      periodStart: new Date("2026-01-01T00:00:00Z"),
+      periodEnd: new Date("2026-01-31T23:59:59Z"),
+      accounts: [
+        { id: 2, code: "12", description: "Banco", postable: true },
+        { id: 1, code: "11", description: "Caixa", postable: false },
+      ],
+      journalEntries: [{ id: 7, transactionDate: new Date("2026-01-05T00:00:00Z"), description: "Venda & serviço", sourceDocumentId: 4, lines: [{ accountCode: "11", debit: 114, credit: 0 }, { accountCode: "71", debit: 0, credit: 114 }] }],
+      sourceDocuments: [{ id: 4, documentNumber: "FT/000001", documentType: "FT", status: "ISSUED", issueDate: new Date("2026-01-05T00:00:00Z"), customerName: "Cliente <A>", netAmount: 100, taxAmount: 14, totalAmount: 114, ivaRegime: "GERAL" }],
+    });
+    expect(xml).toContain(`xmlns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01"`);
+    expect(xml).toContain("<AuditFileVersion>1.01_01</AuditFileVersion>");
+    expect(xml).toContain("Repair &amp; Lubatec");
+    expect(xml).toContain("Shopping &lt;Millennium&gt;");
+    expect(xml.indexOf("<AccountID>11</AccountID>")).toBeLessThan(xml.indexOf("<AccountID>12</AccountID>"));
+    expect(xml).toContain("<SourceDocumentID>4</SourceDocumentID>");
+    expect(xml).toContain("<GrossTotal>114.00</GrossTotal>");
   });
 
   it("reconciles document origins with journal sourceDocumentId", () => {

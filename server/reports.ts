@@ -189,3 +189,41 @@ export function buildSaftReadiness(input: SaftCoverageInput) {
   const ready = missing.length === 0;
   return { format: "SAFTAO1.01_01", schemaVersion: SAFT_AO_SCHEMA_VERSION, namespace: SAFT_AO_NAMESPACE, ready, missing, exportBlockedReason: ready ? "AGT_VALIDATION_REQUIRED" : "MISSING_REQUIRED_ENTITIES", submissionEligible: false as const };
 }
+
+
+export type SaftAoAccount = { id: number; code: string; description: string; parentCode?: string | null; postable: boolean };
+export type SaftAoJournalLine = { accountCode: string; debit: number; credit: number; currency?: string; exchangeRate?: number };
+export type SaftAoJournalEntry = { id: number; transactionDate: Date; description: string; sourceDocumentId?: number | null; lines: SaftAoJournalLine[] };
+export type SaftAoSourceDocument = { id: number; documentNumber: string; documentType: string; status: string; issueDate: Date; customerName?: string | null; netAmount: number; taxAmount: number; totalAmount: number; ivaRegime: string };
+export type SaftAoExportInput = {
+  companyName: string;
+  nif: string;
+  address?: string | null;
+  municipality?: string | null;
+  province?: string | null;
+  functionalCurrency: string;
+  periodStart: Date;
+  periodEnd: Date;
+  accounts: SaftAoAccount[];
+  journalEntries: SaftAoJournalEntry[];
+  sourceDocuments: SaftAoSourceDocument[];
+};
+
+function xmlEscape(value: string | number | null | undefined) {
+  return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&apos;");
+}
+function xmlDate(value: Date) { return value.toISOString().slice(0, 10); }
+function xmlDecimal(value: number) { return Number(value).toFixed(2); }
+
+export function buildSaftAoXml(input: SaftAoExportInput) {
+  const accounts = [...input.accounts].sort((a, b) => a.code.localeCompare(b.code));
+  const entries = [...input.journalEntries].sort((a, b) => a.id - b.id);
+  const documents = [...input.sourceDocuments].sort((a, b) => a.id - b.id);
+  const accountXml = accounts.map((account) => `
+      <Account><AccountID>${xmlEscape(account.code)}</AccountID><AccountDescription>${xmlEscape(account.description)}</AccountDescription><AccountType>${account.postable ? "Posting" : "Header"}</AccountType>${account.parentCode ? `<GroupingCode>${xmlEscape(account.parentCode)}</GroupingCode>` : ""}</Account>`).join("");
+  const entryXml = entries.map((entry) => `
+      <Journal><JournalID>1</JournalID><Transaction><TransactionID>${entry.id}</TransactionID><Period>${input.periodStart.getUTCMonth() + 1}</Period><TransactionDate>${xmlDate(entry.transactionDate)}</TransactionDate><Description>${xmlEscape(entry.description)}</Description>${entry.sourceDocumentId ? `<SourceDocumentID>${entry.sourceDocumentId}</SourceDocumentID>` : ""}${entry.lines.map((line) => `<Line><AccountID>${xmlEscape(line.accountCode)}</AccountID><DebitAmount>${xmlDecimal(line.debit)}</DebitAmount><CreditAmount>${xmlDecimal(line.credit)}</CreditAmount></Line>`).join("")}</Transaction></Journal>`).join("");
+  const documentXml = documents.map((document) => `
+      <Invoice><InvoiceNo>${xmlEscape(document.documentNumber)}</InvoiceNo><DocumentStatus><InvoiceStatus>${xmlEscape(document.status)}</InvoiceStatus><InvoiceStatusDate>${xmlDate(document.issueDate)}</InvoiceStatusDate></DocumentStatus><InvoiceDate>${xmlDate(document.issueDate)}</InvoiceDate><CustomerID>${xmlEscape(document.customerName || "CONSUMIDOR_FINAL")}</CustomerID><DocumentTotals><TaxPayable>${xmlDecimal(document.taxAmount)}</TaxPayable><NetTotal>${xmlDecimal(document.netAmount)}</NetTotal><GrossTotal>${xmlDecimal(document.totalAmount)}</GrossTotal></DocumentTotals></Invoice>`).join("");
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<AuditFile xmlns="${SAFT_AO_NAMESPACE}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="${SAFT_AO_NAMESPACE} SAFTAO1.01_01.xsd">\n  <Header><AuditFileVersion>${SAFT_AO_SCHEMA_VERSION}</AuditFileVersion><AuditFileCountry>AO</AuditFileCountry><CompanyName>${xmlEscape(input.companyName)}</CompanyName><TaxRegistrationNumber>${xmlEscape(input.nif)}</TaxRegistrationNumber><FiscalYear>${input.periodStart.getUTCFullYear()}</FiscalYear><StartDate>${xmlDate(input.periodStart)}</StartDate><EndDate>${xmlDate(input.periodEnd)}</EndDate><CurrencyCode>${xmlEscape(input.functionalCurrency)}</CurrencyCode><TaxAccountingBasis>F</TaxAccountingBasis><CompanyAddress><AddressDetail>${xmlEscape(input.address)}</AddressDetail><City>${xmlEscape(input.municipality)}</City><Region>${xmlEscape(input.province)}</Region><Country>AO</Country></CompanyAddress></Header>\n  <MasterFiles><GeneralLedgerAccounts>${accountXml}\n    </GeneralLedgerAccounts></MasterFiles>\n  <GeneralLedgerEntries>${entryXml}\n  </GeneralLedgerEntries>\n  <SourceDocuments><SalesInvoices>${documentXml}\n    </SalesInvoices></SourceDocuments>\n</AuditFile>`;
+}
