@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getAccountTraceRoutes, getActionPresentation, getQuickActions, getReportTraceRoutes, resolveNewAction } from "./Home";
+import { getDocumentTraceRoutes } from "@/lib/traceability";
 
 describe("BALANCERTS command palette flows", () => {
   it.each([
@@ -23,6 +24,15 @@ describe("BALANCERTS command palette flows", () => {
       journal: "/contabilidade?entry=NC%202026%2F00017",
       document: "/documentos?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
       audit: "/auditoria?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
+    });
+  });
+
+  it("resolves document trace routes to report, account, journal and audit", () => {
+    expect(getDocumentTraceRoutes("FT 2026/00482")).toEqual({
+      report: "/relatorios?focus=Balancete%20anal%C3%ADtico",
+      account: "/contabilidade?focus=FT%202026%2F00482",
+      journal: "/contabilidade?entry=FT%202026%2F00482",
+      audit: "/auditoria?focus=FT%202026%2F00482",
     });
   });
 
