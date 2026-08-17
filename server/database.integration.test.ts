@@ -8,6 +8,7 @@ describe("database tenant integration", () => {
     const documents = await getDocumentsForUserCompany(987654321, 987654321);
     const trialBalance = await getTrialBalanceForUserCompany(987654321, 987654321);
     const audit = await getAuditEventsForUserCompany(987654321, 987654321);
+    const entityAudit = await getAuditEventsForUserCompany(987654321, 987654321, "journalEntry", "99");
     const stock = await reconcileStockForUserCompany({ userId: 987654321, companyId: 987654321, inventoryAccountId: 987654321 });
     const trace = await getReportTraceForUserCompany(987654321, 987654321, "TRIAL_BALANCE", "11.1");
 
@@ -15,6 +16,7 @@ describe("database tenant integration", () => {
     expect(documents).toEqual([]);
     expect(trialBalance.rows).toEqual([]);
     expect(audit).toEqual([]);
+    expect(entityAudit).toEqual([]);
     expect(stock).toMatchObject({ reconciled: true, difference: 0 });
     expect(trace).toMatchObject({ report: "TRIAL_BALANCE", accountCode: "11.1", origins: [] });
   });

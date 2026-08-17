@@ -91,3 +91,4 @@
 - [x] Expor filtros entityType/entityId na reconstrução de auditoria e testar o percurso tenant-aware por API
 - [x] Testar emissão documental autorizada ao Contabilista e bloqueada ao Financeiro, além da escrita de posting já coberta
 - [x] Cobrir ciclo tRPC reserva de número → emissão documental → posting contabilístico com contratos e ordem verificados
+- [x] Validar na base real o filtro de auditoria por entityType/entityId para escopo inexistente
