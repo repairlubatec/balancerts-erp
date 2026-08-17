@@ -200,3 +200,4 @@
 - [x] Criar validador agregado da matriz de auditoria para action, entityType e snapshots explicitamente presentes, com cobertura de documentos, posting e mutação desconhecida
 - [x] Adicionar resolução inversa de auditoria action/entity para mutação crítica, cobrindo DOCUMENT_ISSUED e JOURNAL_ENTRY_POSTED
 - [x] Alinhar buildFiscalRegister com a regra de IVA zero em EXCLUSÃO e testar divergência mesmo quando os totais aritméticos fecham
+- [x] Criar contrato de reconciliação de origem documental por sourceDocumentId, detectando documentos emitidos sem lançamento e lançamentos órfãos

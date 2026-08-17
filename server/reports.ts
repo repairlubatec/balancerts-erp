@@ -117,6 +117,17 @@ export function buildFiscalRegister(rows: FiscalRegisterRow[]) {
   return { entries, totals: { netAmount: money(entries.reduce((sum, row) => sum + row.netAmount, 0)), taxAmount: money(entries.reduce((sum, row) => sum + row.taxAmount, 0)), totalAmount: money(entries.reduce((sum, row) => sum + row.totalAmount, 0)) }, reconciled: entries.every((row) => Math.abs(row.totalAmount - row.netAmount - row.taxAmount) <= 0.005 && !(row.ivaRegime === "EXCLUSAO" && Math.abs(row.taxAmount) > 0.01)) };
 }
 
+export type DocumentOriginRow = { id: number; status: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED" };
+export type JournalOriginRow = { entryId: number; sourceDocumentId: number | null };
+
+export function buildDocumentOriginReconciliation(documents: DocumentOriginRow[], journalEntries: JournalOriginRow[]) {
+  const requiredDocumentIds = new Set(documents.filter((document) => document.status === "ISSUED" || document.status === "ACCOUNTED").map((document) => document.id));
+  const linkedDocumentIds = new Set(journalEntries.flatMap((entry) => entry.sourceDocumentId === null ? [] : [entry.sourceDocumentId]));
+  const missingJournalDocumentIds = Array.from(requiredDocumentIds).filter((documentId) => !linkedDocumentIds.has(documentId));
+  const orphanJournalEntryIds = journalEntries.filter((entry) => entry.sourceDocumentId !== null && !documents.some((document) => document.id === entry.sourceDocumentId)).map((entry) => entry.entryId);
+  return { missingJournalDocumentIds, orphanJournalEntryIds, reconciled: missingJournalDocumentIds.length === 0 && orphanJournalEntryIds.length === 0 };
+}
+
 export function buildReportReconciliation(input: {
   trialBalance: ReturnType<typeof buildTrialBalance>;
   journal: ReturnType<typeof buildJournal>;

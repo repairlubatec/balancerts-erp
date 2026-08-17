@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assertSaftExportReady, buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary } from "./reports";
+import { assertSaftExportReady, buildBalanceSheet, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary } from "./reports";
 
 describe("reconciliable reports", () => {
   it("aggregates account movements and reconciles totals", () => {
@@ -62,6 +62,12 @@ describe("reconciliable reports", () => {
     expect(blocked.submissionEligible).toBe(false);
     expect(() => assertSaftExportReady(complete)).toThrow("SAFT_EXPORT_NOT_READY:AGT_VALIDATION_REQUIRED");
     expect(() => assertSaftExportReady(blocked)).toThrow("SAFT_EXPORT_NOT_READY:MASTERFILES_ACCOUNTS");
+  });
+
+  it("reconciles document origins with journal sourceDocumentId", () => {
+    expect(buildDocumentOriginReconciliation([{ id: 1, status: "ACCOUNTED" }, { id: 2, status: "DRAFT" }], [{ entryId: 10, sourceDocumentId: 1 }])).toEqual({ missingJournalDocumentIds: [], orphanJournalEntryIds: [], reconciled: true });
+    expect(buildDocumentOriginReconciliation([{ id: 1, status: "ISSUED" }], [])).toMatchObject({ missingJournalDocumentIds: [1], reconciled: false });
+    expect(buildDocumentOriginReconciliation([], [{ entryId: 11, sourceDocumentId: 999 }])).toMatchObject({ orphanJournalEntryIds: [11], reconciled: false });
   });
 
   it("reconciles income statement and balance sheet", () => {
