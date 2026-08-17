@@ -24,6 +24,12 @@ describe("AGT compliance calendar", () => {
     expect(validateAgtFiscalRecord({ companyId: 1, period: { year: 2023, month: 9 }, regime: "EXCLUSAO", sourceDocumentCount: 2, netAmount: 1000, taxAmount: 0, totalAmount: 1000 })).toEqual({ valid: true, errors: [] });
   });
 
+  it("rejects IVA liquidado no regime EXCLUSÃO", () => {
+    const result = validateAgtFiscalRecord({ companyId: 1, period: { year: 2023, month: 9 }, regime: "EXCLUSAO", sourceDocumentCount: 1, netAmount: 1000, taxAmount: 140, totalAmount: 1140 });
+    expect(result.valid).toBe(false);
+    expect(result.errors).toContain("EXCLUSAO_TAX_MUST_BE_ZERO");
+  });
+
   it("rejects non-reconciled totals and positive amounts without source documents", () => {
     const result = validateAgtFiscalRecord({ companyId: 1, period: { year: 2023, month: 9 }, regime: "GERAL", sourceDocumentCount: 0, netAmount: 1000, taxAmount: 140, totalAmount: 1000 });
     expect(result.valid).toBe(false);

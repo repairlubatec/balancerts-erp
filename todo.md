@@ -12,7 +12,7 @@
 - [x] Motor Contabilístico com partidas dobradas e débito igual a crédito
 - [x] Invariantes de conta vigente/postável, período válido, origem, idempotência, atomicidade e imutabilidade
 - [x] Mecanismo controlado de estorno e correcção com rastreabilidade
-- [ ] Cadeia navegável Documento → Lançamento → Conta → Relatório e percurso inverso
+- [x] Cadeia navegável Documento → Lançamento → Conta → Relatório e percurso inverso
 - [x] Facturação e documentos comerciais com séries e numeração sequencial
 - [x] Máquina de estados DRAFT → VALIDATED → ISSUED → ACCOUNTED → CANCELLED
 - [ ] Imutabilidade pós-emissão e associação a cliente/fornecedor, itens, impostos, pagamentos e contabilidade
@@ -191,3 +191,6 @@
 - [x] Validar getSaftReadinessForUserCompany na base real da Repair Lubatec, confirmando escopo tenant-aware, lacunas persistentes e submissionEligible falso
 - [x] Provar na integração real que getSaftReadinessForUserCompany rejeita utilizador/empresa inexistentes sem devolver dados de outro tenant
 - [x] Fixar no contrato SAF-T o namespace urn:OECD:StandardAuditFile-Tax:AO_1.01_01 e a versão XSD 1.01_01, sem permitir submissão automática
+- [ ] Completar os relatórios auxiliares e fiscais ainda pendentes com queries persistentes e validações AGT específicas
+- [ ] Adicionar prova integrada por teste de que cada relatório principal/auxiliar reconcilia com razão, documentos e origem persistida real, incluindo percurso completo de traceabilidade
+- [x] Reforçar validateAgtFiscalRecord para rejeitar IVA liquidado no regime EXCLUSÃO, com teste específico e totais reconciliados

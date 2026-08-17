@@ -43,6 +43,7 @@ export function validateAgtFiscalRecord(record: AgtFiscalRecord) {
   if (!["GERAL", "SIMPLIFICADO", "EXCLUSAO"].includes(record.regime)) errors.push("IVA_REGIME_INVALID");
   if (![record.netAmount, record.taxAmount, record.totalAmount].every((amount) => Number.isFinite(amount) && amount >= 0)) errors.push("AMOUNT_INVALID");
   if (Math.abs(record.totalAmount - (record.netAmount + record.taxAmount)) > 0.01) errors.push("TOTAL_NOT_RECONCILED");
+  if (record.regime === "EXCLUSAO" && Math.abs(record.taxAmount) > 0.01) errors.push("EXCLUSAO_TAX_MUST_BE_ZERO");
   if (record.sourceDocumentCount === 0 && (record.netAmount > 0 || record.taxAmount > 0 || record.totalAmount > 0)) errors.push("SOURCE_DOCUMENTS_REQUIRED");
   return { valid: errors.length === 0, errors };
 }
