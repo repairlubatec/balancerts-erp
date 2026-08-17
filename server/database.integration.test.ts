@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { createFileAsset, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, recordStockMovement, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 
 describe("database tenant integration", () => {
   it("reads Repair Lubatec without exposing operational records", async () => {
@@ -29,6 +29,13 @@ describe("database tenant integration", () => {
     await expect(reserveDocumentNumber({ userId: 1, companyId: 1, series: "FT", documentType: "FT" })).rejects.toThrow();
     await expect(transitionBusinessDocument({ userId: 1, companyId: 1, documentId: 999999, to: "ISSUED" })).rejects.toThrow();
     await expect(postJournalEntry({ companyId: 1, periodId: 1, createdBy: 1, idempotencyKey: "ready-company-guard", description: "Não deve ser criado", lines: [{ accountId: 1, debit: 10, credit: 0 }, { accountId: 2, debit: 0, credit: 10 }] })).rejects.toThrow();
+  });
+
+  it("rejects forged organization scope before stock and file writes", async () => {
+    const companies = await getCompaniesForUser(1);
+    const repair = companies.find(({ company }) => company.nif === "5001121871");
+    await expect(recordStockMovement({ userId: 1, organizationId: 999999, companyId: repair!.company.id, periodId: 1, productCode: "FORGED-SCOPE", type: "IN", quantity: 1, unitCost: 1, correlationId: "forged-org-stock" })).rejects.toThrow();
+    await expect(createFileAsset({ userId: 1, organizationId: 999999, companyId: repair!.company.id, storageKey: "forged/scope", filename: "forged.txt", mimeType: "text/plain", size: 1, sha256: "0".repeat(64) })).rejects.toThrow();
   });
 
   it("returns no cross-tenant data for unknown user/company scopes", async () => {
