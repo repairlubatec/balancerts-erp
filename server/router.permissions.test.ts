@@ -54,7 +54,14 @@ describe("protected accounting procedures", () => {
     const list = vi.spyOn(db, "getAuditEventsForUserCompany").mockResolvedValue([{ event: { id: 1, companyId: 41 } } as never]);
     const caller = appRouter.createCaller(contextWithRole("auditor"));
     await expect(caller.audit.list({ companyId: 41 })).resolves.toHaveLength(1);
-    expect(list).toHaveBeenCalledWith(8, 41);
+    expect(list).toHaveBeenCalledWith(8, 41, undefined, undefined);
+  });
+
+  it("filters audit reconstruction by entity", async () => {
+    const list = vi.spyOn(db, "getAuditEventsForUserCompany").mockResolvedValue([]);
+    const caller = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(caller.audit.list({ companyId: 41, entityType: "journalEntry", entityId: "99" })).resolves.toEqual([]);
+    expect(list).toHaveBeenCalledWith(8, 41, "journalEntry", "99");
   });
 
   it("rejects unauthorized critical modules before database access", async () => {

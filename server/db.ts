@@ -78,10 +78,13 @@ export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
   return result;
 }
 
-export async function getAuditEventsForUserCompany(userId: number, companyId: number) {
+export async function getAuditEventsForUserCompany(userId: number, companyId: number, entityType?: string, entityId?: string) {
   const db = await getDb();
   if (!db) return [];
-  return db.select({ event: auditEvents }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).where(and(eq(auditEvents.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(auditEvents.id);
+  const filters = [eq(auditEvents.companyId, companyId), eq(organizations.ownerUserId, userId)];
+  if (entityType) filters.push(eq(auditEvents.entityType, entityType));
+  if (entityId) filters.push(eq(auditEvents.entityId, entityId));
+  return db.select({ event: auditEvents }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).where(and(...filters)).orderBy(auditEvents.id);
 }
 
 export async function reconcileStockForUserCompany(input: { userId: number; companyId: number; inventoryAccountId: number }) {
