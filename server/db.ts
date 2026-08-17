@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, organizations, platforms, stockMovements, users } from "../drizzle/schema";
-import { buildAgingReport, buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
+import { buildAgingReport, buildBalanceSheet, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
@@ -350,6 +350,17 @@ export async function getAgingForUserCompany(userId: number, companyId: number, 
 export async function getVatSummaryForUserCompany(userId: number, companyId: number) {
   const documents = await getDocumentsForUserCompany(userId, companyId);
   return buildVatSummary(documents.map(({ document }) => ({ status: document.status, ivaRegime: document.ivaRegime, netAmount: Number(document.netAmount), taxAmount: Number(document.taxAmount), totalAmount: Number(document.totalAmount) })));
+}
+
+export async function getReportsReconciliationForUserCompany(userId: number, companyId: number) {
+  const [trialBalance, journal, balanceSheet, vatSummary, fiscalRegister] = await Promise.all([
+    getTrialBalanceForUserCompany(userId, companyId),
+    getJournalForUserCompany(userId, companyId),
+    getBalanceSheetForUserCompany(userId, companyId),
+    getVatSummaryForUserCompany(userId, companyId),
+    getFiscalRegisterForUserCompany(userId, companyId),
+  ]);
+  return { companyId, ...buildReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister }) };
 }
 
 export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED"; correlationId?: string }) {

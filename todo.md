@@ -176,3 +176,4 @@
 - [x] Enumerar as 10 mutações persistentes críticas e documentar política PENDING/READY com matriz e testes de contrato
 - [x] Criar e testar contrato agregado de reconciliação para Balancete, Diário, Balanço, IVA e registo fiscal
 - [x] Testar imutabilidade pós-emissão na máquina documental: ACCOUNTED/CANCELLED não regressam a DRAFT/VALIDATED
+- [x] Expor reports.reconciliation tenant-aware com checks agregados de Balancete, Diário, Balanço, IVA e registo fiscal
