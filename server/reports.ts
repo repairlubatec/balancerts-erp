@@ -145,6 +145,11 @@ export function buildReportReconciliation(input: {
   return { checks, reconciled: Object.values(checks).every(Boolean) };
 }
 
+export function buildCompleteReportReconciliation(input: Parameters<typeof buildReportReconciliation>[0] & { documentOrigin: ReturnType<typeof buildDocumentOriginReconciliation> }) {
+  const aggregate = buildReportReconciliation(input);
+  return { ...aggregate, documentOrigin: input.documentOrigin, reconciled: aggregate.reconciled && input.documentOrigin.reconciled };
+}
+
 export const SAFT_AO_NAMESPACE = "urn:OECD:StandardAuditFile-Tax:AO_1.01_01";
 export const SAFT_AO_SCHEMA_VERSION = "1.01_01";
 

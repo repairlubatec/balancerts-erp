@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, organizations, platforms, stockMovements, users } from "../drizzle/schema";
-import { buildAgingReport, buildBalanceSheet, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
+import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
@@ -366,8 +366,7 @@ export async function getReportsReconciliationForUserCompany(userId: number, com
     getFiscalRegisterForUserCompany(userId, companyId),
     getDocumentOriginReconciliationForUserCompany(userId, companyId),
   ]);
-  const aggregate = buildReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister });
-  return { companyId, ...aggregate, reconciled: aggregate.reconciled && documentOrigin.reconciled, documentOrigin };
+  return { companyId, ...buildCompleteReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister, documentOrigin }) };
 
 }
 

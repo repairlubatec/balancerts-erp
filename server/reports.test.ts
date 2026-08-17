@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assertSaftExportReady, buildBalanceSheet, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary } from "./reports";
+import { assertSaftExportReady, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary } from "./reports";
 
 describe("reconciliable reports", () => {
   it("aggregates account movements and reconciles totals", () => {
@@ -53,6 +53,10 @@ describe("reconciliable reports", () => {
     const fiscalRegister = buildFiscalRegister([{ documentId: 1, documentNumber: "FT/000001", issueDate: new Date("2026-01-01"), customerNif: null, status: "ISSUED", ivaRegime: "GERAL", netAmount: 100, taxAmount: 14, totalAmount: 114 }]);
     expect(buildReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister }).reconciled).toBe(true);
     expect(buildReportReconciliation({ trialBalance: { ...trialBalance, reconciled: false }, journal, balanceSheet, vatSummary, fiscalRegister }).reconciled).toBe(false);
+    const origin = buildDocumentOriginReconciliation([{ id: 1, status: "ACCOUNTED" }], [{ entryId: 1, sourceDocumentId: 1 }]);
+    const orphan = buildDocumentOriginReconciliation([{ id: 1, status: "ACCOUNTED" }], []);
+    expect(buildCompleteReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister, documentOrigin: origin }).reconciled).toBe(true);
+    expect(buildCompleteReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister, documentOrigin: orphan }).reconciled).toBe(false);
   });
 
   it("reports SAF-T coverage without claiming submission eligibility", () => {

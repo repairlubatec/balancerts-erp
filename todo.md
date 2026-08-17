@@ -214,3 +214,4 @@
 - [x] Cobrir table-driven os dez contratos de auditoria com action, entityType e snapshots explícitos; a execução persistida completa permanece pendente nos macros correspondentes
 - [x] Reforçar buildVatSummary e buildReportReconciliation para rejeitar IVA positivo em EXCLUSÃO, com testes auxiliares e integração real sem dados
 - [x] Tornar reports.reconciliation conservador perante divergência de origem documental, sem alterar os cinco checks visualizados na Home
+- [x] Criar e testar buildCompleteReportReconciliation, fazendo a reconciliação global depender também da origem documental
