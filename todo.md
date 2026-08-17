@@ -171,3 +171,4 @@
 - [x] Uniformizar JOURNAL_ENTRY_POSTED/JOURNAL_ENTRY_REVERSED através de appendAuditEventForUser após posting contabilístico
 - [x] Validar em integração real a forma dos eventos de auditoria persistidos da Repair Lubatec, incluindo actor, tenant, entidade, correlação e snapshots
 - [x] Provar reconstrução de eventos de auditoria por company/entity usando filtros persistentes na Repair Lubatec
+- [x] Uniformizar eventos DOCUMENT_* da transição documental através de appendAuditEventForUser

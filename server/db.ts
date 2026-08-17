@@ -366,7 +366,7 @@ export async function transitionBusinessDocument(input: { userId: number; compan
   }
   const issuedAt = input.to === "ISSUED" ? new Date() : current.document.issuedAt;
   await db.update(businessDocuments).set({ status: input.to, issuedAt }).where(eq(businessDocuments.id, input.documentId));
-  await appendAuditEvent({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: `DOCUMENT_${input.to}`, entityType: "businessDocument", entityId: String(input.documentId), beforeState: JSON.stringify({ status: current.document.status }), afterState: JSON.stringify({ status: input.to }), correlationId: input.correlationId ?? `document:${input.documentId}:${input.to}` });
+  await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: `DOCUMENT_${input.to}`, entityType: "businessDocument", entityId: String(input.documentId), beforeState: JSON.stringify({ status: current.document.status }), afterState: JSON.stringify({ status: input.to }), correlationId: input.correlationId ?? `document:${input.documentId}:${input.to}` });
   return { id: input.documentId, from: current.document.status, to: input.to };
 }
 
