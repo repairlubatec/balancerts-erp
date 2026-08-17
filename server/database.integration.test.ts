@@ -62,6 +62,10 @@ describe("database tenant integration", () => {
       expect(event).toHaveProperty("beforeState");
       expect(event.afterState).toBeTruthy();
     }
+    const first = rows[0].event;
+    const reconstructed = await getAuditEventsForUserCompany(1, 1, first.entityType, first.entityId);
+    expect(reconstructed.length).toBeGreaterThan(0);
+    expect(reconstructed.every(({ event }) => event.entityType === first.entityType && event.entityId === first.entityId)).toBe(true);
   });
 
   it("returns no cross-tenant data for unknown user/company scopes", async () => {
