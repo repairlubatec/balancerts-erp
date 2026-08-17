@@ -59,6 +59,16 @@ describe("protected accounting procedures", () => {
     await expect(caller.audit.list({ companyId: 1 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
+  it("passes tenant scope through both document-chain directions", async () => {
+    const forward = vi.spyOn(db, "getDocumentAccountingChainForUserCompany").mockResolvedValue({ document: { id: 7 }, entries: [] } as never);
+    const reverse = vi.spyOn(db, "getJournalDocumentChainForUserCompany").mockResolvedValue({ entry: { id: 9 }, document: { id: 7 }, lines: [] } as never);
+    const caller = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(caller.reports.documentChain({ companyId: 41, documentId: 7 })).resolves.toMatchObject({ document: { id: 7 } });
+    await expect(caller.reports.entryChain({ companyId: 41, entryId: 9 })).resolves.toMatchObject({ entry: { id: 9 } });
+    expect(forward).toHaveBeenCalledWith(8, 41, 7);
+    expect(reverse).toHaveBeenCalledWith(8, 41, 9);
+  });
+
   it("passes authenticated tenant scope to persisted stock reconciliation", async () => {
     const reconcile = vi.spyOn(db, "reconcileStockForUserCompany").mockResolvedValue({ reconciled: true, difference: 0, inventoryValue: 300, ledgerValue: 300 });
     const caller = appRouter.createCaller(contextWithRole("contabilista"));

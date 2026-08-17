@@ -76,3 +76,4 @@
 - [x] Reforçar testes de idempotência para chave vazia, processamento em curso, resultado concluído e retry após falha
 - [x] Testar leitura tenant-aware da auditoria pelo Auditor e rejeição por função antes do acesso à base de dados
 - [x] Expor cadeia inversa Lançamento → Documento de origem → Contas, com filtro tenant-aware
+- [x] Cobrir por API Documento→Lançamento e Lançamento→Documento com escopo tenant-aware
