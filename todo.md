@@ -173,3 +173,4 @@
 - [x] Provar reconstrução de eventos de auditoria por company/entity usando filtros persistentes na Repair Lubatec
 - [x] Uniformizar eventos DOCUMENT_* da transição documental através de appendAuditEventForUser
 - [x] Uniformizar auditoria de criação/activação de empresa, stock, ficheiros e reserva documental através de appendAuditEventForUser
+- [x] Enumerar as 10 mutações persistentes críticas e documentar política PENDING/READY com matriz e testes de contrato
