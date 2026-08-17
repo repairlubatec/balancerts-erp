@@ -46,7 +46,7 @@ describe("protected accounting procedures", () => {
 
   it("passes authenticated tenant scope to persisted stock reconciliation", async () => {
     const reconcile = vi.spyOn(db, "reconcileStockForUserCompany").mockResolvedValue({ reconciled: true, difference: 0, inventoryValue: 300, ledgerValue: 300 });
-    const caller = appRouter.createCaller(contextWithRole("admin"));
+    const caller = appRouter.createCaller(contextWithRole("contabilista"));
     await expect(caller.inventory.reconcile({ companyId: 41, inventoryAccountId: 12 })).resolves.toMatchObject({ reconciled: true });
     expect(reconcile).toHaveBeenCalledWith({ userId: 8, companyId: 41, inventoryAccountId: 12 });
   });

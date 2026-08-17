@@ -66,3 +66,6 @@
 - [x] Auditar movimentos de stock persistidos com actor, tenant, entidade, estado e correlationId
 - [x] Validar tenant da empresa antes de permitir posting contabilístico e auditar lançamentos novos
 - [ ] Integrar auditoria de negócio em todas as mutações críticas e disponibilizar reconstrução por entidade/empresa
+- [x] Expor reconstrução da auditoria por empresa com ordenação append-only e filtro tenant-aware
+- [x] Permitir validação de reconciliação de stock ao Contabilista sem ampliar permissões de execução do Operador
+- [x] Auditar registo de metadata de ficheiros após upload e reserva de numeração documental

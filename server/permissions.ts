@@ -3,7 +3,7 @@ export type Permission = "read" | "create" | "validate" | "issue" | "post" | "re
 
 const matrix: Record<BalancertsRole, Partial<Record<string, Permission[]>>> = {
   admin: { "*": ["read", "create", "validate", "issue", "post", "reverse", "close", "reopen", "audit"] },
-  contabilista: { companies: ["read"], accounting: ["read", "create", "validate", "post", "reverse"], documents: ["read", "validate", "issue"], fiscal: ["read", "validate"], reports: ["read"], close: ["read", "close", "reopen"] },
+  contabilista: { companies: ["read"], accounting: ["read", "create", "validate", "post", "reverse"], documents: ["read", "validate", "issue"], fiscal: ["read", "validate"], stock: ["read", "create", "validate"], reports: ["read"], close: ["read", "close", "reopen"] },
   financeiro: { companies: ["read"], treasury: ["read", "create", "validate"], documents: ["read", "create"], reports: ["read"] },
   operador: { companies: ["read"], documents: ["read", "create"], stock: ["read", "create"], treasury: ["read"] },
   auditor: { companies: ["read"], accounting: ["read"], documents: ["read"], fiscal: ["read"], reports: ["read"], audit: ["read", "audit"] },

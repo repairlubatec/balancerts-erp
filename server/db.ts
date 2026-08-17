@@ -78,6 +78,12 @@ export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
   return result;
 }
 
+export async function getAuditEventsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ event: auditEvents }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).where(and(eq(auditEvents.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(auditEvents.id);
+}
+
 export async function reconcileStockForUserCompany(input: { userId: number; companyId: number; inventoryAccountId: number }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
@@ -105,7 +111,9 @@ export async function createFileAsset(input: { userId: number; organizationId: n
   const company = await db.select({ id: companies.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   const result = await db.insert(fileAssets).values({ organizationId: input.organizationId, companyId: input.companyId, ownerUserId: input.userId, storageKey: input.storageKey, filename: input.filename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, allowedUserIds: JSON.stringify(input.allowedUserIds ?? []) });
-  return { id: result[0].insertId, storageKey: input.storageKey };
+  const fileId = Number(result[0].insertId);
+  await appendAuditEvent({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FILE_ASSET_REGISTERED", entityType: "fileAsset", entityId: String(fileId), afterState: JSON.stringify({ filename: input.filename, mimeType: input.mimeType, sha256: input.sha256, size: input.size }), correlationId: input.storageKey });
+  return { id: fileId, storageKey: input.storageKey };
 }
 
 export async function getFileAssetForUser(input: { userId: number; companyId: number; fileId: number }) {
@@ -122,14 +130,17 @@ export async function getFileAssetForUser(input: { userId: number; companyId: nu
 export async function reserveDocumentNumber(input: { userId: number; companyId: number; series: string; documentType: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  return db.transaction(async (tx) => {
+  const reserved = await db.transaction(async (tx) => {
     const rows = await tx.select({ series: documentSeries, organization: organizations }).from(documentSeries).innerJoin(companies, eq(documentSeries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(documentSeries.companyId, input.companyId), eq(documentSeries.code, input.series), eq(documentSeries.documentType, input.documentType), eq(documentSeries.active, 1), eq(organizations.ownerUserId, input.userId))).limit(1);
     const current = rows[0];
     if (!current) throw new Error("DOCUMENT_SERIES_NOT_FOUND_OR_FORBIDDEN");
     const number = current.series.nextNumber;
     await tx.update(documentSeries).set({ nextNumber: sql`${documentSeries.nextNumber} + 1` }).where(eq(documentSeries.id, current.series.id));
-    return { series: input.series, documentType: input.documentType, number, formatted: formatDocumentNumber(input.series, number) };
+    return { organizationId: current.organization.id, series: input.series, documentType: input.documentType, number, formatted: formatDocumentNumber(input.series, number) };
   });
+  await appendAuditEvent({ organizationId: reserved.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_NUMBER_RESERVED", entityType: "documentSeries", entityId: `${reserved.series}:${reserved.documentType}`, afterState: JSON.stringify({ number: reserved.number, formatted: reserved.formatted }), correlationId: `${input.companyId}:${reserved.series}:${reserved.number}` });
+  const { organizationId: _organizationId, ...result } = reserved;
+  return result;
 }
 
 export async function getDocumentAccountingChainForUserCompany(userId: number, companyId: number, documentId: number) {
