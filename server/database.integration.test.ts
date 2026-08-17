@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assertClosedFiscalPeriodForUserCompany, assertFiscalPeriodForUserCompany, createFileAsset, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getReportTraceForUserCompany, getReportsReconciliationForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, recordStockMovement, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { assertClosedFiscalPeriodForUserCompany, assertFiscalPeriodForUserCompany, createFileAsset, getAuditEventsForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getReportTraceForUserCompany, getReportsReconciliationForUserCompany, getSaftReadinessForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, recordStockMovement, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 
 describe("database tenant integration", () => {
   it("reads Repair Lubatec without exposing operational records", async () => {
@@ -24,6 +24,9 @@ describe("database tenant integration", () => {
     expect(vatSummary).toMatchObject({ rows: [], totals: { netAmount: 0, taxAmount: 0, totalAmount: 0 } });
     expect(await reconcileStockForUserCompany({ userId: 1, companyId: repair!.company.id, inventoryAccountId: 999999 })).toMatchObject({ reconciled: true, difference: 0 });
     expect(await getReportsReconciliationForUserCompany(1, repair!.company.id)).toMatchObject({ companyId: repair!.company.id, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } });
+    const saft = await getSaftReadinessForUserCompany(1, repair!.company.id);
+    expect(saft).toMatchObject({ format: "SAFTAO1.01_01", ready: false, submissionEligible: false });
+    expect(saft.missing).toEqual(expect.arrayContaining(["MASTERFILES_CUSTOMERS", "MASTERFILES_SUPPLIERS", "MASTERFILES_PRODUCTS", "MASTERFILES_TAX_TABLES"]));
   }, 15000);
 
   it("rejects incomplete critical mutations after Repair Lubatec activation", async () => {

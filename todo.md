@@ -188,3 +188,4 @@
 - [x] Adicionar guard assertSaftExportReady para impedir exportação SAF-T quando faltam entidades ou validação AGT/XSD, com cobertura de prontidão completa e incompleta
 - [x] Estabilizar o teste de integração de leitura tenant-aware com timeout explícito para latência de TiDB, sem alterar as asserções funcionais
 - [x] Cobrir RBAC de reports.saftReadiness: Auditor autorizado, Operador rejeitado antes da persistência e contrato submissionEligible conservador
+- [x] Validar getSaftReadinessForUserCompany na base real da Repair Lubatec, confirmando escopo tenant-aware, lacunas persistentes e submissionEligible falso
