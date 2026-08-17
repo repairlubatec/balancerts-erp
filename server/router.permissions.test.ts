@@ -80,6 +80,15 @@ describe("protected accounting procedures", () => {
     expect(list).toHaveBeenCalledWith(8, 41, undefined, undefined);
   });
 
+  it("allows tenant-scoped audit append only for the administrator tenant", async () => {
+    const append = vi.spyOn(db, "appendAuditEventForUser").mockResolvedValue({} as never);
+    const caller = appRouter.createCaller(contextWithRole("admin"));
+    await expect(caller.audit.append({ organizationId: 7, companyId: 41, action: "TEST_AUDIT", entityType: "company", entityId: "41", correlationId: "audit-41" })).resolves.toBeDefined();
+    expect(append).toHaveBeenCalledWith(expect.objectContaining({ actorUserId: 8, organizationId: 7, companyId: 41 }));
+    append.mockRejectedValueOnce(new Error("AUDIT_SCOPE_FORBIDDEN"));
+    await expect(caller.audit.append({ organizationId: 999, companyId: 999, action: "TEST_AUDIT", entityType: "company", entityId: "999", correlationId: "audit-999" })).rejects.toMatchObject({ code: "FORBIDDEN", message: "AUDIT_SCOPE_FORBIDDEN" });
+  });
+
   it("filters audit reconstruction by entity", async () => {
     const list = vi.spyOn(db, "getAuditEventsForUserCompany").mockResolvedValue([]);
     const caller = appRouter.createCaller(contextWithRole("auditor"));

@@ -5,7 +5,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
-import { activateCompanyForUser, appendAuditEvent, createCompanyForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { activateCompanyForUser, appendAuditEvent, appendAuditEventForUser, createCompanyForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
@@ -125,7 +125,14 @@ export const appRouter = router({
   }),
   audit: router({
     list: roleProcedure("audit", "read").input(z.object({ companyId: z.number().int().positive(), entityType: z.string().min(1).optional(), entityId: z.string().min(1).optional() })).query(({ ctx, input }) => getAuditEventsForUserCompany(ctx.user.id, input.companyId, input.entityType, input.entityId)),
-    append: adminProcedure.input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), action: z.string().min(1), entityType: z.string().min(1), entityId: z.string().min(1), beforeState: z.string().nullable().optional(), afterState: z.string().nullable().optional(), correlationId: z.string().min(1) })).mutation(({ ctx, input }) => appendAuditEvent({ ...input, actorUserId: ctx.user.id })),
+    append: adminProcedure.input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), action: z.string().min(1), entityType: z.string().min(1), entityId: z.string().min(1), beforeState: z.string().nullable().optional(), afterState: z.string().nullable().optional(), correlationId: z.string().min(1) })).mutation(async ({ ctx, input }) => {
+      try {
+        return await appendAuditEventForUser({ ...input, actorUserId: ctx.user.id });
+      } catch (error) {
+        if (error instanceof Error && error.message === "AUDIT_SCOPE_FORBIDDEN") throw new TRPCError({ code: "FORBIDDEN", message: error.message });
+        throw error;
+      }
+    }),
   }),
 });
 

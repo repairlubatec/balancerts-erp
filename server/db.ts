@@ -162,6 +162,19 @@ export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
   return result;
 }
 
+export async function appendAuditEventForUser(input: Omit<typeof auditEvents.$inferInsert, "actorUserId"> & { actorUserId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  if (input.companyId !== null && input.companyId !== undefined) {
+    const scope = await db.select({ organizationId: organizations.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.id, input.organizationId), eq(organizations.ownerUserId, input.actorUserId))).limit(1);
+    if (!scope[0]) throw new Error("AUDIT_SCOPE_FORBIDDEN");
+  } else {
+    const scope = await db.select({ id: organizations.id }).from(organizations).where(and(eq(organizations.id, input.organizationId), eq(organizations.ownerUserId, input.actorUserId))).limit(1);
+    if (!scope[0]) throw new Error("AUDIT_SCOPE_FORBIDDEN");
+  }
+  return appendAuditEvent(input);
+}
+
 export async function getAuditEventsForUserCompany(userId: number, companyId: number, entityType?: string, entityId?: string) {
   const db = await getDb();
   if (!db) return [];
