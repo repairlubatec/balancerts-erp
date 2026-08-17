@@ -218,3 +218,4 @@
 - [x] Explicitar por tabela os dez estados PENDING/READY e alinhar cada um com o contrato de auditoria; a prova de execução persistida continua separada
 - [x] Cobrir a sequência de recuperação FAILED→RETRY→COMPLETED no resolvedor de idempotência, separada da prova persistida E2E ainda pendente
 - [x] Documentar limites de verificação, evidência real da Repair Lubatec e lacunas persistidas que impedem afirmar conformidade AGT ou conclusão E2E
+- [x] Validar a cadeia append-only dos dez eventos críticos com ordem, correlationId e beforeState/afterState explícitos; a execução persistida completa permanece separada
