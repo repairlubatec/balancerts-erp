@@ -35,6 +35,8 @@ describe("reconciliable reports", () => {
     ]);
     expect(result.rows).toHaveLength(2);
     expect(result.totals).toEqual({ netAmount: 230, taxAmount: 21, totalAmount: 251 });
+    expect(result.reconciled).toBe(true);
+    expect(buildVatSummary([{ status: "ISSUED", ivaRegime: "EXCLUSAO", netAmount: 100, taxAmount: 14, totalAmount: 114 }]).reconciled).toBe(false);
   });
 
   it("reconciles the aggregate report contract and flags divergence", () => {

@@ -212,3 +212,4 @@
 - [x] Incluir documentOrigin como evidência persistente na resposta de reports.reconciliation, preservando os checks agregados existentes e o contrato da Home
 - [x] Provar no percurso real da Repair Lubatec que reports.reconciliation inclui documentOrigin reconciliado e sem órfãos, mantendo os checks agregados
 - [x] Cobrir table-driven os dez contratos de auditoria com action, entityType e snapshots explícitos; a execução persistida completa permanece pendente nos macros correspondentes
+- [x] Reforçar buildVatSummary e buildReportReconciliation para rejeitar IVA positivo em EXCLUSÃO, com testes auxiliares e integração real sem dados

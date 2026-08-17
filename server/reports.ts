@@ -74,7 +74,7 @@ export function buildVatSummary(documents: VatDocumentRow[]) {
     groups.set(key, current);
   }
   const rows = Array.from(groups.entries()).map(([key, value]) => ({ key, ...value })).sort((a, b) => a.key.localeCompare(b.key));
-  return { rows, totals: { netAmount: money(rows.reduce((sum, row) => sum + row.netAmount, 0)), taxAmount: money(rows.reduce((sum, row) => sum + row.taxAmount, 0)), totalAmount: money(rows.reduce((sum, row) => sum + row.totalAmount, 0)) } };
+  return { rows, totals: { netAmount: money(rows.reduce((sum, row) => sum + row.netAmount, 0)), taxAmount: money(rows.reduce((sum, row) => sum + row.taxAmount, 0)), totalAmount: money(rows.reduce((sum, row) => sum + row.totalAmount, 0)) }, reconciled: rows.every((row) => Math.abs(row.totalAmount - row.netAmount - row.taxAmount) <= 0.005 && !(row.regime === "EXCLUSAO" && Math.abs(row.taxAmount) > 0.01)) };
 }
 
 export type OpenItemRow = {
@@ -139,7 +139,7 @@ export function buildReportReconciliation(input: {
     trialBalance: input.trialBalance.reconciled,
     journal: Math.abs(input.journal.totals.debit - input.journal.totals.credit) <= 0.005,
     balanceSheet: input.balanceSheet.reconciled,
-    vat: Math.abs(input.vatSummary.totals.totalAmount - input.vatSummary.totals.netAmount - input.vatSummary.totals.taxAmount) <= 0.005,
+    vat: input.vatSummary.reconciled && Math.abs(input.vatSummary.totals.totalAmount - input.vatSummary.totals.netAmount - input.vatSummary.totals.taxAmount) <= 0.005,
     fiscalRegister: input.fiscalRegister.reconciled,
   };
   return { checks, reconciled: Object.values(checks).every(Boolean) };
