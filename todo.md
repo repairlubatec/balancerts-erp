@@ -157,3 +157,4 @@
 - [x] Restringir ageing a documentos emitidos/contabilizados e excluir rascunhos, validações e cancelamentos
 - [x] Remover empresas e métricas demonstrativas da grelha de Relatórios, usando Repair Lubatec real e estados Sem dados quando não há execução persistida
 - [x] Cobrir no teste da Home a resolução Documento→Relatório/Conta/Lançamento/Auditoria
+- [x] Criar matriz testável das 10 mutações críticas actualmente suportadas, com tabelas, evento e entidade auditados
