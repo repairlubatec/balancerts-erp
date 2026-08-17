@@ -19,7 +19,7 @@ import { buildReversalLines, reversalDescription } from "./reversal";
 import { createFileAsset, getFileAssetForUser, recordStockMovement } from "./db";
 import { prepareTenantFile } from "./files";
 import { storageGetSignedUrl, storagePut } from "./storage";
-import { buildAgtComplianceCalendar } from "./tax-compliance";
+import { buildAgtComplianceCalendar, validateAgtFiscalRecord } from "./tax-compliance";
 
 const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) => protectedProcedure.use(({ ctx, next }) => {
   if (!can(ctx.user.role as BalancertsRole, module, permission)) throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
@@ -122,6 +122,13 @@ export const appRouter = router({
     trace: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), report: z.enum(["TRIAL_BALANCE", "INCOME_STATEMENT", "BALANCE_SHEET"]), accountCode: z.string().min(1).optional() })).query(({ ctx, input }) => getReportTraceForUserCompany(ctx.user.id, input.companyId, input.report, input.accountCode)),
     vatSummary: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getVatSummaryForUserCompany(ctx.user.id, input.companyId)),
     fiscalRegister: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getFiscalRegisterForUserCompany(ctx.user.id, input.companyId)),
+    agtValidation: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive(), year: z.number().int().min(2023).max(2100), month: z.number().int().min(1).max(12) })).query(async ({ ctx, input }) => {
+      const companies = await getCompaniesForUser(ctx.user.id);
+      const company = companies.find(({ company }) => company.id === input.companyId)?.company;
+      if (!company) throw new TRPCError({ code: "NOT_FOUND", message: "COMPANY_NOT_FOUND_OR_FORBIDDEN" });
+      const register = await getFiscalRegisterForUserCompany(ctx.user.id, input.companyId);
+      return { companyId: input.companyId, period: { year: input.year, month: input.month }, regime: company.ivaRegime, validation: validateAgtFiscalRecord({ companyId: input.companyId, period: { year: input.year, month: input.month }, regime: company.ivaRegime, sourceDocumentCount: register.entries.length, netAmount: register.totals.netAmount, taxAmount: register.totals.taxAmount, totalAmount: register.totals.totalAmount }) };
+    }),
   }),
   audit: router({
     list: roleProcedure("audit", "read").input(z.object({ companyId: z.number().int().positive(), entityType: z.string().min(1).optional(), entityId: z.string().min(1).optional() })).query(({ ctx, input }) => getAuditEventsForUserCompany(ctx.user.id, input.companyId, input.entityType, input.entityId)),
