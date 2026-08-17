@@ -14,6 +14,9 @@ import { calculateStraightLineDepreciation } from "./fixed-assets";
 import { evaluatePeriodClose, validateReopenReason } from "./closing";
 import { convertToFunctionalCurrency } from "./currency";
 import { buildReversalLines, reversalDescription } from "./reversal";
+import { createFileAsset, getFileAssetForUser } from "./db";
+import { prepareTenantFile } from "./files";
+import { storagePut } from "./storage";
 
 const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) => protectedProcedure.use(({ ctx, next }) => {
   if (!can(ctx.user.role as BalancertsRole, module, permission)) throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
@@ -48,6 +51,15 @@ export const appRouter = router({
     validateTransition: protectedProcedure.input(z.object({ from: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]), to: z.string() })).query(({ input }) => ({ allowed: validateDocumentTransition(input.from, input.to) })),
     reserveNumber: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), series: z.string().min(1), documentType: z.string().min(1) })).mutation(({ ctx, input }) => reserveDocumentNumber({ ...input, userId: ctx.user.id })),
     transition: roleProcedure("documents", "issue").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive(), to: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]) })).mutation(({ ctx, input }) => transitionBusinessDocument({ ...input, userId: ctx.user.id })),
+  }),
+  files: router({
+    register: roleProcedure("documents", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), filename: z.string().min(1), mimeType: z.string().min(1), dataBase64: z.string().min(1), allowedUserIds: z.array(z.number().int().positive()).optional() })).mutation(async ({ ctx, input }) => {
+      const data = Buffer.from(input.dataBase64, "base64");
+      const prepared = prepareTenantFile({ ...input, userId: ctx.user.id, data });
+      const uploaded = await storagePut(prepared.key, data, prepared.mimeType);
+      return createFileAsset({ ...prepared, userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, storageKey: uploaded.key });
+    }),
+    metadata: protectedProcedure.input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive() })).query(({ ctx, input }) => getFileAssetForUser({ ...input, userId: ctx.user.id })),
   }),
   reversal: router({
     preview: roleProcedure("accounting", "reverse").input(z.object({ originalEntryId: z.number().int().positive(), reason: z.string().min(1), lines: z.array(z.object({ accountId: z.number().int().positive(), debit: z.number().nonnegative(), credit: z.number().nonnegative(), currency: z.string().length(3), exchangeRate: z.number().positive() })) })).mutation(({ input }) => ({ description: reversalDescription(input.originalEntryId, input.reason), lines: buildReversalLines(input.lines) })),
