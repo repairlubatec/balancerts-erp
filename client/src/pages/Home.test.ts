@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getActionPresentation, getQuickActions, resolveNewAction } from "./Home";
+import { getActionPresentation, getQuickActions, getReportTraceRoutes, resolveNewAction } from "./Home";
 
 describe("BALANCERTS command palette flows", () => {
   it.each([
@@ -15,6 +15,14 @@ describe("BALANCERTS command palette flows", () => {
   it("does not activate an unknown action", () => {
     expect(resolveNewAction("/facturacao?new=unknown")).toEqual({ action: "unknown", label: null });
     expect(getActionPresentation("/facturacao?new=unknown")).toEqual({ action: "unknown", label: null, cta: null, feedback: null });
+  });
+
+  it("resolves report trace routes with the selected record", () => {
+    expect(getReportTraceRoutes("Demonstração de Resultados")).toEqual({
+      account: "/contabilidade?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
+      document: "/documentos?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
+      audit: "/auditoria?focus=Demonstra%C3%A7%C3%A3o%20de%20Resultados",
+    });
   });
 
   it("filters palette actions and preserves the selected destination route", () => {

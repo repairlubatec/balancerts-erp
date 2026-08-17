@@ -131,3 +131,4 @@
 - [ ] Completar os relatórios auxiliares e fiscais ainda pendentes com queries persistentes e validações AGT específicas, consolidando o item macro de relatórios
 - [ ] Adicionar prova integrada por teste de que cada relatório principal/auxiliar reconcilia com razão, documentos e origem persistida real, incluindo percurso completo de traceabilidade
 - [x] Adicionar painel de percurso a partir de um relatório seleccionado para Conta, Documento e Auditoria
+- [x] Testar a resolução determinística de rotas Relatório→Conta/Documento/Auditoria com registo seleccionado
