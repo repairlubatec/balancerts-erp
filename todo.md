@@ -221,3 +221,4 @@
 - [x] Validar a cadeia append-only dos dez eventos críticos com ordem, correlationId e beforeState/afterState explícitos; a execução persistida completa permanece separada
 - [x] Expor exportBlockedReason no contrato SAF-T para distinguir MISSING_REQUIRED_ENTITIES de AGT_VALIDATION_REQUIRED, mantendo submissionEligible falso
 - [x] Adicionar assertDocumentMutable para bloquear alterações em ISSUED, ACCOUNTED e CANCELLED, com teste directo além da máquina de transições
+- [x] Validar no router real da Repair Lubatec exportBlockedReason=MISSING_REQUIRED_ENTITIES, além de namespace, versão e submissionEligible falso
