@@ -323,7 +323,7 @@ export async function getAgingForUserCompany(userId: number, companyId: number, 
   const documents = await getDocumentsForUserCompany(userId, companyId);
   const items = documents
     .map(({ document }) => document)
-    .filter((document) => document.counterpartyType === counterpartyType && document.status !== "CANCELLED" && document.dueDate !== null)
+    .filter((document) => document.counterpartyType === counterpartyType && (document.status === "ISSUED" || document.status === "ACCOUNTED") && document.dueDate !== null)
     .map((document) => ({ id: document.id, partyName: document.customerName ?? "Contraparte não identificada", documentNumber: document.documentNumber, issuedAt: document.issuedAt ?? document.createdAt, dueDate: document.dueDate!, amount: Number(document.totalAmount), settledAmount: Number(document.settledAmount) }));
   return buildAgingReport(items, asOf);
 }

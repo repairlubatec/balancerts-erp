@@ -154,3 +154,4 @@
 - [x] Bloquear createFileAsset para empresas PENDING/BLOCKED antes da persistência e manter cobertura de upload/ACL
 - [x] Ligar customerAging/supplierAging à vista Relatórios com síntese real, estado vazio e cobertura jsdom
 - [x] Registar beforeState/afterState explícitos na reserva de numeração documental (nextNumber anterior e seguinte)
+- [x] Restringir ageing a documentos emitidos/contabilizados e excluir rascunhos, validações e cancelamentos
