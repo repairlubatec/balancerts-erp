@@ -137,3 +137,4 @@
 - [x] Validar em integração real que escopos inexistentes devolvem consultas vazias e que activation fora de empresa existente é bloqueada sem escrita
 - [x] Validar estruturalmente pacotes fiscais AGT quanto a período, regime, origem documental e totais reconciliados
 - [x] Expor reports.agtValidation sobre empresa e fiscalRegister reais, com teste integrado para Repair Lubatec
+- [x] Cobrir em teste tRPC a sequência comercial→contabilística→fiscal→fecho→reabertura auditada

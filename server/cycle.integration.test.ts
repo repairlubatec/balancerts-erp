@@ -27,5 +27,14 @@ describe("commercial-to-accounting tRPC cycle", () => {
     expect(transition).toHaveBeenCalledWith({ companyId: 41, documentId: 7, to: "ISSUED", userId: 8 });
     expect(post).toHaveBeenCalledWith(expect.objectContaining({ companyId: 41, periodId: 9, sourceDocumentId: 7, createdBy: 8 }));
   });
+
+  it("completes fiscal validation and close evaluation after the accounting cycle", async () => {
+    const append = vi.spyOn(db, "appendAuditEvent").mockResolvedValue({} as never);
+    const accountant = callerFor("contabilista");
+    await expect(accountant.fiscal.calculateIva({ netAmount: 1000, regime: "GERAL", rule: { code: "IVA-GER-001", regime: "GERAL", validFrom: new Date("2026-01-01"), rate: 0.14, evidence: "AGT Calendário Fiscal 2026" } })).resolves.toMatchObject({ netAmount: 1000, taxAmount: 140, totalAmount: 1140 });
+    await expect(accountant.closing.evaluate({ checks: [{ code: "BALANCE", label: "Balancete equilibrado", passed: true, blocking: true }, { code: "IVA", label: "IVA validado", passed: true, blocking: true }] })).resolves.toMatchObject({ canClose: true });
+    await expect(accountant.closing.validateReopen({ organizationId: 41, companyId: 41, periodId: 9, reason: "Correcção fiscal", correlationId: "cycle-reopen-41-9" })).resolves.toEqual({ reason: "Correcção fiscal", audited: true });
+    expect(append).toHaveBeenCalledWith(expect.objectContaining({ action: "PERIOD_REOPEN", actorUserId: 8, correlationId: "cycle-reopen-41-9" }));
+  });
 });
 
