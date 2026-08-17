@@ -11,7 +11,7 @@
 - [x] Segregação de funções por módulo e operação, validada no backend
 - [x] Motor Contabilístico com partidas dobradas e débito igual a crédito
 - [x] Invariantes de conta vigente/postável, período válido, origem, idempotência, atomicidade e imutabilidade
-- [ ] Mecanismo controlado de estorno e correcção com rastreabilidade
+- [x] Mecanismo controlado de estorno e correcção com rastreabilidade
 - [ ] Cadeia navegável Documento → Lançamento → Conta → Relatório e percurso inverso
 - [x] Facturação e documentos comerciais com séries e numeração sequencial
 - [x] Máquina de estados DRAFT → VALIDATED → ISSUED → ACCOUNTED → CANCELLED
@@ -47,7 +47,7 @@
 - [x] Adicionar cobertura de UI dos três fluxos ?new=, verificando CTA inicial e feedback de fluxo iniciado
 - [x] Adicionar cobertura de integração da command palette, verificando filtragem, selecção e rota ?new=
 - [x] Aplicar RBAC por papel em todos os procedimentos e adicionar testes por role para cada módulo crítico
-- [ ] Cobrir segregação de funções por operação real no backend, incluindo leitura, escrita, emissão, posting, fecho e download
+- [x] Cobrir segregação de funções por operação real no backend, incluindo leitura, escrita, emissão, posting, fecho e download
 - [x] Persistir movimentos de stock e ligar reconciliação de inventário ao razão/lançamentos
 - [x] Ligar depreciação do imobilizado a lançamentos contabilísticos e registar auditoria de execução
 - [x] Expor endpoint real de download com validação ACL e signed URL, com testes de acesso autorizado e negado
@@ -128,3 +128,6 @@
 - [ ] Enumerar e testar todas as mutações críticas suportadas em estado PENDING, além de reserva documental, transição/emissão e posting
 - [x] Cobrir RBAC do reports.fiscalRegister: Auditor autorizado e Operador bloqueado antes da persistência
 - [x] Condicionar a actividade auditada da Home ao RBAC de leitura de auditoria, evitando queries proibidas para Operador
+- [ ] Completar os relatórios auxiliares e fiscais ainda pendentes com queries persistentes e validações AGT específicas, consolidando o item macro de relatórios
+- [ ] Adicionar prova integrada por teste de que cada relatório principal/auxiliar reconcilia com razão, documentos e origem persistida real, incluindo percurso completo de traceabilidade
+- [x] Adicionar painel de percurso a partir de um relatório seleccionado para Conta, Documento e Auditoria
