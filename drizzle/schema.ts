@@ -277,6 +277,20 @@ export const treasuryTransactions = mysqlTable("treasuryTransactions", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const cashReconciliations = mysqlTable("cashReconciliations", {
+  id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId").notNull(),
+  cashAccountId: int("cashAccountId").notNull(),
+  statementDate: timestamp("statementDate").notNull(),
+  openingBalance: decimal("openingBalance", { precision: 18, scale: 2 }).notNull(),
+  closingBalance: decimal("closingBalance", { precision: 18, scale: 2 }).notNull(),
+  systemBalance: decimal("systemBalance", { precision: 18, scale: 2 }).notNull(),
+  difference: decimal("difference", { precision: 18, scale: 2 }).notNull(),
+  status: mysqlEnum("status", ["OPEN", "RECONCILED"]).default("OPEN").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const normativeRules = mysqlTable("normativeRules", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

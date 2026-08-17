@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, cashAccounts, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+import { InsertUser, auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
@@ -401,6 +401,22 @@ async function assertCommercialDocumentMutable(input: { userId: number; companyI
   if (!row[0]) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
   assertDocumentMutable(row[0].document.status);
   return row[0];
+}
+
+export async function reconcileCashAccountForUser(input: { userId: number; companyId: number; cashAccountId: number; statementDate: Date; openingBalance: number; closingBalance: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const account = await db.select({ account: cashAccounts, organizationId: companies.organizationId }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.id, input.cashAccountId), eq(cashAccounts.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!account[0]) throw new Error("CASH_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  const movements = await db.select({ direction: treasuryTransactions.direction, amount: treasuryTransactions.amount }).from(treasuryTransactions).where(and(eq(treasuryTransactions.companyId, input.companyId), eq(treasuryTransactions.cashAccountId, input.cashAccountId)));
+  const netMovement = movements.reduce((sum, movement) => sum + (movement.direction === "IN" ? Number(movement.amount) : -Number(movement.amount)), 0);
+  const systemBalance = input.openingBalance + netMovement;
+  const difference = Number((input.closingBalance - systemBalance).toFixed(2));
+  const status = Math.abs(difference) <= 0.01 ? "RECONCILED" as const : "OPEN" as const;
+  const inserted = await db.insert(cashReconciliations).values({ companyId: input.companyId, cashAccountId: input.cashAccountId, statementDate: input.statementDate, openingBalance: input.openingBalance.toFixed(2), closingBalance: input.closingBalance.toFixed(2), systemBalance: systemBalance.toFixed(2), difference: difference.toFixed(2), status, createdBy: input.userId });
+  const id = Number(inserted[0].insertId);
+  await appendAuditEventForUser({ organizationId: account[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CASH_ACCOUNT_RECONCILED", entityType: "cashReconciliation", entityId: String(id), beforeState: null, afterState: JSON.stringify({ cashAccountId: input.cashAccountId, closingBalance: input.closingBalance, systemBalance, difference, status }), correlationId: `cash-reconciliation:${input.cashAccountId}:${input.statementDate.toISOString()}` });
+  return { id, cashAccountId: input.cashAccountId, systemBalance, difference, status };
 }
 
 export async function updateCounterpartyForUser(input: { userId: number; companyId: number; counterpartyId: number; name?: string; email?: string; phone?: string; address?: string }) {

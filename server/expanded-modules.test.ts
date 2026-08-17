@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
 import { getDb } from "./db";
-import { auditEvents, businessDocuments, cashAccounts, counterparties, documentItems, documentSeries, documentTaxes, payments, products, treasuryTransactions } from "../drizzle/schema";
+import { auditEvents, businessDocuments, cashAccounts, cashReconciliations, counterparties, documentItems, documentSeries, documentTaxes, payments, products, treasuryTransactions } from "../drizzle/schema";
 
 const COMPANY_ID = 30001;
 const ORGANIZATION_ID = 1;
@@ -34,6 +34,8 @@ describe("expanded tenant-aware operational modules", () => {
     let correctionDocumentId: number | undefined;
     let createdSeries = false;
     let createdCorrectionSeries = false;
+    let reconciliationId: number | undefined;
+    let mismatchReconciliationId: number | undefined;
     try {
       const existingSeries = await db!.select({ id: documentSeries.id }).from(documentSeries).where(and(eq(documentSeries.companyId, COMPANY_ID), eq(documentSeries.code, "FT-TEST"), eq(documentSeries.documentType, "FT"))).limit(1);
       if (!existingSeries[0]) {
@@ -66,6 +68,12 @@ describe("expanded tenant-aware operational modules", () => {
       paymentId = Number(payment.payment.id);
       treasuryTransactionId = Number(payment.treasuryTransactionId);
       expect(treasuryTransactionId).toBeGreaterThan(0);
+      const mismatch = await caller.treasury.reconcile({ companyId: COMPANY_ID, cashAccountId, statementDate: new Date("2026-08-17T23:00:00Z"), openingBalance: 0, closingBalance: 249 });
+      mismatchReconciliationId = mismatch.id;
+      expect(mismatch).toMatchObject({ status: "OPEN", difference: -1 });
+      const reconciliation = await caller.treasury.reconcile({ companyId: COMPANY_ID, cashAccountId, statementDate: new Date("2026-08-18T23:00:00Z"), openingBalance: 0, closingBalance: 250 });
+      reconciliationId = reconciliation.id;
+      expect(reconciliation).toMatchObject({ status: "RECONCILED", systemBalance: 250, difference: 0 });
       expect(payment.payment.documentId).toBe(draftDocumentId);
       await caller.documents.transition({ companyId: COMPANY_ID, documentId: draftDocumentId, to: "VALIDATED", correlationId: `doc-${suffix}-validated` });
       await caller.documents.transition({ companyId: COMPANY_ID, documentId: draftDocumentId, to: "ISSUED", correlationId: `doc-${suffix}-issued` });
@@ -101,6 +109,8 @@ describe("expanded tenant-aware operational modules", () => {
       const audit = await db!.select({ event: auditEvents }).from(auditEvents).where(and(eq(auditEvents.companyId, COMPANY_ID), eq(auditEvents.entityId, String(paymentId))));
       expect(audit.some(({ event }) => event.action === "PAYMENT_CREATED" && event.actorUserId === USER_ID && event.afterState)).toBe(true);
     } finally {
+      if (reconciliationId) await db!.delete(cashReconciliations).where(eq(cashReconciliations.id, reconciliationId));
+      if (mismatchReconciliationId) await db!.delete(cashReconciliations).where(eq(cashReconciliations.id, mismatchReconciliationId));
       if (treasuryTransactionId) await db!.delete(treasuryTransactions).where(eq(treasuryTransactions.id, treasuryTransactionId));
       if (correctionDocumentId) {
         await db!.delete(documentTaxes).where(eq(documentTaxes.documentId, correctionDocumentId));

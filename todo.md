@@ -248,3 +248,4 @@
 - [x] Bloquear actualização de contraparte ligada a documento emitido, contabilizado ou anulado, com auditoria quando permitida
 - [x] Implementar arquivo lógico idempotente de documentos anulados, preservando o original e registando evento auditado
 - [x] Expor matriz operacional versionada do Decreto 71/25 para emissão, rectificação, anulação, recibo, arquivo e certificação, com EXTERNAL_PENDING onde aplicável
+- [x] Persistir reconciliações de caixa/banco por conta, com diferença calculada a partir de movimentos, estado OPEN/RECONCILED, RBAC e auditoria
