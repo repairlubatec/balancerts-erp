@@ -11,4 +11,8 @@ describe("idempotent requests", () => {
     expect(resolveIdempotentRequest([{ key: "k1", status: "PROCESSING" }], "k1")).toEqual({ action: "RETRY_LATER" });
     expect(resolveIdempotentRequest([{ key: "k1", status: "FAILED", error: "TIMEOUT" }], "k1")).toEqual({ action: "RETRY", error: "TIMEOUT" });
   });
+
+  it("rejects blank keys before any operation can execute", () => {
+    expect(() => resolveIdempotentRequest([], "   ")).toThrow("IDEMPOTENCY_KEY_REQUIRED");
+  });
 });

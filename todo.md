@@ -73,3 +73,4 @@
 - [x] Persistir estorno controlado como novo lançamento invertido, com motivo, correlação, permissão e imutabilidade do original
 - [x] Cobrir por API o posting de estorno do Contabilista e a rejeição do Auditor
 - [x] Impedir que um documento passe a ACCOUNTED sem lançamento POSTED ligado por sourceDocumentId
+- [x] Reforçar testes de idempotência para chave vazia, processamento em curso, resultado concluído e retry após falha
