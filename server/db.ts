@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalPeriods, journalEntries, journalLines, organizations, users } from "../drizzle/schema";
@@ -69,7 +70,10 @@ export async function getDocumentsForUserCompany(userId: number, companyId: numb
 export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  const result = await db.insert(auditEvents).values(input);
+  const previous = await db.select({ eventHash: auditEvents.eventHash }).from(auditEvents).orderBy(desc(auditEvents.id)).limit(1);
+  const previousHash = input.previousHash ?? previous[0]?.eventHash ?? null;
+  const eventHash = createHash("sha256").update(JSON.stringify({ ...input, previousHash })).digest("hex");
+  const result = await db.insert(auditEvents).values({ ...input, previousHash, eventHash });
   return result;
 }
 

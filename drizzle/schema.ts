@@ -122,7 +122,9 @@ export const auditEvents = mysqlTable("auditEvents", {
   entityId: varchar("entityId", { length: 80 }).notNull(),
   beforeState: text("beforeState"),
   afterState: text("afterState"),
-  correlationId: varchar("correlationId", { length: 120 }).notNull(),
+  correlationId: varchar("correlationId", { length: 128 }).notNull(),
+  eventHash: varchar("eventHash", { length: 64 }),
+  previousHash: varchar("previousHash", { length: 64 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
