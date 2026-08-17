@@ -24,6 +24,14 @@ export function getReportTraceRoutes(selected: string) {
   return { account: `/contabilidade?focus=${encodedEntry}`, journal: `/contabilidade?entry=${encodedEntry}`, document: `/documentos?focus=${encodedReport}`, audit: `/auditoria?focus=${encodedReport}` };
 }
 
+export function getDocumentTraceRoutes(selected: string) {
+  const encodedDocument = encodeURIComponent(selected);
+  const entry = getReportEntryKey(getEntryReportKey(selected));
+  const encodedEntry = encodeURIComponent(entry);
+  const encodedReport = encodeURIComponent(getEntryReportKey(entry));
+  return { report: `/relatorios?focus=${encodedReport}`, account: `/contabilidade?focus=${encodedEntry}`, journal: `/contabilidade?entry=${encodedEntry}`, audit: `/auditoria?focus=${encodedDocument}` };
+}
+
 export function getAccountTraceRoutes(selected: string) {
   const encodedEntry = encodeURIComponent(selected);
   const encodedReport = encodeURIComponent(getEntryReportKey(selected));

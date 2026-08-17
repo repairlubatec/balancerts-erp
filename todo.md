@@ -148,3 +148,5 @@
 - [x] Testar auditoria de postDepreciation com actor, tenant, entidade, correlationId e estados CALCULATED→POSTED
 - [x] Bloquear recordStockMovement para empresas PENDING/BLOCKED antes da inserção e testar o guard operacional READY
 - [x] Validar no helper central de auditoria actor, action, entidade, correlationId e presença explícita de beforeState/afterState
+
+- [x] Estender o TraceabilityPanel ao modo Documento e validar Documento→Lançamento→Conta/Relatório/Auditoria com teste jsdom
