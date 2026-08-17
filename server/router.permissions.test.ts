@@ -126,6 +126,16 @@ describe("protected accounting procedures", () => {
     expect(list).toHaveBeenCalledWith(8, 41, "journalEntry", "99");
   });
 
+  it("allows Auditor to query document-origin reconciliation and blocks Operador before database access", async () => {
+    const origin = vi.spyOn(db, "getDocumentOriginReconciliationForUserCompany").mockResolvedValue({ companyId: 41, missingJournalDocumentIds: [], orphanJournalEntryIds: [], reconciled: true });
+    const auditor = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(auditor.reports.documentOriginReconciliation({ companyId: 41 })).resolves.toMatchObject({ companyId: 41, reconciled: true });
+    expect(origin).toHaveBeenCalledWith(8, 41);
+    const operator = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operator.reports.documentOriginReconciliation({ companyId: 41 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(origin).toHaveBeenCalledTimes(1);
+  });
+
   it("allows Auditor to query SAF-T readiness and blocks Operador before database access", async () => {
     const readiness = vi.spyOn(db, "getSaftReadinessForUserCompany").mockResolvedValue({ format: "SAFTAO1.01_01", ready: false, missing: ["MASTERFILES_ACCOUNTS"], submissionEligible: false });
     const auditor = appRouter.createCaller(contextWithRole("auditor"));
