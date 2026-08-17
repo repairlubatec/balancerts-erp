@@ -12,6 +12,7 @@ import { reconcileBankMovements } from "./reconciliation";
 import { calculateWeightedAverage } from "./inventory";
 import { calculateStraightLineDepreciation } from "./fixed-assets";
 import { evaluatePeriodClose, validateReopenReason } from "./closing";
+import { convertToFunctionalCurrency } from "./currency";
 
 const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) => protectedProcedure.use(({ ctx, next }) => {
   if (!can(ctx.user.role as BalancertsRole, module, permission)) throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
@@ -46,6 +47,9 @@ export const appRouter = router({
     validateTransition: protectedProcedure.input(z.object({ from: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]), to: z.string() })).query(({ input }) => ({ allowed: validateDocumentTransition(input.from, input.to) })),
     reserveNumber: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), series: z.string().min(1), documentType: z.string().min(1) })).mutation(({ ctx, input }) => reserveDocumentNumber({ ...input, userId: ctx.user.id })),
     transition: roleProcedure("documents", "issue").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive(), to: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]) })).mutation(({ ctx, input }) => transitionBusinessDocument({ ...input, userId: ctx.user.id })),
+  }),
+  currency: router({
+    convert: roleProcedure("accounting", "create").input(z.object({ amount: z.number().nonnegative(), operationCurrency: z.string().length(3), functionalCurrency: z.string().length(3), quote: z.object({ from: z.string().length(3), to: z.string().length(3), rate: z.number().positive(), source: z.string().min(1), date: z.string().min(1) }) })).mutation(({ input }) => convertToFunctionalCurrency(input.amount, input.operationCurrency, input.functionalCurrency, input.quote)),
   }),
   closing: router({
     evaluate: roleProcedure("close", "close").input(z.object({ checks: z.array(z.object({ code: z.string(), label: z.string(), passed: z.boolean(), blocking: z.boolean() })) })).mutation(({ input }) => evaluatePeriodClose(input.checks)),
