@@ -86,3 +86,4 @@
 - [ ] Completar navegação Conta→Relatório e Relatório→Conta/Documento/Lançamento com percurso integrado
 - [x] Ligar relatório, conta, lançamento e documento de origem numa consulta reports.trace tenant-aware, com teste directo do endpoint
 - [x] Validar reports.trace na base real com filtro accountCode e confirmação de que não existem origens fora do tenant
+- [x] Tornar obrigatório no teste de integração que DATABASE_URL esteja operacional, evitando falsos positivos por fallback sem DB

@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { getAuditEventsForUserCompany, getCompaniesForUser, getDocumentsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, reconcileStockForUserCompany } from "./db";
+import { getAuditEventsForUserCompany, getCompaniesForUser, getDb, getDocumentsForUserCompany, getReportTraceForUserCompany, getTrialBalanceForUserCompany, reconcileStockForUserCompany } from "./db";
 
 describe("database tenant integration", () => {
   it("returns no cross-tenant data for unknown user/company scopes", async () => {
+    expect(await getDb()).toBeTruthy();
     const companies = await getCompaniesForUser(987654321);
     const documents = await getDocumentsForUserCompany(987654321, 987654321);
     const trialBalance = await getTrialBalanceForUserCompany(987654321, 987654321);
