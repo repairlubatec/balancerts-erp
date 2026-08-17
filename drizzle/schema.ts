@@ -100,6 +100,19 @@ export const journalLines = mysqlTable("journalLines", {
   exchangeRate: decimal("exchangeRate", { precision: 18, scale: 8 }).default("1").notNull(),
 });
 
+export const integrationOperations = mysqlTable("integrationOperations", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  idempotencyKey: varchar("idempotencyKey", { length: 160 }).notNull().unique(),
+  state: mysqlEnum("state", ["PENDING", "SENT", "FAILED", "RETRY", "COMPLETED", "RECONCILIATION_REQUIRED"]).default("PENDING").notNull(),
+  attempts: int("attempts").default(0).notNull(),
+  lastError: text("lastError"),
+  resultPayload: text("resultPayload"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export const stockMovements = mysqlTable("stockMovements", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

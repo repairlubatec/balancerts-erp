@@ -99,6 +99,13 @@
       "when": 1786990045083,
       "tag": "0013_huge_squadron_supreme",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "5",
+      "when": 1787005445446,
+      "tag": "0014_lame_daredevil",
+      "breakpoints": true
     }
   ]
 }
