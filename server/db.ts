@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalPeriods, journalEntries, journalLines, organizations, stockMovements, users } from "../drizzle/schema";
-import { buildTrialBalance } from "./reports";
+import { buildBalanceSheet, buildIncomeStatement, buildJournal, buildLedger, buildTrialBalance, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
@@ -130,11 +130,50 @@ export async function reserveDocumentNumber(input: { userId: number; companyId: 
   });
 }
 
-export async function getTrialBalanceForUserCompany(userId: number, companyId: number) {
+export async function getDocumentAccountingChainForUserCompany(userId: number, companyId: number, documentId: number) {
   const db = await getDb();
-  if (!db) return buildTrialBalance([]);
-  const rows = await db.select({ code: chartAccounts.code, name: chartAccounts.name, debit: journalLines.debit, credit: journalLines.credit }).from(journalLines).innerJoin(journalEntries, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(organizations.ownerUserId, userId), eq(companies.id, companyId), eq(journalEntries.status, "POSTED")));
-  return buildTrialBalance(rows.map((row) => ({ accountCode: row.code, accountName: row.name, debit: Number(row.debit), credit: Number(row.credit) })));
+  if (!db) return null;
+  const rows = await db.select({ document: businessDocuments, entry: journalEntries, line: journalLines, account: chartAccounts }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(journalEntries, and(eq(journalEntries.sourceDocumentId, businessDocuments.id), eq(journalEntries.status, "POSTED"))).leftJoin(journalLines, eq(journalLines.entryId, journalEntries.id)).leftJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).where(and(eq(businessDocuments.id, documentId), eq(businessDocuments.companyId, companyId), eq(organizations.ownerUserId, userId)));
+  const first = rows[0];
+  if (!first) return null;
+  const entries = new Map<number, { entryId: number; description: string; lines: Array<{ lineId: number; accountId: number; accountCode: string; accountName: string; debit: number; credit: number }> }>();
+  for (const row of rows) {
+    if (!row.entry) continue;
+    const entry = entries.get(row.entry.id) ?? { entryId: row.entry.id, description: row.entry.description, lines: [] };
+    if (row.line && row.account) entry.lines.push({ lineId: row.line.id, accountId: row.account.id, accountCode: row.account.code, accountName: row.account.name, debit: Number(row.line.debit), credit: Number(row.line.credit) });
+    entries.set(row.entry.id, entry);
+  }
+  return { document: first.document, entries: Array.from(entries.values()) };
+}
+
+export async function getJournalRowsForUserCompany(userId: number, companyId: number): Promise<JournalRow[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const rows = await db.select({ entryId: journalEntries.id, description: journalEntries.description, createdAt: journalEntries.createdAt, sourceDocumentId: journalEntries.sourceDocumentId, accountCode: chartAccounts.code, accountName: chartAccounts.name, debit: journalLines.debit, credit: journalLines.credit }).from(journalLines).innerJoin(journalEntries, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(organizations.ownerUserId, userId), eq(companies.id, companyId), eq(journalEntries.status, "POSTED")));
+  return rows.map((row) => ({ ...row, debit: Number(row.debit), credit: Number(row.credit) }));
+}
+
+export async function getTrialBalanceForUserCompany(userId: number, companyId: number) {
+  const rows = await getJournalRowsForUserCompany(userId, companyId);
+  return buildTrialBalance(rows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
+}
+
+export async function getJournalForUserCompany(userId: number, companyId: number) {
+  return buildJournal(await getJournalRowsForUserCompany(userId, companyId));
+}
+
+export async function getLedgerForUserCompany(userId: number, companyId: number, accountCode?: string) {
+  return buildLedger(await getJournalRowsForUserCompany(userId, companyId), accountCode);
+}
+
+export async function getIncomeStatementForUserCompany(userId: number, companyId: number) {
+  const rows = await getJournalRowsForUserCompany(userId, companyId);
+  return buildIncomeStatement(rows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
+}
+
+export async function getBalanceSheetForUserCompany(userId: number, companyId: number) {
+  const rows = await getJournalRowsForUserCompany(userId, companyId);
+  return buildBalanceSheet(rows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
 }
 
 export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED" }) {

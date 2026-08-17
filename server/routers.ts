@@ -5,7 +5,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
-import { appendAuditEvent, getCompaniesForUser, getDocumentsForUserCompany, getPeriodsForUserCompany, getTrialBalanceForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
+import { appendAuditEvent, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentsForUserCompany, getIncomeStatementForUserCompany, getJournalForUserCompany, getLedgerForUserCompany, getPeriodsForUserCompany, getTrialBalanceForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
@@ -90,6 +90,11 @@ export const appRouter = router({
   }),
   reports: router({
     trialBalance: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getTrialBalanceForUserCompany(ctx.user.id, input.companyId)),
+    journal: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getJournalForUserCompany(ctx.user.id, input.companyId)),
+    ledger: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), accountCode: z.string().min(1).optional() })).query(({ ctx, input }) => getLedgerForUserCompany(ctx.user.id, input.companyId, input.accountCode)),
+    incomeStatement: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getIncomeStatementForUserCompany(ctx.user.id, input.companyId)),
+    balanceSheet: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getBalanceSheetForUserCompany(ctx.user.id, input.companyId)),
+    documentChain: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentAccountingChainForUserCompany(ctx.user.id, input.companyId, input.documentId)),
   }),
   audit: router({
     append: adminProcedure.input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), action: z.string().min(1), entityType: z.string().min(1), entityId: z.string().min(1), beforeState: z.string().nullable().optional(), afterState: z.string().nullable().optional(), correlationId: z.string().min(1) })).mutation(({ ctx, input }) => appendAuditEvent({ ...input, actorUserId: ctx.user.id })),

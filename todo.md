@@ -60,3 +60,6 @@
 - [x] Ligar a reconciliação backend de stock a movimentos persistidos e linhas do razão, com filtragem tenant-aware no helper e router
 - [x] Adicionar teste de files.downloadUrl em que o utilizador tem permissão de leitura mas a ACL do ficheiro nega o acesso
 - [ ] Adicionar teste de integração com base de dados para gravar movimentos/lançamentos e validar reconciliação reconciliada, divergente e entre empresas
+- [x] Implementar queries persistentes tenant-aware para Diário, Razão, Demonstração de Resultados e Balanço
+- [x] Expor endpoints protegidos dos relatórios principais e cadeia Documento → Lançamento → Conta
+- [ ] Completar relatórios auxiliares e fiscais com queries e validações AGT específicas
