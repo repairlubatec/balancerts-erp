@@ -90,3 +90,4 @@
 - [x] Cobrir concorrência determinística de requisições com a mesma chave, impedindo execução duplicada durante PROCESSING
 - [x] Expor filtros entityType/entityId na reconstrução de auditoria e testar o percurso tenant-aware por API
 - [x] Testar emissão documental autorizada ao Contabilista e bloqueada ao Financeiro, além da escrita de posting já coberta
+- [x] Cobrir ciclo tRPC reserva de número → emissão documental → posting contabilístico com contratos e ordem verificados
