@@ -12,9 +12,22 @@ describe("critical mutation audit matrix", () => {
     }
   });
 
-  it("validates event action/entity and explicit snapshot presence per mutation", () => {
-    expect(validateCriticalMutationAuditEvent({ mutation: "documents.transition", action: "DOCUMENT_ISSUED", entityType: "businessDocument", beforeState: JSON.stringify({ status: "VALIDATED" }), afterState: JSON.stringify({ status: "ISSUED" }) })).toEqual({ valid: true, reason: null });
-    expect(validateCriticalMutationAuditEvent({ mutation: "accounting.post", action: "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", beforeState: null, afterState: JSON.stringify({ lineCount: 2 }) })).toEqual({ valid: true, reason: null });
+  it("validates event action/entity and explicit snapshot presence for every critical mutation", () => {
+    const fixtures = [
+      ["companies.create", "COMPANY_CREATED_PENDING", "company"],
+      ["companies.activate", "COMPANY_ACTIVATED", "company"],
+      ["inventory.record", "STOCK_MOVEMENT_RECORDED", "stockMovement"],
+      ["files.register", "FILE_ASSET_REGISTERED", "fileAsset"],
+      ["documents.reserveNumber", "DOCUMENT_NUMBER_RESERVED", "documentSeries"],
+      ["documents.transition", "DOCUMENT_ISSUED", "businessDocument"],
+      ["accounting.post", "JOURNAL_ENTRY_POSTED", "journalEntry"],
+      ["reversal.post", "JOURNAL_ENTRY_REVERSED", "journalEntry"],
+      ["fixedAssets.postDepreciation", "FIXED_ASSET_DEPRECIATION_POST", "FIXED_ASSET"],
+      ["closing.validateReopen", "PERIOD_REOPEN", "FISCAL_PERIOD"],
+    ] as const;
+    for (const [mutation, action, entityType] of fixtures) {
+      expect(validateCriticalMutationAuditEvent({ mutation, action, entityType, beforeState: null, afterState: JSON.stringify({ fixture: true }) })).toEqual({ valid: true, reason: null });
+    }
     expect(validateCriticalMutationAuditEvent({ mutation: "accounting.post", action: "WRONG", entityType: "journalEntry", beforeState: null, afterState: null })).toEqual({ valid: false, reason: "AUDIT_CONTRACT_MISMATCH" });
     expect(validateCriticalMutationAuditEvent({ mutation: "unknown.mutation", action: "UNKNOWN", entityType: "unknown", beforeState: null, afterState: null })).toEqual({ valid: false, reason: "UNKNOWN_MUTATION" });
   });
