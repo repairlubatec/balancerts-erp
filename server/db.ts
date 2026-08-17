@@ -70,6 +70,7 @@ export async function createCompanyForUser(input: {
   email?: string;
   activity?: string;
   incorporationYear?: number;
+  legalRepresentatives?: string;
 }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
@@ -90,6 +91,7 @@ export async function createCompanyForUser(input: {
     activity: input.activity,
     incorporationYear: input.incorporationYear,
     configurationStatus: "PENDING",
+    legalRepresentatives: input.legalRepresentatives,
   });
   await appendAuditEvent({ organizationId: organization[0].id, companyId: Number(result[0].insertId), actorUserId: input.userId, action: "COMPANY_CREATED_PENDING", entityType: "company", entityId: String(result[0].insertId), beforeState: null, afterState: JSON.stringify({ name: input.name, nif: input.nif, configurationStatus: "PENDING" }), correlationId: `company:${result[0].insertId}` });
   const created = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, Number(result[0].insertId)), eq(organizations.ownerUserId, input.userId))).limit(1);

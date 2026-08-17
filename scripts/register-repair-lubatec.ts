@@ -14,6 +14,7 @@ const result = await createCompanyForUser({
   email: "repairlubatec@gmail.com",
   activity: "Prestação de Serviço",
   incorporationYear: 2023,
+  legalRepresentatives: "Fausto Silva; Luís Jordão",
 });
 
 console.log(JSON.stringify(result, null, 2));

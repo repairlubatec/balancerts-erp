@@ -35,6 +35,7 @@ export const companies = mysqlTable("companies", {
   activity: varchar("activity", { length: 180 }),
   incorporationYear: int("incorporationYear"),
   configurationStatus: mysqlEnum("configurationStatus", ["PENDING", "READY", "BLOCKED"]).default("PENDING").notNull(),
+  legalRepresentatives: text("legalRepresentatives"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 

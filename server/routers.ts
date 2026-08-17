@@ -37,7 +37,7 @@ export const appRouter = router({
   }),
   companies: router({
     list: roleProcedure("companies", "read").query(({ ctx }) => getCompaniesForUser(ctx.user.id)),
-    create: roleProcedure("companies", "create").input(z.object({ name: z.string().min(2), nif: z.string().min(5), functionalCurrency: z.string().length(3).default("AOA"), ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), legalForm: z.string().min(2), address: z.string().min(3), municipality: z.string().min(2), province: z.string().min(2), phone: z.string().min(5), email: z.string().email(), activity: z.string().min(2), incorporationYear: z.number().int().min(1900).max(new Date().getFullYear()) })).mutation(async ({ ctx, input }) => {
+    create: roleProcedure("companies", "create").input(z.object({ name: z.string().min(2), nif: z.string().min(5), functionalCurrency: z.string().length(3).default("AOA"), ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), legalForm: z.string().min(2), address: z.string().min(3), municipality: z.string().min(2), province: z.string().min(2), phone: z.string().min(5), email: z.string().email(), activity: z.string().min(2), incorporationYear: z.number().int().min(1900).max(new Date().getFullYear()), legalRepresentatives: z.string().min(3) })).mutation(async ({ ctx, input }) => {
       try {
         return await createCompanyForUser({ ...input, userId: ctx.user.id });
       } catch (error) {

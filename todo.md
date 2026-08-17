@@ -99,3 +99,6 @@
 - [x] Implementar schema, helper e endpoint companies.create para ficha real com estado PENDING, actor e auditoria
 - [x] Criar Repair Lubatec efectivamente na base através de organização proprietária autorizada, com estado PENDING e auditoria
 - [x] Validar a ficha real da Repair Lubatec por integração tenant-aware e confirmar zero documentos, lançamentos, períodos e movimentos de stock
+- [x] Receber os representantes legais Fausto Silva e Luís Jordão para a ficha real Repair Lubatec
+- [ ] Persistir representantes legais na ficha da empresa sem designar representante principal por inferência
+- [x] Persistir Fausto Silva e Luís Jordão como representantes legais da Repair Lubatec sem designar principal
