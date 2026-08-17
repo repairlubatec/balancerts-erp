@@ -206,3 +206,7 @@
 - [x] Cobrir RBAC de reports.documentOriginReconciliation: Auditor autorizado, Operador bloqueado e escopo tenant-aware antes da persistência
 - [x] Validar documentOriginReconciliation no router real da Repair Lubatec e em escopo inexistente, confirmando reconciliação vazia segura
 - [x] Reforçar resiliência de integrações externas com AbortSignal por tentativa e abortar operações em timeout antes de RECONCILIATION_REQUIRED
+- [ ] Implementar teste E2E persistido de reserva/emissão documental, posting contabilístico, validação fiscal, reconciliação, fecho e reabertura numa empresa autorizada
+- [ ] Adicionar integração de base de dados que grave movimentos/lançamentos e valide estados reconciliado, divergente e isolamento entre empresas
+- [ ] Adicionar provas de reprocessamento e recuperação após falha parcial usando estado persistido, além de retries e timeout
+- [x] Incluir documentOrigin como evidência persistente na resposta de reports.reconciliation, preservando os checks agregados existentes e o contrato da Home

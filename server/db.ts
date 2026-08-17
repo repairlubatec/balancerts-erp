@@ -358,14 +358,16 @@ export async function getDocumentOriginReconciliationForUserCompany(userId: numb
 }
 
 export async function getReportsReconciliationForUserCompany(userId: number, companyId: number) {
-  const [trialBalance, journal, balanceSheet, vatSummary, fiscalRegister] = await Promise.all([
+  const [trialBalance, journal, balanceSheet, vatSummary, fiscalRegister, documentOrigin] = await Promise.all([
     getTrialBalanceForUserCompany(userId, companyId),
     getJournalForUserCompany(userId, companyId),
     getBalanceSheetForUserCompany(userId, companyId),
     getVatSummaryForUserCompany(userId, companyId),
     getFiscalRegisterForUserCompany(userId, companyId),
+    getDocumentOriginReconciliationForUserCompany(userId, companyId),
   ]);
-  return { companyId, ...buildReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister }) };
+  return { companyId, ...buildReportReconciliation({ trialBalance, journal, balanceSheet, vatSummary, fiscalRegister }), documentOrigin };
+
 }
 
 export async function getSaftReadinessForUserCompany(userId: number, companyId: number) {
