@@ -9,6 +9,7 @@ import { appendAuditEvent, getCompaniesForUser, getDocumentsForUserCompany, getP
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
+import { calculateWeightedAverage } from "./inventory";
 
 const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) => protectedProcedure.use(({ ctx, next }) => {
   if (!can(ctx.user.role as BalancertsRole, module, permission)) throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
@@ -43,6 +44,9 @@ export const appRouter = router({
     validateTransition: protectedProcedure.input(z.object({ from: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]), to: z.string() })).query(({ input }) => ({ allowed: validateDocumentTransition(input.from, input.to) })),
     reserveNumber: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), series: z.string().min(1), documentType: z.string().min(1) })).mutation(({ ctx, input }) => reserveDocumentNumber({ ...input, userId: ctx.user.id })),
     transition: roleProcedure("documents", "issue").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive(), to: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]) })).mutation(({ ctx, input }) => transitionBusinessDocument({ ...input, userId: ctx.user.id })),
+  }),
+  inventory: router({
+    valuation: roleProcedure("stock", "validate").input(z.object({ movements: z.array(z.object({ type: z.enum(["IN", "OUT"]), quantity: z.number().positive(), unitCost: z.number().nonnegative() })) })).mutation(({ input }) => calculateWeightedAverage(input.movements)),
   }),
   reconciliation: router({
     bank: roleProcedure("treasury", "validate").input(z.object({ bank: z.array(z.object({ id: z.string(), reference: z.string().optional(), amount: z.number(), date: z.string() })), ledger: z.array(z.object({ id: z.string(), reference: z.string().optional(), amount: z.number(), date: z.string() })), tolerance: z.number().nonnegative().optional() })).mutation(({ input }) => reconcileBankMovements(input.bank, input.ledger, input.tolerance)),
