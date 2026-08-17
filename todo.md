@@ -175,3 +175,4 @@
 - [x] Uniformizar auditoria de criação/activação de empresa, stock, ficheiros e reserva documental através de appendAuditEventForUser
 - [x] Enumerar as 10 mutações persistentes críticas e documentar política PENDING/READY com matriz e testes de contrato
 - [x] Criar e testar contrato agregado de reconciliação para Balancete, Diário, Balanço, IVA e registo fiscal
+- [x] Testar imutabilidade pós-emissão na máquina documental: ACCOUNTED/CANCELLED não regressam a DRAFT/VALIDATED
