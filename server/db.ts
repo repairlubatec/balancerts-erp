@@ -1,6 +1,7 @@
 import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, companies, fiscalPeriods, organizations, users } from "../drizzle/schema";
+import { InsertUser, auditEvents, businessDocuments, companies, fiscalPeriods, journalEntries, journalLines, organizations, users } from "../drizzle/schema";
+import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -68,4 +69,34 @@ export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {
   if (!db) throw new Error("Database unavailable");
   const result = await db.insert(auditEvents).values(input);
   return result;
+}
+
+export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const document = await db.select({ document: businessDocuments, organization: organizations }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(businessDocuments.id, input.documentId), eq(businessDocuments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = document[0];
+  if (!current) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+  if (!validateDocumentTransition(current.document.status, input.to)) throw new Error("INVALID_DOCUMENT_TRANSITION");
+  const issuedAt = input.to === "ISSUED" ? new Date() : current.document.issuedAt;
+  await db.update(businessDocuments).set({ status: input.to, issuedAt }).where(eq(businessDocuments.id, input.documentId));
+  await appendAuditEvent({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: `DOCUMENT_${input.to}`, entityType: "businessDocument", entityId: String(input.documentId), beforeState: JSON.stringify({ status: current.document.status }), afterState: JSON.stringify({ status: input.to }), correlationId: crypto.randomUUID() });
+  return { id: input.documentId, from: current.document.status, to: input.to };
+}
+
+export async function postJournalEntry(input: { companyId: number; periodId: number; sourceDocumentId?: number; idempotencyKey: string; description: string; createdBy: number; lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[] }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const validation = validateBalancedEntry(input.lines);
+  if (!validation.ok) throw new Error(validation.reason);
+  return db.transaction(async (tx) => {
+    const existing = await tx.select().from(journalEntries).where(eq(journalEntries.idempotencyKey, input.idempotencyKey)).limit(1);
+    if (existing[0]) return { entry: existing[0], idempotent: true };
+    const period = await tx.select().from(fiscalPeriods).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId))).limit(1);
+    if (!period[0] || period[0].status === "CLOSED") throw new Error("PERIOD_NOT_OPEN");
+    const inserted = await tx.insert(journalEntries).values({ companyId: input.companyId, periodId: input.periodId, sourceDocumentId: input.sourceDocumentId, idempotencyKey: input.idempotencyKey, description: input.description, createdBy: input.createdBy, status: "POSTED" });
+    const entryId = Number(inserted[0].insertId);
+    await tx.insert(journalLines).values(input.lines.map((line) => ({ entryId, accountId: line.accountId, debit: line.debit.toFixed(2), credit: line.credit.toFixed(2), currency: line.currency ?? "AOA", exchangeRate: (line.exchangeRate ?? 1).toFixed(8) })));
+    return { entryId, idempotent: false };
+  });
 }

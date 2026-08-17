@@ -2,9 +2,17 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { TRPCError } from "@trpc/server";
+import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
-import { appendAuditEvent, getCompaniesForUser, getDocumentsForUserCompany, getPeriodsForUserCompany } from "./db";
+import { appendAuditEvent, getCompaniesForUser, getDocumentsForUserCompany, getPeriodsForUserCompany, postJournalEntry, transitionBusinessDocument } from "./db";
 import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
+import { calculateIva } from "./fiscal";
+
+const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) => protectedProcedure.use(({ ctx, next }) => {
+  if (!can(ctx.user.role as BalancertsRole, module, permission)) throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
+  return next();
+});
 
 export const appRouter = router({
   system: systemRouter,
@@ -25,9 +33,14 @@ export const appRouter = router({
     validateEntry: protectedProcedure.input(z.object({
       lines: z.array(z.object({ debit: z.number().nonnegative(), credit: z.number().nonnegative(), accountId: z.number().int().positive(), postable: z.boolean(), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional() })).min(2),
     })).mutation(({ input }) => validateBalancedEntry(input.lines)),
+    post: roleProcedure("accounting", "post").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive(), sourceDocumentId: z.number().int().positive().optional(), idempotencyKey: z.string().min(8), description: z.string().min(1), lines: z.array(z.object({ debit: z.number().nonnegative(), credit: z.number().nonnegative(), accountId: z.number().int().positive(), postable: z.boolean(), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional(), currency: z.string().length(3).optional(), exchangeRate: z.number().positive().optional() })).min(2) })).mutation(({ ctx, input }) => postJournalEntry({ ...input, createdBy: ctx.user.id })),
+  }),
+  fiscal: router({
+    calculateIva: roleProcedure("fiscal", "validate").input(z.object({ netAmount: z.number().nonnegative(), regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), rule: z.object({ code: z.string().min(1), regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional(), rate: z.number().nonnegative().optional(), evidence: z.string().min(1) }) })).mutation(({ input }) => calculateIva(input)),
   }),
   documents: router({
     validateTransition: protectedProcedure.input(z.object({ from: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]), to: z.string() })).query(({ input }) => ({ allowed: validateDocumentTransition(input.from, input.to) })),
+    transition: roleProcedure("documents", "issue").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive(), to: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]) })).mutation(({ ctx, input }) => transitionBusinessDocument({ ...input, userId: ctx.user.id })),
   }),
   audit: router({
     append: adminProcedure.input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), action: z.string().min(1), entityType: z.string().min(1), entityId: z.string().min(1), beforeState: z.string().nullable().optional(), afterState: z.string().nullable().optional(), correlationId: z.string().min(1) })).mutation(({ ctx, input }) => appendAuditEvent({ ...input, actorUserId: ctx.user.id })),
