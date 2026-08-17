@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { criticalMutationAuditMatrix } from "./audit-mutation-matrix";
 import { getPendingMutationPolicy, pendingMutationPolicy } from "./pending-mutation-matrix";
 
 describe("pending mutation policy", () => {
@@ -16,6 +17,10 @@ describe("pending mutation policy", () => {
       "closing.validateReopen",
     ]);
     expect(pendingMutationPolicy.every((item) => item.guard.length > 0)).toBe(true);
+  });
+
+  it("keeps every critical mutation aligned with an audit contract", () => {
+    expect(new Set(pendingMutationPolicy.map((item) => item.mutation))).toEqual(new Set(criticalMutationAuditMatrix.map((item) => item.mutation)));
   });
 
   it("allows pending only for provisioning operations", () => {

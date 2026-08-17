@@ -202,3 +202,4 @@
 - [x] Alinhar buildFiscalRegister com a regra de IVA zero em EXCLUSÃO e testar divergência mesmo quando os totais aritméticos fecham
 - [x] Criar contrato de reconciliação de origem documental por sourceDocumentId, detectando documentos emitidos sem lançamento e lançamentos órfãos
 - [x] Expor reports.documentOriginReconciliation com queries persistentes tenant-aware, RBAC de leitura e contrato de documentos sem lançamento/lançamentos órfãos
+- [x] Alinhar por teste as dez mutações críticas entre a matriz PENDING/READY e a matriz de auditoria, sem operações críticas órfãs
