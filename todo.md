@@ -124,3 +124,4 @@
 - [x] Endurecer audit.append com validação de organização/empresa e testar rejeição de escopo fora do tenant
 - [x] Ligar o portefólio “Minhas Empresas” a companies.list real, com loading/empty states e sem métricas financeiras inventadas
 - [x] Ligar a actividade recente da Home ao histórico auditado real do tenant actual, com estado vazio quando não existem eventos
+- [x] Remover alertas demonstrativos da Home e apresentar pendências apenas quando existir fonte persistente real
