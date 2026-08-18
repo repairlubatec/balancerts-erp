@@ -436,4 +436,4 @@
 - [x] Garantir actualização da lista e isolamento, sem alterar Repair Lubatec
 - [x] Adicionar/regressar testes do fluxo Criar empresa e dos seus erros
 - [x] Verificar visualmente o fluxo e confirmar que os controlos relacionados respondem
-- [ ] Guardar checkpoint da correcção Criar empresa
+- [x] Guardar checkpoint da correcção Criar empresa
