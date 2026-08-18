@@ -674,3 +674,10 @@
 - [x] Rever alinhamento, espaçamento, overflow, foco e hit-area em Windows/PWA
 - [x] Classificar acções sem resposta, mal direccionadas e desalinhadas
 - [x] Entregar relatório sem alterar funcionalidades
+
+# Avaliação do que falta — design e funcionalidade
+
+- [x] Sintetizar o estado actual do design Windows/PWA e das funções operacionais
+- [x] Separar lacunas de design, operação, fiscalidade, segurança e distribuição
+- [x] Priorizar o trabalho restante por impacto comercial e dependência externa
+- [x] Entregar avaliação objectiva sem implementar alterações
