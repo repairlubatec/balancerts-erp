@@ -512,3 +512,10 @@
 
 - [x] Ligar Fiscalidade e Relatórios às consultas persistentes existentes e remover linhas demonstrativas
 - [x] Adicionar regressão para impedir dados demo em Fiscalidade e Relatórios
+
+# Verificação final — funcionamento interno versus AGT
+
+- [x] Classificar cada módulo como operacional, dependente de configuração ou bloqueado pela AGT
+- [x] Reproduzir os bloqueios internos ainda suspeitos — nenhum bloqueio interno confirmado
+- [x] Confirmar que estados vazios e mensagens de preparação não são falhas
+- [x] Consolidar a conclusão operacional sem acrescentar funcionalidades
