@@ -447,4 +447,4 @@
 - [x] Corrigir todos os problemas reproduzíveis encontrados nesta auditoria
 - [x] Adicionar testes de regressão para cada correcção
 - [x] Executar suite completa, TypeScript, build e verificação visual dos módulos
-- [ ] Guardar checkpoint da auditoria operacional completa
+- [x] Guardar checkpoint da auditoria operacional completa
