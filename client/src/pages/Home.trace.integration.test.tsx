@@ -3,7 +3,7 @@ import React from "react";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-const locationState = vi.hoisted(() => ({ current: "/relatorios", navigate: vi.fn() }));
+const locationState = vi.hoisted(() => ({ current: "/relatorios", navigate: vi.fn(), auditEvents: [] as Array<{ event: { id: number; action: string; entityType: string; entityId: string; createdAt: string } }> }));
 
 vi.mock("wouter", () => ({
   useLocation: () => [locationState.current, (next: string) => { locationState.current = next; window.history.pushState({}, "", next); locationState.navigate(next); }],
@@ -13,7 +13,7 @@ vi.mock("@/lib/trpc", () => ({
   trpc: {
     useUtils: () => ({ counterparties: { list: { invalidate: vi.fn() } }, catalog: { list: { invalidate: vi.fn() } }, treasury: { accounts: { invalidate: vi.fn() } }, fixedAssets: { list: { invalidate: vi.fn() } } }),
     companies: { list: { useQuery: () => ({ data: [{ company: { id: 1, name: "Repair Lubatec", nif: "5001121871", configurationStatus: "READY", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA", organizationId: 1 } }], isLoading: false }) }, periods: { useQuery: () => ({ data: [{ period: { id: 1 } }], isLoading: false }) } },
-    audit: { list: { useQuery: () => ({ data: [], isLoading: false }) } },
+    audit: { list: { useQuery: () => ({ data: locationState.auditEvents, isLoading: false }) } },
     counterparties: { list: { useQuery: () => ({ data: [], isLoading: false }) }, create: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) }, update: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
     catalog: { list: { useQuery: () => ({ data: [], isLoading: false }) }, create: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) }, update: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
     treasury: {
@@ -30,6 +30,7 @@ vi.mock("@/lib/trpc", () => ({
       depreciation: { useMutation: () => ({ mutate: vi.fn(), isPending: false, error: null, data: null }) },
     },
     reports: {
+      fiscalRegister: { useQuery: () => ({ data: { totals: { totalAmount: 0 } }, isLoading: false }) },
       customerAging: { useQuery: () => ({ data: { rows: [], totals: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } }, isLoading: false }) },
       supplierAging: { useQuery: () => ({ data: { rows: [], totals: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } }, isLoading: false }) },
       reconciliation: { useQuery: () => ({ data: { companyId: 1, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } }, isLoading: false }) },
@@ -40,7 +41,7 @@ vi.mock("@/lib/trpc", () => ({
 import Home from "./Home";
 
 describe("Home traceability integration", () => {
-  afterEach(() => cleanup());
+  afterEach(() => { cleanup(); locationState.auditEvents = []; });
   it("navigates from a selected report and opens the corresponding journal entry", async () => {
     locationState.current = "/relatorios";
     window.history.pushState({}, "", "/relatorios");
@@ -118,6 +119,18 @@ describe("Home traceability integration", () => {
     expect(screen.getByRole("button", { name: "Actualizar activo" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Calcular" })).toBeTruthy();
     expect(screen.getByText("Registos recentes")).toBeTruthy();
+  });
+
+  it("keeps duplicate audit actions as distinct activity rows", () => {
+    cleanup();
+    locationState.current = "/";
+    locationState.auditEvents = [
+      { event: { id: 101, action: "DOCUMENT_NUMBER_RESERVED", entityType: "documentSeries", entityId: "FT-TEST:FT", createdAt: "2026-08-18T08:00:00.000Z" } },
+      { event: { id: 102, action: "DOCUMENT_NUMBER_RESERVED", entityType: "documentSeries", entityId: "FT-TEST:FT", createdAt: "2026-08-18T08:01:00.000Z" } },
+    ];
+    window.history.pushState({}, "", "/");
+    render(<Home />);
+    expect(screen.getAllByText("DOCUMENT_NUMBER_RESERVED")).toHaveLength(2);
   });
 
   it("navigates back from an account context and opens the corresponding report", async () => {

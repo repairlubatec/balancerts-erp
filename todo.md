@@ -302,3 +302,10 @@
 - [x] Executar regressão completa, build e validações contra XSD/exemplos oficiais encontrados
 - [x] Documentar requisitos que dependem de endpoint, credenciais, homologação ou certificação formal da AGT
 - [x] Guardar checkpoint específico da auditoria documental AGT
+
+
+# Bug — Contabilidade
+
+- [x] Corrigir chaves React duplicadas `DOCUMENT_NUMBER_RESERVED` na página `/contabilidade`
+- [x] Adicionar teste de regressão para garantir chaves únicas nos eventos/listas de Contabilidade
+- [x] Executar TypeScript, testes, verificação visual e guardar checkpoint da correcção
