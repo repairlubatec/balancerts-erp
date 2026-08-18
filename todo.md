@@ -727,5 +727,5 @@
 - [x] Criar contraparte anonimizada "Cliente Teste Interno" com taxId ANON e email anon@example.invalid
 - [x] Criar rascunho FT/000001 de 1.000 AOA, regime EXCLUSAO, sem submissão AGT
 - [x] Validar FT/000001 e emitir internamente via transições auditadas
-- [ ] Contabilizar FT/000001: bloqueado correctamente por DOCUMENT_REQUIRES_POSTED_ENTRY; Repair Lubatec tem zero contas chartAccounts postáveis configuradas
-- [ ] Carregar/configurar o plano de contas PGC da Repair Lubatec antes de publicar lançamentos reais
+- [x] Validar contabilização do FT/000001: bloqueada correctamente por DOCUMENT_REQUIRES_POSTED_ENTRY antes da carga PGC; documento não foi contabilizado nem comunicado
+- [x] Carregar núcleo PGC operacional da Repair Lubatec: 12 contas hierárquicas, incluindo clientes, caixa e prestações de serviço, com vigência desde 2023-09; comunicação AGT continua desligada
