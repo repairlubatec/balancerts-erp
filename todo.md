@@ -309,3 +309,14 @@
 - [x] Corrigir chaves React duplicadas `DOCUMENT_NUMBER_RESERVED` na página `/contabilidade`
 - [x] Adicionar teste de regressão para garantir chaves únicas nos eventos/listas de Contabilidade
 - [x] Executar TypeScript, testes, verificação visual e guardar checkpoint da correcção
+
+
+# Bug — Funções sem resposta ou sem abertura
+
+- [x] Reproduzir no browser as acções que não abrem ou não respondem e identificar rotas/componentes afectados
+- [x] Recolher erros de consola, rede, navegação e logs do servidor associados aos fluxos afectados
+- [x] Mapear cada CTA, botão, link e atalho até ao handler, rota, procedimento tRPC e invalidação de dados
+- [x] Corrigir funções sem handler, rotas mortas, erros silenciosos e estados de carregamento/erro ausentes no dashboard, Auditoria, Atalhos, módulos operacionais e Facturação
+- [x] Adicionar testes de regressão para cada fluxo corrigido, incluindo sucesso, erro e permissões
+- [x] Validar os fluxos no browser desktop/PWA e executar a regressão completa
+- [ ] Guardar checkpoint da correcção dos fluxos sem resposta

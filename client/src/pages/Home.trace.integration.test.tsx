@@ -23,6 +23,7 @@ vi.mock("@/lib/trpc", () => ({
       updateAccount: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) },
     },
     inventory: { record: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
+    documents: { createDraft: { useMutation: (options?: { onSuccess?: (result: { documentNumber: string }) => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.({ documentNumber: "FT 2026/TEST" })), isPending: false, error: null }) } },
     fixedAssets: {
       list: { useQuery: () => ({ data: [], isLoading: false }) },
       create: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) },
@@ -54,6 +55,46 @@ describe("Home traceability integration", () => {
     render(<Home />);
     const row = screen.getAllByText("FT 2026/00482")[0]?.closest("tr");
     await waitFor(() => expect(row?.className).toContain("bg-[#f0f6ff]"));
+  });
+
+  it("opens dashboard actions instead of silently doing nothing", () => {
+    cleanup();
+    locationState.current = "/";
+    locationState.navigate.mockClear();
+    window.history.pushState({}, "", "/");
+    render(<Home />);
+    fireEvent.click(screen.getByRole("button", { name: "Filtros" }));
+    expect(document.activeElement?.getAttribute("placeholder")).toBe("Pesquisar empresa ou NIF");
+    fireEvent.click(screen.getByRole("button", { name: "Nova empresa" }));
+    expect(locationState.navigate).toHaveBeenCalledWith("/empresas");
+    fireEvent.click(screen.getByRole("button", { name: "Ver todas" }));
+    expect(locationState.navigate).toHaveBeenCalledWith("/empresas");
+    fireEvent.click(screen.getAllByRole("button", { name: "Abrir auditoria" })[0]!);
+    expect(locationState.navigate).toHaveBeenCalledWith("/auditoria");
+  });
+
+  it("opens the command palette from a module action", () => {
+    cleanup();
+    locationState.current = "/clientes";
+    locationState.navigate.mockClear();
+    window.history.pushState({}, "", "/clientes");
+    render(<Home />);
+    fireEvent.click(screen.getByRole("button", { name: "Atalhos" }));
+    expect(locationState.navigate).toHaveBeenCalledWith("/?shortcuts=1");
+  });
+
+  it("creates a billing draft through the real document mutation contract", async () => {
+    cleanup();
+    locationState.current = "/facturacao";
+    window.history.pushState({}, "", "/facturacao");
+    render(<Home />);
+    fireEvent.submit(screen.getByRole("button", { name: "Criar rascunho" }).closest("form")!);
+    expect(screen.getByText("Preencha série, contraparte, descrição, quantidade e preço válidos.")).toBeTruthy();
+    fireEvent.change(screen.getByPlaceholderText("ID cliente"), { target: { value: "12" } });
+    fireEvent.change(screen.getByPlaceholderText("Descrição"), { target: { value: "Serviço de manutenção" } });
+    fireEvent.change(screen.getByPlaceholderText("Preço"), { target: { value: "1500" } });
+    fireEvent.submit(screen.getByRole("button", { name: "Criar rascunho" }).closest("form")!);
+    await waitFor(() => expect(screen.getByText("Rascunho FT 2026/TEST criado e auditado.")).toBeTruthy());
   });
 
   it("renders operational empty states and real create affordance for each module", () => {
