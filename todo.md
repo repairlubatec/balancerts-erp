@@ -472,4 +472,4 @@
 - [x] Validar no formulário a existência e o estado activo da série antes de criar rascunho
 - [x] Mostrar histórico de alterações das séries e permissões da empresa activa
 - [x] Testar regressão, isolamento e verificação visual do ciclo automático
-- [ ] Guardar checkpoint do ciclo automático
+- [x] Guardar checkpoint do ciclo automático
