@@ -84,9 +84,10 @@ describe("reconciliable reports", () => {
       accounts: [
         { id: 2, code: "12", description: "Banco", postable: true },
         { id: 1, code: "11", description: "Caixa", postable: false },
+        { id: 3, code: "71", description: "Serviços", postable: true },
       ],
       journalEntries: [{ id: 7, transactionDate: new Date("2026-01-05T00:00:00Z"), description: "Venda & serviço", sourceDocumentId: 4, lines: [{ accountCode: "11", debit: 114, credit: 0 }, { accountCode: "71", debit: 0, credit: 114 }] }],
-      sourceDocuments: [{ id: 4, documentNumber: "FT/000001", documentType: "FT", status: "ISSUED", issueDate: new Date("2026-01-05T00:00:00Z"), customerName: "Cliente <A>", netAmount: 100, taxAmount: 14, totalAmount: 114, ivaRegime: "GERAL" }],
+      sourceDocuments: [{ id: 4, documentNumber: "FT S001/1", documentType: "FT", status: "ISSUED", issueDate: new Date("2026-01-05T00:00:00Z"), customerName: "Cliente <A>", customerNif: "5001121872", netAmount: 100, taxAmount: 14, totalAmount: 114, ivaRegime: "GERAL" }],
     });
     expect(xml).toContain(`xmlns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01"`);
     expect(xml).toContain("<AuditFileVersion>1.01_01</AuditFileVersion>");
@@ -95,6 +96,12 @@ describe("reconciliable reports", () => {
     expect(xml.indexOf("<AccountID>11</AccountID>")).toBeLessThan(xml.indexOf("<AccountID>12</AccountID>"));
     expect(xml).toContain("<SourceDocumentID>4</SourceDocumentID>");
     expect(xml).toContain("<GrossTotal>114.00</GrossTotal>");
+    expect(xml).toContain("<CompanyID>5001121871</CompanyID>");
+    expect(xml).toContain("<DateCreated>");
+    expect(xml).toContain("<NumberOfEntries>1</NumberOfEntries>");
+    expect(xml).toContain("<DebitLine>");
+    expect(xml).toContain("<CreditLine>");
+    expect(xml).not.toContain("<AccountType>");
   });
 
   it("reconciles document origins with journal sourceDocumentId", () => {

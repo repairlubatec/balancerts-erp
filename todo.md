@@ -256,9 +256,12 @@
 - [x] Provar isolamento tenant-aware nas superfícies existentes de integrações persistentes, SAF-T, ficheiros, relatórios e mutações operacionais; caches/filas não fazem parte da superfície implementada e permanecem como limite documentado
 - [x] Criar configuração AGT versionada para XSD, endpoint, autenticação, códigos oficiais e estado de homologação
 - [x] Implementar fila de submissão AGT com estados, idempotência, timeout, reprocessamento e auditoria tenant-aware
-- [ ] Implementar validação estrutural local do XML SAF-T quando um XSD oficial for disponibilizado, sem declarar certificação
+- [x] Implementar validação estrutural local do XML SAF-T quando um XSD oficial for disponibilizado, sem declarar certificação
 - [x] Documentar claramente a separação entre preparação interna, homologação técnica e certificação formal da AGT
 - [x] Criar configuração AGT versionada para XSD, endpoint, autenticação, códigos oficiais e estado de homologação, sem guardar segredos em claro
 - [x] Implementar enfileiramento AGT tenant-aware com estado PENDING e replay idempotente, reutilizando operações persistentes
 - [x] Testar configuração e fila AGT no tenant descartável, incluindo rejeição de escopo forjado e limpeza sem afectar a Repair Lubatec
 - [x] Auditar o enfileiramento AGT com actor, organização, empresa, chave idempotente, estado PENDING, correlação e snapshot persistido
+- [x] Integrar o ficheiro oficial SAFTAO1.01_01.xsd como referência de validação local reproduzível
+- [x] Validar o XML SAF-T gerado contra SAFTAO1.01_01.xsd e corrigir incompatibilidades estruturais
+- [x] Cobrir testes de XML válido, XML inválido e bloqueio de submissão quando a prontidão fiscal continuar incompleta
