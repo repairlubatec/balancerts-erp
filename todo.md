@@ -600,4 +600,4 @@
 - [x] Configurar targets EXE, MSI e DMG com build reproduzível
 - [x] Testar funcionalidade interna e classificar limitações de plataforma
 - [x] Documentar assinatura, distribuição e separação da homologação AGT
-- [ ] Guardar checkpoint da preparação desktop
+- [x] Guardar checkpoint da preparação desktop
