@@ -656,3 +656,12 @@
 - [x] Corrigir as causas raiz e adicionar regressões
 - [x] Validar suite, TypeScript, build, rotas principais e PWA sem erros
 - [x] Documentar o resultado e guardar checkpoint zero-erros
+
+# Análise profunda módulo por módulo — diagnóstico sem implementação
+
+- [x] Inventariar rotas, módulos, toolbars, formulários e acções visíveis
+- [x] Mapear queries, mutações, tabelas, tenant isolation e RBAC por módulo
+- [x] Comparar fluxos ponta a ponta e estados de loading, vazio, erro e sucesso
+- [x] Conferir cobertura de testes e lacunas de aceitação manual
+- [x] Classificar lacunas por severidade, impacto comercial e dependência AGT
+- [x] Entregar relatório detalhado sem alterar o código funcional
