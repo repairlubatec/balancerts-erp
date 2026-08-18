@@ -665,3 +665,12 @@
 - [x] Conferir cobertura de testes e lacunas de aceitação manual
 - [x] Classificar lacunas por severidade, impacto comercial e dependência AGT
 - [x] Entregar relatório detalhado sem alterar o código funcional
+
+# Auditoria de botões e alinhamento — diagnóstico sem implementação
+
+- [x] Inventariar botões, comandos, menus, ícones clicáveis e links por rota
+- [x] Verificar handler, destino, mutação, permissões e feedback de cada acção
+- [x] Verificar estados disabled, loading, erro e sucesso dos comandos
+- [x] Rever alinhamento, espaçamento, overflow, foco e hit-area em Windows/PWA
+- [x] Classificar acções sem resposta, mal direccionadas e desalinhadas
+- [x] Entregar relatório sem alterar funcionalidades
