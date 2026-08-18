@@ -323,22 +323,22 @@
 
 # Revisão sistemática de botões e acções
 
-- [ ] Inventariar todos os botões, links, ícones clicáveis e atalhos por rota
-- [ ] Verificar cada elemento clicável contra handler, rota, mutation, permissões e feedback
-- [ ] Testar navegação lateral, dashboard, command palette, formulários, tabelas e acções contextuais
-- [ ] Corrigir qualquer botão sem resposta, destino morto ou estado de erro ausente
-- [ ] Adicionar testes de regressão para todos os fluxos corrigidos nesta revisão
-- [ ] Validar todas as rotas e principais interacções no browser desktop/PWA
-- [ ] Guardar checkpoint da revisão completa de botões e acções
+- [x] Inventariar todos os botões, links, ícones clicáveis e atalhos por rota — revisão concluída no bloco anterior
+- [x] Verificar cada elemento clicável contra handler, rota, mutation, permissões e feedback — revisão concluída no bloco anterior
+- [x] Testar navegação lateral, dashboard, command palette, formulários, tabelas e acções contextuais — revisão concluída no bloco anterior
+- [x] Corrigir qualquer botão sem resposta, destino morto ou estado de erro ausente — revisão concluída no bloco anterior
+- [x] Adicionar testes de regressão para todos os fluxos corrigidos nesta revisão — revisão concluída no bloco anterior
+- [x] Validar todas as rotas e principais interacções no browser desktop/PWA — revisão concluída no bloco anterior
+- [x] Guardar checkpoint da revisão completa de botões e acções — checkpoint anterior f730dd06
 
 # Modo local de teste sem login externo
 
-- [ ] Definir flag de desenvolvimento exclusiva para autenticação local, nunca activa em produção
-- [ ] Activar utilizador/tenant de demonstração local sem alterar dados fiscais reais
-- [ ] Disponibilizar painel local para registar botões ou acções que não funcionarem
-- [ ] Adicionar testes de segurança que rejeitem o modo local fora de desenvolvimento
-- [ ] Validar o acesso em localhost e a navegação principal sem OAuth
-- [ ] Guardar checkpoint do modo local de teste
+- [x] Definir flag de desenvolvimento exclusiva para autenticação local, nunca activa em produção — não aplicável; modo local cancelado pelo utilizador
+- [x] Activar utilizador/tenant de demonstração local sem alterar dados fiscais reais — não executado por decisão do utilizador
+- [x] Disponibilizar painel local para registar botões ou acções que não funcionarem — não aplicável; reporte será feito na sessão actual
+- [x] Adicionar testes de segurança que rejeitem o modo local fora de desenvolvimento — não aplicável porque o modo não foi criado
+- [x] Validar o acesso em localhost e a navegação principal sem OAuth — não executado por decisão do utilizador
+- [x] Guardar checkpoint do modo local de teste — não aplicável porque o modo foi cancelado
 
 # Estudo comparativo AGT — sem implementação
 
