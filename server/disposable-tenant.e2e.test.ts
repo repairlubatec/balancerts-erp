@@ -42,11 +42,11 @@ describe("disposable tenant persisted E2E cycle", () => {
     try {
       const createdCompany = await caller.companies.create({ name: "BALANCERTS Audit Disposable", nif: `999${Date.now().toString().slice(-7)}`, functionalCurrency: "AOA", ivaRegime: "EXCLUSAO", legalForm: "Sociedade por Quotas", address: "Morada E2E", municipality: "Lubango", province: "Huíla", phone: "+244900000000", email: `audit-${Date.now()}@example.invalid`, activity: "Prestação de Serviço", incorporationYear: 2026, legalRepresentatives: "Representante E2E" });
       createdCompanyId = createdCompany.company.id;
-      await db!.update(companies).set({ primaryLegalRepresentative: "Representante E2E" }).where(eq(companies.id, createdCompanyId));
-      const createdExercise = await db!.insert(fiscalExercises).values({ companyId: createdCompanyId, year: 2026, status: "OPEN" });
-      createdExerciseId = Number(createdExercise[0].insertId);
-      const createdPeriod = await db!.insert(fiscalPeriods).values({ companyId: createdCompanyId, exerciseId: createdExerciseId, year: 2026, month: 1, status: "OPEN" });
-      createdPeriodId = Number(createdPeriod[0].insertId);
+      await caller.companies.setPrimaryRepresentative({ companyId: createdCompanyId, representative: "Representante E2E" });
+      const createdExercise = await caller.companies.createExercise({ companyId: createdCompanyId, year: 2026 });
+      createdExerciseId = createdExercise.exercise.id;
+      const createdPeriod = await caller.companies.createPeriod({ companyId: createdCompanyId, year: 2026, month: 1 });
+      createdPeriodId = createdPeriod.period.id;
       const activatedDisposable = await caller.companies.activate({ companyId: createdCompanyId, confirmation: "ACTIVATE_COMPANY" });
       expect(activatedDisposable).toMatchObject({ companyId: createdCompanyId, configurationStatus: "READY" });
       const companyAudit = await getAuditEventsForUserCompany(TEST_USER_ID, createdCompanyId);

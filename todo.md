@@ -448,3 +448,12 @@
 - [x] Adicionar testes de regressão para cada correcção
 - [x] Executar suite completa, TypeScript, build e verificação visual dos módulos
 - [x] Guardar checkpoint da auditoria operacional completa
+
+# Configuração operacional de empresas PENDING
+
+- [x] Auditar contratos existentes de representantes, exercícios e períodos fiscais
+- [x] Ligar a interface da empresa PENDING aos fluxos de configuração suportados
+- [x] Validar representante principal, exercício e período antes da activação
+- [x] Adicionar testes do assistente e das permissões
+- [x] Verificar visualmente o fluxo sem alterar Repair Lubatec
+- [ ] Guardar checkpoint da configuração operacional

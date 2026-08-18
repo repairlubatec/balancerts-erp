@@ -885,3 +885,49 @@ async function dbUpdateDocumentImportStatus(batchId: number, companyId: number, 
   await db.update(documentImportBatches).set({ status }).where(and(eq(documentImportBatches.id, batchId), eq(documentImportBatches.companyId, companyId)));
   if (status === "CONFIRMED") await db.update(documentImportRows).set({ status: "CONFIRMED" }).where(and(eq(documentImportRows.batchId, batchId), eq(documentImportRows.companyId, companyId)));
 }
+
+export async function setPrimaryLegalRepresentativeForUser(input: { userId: number; companyId: number; representative: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const representative = input.representative.trim();
+  if (representative.length < 3) throw new Error("LEGAL_REPRESENTATIVE_REQUIRED");
+  const context = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = context[0];
+  if (!current) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const representatives = String(current.company.legalRepresentatives ?? "").split(/[;\n]/).map((name) => name.trim().toLowerCase()).filter(Boolean);
+  if (!representatives.includes(representative.toLowerCase())) throw new Error("PRIMARY_REPRESENTATIVE_NOT_IN_REGISTER");
+  await db.update(companies).set({ primaryLegalRepresentative: representative }).where(eq(companies.id, input.companyId));
+  await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "COMPANY_PRIMARY_REPRESENTATIVE_SET", entityType: "company", entityId: String(input.companyId), beforeState: JSON.stringify({ primaryLegalRepresentative: current.company.primaryLegalRepresentative }), afterState: JSON.stringify({ primaryLegalRepresentative: representative }), correlationId: `company:${input.companyId}:primary-representative` });
+  return { companyId: input.companyId, primaryLegalRepresentative: representative };
+}
+
+export async function createFiscalExerciseForUser(input: { userId: number; companyId: number; year: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const context = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = context[0];
+  if (!current) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const existing = await db.select({ exercise: fiscalExercises }).from(fiscalExercises).where(and(eq(fiscalExercises.companyId, input.companyId), eq(fiscalExercises.year, input.year))).limit(1);
+  if (existing[0]) return existing[0];
+  const inserted = await db.insert(fiscalExercises).values({ companyId: input.companyId, year: input.year, status: "OPEN" });
+  await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "FISCAL_EXERCISE_CREATED", entityType: "fiscalExercise", entityId: String(inserted[0].insertId), beforeState: null, afterState: JSON.stringify({ year: input.year, status: "OPEN" }), correlationId: `company:${input.companyId}:exercise:${input.year}` });
+  const created = await db.select({ exercise: fiscalExercises }).from(fiscalExercises).where(eq(fiscalExercises.id, Number(inserted[0].insertId))).limit(1);
+  return created[0];
+}
+
+export async function createFiscalPeriodForUser(input: { userId: number; companyId: number; year: number; month: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  if (input.month < 1 || input.month > 12) throw new Error("FISCAL_MONTH_INVALID");
+  const context = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = context[0];
+  if (!current) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  let exercise = await db.select({ exercise: fiscalExercises }).from(fiscalExercises).where(and(eq(fiscalExercises.companyId, input.companyId), eq(fiscalExercises.year, input.year))).limit(1);
+  if (!exercise[0]) { await createFiscalExerciseForUser(input); exercise = await db.select({ exercise: fiscalExercises }).from(fiscalExercises).where(and(eq(fiscalExercises.companyId, input.companyId), eq(fiscalExercises.year, input.year))).limit(1); }
+  const existing = await db.select({ period: fiscalPeriods }).from(fiscalPeriods).where(and(eq(fiscalPeriods.companyId, input.companyId), eq(fiscalPeriods.year, input.year), eq(fiscalPeriods.month, input.month))).limit(1);
+  if (existing[0]) return existing[0];
+  const inserted = await db.insert(fiscalPeriods).values({ companyId: input.companyId, exerciseId: exercise[0]?.exercise.id, year: input.year, month: input.month, status: "OPEN" });
+  await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "FISCAL_PERIOD_CREATED", entityType: "fiscalPeriod", entityId: String(inserted[0].insertId), beforeState: null, afterState: JSON.stringify({ year: input.year, month: input.month, status: "OPEN" }), correlationId: `company:${input.companyId}:period:${input.year}-${input.month}` });
+  const created = await db.select({ period: fiscalPeriods }).from(fiscalPeriods).where(eq(fiscalPeriods.id, Number(inserted[0].insertId))).limit(1);
+  return created[0];
+}
