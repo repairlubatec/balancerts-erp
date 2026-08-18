@@ -383,4 +383,17 @@
 - [x] Bloquear documentos incompletos ou inconsistentes de qualquer transição para ISSUED
 - [x] Adicionar testes de RBAC, isolamento tenant, validação, auditoria e regressão visual
 - [x] Executar TypeScript, build, Vitest e verificação visual
-- [ ] Guardar checkpoint da revisão comercial de documentos importados
+- [x] Guardar checkpoint da revisão comercial de documentos importados
+
+# Execução de todos os passos práticos
+
+- [x] Preparar ficheiros CSV/Excel válidos e inválidos sem dados fiscais reais de produção
+- [x] Executar pré-validação de clientes, fornecedores, produtos e documentos
+- [x] Criar lotes persistentes de revisão no tenant descartável
+- [x] Corrigir linhas inválidas e confirmar lotes válidos explicitamente
+- [x] Verificar bloqueio de documentos inválidos e sem homologação AGT
+- [x] Verificar RBAC e isolamento entre tenant descartável e Repair Lubatec
+- [x] Gerar PDF de preparação a partir de documento persistente de teste
+- [x] Verificar PDF, hash SHA-256, QR URL, download e aviso de não certificação; logotipo AGT confirmado como não configurado no gerador PDF
+- [x] Executar regressão completa, TypeScript, build e verificação visual final
+- [x] Guardar checkpoint da execução prática completa
