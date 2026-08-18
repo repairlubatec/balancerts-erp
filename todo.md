@@ -473,3 +473,11 @@
 - [x] Mostrar histórico de alterações das séries e permissões da empresa activa
 - [x] Testar regressão, isolamento e verificação visual do ciclo automático
 - [x] Guardar checkpoint do ciclo automático
+
+# Ciclo automático — histórico, contexto activo e pré-homologação
+
+- [x] Adicionar filtros por série, utilizador e período ao histórico de séries
+- [x] Reforçar a confirmação visual da empresa activa antes de operações críticas
+- [x] Criar documentação interna de pré-homologação sem declarar certificação AGT
+- [x] Executar regressão, TypeScript, build e verificação visual
+- [ ] Guardar checkpoint do ciclo automático

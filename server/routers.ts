@@ -211,7 +211,7 @@ export const appRouter = router({
     }),
   }),
   audit: router({
-    list: roleProcedure("audit", "read").input(z.object({ companyId: z.number().int().positive(), entityType: z.string().min(1).optional(), entityId: z.string().min(1).optional() })).query(({ ctx, input }) => getAuditEventsForUserCompany(ctx.user.id, input.companyId, input.entityType, input.entityId)),
+    list: roleProcedure("audit", "read").input(z.object({ companyId: z.number().int().positive(), entityType: z.string().min(1).optional(), entityId: z.string().min(1).optional(), action: z.string().min(1).optional(), actorUserId: z.number().int().positive().optional(), from: z.coerce.date().optional(), to: z.coerce.date().optional() })).query(({ ctx, input }) => { const hasExtendedFilters = Boolean(input.action || input.actorUserId || input.from || input.to); return hasExtendedFilters ? getAuditEventsForUserCompany(ctx.user.id, input.companyId, input.entityType, input.entityId, input.action, input.actorUserId, input.from, input.to) : getAuditEventsForUserCompany(ctx.user.id, input.companyId, input.entityType, input.entityId); }),
     append: adminProcedure.input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), action: z.string().min(1), entityType: z.string().min(1), entityId: z.string().min(1), beforeState: z.string().nullable().optional(), afterState: z.string().nullable().optional(), correlationId: z.string().min(1) })).mutation(async ({ ctx, input }) => {
       try {
         return await appendAuditEventForUser({ ...input, actorUserId: ctx.user.id, beforeState: input.beforeState ?? null, afterState: input.afterState ?? null });

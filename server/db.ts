@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
-import { and, desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, gte, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
   auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
@@ -416,13 +416,17 @@ export async function appendAuditEventForUser(input: Omit<typeof auditEvents.$in
   return appendAuditEvent(input);
 }
 
-export async function getAuditEventsForUserCompany(userId: number, companyId: number, entityType?: string, entityId?: string) {
+export async function getAuditEventsForUserCompany(userId: number, companyId: number, entityType?: string, entityId?: string, action?: string, actorUserId?: number, from?: Date, to?: Date) {
   const db = await getDb();
   if (!db) return [];
   const filters = [eq(auditEvents.companyId, companyId), eq(organizations.ownerUserId, userId)];
   if (entityType) filters.push(eq(auditEvents.entityType, entityType));
   if (entityId) filters.push(eq(auditEvents.entityId, entityId));
-  return db.select({ event: auditEvents }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).where(and(...filters)).orderBy(auditEvents.id);
+  if (action) filters.push(eq(auditEvents.action, action));
+  if (actorUserId) filters.push(eq(auditEvents.actorUserId, actorUserId));
+  if (from) filters.push(gte(auditEvents.createdAt, from));
+  if (to) filters.push(lte(auditEvents.createdAt, to));
+  return db.select({ event: auditEvents }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).where(and(...filters)).orderBy(desc(auditEvents.id));
 }
 
 export async function reconcileStockForUserCompany(input: { userId: number; companyId: number; inventoryAccountId: number }) {
