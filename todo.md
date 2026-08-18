@@ -456,4 +456,4 @@
 - [x] Validar representante principal, exercício e período antes da activação
 - [x] Adicionar testes do assistente e das permissões
 - [x] Verificar visualmente o fluxo sem alterar Repair Lubatec
-- [ ] Guardar checkpoint da configuração operacional
+- [x] Guardar checkpoint da configuração operacional
