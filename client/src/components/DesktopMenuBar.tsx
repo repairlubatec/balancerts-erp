@@ -18,8 +18,8 @@ const menus = [
 
 export function DesktopMenuBar({ activeModule, onCommand }: DesktopMenuBarProps) {
   return (
-    <div className="flex h-8 items-center border-b border-[#182b41] bg-[#172b42] px-2 text-[11px] text-[#dce8f5]">
-      <div className="mr-3 flex items-center gap-2 border-r border-white/10 pr-3">
+    <div className="erp-window-chrome flex h-8 items-center border-b border-[#182b41] bg-[#172b42] px-2 text-[11px] text-[#dce8f5]">
+      <div className="mr-3 flex items-center gap-2 border-r border-white/10 pr-3" title="BALANCERTS.ERP — aplicação Windows">
         <span className="font-black tracking-[0.01em] text-white">BALANCERTS</span>
         <span className="font-semibold tracking-[0.02em] text-[#8cc63f]">.ERP</span>
       </div>
@@ -36,7 +36,7 @@ export function DesktopMenuBar({ activeModule, onCommand }: DesktopMenuBarProps)
           </button>
         ))}
       </nav>
-      <div className="ml-auto hidden items-center gap-2 md:flex">
+      <div className="ml-auto hidden items-center gap-2 md:flex" aria-label="Estado da janela">
         {activeModule && <span className="hidden border-l border-white/10 pl-3 text-[#a7bdd5] md:inline">Módulo: <strong className="text-white">{activeModule}</strong></span>}
         <button type="button" onClick={() => onCommand("help")} aria-label="Ajuda" className="rounded-sm p-1 hover:bg-white/10 focus-visible:ring-1 focus-visible:ring-[#78b5ff]"><HelpCircle className="h-3.5 w-3.5" /></button>
         <div className="ml-1 flex items-center gap-0.5 border-l border-white/10 pl-2" aria-hidden="true">
@@ -51,7 +51,7 @@ export function DesktopMenuBar({ activeModule, onCommand }: DesktopMenuBarProps)
 
 export function DesktopStatusBar({ module, company, period }: { module?: string; company?: string; period?: string }) {
   return (
-    <div className={cn("flex min-h-6 items-center gap-3 border-t border-[#aeb8c4] bg-[#e6eaef] px-3 py-1 text-[10px] text-[#536273]", "font-medium")}>
+    <div className={cn("erp-statusbar flex min-h-6 items-center gap-3 border-t border-[#aeb8c4] bg-[#e6eaef] px-3 py-1 text-[10px] text-[#536273]", "font-medium")} role="status">
       <span className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-[#70ae20]" /> Sistema operacional</span>
       {module && <span className="border-l border-[#b9c2cc] pl-3">{module}</span>}
       {company && <span className="hidden border-l border-[#b9c2cc] pl-3 lg:inline">Empresa: {company}</span>}

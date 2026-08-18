@@ -627,3 +627,24 @@
 - [x] Adicionar testes para helpers de Home e reconhecimento de erros tRPC de autenticação
 - [x] Validar suite completa, TypeScript, build e revisão visual desktop
 - [x] Documentar a revisão e guardar checkpoint
+
+# Refinamento — experiência Windows-first
+
+- [x] Auditar shell, comandos, botões e comportamento de separadores para Windows
+- [x] Melhorar moldura de aplicação, barra de comandos, estados de foco e hierarquia visual
+- [x] Tornar o comportamento de múltiplas janelas/separadores mais claro e consistente
+- [x] Preservar PWA e validar responsividade sem degradar a experiência desktop
+- [x] Executar testes e revisão visual dos principais módulos
+- [x] Documentar alterações e guardar checkpoint
+
+# Auditoria comercial completa — fluxos sem pontos mortos
+
+- [x] Inventariar todos os botões, comandos, links, menus, separadores e rotas
+- [x] Verificar que cada acção tem destino ou operação real e feedback de sucesso/erro
+- [x] Auditar criação/edição de empresas e configuração da Repair Lubatec ponta a ponta
+- [ ] Auditar documentos, facturação, séries, clientes, fornecedores, tesouraria, stock e imobilizado
+- [ ] Auditar contabilidade, fiscalidade, relatórios, fecho, auditoria e definições
+- [x] Corrigir todos os pontos mortos e maus direccionamentos encontrados
+- [x] Consolidar a experiência Windows-first e a lógica de múltiplas janelas
+- [x] Criar regressões para cada fluxo corrigido e executar validação completa
+- [x] Documentar o estado comercial real, limitações AGT e guardar checkpoint

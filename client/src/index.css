@@ -285,3 +285,59 @@ button { cursor: pointer; }
     width: min(7.5rem, 36vw);
   }
 }
+
+/* Windows-first chrome refinement: compact, high-contrast and task-oriented. */
+.desktop-shell {
+  --window-chrome: #172b42;
+  --window-chrome-strong: #102238;
+  --window-line: #aeb8c4;
+  --window-surface: #f3f5f7;
+  --window-active: #d9e6f4;
+  font-variant-numeric: tabular-nums;
+}
+
+.desktop-shell [data-slot="button"] {
+  min-height: 2rem;
+  letter-spacing: 0.005em;
+}
+
+.desktop-shell [data-slot="button"][data-size="icon"],
+.desktop-shell [data-slot="button"][data-size="icon-sm"] {
+  min-height: 0;
+}
+
+.desktop-shell [data-slot="button"]:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.desktop-shell .erp-window-chrome {
+  background: linear-gradient(180deg, var(--window-chrome) 0%, var(--window-chrome-strong) 100%);
+  border-bottom-color: #0b1727;
+}
+
+.desktop-shell .erp-toolstrip {
+  background: var(--window-surface);
+  border-bottom: 1px solid var(--window-line);
+}
+
+.desktop-shell .erp-workspace-tabs {
+  background: #e7ebef;
+  border-bottom-color: #aeb8c4;
+}
+
+.desktop-shell .erp-workspace-tabs [data-active="true"] {
+  box-shadow: inset 0 2px 0 var(--pmr-blue), 0 1px 0 #fff;
+}
+
+.desktop-shell .erp-statusbar {
+  min-height: 1.65rem;
+  background: #dfe4e9;
+  border-top-color: #9da9b6;
+  color: #405064;
+}
+
+@media (min-width: 1024px) {
+  .desktop-shell .erp-workspace {
+    padding: 0.65rem 0.75rem;
+  }
+}

@@ -18,7 +18,7 @@ describe("WorkspaceTabBar", () => {
     const onSelect = vi.fn();
     render(<WorkspaceTabBar tabs={tabs} activePath="/" onSelect={onSelect} onClose={vi.fn()} onNew={vi.fn()} />);
 
-    const accountingTab = screen.getAllByRole("button", { name: /Contabilidade/ }).find((button) => button.getAttribute("title")?.includes("Ctrl+2"));
+    const accountingTab = screen.getByRole("tab", { name: /Contabilidade/ });
     expect(accountingTab?.getAttribute("title")).toContain("Ctrl+2");
     fireEvent.click(accountingTab!);
     expect(onSelect).toHaveBeenCalledWith("/contabilidade");

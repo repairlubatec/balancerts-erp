@@ -202,6 +202,17 @@ function DashboardLayoutContent({
   };
 
   const handleMenuCommand = (command: string) => {
+    if (command === "edit") {
+      if (activePath === "/empresas") {
+        setLocation("/empresas?new=company");
+      } else if (activePath === "/facturacao") {
+        setLocation("/facturacao?new=1");
+      } else {
+        document.getElementById("operational-update-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        document.querySelector<HTMLInputElement>("#operational-update-form input")?.focus();
+      }
+      return;
+    }
     if (command === "view") {
       toggleSidebar();
       return;

@@ -26,7 +26,7 @@ export function WorkspaceTabBar({
   onNew,
 }: WorkspaceTabBarProps) {
   return (
-    <div className="flex h-10 min-w-0 items-center border-b border-[#d8e3ef] bg-[#f6f9fc] px-2 shadow-[0_1px_0_rgba(18,62,112,0.03)]">
+    <div className="erp-workspace-tabs flex h-10 min-w-0 items-center border-b border-[#d8e3ef] bg-[#f6f9fc] px-2 shadow-[0_1px_0_rgba(18,62,112,0.03)]" role="tablist" aria-label="Janelas abertas">
       <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {tabs.map((tab, index) => {
           const Icon = tab.icon;
@@ -35,7 +35,7 @@ export function WorkspaceTabBar({
             <div
               key={tab.path}
               className={cn(
-                "group flex h-8 shrink-0 items-center gap-2 rounded-sm border px-2.5 text-xs transition-colors",
+                "group flex h-8 shrink-0 items-center gap-2 rounded-[3px] border px-2.5 text-xs transition-colors",
                 active
                   ? "border-[#9fb9d3] border-b-2 border-b-[#1267d6] bg-white font-semibold text-[#102a43] shadow-none"
                   : "border-transparent text-slate-500 hover:border-[#c7d3df] hover:bg-white hover:text-[#305b88]",
@@ -46,6 +46,8 @@ export function WorkspaceTabBar({
                 onClick={() => onSelect(tab.path)}
                 className="flex min-w-0 items-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-[#1267d6]"
                 aria-current={active ? "page" : undefined}
+                role="tab"
+                aria-selected={active}
                 title={`${tab.label} · Ctrl+${index + 1}`}
               >
                 <Icon className={cn("h-3.5 w-3.5 shrink-0", active ? "text-[#1267d6]" : "text-slate-400")} />
@@ -80,7 +82,7 @@ export function WorkspaceTabBar({
         </Button>
         <span className="hidden items-center gap-1 px-1 text-[10px] font-medium uppercase tracking-[0.08em] text-slate-400 xl:flex">
           <PanelTop className="h-3 w-3" />
-          Janela de trabalho
+          Windows · {tabs.length} janela{tabs.length === 1 ? "" : "s"}
         </span>
       </div>
     </div>
