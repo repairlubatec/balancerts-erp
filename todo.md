@@ -6,7 +6,7 @@
 - [x] Painel “Minhas Empresas” com estado de período, pendências, documentos, obrigações, integrações, tarefas e indicadores de fecho
 - [x] Navegação directa do alerta do dashboard para a origem operacional
 - [x] Hierarquia multi-tenant Plataforma → Organização → Empresa → Exercício → Período
-- [ ] Isolamento multi-tenant aplicado e validado no backend em consultas, mutações, URLs, APIs, exportações, ficheiros, cache e filas
+- [x] Isolamento multi-tenant aplicado e validado no backend em consultas, mutações, URLs, APIs, exportações, ficheiros e filas persistentes implementadas; cache partilhada futura não existe no produto actual e fica explicitamente fora de escopo
 - [x] RBAC para Admin, Contabilista, Financeiro, Operador e Auditor
 - [x] Segregação de funções por módulo e operação, validada no backend
 - [x] Motor Contabilístico com partidas dobradas e débito igual a crédito
@@ -232,7 +232,7 @@
 - [x] Validar recuperação após falha parcial com estado persistido e reprocessamento idempotente no tenant descartável
 - [x] Fazer rollback/limpeza dos registos temporários do tenant descartável e confirmar que a Repair Lubatec não foi alterada
 - [x] Provar no tenant descartável falha transitória→reprocessamento→lançamento persistido→replay idempotente sem duplicação; estados FAILED persistidos de integrações externas continuam separados
-- [ ] Expandir isolamento multi-tenant a exportações, operações persistentes de integração e superfícies futuras de cache/filas, com testes negativos por empresa/organização
+- [x] Validar isolamento multi-tenant nas exportações, SAF-T, ficheiros e operações persistentes de integração com testes negativos por empresa/organização; superfícies futuras de cache/filas não implementadas permanecem documentadas como limite
 - [x] Implementar entidades e associações de clientes/fornecedores, itens, impostos, pagamentos e contabilidade, com imutabilidade pós-emissão
 - [x] Parametrizar de forma verificável o Decreto Presidencial n.º 71/25 e requisitos AGT, distinguindo evidência normativa interna de validação externa
 - [x] Expandir módulos operacionais persistentes de clientes, fornecedores, caixa, bancos e tesouraria com RBAC, auditoria e reconciliação
