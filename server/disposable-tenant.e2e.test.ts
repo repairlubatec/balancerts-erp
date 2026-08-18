@@ -1,4 +1,4 @@
-import { and, eq, like } from "drizzle-orm";
+import { and, eq, isNull, like } from "drizzle-orm";
 import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
 import { auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, stockMovements } from "../drizzle/schema";
@@ -160,7 +160,7 @@ describe("disposable tenant persisted E2E cycle", () => {
       await db!.delete(journalLines).where(eq(journalLines.entryId, orphanEntryId));
       await db!.delete(journalEntries).where(eq(journalEntries.id, orphanEntryId));
       orphanEntryId = undefined;
-      const repairDocuments = await db!.select({ id: businessDocuments.id }).from(businessDocuments).where(eq(businessDocuments.companyId, 1));
+      const repairDocuments = await db!.select({ id: businessDocuments.id }).from(businessDocuments).where(and(eq(businessDocuments.companyId, 1), isNull(businessDocuments.archivedAt)));
       expect(repairDocuments).toEqual([]);
 
       const recoveryKey = `${correlation}:recovery`;

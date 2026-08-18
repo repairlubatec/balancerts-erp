@@ -709,3 +709,23 @@
 - [x] Reforçar feedback, validações e configurações reais
 - [x] Executar testes, revisão visual e smoke test Windows
 - [x] Documentar alterações e guardar checkpoint
+
+# Configuração controlada Repair Lubatec — conta, série e documento de teste
+
+- [x] Verificar empresas, contas, séries, clientes e produtos já persistentes
+- [x] Evitar inventar IBAN, número bancário, cliente, produto ou preço fiscal
+- [x] Criar ou corrigir conta operacional apenas com dados permitidos
+- [x] Criar ou corrigir série FT sem duplicar configuração existente
+- [x] Executar documento de teste sem submissão AGT
+- [x] Validar auditoria, isolamento, testes e guardar checkpoint
+
+# Execução controlada — 18/08/2026
+
+- [x] Confirmar Repair Lubatec activa, READY, AOA e regime EXCLUSAO
+- [x] Criar conta de tesouraria CASH "Caixa operacional Repair Lubatec" em AOA sem inventar número bancário
+- [x] Criar ou confirmar série documental FT/FT com próximo número 1 e auditoria
+- [x] Criar contraparte anonimizada "Cliente Teste Interno" com taxId ANON e email anon@example.invalid
+- [x] Criar rascunho FT/000001 de 1.000 AOA, regime EXCLUSAO, sem submissão AGT
+- [x] Validar FT/000001 e emitir internamente via transições auditadas
+- [ ] Contabilizar FT/000001: bloqueado correctamente por DOCUMENT_REQUIRES_POSTED_ENTRY; Repair Lubatec tem zero contas chartAccounts postáveis configuradas
+- [ ] Carregar/configurar o plano de contas PGC da Repair Lubatec antes de publicar lançamentos reais

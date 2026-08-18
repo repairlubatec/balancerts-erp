@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
-import { and, desc, eq, gte, lte, sql } from "drizzle-orm";
+import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
   auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
@@ -385,14 +385,14 @@ export async function getPeriodsForUserCompany(userId: number, companyId: number
 export async function getFiscalRegisterForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return buildFiscalRegister([]);
-  const rows = await db.select({ document: businessDocuments }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(businessDocuments.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(businessDocuments.issuedAt, businessDocuments.id);
+  const rows = await db.select({ document: businessDocuments }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(businessDocuments.companyId, companyId), eq(organizations.ownerUserId, userId), isNull(businessDocuments.archivedAt), sql`${businessDocuments.status} <> 'CANCELLED'`)).orderBy(businessDocuments.issuedAt, businessDocuments.id);
   return buildFiscalRegister(rows.map(({ document }) => ({ documentId: document.id, documentNumber: document.documentNumber, issueDate: document.issuedAt ?? document.createdAt, customerNif: null, status: document.status, ivaRegime: document.ivaRegime, netAmount: Number(document.netAmount), taxAmount: Number(document.taxAmount), totalAmount: Number(document.totalAmount) })));
 }
 
 export async function getDocumentsForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
-  return db.select({ document: businessDocuments }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(organizations.ownerUserId, userId), eq(companies.id, companyId))).orderBy(desc(businessDocuments.createdAt));
+  return db.select({ document: businessDocuments }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(organizations.ownerUserId, userId), eq(companies.id, companyId), isNull(businessDocuments.archivedAt))).orderBy(desc(businessDocuments.createdAt));
 }
 
 export async function appendAuditEvent(input: typeof auditEvents.$inferInsert) {

@@ -26,12 +26,13 @@ describe("database tenant integration", () => {
     expect(await getReportsReconciliationForUserCompany(1, repair!.company.id)).toMatchObject({ companyId: repair!.company.id, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } });
     const saft = await getSaftReadinessForUserCompany(1, repair!.company.id);
     expect(saft).toMatchObject({ format: "SAFTAO1.01_01", ready: false, submissionEligible: false });
-    expect(saft.missing).toEqual(expect.arrayContaining(["MASTERFILES_CUSTOMERS", "MASTERFILES_SUPPLIERS", "MASTERFILES_PRODUCTS"]));
+    expect(saft.missing).toEqual(expect.arrayContaining(["MASTERFILES_SUPPLIERS", "MASTERFILES_PRODUCTS"]));
+    expect(saft.missing).not.toContain("MASTERFILES_CUSTOMERS");
     expect(saft.missing).not.toContain("MASTERFILES_TAX_TABLES");
   }, 15000);
 
   it("rejects incomplete critical mutations after Repair Lubatec activation", async () => {
-    await expect(reserveDocumentNumber({ userId: 1, companyId: 1, series: "FT", documentType: "FT" })).rejects.toThrow();
+    await expect(reserveDocumentNumber({ userId: 1, companyId: 1, series: "UNCONFIGURED", documentType: "FT" })).rejects.toThrow();
     await expect(transitionBusinessDocument({ userId: 1, companyId: 1, documentId: 999999, to: "ISSUED" })).rejects.toThrow();
     await expect(postJournalEntry({ companyId: 1, periodId: 1, createdBy: 1, idempotencyKey: "ready-company-guard", description: "Não deve ser criado", lines: [{ accountId: 1, debit: 10, credit: 0 }, { accountId: 2, debit: 0, credit: 10 }] })).rejects.toThrow();
     await expect(postJournalEntry({ companyId: 1, periodId: 1, sourceDocumentId: 999999, createdBy: 1, idempotencyKey: "missing-source-document", description: "Não deve ser criado", lines: [{ accountId: 1, debit: 10, credit: 0 }, { accountId: 2, debit: 0, credit: 10 }] })).rejects.toThrow("SOURCE_DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
