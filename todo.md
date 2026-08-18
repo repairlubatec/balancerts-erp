@@ -609,3 +609,11 @@
 - [x] Executar smoke test do wrapper Electron recuperado
 - [x] Reexecutar TypeScript, suite e build do ERP
 - [x] Documentar resultado e limitações nativas
+
+# Correcção — resposta HTML no tRPC de Empresas
+
+- [x] Inspeccionar logs, endpoint tRPC e configuração do cliente
+- [x] Reproduzir o erro na página Empresas e localizar a causa
+- [x] Corrigir endpoint ou configuração e adicionar regressão
+- [x] Validar Empresas, suite completa, build e isolamento tenant-aware
+- [x] Documentar a correcção e guardar checkpoint
