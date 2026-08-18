@@ -506,3 +506,6 @@
 - [x] Corrigir apenas defeitos confirmados nesta ronda — não foram necessárias alterações adicionais
 - [x] Executar regressão completa, TypeScript, build e verificação visual — estado anterior confirmado
 - [x] Guardar checkpoint da ronda de manutenção
+
+- [x] Remover linhas demonstrativas de Fecho e Definições e mostrar dados persistentes ou estado vazio honesto
+- [x] Adicionar regressão para impedir retorno de dados demonstrativos nesses módulos
