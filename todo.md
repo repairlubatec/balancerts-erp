@@ -564,3 +564,13 @@
 - [x] Criar estados de janela, detalhe, comandos e densidade coerentes
 - [x] Validar a linguagem visual em desktop e PWA sem regressões
 - [x] Documentar o padrão PMR melhorado e guardar checkpoint
+
+# Uniformização PMR em todas as camadas
+
+- [x] Inventariar componentes visuais e definir tokens PMR globais
+- [x] Uniformizar shell, navegação, separadores e barras de comandos
+- [x] Uniformizar módulos, grelhas, formulários, painéis e estados
+- [x] Uniformizar diálogos, menus, alertas, relatórios, auditoria e detalhes
+- [x] Adaptar a linguagem ao PWA e acessibilidade
+- [x] Executar regressão total, verificação visual e documentação
+- [x] Guardar checkpoint da uniformização completa

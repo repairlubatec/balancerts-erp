@@ -390,7 +390,7 @@ function DashboardLayoutContent({
             </div>
           </div>
         )}
-        <main className="flex min-h-0 flex-1 flex-col bg-[#dfe4ea] p-3">{children}</main>
+        <main className="erp-workspace flex min-h-0 flex-1 flex-col bg-[#dfe4ea] p-3">{children}</main>
         <DesktopStatusBar module={activeMenuItem?.label} />
       </SidebarInset>
     </>

@@ -104,3 +104,184 @@ button { cursor: pointer; }
 .desktop-shell [class*="space-y-5"] > :not([hidden]) ~ :not([hidden]) {
   margin-top: 0.6rem;
 }
+
+/* PMR application tokens applied across every ERP layer, including portals. */
+:root {
+  --pmr-surface: #fbfcfd;
+  --pmr-panel: #eef1f4;
+  --pmr-panel-strong: #e3e8ed;
+  --pmr-line: #bfc9d4;
+  --pmr-line-soft: #d9e0e7;
+  --pmr-ink: #1d2a38;
+  --pmr-muted: #687787;
+  --pmr-blue: #1267d6;
+  --pmr-green: #79c324;
+  --radius: 0.25rem;
+}
+
+[data-slot="card"],
+[data-slot="dialog-content"],
+[data-slot="alert-dialog-content"],
+[data-slot="sheet-content"],
+[data-slot="popover-content"],
+[data-slot="dropdown-menu-content"],
+[data-slot="context-menu-content"],
+[data-slot="command"] {
+  border-radius: 3px;
+  box-shadow: none;
+}
+
+[data-slot="card"] {
+  background: var(--pmr-surface);
+  border-color: var(--pmr-line);
+}
+
+[data-slot="button"],
+[data-slot="input"],
+[data-slot="select-trigger"],
+[data-slot="textarea"],
+[data-slot="input-otp-group"] {
+  border-radius: 3px;
+}
+
+[data-slot="dialog-overlay"],
+[data-slot="alert-dialog-overlay"] {
+  background: rgb(23 43 66 / 32%);
+}
+
+[data-slot="dialog-content"] > [data-slot="dialog-header"],
+[data-slot="alert-dialog-content"] > [data-slot="alert-dialog-header"] {
+  border-bottom: 1px solid var(--pmr-line-soft);
+  background: var(--pmr-panel);
+  padding-bottom: 0.65rem;
+}
+
+[data-slot="dropdown-menu-content"] [data-slot="dropdown-menu-item"],
+[data-slot="context-menu-content"] [data-slot="context-menu-item"] {
+  border-radius: 2px;
+}
+
+/* Shared operational surfaces: dense PMR-style tables and native controls. */
+.erp-workspace table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.erp-workspace thead {
+  background: #f5f6f8;
+  color: var(--pmr-muted);
+}
+
+.erp-workspace th {
+  border-bottom: 1px solid var(--pmr-line-soft);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.erp-workspace td {
+  border-bottom: 1px solid #e5e9ed;
+  font-size: 11px;
+}
+
+.erp-workspace tr:focus-within,
+.erp-workspace tr[data-selected="true"] {
+  background: #e7f0fa;
+}
+
+.erp-workspace input:not([type="checkbox"]):not([type="radio"]),
+.erp-workspace select,
+.erp-workspace textarea {
+  border-radius: 3px;
+  border-color: var(--pmr-line);
+}
+
+.erp-workspace input:not([type="checkbox"]):not([type="radio"]):focus,
+.erp-workspace select:focus,
+.erp-workspace textarea:focus {
+  border-color: var(--pmr-blue);
+  box-shadow: 0 0 0 1px rgb(18 103 214 / 20%);
+  outline: none;
+}
+
+.erp-workspace [data-empty-state="true"] {
+  border: 1px dashed var(--pmr-line);
+  background: #f8fafc;
+  color: var(--pmr-muted);
+  padding: 1rem;
+  font-size: 11px;
+}
+
+.erp-workspace [role="alert"] {
+  border-radius: 3px;
+  box-shadow: none;
+}
+
+/* Flatten legacy web-card utilities inside the application workspace. */
+.erp-workspace .rounded-lg,
+.erp-workspace .rounded-xl,
+.erp-workspace .rounded-2xl {
+  border-radius: 3px;
+}
+
+.erp-workspace .shadow-sm,
+.erp-workspace .shadow-md,
+.erp-workspace .shadow-lg,
+.erp-workspace .shadow-xl {
+  box-shadow: none;
+}
+
+/* PWA and accessibility layer for the PMR application language. */
+.erp-workspace {
+  overflow-x: hidden;
+}
+
+.erp-workspace :where(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid var(--pmr-blue);
+  outline-offset: 1px;
+}
+
+@media (max-width: 640px) {
+  .erp-workspace {
+    padding: 0.5rem;
+  }
+
+  .erp-workspace [data-slot="card"],
+  .erp-workspace [data-slot="dialog-content"] {
+    max-width: 100%;
+  }
+
+  .erp-workspace table {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .erp-workspace input[placeholder="Pesquisar empresa ou NIF"] {
+    width: min(10rem, 43vw);
+  }
+}
+
+@media (max-width: 640px) {
+  .erp-workspace .ml-auto:has(input[placeholder="Pesquisar empresa ou NIF"]) {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 100%;
+  }
+
+  .erp-workspace input[placeholder="Pesquisar empresa ou NIF"] {
+    width: min(7.5rem, 36vw);
+  }
+}
