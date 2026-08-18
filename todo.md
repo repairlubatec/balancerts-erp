@@ -701,3 +701,11 @@
 - [x] Reforçar configurações reais de séries, contas e feedback operacional
 - [x] Rever pacote e pipeline Windows EXE/MSI
 - [x] Validar, documentar e guardar checkpoint
+
+# Nova implementação — reforço do ciclo documental e configurações
+
+- [x] Auditar lacunas accionáveis do ciclo documental e configurações
+- [x] Implementar melhorias funcionais prioritárias
+- [x] Reforçar feedback, validações e configurações reais
+- [x] Executar testes, revisão visual e smoke test Windows
+- [x] Documentar alterações e guardar checkpoint

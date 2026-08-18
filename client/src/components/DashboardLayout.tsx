@@ -208,8 +208,13 @@ function DashboardLayoutContent({
       } else if (activePath === "/facturacao") {
         setLocation("/facturacao?new=1");
       } else {
-        document.getElementById("operational-update-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
-        document.querySelector<HTMLInputElement>("#operational-update-form input")?.focus();
+        const target = document.getElementById("operational-update-form") ?? document.getElementById("operational-create-form") ?? document.getElementById("accounting-posting-form") ?? document.getElementById("treasury-payment-form") ?? document.getElementById("fixed-assets-depreciation-form");
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+          target.querySelector<HTMLInputElement>("input, select, textarea")?.focus();
+        } else {
+          setLocation("/empresas?new=company");
+        }
       }
       return;
     }
