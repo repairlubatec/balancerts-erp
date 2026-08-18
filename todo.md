@@ -601,3 +601,11 @@
 - [x] Testar funcionalidade interna e classificar limitações de plataforma
 - [x] Documentar assinatura, distribuição e separação da homologação AGT
 - [x] Guardar checkpoint da preparação desktop
+
+# Reteste dos ficheiros no Google Drive
+
+- [x] Confirmar ficheiros e metadados na pasta Drive
+- [x] Descarregar e verificar integridade dos ZIP guardados
+- [x] Executar smoke test do wrapper Electron recuperado
+- [x] Reexecutar TypeScript, suite e build do ERP
+- [x] Documentar resultado e limitações nativas
