@@ -11,8 +11,8 @@ vi.mock("wouter", () => ({
 vi.mock("@/_core/hooks/useAuth", () => ({ useAuth: () => ({ user: { role: "admin" } }) }));
 vi.mock("@/lib/trpc", () => ({
   trpc: {
-    useUtils: () => ({ counterparties: { list: { invalidate: vi.fn() } }, catalog: { list: { invalidate: vi.fn() } }, treasury: { accounts: { invalidate: vi.fn() } }, fixedAssets: { list: { invalidate: vi.fn() } } }),
-    companies: { list: { useQuery: () => ({ data: [{ company: { id: 1, name: "Repair Lubatec", nif: "5001121871", configurationStatus: "READY", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA", organizationId: 1 } }], isLoading: false }) }, periods: { useQuery: () => ({ data: [{ period: { id: 1 } }], isLoading: false }) } },
+    useUtils: () => ({ companies: { list: { invalidate: vi.fn() } }, counterparties: { list: { invalidate: vi.fn() } }, catalog: { list: { invalidate: vi.fn() } }, treasury: { accounts: { invalidate: vi.fn() } }, fixedAssets: { list: { invalidate: vi.fn() } } }),
+    companies: { list: { useQuery: () => ({ data: [{ company: { id: 1, name: "Repair Lubatec", nif: "5001121871", configurationStatus: "READY", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA", organizationId: 1 } }], isLoading: false }) }, create: { useMutation: (options?: { onSuccess?: (result: { company: { name: string } }) => unknown; onError?: (error: Error) => unknown }) => ({ mutate: vi.fn((input: unknown) => options?.onSuccess?.({ company: { name: (input as { name: string }).name } })), isPending: false, error: null }) }, periods: { useQuery: () => ({ data: [{ period: { id: 1 } }], isLoading: false }) } },
     audit: { list: { useQuery: () => ({ data: locationState.auditEvents, isLoading: false }) } },
     counterparties: { list: { useQuery: () => ({ data: [], isLoading: false }) }, create: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) }, update: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
     catalog: { list: { useQuery: () => ({ data: [], isLoading: false }) }, create: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) }, update: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
@@ -66,11 +66,32 @@ describe("Home traceability integration", () => {
     fireEvent.click(screen.getByRole("button", { name: "Filtros" }));
     expect(document.activeElement?.getAttribute("placeholder")).toBe("Pesquisar empresa ou NIF");
     fireEvent.click(screen.getByRole("button", { name: "Nova empresa" }));
-    expect(locationState.navigate).toHaveBeenCalledWith("/empresas");
+    expect(locationState.navigate).toHaveBeenCalledWith("/empresas?new=company");
     fireEvent.click(screen.getByRole("button", { name: "Ver todas" }));
     expect(locationState.navigate).toHaveBeenCalledWith("/empresas");
     fireEvent.click(screen.getAllByRole("button", { name: "Abrir auditoria" })[0]!);
     expect(locationState.navigate).toHaveBeenCalledWith("/auditoria");
+  });
+
+  it("opens and submits the company creation form", async () => {
+    cleanup();
+    locationState.current = "/empresas?new=company";
+    window.history.pushState({}, "", "/empresas?new=company");
+    render(<Home />);
+    expect(screen.getAllByText("Criar empresa").length).toBeGreaterThanOrEqual(2);
+    fireEvent.submit(screen.getByRole("button", { name: "Criar empresa" }).closest("form")!);
+    expect(screen.getByText("Preencha todos os campos obrigatórios antes de criar a empresa.")).toBeTruthy();
+    fireEvent.change(screen.getByPlaceholderText("Ex.: Nova Empresa, Lda."), { target: { value: "Empresa Teste" } });
+    fireEvent.change(screen.getByPlaceholderText("Número fiscal"), { target: { value: "999999999" } });
+    fireEvent.change(screen.getByPlaceholderText("Morada completa"), { target: { value: "Morada Teste" } });
+    fireEvent.change(screen.getByPlaceholderText("Município"), { target: { value: "Lubango" } });
+    fireEvent.change(screen.getByPlaceholderText("Província"), { target: { value: "Huíla" } });
+    fireEvent.change(screen.getByPlaceholderText("+244 …"), { target: { value: "+244900000000" } });
+    fireEvent.change(screen.getByPlaceholderText("email@empresa.ao"), { target: { value: "teste@example.invalid" } });
+    fireEvent.change(screen.getByPlaceholderText("Actividade principal"), { target: { value: "Serviços" } });
+    fireEvent.change(screen.getByPlaceholderText("Nome(s) e separação por ;"), { target: { value: "Representante Teste" } });
+    fireEvent.submit(screen.getByRole("button", { name: "Criar empresa" }).closest("form")!);
+    await waitFor(() => expect(screen.getByText(/Empresa Empresa Teste criada em estado PENDING/)).toBeTruthy());
   });
 
   it("opens the command palette from a module action", () => {

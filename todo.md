@@ -428,3 +428,12 @@
 - [x] Adicionar testes de UI, acessibilidade e feedback de privacidade
 - [x] Executar regressão, TypeScript, build e verificação visual
 - [x] Guardar checkpoint da melhoria da experiência anonimizada
+
+# Correcção do fluxo Criar empresa
+
+- [x] Reproduzir o clique em Criar empresa e identificar se a falha está no modal, validação, mutação ou refresh
+- [x] Corrigir a abertura, validação, criação persistente e feedback do formulário
+- [x] Garantir actualização da lista e isolamento, sem alterar Repair Lubatec
+- [x] Adicionar/regressar testes do fluxo Criar empresa e dos seus erros
+- [x] Verificar visualmente o fluxo e confirmar que os controlos relacionados respondem
+- [ ] Guardar checkpoint da correcção Criar empresa
