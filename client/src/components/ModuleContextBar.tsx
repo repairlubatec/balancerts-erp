@@ -15,17 +15,17 @@ export function ModuleContextBar({ company }: ModuleContextBarProps) {
     <div
       aria-live="polite"
       className={cn(
-        "flex flex-wrap items-center gap-2 rounded-xl border px-4 py-2.5 text-xs",
+        "flex min-w-0 flex-wrap items-center gap-2 rounded-xl border px-4 py-2.5 text-xs",
         company ? "border-[#cfe0f5] bg-[#f3f8ff] text-[#305b88]" : "border-amber-200 bg-amber-50 text-amber-800",
       )}
     >
       {company ? (
         <>
           <span className="h-2 w-2 rounded-full bg-[#79c324]" />
-          <span className="font-semibold text-[#102a43]">Empresa activa: {company.name}</span>
+          <span className="min-w-0 font-semibold text-[#102a43]">Empresa activa: {company.name}</span>
           <span>· NIF {company.nif}</span>
           <span>· {company.configurationStatus === "READY" ? "operacional" : "configuração pendente"}</span>
-          <span className="ml-auto font-semibold text-[#1267d6]">Todas as operações deste módulo aplicam-se a esta empresa</span>
+          <span className="w-full font-semibold text-[#1267d6] sm:ml-auto sm:w-auto sm:text-right">Todas as operações deste módulo aplicam-se a esta empresa</span>
         </>
       ) : (
         <>

@@ -681,3 +681,14 @@
 - [x] Separar lacunas de design, operação, fiscalidade, segurança e distribuição
 - [x] Priorizar o trabalho restante por impacto comercial e dependência externa
 - [x] Entregar avaliação objectiva sem implementar alterações
+
+# Implementação P0 confirmada pelo utilizador
+
+- [x] Definir contratos e critérios de aceitação para Facturação, Documentos, Contabilidade, Tesouraria, Fecho e SAF-T
+- [x] Completar ciclo de Facturação/Documentos: ficha, linhas, impostos, série, estados e reflexo contabilístico
+- [x] Criar posto operacional de Contabilidade com lançamento, validação, publicação, diário e reversão
+- [x] Criar posto operacional de Tesouraria com recebimentos, pagamentos, ligação documental e reconciliação
+- [x] Implementar fecho transaccional de período com bloqueio, evidência e reabertura autorizada
+- [x] Corrigir readiness SAF-T para contagens e validações persistentes reais
+- [x] Adicionar testes unitários, integração e E2E autenticados dos fluxos P0
+- [x] Rever visualmente, documentar limites AGT e guardar checkpoint

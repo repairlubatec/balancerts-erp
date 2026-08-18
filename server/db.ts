@@ -352,6 +352,30 @@ export async function getExercisesForUserCompany(userId: number, companyId: numb
   return db.select({ exercise: fiscalExercises }).from(fiscalExercises).innerJoin(companies, eq(fiscalExercises.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(fiscalExercises.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(desc(fiscalExercises.year));
 }
 
+export async function closeFiscalPeriodForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; correlationId: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ period: fiscalPeriods, company: companies, organization: organizations }).from(fiscalPeriods).innerJoin(companies, eq(fiscalPeriods.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = rows[0];
+  if (!current) throw new Error("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
+  if (current.period.status === "CLOSED") throw new Error("FISCAL_PERIOD_ALREADY_CLOSED");
+  await db.update(fiscalPeriods).set({ status: "CLOSED", closedAt: new Date() }).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId)));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FISCAL_PERIOD_CLOSED", entityType: "fiscalPeriod", entityId: String(input.periodId), beforeState: JSON.stringify({ status: current.period.status }), afterState: JSON.stringify({ status: "CLOSED" }), correlationId: input.correlationId });
+  return { periodId: input.periodId, from: current.period.status, to: "CLOSED" as const, audited: true };
+}
+
+export async function reopenFiscalPeriodForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; reason: string; correlationId: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ period: fiscalPeriods, company: companies, organization: organizations }).from(fiscalPeriods).innerJoin(companies, eq(fiscalPeriods.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = rows[0];
+  if (!current) throw new Error("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
+  if (current.period.status !== "CLOSED") throw new Error("FISCAL_PERIOD_NOT_CLOSED");
+  await db.update(fiscalPeriods).set({ status: "REOPENED", closedAt: null }).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId)));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FISCAL_PERIOD_REOPENED", entityType: "fiscalPeriod", entityId: String(input.periodId), beforeState: JSON.stringify({ status: current.period.status }), afterState: JSON.stringify({ status: "REOPENED", reason: input.reason }), correlationId: input.correlationId });
+  return { periodId: input.periodId, from: current.period.status, to: "REOPENED" as const, reason: input.reason, audited: true };
+}
+
 export async function getPeriodsForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
@@ -754,11 +778,14 @@ export async function getSaftReadinessForUserCompany(userId: number, companyId: 
   const companyContext = await db.select({ company: companies }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, companyId), eq(organizations.ownerUserId, userId))).limit(1);
   const company = companyContext[0]?.company;
   if (!company) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
-  const [periodRows, accountRows, journal, documents] = await Promise.all([
+  const [periodRows, accountRows, journal, documents, counterpartiesRows, productsRows, normativeRows] = await Promise.all([
     getPeriodsForUserCompany(userId, companyId),
     db.select({ id: chartAccounts.id }).from(chartAccounts).where(eq(chartAccounts.companyId, companyId)),
     getJournalForUserCompany(userId, companyId),
     getDocumentsForUserCompany(userId, companyId),
+    getCounterpartiesForUserCompany(userId, companyId),
+    getProductsForUserCompany(userId, companyId),
+    getNormativeRulesForUserCompany(userId, companyId),
   ]);
   const period = periodRows[0]?.period;
   return buildSaftReadiness({
@@ -770,10 +797,10 @@ export async function getSaftReadinessForUserCompany(userId: number, companyId: 
     accountCount: accountRows.length,
     journalEntryCount: journal.entries.length,
     documentCount: documents.length,
-    customerCount: 0,
-    supplierCount: 0,
-    productCount: 0,
-    taxRuleCount: 0,
+    customerCount: counterpartiesRows.filter(({ counterparty }) => counterparty.kind === "CUSTOMER").length,
+    supplierCount: counterpartiesRows.filter(({ counterparty }) => counterparty.kind === "SUPPLIER").length,
+    productCount: productsRows.length,
+    taxRuleCount: normativeRows.length,
   });
 }
 
