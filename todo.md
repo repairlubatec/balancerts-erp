@@ -419,3 +419,12 @@
 - [x] Adicionar testes unitários, E2E, RBAC e isolamento para o fluxo anonimizado
 - [x] Executar regressão, TypeScript, build e verificação visual — 49 ficheiros/174 testes aprovados
 - [x] Guardar checkpoint do reforço do fluxo anonimizado
+
+# Melhoria da experiência de revisão anonimizada
+
+- [x] Adicionar ajuda contextual com campos permitidos, placeholders e exemplos seguros
+- [x] Mostrar resumo de linhas, erros fiscais e bloqueios de privacidade no painel
+- [x] Dar instruções accionáveis para corrigir e reenviar o ficheiro sem persistência indevida
+- [x] Adicionar testes de UI, acessibilidade e feedback de privacidade
+- [x] Executar regressão, TypeScript, build e verificação visual
+- [ ] Guardar checkpoint da melhoria da experiência anonimizada
