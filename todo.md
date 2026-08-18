@@ -582,3 +582,13 @@
 - [x] Corrigir desvios visuais confirmados sem alterar lógica de negócio
 - [x] Validar rotas desktop/PWA, acessibilidade, testes e build
 - [x] Documentar achados e guardar checkpoint da auditoria
+
+# Auditoria funcional completa
+
+- [x] Inventariar rotas, comandos, queries, mutações e estados funcionais
+- [x] Executar testes automatizados e verificações de runtime por área
+- [x] Reproduzir fluxos funcionais no browser e classificar bloqueios
+- [x] Corrigir defeitos internos confirmados e adicionar regressões
+- [x] Executar regressão final, build, isolamento e verificação visual
+- [x] Documentar funções operacionais, bloqueios e correcções
+- [x] Guardar checkpoint da auditoria funcional

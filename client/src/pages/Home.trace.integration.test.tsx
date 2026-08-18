@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import React from "react";
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const locationState = vi.hoisted(() => ({ current: "/relatorios", navigate: vi.fn(), auditEvents: [] as Array<{ event: { id: number; action: string; entityType: string; entityId: string; createdAt: string } }> }));
@@ -25,6 +25,9 @@ vi.mock("@/lib/trpc", () => ({
     },
     inventory: { record: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
     documents: { list: { useQuery: () => ({ data: [], isLoading: false }) }, createDraft: { useMutation: (options?: { onSuccess?: (result: { documentNumber: string }) => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.({ documentNumber: "FT 2026/TEST" })), isPending: false, error: null }) } },
+    closing: {
+      evaluate: { useMutation: () => ({ mutate: vi.fn((_input: unknown, options?: { onSuccess?: (result: { canClose: boolean; blockers: unknown[] }) => unknown }) => { options?.onSuccess?.({ canClose: false, blockers: [{ code: "DOCUMENTS_VALIDATED" }] }); }), isPending: false, error: null }) },
+    },
     fixedAssets: {
       list: { useQuery: () => ({ data: [], isLoading: false }) },
       create: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) },
@@ -181,6 +184,26 @@ describe("Home traceability integration", () => {
     }
   });
 
+  it("opens real configuration destinations from Definitions", () => {
+    cleanup();
+    locationState.current = "/definicoes";
+    window.history.pushState({}, "", "/definicoes");
+    locationState.navigate.mockClear();
+    render(<Home />);
+    fireEvent.click(screen.getByRole("button", { name: /Normas fiscais/ }));
+    expect(locationState.navigate).toHaveBeenCalledWith("/fiscalidade");
+  });
+
+  it("validates the close checklist without closing a period", async () => {
+    cleanup();
+    locationState.current = "/fecho";
+    window.history.pushState({}, "", "/fecho");
+    render(<Home />);
+    expect(screen.getByText("Checklist de fecho do período")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Validar checklist" }));
+    await waitFor(() => expect(screen.getByRole("status").textContent).toContain("Fecho bloqueado"));
+  });
+
   it("renders persistent fixed asset management affordances", () => {
     cleanup();
     locationState.current = "/imobilizado";
@@ -191,6 +214,15 @@ describe("Home traceability integration", () => {
     expect(screen.getByRole("button", { name: "Actualizar activo" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Calcular" })).toBeTruthy();
     expect(screen.getByText("Registos recentes")).toBeTruthy();
+  });
+
+  it("keeps Documents empty when no persisted documents exist", () => {
+    cleanup();
+    locationState.current = "/documentos";
+    window.history.pushState({}, "", "/documentos");
+    render(<Home />);
+    expect(screen.queryByText("factura_00482.pdf")).toBeNull();
+    expect(within(screen.getByRole("table", { name: "Documentos - registos" })).getAllByRole("row")).toHaveLength(1);
   });
 
   it("keeps duplicate audit actions as distinct activity rows", () => {
