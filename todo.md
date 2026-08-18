@@ -488,4 +488,4 @@
 - [x] Criar painel interno de evidências de pré-homologação
 - [x] Mostrar alertas de configuração pendente por empresa
 - [x] Executar testes, build, isolamento e verificação visual
-- [ ] Guardar checkpoint do ciclo automático
+- [x] Guardar checkpoint do ciclo automático
