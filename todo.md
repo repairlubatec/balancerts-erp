@@ -648,3 +648,11 @@
 - [x] Consolidar a experiência Windows-first e a lógica de múltiplas janelas
 - [x] Criar regressões para cada fluxo corrigido e executar validação completa
 - [x] Documentar o estado comercial real, limitações AGT e guardar checkpoint
+
+# Auditoria zero-erros — pedido do utilizador
+
+- [x] Recolher erros actuais do runtime, browser, rede e servidor
+- [x] Reproduzir cada falha real e separar bloqueios externos de erros internos
+- [x] Corrigir as causas raiz e adicionar regressões
+- [x] Validar suite, TypeScript, build, rotas principais e PWA sem erros
+- [x] Documentar o resultado e guardar checkpoint zero-erros

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getActionPresentation, getQuickActions, resolveNewAction } from "@/lib/homeActions";
+import { getActionPresentation, getQuickActions, resolveActiveCompanyId, resolveNewAction } from "@/lib/homeActions";
 import { getAccountTraceRoutes, getDocumentTraceRoutes, getReportTraceRoutes } from "@/lib/traceability";
 
 describe("BALANCERTS command palette flows", () => {
@@ -10,6 +10,15 @@ describe("BALANCERTS command palette flows", () => {
     expect(resolveNewAction(search)).toEqual({ action, label });
     expect(getActionPresentation(search)).toMatchObject({ action, label, cta, feedback: null });
     expect(getActionPresentation(search, true)).toMatchObject({ action, label, cta, feedback: "Fluxo iniciado" });
+  });
+
+  it("prefers Repair Lubatec over a stale disposable tenant but respects manual selection", () => {
+    const rows = [
+      { id: 30001, name: "BALANCERTS Test Tenant - Disposable", nif: "999999990" },
+      { id: 1, name: "Repair Lubatec", nif: "5001121871" },
+    ];
+    expect(resolveActiveCompanyId(rows, 30001, false)).toBe(1);
+    expect(resolveActiveCompanyId(rows, 30001, true)).toBe(30001);
   });
 
   it("does not activate an unknown action", () => {
