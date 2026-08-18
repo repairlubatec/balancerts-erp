@@ -465,3 +465,11 @@
 - [x] Implementar configuração segura de séries documentais e numeração
 - [x] Adicionar testes de regressão e isolamento para os novos fluxos
 - [x] Verificar visualmente e guardar checkpoint da execução automática
+
+# Política de execução automática — ciclo interno seguro
+
+- [x] Preencher automaticamente série e tipo documental na facturação com base nas séries activas
+- [x] Validar no formulário a existência e o estado activo da série antes de criar rascunho
+- [x] Mostrar histórico de alterações das séries e permissões da empresa activa
+- [x] Testar regressão, isolamento e verificação visual do ciclo automático
+- [ ] Guardar checkpoint do ciclo automático
