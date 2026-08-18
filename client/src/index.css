@@ -341,3 +341,35 @@ button { cursor: pointer; }
     padding: 0.65rem 0.75rem;
   }
 }
+
+/* Internal Windows-style window manager surfaces. */
+.erp-internal-window {
+  min-height: 0;
+  isolation: isolate;
+}
+
+.erp-internal-window--maximized {
+  position: absolute;
+  inset: 0.35rem;
+  z-index: 30;
+  box-shadow: 0 8px 22px rgb(24 43 65 / 20%);
+}
+
+.erp-workspace--maximized {
+  position: relative;
+  padding: 0.35rem;
+}
+
+.erp-internal-window__body {
+  background: var(--pmr-surface);
+}
+
+.erp-window-minimized {
+  min-height: 2.35rem;
+}
+
+@media (max-width: 640px) {
+  .erp-internal-window--maximized {
+    inset: 0;
+  }
+}

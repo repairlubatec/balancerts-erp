@@ -27,9 +27,6 @@ import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { WorkspaceTabBar, type WorkspaceTab } from "./WorkspaceTabBar";
 import { DesktopMenuBar, DesktopStatusBar } from "./DesktopMenuBar";
-import { DesktopWindowFrame } from "./DesktopWindowFrame";
-import { DesktopWindowTaskbar } from "./DesktopWindowTaskbar";
-import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 
 const menuItems = [
@@ -143,10 +140,6 @@ function DashboardLayoutContent({
   });
   const toggleGroup = (group: string) => setCollapsedGroups((current) => current.includes(group) ? current.filter((item) => item !== group) : [...current, group]);
   const workspaceTabs: WorkspaceTab[] = openPaths.map((path) => menuItems.find((item) => item.path === path)).filter((item): item is (typeof menuItems)[number] => Boolean(item));
-  const [windowStates, setWindowStates] = useState<Record<string, { minimized: boolean; maximized: boolean }>>({});
-  const activeWindowState = windowStates[activePath] ?? { minimized: false, maximized: false };
-  const toggleWindowMinimized = (path: string) => setWindowStates((current) => ({ ...current, [path]: { ...(current[path] ?? { minimized: false, maximized: false }), minimized: !(current[path]?.minimized ?? false) } }));
-  const toggleWindowMaximized = (path: string) => setWindowStates((current) => ({ ...current, [path]: { ...(current[path] ?? { minimized: false, maximized: false }), maximized: !(current[path]?.maximized ?? false), minimized: false } }));
 
   useEffect(() => {
     if (!openPaths.includes(activePath) && menuItems.some((item) => item.path === activePath)) {
@@ -245,18 +238,6 @@ function DashboardLayoutContent({
       openNextWorkspace();
       return;
     }
-    if (command === "shell-minimize") {
-      toggleWindowMinimized(activePath);
-      return;
-    }
-    if (command === "shell-maximize") {
-      toggleWindowMaximized(activePath);
-      return;
-    }
-    if (command === "shell-close") {
-      closeWorkspace(activePath);
-      return;
-    }
     if (command === "help") {
       setLocation("/?shortcuts=1");
     }
@@ -277,171 +258,3 @@ function DashboardLayoutContent({
 
       const sidebarLeft = sidebarRef.current?.getBoundingClientRect().left ?? 0;
       const newWidth = e.clientX - sidebarLeft;
-      if (newWidth >= MIN_WIDTH && newWidth <= MAX_WIDTH) {
-        setSidebarWidth(newWidth);
-      }
-    };
-
-    const handleMouseUp = () => {
-      setIsResizing(false);
-    };
-
-    if (isResizing) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-      document.body.style.cursor = "col-resize";
-      document.body.style.userSelect = "none";
-    }
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
-    };
-  }, [isResizing, setSidebarWidth]);
-
-  return (
-    <>
-      <div className="relative" ref={sidebarRef}>
-        <Sidebar
-          collapsible="icon"
-          className="border-r border-[#aeb8c4] bg-[#edf1f5]"
-          disableTransition={isResizing}
-        >
-          <SidebarHeader className="h-11 justify-center border-b border-[#c9d1db] bg-[#e5e9ee]">
-            <div className="flex items-center gap-3 px-2 transition-all w-full">
-              <button
-                onClick={toggleSidebar}
-                  className="h-7 w-7 flex items-center justify-center rounded-sm border border-[#b8c3cf] bg-[#f5f7f9] hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1267d6] shrink-0"
-                aria-label="Toggle navigation"
-              >
-                <PanelLeft className="h-4 w-4 text-muted-foreground" />
-              </button>
-              {!isCollapsed ? (
-                <div className="flex items-center gap-2 min-w-0">
-                  <span className="font-semibold tracking-tight truncate text-[#1267d6]">
-                    BALANCERTS.ERP
-                  </span>
-                </div>
-              ) : null}
-            </div>
-          </SidebarHeader>
-
-          <SidebarContent className="gap-0">
-            <SidebarMenu className="px-2 py-1">
-              {menuItems.map((item, index) => {
-                const isActive = activePath === item.path;
-                const previous = menuItems[index - 1];
-                const firstOfGroup = !previous || previous.group !== item.group;
-                const groupOpen = !collapsedGroups.includes(item.group) || activePath === item.path;
-                return (
-                  <React.Fragment key={item.path}>
-                    {!isCollapsed && firstOfGroup && <li className="list-none px-2 pb-1 pt-2"><button type="button" onClick={() => toggleGroup(item.group)} className="flex w-full items-center justify-between text-left text-[9px] font-bold uppercase tracking-[0.14em] text-[#7a8795] outline-none hover:text-[#1d568f] focus-visible:ring-1 focus-visible:ring-[#1267d6]"><span>{item.group}</span><ChevronDown className={`h-3 w-3 transition-transform ${groupOpen ? "" : "-rotate-90"}`} /></button></li>}
-                  {(!isCollapsed && !groupOpen) ? null : <SidebarMenuItem>
-                    <SidebarMenuButton
-                      isActive={isActive}
-                      onClick={() => selectWorkspace(item.path)}
-                      tooltip={item.label}
-                      className={`h-8 rounded-sm border border-transparent text-[12px] transition-all font-normal ${isActive ? "border-[#b7c9dc] bg-[#d9e6f4] text-[#123d70] shadow-none" : "hover:border-[#d0d8e2] hover:bg-white"}`}
-                    >
-                      <item.icon
-                        className={`h-4 w-4 ${isActive ? "text-primary" : ""}`}
-                      />
-                      <span>{item.label}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>}
-                  </React.Fragment>
-                );
-              })}
-            </SidebarMenu>
-          </SidebarContent>
-
-          <SidebarFooter className="border-t border-[#c9d1db] bg-[#e5e9ee] p-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-3 rounded-lg px-1 py-1 hover:bg-accent/50 transition-colors w-full text-left group-data-[collapsible=icon]:justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                  <Avatar className="h-9 w-9 border shrink-0">
-                    <AvatarFallback className="text-xs font-medium">
-                      {user?.name?.charAt(0).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1 min-w-0 group-data-[collapsible=icon]:hidden">
-                    <p className="text-sm font-medium truncate leading-none">
-                      {user?.name || "-"}
-                    </p>
-                    <p className="text-xs text-muted-foreground truncate mt-1.5">
-                      {user?.email || "-"}
-                    </p>
-                  </div>
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem
-                  onClick={logout}
-                  className="cursor-pointer text-destructive focus:text-destructive"
-                >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Sair</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarFooter>
-        </Sidebar>
-        <div
-          className={`absolute top-0 right-0 w-1 h-full cursor-col-resize hover:bg-primary/20 transition-colors ${isCollapsed ? "hidden" : ""}`}
-          onMouseDown={() => {
-            if (isCollapsed) return;
-            setIsResizing(true);
-          }}
-          style={{ zIndex: 50 }}
-        />
-      </div>
-
-      <SidebarInset className="border-l border-[#aeb8c4] bg-[#dfe4ea]">
-        <DesktopMenuBar activeModule={activeMenuItem?.label} onCommand={handleMenuCommand} />
-        <WorkspaceTabBar
-          tabs={workspaceTabs}
-          activePath={activePath}
-          onSelect={selectWorkspace}
-          onClose={closeWorkspace}
-          onNew={openNextWorkspace}
-        />
-        {isMobile && (
-          <div className="flex border-b h-14 items-center justify-between bg-background/95 px-2 backdrop-blur supports-[backdrop-filter]:backdrop-blur sticky top-0 z-40">
-            <div className="flex items-center gap-2">
-              <SidebarTrigger className="h-9 w-9 rounded-lg bg-background" />
-              <div className="flex items-center gap-3">
-                <div className="flex flex-col gap-1">
-                  <span className="tracking-tight text-foreground">
-                    {activeMenuItem?.label ?? "Menu"}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        <main className={cn("erp-workspace flex min-h-0 flex-1 flex-col bg-[#dfe4ea] p-3", activeWindowState.maximized && "erp-workspace--maximized")}>
-          <DesktopWindowFrame
-            title={activeMenuItem?.label ?? "Área de trabalho"}
-            subtitle="Sessão operacional · Angola"
-            icon={activeMenuItem?.icon}
-            minimized={activeWindowState.minimized}
-            maximized={activeWindowState.maximized}
-            onMinimize={() => toggleWindowMinimized(activePath)}
-            onMaximize={() => toggleWindowMaximized(activePath)}
-            onClose={() => closeWorkspace(activePath)}
-          >
-            {children}
-          </DesktopWindowFrame>
-        </main>
-        <DesktopWindowTaskbar
-          windows={workspaceTabs.map((window) => ({ path: window.path, label: window.label, icon: window.icon, minimized: windowStates[window.path]?.minimized }))}
-          activePath={activePath}
-          onSelect={selectWorkspace}
-        />
-        <DesktopStatusBar module={activeMenuItem?.label} />
-      </SidebarInset>
-    </>
-  );
-}

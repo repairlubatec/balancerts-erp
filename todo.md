@@ -729,3 +729,15 @@
 - [x] Validar FT/000001 e emitir internamente via transições auditadas
 - [x] Validar contabilização do FT/000001: bloqueada correctamente por DOCUMENT_REQUIRES_POSTED_ENTRY antes da carga PGC; documento não foi contabilizado nem comunicado
 - [x] Carregar núcleo PGC operacional da Repair Lubatec: 12 contas hierárquicas, incluindo clientes, caixa e prestações de serviço, com vigência desde 2023-09; comunicação AGT continua desligada
+
+# Auditoria PMR e shell Windows Desktop — nova execução
+
+- [x] Inventariar todos os materiais PMR disponíveis no Drive/workspace e o estado actual do shell
+- [x] Comparar módulos e serviços PMR com os módulos reais do BALANCERTS.ERP
+- [x] Documentar lacunas funcionais, pontos mortos e diferenças de experiência desktop
+- [x] Implementar shell de janelas sobrepostas/ancoradas com minimizar, maximizar, restaurar, fechar e foco real
+- [x] Implementar barra de tarefas/janela activa e menu Janela funcional
+- [x] Melhorar o aspecto Windows Desktop sem remover PWA, acessibilidade ou densidade PMR
+- [ ] Implementar as lacunas funcionais prioritárias encontradas na comparação
+- [x] Rever testes Vitest, TypeScript, build e screenshots desktop/PWA
+- [ ] Guardar checkpoint da auditoria e implementação

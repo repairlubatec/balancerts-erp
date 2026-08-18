@@ -39,10 +39,10 @@ export function DesktopMenuBar({ activeModule, onCommand }: DesktopMenuBarProps)
       <div className="ml-auto hidden items-center gap-2 md:flex" aria-label="Estado da janela">
         {activeModule && <span className="hidden border-l border-white/10 pl-3 text-[#a7bdd5] md:inline">Módulo: <strong className="text-white">{activeModule}</strong></span>}
         <button type="button" onClick={() => onCommand("help")} aria-label="Ajuda" className="rounded-sm p-1 hover:bg-white/10 focus-visible:ring-1 focus-visible:ring-[#78b5ff]"><HelpCircle className="h-3.5 w-3.5" /></button>
-        <div className="ml-1 flex items-center gap-0.5 border-l border-white/10 pl-2" aria-hidden="true">
-          <Minus className="h-3.5 w-3.5 text-[#a7bdd5]" />
-          <Square className="h-3 w-3 text-[#a7bdd5]" />
-          <X className="h-3.5 w-3.5 text-[#a7bdd5]" />
+        <div className="ml-1 flex items-center gap-0.5 border-l border-white/10 pl-2" aria-label="Controlos da janela activa">
+          <button type="button" onClick={() => onCommand("shell-minimize")} aria-label="Minimizar janela activa" title="Minimizar janela activa" className="rounded-sm p-0.5 hover:bg-white/10 focus-visible:ring-1 focus-visible:ring-[#78b5ff]"><Minus className="h-3.5 w-3.5 text-[#a7bdd5]" /></button>
+          <button type="button" onClick={() => onCommand("shell-maximize")} aria-label="Maximizar ou restaurar janela activa" title="Maximizar/restaurar janela activa" className="rounded-sm p-0.5 hover:bg-white/10 focus-visible:ring-1 focus-visible:ring-[#78b5ff]"><Square className="h-3 w-3 text-[#a7bdd5]" /></button>
+          <button type="button" onClick={() => onCommand("shell-close")} aria-label="Fechar janela activa" title="Fechar janela activa" className="rounded-sm p-0.5 hover:bg-[#b22d3b] hover:text-white focus-visible:ring-1 focus-visible:ring-[#78b5ff]"><X className="h-3.5 w-3.5 text-[#a7bdd5]" /></button>
         </div>
       </div>
     </div>
