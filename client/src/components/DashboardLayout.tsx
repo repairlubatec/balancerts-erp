@@ -46,6 +46,7 @@ const menuItems = [
   { icon: Landmark, label: "Fiscalidade", group: "Controlo", path: "/fiscalidade" },
   { icon: BarChart3, label: "Relatórios", group: "Controlo", path: "/relatorios" },
   { icon: ClipboardCheck, label: "Fecho", group: "Controlo", path: "/fecho" },
+  { icon: ClipboardCheck, label: "Centro de Tarefas", group: "Controlo", path: "/tarefas" },
   { icon: ShieldCheck, label: "Auditoria", group: "Controlo", path: "/auditoria" },
   { icon: Settings2, label: "Definições", group: "Sistema", path: "/definicoes" },
 ];

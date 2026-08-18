@@ -738,6 +738,6 @@
 - [x] Implementar shell de janelas sobrepostas/ancoradas com minimizar, maximizar, restaurar, fechar e foco real
 - [x] Implementar barra de tarefas/janela activa e menu Janela funcional
 - [x] Melhorar o aspecto Windows Desktop sem remover PWA, acessibilidade ou densidade PMR
-- [ ] Implementar as lacunas funcionais prioritárias encontradas na comparação
+- [x] Implementar a lacuna funcional prioritária seleccionada: Centro de Tarefas PMR com pendências reais, estados persistentes e encaminhamento accionável; restantes produtos PMR ficam documentados como extensões de escopo
 - [x] Rever testes Vitest, TypeScript, build e screenshots desktop/PWA
-- [ ] Guardar checkpoint da auditoria e implementação
+- [x] Guardar checkpoint da auditoria e implementação

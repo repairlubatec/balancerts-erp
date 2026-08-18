@@ -22,6 +22,7 @@ function Router() {
       <Route path="/tesouraria" component={Home} />
       <Route path="/relatorios" component={Home} />
       <Route path="/fecho" component={Home} />
+      <Route path="/tarefas" component={Home} />
       <Route path="/auditoria" component={Home} />
       <Route path="/empresas" component={Home} />
       <Route path="/definicoes" component={Home} />
