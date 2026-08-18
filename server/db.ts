@@ -931,3 +931,29 @@ export async function createFiscalPeriodForUser(input: { userId: number; company
   const created = await db.select({ period: fiscalPeriods }).from(fiscalPeriods).where(eq(fiscalPeriods.id, Number(inserted[0].insertId))).limit(1);
   return created[0];
 }
+
+export async function getDocumentSeriesForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ series: documentSeries }).from(documentSeries).innerJoin(companies, eq(documentSeries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(documentSeries.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(documentSeries.code, documentSeries.documentType);
+}
+
+export async function createDocumentSeriesForUser(input: { userId: number; companyId: number; code: string; documentType: string; nextNumber?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const code = input.code.trim().toUpperCase();
+  const documentType = input.documentType.trim().toUpperCase();
+  if (code.length < 1 || code.length > 32) throw new Error("DOCUMENT_SERIES_CODE_INVALID");
+  if (documentType.length < 1 || documentType.length > 32) throw new Error("DOCUMENT_TYPE_INVALID");
+  const nextNumber = input.nextNumber ?? 1;
+  if (!Number.isInteger(nextNumber) || nextNumber < 1) throw new Error("DOCUMENT_SERIES_NUMBER_INVALID");
+  const context = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = context[0];
+  if (!current) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const existing = await db.select({ series: documentSeries }).from(documentSeries).where(and(eq(documentSeries.companyId, input.companyId), eq(documentSeries.code, code), eq(documentSeries.documentType, documentType))).limit(1);
+  if (existing[0]) return existing[0];
+  const inserted = await db.insert(documentSeries).values({ companyId: input.companyId, code, documentType, nextNumber, active: 1 });
+  await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_SERIES_CREATED", entityType: "documentSeries", entityId: String(inserted[0].insertId), beforeState: null, afterState: JSON.stringify({ code, documentType, nextNumber, active: 1 }), correlationId: `company:${input.companyId}:series:${code}:${documentType}` });
+  const created = await db.select({ series: documentSeries }).from(documentSeries).where(eq(documentSeries.id, Number(inserted[0].insertId))).limit(1);
+  return created[0];
+}

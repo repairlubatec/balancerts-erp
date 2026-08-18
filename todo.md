@@ -457,3 +457,11 @@
 - [x] Adicionar testes do assistente e das permissões
 - [x] Verificar visualmente o fluxo sem alterar Repair Lubatec
 - [x] Guardar checkpoint da configuração operacional
+
+# Execução automática dos próximos passos seguros
+
+- [x] Implementar selector de empresa activa persistente e tenant-aware
+- [x] Executar ciclo completo de empresa descartável pela interface/contratos
+- [x] Implementar configuração segura de séries documentais e numeração
+- [x] Adicionar testes de regressão e isolamento para os novos fluxos
+- [x] Verificar visualmente e guardar checkpoint da execução automática

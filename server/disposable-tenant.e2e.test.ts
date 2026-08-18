@@ -1,7 +1,7 @@
 import { and, eq, like } from "drizzle-orm";
 import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
-import { auditEvents, businessDocuments, chartAccounts, companies, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, stockMovements } from "../drizzle/schema";
+import { auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, stockMovements } from "../drizzle/schema";
 import { createFileAsset, getDb, getReportsReconciliationForUserCompany, getDocumentAccountingChainForUserCompany, getAuditEventsForUserCompany, postJournalEntry, recordStockMovement, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 
 const TEST_USER_ID = 1;
@@ -38,6 +38,7 @@ describe("disposable tenant persisted E2E cycle", () => {
     let createdCompanyId: number | undefined;
     let createdExerciseId: number | undefined;
     let createdPeriodId: number | undefined;
+    let createdSeriesId: number | undefined;
     const correlation = `disposable-e2e-${Date.now()}`;
     try {
       const createdCompany = await caller.companies.create({ name: "BALANCERTS Audit Disposable", nif: `999${Date.now().toString().slice(-7)}`, functionalCurrency: "AOA", ivaRegime: "EXCLUSAO", legalForm: "Sociedade por Quotas", address: "Morada E2E", municipality: "Lubango", province: "Huíla", phone: "+244900000000", email: `audit-${Date.now()}@example.invalid`, activity: "Prestação de Serviço", incorporationYear: 2026, legalRepresentatives: "Representante E2E" });
@@ -47,6 +48,8 @@ describe("disposable tenant persisted E2E cycle", () => {
       createdExerciseId = createdExercise.exercise.id;
       const createdPeriod = await caller.companies.createPeriod({ companyId: createdCompanyId, year: 2026, month: 1 });
       createdPeriodId = createdPeriod.period.id;
+      const createdSeries = await caller.documents.createSeries({ companyId: createdCompanyId, code: "FT-E2E", documentType: "FT", nextNumber: 1 });
+      createdSeriesId = createdSeries.series.id;
       const activatedDisposable = await caller.companies.activate({ companyId: createdCompanyId, confirmation: "ACTIVATE_COMPANY" });
       expect(activatedDisposable).toMatchObject({ companyId: createdCompanyId, configurationStatus: "READY" });
       const companyAudit = await getAuditEventsForUserCompany(TEST_USER_ID, createdCompanyId);
@@ -231,6 +234,7 @@ describe("disposable tenant persisted E2E cycle", () => {
         await db!.delete(journalEntries).where(eq(journalEntries.id, entryId));
       }
       if (documentId) await db!.delete(businessDocuments).where(eq(businessDocuments.id, documentId));
+      if (createdSeriesId) await db!.delete(documentSeries).where(eq(documentSeries.id, createdSeriesId));
       if (createdPeriodId) await db!.delete(fiscalPeriods).where(eq(fiscalPeriods.id, createdPeriodId));
       if (createdExerciseId) await db!.delete(fiscalExercises).where(eq(fiscalExercises.id, createdExerciseId));
       if (createdCompanyId) {
