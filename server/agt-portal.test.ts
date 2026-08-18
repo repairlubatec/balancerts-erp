@@ -53,7 +53,7 @@ describe("AGT Portal do Parceiro — contratos SIGT/FE", () => {
       submissionUUID: "550e8400-e29b-41d4-a716-446655440000",
       taxRegistrationNumber: "5001121871",
       submissionTimeStamp: "2026-08-18T08:00:00",
-      softwareInfo: { softwareInfoDetail: { productId: "BALANCERTS.ERP", productVersion: "1.0.0" } },
+      softwareInfo: { softwareInfoDetail: { productId: "BALANCERTS.ERP", productVersion: "1.0.0", softwareValidationNumber: "PENDING", signatureVersion: 1 } },
       numberOfEntries: "1",
       documents: [{ documentNo: "FT 2026/1", documentStatus: "N", documentDate: "2026-08-18", documentType: "FT", companyName: "Repair Lubatec", lines: [{ lineNumber: "1", productCode: "SERV-1", productDescription: "Serviço", quantity: "1" }], documentTotals: { taxPayable: "0", netTotal: "100", grossTotal: "100" } }],
     });
