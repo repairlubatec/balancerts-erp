@@ -10,6 +10,34 @@ const CURRENCIES = new Set(["AOA"]);
 
 function text(value: unknown) { return String(value ?? "").trim(); }
 function numberValue(value: unknown) { const parsed = Number(String(value ?? "").replace(/\s/g, "").replace(/,/g, ".")); return Number.isFinite(parsed) ? parsed : NaN; }
+function parseStructuredArray(value: unknown) { if (Array.isArray(value)) return value as FiscalImportRow[]; if (!text(value)) return []; try { const parsed = JSON.parse(text(value)); return Array.isArray(parsed) ? parsed as FiscalImportRow[] : []; } catch { return []; } }
+export function validateInvoiceReviewRow(row: FiscalImportRow, line: number) {
+  const errors: FiscalImportError[] = [];
+  const items = parseStructuredArray(row.lines ?? row.linesJson ?? row.items ?? row.itemsJson);
+  if (!items.length) errors.push({ row: line, field: "lines", message: "A factura deve conter pelo menos uma linha" });
+  let lineNet = 0, lineTax = 0, lineTotal = 0;
+  items.forEach((item, index) => {
+    const field = `lines[${index}]`;
+    if (!text(item.description)) errors.push({ row: line, field: `${field}.description`, message: "Descrição da linha obrigatória" });
+    const quantity = numberValue(item.quantity), unitPrice = numberValue(item.unitPrice), net = numberValue(item.netAmount), tax = numberValue(item.taxAmount), total = numberValue(item.totalAmount);
+    if (!Number.isFinite(quantity) || quantity <= 0) errors.push({ row: line, field: `${field}.quantity`, message: "Quantidade deve ser positiva" });
+    if (!Number.isFinite(unitPrice) || unitPrice < 0) errors.push({ row: line, field: `${field}.unitPrice`, message: "Preço unitário inválido" });
+    if (![net, tax, total].every(Number.isFinite) || net < 0 || tax < 0 || total < 0) errors.push({ row: line, field, message: "Valores da linha inválidos" });
+    if ([net, tax, total].every(Number.isFinite) && Math.abs(net + tax - total) > 0.01) errors.push({ row: line, field: `${field}.totalAmount`, message: "Total da linha deve reconciliar com líquido + imposto" });
+    if (Number.isFinite(net)) lineNet += net;
+    if (Number.isFinite(tax)) lineTax += tax;
+    if (Number.isFinite(total)) lineTotal += total;
+  });
+  const headerNet = numberValue(row.netAmount), headerTax = numberValue(row.taxAmount), headerTotal = numberValue(row.totalAmount);
+  if ([headerNet, headerTax, headerTotal].every(Number.isFinite)) {
+    if (Math.abs(lineNet - headerNet) > 0.01) errors.push({ row: line, field: "netAmount", message: "Líquido do cabeçalho não reconcilia com as linhas" });
+    if (Math.abs(lineTax - headerTax) > 0.01) errors.push({ row: line, field: "taxAmount", message: "Imposto do cabeçalho não reconcilia com as linhas" });
+    if (Math.abs(lineTotal - headerTotal) > 0.01) errors.push({ row: line, field: "totalAmount", message: "Total do cabeçalho não reconcilia com as linhas" });
+  }
+  const taxes = parseStructuredArray(row.taxes ?? row.taxesJson);
+  if (taxes.length) { const taxSum = taxes.reduce((sum, tax) => sum + (Number.isFinite(numberValue(tax.amount ?? tax.taxAmount)) ? numberValue(tax.amount ?? tax.taxAmount) : 0), 0); if (Number.isFinite(headerTax) && Math.abs(taxSum - headerTax) > 0.01) errors.push({ row: line, field: "taxes", message: "Soma dos impostos não reconcilia com taxAmount" }); }
+  return errors;
+}
 
 export function validateFiscalImport(kind: FiscalImportKind, rows: FiscalImportRow[]) {
   const errors: FiscalImportError[] = [];
@@ -33,6 +61,7 @@ export function validateFiscalImport(kind: FiscalImportKind, rows: FiscalImportR
       for (const field of ["netAmount", "taxAmount", "totalAmount"]) if (!Number.isFinite(numberValue(row[field])) || numberValue(row[field]) < 0) errors.push({ row: line, field, message: "Valor monetário inválido ou negativo" });
       const net = numberValue(row.netAmount), tax = numberValue(row.taxAmount), total = numberValue(row.totalAmount);
       if (Number.isFinite(net) && Number.isFinite(tax) && Number.isFinite(total) && Math.abs(net + tax - total) > 0.01) errors.push({ row: line, field: "totalAmount", message: "Total deve reconciliar com líquido + imposto" });
+      errors.push(...validateInvoiceReviewRow(row, line));
     }
   });
   return { valid: errors.length === 0, errors, acceptedRows: rows.length - new Set(errors.map((error) => error.row)).size };

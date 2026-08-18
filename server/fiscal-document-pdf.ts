@@ -8,6 +8,16 @@ export type FiscalPdfInput = { company: FiscalPdfCompany; document: { documentNu
 
 function money(value: string | number, currency: string) { return `${Number(value).toFixed(2)} ${currency}`; }
 function dataUrlToBuffer(value: string) { return Buffer.from(value.replace(/^data:image\/png;base64,/, ""), "base64"); }
+const OFFICIAL_AGT_LOGO_URL = "https://portaldoparceiro.minfin.gov.ao/doc-agt/faturacao-electronica/1/_attachments/logo.png";
+async function loadOfficialAgtLogo() {
+  try {
+    const response = await fetch(OFFICIAL_AGT_LOGO_URL, { signal: AbortSignal.timeout(2500) });
+    if (!response.ok) return null;
+    return Buffer.from(await response.arrayBuffer());
+  } catch {
+    return null;
+  }
+}
 
 export async function buildFiscalDocumentPdf(input: FiscalPdfInput) {
   const qrDataUrl = await generateAgtQrCodeDataUrl({ issuerNif: input.company.nif, documentNo: input.document.documentNumber });
@@ -31,7 +41,11 @@ export async function buildFiscalDocumentPdf(input: FiscalPdfInput) {
   pdf.moveDown(1).fontSize(8).fillColor("#6b7280").text("DOCUMENTO DE PREPARAÇÃO INTERNA — NÃO CERTIFICADO/HOMOLOGADO PELA AGT.");
   pdf.text(`Hash SHA-256: ${hash}`, { width: 360 });
   pdf.text(`Consulta QR: ${qrUrl}`, { width: 360 });
-  pdf.image(dataUrlToBuffer(qrDataUrl), 430, Math.max(500, pdf.y - 80), { fit: [100, 100] });
+  const qrX = 430;
+  const qrY = Math.max(500, pdf.y - 80);
+  pdf.image(dataUrlToBuffer(qrDataUrl), qrX, qrY, { fit: [100, 100] });
+  const agtLogo = await loadOfficialAgtLogo();
+  if (agtLogo) pdf.image(agtLogo, qrX + 36, qrY + 36, { fit: [28, 28] });
   pdf.end();
   const buffer = await finished;
   return { buffer, hash, qrUrl, certified: false as const, mimeType: "application/pdf" as const };

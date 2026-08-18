@@ -14,5 +14,7 @@ describe("fiscal preparation PDF", () => {
     expect(result.qrUrl).toContain("document=FT%20FT2026S1%2F000001");
     expect(result.certified).toBe(false);
     expect(result.mimeType).toBe("application/pdf");
+    const imageCount = (result.buffer.toString("latin1").match(/\/Subtype \/Image/g) ?? []).length;
+    expect(imageCount).toBeGreaterThanOrEqual(2);
   });
 });

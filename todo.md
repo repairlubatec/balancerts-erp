@@ -397,3 +397,14 @@
 - [x] Verificar PDF, hash SHA-256, QR URL, download e aviso de não certificação; logotipo AGT confirmado como não configurado no gerador PDF
 - [x] Executar regressão completa, TypeScript, build e verificação visual final
 - [x] Guardar checkpoint da execução prática completa
+
+# Próximos passos práticos aprovados
+
+- [x] Validar origem institucional, formato e cobertura do activo oficial do logotipo AGT
+- [x] Integrar logotipo AGT configurável no PDF com fallback seguro e aviso de não certificação
+- [x] Criar revisão estruturada de facturas importadas com cabeçalho, linhas, impostos, totais e diferenças
+- [x] Persistir correcções e bloquear confirmação quando os totais não reconciliam
+- [x] Preparar fluxo de ficheiros reais anonimizados com pré-visualização e validação; teste com ficheiro real da equipa aguardará o upload
+- [x] Adicionar testes de logo, facturas, reconciliação, RBAC, isolamento e ficheiros anonimizados — cobertura segura de fixture anonimizada; ficheiro real da equipa ainda não fornecido
+- [x] Executar regressão, TypeScript, build e verificação visual — 49 ficheiros/173 testes aprovados
+- [ ] Guardar checkpoint dos três próximos passos
