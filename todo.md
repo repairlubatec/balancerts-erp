@@ -574,3 +574,11 @@
 - [x] Adaptar a linguagem ao PWA e acessibilidade
 - [x] Executar regressão total, verificação visual e documentação
 - [x] Guardar checkpoint da uniformização completa
+
+# Auditoria visual Windows/macOS Desktop
+
+- [x] Inventariar todas as rotas e componentes que podem parecer web
+- [x] Comparar Overview, módulos, modais, menus, login, estados e PWA com critérios desktop
+- [x] Corrigir desvios visuais confirmados sem alterar lógica de negócio
+- [x] Validar rotas desktop/PWA, acessibilidade, testes e build
+- [x] Documentar achados e guardar checkpoint da auditoria

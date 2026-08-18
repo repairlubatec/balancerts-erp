@@ -73,24 +73,20 @@ export default function DashboardLayout({
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="flex flex-col items-center gap-8 p-8 max-w-md w-full">
-          <div className="flex flex-col items-center gap-6">
-            <h1 className="text-2xl font-semibold tracking-tight text-center">
-              Sign in to continue
-            </h1>
-            <p className="text-sm text-muted-foreground text-center max-w-sm">
-              Access to this dashboard requires authentication. Continue to launch the login flow.
-            </p>
+      <div className="flex min-h-screen items-center justify-center bg-[#dfe4ea] p-4">
+        <section className="w-full max-w-md border border-[#9eabb8] bg-[#fbfcfd]">
+          <header className="flex h-9 items-center gap-2 border-b border-[#182b41] bg-[#172b42] px-3 text-xs text-white">
+            <span className="font-semibold tracking-tight">BALANCERTS</span><span className="font-semibold text-[#79c324]">.ERP</span>
+            <span className="ml-auto text-[10px] uppercase tracking-[0.12em] text-[#b9c8d8]">Acesso seguro</span>
+          </header>
+          <div className="space-y-2 p-5">
+            <h1 className="text-base font-semibold text-[#1d2a38]">Entrar no sistema</h1>
+            <p className="text-xs leading-relaxed text-[#687787]">A autenticação é necessária para abrir as empresas e executar operações protegidas.</p>
           </div>
-          <Button
-            onClick={() => startLogin()}
-            size="lg"
-            className="w-full shadow-lg hover:shadow-xl transition-all"
-          >
-            Sign in
-          </Button>
-        </div>
+          <footer className="flex justify-end border-t border-[#d9e0e7] bg-[#eef1f4] px-3 py-2">
+            <Button type="button" onClick={() => startLogin()} className="h-7 rounded-sm bg-[#1267d6] px-4 text-[11px] text-white hover:bg-[#0f58b8]">Entrar</Button>
+          </footer>
+        </section>
       </div>
     );
   }
