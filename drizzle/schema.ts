@@ -1,4 +1,4 @@
-import { decimal, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { decimal, int, json, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -289,6 +289,22 @@ export const cashReconciliations = mysqlTable("cashReconciliations", {
   status: mysqlEnum("status", ["OPEN", "RECONCILED"]).default("OPEN").notNull(),
   createdBy: int("createdBy").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const agtIntegrationConfigs = mysqlTable("agt_integration_configs", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organization_id").notNull(),
+  companyId: int("company_id").notNull(),
+  version: varchar("version", { length: 32 }).notNull(),
+  xsdVersion: varchar("xsd_version", { length: 64 }),
+  xsdReference: varchar("xsd_reference", { length: 512 }),
+  endpointReference: varchar("endpoint_reference", { length: 512 }),
+  authReference: varchar("auth_reference", { length: 255 }),
+  officialCodes: json("official_codes").$type<Record<string, string>>(),
+  homologationStatus: mysqlEnum("homologation_status", ["NOT_AVAILABLE", "INTERNAL_READY", "TECHNICAL_PENDING", "AGT_APPROVED"]).notNull().default("NOT_AVAILABLE"),
+  active: int("active").notNull().default(1),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
 
 export const normativeRules = mysqlTable("normativeRules", {

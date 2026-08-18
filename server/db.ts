@@ -2,7 +2,8 @@ import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+import { InsertUser,   agtIntegrationConfigs,
+  auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
@@ -125,6 +126,23 @@ export async function createPaymentForUser(input: { userId: number; organization
   }
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_CREATED", entityType: "payment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ direction: input.direction, amount: input.amount, documentId: input.documentId ?? null, cashAccountId: input.cashAccountId ?? null, status: "PENDING" }), correlationId: input.correlationId });
   return { payment: { id, ...input, status: "PENDING" as const }, treasuryTransactionId, idempotent: false };
+}
+
+export async function getAgtIntegrationConfigForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ config: agtIntegrationConfigs }).from(agtIntegrationConfigs).innerJoin(companies, eq(agtIntegrationConfigs.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(agtIntegrationConfigs.companyId, companyId), eq(organizations.ownerUserId, userId), eq(agtIntegrationConfigs.active, 1))).orderBy(desc(agtIntegrationConfigs.createdAt));
+}
+
+export async function configureAgtIntegrationForUser(input: { userId: number; organizationId: number; companyId: number; version: string; xsdVersion?: string; xsdReference?: string; endpointReference?: string; authReference?: string; officialCodes?: Record<string, string>; homologationStatus?: "NOT_AVAILABLE" | "INTERNAL_READY" | "TECHNICAL_PENDING" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const context = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!context[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const inserted = await db.insert(agtIntegrationConfigs).values({ organizationId: input.organizationId, companyId: input.companyId, version: input.version, xsdVersion: input.xsdVersion, xsdReference: input.xsdReference, endpointReference: input.endpointReference, authReference: input.authReference, officialCodes: input.officialCodes, homologationStatus: input.homologationStatus ?? "INTERNAL_READY", active: 1 });
+  const id = Number(inserted[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "AGT_CONFIGURED", entityType: "agtIntegrationConfig", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, userId: undefined, id }), correlationId: `agt-config:${input.companyId}:${input.version}` });
+  return { id, homologationStatus: input.homologationStatus ?? "INTERNAL_READY" };
 }
 
 export async function getNormativeRulesForUserCompany(userId: number, companyId: number) {

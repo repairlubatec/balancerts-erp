@@ -253,3 +253,11 @@
 - [x] Bloquear actualização de artigo/serviço usado por documento ISSUED, ACCOUNTED ou CANCELLED, com teste tenant-aware e auditoria para alterações permitidas
 - [x] Executar cenário fornecedor→documento emitido→lançamento POSTED com `sourceDocumentId`, validando associação contabilística e cleanup tenant-aware
 - [x] Cobrir fluxo bancário OUT com transferência, consulta de pagamentos, movimento de tesouraria e reconciliação persistente de saldo negativo
+- [x] Provar isolamento tenant-aware nas superfícies existentes de integrações persistentes, SAF-T, ficheiros, relatórios e mutações operacionais; caches/filas não fazem parte da superfície implementada e permanecem como limite documentado
+- [x] Criar configuração AGT versionada para XSD, endpoint, autenticação, códigos oficiais e estado de homologação
+- [x] Implementar fila de submissão AGT com estados, idempotência, timeout, reprocessamento e auditoria tenant-aware
+- [ ] Implementar validação estrutural local do XML SAF-T quando um XSD oficial for disponibilizado, sem declarar certificação
+- [x] Documentar claramente a separação entre preparação interna, homologação técnica e certificação formal da AGT
+- [x] Criar configuração AGT versionada para XSD, endpoint, autenticação, códigos oficiais e estado de homologação, sem guardar segredos em claro
+- [x] Implementar enfileiramento AGT tenant-aware com estado PENDING e replay idempotente, reutilizando operações persistentes
+- [x] Testar configuração e fila AGT no tenant descartável, incluindo rejeição de escopo forjado e limpeza sem afectar a Repair Lubatec

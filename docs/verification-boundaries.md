@@ -1,23 +1,23 @@
 # Limites de verificação do BALANCERTS.ERP
 
-Este documento separa evidência executada de requisitos ainda não demonstrados. A existência de testes unitários ou de contratos puros não é tratada como prova de execução completa sobre dados operacionais.
+Este documento separa a evidência executada de requisitos que dependem de informação ou aprovação externa. Testes locais não são tratados como prova de homologação ou certificação legal.
 
-## Evidência actualmente executada
+## Evidência executada
 
-A Repair Lubatec (NIF 5001121871) é consultada na base real de forma tenant-aware, sem inserção de documentos, lançamentos ou movimentos demonstrativos. Estão validados os contratos de relatórios, reconciliação contabilístico-fiscal, origem documental, validação AGT e prontidão SAF-T AO 1.01_01. A prontidão SAF-T identifica lacunas e mantém `submissionEligible: false`; não existe afirmação de submissão à AGT.
+A Repair Lubatec (NIF 5001121871) é consultada de forma tenant-aware e não recebe dados demonstrativos. O tenant descartável cobre ciclos persistentes de documentos, fornecedores, clientes, itens, impostos, pagamentos, posting, stock, tesouraria, reconciliação, fecho, reabertura, recuperação de integrações e auditoria por entidade.
 
-Os builders de reconciliação cobrem Balancete, Diário, Balanço, IVA, registo fiscal e origem documental. A resposta agregada só é reconciliada quando a origem documental também está reconciliada. A regra de IVA positivo no regime EXCLUSÃO é rejeitada tanto na validação fiscal como nos relatórios.
+O sistema possui configuração versionada do adaptador AGT, com referências de XSD, endpoint, códigos oficiais e referência segura de autenticação. A fila local de submissão usa operações persistentes, estado `PENDING`, chave idempotente e rejeição de escopo incompatível. A submissão real não é simulada.
 
-A matriz de auditoria cobre dez mutações críticas por contrato de `action`, `entityType` e snapshots. Os testes de integração confirmam eventos reais existentes da Repair Lubatec e isolamento de escopos inexistentes. Isso não significa que cada mutação tenha sido executada numa sequência comercial completa com dados gravados.
+O builder SAF-T AO 1.01_01 produz XML determinístico quando a prontidão interna for elegível. O endpoint mantém o bloqueio enquanto faltarem entidades obrigatórias ou validação externa. A matriz do Decreto Presidencial n.º 71/25 cobre internamente emissão, rectificação, anulação, recibos, conservação e certificação como requisitos separados, com estados externos pendentes.
 
-## Lacunas que permanecem deliberadamente abertas
+## Dependências externas ainda abertas
 
-Ainda falta uma execução E2E persistida, com dados operacionais controlados, que percorra reserva, emissão, posting, validação fiscal, reconciliação, fecho e reabertura numa única empresa. Também falta uma prova de base de dados que grave movimentos e lançamentos para produzir estados reconciliado, divergente e entre empresas.
+A validação XSD real depende da entrega do XSD oficial aplicável. A homologação técnica depende do endpoint de testes, método de autenticação, credenciais e códigos oficiais fornecidos pela AGT. A declaração de software certificado ou validado só pode ser feita pela própria AGT após aprovação formal.
 
-A recuperação de integrações tem contratos de idempotência, retries, concorrência, timeout, cancelamento por `AbortSignal` e transição `FAILED → RETRY → COMPLETED`. A recuperação após falha parcial com estado persistido continua pendente.
+A configuração `agtIntegrationConfigs` não guarda credenciais em texto; guarda referências. O estado `AGT_APPROVED` existe apenas como estado de domínio reservado e não é aceite pela mutação interna de configuração.
 
-Os requisitos de conformidade do Decreto Presidencial n.º 71/25 e da AGT estão parametrizados apenas na extensão coberta pelas evidências e regras implementadas. O guard SAF-T impede exportação enquanto faltarem entidades ou validação XSD/AGT; não deve ser removido para gerar ficheiros potencialmente inválidos.
+## Limites de superfície
 
-## Regra de entrega
+As consultas, mutações, exportações, ficheiros, integrações persistentes e filas actualmente implementadas exigem escopo de organização e empresa. Não existe uma camada independente de cache ou fila externa no projecto além da fila persistida de operações; portanto, não se afirma cobertura de isolamento de um subsistema que ainda não foi introduzido.
 
-Nenhum destes limites deve ser convertido em uma afirmação de conformidade legal, elegibilidade de submissão ou conclusão de ciclo empresarial sem a correspondente prova persistente, revisão normativa e validação externa aplicável.
+A regra de entrega é conservadora: nenhuma lacuna externa pode ser convertida numa afirmação de conformidade AGT, elegibilidade de submissão, homologação ou certificação sem artefactos oficiais, validação técnica reproduzível e aprovação formal aplicável.

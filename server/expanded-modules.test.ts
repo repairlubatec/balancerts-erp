@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
 import { getDb } from "./db";
-import { auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, counterparties, documentItems, documentSeries, documentTaxes, fiscalPeriods, journalEntries, journalLines, payments, products, treasuryTransactions } from "../drizzle/schema";
+import { agtIntegrationConfigs, auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, counterparties, documentItems, documentSeries, documentTaxes, fiscalPeriods, integrationOperations, journalEntries, journalLines, payments, products, treasuryTransactions } from "../drizzle/schema";
 
 const COMPANY_ID = 30001;
 const ORGANIZATION_ID = 1;
@@ -43,6 +43,8 @@ describe("expanded tenant-aware operational modules", () => {
     let bankPaymentId: number | undefined;
     let bankTreasuryTransactionId: number | undefined;
     let bankReconciliationId: number | undefined;
+    let agtConfigId: number | undefined;
+    let submissionId: number | undefined;
     try {
       const existingSeries = await db!.select({ id: documentSeries.id }).from(documentSeries).where(and(eq(documentSeries.companyId, COMPANY_ID), eq(documentSeries.code, "FT-TEST"), eq(documentSeries.documentType, "FT"))).limit(1);
       if (!existingSeries[0]) {
@@ -54,6 +56,16 @@ describe("expanded tenant-aware operational modules", () => {
         await db!.insert(documentSeries).values({ companyId: COMPANY_ID, code: "FT-TEST", documentType: "NC", nextNumber: 1, active: 1 });
         createdCorrectionSeries = true;
       }
+      const agtConfig = await caller.normative.configureAgt({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, version: "AO-ADAPTER-1", xsdVersion: "1.01_01", xsdReference: "https://agt.example.invalid/xsd/SAFT-AO-1.01_01.xsd", endpointReference: "https://agt.example.invalid/submissions", authReference: "secret-ref:agt-test", officialCodes: { IVA_EXCLUSAO: "EXCLUSAO", DOCUMENTO_FT: "FT" }, homologationStatus: "INTERNAL_READY" });
+      agtConfigId = agtConfig.id;
+      const agtConfigs = await caller.normative.agtConfig({ companyId: COMPANY_ID });
+      expect(agtConfigs.some(({ config }) => config.id === agtConfigId && config.homologationStatus === "INTERNAL_READY" && config.authReference === "secret-ref:agt-test")).toBe(true);
+      const submission = await caller.normative.enqueueSubmission({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, idempotencyKey: `agt-submit-${suffix}`, payload: { schemaVersion: "1.01_01", documentScope: "tenant-test" } });
+      submissionId = submission.id;
+      expect(submission).toMatchObject({ state: "PENDING", idempotent: false });
+      const replaySubmission = await caller.normative.enqueueSubmission({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, idempotencyKey: `agt-submit-${suffix}`, payload: { schemaVersion: "1.01_01", documentScope: "tenant-test" } });
+      expect(replaySubmission).toMatchObject({ id: submissionId, state: "PENDING", idempotent: true });
+      await expect(caller.normative.enqueueSubmission({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID + 999999, idempotencyKey: `agt-submit-${suffix}`, payload: { schemaVersion: "1.01_01" } })).rejects.toThrow();
       const customer = await caller.counterparties.create({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, kind: "CUSTOMER", taxId: `999${suffix}`, name: `Cliente E2E ${suffix}`, email: `customer-${suffix}@example.invalid` });
       counterpartyId = customer.id;
       const supplier = await caller.counterparties.create({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, kind: "SUPPLIER", taxId: `888${suffix}`, name: `Fornecedor E2E ${suffix}`, email: `supplier-${suffix}@example.invalid` });
@@ -147,6 +159,8 @@ describe("expanded tenant-aware operational modules", () => {
       if (bankReconciliationId) await db!.delete(cashReconciliations).where(eq(cashReconciliations.id, bankReconciliationId));
       if (bankTreasuryTransactionId) await db!.delete(treasuryTransactions).where(eq(treasuryTransactions.id, bankTreasuryTransactionId));
       if (bankPaymentId) await db!.delete(payments).where(eq(payments.id, bankPaymentId));
+      if (agtConfigId) await db!.delete(agtIntegrationConfigs).where(eq(agtIntegrationConfigs.id, agtConfigId));
+      if (submissionId) await db!.delete(integrationOperations).where(eq(integrationOperations.id, submissionId));
       if (mismatchReconciliationId) await db!.delete(cashReconciliations).where(eq(cashReconciliations.id, mismatchReconciliationId));
       if (treasuryTransactionId) await db!.delete(treasuryTransactions).where(eq(treasuryTransactions.id, treasuryTransactionId));
       if (supplierEntryId) {

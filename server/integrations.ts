@@ -70,3 +70,16 @@ export async function executePersistedIdempotentIntegration<T>(input: { organiza
   }
   throw new Error("INTEGRATION_RETRY_FLOW_INVALID");
 }
+
+
+export async function enqueueAgtSubmission(input: { organizationId: number; companyId: number; idempotencyKey: string; payload: Record<string, unknown> }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const context = await db.select({ companyId: companies.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId))).limit(1);
+  if (!context[0]) throw new Error("INTEGRATION_SCOPE_MISMATCH");
+  const existing = await db.select().from(integrationOperations).where(eq(integrationOperations.idempotencyKey, input.idempotencyKey)).limit(1);
+  if (existing[0] && (existing[0].companyId !== input.companyId || existing[0].organizationId !== input.organizationId)) throw new Error("INTEGRATION_IDEMPOTENCY_SCOPE_MISMATCH");
+  if (existing[0]) return { id: existing[0].id, state: existing[0].state, idempotent: true };
+  const inserted = await db.insert(integrationOperations).values({ organizationId: input.organizationId, companyId: input.companyId, idempotencyKey: input.idempotencyKey, state: "PENDING", attempts: 0, resultPayload: JSON.stringify({ kind: "AGT_SUBMISSION", payload: input.payload }) });
+  return { id: Number(inserted[0].insertId), state: "PENDING" as const, idempotent: false };
+}
