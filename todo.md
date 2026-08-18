@@ -545,3 +545,13 @@
 - [x] Adicionar atalhos, densidade e painéis contextuais consistentes
 - [x] Validar acessibilidade, regressão, build e screenshots desktop/PWA
 - [x] Actualizar documentação e guardar checkpoint da primeira versão da shell
+
+# Revisão visual desktop inspirada no PMR
+
+- [x] Reavaliar imagens do PMR no workspace e converter observações em critérios visuais verificáveis
+- [x] Remover a composição dominante de dashboard web e cartões espaçosos
+- [x] Criar moldura de aplicação desktop com menu, toolbar, statusbar e área de trabalho
+- [x] Redesenhar grelhas e módulos prioritários com densidade e painéis operacionais
+- [x] Rever janelas internas, menus e estados de foco para Windows/macOS
+- [x] Validar a linguagem desktop no PWA e em viewport móvel
+- [x] Executar regressão, screenshots comparativos, documentação e checkpoint

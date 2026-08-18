@@ -26,6 +26,7 @@ import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { WorkspaceTabBar, type WorkspaceTab } from "./WorkspaceTabBar";
+import { DesktopMenuBar, DesktopStatusBar } from "./DesktopMenuBar";
 import { Button } from "./ui/button";
 
 const menuItems = [
@@ -190,6 +191,32 @@ function DashboardLayoutContent({
     const next = menuItems.find((item) => !openPaths.includes(item.path)) ?? menuItems[0];
     selectWorkspace(next.path);
   };
+
+  const handleMenuCommand = (command: string) => {
+    if (command === "view") {
+      toggleSidebar();
+      return;
+    }
+    if (command === "operations") {
+      selectWorkspace("/facturacao");
+      return;
+    }
+    if (command === "reports") {
+      selectWorkspace("/relatorios");
+      return;
+    }
+    if (command === "file") {
+      selectWorkspace("/empresas");
+      return;
+    }
+    if (command === "window") {
+      openNextWorkspace();
+      return;
+    }
+    if (command === "help") {
+      setLocation("/?shortcuts=1");
+    }
+  };
   const sidebarRef = useRef<HTMLDivElement>(null);
   const activeMenuItem = menuItems.find(item => item.path === activePath);
   const isMobile = useIsMobile();
@@ -235,14 +262,14 @@ function DashboardLayoutContent({
       <div className="relative" ref={sidebarRef}>
         <Sidebar
           collapsible="icon"
-          className="border-r-0"
+          className="border-r border-[#aeb8c4] bg-[#edf1f5]"
           disableTransition={isResizing}
         >
-          <SidebarHeader className="h-16 justify-center">
+          <SidebarHeader className="h-11 justify-center border-b border-[#c9d1db] bg-[#e5e9ee]">
             <div className="flex items-center gap-3 px-2 transition-all w-full">
               <button
                 onClick={toggleSidebar}
-                className="h-8 w-8 flex items-center justify-center hover:bg-accent rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shrink-0"
+                  className="h-7 w-7 flex items-center justify-center rounded-sm border border-[#b8c3cf] bg-[#f5f7f9] hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1267d6] shrink-0"
                 aria-label="Toggle navigation"
               >
                 <PanelLeft className="h-4 w-4 text-muted-foreground" />
@@ -267,7 +294,7 @@ function DashboardLayoutContent({
                       isActive={isActive}
                       onClick={() => selectWorkspace(item.path)}
                       tooltip={item.label}
-                      className={`h-10 transition-all font-normal`}
+                      className={`h-8 rounded-sm border border-transparent text-[12px] transition-all font-normal ${isActive ? "border-[#b7c9dc] bg-[#d9e6f4] text-[#123d70] shadow-none" : "hover:border-[#d0d8e2] hover:bg-white"}`}
                     >
                       <item.icon
                         className={`h-4 w-4 ${isActive ? "text-primary" : ""}`}
@@ -280,7 +307,7 @@ function DashboardLayoutContent({
             </SidebarMenu>
           </SidebarContent>
 
-          <SidebarFooter className="p-3">
+          <SidebarFooter className="border-t border-[#c9d1db] bg-[#e5e9ee] p-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-3 rounded-lg px-1 py-1 hover:bg-accent/50 transition-colors w-full text-left group-data-[collapsible=icon]:justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -321,7 +348,8 @@ function DashboardLayoutContent({
         />
       </div>
 
-      <SidebarInset>
+      <SidebarInset className="border-l border-[#aeb8c4] bg-[#dfe4ea]">
+        <DesktopMenuBar activeModule={activeMenuItem?.label} onCommand={handleMenuCommand} />
         <WorkspaceTabBar
           tabs={workspaceTabs}
           activePath={activePath}
@@ -343,7 +371,8 @@ function DashboardLayoutContent({
             </div>
           </div>
         )}
-        <main className="flex min-h-0 flex-1 flex-col bg-[#f4f7fb] p-4">{children}</main>
+        <main className="flex min-h-0 flex-1 flex-col bg-[#dfe4ea] p-3">{children}</main>
+        <DesktopStatusBar module={activeMenuItem?.label} />
       </SidebarInset>
     </>
   );

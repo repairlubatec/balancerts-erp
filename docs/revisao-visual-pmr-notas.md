@@ -1,0 +1,7 @@
+# Notas da revisão visual PMR — ronda desktop
+
+As capturas analisadas mostram sobretudo o site institucional e a página de apresentação da Interface, não uma janela operacional completa do produto. A primeira usa fundo preto, navegação horizontal simples, marca branca e uma composição editorial com bastante espaço. A segunda usa fundo cinzento muito claro, tipografia grande, azul como acento e blocos funcionais com ícones lineares.
+
+Para o BALANCERTS.ERP, a conclusão importante é não copiar a estrutura institucional. A referência útil é a linguagem: marca forte, cromatismo controlado, tipografia sóbria, ícones funcionais, hierarquia clara e ausência de ornamentação excessiva. A aplicação deve ir além do site PMR: precisa de uma moldura de programa com menu principal, toolbar de comandos, grelhas compactas, barra de estado, painéis acopláveis e janelas internas. Os cartões grandes da versão actual devem deixar de ser a unidade dominante da experiência.
+
+As marcações confirmam uma navegação de topo curta, marca persistente, secções bem delimitadas e uso de blocos funcionais com linhas e ícones. Para o novo desenho do ERP, estes princípios serão reinterpretados como: menu principal horizontal de aplicação, barra de ferramentas contextual, barra de separadores abaixo do menu, área central com grelha/lista e painel lateral de detalhe, além de uma barra de estado inferior. A página inicial deixará de ser composta principalmente por quatro cartões largos; será uma central operacional com lista de empresas, filtros, comandos e estados compactos.
