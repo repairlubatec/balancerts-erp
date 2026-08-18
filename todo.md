@@ -481,3 +481,11 @@
 - [x] Criar documentação interna de pré-homologação sem declarar certificação AGT
 - [x] Executar regressão, TypeScript, build e verificação visual
 - [x] Guardar checkpoint do ciclo automático
+
+# Ciclo automático — evidências, exportação e alertas
+
+- [x] Exportar o histórico filtrado para CSV e XLSX
+- [x] Criar painel interno de evidências de pré-homologação
+- [x] Mostrar alertas de configuração pendente por empresa
+- [x] Executar testes, build, isolamento e verificação visual
+- [ ] Guardar checkpoint do ciclo automático
