@@ -505,4 +505,4 @@
 - [x] Reproduzir os fluxos existentes principais e registar bloqueios reais — sem bloqueios reproduzíveis nesta ronda
 - [x] Corrigir apenas defeitos confirmados nesta ronda — não foram necessárias alterações adicionais
 - [x] Executar regressão completa, TypeScript, build e verificação visual — estado anterior confirmado
-- [ ] Guardar checkpoint da ronda de manutenção
+- [x] Guardar checkpoint da ronda de manutenção
