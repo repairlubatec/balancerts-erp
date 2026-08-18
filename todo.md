@@ -427,4 +427,4 @@
 - [x] Dar instruções accionáveis para corrigir e reenviar o ficheiro sem persistência indevida
 - [x] Adicionar testes de UI, acessibilidade e feedback de privacidade
 - [x] Executar regressão, TypeScript, build e verificação visual
-- [ ] Guardar checkpoint da melhoria da experiência anonimizada
+- [x] Guardar checkpoint da melhoria da experiência anonimizada
