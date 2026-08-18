@@ -23,7 +23,7 @@ vi.mock("@/lib/trpc", () => ({
       updateAccount: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) },
     },
     inventory: { record: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
-    documents: { createDraft: { useMutation: (options?: { onSuccess?: (result: { documentNumber: string }) => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.({ documentNumber: "FT 2026/TEST" })), isPending: false, error: null }) } },
+    documents: { list: { useQuery: () => ({ data: [], isLoading: false }) }, createDraft: { useMutation: (options?: { onSuccess?: (result: { documentNumber: string }) => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.({ documentNumber: "FT 2026/TEST" })), isPending: false, error: null }) } },
     fixedAssets: {
       list: { useQuery: () => ({ data: [], isLoading: false }) },
       create: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) },
@@ -35,6 +35,7 @@ vi.mock("@/lib/trpc", () => ({
       customerAging: { useQuery: () => ({ data: { rows: [], totals: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } }, isLoading: false }) },
       supplierAging: { useQuery: () => ({ data: { rows: [], totals: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } }, isLoading: false }) },
       reconciliation: { useQuery: () => ({ data: { companyId: 1, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } }, isLoading: false }) },
+      journal: { useQuery: () => ({ data: { entries: [{ entryId: 1, sourceDocumentId: 1, description: "FT 2026/00482", createdAt: new Date("2026-08-18T08:00:00.000Z"), accountCode: "21.1.1", accountName: "Cliente nacional", debit: 1250000, credit: 0 }], totals: { debit: 1250000, credit: 1250000 } }, isLoading: false }) },
     },
   },
 }));

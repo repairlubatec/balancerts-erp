@@ -489,3 +489,13 @@
 - [x] Mostrar alertas de configuração pendente por empresa
 - [x] Executar testes, build, isolamento e verificação visual
 - [x] Guardar checkpoint do ciclo automático
+
+# Fecho do produto — funcionalidade e configuração
+
+- [x] Definir matriz de conclusão por módulo e critérios de pronto
+- [x] Inventariar configurações existentes e dependências de operação
+- [x] Auditar fluxos completos, botões, permissões, persistência e estados de erro
+- [x] Corrigir apenas lacunas que impeçam funções existentes de operar
+- [x] Executar matriz final de testes, build e verificação visual
+- [x] Consolidar documentação de utilização e limitações AGT
+- [ ] Guardar checkpoint final do fecho do produto
