@@ -480,4 +480,4 @@
 - [x] Reforçar a confirmação visual da empresa activa antes de operações críticas
 - [x] Criar documentação interna de pré-homologação sem declarar certificação AGT
 - [x] Executar regressão, TypeScript, build e verificação visual
-- [ ] Guardar checkpoint do ciclo automático
+- [x] Guardar checkpoint do ciclo automático
