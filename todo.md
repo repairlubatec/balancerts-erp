@@ -319,4 +319,4 @@
 - [x] Corrigir funções sem handler, rotas mortas, erros silenciosos e estados de carregamento/erro ausentes no dashboard, Auditoria, Atalhos, módulos operacionais e Facturação
 - [x] Adicionar testes de regressão para cada fluxo corrigido, incluindo sucesso, erro e permissões
 - [x] Validar os fluxos no browser desktop/PWA e executar a regressão completa
-- [ ] Guardar checkpoint da correcção dos fluxos sem resposta
+- [x] Guardar checkpoint da correcção dos fluxos sem resposta
