@@ -25,6 +25,7 @@ import { BarChart3, Building2, Calculator, ClipboardCheck, FileText, Landmark, L
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
+import { WorkspaceTabBar, type WorkspaceTab } from "./WorkspaceTabBar";
 import { Button } from "./ui/button";
 
 const menuItems = [
@@ -120,10 +121,77 @@ function DashboardLayoutContent({
   const { user, logout } = useAuth();
   const [location, setLocation] = useLocation();
   const { state, toggleSidebar } = useSidebar();
+  const activePath = location.split("?")[0] || "/";
+  const [openPaths, setOpenPaths] = useState<string[]>(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("balancerts.workspaceTabs") ?? "[]") as unknown;
+      const valid = Array.isArray(stored) ? stored.filter((path): path is string => typeof path === "string" && menuItems.some((item) => item.path === path)) : [];
+      return valid.length ? Array.from(new Set(["/", ...valid])) : ["/"];
+    } catch {
+      return ["/"];
+    }
+  });
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
+  const workspaceTabs: WorkspaceTab[] = openPaths.map((path) => menuItems.find((item) => item.path === path)).filter((item): item is (typeof menuItems)[number] => Boolean(item));
+
+  useEffect(() => {
+    if (!openPaths.includes(activePath) && menuItems.some((item) => item.path === activePath)) {
+      setOpenPaths((current) => [...current, activePath]);
+    }
+  }, [activePath, openPaths]);
+
+  useEffect(() => {
+    localStorage.setItem("balancerts.workspaceTabs", JSON.stringify(openPaths));
+  }, [openPaths]);
+
+  const workspaceTabPaths = workspaceTabs.map((tab) => tab.path).join("|");
+
+  useEffect(() => {
+    const handleShortcut = (event: KeyboardEvent) => {
+      if (!(event.ctrlKey || event.metaKey)) return;
+      const shortcut = event.key.toLowerCase();
+      if (shortcut === "k") {
+        event.preventDefault();
+        setLocation("/?shortcuts=1");
+        return;
+      }
+      if (shortcut === "w" && openPaths.length > 1) {
+        event.preventDefault();
+        closeWorkspace(activePath);
+        return;
+      }
+      const number = Number(event.key);
+      if (number >= 1 && number <= 9 && workspaceTabs[number - 1]) {
+        event.preventDefault();
+        setLocation(workspaceTabs[number - 1].path);
+      }
+    };
+    window.addEventListener("keydown", handleShortcut);
+    return () => window.removeEventListener("keydown", handleShortcut);
+  }, [activePath, openPaths.length, setLocation, workspaceTabPaths]);
+
+  const selectWorkspace = (path: string) => {
+    setOpenPaths((current) => current.includes(path) ? current : [...current, path]);
+    setLocation(path);
+  };
+
+  const closeWorkspace = (path: string) => {
+    if (openPaths.length <= 1) return;
+    const index = openPaths.indexOf(path);
+    const remaining = openPaths.filter((item) => item !== path);
+    setOpenPaths(remaining);
+    if (path === activePath) {
+      setLocation(remaining[Math.max(0, index - 1)] ?? "/");
+    }
+  };
+
+  const openNextWorkspace = () => {
+    const next = menuItems.find((item) => !openPaths.includes(item.path)) ?? menuItems[0];
+    selectWorkspace(next.path);
+  };
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const activeMenuItem = menuItems.find(item => item.path === location);
+  const activeMenuItem = menuItems.find(item => item.path === activePath);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -192,12 +260,12 @@ function DashboardLayoutContent({
           <SidebarContent className="gap-0">
             <SidebarMenu className="px-2 py-1">
               {menuItems.map(item => {
-                const isActive = location === item.path;
+                const isActive = activePath === item.path;
                 return (
                   <SidebarMenuItem key={item.path}>
                     <SidebarMenuButton
                       isActive={isActive}
-                      onClick={() => setLocation(item.path)}
+                      onClick={() => selectWorkspace(item.path)}
                       tooltip={item.label}
                       className={`h-10 transition-all font-normal`}
                     >
@@ -254,6 +322,13 @@ function DashboardLayoutContent({
       </div>
 
       <SidebarInset>
+        <WorkspaceTabBar
+          tabs={workspaceTabs}
+          activePath={activePath}
+          onSelect={selectWorkspace}
+          onClose={closeWorkspace}
+          onNew={openNextWorkspace}
+        />
         {isMobile && (
           <div className="flex border-b h-14 items-center justify-between bg-background/95 px-2 backdrop-blur supports-[backdrop-filter]:backdrop-blur sticky top-0 z-40">
             <div className="flex items-center gap-2">
@@ -268,7 +343,7 @@ function DashboardLayoutContent({
             </div>
           </div>
         )}
-        <main className="flex-1 p-4">{children}</main>
+        <main className="flex min-h-0 flex-1 flex-col bg-[#f4f7fb] p-4">{children}</main>
       </SidebarInset>
     </>
   );

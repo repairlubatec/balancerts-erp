@@ -535,3 +535,13 @@
 - [x] Comparar PMR, materiais de referência e BALANCERTS.ERP actual
 - [x] Produzir direcção visual, arquitectura de janelas e critérios de aplicação
 - [x] Entregar estudo ao utilizador sem alterar ainda o código do ERP
+
+# Transformação para shell de software profissional
+
+- [x] Definir contratos de shell: contexto, janelas, separadores, comandos e painéis
+- [x] Implementar barra de trabalho e gestor de janelas internas
+- [x] Integrar navegação de módulos na shell sem quebrar rotas existentes
+- [x] Aplicar padrão de software a Empresas, Facturação, Contabilidade, Documentos e Fiscalidade
+- [x] Adicionar atalhos, densidade e painéis contextuais consistentes
+- [x] Validar acessibilidade, regressão, build e screenshots desktop/PWA
+- [x] Actualizar documentação e guardar checkpoint da primeira versão da shell
