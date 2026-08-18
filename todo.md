@@ -527,3 +527,11 @@
 - [x] Adicionar regressão para a página inicial sem empresa activa — cobertura Home e validação dos inputs
 - [x] Executar testes, TypeScript, build e verificação visual
 - [x] Guardar checkpoint da correcção
+
+# Análise de referência PMR e materiais do workspace
+
+- [x] Rever documentos e imagens disponíveis no workspace
+- [x] Analisar o site PMR e os padrões de experiência de software
+- [x] Comparar PMR, materiais de referência e BALANCERTS.ERP actual
+- [x] Produzir direcção visual, arquitectura de janelas e critérios de aplicação
+- [x] Entregar estudo ao utilizador sem alterar ainda o código do ERP
