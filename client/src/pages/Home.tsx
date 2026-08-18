@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { getAccountTraceRoutes, getReportTraceRoutes } from "@/lib/traceability";
+import { getActionPresentation, getQuickActions, resolveNewAction } from "@/lib/homeActions";
 import { trpc } from "@/lib/trpc";
 import { TraceabilityPanel } from "@/components/TraceabilityPanel";
 import { ModuleContextBar, ModuleSecurityNotice } from "@/components/ModuleContextBar";
@@ -51,43 +52,6 @@ const demoCompanies = [
 ];
 
 const alerts: { type: "critical" | "warning" | "info"; title: string; meta: string; action: string; path: string }[] = [];
-
-const quickActions = [
-  ["/", "Minhas Empresas", LayoutDashboard],
-  ["/contabilidade", "Contabilidade", BookOpenCheck],
-  ["/facturacao", "Facturação", FileText],
-  ["/tesouraria", "Tesouraria", WalletCards],
-  ["/auditoria", "Auditoria", ShieldAlert],
-  ["/facturacao?new=1", "Criar novo documento", Plus],
-  ["/empresas?focus=5417283901", "Abrir BALANCERTS Serviços", Building2],
-  ["/tesouraria?new=reconcile", "Iniciar reconciliação bancária", WalletCards],
-  ["/fecho?new=checklist", "Executar checklist de fecho", ClipboardCheck],
-] as const;
-
-export function resolveNewAction(search: string) {
-  const action = new URL(search, "https://balancerts.local").searchParams.get("new");
-  return {
-    action,
-    label: action === "1" ? "Criar novo documento" : action === "reconcile" ? "Iniciar reconciliação bancária" : action === "checklist" ? "Executar checklist de fecho" : null,
-  };
-}
-
-export function getActionPresentation(search: string, completed = false) {
-  const { action, label } = resolveNewAction(search);
-  if (!label) return { action, label: null, cta: null, feedback: null };
-  return {
-    action,
-    label,
-    cta: action === "1" ? "Abrir formulário" : action === "reconcile" ? "Seleccionar movimentos" : "Abrir checklist",
-    feedback: completed ? "Fluxo iniciado" : null,
-  };
-}
-
-export function getQuickActions(query: string) {
-  return quickActions.filter(([, label]) => label.toLowerCase().includes(query.toLowerCase()));
-}
-
-export { getAccountTraceRoutes, getReportTraceRoutes } from "@/lib/traceability";
 
 const moduleData: Record<string, { eyebrow: string; title: string; description: string; columns: string[]; rows: string[][] }> = {
   "/contabilidade": { eyebrow: "Motor contabilístico", title: "Contabilidade", description: "Lançamentos, plano de contas e reconciliação sob controlo transaccional.", columns: ["Documento", "Data", "Conta / descrição", "Débito", "Crédito", "Estado"], rows: [["FT 2026/00482", "18 Nov 2026", "21.1.1 · Cliente nacional", "1 250 000 Kz", "1 250 000 Kz", "Confirmado"], ["NC 2026/00017", "17 Nov 2026", "62.2.3 · Serviços externos", "—", "86 500 Kz", "Pendente"], ["LCT 2026/01109", "16 Nov 2026", "11.1 · Caixa geral", "430 000 Kz", "—", "Rascunho"]] },

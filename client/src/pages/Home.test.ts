@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { getAccountTraceRoutes, getActionPresentation, getQuickActions, getReportTraceRoutes, resolveNewAction } from "./Home";
-import { getDocumentTraceRoutes } from "@/lib/traceability";
+import { getActionPresentation, getQuickActions, resolveNewAction } from "@/lib/homeActions";
+import { getAccountTraceRoutes, getDocumentTraceRoutes, getReportTraceRoutes } from "@/lib/traceability";
 
 describe("BALANCERTS command palette flows", () => {
   it.each([

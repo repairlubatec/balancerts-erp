@@ -617,3 +617,13 @@
 - [x] Corrigir endpoint ou configuração e adicionar regressão
 - [x] Validar Empresas, suite completa, build e isolamento tenant-aware
 - [x] Documentar a correcção e guardar checkpoint
+
+# Revisão — 29 erros reportados durante utilização
+
+- [x] Recolher e classificar erros do runtime, consola, rede e servidor
+- [x] Reproduzir as falhas nos módulos principais e distinguir erros reais de warnings de HMR/autenticação
+- [x] Separar helpers da command palette de Home.tsx para eliminar avisos de Fast Refresh repetidos
+- [x] Corrigir tratamento de erros tRPC UNAUTHORIZED para evitar spam de 401 e redireccionamentos duplicados
+- [x] Adicionar testes para helpers de Home e reconhecimento de erros tRPC de autenticação
+- [x] Validar suite completa, TypeScript, build e revisão visual desktop
+- [x] Documentar a revisão e guardar checkpoint
