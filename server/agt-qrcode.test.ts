@@ -7,6 +7,11 @@ describe("AGT QR Code", () => {
     expect(url).toBe("https://quiosqueagt.minfin.gov.ao/facturacao-eletronica/consultar-fe?emissor=5001121871&document=FT%20FT2025S1%2F000001");
   });
 
+  it("encodes document number spaces as %20 in the official URL", () => {
+    const result = validateAgtQrPayload({ issuerNif: "5001121871", documentNo: "FT 2026S1/000001" });
+    expect(result.url).toContain("document=FT%202026S1%2F000001");
+  });
+
   it("returns the official image constraints for the payload", () => {
     const result = validateAgtQrPayload({ issuerNif: "5001121871", documentNo: "FT FT2025S1/000001" });
     expect(result.valid).toBe(true);
