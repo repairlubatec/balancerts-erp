@@ -18,7 +18,7 @@
 - [x] Imutabilidade pós-emissão e associação a cliente/fornecedor, itens, impostos, pagamentos e contabilidade
 - [x] Motor fiscal versionado por vigência e evidência normativa
 - [x] Regimes de IVA exclusivamente Geral, Simplificado e Exclusão de Angola
-- [ ] Conformidade parametrizada com o Decreto Presidencial n.º 71/25 e requisitos da AGT
+- [x] Conformidade parametrizada com o Decreto Presidencial n.º 71/25 e requisitos da AGT
 - [ ] Módulos de clientes, fornecedores, stock, caixa, bancos, tesouraria e imobilizado
 - [x] Stock com valorização parametrizada, rastreabilidade e reconciliação contabilística
 - [x] Imobilizado com depreciação versionada, auditável e ligada ao motor contabilístico
@@ -265,3 +265,9 @@
 - [x] Integrar o ficheiro oficial SAFTAO1.01_01.xsd como referência de validação local reproduzível
 - [x] Validar o XML SAF-T gerado contra SAFTAO1.01_01.xsd e corrigir incompatibilidades estruturais
 - [x] Cobrir testes de XML válido, XML inválido e bloqueio de submissão quando a prontidão fiscal continuar incompleta
+- [ ] Completar e provar por código/testes a superfície integral de clientes, fornecedores, caixa, bancos e tesouraria: criação, leitura, actualização permitida, bloqueios, listagens e fluxos principais
+- [ ] Adicionar evidência verificável das superfícies finais de cada módulo listado, incluindo endpoints e UI aplicável, antes de fechar o macro operacional
+
+- [x] Implementar processador AGT sobre `executePersistedIdempotentIntegration`, consumindo o envelope `AGT_SUBMISSION`, transitando `PENDING → SENT → COMPLETED/FAILED` e provando replay sem duplicação
+- [x] Ligar Clientes, Fornecedores, Stock e Tesouraria a consultas tRPC tenant-aware e apresentar contagens/listas persistentes no shell desktop
+- [ ] Completar formulários interactivos de criação/actualização para Clientes, Fornecedores, Stock e Tesouraria; os botões `Novo registo` continuam a ser apenas entradas visuais nestas superfícies

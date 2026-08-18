@@ -83,3 +83,44 @@ export async function enqueueAgtSubmission(input: { organizationId: number; comp
   const inserted = await db.insert(integrationOperations).values({ organizationId: input.organizationId, companyId: input.companyId, idempotencyKey: input.idempotencyKey, state: "PENDING", attempts: 0, resultPayload: JSON.stringify({ kind: "AGT_SUBMISSION", payload: input.payload }) });
   return { id: Number(inserted[0].insertId), state: "PENDING" as const, idempotent: false };
 }
+
+
+export async function processAgtSubmission<T>(input: {
+  organizationId: number;
+  companyId: number;
+  idempotencyKey: string;
+  execute: (payload: Record<string, unknown>, signal?: AbortSignal) => Promise<T>;
+  maxRetries?: number;
+  timeoutMs?: number;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select().from(integrationOperations).where(eq(integrationOperations.idempotencyKey, input.idempotencyKey)).limit(1);
+  const operation = rows[0];
+  if (!operation) throw new Error("INTEGRATION_OPERATION_NOT_FOUND");
+  if (operation.organizationId !== input.organizationId || operation.companyId !== input.companyId) throw new Error("INTEGRATION_IDEMPOTENCY_SCOPE_MISMATCH");
+  if (operation.state === "COMPLETED") {
+    return { id: operation.id, state: operation.state, idempotencyKey: operation.idempotencyKey, attempts: operation.attempts, result: operation.resultPayload ? JSON.parse(operation.resultPayload) as T : undefined, idempotent: true };
+  }
+  const envelope = operation.resultPayload ? JSON.parse(operation.resultPayload) as { kind?: string; payload?: Record<string, unknown> } : undefined;
+  if (envelope?.kind !== "AGT_SUBMISSION" || !envelope.payload) throw new Error("AGT_SUBMISSION_PAYLOAD_INVALID");
+  const result = await executePersistedIdempotentIntegration({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    idempotencyKey: input.idempotencyKey,
+    maxRetries: input.maxRetries,
+    timeoutMs: input.timeoutMs,
+    execute: (signal) => input.execute(envelope.payload!, signal),
+  });
+  return { id: operation.id, ...result };
+}
+
+export async function getPersistedIntegrationOperation(input: { organizationId: number; companyId: number; idempotencyKey: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select().from(integrationOperations).where(eq(integrationOperations.idempotencyKey, input.idempotencyKey)).limit(1);
+  const operation = rows[0];
+  if (!operation) return null;
+  if (operation.organizationId !== input.organizationId || operation.companyId !== input.companyId) throw new Error("INTEGRATION_IDEMPOTENCY_SCOPE_MISMATCH");
+  return operation;
+}

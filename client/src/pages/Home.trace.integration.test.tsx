@@ -13,6 +13,12 @@ vi.mock("@/lib/trpc", () => ({
   trpc: {
     companies: { list: { useQuery: () => ({ data: [{ company: { id: 1, name: "Repair Lubatec", nif: "5001121871", configurationStatus: "READY", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA" } }], isLoading: false }) } },
     audit: { list: { useQuery: () => ({ data: [], isLoading: false }) } },
+    counterparties: { list: { useQuery: () => ({ data: [], isLoading: false }) } },
+    catalog: { list: { useQuery: () => ({ data: [], isLoading: false }) } },
+    treasury: {
+      accounts: { useQuery: () => ({ data: [], isLoading: false }) },
+      transactions: { useQuery: () => ({ data: [], isLoading: false }) },
+    },
     reports: {
       customerAging: { useQuery: () => ({ data: { rows: [], totals: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } }, isLoading: false }) },
       supplierAging: { useQuery: () => ({ data: { rows: [], totals: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } }, isLoading: false }) },
