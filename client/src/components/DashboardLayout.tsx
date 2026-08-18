@@ -36,6 +36,7 @@ const menuItems = [
   { icon: FileText, label: "Documentos", path: "/documentos" },
   { icon: Landmark, label: "Fiscalidade", path: "/fiscalidade" },
   { icon: Warehouse, label: "Stock", path: "/stock" },
+  { icon: Warehouse, label: "Imobilizado", path: "/imobilizado" },
   { icon: WalletCards, label: "Tesouraria", path: "/tesouraria" },
   { icon: BarChart3, label: "Relatórios", path: "/relatorios" },
   { icon: ClipboardCheck, label: "Fecho", path: "/fecho" },

@@ -205,6 +205,21 @@ export const products = mysqlTable("products", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const fixedAssets = mysqlTable("fixedAssets", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  code: varchar("code", { length: 80 }).notNull(),
+  name: varchar("name", { length: 180 }).notNull(),
+  acquisitionDate: timestamp("acquisitionDate").notNull(),
+  acquisitionCost: decimal("acquisitionCost", { precision: 18, scale: 2 }).notNull(),
+  residualValue: decimal("residualValue", { precision: 18, scale: 2 }).default("0").notNull(),
+  usefulLifeMonths: int("usefulLifeMonths").notNull(),
+  status: mysqlEnum("status", ["ACTIVE", "DISPOSED"]).default("ACTIVE").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const documentItems = mysqlTable("documentItems", {
   id: int("id").autoincrement().primaryKey(),
   companyId: int("companyId").notNull(),

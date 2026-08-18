@@ -4,7 +4,7 @@ import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
 import { getDb } from "./db";
 import { getPersistedIntegrationOperation, processAgtSubmission } from "./integrations";
-import { agtIntegrationConfigs, auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, counterparties, documentItems, documentSeries, documentTaxes, fiscalPeriods, integrationOperations, journalEntries, journalLines, payments, products, treasuryTransactions } from "../drizzle/schema";
+import { agtIntegrationConfigs, auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, counterparties, documentItems, fixedAssets, documentSeries, documentTaxes, fiscalPeriods, integrationOperations, journalEntries, journalLines, payments, products, treasuryTransactions } from "../drizzle/schema";
 
 const COMPANY_ID = 30001;
 const ORGANIZATION_ID = 1;
@@ -46,6 +46,7 @@ describe("expanded tenant-aware operational modules", () => {
     let bankReconciliationId: number | undefined;
     let agtConfigId: number | undefined;
     let submissionId: number | undefined;
+    let fixedAssetId: number | undefined;
     try {
       const existingSeries = await db!.select({ id: documentSeries.id }).from(documentSeries).where(and(eq(documentSeries.companyId, COMPANY_ID), eq(documentSeries.code, "FT-TEST"), eq(documentSeries.documentType, "FT"))).limit(1);
       if (!existingSeries[0]) {
@@ -84,6 +85,9 @@ describe("expanded tenant-aware operational modules", () => {
       supplierId = supplier.id;
       expect((await caller.counterparties.list({ companyId: COMPANY_ID, kind: "CUSTOMER" })).some(({ counterparty }) => counterparty.id === counterpartyId)).toBe(true);
       expect((await caller.counterparties.list({ companyId: COMPANY_ID, kind: "SUPPLIER" })).some(({ counterparty }) => counterparty.id === supplierId)).toBe(true);
+      const updatedSupplier = await caller.counterparties.update({ companyId: COMPANY_ID, counterpartyId: supplierId, phone: `+244921${suffix}` });
+      expect(updatedSupplier).toMatchObject({ id: supplierId });
+      expect((await caller.counterparties.list({ companyId: COMPANY_ID, kind: "SUPPLIER" })).some(({ counterparty }) => counterparty.id === supplierId && counterparty.phone === `+244921${suffix}`)).toBe(true);
       const supplierDraft = await caller.documents.createDraft({ companyId: COMPANY_ID, series: "FT-TEST", documentType: "FT", counterpartyId: supplierId, counterpartyType: "SUPPLIER", ivaRegime: "EXCLUSAO", items: [{ description: "Compra de serviço E2E", quantity: 1, unitPrice: 100, netAmount: 100, taxAmount: 0, totalAmount: 100, taxType: "IVA-EXCLUSAO", taxRate: 0 }] });
       supplierDocumentId = supplierDraft.id;
       await caller.documents.transition({ companyId: COMPANY_ID, documentId: supplierDocumentId, to: "VALIDATED", correlationId: `supplier-${suffix}-validated` });
@@ -96,6 +100,11 @@ describe("expanded tenant-aware operational modules", () => {
       supplierEntryId = postedSupplier.entryId;
       const linkedEntry = await db!.select({ entry: journalEntries }).from(journalEntries).where(eq(journalEntries.id, supplierEntryId));
       expect(linkedEntry[0]?.entry.sourceDocumentId).toBe(supplierDocumentId);
+      const fixedAsset = await caller.fixedAssets.create({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, code: `FA-${suffix}`, name: "Equipamento E2E", acquisitionDate: new Date("2026-08-18T00:00:00Z"), acquisitionCost: 1000, residualValue: 100, usefulLifeMonths: 60 });
+      fixedAssetId = fixedAsset.id;
+      expect((await caller.fixedAssets.list({ companyId: COMPANY_ID })).some(({ asset }) => asset.id === fixedAssetId && asset.code === `FA-${suffix}`)).toBe(true);
+      const fixedAssetAudit = await db!.select({ event: auditEvents }).from(auditEvents).where(and(eq(auditEvents.companyId, COMPANY_ID), eq(auditEvents.entityId, String(fixedAssetId))));
+      expect(fixedAssetAudit.some(({ event }) => event.action === "FIXED_ASSET_CREATED" && event.afterState)).toBe(true);
       const product = await caller.catalog.create({ companyId: COMPANY_ID, code: `SVC-${suffix}`, name: "Serviço E2E", kind: "SERVICE", taxCode: "IVA-EXCLUSAO" });
       productId = product.id;
       const updatedProduct = await caller.catalog.update({ companyId: COMPANY_ID, productId, name: `Serviço E2E actualizado ${suffix}` });
@@ -106,6 +115,9 @@ describe("expanded tenant-aware operational modules", () => {
       expect((await caller.treasury.accounts({ companyId: COMPANY_ID })).some(({ account }) => account.id === cashAccountId)).toBe(true);
       const bank = await caller.treasury.createAccount({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, name: `Banco E2E ${suffix}`, kind: "BANK", accountNumber: `AO06${suffix}` });
       bankAccountId = bank.id;
+      const updatedBank = await caller.treasury.updateAccount({ companyId: COMPANY_ID, cashAccountId: bankAccountId, name: `Banco E2E actualizado ${suffix}`, accountNumber: `AO07${suffix}` });
+      expect(updatedBank).toMatchObject({ id: bankAccountId });
+      expect((await caller.treasury.accounts({ companyId: COMPANY_ID })).some(({ account }) => account.id === bankAccountId && account.name.includes("actualizado") && account.accountNumber === `AO07${suffix}`)).toBe(true);
       const emptyBankReconciliation = await caller.treasury.reconcile({ companyId: COMPANY_ID, cashAccountId: bankAccountId, statementDate: new Date("2026-08-18T23:00:00Z"), openingBalance: 0, closingBalance: 0 });
       expect(emptyBankReconciliation).toMatchObject({ status: "RECONCILED", systemBalance: 0, difference: 0 });
       bankReconciliationId = emptyBankReconciliation.id;
@@ -213,6 +225,7 @@ describe("expanded tenant-aware operational modules", () => {
       if (paymentId) await db!.delete(payments).where(eq(payments.id, paymentId));
       if (cashAccountId) await db!.delete(cashAccounts).where(eq(cashAccounts.id, cashAccountId));
       if (bankAccountId) await db!.delete(cashAccounts).where(eq(cashAccounts.id, bankAccountId));
+      if (fixedAssetId) await db!.delete(fixedAssets).where(eq(fixedAssets.id, fixedAssetId));
       if (productId) await db!.delete(products).where(eq(products.id, productId));
       if (counterpartyId) await db!.delete(counterparties).where(eq(counterparties.id, counterpartyId));
       if (supplierId) await db!.delete(counterparties).where(eq(counterparties.id, supplierId));
@@ -228,7 +241,9 @@ describe("expanded tenant-aware operational modules", () => {
     expect(await caller.counterparties.list({ companyId: 999999 })).toEqual([]);
     expect(await caller.catalog.list({ companyId: 999999 })).toEqual([]);
     expect(await caller.treasury.accounts({ companyId: 999999 })).toEqual([]);
+    expect(await caller.fixedAssets.list({ companyId: 999999 })).toEqual([]);
     await expect(caller.counterparties.create({ organizationId: ORGANIZATION_ID, companyId: 999999, kind: "CUSTOMER", name: "Não deve persistir" })).rejects.toThrow();
     await expect(caller.treasury.createAccount({ organizationId: ORGANIZATION_ID, companyId: 999999, name: "Não deve persistir", kind: "BANK" })).rejects.toThrow();
+    await expect(caller.fixedAssets.create({ organizationId: ORGANIZATION_ID, companyId: 999999, code: "FORGED", name: "Não deve persistir", acquisitionDate: new Date(), acquisitionCost: 1, usefulLifeMonths: 1 })).rejects.toThrow();
   });
 });

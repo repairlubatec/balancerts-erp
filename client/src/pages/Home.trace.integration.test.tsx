@@ -11,13 +11,23 @@ vi.mock("wouter", () => ({
 vi.mock("@/_core/hooks/useAuth", () => ({ useAuth: () => ({ user: { role: "admin" } }) }));
 vi.mock("@/lib/trpc", () => ({
   trpc: {
-    companies: { list: { useQuery: () => ({ data: [{ company: { id: 1, name: "Repair Lubatec", nif: "5001121871", configurationStatus: "READY", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA" } }], isLoading: false }) } },
+    useUtils: () => ({ counterparties: { list: { invalidate: vi.fn() } }, catalog: { list: { invalidate: vi.fn() } }, treasury: { accounts: { invalidate: vi.fn() } }, fixedAssets: { list: { invalidate: vi.fn() } } }),
+    companies: { list: { useQuery: () => ({ data: [{ company: { id: 1, name: "Repair Lubatec", nif: "5001121871", configurationStatus: "READY", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA", organizationId: 1 } }], isLoading: false }) }, periods: { useQuery: () => ({ data: [{ period: { id: 1 } }], isLoading: false }) } },
     audit: { list: { useQuery: () => ({ data: [], isLoading: false }) } },
-    counterparties: { list: { useQuery: () => ({ data: [], isLoading: false }) } },
-    catalog: { list: { useQuery: () => ({ data: [], isLoading: false }) } },
+    counterparties: { list: { useQuery: () => ({ data: [], isLoading: false }) }, create: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) }, update: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
+    catalog: { list: { useQuery: () => ({ data: [], isLoading: false }) }, create: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) }, update: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
     treasury: {
       accounts: { useQuery: () => ({ data: [], isLoading: false }) },
       transactions: { useQuery: () => ({ data: [], isLoading: false }) },
+      createAccount: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) },
+      updateAccount: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) },
+    },
+    inventory: { record: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
+    fixedAssets: {
+      list: { useQuery: () => ({ data: [], isLoading: false }) },
+      create: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) },
+      update: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) },
+      depreciation: { useMutation: () => ({ mutate: vi.fn(), isPending: false, error: null, data: null }) },
     },
     reports: {
       customerAging: { useQuery: () => ({ data: { rows: [], totals: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } }, isLoading: false }) },
@@ -43,6 +53,71 @@ describe("Home traceability integration", () => {
     render(<Home />);
     const row = screen.getAllByText("FT 2026/00482")[0]?.closest("tr");
     await waitFor(() => expect(row?.className).toContain("bg-[#f0f6ff]"));
+  });
+
+  it("renders operational empty states and real create affordance for each module", () => {
+    for (const path of ["/clientes", "/fornecedores", "/stock", "/tesouraria"]) {
+      cleanup();
+      locationState.current = path;
+      window.history.pushState({}, "", path);
+      render(<Home />);
+      expect(screen.getByText("Novo registo operacional")).toBeTruthy();
+      expect(screen.getByRole("button", { name: "Guardar" })).toBeTruthy();
+      fireEvent.click(screen.getByRole("button", { name: "Guardar" }));
+      expect(screen.getByText("Indique um nome válido.")).toBeTruthy();
+      fireEvent.click(screen.getByRole("button", { name: "Actualizar" }));
+      expect(screen.getByText("Indique o ID e o novo nome do registo.")).toBeTruthy();
+      expect(screen.getByText("Registos recentes")).toBeTruthy();
+    }
+  });
+
+  it("shows success feedback after a stock movement mutation", async () => {
+    cleanup();
+    locationState.current = "/stock";
+    window.history.pushState({}, "", "/stock");
+    render(<Home />);
+    fireEvent.change(screen.getByPlaceholderText("Código do artigo"), { target: { value: "SVC-001" } });
+    fireEvent.submit(screen.getByRole("button", { name: "Registar movimento" }).closest("form")!);
+    await waitFor(() => expect(document.body.textContent).toContain("Movimento persistido e auditado."));
+  });
+
+  it("shows success feedback after create and update mutations", async () => {
+    cleanup();
+    locationState.current = "/clientes";
+    window.history.pushState({}, "", "/clientes");
+    render(<Home />);
+    fireEvent.change(screen.getByPlaceholderText("Nome"), { target: { value: "Cliente UI" } });
+    fireEvent.click(screen.getByRole("button", { name: "Guardar" }));
+    await waitFor(() => expect(screen.getByText("Contraparte criada e auditada.")).toBeTruthy());
+    fireEvent.change(screen.getByPlaceholderText("ID"), { target: { value: "1" } });
+    fireEvent.change(screen.getByPlaceholderText("Novo nome"), { target: { value: "Cliente UI actualizado" } });
+    fireEvent.click(screen.getByRole("button", { name: "Actualizar" }));
+    await waitFor(() => expect(screen.getByText("Contraparte actualizada e auditada.")).toBeTruthy());
+  });
+
+  it("shows success feedback across supplier, stock and treasury creation", async () => {
+    for (const [path, message] of [["/fornecedores", "Contraparte criada e auditada."], ["/stock", "Produto/serviço criado e auditado."], ["/tesouraria", "Conta de caixa/banco criada e auditada."]] as const) {
+      cleanup();
+      locationState.current = path;
+      window.history.pushState({}, "", path);
+      render(<Home />);
+      fireEvent.change(screen.getByPlaceholderText("Nome"), { target: { value: `Registo ${path}` } });
+      if (path === "/stock") fireEvent.change(screen.getByPlaceholderText("Código"), { target: { value: "SVC-UI" } });
+      fireEvent.submit(screen.getByRole("button", { name: "Guardar" }).closest("form")!);
+      await waitFor(() => expect(document.body.textContent).toContain(message));
+    }
+  });
+
+  it("renders persistent fixed asset management affordances", () => {
+    cleanup();
+    locationState.current = "/imobilizado";
+    window.history.pushState({}, "", "/imobilizado");
+    render(<Home />);
+    expect(screen.getByText("Novo activo fixo e depreciação")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Registar activo" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Actualizar activo" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Calcular" })).toBeTruthy();
+    expect(screen.getByText("Registos recentes")).toBeTruthy();
   });
 
   it("navigates back from an account context and opens the corresponding report", async () => {

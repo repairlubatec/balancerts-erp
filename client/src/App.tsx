@@ -18,6 +18,7 @@ function Router() {
       <Route path="/documentos" component={Home} />
       <Route path="/fiscalidade" component={Home} />
       <Route path="/stock" component={Home} />
+      <Route path="/imobilizado" component={Home} />
       <Route path="/tesouraria" component={Home} />
       <Route path="/relatorios" component={Home} />
       <Route path="/fecho" component={Home} />

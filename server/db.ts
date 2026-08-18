@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs,
-  auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+  auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
@@ -78,6 +78,17 @@ export async function createProductForUser(input: { userId: number; companyId: n
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({ organizationId: company[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PRODUCT_CREATED", entityType: "product", entityId: String(id), beforeState: null, afterState: JSON.stringify({ code: input.code, name: input.name, kind: input.kind }), correlationId: `product:${id}` });
   return { id, ...input };
+}
+
+export async function updateCashAccountForUser(input: { userId: number; companyId: number; cashAccountId: number; name?: string; accountNumber?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ account: cashAccounts, organizationId: companies.organizationId }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.id, input.cashAccountId), eq(cashAccounts.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!rows[0]) throw new Error("CASH_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  const before = rows[0].account;
+  await db.update(cashAccounts).set({ ...(input.name === undefined ? {} : { name: input.name }), ...(input.accountNumber === undefined ? {} : { accountNumber: input.accountNumber }) }).where(eq(cashAccounts.id, input.cashAccountId));
+  await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CASH_ACCOUNT_UPDATED", entityType: "cashAccount", entityId: String(input.cashAccountId), beforeState: JSON.stringify(before), afterState: JSON.stringify({ ...before, ...input }), correlationId: `cash-account:${input.cashAccountId}` });
+  return { id: input.cashAccountId };
 }
 
 export async function getCashAccountsForUserCompany(userId: number, companyId: number) {
@@ -431,6 +442,33 @@ export async function updateProductForUser(input: { userId: number; companyId: n
   await db.update(products).set({ name: input.name, taxCode: input.taxCode, unitCode: input.unitCode }).where(eq(products.id, input.productId));
   await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PRODUCT_UPDATED", entityType: "product", entityId: String(input.productId), beforeState: JSON.stringify(row[0].product), afterState: JSON.stringify({ ...row[0].product, ...input }), correlationId: `product:${input.productId}` });
   return { id: input.productId };
+}
+
+export async function updateFixedAssetForUser(input: { userId: number; companyId: number; assetId: number; name?: string; residualValue?: number; usefulLifeMonths?: number; status?: "ACTIVE" | "DISPOSED" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ asset: fixedAssets, organizationId: companies.organizationId }).from(fixedAssets).innerJoin(companies, eq(fixedAssets.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(fixedAssets.id, input.assetId), eq(fixedAssets.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!rows[0]) throw new Error("FIXED_ASSET_NOT_FOUND_OR_FORBIDDEN");
+  await db.update(fixedAssets).set({ ...(input.name === undefined ? {} : { name: input.name }), ...(input.residualValue === undefined ? {} : { residualValue: input.residualValue.toFixed(2) }), ...(input.usefulLifeMonths === undefined ? {} : { usefulLifeMonths: input.usefulLifeMonths }), ...(input.status === undefined ? {} : { status: input.status }) }).where(eq(fixedAssets.id, input.assetId));
+  await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: input.status === "DISPOSED" ? "FIXED_ASSET_DISPOSED" : "FIXED_ASSET_UPDATED", entityType: "fixedAsset", entityId: String(input.assetId), beforeState: JSON.stringify(rows[0].asset), afterState: JSON.stringify({ ...rows[0].asset, ...input }), correlationId: `fixed-asset:${input.assetId}` });
+  return { id: input.assetId, status: input.status ?? rows[0].asset.status };
+}
+
+export async function getFixedAssetsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ asset: fixedAssets }).from(fixedAssets).innerJoin(companies, eq(fixedAssets.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(fixedAssets.companyId, companyId), eq(fixedAssets.organizationId, companies.organizationId), eq(organizations.ownerUserId, userId))).orderBy(fixedAssets.code);
+}
+
+export async function createFixedAssetForUser(input: { userId: number; organizationId: number; companyId: number; code: string; name: string; acquisitionDate: Date; acquisitionCost: number; residualValue?: number; usefulLifeMonths: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const company = await db.select({ organizationId: companies.organizationId }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const inserted = await db.insert(fixedAssets).values({ organizationId: input.organizationId, companyId: input.companyId, code: input.code, name: input.name, acquisitionDate: input.acquisitionDate, acquisitionCost: input.acquisitionCost.toFixed(2), residualValue: (input.residualValue ?? 0).toFixed(2), usefulLifeMonths: input.usefulLifeMonths, createdBy: input.userId });
+  const id = Number(inserted[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FIXED_ASSET_CREATED", entityType: "fixedAsset", entityId: String(id), beforeState: null, afterState: JSON.stringify({ code: input.code, name: input.name, acquisitionCost: input.acquisitionCost, residualValue: input.residualValue ?? 0, usefulLifeMonths: input.usefulLifeMonths }), correlationId: `fixed-asset:${id}` });
+  return { id };
 }
 
 export async function getPaymentsForUserCompany(userId: number, companyId: number) {

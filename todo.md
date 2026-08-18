@@ -19,7 +19,7 @@
 - [x] Motor fiscal versionado por vigência e evidência normativa
 - [x] Regimes de IVA exclusivamente Geral, Simplificado e Exclusão de Angola
 - [x] Conformidade parametrizada com o Decreto Presidencial n.º 71/25 e requisitos da AGT
-- [ ] Módulos de clientes, fornecedores, stock, caixa, bancos, tesouraria e imobilizado
+- [x] Módulos de clientes, fornecedores, stock, caixa, bancos, tesouraria e imobilizado
 - [x] Stock com valorização parametrizada, rastreabilidade e reconciliação contabilística
 - [x] Imobilizado com depreciação versionada, auditável e ligada ao motor contabilístico
 - [x] Multimoeda com moeda da operação, moeda funcional, taxa, fonte e data
@@ -235,7 +235,7 @@
 - [ ] Expandir isolamento multi-tenant a exportações, operações persistentes de integração e superfícies futuras de cache/filas, com testes negativos por empresa/organização
 - [x] Implementar entidades e associações de clientes/fornecedores, itens, impostos, pagamentos e contabilidade, com imutabilidade pós-emissão
 - [x] Parametrizar de forma verificável o Decreto Presidencial n.º 71/25 e requisitos AGT, distinguindo evidência normativa interna de validação externa
-- [ ] Expandir módulos operacionais persistentes de clientes, fornecedores, caixa, bancos e tesouraria com RBAC, auditoria e reconciliação
+- [x] Expandir módulos operacionais persistentes de clientes, fornecedores, caixa, bancos e tesouraria com RBAC, auditoria e reconciliação
 - [x] Adicionar testes de integração e migração para os quatro blocos expandidos, sem alterar dados da Repair Lubatec
 - [x] Criar migração 0015 não destrutiva para contrapartes, produtos, linhas/impostos documentais, pagamentos, caixa, tesouraria e regras normativas
 - [x] Expor routers tenant-aware de contrapartes, catálogo, caixa/banco, pagamentos, tesouraria e regras normativas com RBAC
@@ -265,9 +265,14 @@
 - [x] Integrar o ficheiro oficial SAFTAO1.01_01.xsd como referência de validação local reproduzível
 - [x] Validar o XML SAF-T gerado contra SAFTAO1.01_01.xsd e corrigir incompatibilidades estruturais
 - [x] Cobrir testes de XML válido, XML inválido e bloqueio de submissão quando a prontidão fiscal continuar incompleta
-- [ ] Completar e provar por código/testes a superfície integral de clientes, fornecedores, caixa, bancos e tesouraria: criação, leitura, actualização permitida, bloqueios, listagens e fluxos principais
-- [ ] Adicionar evidência verificável das superfícies finais de cada módulo listado, incluindo endpoints e UI aplicável, antes de fechar o macro operacional
+- [x] Completar e provar por código/testes a superfície integral de clientes, fornecedores, caixa, bancos e tesouraria: criação, leitura, actualização permitida, bloqueios, listagens e fluxos principais
+- [x] Adicionar evidência verificável das superfícies finais de cada módulo listado, incluindo endpoints e UI aplicável, antes de fechar o macro operacional
 
 - [x] Implementar processador AGT sobre `executePersistedIdempotentIntegration`, consumindo o envelope `AGT_SUBMISSION`, transitando `PENDING → SENT → COMPLETED/FAILED` e provando replay sem duplicação
 - [x] Ligar Clientes, Fornecedores, Stock e Tesouraria a consultas tRPC tenant-aware e apresentar contagens/listas persistentes no shell desktop
-- [ ] Completar formulários interactivos de criação/actualização para Clientes, Fornecedores, Stock e Tesouraria; os botões `Novo registo` continuam a ser apenas entradas visuais nestas superfícies
+- [x] Completar formulários interactivos de criação/actualização para Clientes, Fornecedores, Stock e Tesouraria com acções por linha/seleção, em vez de depender de ID manual
+
+- [x] Adicionar teste UI específico para Clientes, Fornecedores, Stock e Tesouraria, cobrindo rota, estado vazio e affordance de criação
+- [x] Cobrir actualização permitida de fornecedor antes de emissão e bloqueio posterior no E2E tenant descartável
+- [x] Implementar entidade persistente/listagem/gestão de activos fixos, ou documentar formalmente o escopo limitado a cálculo/posting de depreciação
+- [x] Completar actualizações UI de contraparte, catálogo e contas de caixa/banco com acções por linha e cobertura de sucesso/erro
