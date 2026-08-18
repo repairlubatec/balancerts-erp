@@ -35,10 +35,10 @@ export function WorkspaceTabBar({
             <div
               key={tab.path}
               className={cn(
-                "group flex h-8 shrink-0 items-center gap-2 rounded-md border px-2.5 text-xs transition-colors",
+                "group flex h-8 shrink-0 items-center gap-2 rounded-sm border px-2.5 text-xs transition-colors",
                 active
-                  ? "border-[#b8d1ed] bg-white font-semibold text-[#102a43] shadow-sm"
-                  : "border-transparent text-slate-500 hover:border-[#d8e3ef] hover:bg-white hover:text-[#305b88]",
+                  ? "border-[#9fb9d3] border-b-2 border-b-[#1267d6] bg-white font-semibold text-[#102a43] shadow-none"
+                  : "border-transparent text-slate-500 hover:border-[#c7d3df] hover:bg-white hover:text-[#305b88]",
               )}
             >
               <button

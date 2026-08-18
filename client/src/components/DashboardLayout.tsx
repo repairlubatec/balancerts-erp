@@ -21,8 +21,8 @@ import {
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { BarChart3, Building2, Calculator, ClipboardCheck, FileText, Landmark, LayoutDashboard, LogOut, PanelLeft, Receipt, Settings2, ShieldCheck, Truck, UsersRound, WalletCards, Warehouse } from "lucide-react";
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import { BarChart3, Building2, Calculator, ChevronDown, ClipboardCheck, FileText, Landmark, LayoutDashboard, LogOut, PanelLeft, Receipt, Settings2, ShieldCheck, Truck, UsersRound, WalletCards, Warehouse } from "lucide-react";
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { WorkspaceTabBar, type WorkspaceTab } from "./WorkspaceTabBar";
@@ -30,21 +30,21 @@ import { DesktopMenuBar, DesktopStatusBar } from "./DesktopMenuBar";
 import { Button } from "./ui/button";
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Minhas Empresas", path: "/" },
-  { icon: Calculator, label: "Contabilidade", path: "/contabilidade" },
-  { icon: Receipt, label: "Facturação", path: "/facturacao" },
-  { icon: UsersRound, label: "Clientes", path: "/clientes" },
-  { icon: Truck, label: "Fornecedores", path: "/fornecedores" },
-  { icon: FileText, label: "Documentos", path: "/documentos" },
-  { icon: Landmark, label: "Fiscalidade", path: "/fiscalidade" },
-  { icon: Warehouse, label: "Stock", path: "/stock" },
-  { icon: Warehouse, label: "Imobilizado", path: "/imobilizado" },
-  { icon: WalletCards, label: "Tesouraria", path: "/tesouraria" },
-  { icon: BarChart3, label: "Relatórios", path: "/relatorios" },
-  { icon: ClipboardCheck, label: "Fecho", path: "/fecho" },
-  { icon: ShieldCheck, label: "Auditoria", path: "/auditoria" },
-  { icon: Building2, label: "Empresas", path: "/empresas" },
-  { icon: Settings2, label: "Definições", path: "/definicoes" },
+  { icon: LayoutDashboard, label: "Minhas Empresas", group: "Contexto", path: "/" },
+  { icon: Building2, label: "Empresas", group: "Contexto", path: "/empresas" },
+  { icon: Calculator, label: "Contabilidade", group: "Financeira", path: "/contabilidade" },
+  { icon: WalletCards, label: "Tesouraria", group: "Financeira", path: "/tesouraria" },
+  { icon: Receipt, label: "Facturação", group: "Comercial", path: "/facturacao" },
+  { icon: UsersRound, label: "Clientes", group: "Comercial", path: "/clientes" },
+  { icon: Truck, label: "Fornecedores", group: "Comercial", path: "/fornecedores" },
+  { icon: FileText, label: "Documentos", group: "Comercial", path: "/documentos" },
+  { icon: Warehouse, label: "Stock", group: "Operações", path: "/stock" },
+  { icon: Warehouse, label: "Imobilizado", group: "Operações", path: "/imobilizado" },
+  { icon: Landmark, label: "Fiscalidade", group: "Controlo", path: "/fiscalidade" },
+  { icon: BarChart3, label: "Relatórios", group: "Controlo", path: "/relatorios" },
+  { icon: ClipboardCheck, label: "Fecho", group: "Controlo", path: "/fecho" },
+  { icon: ShieldCheck, label: "Auditoria", group: "Controlo", path: "/auditoria" },
+  { icon: Settings2, label: "Definições", group: "Sistema", path: "/definicoes" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
@@ -134,6 +134,15 @@ function DashboardLayoutContent({
   });
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
+  const [collapsedGroups, setCollapsedGroups] = useState<string[]>(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("balancerts.collapsedMenuGroups") ?? "[]") as unknown;
+      return Array.isArray(stored) ? stored.filter((group): group is string => typeof group === "string") : [];
+    } catch {
+      return [];
+    }
+  });
+  const toggleGroup = (group: string) => setCollapsedGroups((current) => current.includes(group) ? current.filter((item) => item !== group) : [...current, group]);
   const workspaceTabs: WorkspaceTab[] = openPaths.map((path) => menuItems.find((item) => item.path === path)).filter((item): item is (typeof menuItems)[number] => Boolean(item));
 
   useEffect(() => {
@@ -145,6 +154,10 @@ function DashboardLayoutContent({
   useEffect(() => {
     localStorage.setItem("balancerts.workspaceTabs", JSON.stringify(openPaths));
   }, [openPaths]);
+
+  useEffect(() => {
+    localStorage.setItem("balancerts.collapsedMenuGroups", JSON.stringify(collapsedGroups));
+  }, [collapsedGroups]);
 
   const workspaceTabPaths = workspaceTabs.map((tab) => tab.path).join("|");
 
@@ -286,10 +299,15 @@ function DashboardLayoutContent({
 
           <SidebarContent className="gap-0">
             <SidebarMenu className="px-2 py-1">
-              {menuItems.map(item => {
+              {menuItems.map((item, index) => {
                 const isActive = activePath === item.path;
+                const previous = menuItems[index - 1];
+                const firstOfGroup = !previous || previous.group !== item.group;
+                const groupOpen = !collapsedGroups.includes(item.group) || activePath === item.path;
                 return (
-                  <SidebarMenuItem key={item.path}>
+                  <React.Fragment key={item.path}>
+                    {!isCollapsed && firstOfGroup && <li className="list-none px-2 pb-1 pt-2"><button type="button" onClick={() => toggleGroup(item.group)} className="flex w-full items-center justify-between text-left text-[9px] font-bold uppercase tracking-[0.14em] text-[#7a8795] outline-none hover:text-[#1d568f] focus-visible:ring-1 focus-visible:ring-[#1267d6]"><span>{item.group}</span><ChevronDown className={`h-3 w-3 transition-transform ${groupOpen ? "" : "-rotate-90"}`} /></button></li>}
+                  {(!isCollapsed && !groupOpen) ? null : <SidebarMenuItem>
                     <SidebarMenuButton
                       isActive={isActive}
                       onClick={() => selectWorkspace(item.path)}
@@ -301,7 +319,8 @@ function DashboardLayoutContent({
                       />
                       <span>{item.label}</span>
                     </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  </SidebarMenuItem>}
+                  </React.Fragment>
                 );
               })}
             </SidebarMenu>

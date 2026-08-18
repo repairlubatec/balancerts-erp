@@ -555,3 +555,12 @@
 - [x] Rever janelas internas, menus e estados de foco para Windows/macOS
 - [x] Validar a linguagem desktop no PWA e em viewport móvel
 - [x] Executar regressão, screenshots comparativos, documentação e checkpoint
+
+# Padrão PMR melhorado
+
+- [x] Mapear a anatomia visual PMR para equivalências BALANCERTS.ERP
+- [x] Reorganizar navegação em módulos, submódulos e contexto operacional
+- [x] Aplicar estrutura PMR melhorada a grelhas, toolbars, formulários e painéis
+- [x] Criar estados de janela, detalhe, comandos e densidade coerentes
+- [x] Validar a linguagem visual em desktop e PWA sem regressões
+- [x] Documentar o padrão PMR melhorado e guardar checkpoint
