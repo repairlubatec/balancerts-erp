@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser,   agtIntegrationConfigs,
+import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys,
   auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
@@ -154,6 +154,80 @@ export async function configureAgtIntegrationForUser(input: { userId: number; or
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "AGT_CONFIGURED", entityType: "agtIntegrationConfig", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, userId: undefined, id }), correlationId: `agt-config:${input.companyId}:${input.version}` });
   return { id, homologationStatus: input.homologationStatus ?? "INTERNAL_READY" };
+}
+
+export async function getAgtEstablishmentsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ establishment: agtEstablishments }).from(agtEstablishments).innerJoin(companies, eq(agtEstablishments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(agtEstablishments.companyId, companyId), eq(organizations.ownerUserId, userId), eq(agtEstablishments.active, 1))).orderBy(agtEstablishments.establishmentNumber);
+}
+
+export async function createAgtEstablishmentForUser(input: { userId: number; organizationId: number; companyId: number; establishmentNumber: string; name: string; address?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const result = await db.insert(agtEstablishments).values({ organizationId: input.organizationId, companyId: input.companyId, establishmentNumber: input.establishmentNumber.trim(), name: input.name.trim(), address: input.address?.trim() });
+  const id = Number(result[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "AGT_ESTABLISHMENT_CREATED", entityType: "agtEstablishment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, userId: undefined, id }), correlationId: `agt-establishment:${id}` });
+  return { id };
+}
+
+export async function getAgtSeriesForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ series: agtSeries, establishment: agtEstablishments }).from(agtSeries).innerJoin(agtEstablishments, eq(agtSeries.establishmentId, agtEstablishments.id)).innerJoin(companies, eq(agtSeries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(agtSeries.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(desc(agtSeries.seriesYear), agtSeries.seriesCode);
+}
+
+export async function createAgtSeriesForUser(input: { userId: number; organizationId: number; companyId: number; establishmentId: number; seriesCode: string; seriesYear: number; documentType: string; contingencyIndicator?: "N" | "C"; invoicingMethod?: string; firstDocumentApproved?: string; lastDocumentApproved?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const establishment = await db.select({ id: agtEstablishments.id }).from(agtEstablishments).where(and(eq(agtEstablishments.id, input.establishmentId), eq(agtEstablishments.companyId, input.companyId), eq(agtEstablishments.organizationId, input.organizationId))).limit(1);
+  if (!establishment[0]) throw new Error("AGT_ESTABLISHMENT_NOT_FOUND_OR_FORBIDDEN");
+  const result = await db.insert(agtSeries).values({ organizationId: input.organizationId, companyId: input.companyId, establishmentId: input.establishmentId, seriesCode: input.seriesCode.trim(), seriesYear: input.seriesYear, documentType: input.documentType.trim().toUpperCase(), contingencyIndicator: input.contingencyIndicator ?? "N", invoicingMethod: input.invoicingMethod ?? "FESF", firstDocumentApproved: input.firstDocumentApproved, lastDocumentApproved: input.lastDocumentApproved, seriesCreationDate: new Date() });
+  const id = Number(result[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "AGT_SERIES_CREATED", entityType: "agtSeries", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, userId: undefined, id }), correlationId: `agt-series:${id}` });
+  return { id };
+}
+
+export async function getAgtSubmissionsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ submission: agtSubmissions, documents: agtSubmissionDocuments }).from(agtSubmissions).leftJoin(agtSubmissionDocuments, eq(agtSubmissions.id, agtSubmissionDocuments.submissionId)).innerJoin(companies, eq(agtSubmissions.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(agtSubmissions.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(desc(agtSubmissions.createdAt));
+}
+
+export async function createAgtSubmissionForUser(input: { userId: number; organizationId: number; companyId: number; operation: string; submissionUUID: string; payload: Record<string, unknown>; requestID?: string; documentIds?: Array<{ documentId?: number; documentNo: string }> }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const existing = await db.select({ id: agtSubmissions.id }).from(agtSubmissions).where(and(eq(agtSubmissions.companyId, input.companyId), eq(agtSubmissions.submissionUUID, input.submissionUUID))).limit(1);
+  if (existing[0]) return { id: existing[0].id, idempotent: true };
+  const inserted = await db.insert(agtSubmissions).values({ organizationId: input.organizationId, companyId: input.companyId, operation: input.operation, submissionUUID: input.submissionUUID, requestID: input.requestID, payload: JSON.stringify(input.payload), createdBy: input.userId, nextPollAt: new Date() });
+  const id = Number(inserted[0].insertId);
+  for (const document of input.documentIds ?? []) {
+    await db.insert(agtSubmissionDocuments).values({ submissionId: id, companyId: input.companyId, documentId: document.documentId, documentNo: document.documentNo });
+  }
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "AGT_SUBMISSION_CREATED", entityType: "agtSubmission", entityId: String(id), beforeState: null, afterState: JSON.stringify({ operation: input.operation, submissionUUID: input.submissionUUID, documentCount: input.documentIds?.length ?? 0 }), correlationId: `agt-submission:${input.submissionUUID}` });
+  return { id, idempotent: false };
+}
+
+export async function updateAgtSubmissionResultForUser(input: { userId: number; companyId: number; submissionId: number; state: "PENDING" | "PROCESSING" | "COMPLETED" | "PARTIAL" | "FAILED" | "CANCELLED"; resultCode?: string; responsePayload?: Record<string, unknown>; requestID?: string; lastError?: string; documents?: Array<{ documentNo: string; documentStatus: "PENDING" | "VALID" | "INVALID" | "REJECTED" | "CANCELLED"; errorCode?: string; errorDescription?: string }> }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const row = await db.select({ submission: agtSubmissions, organizationId: companies.organizationId }).from(agtSubmissions).innerJoin(companies, eq(agtSubmissions.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(agtSubmissions.id, input.submissionId), eq(agtSubmissions.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!row[0]) throw new Error("AGT_SUBMISSION_NOT_FOUND_OR_FORBIDDEN");
+  await db.update(agtSubmissions).set({ state: input.state, resultCode: input.resultCode, requestID: input.requestID, responsePayload: input.responsePayload ? JSON.stringify(input.responsePayload) : undefined, lastError: input.lastError, lastPolledAt: new Date(), nextPollAt: input.state === "PROCESSING" ? new Date(Date.now() + 60_000) : null }).where(eq(agtSubmissions.id, input.submissionId));
+  for (const document of input.documents ?? []) {
+    await db.update(agtSubmissionDocuments).set({ documentStatus: document.documentStatus, errorCode: document.errorCode, errorDescription: document.errorDescription }).where(and(eq(agtSubmissionDocuments.submissionId, input.submissionId), eq(agtSubmissionDocuments.documentNo, document.documentNo)));
+  }
+  await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "AGT_SUBMISSION_UPDATED", entityType: "agtSubmission", entityId: String(input.submissionId), beforeState: JSON.stringify(row[0].submission), afterState: JSON.stringify(input), correlationId: `agt-submission:${input.submissionId}` });
+  return { id: input.submissionId, state: input.state };
+}
+
+export async function getAgtSignatureKeysForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ key: agtSignatureKeys }).from(agtSignatureKeys).innerJoin(companies, eq(agtSignatureKeys.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(agtSignatureKeys.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(desc(agtSignatureKeys.createdAt));
 }
 
 export async function getNormativeRulesForUserCompany(userId: number, companyId: number) {

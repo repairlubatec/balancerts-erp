@@ -326,6 +326,87 @@ export const agtIntegrationConfigs = mysqlTable("agt_integration_configs", {
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
 
+export const agtEstablishments = mysqlTable("agtEstablishments", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  establishmentNumber: varchar("establishmentNumber", { length: 200 }).notNull(),
+  name: varchar("name", { length: 180 }).notNull(),
+  address: varchar("address", { length: 255 }),
+  active: int("active").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const agtSeries = mysqlTable("agtSeries", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  establishmentId: int("establishmentId").notNull(),
+  seriesCode: varchar("seriesCode", { length: 60 }).notNull(),
+  seriesYear: int("seriesYear").notNull(),
+  documentType: varchar("documentType", { length: 2 }).notNull(),
+  seriesStatus: mysqlEnum("seriesStatus", ["A", "U", "F"]).default("A").notNull(),
+  contingencyIndicator: mysqlEnum("contingencyIndicator", ["N", "C"]).default("N").notNull(),
+  invoicingMethod: varchar("invoicingMethod", { length: 4 }).default("FESF").notNull(),
+  firstDocumentApproved: varchar("firstDocumentApproved", { length: 60 }),
+  lastDocumentApproved: varchar("lastDocumentApproved", { length: 60 }),
+  firstDocumentCreated: varchar("firstDocumentCreated", { length: 60 }),
+  lastDocumentCreated: varchar("lastDocumentCreated", { length: 60 }),
+  seriesCreationDate: timestamp("seriesCreationDate"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const agtSubmissions = mysqlTable("agtSubmissions", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  operation: varchar("operation", { length: 40 }).notNull(),
+  submissionUUID: varchar("submissionUUID", { length: 64 }).notNull().unique(),
+  requestID: varchar("requestID", { length: 15 }),
+  integrationOperationId: int("integrationOperationId"),
+  state: mysqlEnum("state", ["PENDING", "PROCESSING", "COMPLETED", "PARTIAL", "FAILED", "CANCELLED"]).default("PENDING").notNull(),
+  resultCode: varchar("resultCode", { length: 8 }),
+  payload: text("payload").notNull(),
+  responsePayload: text("responsePayload"),
+  nextPollAt: timestamp("nextPollAt"),
+  lastPolledAt: timestamp("lastPolledAt"),
+  attempts: int("attempts").default(0).notNull(),
+  lastError: text("lastError"),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const agtSubmissionDocuments = mysqlTable("agtSubmissionDocuments", {
+  id: int("id").autoincrement().primaryKey(),
+  submissionId: int("submissionId").notNull(),
+  companyId: int("companyId").notNull(),
+  documentId: int("documentId"),
+  documentNo: varchar("documentNo", { length: 60 }).notNull(),
+  documentStatus: mysqlEnum("documentStatus", ["PENDING", "VALID", "INVALID", "REJECTED", "CANCELLED"]).default("PENDING").notNull(),
+  errorCode: varchar("errorCode", { length: 8 }),
+  errorDescription: varchar("errorDescription", { length: 255 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const agtSignatureKeys = mysqlTable("agtSignatureKeys", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  keyType: mysqlEnum("keyType", ["SOFTWARE", "ISSUER"]).notNull(),
+  signatureVersion: int("signatureVersion").notNull(),
+  publicKeyReference: varchar("publicKeyReference", { length: 512 }).notNull(),
+  privateKeyReference: varchar("privateKeyReference", { length: 512 }),
+  status: mysqlEnum("status", ["PENDING", "ACTIVE", "ROTATING", "REVOKED"]).default("PENDING").notNull(),
+  effectiveFrom: timestamp("effectiveFrom"),
+  revokedAt: timestamp("revokedAt"),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const normativeRules = mysqlTable("normativeRules", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

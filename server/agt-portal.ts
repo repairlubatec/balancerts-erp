@@ -100,6 +100,8 @@ export type AgtTaxLine = {
 
 export type AgtInvoiceLine = {
   lineNumber: string;
+  operationType: "SE" | "SS" | "STP" | "SR" | "SIF" | "SHS" | "ST" | "SG" | "TB" | "AS" | "QT" | "RD";
+  operationDate?: string;
   productCode: string;
   productDescription: string;
   quantity: string;
@@ -113,9 +115,19 @@ export type AgtInvoiceLine = {
   settlementAmount?: string;
 };
 
+export type AgtPaymentReceipt = {
+  sourceDocuments: Array<{
+    lineNo: string;
+    sourceDocumentID: { OriginatingON: string; documentDate: string };
+    debitAmount?: string;
+    creditAmount?: string;
+  }>;
+};
+
 export type AgtInvoiceDocument = {
   documentNo: string;
-  documentStatus: string;
+  documentStatus: "N" | "C";
+  rejectedDocumentNo?: string;
   jwsDocumentSignature?: string;
   documentDate: string;
   documentType: string;
@@ -126,6 +138,7 @@ export type AgtInvoiceDocument = {
   companyName: string;
   lines?: AgtInvoiceLine[];
   documentTotals: { taxPayable: string; netTotal: string; grossTotal: string; currency?: { currencyCode: string; currencyAmount?: string; exchangeRate?: string } };
+  paymentReceipt?: AgtPaymentReceipt;
   withholdingTaxList?: Array<{ withholdingTaxType: string; withholdingTaxDescription?: string; withholdingTaxAmount: string }>;
 };
 
@@ -134,8 +147,9 @@ export type AgtRegisterInvoiceRequest = {
   submissionUUID: string;
   taxRegistrationNumber: string;
   submissionTimeStamp: string;
-  softwareInfo: { softwareInfoDetail: { productId: string; productVersion: string; softwareValidationNumber?: string }; jwsSoftwareSignature?: string };
+  softwareInfo: { softwareInfoDetail: { productId: string; productVersion: string; softwareValidationNumber?: string; signatureVersion?: number }; jwsSoftwareSignature?: string };
   numberOfEntries: string;
+  establishmentNumber?: string;
   documents: AgtInvoiceDocument[];
   jwsSignature?: string;
 };
@@ -150,15 +164,20 @@ export function validateRegistarFacturaRequest(input: AgtRegisterInvoiceRequest)
   if (!input.submissionTimeStamp.trim()) errors.push("submissionTimeStamp");
   if (!input.softwareInfo?.softwareInfoDetail?.productId) errors.push("softwareInfo.productId");
   if (!input.softwareInfo?.softwareInfoDetail?.productVersion) errors.push("softwareInfo.productVersion");
-  if (!input.numberOfEntries || Number(input.numberOfEntries) !== input.documents.length) errors.push("numberOfEntries");
+  if (!input.softwareInfo?.softwareInfoDetail?.softwareValidationNumber) errors.push("softwareInfo.softwareValidationNumber");
+  if (!Number.isInteger(input.softwareInfo?.softwareInfoDetail?.signatureVersion) || Number(input.softwareInfo.softwareInfoDetail.signatureVersion) < 1) errors.push("softwareInfo.signatureVersion");
+  if (!input.numberOfEntries || Number(input.numberOfEntries) !== input.documents.length || input.documents.length > 30) errors.push("numberOfEntries");
   input.documents.forEach((document, index) => {
     if (!document.documentNo) errors.push(`documents[${index}].documentNo`);
     if (!document.documentStatus) errors.push(`documents[${index}].documentStatus`);
+    if (document.documentStatus === "C" && !document.rejectedDocumentNo) errors.push(`documents[${index}].rejectedDocumentNo`);
     if (!document.documentDate) errors.push(`documents[${index}].documentDate`);
     if (!document.documentType) errors.push(`documents[${index}].documentType`);
     if (!document.companyName) errors.push(`documents[${index}].companyName`);
     if (!document.documentTotals) errors.push(`documents[${index}].documentTotals`);
     const receiptType = ["AR", "RC", "RG"].includes(document.documentType);
+    if (receiptType && !document.paymentReceipt) errors.push(`documents[${index}].paymentReceipt`);
+    if (!receiptType && document.paymentReceipt) errors.push(`documents[${index}].paymentReceipt`);
     if (!receiptType && (!document.lines || document.lines.length === 0)) errors.push(`documents[${index}].lines`);
     document.lines?.forEach((line, lineIndex) => {
       if (line.lineNumber !== String(lineIndex + 1)) errors.push(`documents[${index}].lines[${lineIndex}].lineNumber`);

@@ -320,3 +320,44 @@
 - [x] Adicionar testes de regressão para cada fluxo corrigido, incluindo sucesso, erro e permissões
 - [x] Validar os fluxos no browser desktop/PWA e executar a regressão completa
 - [x] Guardar checkpoint da correcção dos fluxos sem resposta
+
+# Revisão sistemática de botões e acções
+
+- [ ] Inventariar todos os botões, links, ícones clicáveis e atalhos por rota
+- [ ] Verificar cada elemento clicável contra handler, rota, mutation, permissões e feedback
+- [ ] Testar navegação lateral, dashboard, command palette, formulários, tabelas e acções contextuais
+- [ ] Corrigir qualquer botão sem resposta, destino morto ou estado de erro ausente
+- [ ] Adicionar testes de regressão para todos os fluxos corrigidos nesta revisão
+- [ ] Validar todas as rotas e principais interacções no browser desktop/PWA
+- [ ] Guardar checkpoint da revisão completa de botões e acções
+
+# Modo local de teste sem login externo
+
+- [ ] Definir flag de desenvolvimento exclusiva para autenticação local, nunca activa em produção
+- [ ] Activar utilizador/tenant de demonstração local sem alterar dados fiscais reais
+- [ ] Disponibilizar painel local para registar botões ou acções que não funcionarem
+- [ ] Adicionar testes de segurança que rejeitem o modo local fora de desenvolvimento
+- [ ] Validar o acesso em localhost e a navegação principal sem OAuth
+- [ ] Guardar checkpoint do modo local de teste
+
+# Estudo comparativo AGT — sem implementação
+
+- [x] Recolher e ler integralmente os documentos oficiais da página AGT indicada
+- [x] Comparar requisitos AGT com docs/agt-portal-findings.md, contratos SIGT/FE, SAF-T AO e implementação existente
+- [x] Classificar cada requisito como implementado, parcial, ausente ou dependente de informação/homologação AGT
+- [x] Entregar matriz de lacunas e recomendações sem alterar código, schema, dados ou configuração
+
+# Implementação das prioridades AGT
+
+- [x] Definir critérios de aceitação e modelo de dados para QR Code, séries, estabelecimentos, requestID, estados AGT, recibos, adquirente e chaves versionadas
+- [ ] Implementar QR Code AGT Model 2 versão 4, nível M, UTF-8, URL oficial, PNG 350x350 e logo AGT com área inferior a 20%
+- [ ] Integrar QR Code no documento imprimível e validar codificação do documentNo com espaços como %20
+- [ ] Criar modelo e procedimentos tenant-aware para estabelecimentos AGT, séries autorizadas, gamas, estados e contingência
+- [ ] Completar builders e validação de RegistarFactura com campos condicionais, tipos de operação, recibos, retenções, moeda, correcções e limite de 30 documentos
+- [ ] Persistir requestID, respostas AGT, resultCode, estados V/I e erros por documento, com polling/backoff seguro sem comunicação real por defeito
+- [ ] Implementar fluxos AGT de recibos e ValidarDocumento com confirmação/rejeição e exclusividade do IVA dedutível
+- [ ] Implementar signatureVersion, rotação/revogação e referências seguras de chaves sem guardar segredos em texto
+- [ ] Criar consola AGT UI para payload, resposta, requestID, tentativas, retry e estado por documento
+- [ ] Adicionar testes unitários, integração, RBAC, isolamento tenant e regressões para todas as prioridades
+- [ ] Executar migrações não destrutivas, TypeScript, build, Vitest e verificação visual desktop/PWA
+- [ ] Guardar checkpoint da implementação das prioridades AGT
