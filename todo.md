@@ -407,4 +407,15 @@
 - [x] Preparar fluxo de ficheiros reais anonimizados com pré-visualização e validação; teste com ficheiro real da equipa aguardará o upload
 - [x] Adicionar testes de logo, facturas, reconciliação, RBAC, isolamento e ficheiros anonimizados — cobertura segura de fixture anonimizada; ficheiro real da equipa ainda não fornecido
 - [x] Executar regressão, TypeScript, build e verificação visual — 49 ficheiros/173 testes aprovados
-- [ ] Guardar checkpoint dos três próximos passos
+- [x] Guardar checkpoint dos três próximos passos
+
+# Reforço do fluxo de ficheiros anonimizados
+
+- [x] Definir padrões de anonimização para NIF, email, telefone, nomes, moradas e números documentais
+- [x] Implementar detecção de dados potencialmente identificáveis antes da pré-validação fiscal
+- [x] Mostrar aviso bloqueante e relatório de campos suspeitos sem gravar o ficheiro
+- [x] Melhorar pré-visualização segura e resumo de linhas aceites/rejeitadas
+- [x] Garantir limpeza de lotes e produtos de teste descartáveis após a validação
+- [x] Adicionar testes unitários, E2E, RBAC e isolamento para o fluxo anonimizado
+- [x] Executar regressão, TypeScript, build e verificação visual — 49 ficheiros/174 testes aprovados
+- [x] Guardar checkpoint do reforço do fluxo anonimizado

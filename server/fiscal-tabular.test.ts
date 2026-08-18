@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { exportFiscalCsv, exportFiscalWorkbook, parseFiscalTabular, validateFiscalImport } from "./fiscal-tabular";
+import { detectPotentialIdentifiers, exportFiscalCsv, exportFiscalWorkbook, parseFiscalTabular, validateFiscalImport } from "./fiscal-tabular";
 
 describe("fiscal CSV/Excel workflows", () => {
   it("accepts valid Angolan counterparty and document rows", () => {
-    expect(validateFiscalImport("counterparties", [{ name: "Cliente", taxId: "500000001", kind: "CUSTOMER" }]).valid).toBe(true);
+    expect(validateFiscalImport("counterparties", [{ name: "ANON Cliente", taxId: "ANON", kind: "CUSTOMER" }]).valid).toBe(true);
     expect(validateFiscalImport("documents", [{ documentNumber: "FT 2026/1", documentType: "FT", currency: "AOA", ivaRegime: "EXCLUSAO", netAmount: "100", taxAmount: "0", totalAmount: "100", lines: JSON.stringify([{ description: "Serviço", quantity: 1, unitPrice: 100, netAmount: 100, taxAmount: 0, totalAmount: 100 }]) }]).valid).toBe(true);
   });
 
@@ -18,6 +18,13 @@ describe("fiscal CSV/Excel workflows", () => {
     const result = validateFiscalImport("documents", [{ documentNumber: "FT 2026/2", documentType: "FT", currency: "AOA", ivaRegime: "GERAL", netAmount: "100", taxAmount: "14", totalAmount: "114", lines: JSON.stringify([{ description: "Serviço", quantity: 1, unitPrice: 100, netAmount: 100, taxAmount: 10, totalAmount: 111 }]), taxes: JSON.stringify([{ amount: 12 }]) }]);
     expect(result.valid).toBe(false);
     expect(result.errors.map((error) => error.field)).toEqual(expect.arrayContaining(["lines[0].totalAmount", "taxAmount", "totalAmount", "taxes"]));
+  });
+
+  it("blocks identifiable data and accepts explicit anonymized placeholders", () => {
+    const blocked = detectPotentialIdentifiers([{ taxId: "5001121871", email: "real@example.com", phone: "+244 921346544" }]);
+    expect(blocked.safe).toBe(false);
+    expect(blocked.findings.map((finding) => finding.field)).toEqual(expect.arrayContaining(["taxId", "email", "phone"]));
+    expect(detectPotentialIdentifiers([{ taxId: "ANON", email: "anon@example.invalid", phone: "ANON" }]).safe).toBe(true);
   });
 
   it("round-trips CSV and XLSX exports through the parser", () => {

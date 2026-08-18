@@ -39,13 +39,35 @@ export function validateInvoiceReviewRow(row: FiscalImportRow, line: number) {
   return errors;
 }
 
+const ANON_PLACEHOLDER = /^(anon|an[oó]nimo|teste|test|exemplo|sample|redacted|masked|privado|xxx+|\*+|n\/a|na)$/i;
+function isPlaceholder(value: unknown) { return ANON_PLACEHOLDER.test(text(value)); }
+export function detectPotentialIdentifiers(rows: FiscalImportRow[]) {
+  const findings: FiscalImportError[] = [];
+  rows.forEach((row, index) => {
+    const line = index + 2;
+    for (const field of ["taxId", "nif", "customerTaxID", "supplierTaxID"]) {
+      const value = text(row[field]);
+      if (value && !isPlaceholder(value) && /^\d{9,15}$/.test(value)) findings.push({ row: line, field, message: "NIF potencialmente identificável; use ANON ou remova o valor antes do teste" });
+    }
+    for (const field of ["email", "customerEmail", "supplierEmail"]) {
+      const value = text(row[field]);
+      if (value && !isPlaceholder(value) && !/\.invalid$/i.test(value) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) findings.push({ row: line, field, message: "Email potencialmente identificável; substitua por exemplo.invalid ou remova" });
+    }
+    for (const field of ["phone", "customerPhone", "supplierPhone", "telefone"]) {
+      const value = text(row[field]).replace(/[\s()+-]/g, "");
+      if (value && !isPlaceholder(value) && /^\d{7,15}$/.test(value)) findings.push({ row: line, field, message: "Telefone potencialmente identificável; use ANON ou remova o valor" });
+    }
+  });
+  return { safe: findings.length === 0, findings };
+}
+
 export function validateFiscalImport(kind: FiscalImportKind, rows: FiscalImportRow[]) {
   const errors: FiscalImportError[] = [];
   rows.forEach((row, index) => {
     const line = index + 2;
     if (kind === "counterparties") {
       if (!text(row.name)) errors.push({ row: line, field: "name", message: "Nome obrigatório" });
-      if (text(row.taxId) && !NIF_PATTERN.test(text(row.taxId))) errors.push({ row: line, field: "taxId", message: "NIF deve conter entre 9 e 15 dígitos" });
+      if (text(row.taxId) && !isPlaceholder(row.taxId) && !NIF_PATTERN.test(text(row.taxId))) errors.push({ row: line, field: "taxId", message: "NIF deve conter entre 9 e 15 dígitos" });
       if (!text(row.kind) || !["CUSTOMER", "SUPPLIER"].includes(text(row.kind))) errors.push({ row: line, field: "kind", message: "Tipo deve ser CUSTOMER ou SUPPLIER" });
     }
     if (kind === "products") {
@@ -64,7 +86,9 @@ export function validateFiscalImport(kind: FiscalImportKind, rows: FiscalImportR
       errors.push(...validateInvoiceReviewRow(row, line));
     }
   });
-  return { valid: errors.length === 0, errors, acceptedRows: rows.length - new Set(errors.map((error) => error.row)).size };
+  const privacy = detectPotentialIdentifiers(rows);
+  errors.push(...privacy.findings);
+  return { valid: errors.length === 0, errors, acceptedRows: rows.length - new Set(errors.map((error) => error.row)).size, privacy };
 }
 
 export function exportFiscalCsv(rows: FiscalImportRow[]) {
