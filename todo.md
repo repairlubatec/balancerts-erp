@@ -509,3 +509,6 @@
 
 - [x] Remover linhas demonstrativas de Fecho e Definições e mostrar dados persistentes ou estado vazio honesto
 - [x] Adicionar regressão para impedir retorno de dados demonstrativos nesses módulos
+
+- [x] Ligar Fiscalidade e Relatórios às consultas persistentes existentes e remover linhas demonstrativas
+- [x] Adicionar regressão para impedir dados demo em Fiscalidade e Relatórios
