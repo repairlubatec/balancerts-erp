@@ -58,10 +58,10 @@ describe("expanded tenant-aware operational modules", () => {
         await db!.insert(documentSeries).values({ companyId: COMPANY_ID, code: "FT-TEST", documentType: "NC", nextNumber: 1, active: 1 });
         createdCorrectionSeries = true;
       }
-      const agtConfig = await caller.normative.configureAgt({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, version: "AO-ADAPTER-1", xsdVersion: "1.01_01", xsdReference: "https://agt.example.invalid/xsd/SAFT-AO-1.01_01.xsd", endpointReference: "https://agt.example.invalid/submissions", authReference: "secret-ref:agt-test", officialCodes: { IVA_EXCLUSAO: "EXCLUSAO", DOCUMENTO_FT: "FT" }, homologationStatus: "INTERNAL_READY" });
+      const agtConfig = await caller.normative.configureAgt({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, version: "AO-ADAPTER-1", productId: "BALANCERTS.ERP", productVersion: "1.0.0", softwareValidationNumber: "PENDING", serviceNamespace: "http://sifp.minfin.gov.ao/sigt/fe/ws/v1", xsdVersion: "1.01_01", xsdReference: "https://agt.example.invalid/xsd/SAFT-AO-1.01_01.xsd", endpointReference: "https://agt.example.invalid/submissions", authReference: "secret-ref:agt-test", officialCodes: { IVA_EXCLUSAO: "EXCLUSAO", DOCUMENTO_FT: "FT" }, homologationStatus: "INTERNAL_READY" });
       agtConfigId = agtConfig.id;
       const agtConfigs = await caller.normative.agtConfig({ companyId: COMPANY_ID });
-      expect(agtConfigs.some(({ config }) => config.id === agtConfigId && config.homologationStatus === "INTERNAL_READY" && config.authReference === "secret-ref:agt-test")).toBe(true);
+      expect(agtConfigs.some(({ config }) => config.id === agtConfigId && config.homologationStatus === "INTERNAL_READY" && config.authReference === "secret-ref:agt-test" && config.productId === "BALANCERTS.ERP" && config.productVersion === "1.0.0" && config.softwareValidationNumber === "PENDING" && config.serviceNamespace === "http://sifp.minfin.gov.ao/sigt/fe/ws/v1")).toBe(true);
       const submission = await caller.normative.enqueueSubmission({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, idempotencyKey: `agt-submit-${suffix}`, payload: { schemaVersion: "1.01_01", documentScope: "tenant-test" } });
       submissionId = submission.id;
       expect(submission).toMatchObject({ state: "PENDING", idempotent: false });

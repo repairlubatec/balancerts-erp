@@ -276,3 +276,29 @@
 - [x] Cobrir actualização permitida de fornecedor antes de emissão e bloqueio posterior no E2E tenant descartável
 - [x] Implementar entidade persistente/listagem/gestão de activos fixos, ou documentar formalmente o escopo limitado a cálculo/posting de depreciação
 - [x] Completar actualizações UI de contraparte, catálogo e contas de caixa/banco com acções por linha e cobertura de sucesso/erro
+
+
+# Continuação integral — levantamento documental e evolução
+
+- [x] Inventariar todos os documentos, folhas, PDFs, imagens e referências relevantes disponíveis no Google Drive para o BALANCERTS.ERP
+- [x] Comparar os requisitos documentais com schema, routers, regras fiscais, relatórios, SAF-T, auditoria, RBAC e UI actualmente implementados
+- [x] Registar lacunas novas com prioridade, impacto legal/operacional e dependências externas da AGT
+- [x] Implementar o próximo conjunto prioritário de funcionalidades determinado pelo levantamento documental: contratos SIGT/FE, configuração AGT, builders, validações e cliente REST seguro
+- [x] Adicionar testes Vitest e E2E para cada funcionalidade nova, incluindo isolamento multi-tenant, RBAC, auditoria e estados de erro
+- [x] Verificar visualmente as superfícies desktop/PWA afectadas e preservar a linguagem de software de alta densidade
+- [x] Executar regressão completa, build de produção, validações SAF-T/XSD e revisão de logs
+- [x] Actualizar documentação técnica e limites de conformidade externa
+- [x] Guardar checkpoint de progresso após concluir o próximo conjunto prioritário
+
+
+# Auditoria documental — Portal do Parceiro AGT
+
+- [x] Localizar a pasta exacta do Portal do Parceiro da AGT no Google Drive e inventariar todos os ficheiros
+- [x] Ler integralmente os documentos técnicos, fiscais, manuais, PDFs, exemplos XML e folhas de configuração da pasta AGT; chaves foram sanitizadas e não incorporadas
+- [x] Consolidar requisitos AGT de facturação, SAF-T, comunicação, autenticação, séries, estados, assinatura/hash, erros e reprocessamento no relatório de evidência
+- [x] Comparar os requisitos documentados de SIGT/FE, configuração, fila, SAF-T e auditoria com schema, routers, integrações, builder SAF-T, UI e testes do BALANCERTS.ERP
+- [x] Implementar as correcções internas suportadas e identificadas nesta fase da documentação AGT: metadados, contratos SIGT/FE, builders, JWS de teste, headers, endpoints, validações e cliente REST seguro
+- [x] Adicionar testes para os builders SIGT/FE e correcções de configuração, incluindo JWS RS256 efémero, UUID, linhas sequenciais, respostas, tenant isolation, RBAC, auditoria, idempotência e validação XML
+- [x] Executar regressão completa, build e validações contra XSD/exemplos oficiais encontrados
+- [x] Documentar requisitos que dependem de endpoint, credenciais, homologação ou certificação formal da AGT
+- [ ] Guardar checkpoint específico da auditoria documental AGT
