@@ -828,3 +828,12 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
   }
   return result;
 }
+
+export async function getFiscalDocumentPdfDataForUser(input: { userId: number; companyId: number; documentId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ document: businessDocuments, company: companies, counterparty: counterparties }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(counterparties, eq(businessDocuments.counterpartyId, counterparties.id)).where(and(eq(businessDocuments.id, input.documentId), eq(businessDocuments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!rows[0]) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+  const items = await db.select({ item: documentItems }).from(documentItems).where(and(eq(documentItems.documentId, input.documentId), eq(documentItems.companyId, input.companyId))).orderBy(documentItems.lineNumber);
+  return { ...rows[0], items: items.map(({ item }) => item) };
+}

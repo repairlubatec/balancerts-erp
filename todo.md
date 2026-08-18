@@ -361,3 +361,15 @@
 - [x] Adicionar testes unitários, integração, RBAC, isolamento tenant e regressões para todas as prioridades
 - [x] Executar migrações não destrutivas, TypeScript, build, Vitest e verificação visual desktop/PWA
 - [x] Guardar checkpoint da implementação das prioridades AGT
+
+# Prioridades sem homologação AGT
+
+- [x] Definir contrato seguro para PDF fiscal de preparação, hash, QR e aviso de não certificação
+- [x] Implementar geração de PDF fiscal completo com cabeçalho, linhas, totais, hash e QR
+- [x] Persistir/servir PDF através do fluxo de ficheiros tenant-aware sem expor dados entre empresas
+- [x] Implementar exportação CSV/Excel de clientes, fornecedores, produtos e documentos
+- [x] Implementar importação CSV/Excel com pré-validação, relatório de erros e confirmação explícita
+- [x] Aplicar validação fiscal a importações: NIF, moeda AOA, regimes IVA angolanos, totais e campos obrigatórios
+- [x] Adicionar testes unitários, integração, RBAC, isolamento tenant e regressão visual destas prioridades
+- [x] Executar TypeScript, build, Vitest e verificação visual desktop/PWA
+- [ ] Guardar checkpoint das prioridades implementadas sem homologação AGT

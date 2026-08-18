@@ -1,0 +1,26 @@
+import { describe, expect, it } from "vitest";
+import { exportFiscalCsv, exportFiscalWorkbook, parseFiscalTabular, validateFiscalImport } from "./fiscal-tabular";
+
+describe("fiscal CSV/Excel workflows", () => {
+  it("accepts valid Angolan counterparty and document rows", () => {
+    expect(validateFiscalImport("counterparties", [{ name: "Cliente", taxId: "500000001", kind: "CUSTOMER" }]).valid).toBe(true);
+    expect(validateFiscalImport("documents", [{ documentNumber: "FT 2026/1", documentType: "FT", currency: "AOA", ivaRegime: "EXCLUSAO", netAmount: "100", taxAmount: "0", totalAmount: "100" }]).valid).toBe(true);
+  });
+
+  it("rejects invalid NIF, non-AOA currency and unreconciled totals", () => {
+    const result = validateFiscalImport("documents", [{ documentNumber: "FT 1", documentType: "FT", currency: "USD", ivaRegime: "BAD", netAmount: "100", taxAmount: "5", totalAmount: "99" }]);
+    expect(result.valid).toBe(false);
+    expect(result.errors.map((error) => error.field)).toEqual(expect.arrayContaining(["currency", "ivaRegime", "totalAmount"]));
+    expect(validateFiscalImport("counterparties", [{ name: "X", taxId: "AO", kind: "CUSTOMER" }]).valid).toBe(false);
+  });
+
+  it("round-trips CSV and XLSX exports through the parser", () => {
+    const rows = [{ code: "SERV-1", name: "Serviço", kind: "SERVICE" }];
+    const csv = exportFiscalCsv(rows);
+    expect(csv).toContain("code");
+    expect(parseFiscalTabular(csv, "products.csv")[0]).toMatchObject(rows[0]);
+    const workbook = exportFiscalWorkbook("products", rows);
+    expect(workbook.subarray(0, 2).toString("hex")).toBe("504b");
+    expect(parseFiscalTabular(workbook, "products.xlsx")[0]).toMatchObject(rows[0]);
+  });
+});
