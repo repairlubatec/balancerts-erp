@@ -63,6 +63,8 @@ describe("expanded tenant-aware operational modules", () => {
       const submission = await caller.normative.enqueueSubmission({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, idempotencyKey: `agt-submit-${suffix}`, payload: { schemaVersion: "1.01_01", documentScope: "tenant-test" } });
       submissionId = submission.id;
       expect(submission).toMatchObject({ state: "PENDING", idempotent: false });
+      const submissionAudit = await db!.select({ event: auditEvents }).from(auditEvents).where(and(eq(auditEvents.companyId, COMPANY_ID), eq(auditEvents.entityId, String(submissionId))));
+      expect(submissionAudit.some(({ event }) => event.action === "AGT_SUBMISSION_ENQUEUED" && event.actorUserId === USER_ID && event.correlationId === `agt-submit-${suffix}` && event.afterState)).toBe(true);
       const replaySubmission = await caller.normative.enqueueSubmission({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, idempotencyKey: `agt-submit-${suffix}`, payload: { schemaVersion: "1.01_01", documentScope: "tenant-test" } });
       expect(replaySubmission).toMatchObject({ id: submissionId, state: "PENDING", idempotent: true });
       await expect(caller.normative.enqueueSubmission({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID + 999999, idempotencyKey: `agt-submit-${suffix}`, payload: { schemaVersion: "1.01_01" } })).rejects.toThrow();

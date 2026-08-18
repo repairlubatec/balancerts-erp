@@ -261,3 +261,4 @@
 - [x] Criar configuração AGT versionada para XSD, endpoint, autenticação, códigos oficiais e estado de homologação, sem guardar segredos em claro
 - [x] Implementar enfileiramento AGT tenant-aware com estado PENDING e replay idempotente, reutilizando operações persistentes
 - [x] Testar configuração e fila AGT no tenant descartável, incluindo rejeição de escopo forjado e limpeza sem afectar a Repair Lubatec
+- [x] Auditar o enfileiramento AGT com actor, organização, empresa, chave idempotente, estado PENDING, correlação e snapshot persistido
