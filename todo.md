@@ -692,3 +692,12 @@
 - [x] Corrigir readiness SAF-T para contagens e validações persistentes reais
 - [x] Adicionar testes unitários, integração e E2E autenticados dos fluxos P0
 - [x] Rever visualmente, documentar limites AGT e guardar checkpoint
+
+# Continuação — validação documental e distribuição Windows
+
+- [x] Definir critérios de aceitação para o ciclo Repair Lubatec: rascunho, validação, emissão, contabilização e anulação
+- [x] Executar validação ponta a ponta sem inserir dados fiscais fictícios
+- [x] Corrigir falhas encontradas e adicionar regressões
+- [x] Reforçar configurações reais de séries, contas e feedback operacional
+- [x] Rever pacote e pipeline Windows EXE/MSI
+- [x] Validar, documentar e guardar checkpoint
