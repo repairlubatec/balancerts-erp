@@ -437,3 +437,14 @@
 - [x] Adicionar/regressar testes do fluxo Criar empresa e dos seus erros
 - [x] Verificar visualmente o fluxo e confirmar que os controlos relacionados respondem
 - [x] Guardar checkpoint da correcção Criar empresa
+
+# Auditoria operacional completa solicitada
+
+- [x] Inventariar todos os módulos, botões, formulários, links e command actions existentes
+- [x] Verificar cada fluxo de navegação e abertura de acção sem resposta
+- [x] Verificar contratos tRPC, mutações, loading, sucesso, erro e invalidação de cache
+- [x] Auditar isolamento tenant-aware e proteger Repair Lubatec de dados de teste
+- [x] Corrigir todos os problemas reproduzíveis encontrados nesta auditoria
+- [x] Adicionar testes de regressão para cada correcção
+- [x] Executar suite completa, TypeScript, build e verificação visual dos módulos
+- [ ] Guardar checkpoint da auditoria operacional completa

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,7 +19,7 @@ function InvoiceReviewPreview({ payload }: { payload: string }) {
 export function FiscalDataToolsPanel({ companyId, organizationId, selectedDocumentId, rows }: { companyId?: number; organizationId?: number; selectedDocumentId?: number; rows: Array<Record<string, unknown>> }) {
   const documentsApi = trpc.documents as typeof trpc.documents & { renderPreparationPdf?: typeof trpc.documents.renderPreparationPdf };
   const exportsApi = (trpc as typeof trpc & { exports?: typeof trpc.exports }).exports;
-  if (!documentsApi.renderPreparationPdf || !exportsApi) return null;
+  if (!documentsApi.renderPreparationPdf || !exportsApi) return <Card className="border-amber-200 bg-amber-50 shadow-sm"><CardHeader className="pb-3"><CardTitle className="text-sm text-amber-900">Ferramentas fiscais indisponíveis</CardTitle></CardHeader><CardContent><p className="text-xs text-amber-800">Este build não expôs todas as operações de importação, exportação e PDF. Actualize o serviço e volte a abrir o módulo; nenhum dado foi alterado.</p></CardContent></Card>;
   const [kind, setKind] = useState<"counterparties" | "products" | "documents">("documents");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [validation, setValidation] = useState<{ valid: boolean; errors: Array<{ row: number; field: string; message: string }> } | null>(null);

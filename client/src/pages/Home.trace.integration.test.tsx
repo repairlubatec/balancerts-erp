@@ -104,6 +104,14 @@ describe("Home traceability integration", () => {
     expect(locationState.navigate).toHaveBeenCalledWith("/?shortcuts=1");
   });
 
+  it("opens the command palette when navigation includes shortcuts query", () => {
+    cleanup();
+    locationState.current = "/?shortcuts=1";
+    window.history.pushState({}, "", "/?shortcuts=1");
+    render(<Home />);
+    expect(screen.getByPlaceholderText("Ir para módulo, empresa ou acção…")).toBeTruthy();
+  });
+
   it("creates a billing draft through the real document mutation contract", async () => {
     cleanup();
     locationState.current = "/facturacao";
