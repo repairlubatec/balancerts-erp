@@ -407,6 +407,32 @@ export const agtSignatureKeys = mysqlTable("agtSignatureKeys", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const documentImportBatches = mysqlTable("documentImportBatches", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  kind: mysqlEnum("kind", ["counterparties", "products", "documents"]).notNull(),
+  status: mysqlEnum("status", ["IMPORTED_REVIEW", "READY_TO_CONFIRM", "CONFIRMED", "REJECTED"]).default("IMPORTED_REVIEW").notNull(),
+  originalFilename: varchar("originalFilename", { length: 255 }).notNull(),
+  validationSummary: text("validationSummary").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const documentImportRows = mysqlTable("documentImportRows", {
+  id: int("id").autoincrement().primaryKey(),
+  batchId: int("batchId").notNull(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  lineNumber: int("lineNumber").notNull(),
+  payload: text("payload").notNull(),
+  status: mysqlEnum("status", ["VALID", "INVALID", "CORRECTED", "CONFIRMED"]).default("VALID").notNull(),
+  errors: text("errors").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export const normativeRules = mysqlTable("normativeRules", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

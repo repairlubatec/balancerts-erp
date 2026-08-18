@@ -372,4 +372,15 @@
 - [x] Aplicar validação fiscal a importações: NIF, moeda AOA, regimes IVA angolanos, totais e campos obrigatórios
 - [x] Adicionar testes unitários, integração, RBAC, isolamento tenant e regressão visual destas prioridades
 - [x] Executar TypeScript, build, Vitest e verificação visual desktop/PWA
-- [ ] Guardar checkpoint das prioridades implementadas sem homologação AGT
+- [x] Guardar checkpoint das prioridades implementadas sem homologação AGT
+
+# Revisão comercial de documentos importados
+
+- [x] Definir estados de revisão IMPORTED_REVIEW, READY_TO_CONFIRM, CONFIRMED e REJECTED sem emissão AGT automática
+- [x] Criar contrato persistente tenant-aware para lotes e linhas de documentos importados
+- [x] Implementar pré-visualização, correcção de campos e relatório de erros por linha
+- [x] Implementar confirmação explícita apenas após validação fiscal e auditoria
+- [x] Bloquear documentos incompletos ou inconsistentes de qualquer transição para ISSUED
+- [x] Adicionar testes de RBAC, isolamento tenant, validação, auditoria e regressão visual
+- [x] Executar TypeScript, build, Vitest e verificação visual
+- [ ] Guardar checkpoint da revisão comercial de documentos importados

@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys,
+import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
   auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
@@ -836,4 +836,52 @@ export async function getFiscalDocumentPdfDataForUser(input: { userId: number; c
   if (!rows[0]) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
   const items = await db.select({ item: documentItems }).from(documentItems).where(and(eq(documentItems.documentId, input.documentId), eq(documentItems.companyId, input.companyId))).orderBy(documentItems.lineNumber);
   return { ...rows[0], items: items.map(({ item }) => item) };
+}
+
+export async function createDocumentImportBatchForUser(input: { userId: number; organizationId: number; companyId: number; kind: "counterparties" | "products" | "documents"; originalFilename: string; rows: Array<{ payload: Record<string, unknown>; errors: unknown[] }> }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const hasErrors = input.rows.some((row) => row.errors.length > 0);
+  const inserted = await db.insert(documentImportBatches).values({ organizationId: input.organizationId, companyId: input.companyId, kind: input.kind, status: hasErrors ? "IMPORTED_REVIEW" : "READY_TO_CONFIRM", originalFilename: input.originalFilename, validationSummary: JSON.stringify({ rows: input.rows.length, errors: input.rows.reduce((count, row) => count + row.errors.length, 0) }), createdBy: input.userId });
+  const batchId = Number(inserted[0].insertId);
+  if (input.rows.length) await db.insert(documentImportRows).values(input.rows.map((row, index) => ({ batchId, organizationId: input.organizationId, companyId: input.companyId, lineNumber: index + 2, payload: JSON.stringify(row.payload), status: (row.errors.length ? "INVALID" : "VALID") as "INVALID" | "VALID", errors: JSON.stringify(row.errors) })));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_IMPORT_BATCH_CREATED", entityType: "documentImportBatch", entityId: String(batchId), beforeState: null, afterState: JSON.stringify({ kind: input.kind, status: hasErrors ? "IMPORTED_REVIEW" : "READY_TO_CONFIRM", rows: input.rows.length }), correlationId: `import:${batchId}` });
+  return { batchId, status: hasErrors ? "IMPORTED_REVIEW" as const : "READY_TO_CONFIRM" as const };
+}
+
+export async function getDocumentImportBatchForUser(input: { userId: number; companyId: number; batchId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const batchRows = await db.select({ batch: documentImportBatches }).from(documentImportBatches).innerJoin(organizations, eq(documentImportBatches.organizationId, organizations.id)).where(and(eq(documentImportBatches.id, input.batchId), eq(documentImportBatches.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!batchRows[0]) throw new Error("DOCUMENT_IMPORT_BATCH_NOT_FOUND_OR_FORBIDDEN");
+  const rows = await db.select({ row: documentImportRows }).from(documentImportRows).where(and(eq(documentImportRows.batchId, input.batchId), eq(documentImportRows.companyId, input.companyId))).orderBy(documentImportRows.lineNumber);
+  return { ...batchRows[0].batch, rows: rows.map(({ row }) => row) };
+}
+
+export async function updateDocumentImportRowForUser(input: { userId: number; companyId: number; rowId: number; payload: Record<string, unknown>; errors: unknown[] }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ row: documentImportRows, organizationId: organizations.id }).from(documentImportRows).innerJoin(organizations, eq(documentImportRows.organizationId, organizations.id)).where(and(eq(documentImportRows.id, input.rowId), eq(documentImportRows.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!rows[0]) throw new Error("DOCUMENT_IMPORT_ROW_NOT_FOUND_OR_FORBIDDEN");
+  await db.update(documentImportRows).set({ payload: JSON.stringify(input.payload), errors: JSON.stringify(input.errors), status: input.errors.length ? "INVALID" : "CORRECTED" }).where(eq(documentImportRows.id, input.rowId));
+  await db.update(documentImportBatches).set({ status: input.errors.length ? "IMPORTED_REVIEW" : "READY_TO_CONFIRM" }).where(eq(documentImportBatches.id, rows[0].row.batchId));
+  return { rowId: input.rowId, valid: input.errors.length === 0 };
+}
+
+export async function confirmDocumentImportBatchForUser(input: { userId: number; companyId: number; batchId: number }) {
+  const batch = await getDocumentImportBatchForUser(input);
+  if (batch.status !== "READY_TO_CONFIRM") throw new Error("DOCUMENT_IMPORT_BATCH_NOT_READY");
+  if (batch.kind === "documents") throw new Error("FISCAL_DOCUMENT_IMPORT_REQUIRES_REVIEW");
+  const invalid = batch.rows.some((row) => row.status === "INVALID");
+  if (invalid) throw new Error("DOCUMENT_IMPORT_BATCH_HAS_INVALID_ROWS");
+  await dbUpdateDocumentImportStatus(input.batchId, input.companyId, "CONFIRMED");
+  return { batchId: input.batchId, status: "CONFIRMED" as const };
+}
+
+async function dbUpdateDocumentImportStatus(batchId: number, companyId: number, status: "CONFIRMED" | "REJECTED") {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(documentImportBatches).set({ status }).where(and(eq(documentImportBatches.id, batchId), eq(documentImportBatches.companyId, companyId)));
+  if (status === "CONFIRMED") await db.update(documentImportRows).set({ status: "CONFIRMED" }).where(and(eq(documentImportRows.batchId, batchId), eq(documentImportRows.companyId, companyId)));
 }
