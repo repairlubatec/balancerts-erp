@@ -1,0 +1,50 @@
+name: BALANCERTS.ERP desktop release
+
+on:
+  workflow_dispatch:
+    inputs:
+      desktop_url:
+        description: "HTTPS URL da aplicação BALANCERTS.ERP a embutir no pacote"
+        required: true
+        type: string
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run desktop:win
+        env:
+          BALANCERTS_DESKTOP_URL: ${{ inputs.desktop_url }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: balancerts-windows
+          path: release/*
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run desktop:mac
+        env:
+          BALANCERTS_DESKTOP_URL: ${{ inputs.desktop_url }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: balancerts-macos
+          path: release/*

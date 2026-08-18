@@ -592,3 +592,12 @@
 - [x] Executar regressão final, build, isolamento e verificação visual
 - [x] Documentar funções operacionais, bloqueios e correcções
 - [x] Guardar checkpoint da auditoria funcional
+
+# Distribuição desktop Windows/macOS
+
+- [x] Avaliar arquitectura actual e estratégia de empacotamento desktop
+- [x] Preparar runtime, identidade e shell desktop
+- [x] Configurar targets EXE, MSI e DMG com build reproduzível
+- [x] Testar funcionalidade interna e classificar limitações de plataforma
+- [x] Documentar assinatura, distribuição e separação da homologação AGT
+- [ ] Guardar checkpoint da preparação desktop

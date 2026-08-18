@@ -1,0 +1,82 @@
+appId: ao.balancerts.erp
+electronVersion: 37.10.3
+productName: BALANCERTS.ERP
+copyright: "Copyright © 2026 BALANCERTS"
+artifactName: "BALANCERTS.ERP-${version}-${os}-${arch}.${ext}"
+
+directories:
+  output: release
+  buildResources: build
+
+files:
+  - electron/**/*
+  - package.json
+  - build/icon.png
+  - "!**/*.map"
+  - "!client"
+  - "!server"
+  - "!drizzle"
+  - "!docs"
+  - "!tests"
+
+asar: true
+compression: maximum
+npmRebuild: false
+forceCodeSigning: false
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: msi
+      arch:
+        - x64
+  icon: build/icon.png
+  requestedExecutionLevel: asInvoker
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: BALANCERTS.ERP
+
+msi:
+  perMachine: false
+
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+    - target: zip
+      arch:
+        - x64
+        - arm64
+  category: public.app-category.business
+  icon: build/icon.png
+  hardenedRuntime: true
+  gatekeeperAssess: false
+
+dmg:
+  title: BALANCERTS.ERP
+  backgroundColor: "#eef1f4"
+  window:
+    width: 640
+    height: 420
+  contents:
+    - x: 180
+      y: 220
+    - x: 460
+      y: 220
+      type: link
+      path: /Applications
+
+linux:
+  target:
+    - target: dir
+      arch:
+        - x64
