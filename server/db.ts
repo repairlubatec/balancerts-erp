@@ -224,6 +224,27 @@ export async function updateAgtSubmissionResultForUser(input: { userId: number; 
   return { id: input.submissionId, state: input.state };
 }
 
+export async function createAgtSignatureKeyReferenceForUser(input: { userId: number; organizationId: number; companyId: number; keyType: "SOFTWARE" | "ISSUER"; signatureVersion: number; publicKeyReference: string; privateKeyReference?: string; effectiveFrom?: Date }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  if (/BEGIN (RSA |EC )?PRIVATE KEY/.test(input.privateKeyReference ?? "")) throw new Error("AGT_PRIVATE_KEY_MATERIAL_FORBIDDEN");
+  const inserted = await db.insert(agtSignatureKeys).values({ organizationId: input.organizationId, companyId: input.companyId, keyType: input.keyType, signatureVersion: input.signatureVersion, publicKeyReference: input.publicKeyReference.trim(), privateKeyReference: input.privateKeyReference?.trim(), effectiveFrom: input.effectiveFrom, createdBy: input.userId });
+  const id = Number(inserted[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "AGT_SIGNATURE_KEY_REGISTERED", entityType: "agtSignatureKey", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, userId: undefined, privateKeyReference: input.privateKeyReference ? "configured-reference" : null, id }), correlationId: `agt-key:${input.companyId}:${input.signatureVersion}` });
+  return { id, status: "PENDING" as const };
+}
+
+export async function changeAgtSignatureKeyStatusForUser(input: { userId: number; companyId: number; keyId: number; status: "ACTIVE" | "ROTATING" | "REVOKED" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const row = await db.select({ key: agtSignatureKeys, organizationId: companies.organizationId }).from(agtSignatureKeys).innerJoin(companies, eq(agtSignatureKeys.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(agtSignatureKeys.id, input.keyId), eq(agtSignatureKeys.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!row[0]) throw new Error("AGT_SIGNATURE_KEY_NOT_FOUND_OR_FORBIDDEN");
+  await db.update(agtSignatureKeys).set({ status: input.status, ...(input.status === "REVOKED" ? { revokedAt: new Date() } : {}) }).where(eq(agtSignatureKeys.id, input.keyId));
+  await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "AGT_SIGNATURE_KEY_STATUS_CHANGED", entityType: "agtSignatureKey", entityId: String(input.keyId), beforeState: JSON.stringify(row[0].key), afterState: JSON.stringify({ status: input.status }), correlationId: `agt-key-status:${input.keyId}:${input.status}` });
+  return { id: input.keyId, status: input.status };
+}
+
 export async function getAgtSignatureKeysForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];

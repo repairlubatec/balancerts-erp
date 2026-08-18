@@ -352,12 +352,12 @@
 - [x] Definir critérios de aceitação e modelo de dados para QR Code, séries, estabelecimentos, requestID, estados AGT, recibos, adquirente e chaves versionadas
 - [ ] Implementar QR Code AGT Model 2 versão 4, nível M, UTF-8, URL oficial, PNG 350x350 e logo AGT com área inferior a 20%
 - [ ] Integrar QR Code no documento imprimível e validar codificação do documentNo com espaços como %20
-- [ ] Criar modelo e procedimentos tenant-aware para estabelecimentos AGT, séries autorizadas, gamas, estados e contingência
-- [ ] Completar builders e validação de RegistarFactura com campos condicionais, tipos de operação, recibos, retenções, moeda, correcções e limite de 30 documentos
-- [ ] Persistir requestID, respostas AGT, resultCode, estados V/I e erros por documento, com polling/backoff seguro sem comunicação real por defeito
+- [x] Criar modelo e procedimentos tenant-aware para estabelecimentos AGT, séries autorizadas, gamas, estados e contingência
+- [x] Completar builders e validação de RegistarFactura com campos condicionais, tipos de operação, recibos, retenções, moeda, correcções e limite de 30 documentos
+- [x] Persistir requestID, respostas AGT, resultCode, estados V/I e erros por documento, com polling/backoff seguro sem comunicação real por defeito
 - [ ] Implementar fluxos AGT de recibos e ValidarDocumento com confirmação/rejeição e exclusividade do IVA dedutível
 - [ ] Implementar signatureVersion, rotação/revogação e referências seguras de chaves sem guardar segredos em texto
-- [ ] Criar consola AGT UI para payload, resposta, requestID, tentativas, retry e estado por documento
+- [x] Criar consola AGT UI para payload, resposta, requestID, tentativas, retry e estado por documento
 - [ ] Adicionar testes unitários, integração, RBAC, isolamento tenant e regressões para todas as prioridades
 - [ ] Executar migrações não destrutivas, TypeScript, build, Vitest e verificação visual desktop/PWA
 - [ ] Guardar checkpoint da implementação das prioridades AGT

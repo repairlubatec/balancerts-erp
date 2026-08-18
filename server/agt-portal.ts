@@ -210,6 +210,41 @@ export function buildAgtHeaders(input: { username: string; passwordToken: string
   return { Username: input.username, Password: input.passwordToken, Accept: input.accept ?? "application/json", "Content-Type": "application/json" };
 }
 
+export function buildAgtRegisterFacturaRequest(input: {
+  schemaVersion: string;
+  submissionUUID: string;
+  taxRegistrationNumber: string;
+  submissionTimeStamp: string;
+  softwareInfo: AgtSoftwareInfo & { signatureVersion?: number };
+  establishmentNumber?: string;
+  documents: AgtInvoiceDocument[];
+  issuerPrivateKeyPem?: string;
+}) {
+  const request: AgtRegisterInvoiceRequest = {
+    schemaVersion: input.schemaVersion,
+    submissionUUID: input.submissionUUID,
+    taxRegistrationNumber: input.taxRegistrationNumber,
+    submissionTimeStamp: input.submissionTimeStamp,
+    softwareInfo: {
+      softwareInfoDetail: {
+        productId: input.softwareInfo.productId,
+        productVersion: input.softwareInfo.productVersion,
+        softwareValidationNumber: input.softwareInfo.softwareValidationNumber,
+        signatureVersion: input.softwareInfo.signatureVersion ?? 1,
+      },
+      ...(input.softwareInfo.jwsSoftwareSignature ? { jwsSoftwareSignature: input.softwareInfo.jwsSoftwareSignature } : {}),
+    },
+    numberOfEntries: String(input.documents.length),
+    ...(input.establishmentNumber ? { establishmentNumber: input.establishmentNumber } : {}),
+    documents: input.documents,
+  };
+  const issuerSignature = buildIssuerSignature({ taxRegistrationNumber: input.taxRegistrationNumber, submissionUUID: input.submissionUUID, submissionTimeStamp: input.submissionTimeStamp }, input.issuerPrivateKeyPem);
+  const signed = issuerSignature ? { ...request, jwsSignature: issuerSignature } : request;
+  const validation = validateRegistarFacturaRequest(signed);
+  if (!validation.valid) throw new Error(`AGT_REGISTAR_FACTURA_INVALID:${validation.errors.join(",")}`);
+  return signed;
+}
+
 export function buildAgtQueryRequest(input: {
   operation: Exclude<AgtPortalOperation, "RegistarFactura">;
   schemaVersion: string;
