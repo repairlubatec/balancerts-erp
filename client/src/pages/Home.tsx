@@ -12,7 +12,8 @@ import { TraceabilityPanel } from "@/components/TraceabilityPanel";
 import { AgtConsolePanel } from "@/components/AgtConsolePanel";
 import { FiscalDataToolsPanel } from "@/components/FiscalDataToolsPanel";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { skipToken } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import {
   ArrowDownRight,
@@ -120,11 +121,11 @@ function Overview({ activeCompanyId }: { activeCompanyId?: number }) {
   const activeCompany = companyRows?.find(({ company }) => company.id === activeCompanyId) ?? companyRows?.[0];
   const resolvedCompanyId = activeCompany?.company.id;
   const [asOf] = useState(() => new Date());
-  const { data: fiscalRegister } = trpc.reports.fiscalRegister.useQuery({ companyId: resolvedCompanyId ?? 0 }, { enabled: Boolean(activeCompanyId) });
-  const { data: customerAging } = trpc.reports.customerAging.useQuery({ companyId: activeCompanyId ?? 0, asOf }, { enabled: Boolean(activeCompanyId) });
-  const { data: reconciliation } = trpc.reports.reconciliation.useQuery({ companyId: activeCompanyId ?? 0 }, { enabled: Boolean(activeCompanyId) });
+  const { data: fiscalRegister } = trpc.reports.fiscalRegister.useQuery(resolvedCompanyId ? { companyId: resolvedCompanyId } : skipToken);
+  const { data: customerAging } = trpc.reports.customerAging.useQuery(activeCompanyId ? { companyId: activeCompanyId, asOf } : skipToken);
+  const { data: reconciliation } = trpc.reports.reconciliation.useQuery(activeCompanyId ? { companyId: activeCompanyId } : skipToken);
   const canReadAudit = user?.role === "admin" || user?.role === "auditor";
-  const { data: auditRows } = trpc.audit.list.useQuery({ companyId: activeCompanyId ?? 0 }, { enabled: Boolean(activeCompanyId && canReadAudit) });
+  const { data: auditRows } = trpc.audit.list.useQuery(activeCompanyId && canReadAudit ? { companyId: activeCompanyId } : skipToken);
   const recentEvents = (auditRows ?? []).slice(0, 3).map(({ event }) => ({ id: event.id, title: event.action, meta: `${event.entityType} #${event.entityId} · ${new Date(event.createdAt).toLocaleString()}`, color: "bg-blue-100 text-blue-700", Icon: FileCheck2 }));
   const portfolioCompanies = (companyRows ?? []).map(({ company }) => ({
     name: company.name,

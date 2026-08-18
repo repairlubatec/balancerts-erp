@@ -519,3 +519,11 @@
 - [x] Reproduzir os bloqueios internos ainda suspeitos — nenhum bloqueio interno confirmado
 - [x] Confirmar que estados vazios e mensagens de preparação não são falhas
 - [x] Consolidar a conclusão operacional sem acrescentar funcionalidades
+
+# Correcção — companyId inválido na página inicial
+
+- [x] Localizar todas as queries que usam fallback companyId 0
+- [x] Corrigir guards para não executar queries antes de existir empresa activa
+- [x] Adicionar regressão para a página inicial sem empresa activa — cobertura Home e validação dos inputs
+- [x] Executar testes, TypeScript, build e verificação visual
+- [ ] Guardar checkpoint da correcção
