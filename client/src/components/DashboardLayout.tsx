@@ -51,6 +51,7 @@ const menuItems = [
   { icon: ClipboardCheck, label: "Centro de Tarefas", group: "Controlo", path: "/tarefas" },
   { icon: ShieldCheck, label: "Auditoria", group: "Controlo", path: "/auditoria" },
   { icon: BrainCircuit, label: "Balancerts IA", group: "Sistema", path: "/ia" },
+  { icon: UsersRound, label: "Recursos Humanos", group: "Sistema", path: "/rh" },
   { icon: Settings2, label: "Definições", group: "Sistema", path: "/definicoes" },
 ];
 

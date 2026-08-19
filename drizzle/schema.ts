@@ -62,6 +62,51 @@ export const companies = mysqlTable("companies", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const employees = mysqlTable("employees", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  companyId: int("companyId").notNull().references(() => companies.id),
+  employeeNumber: varchar("employeeNumber", { length: 40 }).notNull(),
+  fullName: varchar("fullName", { length: 180 }).notNull(),
+  taxId: varchar("taxId", { length: 32 }),
+  socialSecurityNumber: varchar("socialSecurityNumber", { length: 40 }),
+  birthDate: timestamp("birthDate"),
+  hireDate: timestamp("hireDate").notNull(),
+  email: varchar("email", { length: 320 }),
+  phone: varchar("phone", { length: 40 }),
+  address: varchar("address", { length: 255 }),
+  bankName: varchar("bankName", { length: 120 }),
+  bankAccount: varchar("bankAccount", { length: 80 }),
+  status: mysqlEnum("status", ["ACTIVE", "INACTIVE", "SUSPENDED"]).default("ACTIVE").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  companyEmployeeNumberUnique: uniqueIndex("employees_company_employee_number_unique").on(table.companyId, table.employeeNumber),
+}));
+export const employmentContracts = mysqlTable("employmentContracts", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  companyId: int("companyId").notNull().references(() => companies.id),
+  employeeId: int("employeeId").notNull().references(() => employees.id),
+  contractNumber: varchar("contractNumber", { length: 50 }).notNull(),
+  contractType: mysqlEnum("contractType", ["INDETERMINADO", "TERMO", "TEMPO_PARCIAL", "ESTAGIO", "PRESTACAO_SERVICOS"]).notNull(),
+  position: varchar("position", { length: 160 }).notNull(),
+  department: varchar("department", { length: 120 }),
+  startDate: timestamp("startDate").notNull(),
+  endDate: timestamp("endDate"),
+  baseSalary: decimal("baseSalary", { precision: 18, scale: 2 }).notNull(),
+  salaryCurrency: varchar("salaryCurrency", { length: 3 }).default("AOA").notNull(),
+  weeklyHours: decimal("weeklyHours", { precision: 5, scale: 2 }).default("44").notNull(),
+  workSchedule: varchar("workSchedule", { length: 120 }),
+  status: mysqlEnum("status", ["DRAFT", "ACTIVE", "ENDED", "CANCELLED"]).default("DRAFT").notNull(),
+  terminationReason: varchar("terminationReason", { length: 255 }),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  companyContractNumberUnique: uniqueIndex("employment_contracts_company_number_unique").on(table.companyId, table.contractNumber),
+}));
 export const fiscalExercises = mysqlTable("fiscalExercises", {
   id: int("id").autoincrement().primaryKey(),
   companyId: int("companyId").notNull(),
@@ -792,6 +837,57 @@ export const normativeRules = mysqlTable("normativeRules", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const payrollRuleSets = mysqlTable("payrollRuleSets", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  companyId: int("companyId").notNull().references(() => companies.id),
+  version: varchar("version", { length: 40 }).notNull(),
+  effectiveFrom: timestamp("effectiveFrom").notNull(),
+  effectiveTo: timestamp("effectiveTo"),
+  socialEmployeeRate: decimal("socialEmployeeRate", { precision: 7, scale: 4 }).notNull(),
+  socialEmployerRate: decimal("socialEmployerRate", { precision: 7, scale: 4 }).notNull(),
+  irtBrackets: text("irtBrackets").notNull(),
+  sourceUrl: varchar("sourceUrl", { length: 512 }),
+  verificationStatus: mysqlEnum("verificationStatus", ["INTERNAL_REVIEW", "EXTERNALLY_VERIFIED", "SUPERSEDED"]).default("INTERNAL_REVIEW").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  companyRuleVersionUnique: uniqueIndex("payroll_rule_sets_company_version_unique").on(table.companyId, table.version),
+}));
+export const payrollRuns = mysqlTable("payrollRuns", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  companyId: int("companyId").notNull().references(() => companies.id),
+  ruleSetId: int("ruleSetId").notNull().references(() => payrollRuleSets.id),
+  year: int("year").notNull(),
+  month: int("month").notNull(),
+  status: mysqlEnum("status", ["DRAFT", "CALCULATED", "APPROVED", "POSTED", "CANCELLED"]).default("DRAFT").notNull(),
+  grossTotal: decimal("grossTotal", { precision: 18, scale: 2 }).default("0").notNull(),
+  socialEmployeeTotal: decimal("socialEmployeeTotal", { precision: 18, scale: 2 }).default("0").notNull(),
+  irtTotal: decimal("irtTotal", { precision: 18, scale: 2 }).default("0").notNull(),
+  socialEmployerTotal: decimal("socialEmployerTotal", { precision: 18, scale: 2 }).default("0").notNull(),
+  netTotal: decimal("netTotal", { precision: 18, scale: 2 }).default("0").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  companyPayrollPeriodUnique: uniqueIndex("payroll_runs_company_period_unique").on(table.companyId, table.year, table.month),
+}));
+export const payrollItems = mysqlTable("payrollItems", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  companyId: int("companyId").notNull().references(() => companies.id),
+  runId: int("runId").notNull().references(() => payrollRuns.id),
+  employeeId: int("employeeId").notNull().references(() => employees.id),
+  contractId: int("contractId").notNull().references(() => employmentContracts.id),
+  grossAmount: decimal("grossAmount", { precision: 18, scale: 2 }).notNull(),
+  socialEmployeeAmount: decimal("socialEmployeeAmount", { precision: 18, scale: 2 }).notNull(),
+  irtAmount: decimal("irtAmount", { precision: 18, scale: 2 }).notNull(),
+  socialEmployerAmount: decimal("socialEmployerAmount", { precision: 18, scale: 2 }).notNull(),
+  netAmount: decimal("netAmount", { precision: 18, scale: 2 }).notNull(),
+  breakdown: text("breakdown").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
 export const auditEvents = mysqlTable("auditEvents", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

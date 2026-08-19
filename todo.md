@@ -1059,3 +1059,13 @@
 - [x] Optimizar carregamento e exportações do shell desktop
 - [x] Reforçar validação dos pacotes EXE, MSI e DMG
 - [x] Executar suite integral, revisão visual e guardar checkpoint
+
+## Módulo RH — colaboradores, contratos e salários
+
+- [x] Definir modelo tenant-aware de colaboradores, contratos e regras remuneratórias
+- [x] Implementar persistência e ciclo de vida de colaboradores e contratos
+- [x] Implementar processamento salarial versionado com IRT e Segurança Social parametrizados
+- [ ] Integrar mapas salariais, recibos internos e ligação contabilística auditável
+- [x] Integrar o posto RH no shell desktop em português
+- [ ] Adicionar testes de isolamento, RBAC, cálculo, arredondamento e imutabilidade
+- [x] Rever visualmente, executar suite/build e guardar checkpoint do módulo RH

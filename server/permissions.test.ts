@@ -20,6 +20,14 @@ describe("role segregation", () => {
     expect(can("user", "treasury", "create", ["treasury:read"])).toBe(false);
   });
 
+  it("segregates human resources management from read-only roles", () => {
+    expect(can("contabilista", "human_resources", "create")).toBe(true);
+    expect(can("contabilista", "human_resources", "validate")).toBe(true);
+    expect(can("financeiro", "human_resources", "create")).toBe(false);
+    expect(can("auditor", "human_resources", "read")).toBe(true);
+    expect(can("auditor", "human_resources", "update")).toBe(false);
+  });
+
   it("normalises permission overrides for deterministic storage", () => {
     expect(normalizePermissionOverrides([" Treasury:READ ", "treasury:read", "", "accounting:post"])).toEqual(["treasury:read", "accounting:post"]);
   });

@@ -3,13 +3,14 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
+  auditEvents, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, validateStockMovement } from "./operations";
 import { applyReconciliationAdjustment } from "./reconciliation";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
+import { calculatePayrollAmounts, parseIrtBrackets } from "./payroll";
 import { ENV } from "./_core/env";
 import { AIRouter, LocalAIProvider, type IAConfig, type IARequest } from "./balancerts-ia/providers";
 
@@ -447,6 +448,112 @@ export async function updateOrganizationMembershipForUser(input: { actorUserId: 
   await db.update(organizationMemberships).set({ ...(input.status ? { status: input.status, joinedAt: input.status === "ACTIVE" ? new Date() : row[0].membership.joinedAt } : {}), ...(input.role ? { role: input.role } : {}), ...(permissions ? { permissions } : {}) }).where(eq(organizationMemberships.id, input.membershipId));
   await appendAuditEventForUser({ organizationId: row[0].membership.organizationId, companyId: null, actorUserId: input.actorUserId, action: "ORGANIZATION_MEMBERSHIP_UPDATED", entityType: "organizationMembership", entityId: String(input.membershipId), beforeState: JSON.stringify({ userId: row[0].membership.userId, role: row[0].membership.role, status: row[0].membership.status }), afterState: JSON.stringify({ userId: row[0].membership.userId, role: input.role ?? row[0].membership.role, permissions: permissions ?? row[0].membership.permissions, status: input.status ?? row[0].membership.status }), correlationId: `organization-membership:${input.membershipId}` });
   return getOrganizationMembershipsForUser(row[0].membership.userId, row[0].membership.organizationId);
+}
+
+export async function getEmployeesForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ employee: employees }).from(employees).where(and(eq(employees.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(employees.id));
+}
+export async function createEmployeeForUser(input: { userId: number; organizationId: number; companyId: number; employeeNumber: string; fullName: string; taxId?: string; socialSecurityNumber?: string; birthDate?: Date; hireDate: Date; email?: string; phone?: string; address?: string; bankName?: string; bankAccount?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  const company = await db.select({ organizationId: companies.organizationId }).from(companies).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), organizationAccessCondition(input.userId))).limit(1);
+  if (!company[0]) throw new Error("COMPANY_ACCESS_FORBIDDEN");
+  const result = await db.insert(employees).values({ ...input, createdBy: input.userId }).$returningId();
+  const employeeId = result[0]?.id;
+  if (!employeeId) throw new Error("EMPLOYEE_CREATE_FAILED");
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "EMPLOYEE_CREATED", entityType: "employee", entityId: String(employeeId), beforeState: null, afterState: JSON.stringify({ employeeNumber: input.employeeNumber, fullName: input.fullName, status: "ACTIVE" }), correlationId: `employee:${employeeId}` });
+  return db.select({ employee: employees }).from(employees).where(eq(employees.id, employeeId)).limit(1);
+}
+export async function updateEmployeeForUser(input: { userId: number; companyId: number; employeeId: number; fullName?: string; taxId?: string; socialSecurityNumber?: string; email?: string; phone?: string; address?: string; bankName?: string; bankAccount?: string; status?: "ACTIVE" | "INACTIVE" | "SUSPENDED" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const row = await db.select({ employee: employees, organizationId: companies.organizationId }).from(employees).innerJoin(companies, eq(employees.companyId, companies.id)).where(and(eq(employees.id, input.employeeId), eq(employees.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  if (!row[0]) throw new Error("EMPLOYEE_NOT_FOUND_OR_FORBIDDEN");
+  const changes = { ...(input.fullName !== undefined ? { fullName: input.fullName } : {}), ...(input.taxId !== undefined ? { taxId: input.taxId } : {}), ...(input.socialSecurityNumber !== undefined ? { socialSecurityNumber: input.socialSecurityNumber } : {}), ...(input.email !== undefined ? { email: input.email } : {}), ...(input.phone !== undefined ? { phone: input.phone } : {}), ...(input.address !== undefined ? { address: input.address } : {}), ...(input.bankName !== undefined ? { bankName: input.bankName } : {}), ...(input.bankAccount !== undefined ? { bankAccount: input.bankAccount } : {}), ...(input.status !== undefined ? { status: input.status } : {}) };
+  if (!Object.keys(changes).length) return row[0];
+  await db.update(employees).set(changes).where(eq(employees.id, input.employeeId));
+  await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "EMPLOYEE_UPDATED", entityType: "employee", entityId: String(input.employeeId), beforeState: JSON.stringify(row[0].employee), afterState: JSON.stringify({ ...row[0].employee, ...changes }), correlationId: `employee:${input.employeeId}:update` });
+  return db.select({ employee: employees }).from(employees).where(eq(employees.id, input.employeeId)).limit(1);
+}
+export async function getEmploymentContractsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ contract: employmentContracts, employee: employees }).from(employmentContracts).innerJoin(employees, eq(employmentContracts.employeeId, employees.id)).where(and(eq(employmentContracts.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(employmentContracts.id));
+}
+export async function createEmploymentContractForUser(input: { userId: number; organizationId: number; companyId: number; employeeId: number; contractNumber: string; contractType: "INDETERMINADO" | "TERMO" | "TEMPO_PARCIAL" | "ESTAGIO" | "PRESTACAO_SERVICOS"; position: string; department?: string; startDate: Date; endDate?: Date; baseSalary: number; salaryCurrency?: string; weeklyHours?: number; workSchedule?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  const employee = await db.select({ employee: employees }).from(employees).where(and(eq(employees.id, input.employeeId), eq(employees.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  if (!employee[0]) throw new Error("EMPLOYEE_NOT_FOUND_OR_FORBIDDEN");
+  if (input.baseSalary < 0) throw new Error("BASE_SALARY_INVALID");
+  if (input.endDate && input.endDate < input.startDate) throw new Error("CONTRACT_DATES_INVALID");
+  const result = await db.insert(employmentContracts).values({ ...input, salaryCurrency: input.salaryCurrency ?? "AOA", weeklyHours: String(input.weeklyHours ?? 44), baseSalary: String(input.baseSalary), createdBy: input.userId, status: "DRAFT" }).$returningId();
+  const contractId = result[0]?.id;
+  if (!contractId) throw new Error("CONTRACT_CREATE_FAILED");
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "EMPLOYMENT_CONTRACT_CREATED", entityType: "employmentContract", entityId: String(contractId), beforeState: null, afterState: JSON.stringify({ employeeId: input.employeeId, contractNumber: input.contractNumber, status: "DRAFT" }), correlationId: `employment-contract:${contractId}` });
+  return db.select({ contract: employmentContracts, employee: employees }).from(employmentContracts).innerJoin(employees, eq(employmentContracts.employeeId, employees.id)).where(eq(employmentContracts.id, contractId)).limit(1);
+}
+export async function transitionEmploymentContractForUser(input: { userId: number; companyId: number; contractId: number; to: "ACTIVE" | "ENDED" | "CANCELLED"; terminationReason?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const row = await db.select({ contract: employmentContracts, organizationId: companies.organizationId }).from(employmentContracts).innerJoin(companies, eq(employmentContracts.companyId, companies.id)).where(and(eq(employmentContracts.id, input.contractId), eq(employmentContracts.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  if (!row[0]) throw new Error("CONTRACT_NOT_FOUND_OR_FORBIDDEN");
+  if (row[0].contract.status === "CANCELLED" || row[0].contract.status === "ENDED") throw new Error("CONTRACT_IMMUTABLE");
+  if (input.to === "ENDED" && !input.terminationReason?.trim()) throw new Error("TERMINATION_REASON_REQUIRED");
+  await db.update(employmentContracts).set({ status: input.to, terminationReason: input.terminationReason?.trim() || row[0].contract.terminationReason }).where(eq(employmentContracts.id, input.contractId));
+  await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: `EMPLOYMENT_CONTRACT_${input.to}`, entityType: "employmentContract", entityId: String(input.contractId), beforeState: JSON.stringify(row[0].contract), afterState: JSON.stringify({ ...row[0].contract, status: input.to, terminationReason: input.terminationReason?.trim() || row[0].contract.terminationReason }), correlationId: `employment-contract:${input.contractId}:${input.to.toLowerCase()}` });
+  return db.select({ contract: employmentContracts, employee: employees }).from(employmentContracts).innerJoin(employees, eq(employmentContracts.employeeId, employees.id)).where(eq(employmentContracts.id, input.contractId)).limit(1);
+}
+
+export async function getPayrollRuleSetsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ ruleSet: payrollRuleSets }).from(payrollRuleSets).where(and(eq(payrollRuleSets.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuleSets.effectiveFrom));
+}
+export async function createPayrollRuleSetForUser(input: { userId: number; organizationId: number; companyId: number; version: string; effectiveFrom: Date; effectiveTo?: Date; socialEmployeeRate: number; socialEmployerRate: number; irtBrackets: string; sourceUrl?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  parseIrtBrackets(input.irtBrackets);
+  if (![input.socialEmployeeRate, input.socialEmployerRate].every((rate) => Number.isFinite(rate) && rate >= 0 && rate <= 100)) throw new Error("SOCIAL_RATE_INVALID");
+  const result = await db.insert(payrollRuleSets).values({ ...input, createdBy: input.userId, socialEmployeeRate: String(input.socialEmployeeRate), socialEmployerRate: String(input.socialEmployerRate), verificationStatus: "INTERNAL_REVIEW" }).$returningId();
+  const ruleSetId = result[0]?.id;
+  if (!ruleSetId) throw new Error("PAYROLL_RULE_SET_CREATE_FAILED");
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYROLL_RULE_SET_CREATED", entityType: "payrollRuleSet", entityId: String(ruleSetId), beforeState: null, afterState: JSON.stringify({ version: input.version, verificationStatus: "INTERNAL_REVIEW" }), correlationId: `payroll-rule-set:${ruleSetId}` });
+  return db.select({ ruleSet: payrollRuleSets }).from(payrollRuleSets).where(eq(payrollRuleSets.id, ruleSetId)).limit(1);
+}
+export async function getPayrollRunsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ run: payrollRuns, ruleSet: payrollRuleSets }).from(payrollRuns).innerJoin(payrollRuleSets, eq(payrollRuns.ruleSetId, payrollRuleSets.id)).where(and(eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuns.year), desc(payrollRuns.month));
+}
+export async function calculatePayrollRunForUser(input: { userId: number; organizationId: number; companyId: number; ruleSetId: number; year: number; month: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  if (input.month < 1 || input.month > 12) throw new Error("PAYROLL_MONTH_INVALID");
+  const ruleRows = await db.select({ ruleSet: payrollRuleSets }).from(payrollRuleSets).where(and(eq(payrollRuleSets.id, input.ruleSetId), eq(payrollRuleSets.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  const rule = ruleRows[0]?.ruleSet;
+  if (!rule) throw new Error("PAYROLL_RULE_SET_NOT_FOUND_OR_FORBIDDEN");
+  const brackets = parseIrtBrackets(rule.irtBrackets);
+  const contractRows = await db.select({ contract: employmentContracts, employee: employees }).from(employmentContracts).innerJoin(employees, eq(employmentContracts.employeeId, employees.id)).where(and(eq(employmentContracts.companyId, input.companyId), eq(employmentContracts.status, "ACTIVE"), eq(employees.status, "ACTIVE"), organizationAccessCondition(input.userId)));
+  if (!contractRows.length) throw new Error("NO_ACTIVE_CONTRACTS");
+  const runResult = await db.insert(payrollRuns).values({ organizationId: input.organizationId, companyId: input.companyId, ruleSetId: input.ruleSetId, year: input.year, month: input.month, status: "CALCULATED", createdBy: input.userId }).$returningId();
+  const runId = runResult[0]?.id;
+  if (!runId) throw new Error("PAYROLL_RUN_CREATE_FAILED");
+  let grossTotal = 0; let socialEmployeeTotal = 0; let irtTotal = 0; let socialEmployerTotal = 0; let netTotal = 0;
+  for (const row of contractRows) {
+    const calculated = calculatePayrollAmounts({ grossAmount: Number(row.contract.baseSalary), socialEmployeeRate: Number(rule.socialEmployeeRate), socialEmployerRate: Number(rule.socialEmployerRate), irtBrackets: brackets });
+    grossTotal += calculated.grossAmount; socialEmployeeTotal += calculated.socialEmployeeAmount; irtTotal += calculated.irtAmount; socialEmployerTotal += calculated.socialEmployerAmount; netTotal += calculated.netAmount;
+    await db.insert(payrollItems).values({ organizationId: input.organizationId, companyId: input.companyId, runId, employeeId: row.employee.id, contractId: row.contract.id, grossAmount: String(calculated.grossAmount), socialEmployeeAmount: String(calculated.socialEmployeeAmount), irtAmount: String(calculated.irtAmount), socialEmployerAmount: String(calculated.socialEmployerAmount), netAmount: String(calculated.netAmount), breakdown: JSON.stringify({ taxableAmount: calculated.taxableAmount, ruleSetId: rule.id, ruleVersion: rule.version }) });
+  }
+  await db.update(payrollRuns).set({ grossTotal: String(grossTotal), socialEmployeeTotal: String(socialEmployeeTotal), irtTotal: String(irtTotal), socialEmployerTotal: String(socialEmployerTotal), netTotal: String(netTotal) }).where(eq(payrollRuns.id, runId));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYROLL_RUN_CALCULATED", entityType: "payrollRun", entityId: String(runId), beforeState: null, afterState: JSON.stringify({ year: input.year, month: input.month, status: "CALCULATED", employees: contractRows.length, grossTotal, netTotal, ruleVersion: rule.version }), correlationId: `payroll-run:${runId}` });
+  return db.select({ run: payrollRuns, ruleSet: payrollRuleSets }).from(payrollRuns).innerJoin(payrollRuleSets, eq(payrollRuns.ruleSetId, payrollRuleSets.id)).where(eq(payrollRuns.id, runId)).limit(1);
 }
 
 export async function createCompanyForUser(input: {
