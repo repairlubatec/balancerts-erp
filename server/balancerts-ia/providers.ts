@@ -49,7 +49,15 @@ export class LocalAIProvider implements IAProvider {
   readonly id = "local" as const;
   constructor(private readonly config: Pick<IAConfig, "localBaseUrl" | "localPort" | "localModel">) {}
   get model() { return this.config.localModel; }
-  private baseUrl() { return `${this.config.localBaseUrl.replace(/\/$/, "")}:${this.config.localPort}`; }
+  private baseUrl() {
+    const configured = this.config.localBaseUrl.replace(/\/$/, "");
+    try {
+      const parsed = new URL(configured);
+      return parsed.port ? configured : `${configured}:${this.config.localPort}`;
+    } catch {
+      return `${configured}:${this.config.localPort}`;
+    }
+  }
   async isAvailable() { try { const response = await fetchWithTimeout(`${this.baseUrl()}/api/tags`); return response.ok; } catch { return false; } }
   async execute(request: IARequest) {
     const started = Date.now();

@@ -26,6 +26,14 @@ describe("Balancerts IA providers", () => {
     vi.unstubAllGlobals();
   });
 
+  it("aceita endereço Ollama já configurado com porta explícita", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => ({ models: [] }) });
+    vi.stubGlobal("fetch", fetchMock);
+    await new LocalAIProvider({ ...baseConfig, localBaseUrl: "http://127.0.0.1:11434", localPort: 9999 }).isAvailable();
+    expect(fetchMock.mock.calls[0]?.[0]).toBe("http://127.0.0.1:11434/api/tags");
+    vi.unstubAllGlobals();
+  });
+
   it("mantém o provider local independente do runtime Ollama", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")));
     expect(new LocalAIProvider(baseConfig).model).toBe("qwen2.5:3b");

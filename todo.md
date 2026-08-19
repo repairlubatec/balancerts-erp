@@ -1003,3 +1003,12 @@
 - [x] Completar Definições com destinos operacionais, normas, séries, permissões e integrações preparadas
 - [x] Rever RBAC, isolamento, idioma português e navegação desktop nos dois postos
 - [x] Executar suite integral, revisão visual e guardar checkpoint dos dois postos
+
+## IA gratuita local — etapa de testes
+
+- [x] Preparar integração opcional com Ollama para testes locais
+- [x] Validar configuração do endereço, porta e modelo local no Balancerts IA
+- [x] Garantir que classificação e preenchimento assistido permanecem propostas sujeitas a revisão humana
+- [x] Garantir privacidade, ausência de envio para a nuvem e funcionamento offline
+- [x] Executar testes, revisão visual e guardar checkpoint da solução local
+- [x] Documentar a instalação e utilização no Windows sem activar providers pagos
