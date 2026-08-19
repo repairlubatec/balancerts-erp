@@ -1217,3 +1217,12 @@
 - [x] Confirmar impressão apenas depois da pré-visualização
 - [x] Testar conteúdo, idioma, modo colectivo/individual e impressão
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## Centro de Tarefas — filtros rápidos
+
+- [x] Criar atalhos rápidos para responsável
+- [x] Criar atalhos rápidos para prioridade
+- [x] Criar atalhos rápidos para estado de conclusão
+- [x] Preservar combinação com filtros detalhados e actualizar contadores
+- [x] Testar isolamento, idioma e experiência desktop
+- [x] Executar build, rever visualmente e guardar checkpoint
