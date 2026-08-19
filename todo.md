@@ -1164,10 +1164,10 @@
 ## RH — logótipo oficial no recibo PDF
 
 - [ ] Localizar e confirmar o activo oficial da Repair Lubatec
-- [ ] Preparar o logótipo para cabeçalho sem perda de legibilidade
-- [ ] Integrar o logótipo no recibo interno PDF com fallback sem imagem
-- [ ] Validar associação da empresa, impressão e testes
-- [ ] Executar build, rever visualmente e guardar checkpoint
+- [x] Preparar o logótipo para cabeçalho sem perda de legibilidade
+- [x] Integrar o logótipo no recibo interno PDF com fallback sem imagem
+- [x] Validar associação da empresa, impressão e testes
+- [x] Executar build, rever visualmente e guardar checkpoint
 
 ## RH — recibo individual por colaborador
 
