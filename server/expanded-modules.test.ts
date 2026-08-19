@@ -146,6 +146,10 @@ describe("expanded tenant-aware operational modules", () => {
       treasuryTransactionId = Number(payment.treasuryTransactionId);
       expect(treasuryTransactionId).toBeGreaterThan(0);
       expect((await caller.treasury.transactions({ companyId: COMPANY_ID })).some(({ transaction }) => transaction.id === treasuryTransactionId)).toBe(true);
+      const transactionReconciliation = await caller.treasury.reconcileTransaction({ companyId: COMPANY_ID, transactionId: treasuryTransactionId, reason: "Conferência com extracto bancário de teste" });
+      expect(transactionReconciliation).toMatchObject({ id: treasuryTransactionId, reconciliationStatus: "RECONCILED", alreadyReconciled: false });
+      const transactionReplay = await caller.treasury.reconcileTransaction({ companyId: COMPANY_ID, transactionId: treasuryTransactionId, reason: "Repetição idempotente" });
+      expect(transactionReplay).toMatchObject({ id: treasuryTransactionId, reconciliationStatus: "RECONCILED", alreadyReconciled: true });
       const confirmedPayment = await caller.treasury.updatePayment({ companyId: COMPANY_ID, paymentId, status: "CONFIRMED" });
       expect(confirmedPayment).toMatchObject({ id: paymentId });
       expect((await caller.treasury.payments({ companyId: COMPANY_ID })).some(({ payment }) => payment.id === paymentId && payment.status === "CONFIRMED")).toBe(true);

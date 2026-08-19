@@ -616,6 +616,17 @@ export async function reconcileCashAccountForUser(input: { userId: number; compa
   return { id, cashAccountId: input.cashAccountId, systemBalance, difference, status };
 }
 
+export async function reconcileTreasuryTransactionForUser(input: { userId: number; companyId: number; transactionId: number; reason?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const row = await db.select({ transaction: treasuryTransactions, organizationId: companies.organizationId }).from(treasuryTransactions).innerJoin(companies, eq(treasuryTransactions.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(treasuryTransactions.id, input.transactionId), eq(treasuryTransactions.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!row[0]) throw new Error("TREASURY_TRANSACTION_NOT_FOUND_OR_FORBIDDEN");
+  if (row[0].transaction.reconciliationStatus === "RECONCILED") return { id: input.transactionId, reconciliationStatus: "RECONCILED" as const, alreadyReconciled: true };
+  await db.update(treasuryTransactions).set({ reconciliationStatus: "RECONCILED" }).where(and(eq(treasuryTransactions.id, input.transactionId), eq(treasuryTransactions.companyId, input.companyId)));
+  await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "TREASURY_TRANSACTION_RECONCILED", entityType: "treasuryTransaction", entityId: String(input.transactionId), beforeState: JSON.stringify({ reconciliationStatus: row[0].transaction.reconciliationStatus }), afterState: JSON.stringify({ reconciliationStatus: "RECONCILED", reason: input.reason ?? null }), correlationId: `treasury-reconciliation:${input.transactionId}` });
+  return { id: input.transactionId, reconciliationStatus: "RECONCILED" as const, alreadyReconciled: false };
+}
+
 export async function updateCounterpartyForUser(input: { userId: number; companyId: number; counterpartyId: number; name?: string; email?: string; phone?: string; address?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");

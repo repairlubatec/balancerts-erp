@@ -751,3 +751,13 @@
 - [x] Validar pesquisa global, módulos, estados, exportações e mensagens de erro em português
 - [x] Rever testes, TypeScript, build e screenshots
 - [x] Documentar a auditoria e guardar checkpoint
+
+# Revisão funcional de botões e reconciliação
+
+- [x] Inventariar botões, menus, acções, handlers, rotas e procedimentos tRPC
+- [x] Testar acções críticas, incluindo filtros, pesquisa, criação, edição, exportação, navegação e fecho
+- [x] Localizar todos os pontos mortos, acções decorativas e estados sem operação; não foram encontrados handlers vazios; foram corrigidos links de paginação hash
+- [x] Implementar reconciliação operacional de movimentos Por reconciliar, com auditoria e permissões
+- [x] Corrigir feedbacks, destinos, estados de carregamento e mensagens de erro das acções
+- [x] Validar todos os fluxos com testes, TypeScript, build e verificação visual
+- [x] Documentar resultados e guardar checkpoint

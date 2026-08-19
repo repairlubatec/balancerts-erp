@@ -36,6 +36,8 @@ const labels: Record<string, string> = {
   BANK: "Banco",
   IN: "Entrada",
   OUT: "Saída",
+  OPEN: "Aberto",
+  EXCEPTION: "Excepção",
   DOCUMENT: "Documento",
   BUSINESS: "Operacional",
   TREASURY: "Tesouraria",
