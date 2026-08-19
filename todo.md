@@ -1055,7 +1055,7 @@
 
 - [x] Definir permissões granulares por módulo e acção para memberships
 - [x] Integrar a função efectiva no controlo operacional e na auditoria administrativa
-- [ ] Melhorar diagnóstico de produção, métricas e alertas
-- [ ] Optimizar carregamento e exportações do shell desktop
+- [x] Melhorar diagnóstico de produção, métricas e alertas
+- [x] Optimizar carregamento e exportações do shell desktop
 - [x] Reforçar validação dos pacotes EXE, MSI e DMG
 - [x] Executar suite integral, revisão visual e guardar checkpoint

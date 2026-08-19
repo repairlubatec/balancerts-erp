@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach, vi } from "vitest";
-import { apiRateLimit, resetSecurityBucketsForTests, securityHeaders } from "./_core/security";
+import { apiRateLimit, getRuntimeMetrics, resetSecurityBucketsForTests, securityHeaders } from "./_core/security";
 
 describe("hardening de segurança HTTP", () => {
   beforeEach(() => resetSecurityBucketsForTests());
@@ -13,6 +13,13 @@ describe("hardening de segurança HTTP", () => {
     expect(headers.get("X-Content-Type-Options")).toBe("nosniff");
     expect(headers.get("X-Frame-Options")).toBe("DENY");
     expect(headers.get("Referrer-Policy")).toBe("strict-origin-when-cross-origin");
+  });
+
+  it("expõe métricas operacionais sem conteúdo de pedidos", () => {
+    const metrics = getRuntimeMetrics();
+    expect(metrics.requests).toBe(0);
+    expect(metrics.responses5xx).toBe(0);
+    expect(metrics).not.toHaveProperty("body");
   });
 
   it("limita pedidos repetidos para a mesma origem e rota", () => {
