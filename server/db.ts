@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
-import { and, desc, eq, gte, isNull, lte, or, sql } from "drizzle-orm";
+import { and, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
   auditEvents, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
@@ -529,7 +529,11 @@ export async function createPayrollRuleSetForUser(input: { userId: number; organ
 export async function getPayrollRunsForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
-  return db.select({ run: payrollRuns, ruleSet: payrollRuleSets }).from(payrollRuns).innerJoin(payrollRuleSets, eq(payrollRuns.ruleSetId, payrollRuleSets.id)).where(and(eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuns.year), desc(payrollRuns.month));
+  const rows = await db.select({ run: payrollRuns, ruleSet: payrollRuleSets }).from(payrollRuns).innerJoin(payrollRuleSets, eq(payrollRuns.ruleSetId, payrollRuleSets.id)).where(and(eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuns.year), desc(payrollRuns.month));
+  const actorIds = Array.from(new Set(rows.flatMap(({ run }) => [run.createdBy, run.reviewedBy, run.approvedBy, run.accountingPreparedBy, run.accountingApprovedBy].filter((id): id is number => Boolean(id)))));
+  const actorRows = actorIds.length ? await db.select({ id: users.id, name: users.name, email: users.email }).from(users).where(inArray(users.id, actorIds)) : [];
+  const actorById = new Map(actorRows.map((actor) => [actor.id, actor]));
+  return rows.map(({ run, ruleSet }) => ({ run, ruleSet, actors: { creator: run.createdBy ? actorById.get(run.createdBy) ?? null : null, reviewer: run.reviewedBy ? actorById.get(run.reviewedBy) ?? null : null, approver: run.approvedBy ? actorById.get(run.approvedBy) ?? null : null, accountingPreparer: run.accountingPreparedBy ? actorById.get(run.accountingPreparedBy) ?? null : null, accountingApprover: run.accountingApprovedBy ? actorById.get(run.accountingApprovedBy) ?? null : null } }));
 }
 export async function getHumanResourcesTasksForUserCompany(userId: number, companyId: number) {
   const db = await getDb();

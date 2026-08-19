@@ -1143,3 +1143,11 @@
 - [x] Implementar impressão PDF sem popup do navegador, usando janela interna de impressão do sistema
 - [x] Validar idioma, dados apresentados, impressão e suite de testes
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## RH — actores e datas da folha
+
+- [x] Mapear responsável pelo cálculo, conferente e aprovador persistidos
+- [x] Expor nomes e datas no detalhe da folha
+- [x] Distinguir claramente estados sem actor ou data registados
+- [x] Testar a apresentação e a segregação de funções
+- [x] Executar build, rever visualmente e guardar checkpoint

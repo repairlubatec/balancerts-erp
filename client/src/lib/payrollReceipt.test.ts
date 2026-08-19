@@ -1,10 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { calculateReceiptTotals, formatInternalReceiptPeriod } from "./payrollReceipt";
+import { calculateReceiptTotals, formatInternalReceiptPeriod, formatPayrollActor } from "./payrollReceipt";
 
 describe("recibo interno de RH", () => {
   it("formata o período salarial em português", () => {
     expect(formatInternalReceiptPeriod({ year: 2026, month: 9 })).toBe("09/2026");
     expect(formatInternalReceiptPeriod(null)).toBe("—");
+  });
+
+  it("apresenta actor e data e mantém estado pendente sem actor", () => {
+    expect(formatPayrollActor({ name: "Ana Contabilista", email: "ana@example.com" }, new Date("2026-08-19T10:30:00Z"), "Ainda não aprovado")).toContain("Ana Contabilista");
+    expect(formatPayrollActor(null, null, "Ainda não aprovado")).toBe("Ainda não aprovado");
   });
 
   it("reconcilia bruto, descontos e líquido", () => {

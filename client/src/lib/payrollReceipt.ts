@@ -5,6 +5,11 @@ export function formatInternalReceiptPeriod(run?: ReceiptPeriod | null) {
   return `${String(run.month).padStart(2, "0")}/${run.year}`;
 }
 
+export function formatPayrollActor(actor: { name?: string | null; email?: string | null } | null | undefined, date: Date | string | null | undefined, emptyLabel: string) {
+  if (!actor || !date) return emptyLabel;
+  return `${actor.name || actor.email || "Utilizador"} · ${new Date(date).toLocaleString("pt-PT")}`;
+}
+
 export function calculateReceiptTotals(items: Array<{ grossAmount: string | number; socialEmployeeAmount: string | number; irtAmount: string | number; netAmount: string | number }>) {
   return items.reduce(
     (totals, item) => ({
