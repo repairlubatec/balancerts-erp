@@ -3,9 +3,10 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
+import { buildStockTransfer, normalizeWarehouseCode, validateStockMovement } from "./operations";
 import { applyReconciliationAdjustment } from "./reconciliation";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
@@ -579,6 +580,41 @@ export async function getAuditEventsForUserCompany(userId: number, companyId: nu
   return db.select({ event: auditEvents }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).where(and(...filters)).orderBy(desc(auditEvents.id));
 }
 
+export async function getStockBalancesForUserCompany(input: { userId: number; companyId: number }) {
+  const db = await getDb();
+  if (!db) return [];
+  const rows = await db.select({ movement: stockMovements, warehouse: warehouses }).from(stockMovements).leftJoin(warehouses, eq(stockMovements.warehouseId, warehouses.id)).innerJoin(companies, eq(stockMovements.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(stockMovements.companyId, input.companyId), eq(organizations.ownerUserId, input.userId)));
+  const balances = new Map<string, { warehouseId: number | null; warehouseCode: string; warehouseName: string; productCode: string; quantity: number; value: number }>();
+  for (const row of rows) {
+    const key = `${row.movement.warehouseId ?? "geral"}:${row.movement.productCode}`;
+    const current = balances.get(key) ?? { warehouseId: row.movement.warehouseId ?? null, warehouseCode: row.warehouse?.code ?? "GERAL", warehouseName: row.warehouse?.name ?? "Armazém geral", productCode: row.movement.productCode, quantity: 0, value: 0 };
+    const sign = row.movement.type === "IN" ? 1 : -1;
+    current.quantity += sign * Number(row.movement.quantity);
+    current.value += sign * Number(row.movement.quantity) * Number(row.movement.unitCost);
+    balances.set(key, current);
+  }
+  return Array.from(balances.values()).sort((a, b) => `${a.warehouseCode}:${a.productCode}`.localeCompare(`${b.warehouseCode}:${b.productCode}`));
+}
+export async function getWarehousesForUserCompany(input: { userId: number; companyId: number }) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ warehouse: warehouses }).from(warehouses).innerJoin(companies, eq(warehouses.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(warehouses.companyId, input.companyId), eq(warehouses.active, 1), eq(organizations.ownerUserId, input.userId))).orderBy(warehouses.code);
+}
+export async function createWarehouseForUser(input: { userId: number; organizationId: number; companyId: number; code: string; name: string; address?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const code = normalizeWarehouseCode(input.code);
+  const name = input.name.trim();
+  if (!code || !name) throw new Error("WAREHOUSE_DATA_REQUIRED");
+  const existing = await db.select({ id: warehouses.id }).from(warehouses).where(and(eq(warehouses.companyId, input.companyId), eq(warehouses.code, code))).limit(1);
+  if (existing[0]) throw new Error("WAREHOUSE_CODE_ALREADY_EXISTS");
+  const inserted = await db.insert(warehouses).values({ organizationId: input.organizationId, companyId: input.companyId, code, name, address: input.address?.trim() || null, createdBy: input.userId, active: 1 });
+  const id = Number(inserted[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "WAREHOUSE_CREATED", entityType: "warehouse", entityId: String(id), beforeState: null, afterState: JSON.stringify({ id, code, name, address: input.address?.trim() || null }), correlationId: `warehouse:${id}` });
+  return { id, code, name, address: input.address?.trim() || null, active: 1 };
+}
 export async function reconcileStockForUserCompany(input: { userId: number; companyId: number; inventoryAccountId: number }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
@@ -589,17 +625,44 @@ export async function reconcileStockForUserCompany(input: { userId: number; comp
   return reconcileInventoryToLedger(normalized, ledgerValue);
 }
 
-export async function recordStockMovement(input: { userId: number; organizationId: number; companyId: number; periodId: number; productCode: string; type: "IN" | "OUT"; quantity: number; unitCost: number; sourceDocumentId?: number; journalEntryId?: number; correlationId: string }) {
+export async function recordStockMovement(input: { userId: number; organizationId: number; companyId: number; periodId: number; warehouseId?: number; productCode: string; type: "IN" | "OUT"; quantity: number; unitCost: number; sourceDocumentId?: number; journalEntryId?: number; correlationId: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertCompanyReady(db, input.userId, input.companyId);
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
-  const result = await db.insert(stockMovements).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, productCode: input.productCode, type: input.type, quantity: String(input.quantity), unitCost: String(input.unitCost), sourceDocumentId: input.sourceDocumentId, journalEntryId: input.journalEntryId, correlationId: input.correlationId });
+  const movement = validateStockMovement(input);
+  if (input.warehouseId) {
+    const warehouse = await db.select({ id: warehouses.id }).from(warehouses).where(and(eq(warehouses.id, input.warehouseId), eq(warehouses.companyId, input.companyId), eq(warehouses.active, 1))).limit(1);
+    if (!warehouse[0]) throw new Error("WAREHOUSE_NOT_FOUND_OR_FORBIDDEN");
+  }
+  const result = await db.insert(stockMovements).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, warehouseId: input.warehouseId, productCode: input.productCode, type: input.type, quantity: String(movement.quantity), unitCost: String(movement.unitCost), sourceDocumentId: input.sourceDocumentId, journalEntryId: input.journalEntryId, correlationId: input.correlationId });
   const movementId = Number(result[0].insertId);
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "STOCK_MOVEMENT_RECORDED", entityType: "stockMovement", entityId: String(movementId), beforeState: null, afterState: JSON.stringify({ type: input.type, productCode: input.productCode, quantity: input.quantity, unitCost: input.unitCost }), correlationId: input.correlationId });
   return { id: movementId, ...input };
 }
 
+export async function transferStockBetweenWarehousesForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; fromWarehouseId: number; toWarehouseId: number; productCode: string; quantity: number; unitCost: number; transferGroupId: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const transfer = buildStockTransfer(input);
+  const existingTransfer = await db.select({ id: stockMovements.id, type: stockMovements.type }).from(stockMovements).where(and(eq(stockMovements.companyId, input.companyId), eq(stockMovements.transferGroupId, transfer.transferGroupId))).limit(3);
+  if (existingTransfer.length >= 2) return { outgoingId: existingTransfer.find((row) => row.type === "OUT")?.id ?? existingTransfer[0].id, incomingId: existingTransfer.find((row) => row.type === "IN")?.id ?? existingTransfer[1].id, transfer, idempotent: true };
+  if (existingTransfer.length === 1) throw new Error("STOCK_TRANSFER_INCOMPLETE");
+  const warehousesFound = await db.select({ id: warehouses.id }).from(warehouses).where(and(eq(warehouses.companyId, input.companyId), eq(warehouses.active, 1), sql`${warehouses.id} in (${input.fromWarehouseId}, ${input.toWarehouseId})`));
+  if (warehousesFound.length !== 2) throw new Error("STOCK_TRANSFER_WAREHOUSE_FORBIDDEN");
+  const sourceMovements = await db.select({ movement: stockMovements }).from(stockMovements).where(and(eq(stockMovements.companyId, input.companyId), eq(stockMovements.warehouseId, transfer.fromWarehouseId), eq(stockMovements.productCode, transfer.productCode)));
+  const available = sourceMovements.reduce((total, row) => total + (row.movement.type === "IN" ? Number(row.movement.quantity) : -Number(row.movement.quantity)), 0);
+  if (available + 0.0000001 < transfer.quantity) throw new Error("STOCK_INSUFFICIENT");
+  const result = await db.transaction(async (tx) => {
+    const outgoing = await tx.insert(stockMovements).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, warehouseId: transfer.fromWarehouseId, transferGroupId: transfer.transferGroupId, productCode: transfer.productCode, type: "OUT", quantity: String(transfer.quantity), unitCost: String(transfer.unitCost), correlationId: `${transfer.transferGroupId}:OUT` });
+    const incoming = await tx.insert(stockMovements).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, warehouseId: transfer.toWarehouseId, transferGroupId: transfer.transferGroupId, productCode: transfer.productCode, type: "IN", quantity: String(transfer.quantity), unitCost: String(transfer.unitCost), correlationId: `${transfer.transferGroupId}:IN` });
+    return { outgoingId: Number(outgoing[0].insertId), incomingId: Number(incoming[0].insertId) };
+  });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "STOCK_TRANSFER_RECORDED", entityType: "stockTransfer", entityId: transfer.transferGroupId, beforeState: null, afterState: JSON.stringify({ ...transfer, ...result }), correlationId: transfer.transferGroupId });
+  return { ...result, transfer, idempotent: false };
+}
 export async function createFileAsset(input: { userId: number; organizationId: number; companyId: number; storageKey: string; filename: string; mimeType: string; size: number; sha256: string; allowedUserIds?: number[]; category?: "FISCAL" | "CONTABILISTICO" | "CONTRATO" | "RH" | "OUTRO"; description?: string; reference?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
@@ -708,12 +771,16 @@ export async function transitionPurchaseOrderForUser(input: { userId: number; co
   return { id: input.orderId, previousStatus: current.order.status, status: input.target };
 }
 
-export async function receivePurchaseOrderForUser(input: { userId: number; companyId: number; periodId: number; orderId: number; receivedAt: Date; idempotencyKey: string; notes?: string; items: Array<{ orderItemId: number; quantity: number; unitCost?: number }> }) {
+export async function receivePurchaseOrderForUser(input: { userId: number; companyId: number; periodId: number; orderId: number; receivedAt: Date; idempotencyKey: string; warehouseId?: number; notes?: string; items: Array<{ orderItemId: number; quantity: number; unitCost?: number }> }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertCompanyReady(db, input.userId, input.companyId);
   await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
   if (!input.items.length) throw new Error("PURCHASE_RECEIPT_ITEMS_REQUIRED");
+  if (input.warehouseId) {
+    const warehouse = await db.select({ id: warehouses.id }).from(warehouses).where(and(eq(warehouses.id, input.warehouseId), eq(warehouses.companyId, input.companyId), eq(warehouses.active, 1))).limit(1);
+    if (!warehouse[0]) throw new Error("WAREHOUSE_NOT_FOUND_OR_FORBIDDEN");
+  }
   const existing = await db.select({ receipt: purchaseReceipts }).from(purchaseReceipts).innerJoin(organizations, eq(purchaseReceipts.organizationId, organizations.id)).where(and(eq(purchaseReceipts.companyId, input.companyId), eq(purchaseReceipts.idempotencyKey, input.idempotencyKey), eq(organizations.ownerUserId, input.userId))).limit(1);
   if (existing[0]) return { id: existing[0].receipt.id, receiptNumber: existing[0].receipt.receiptNumber, status: "ALREADY_REGISTERED" as const };
   const orderRows = await db.select({ order: purchaseOrders, organizationId: organizations.id }).from(purchaseOrders).innerJoin(organizations, eq(purchaseOrders.organizationId, organizations.id)).where(and(eq(purchaseOrders.id, input.orderId), eq(purchaseOrders.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
@@ -740,7 +807,7 @@ export async function receivePurchaseOrderForUser(input: { userId: number; compa
     for (const row of normalized) {
       await tx.insert(purchaseReceiptItems).values({ organizationId: order.organizationId, companyId: input.companyId, receiptId, orderItemId: row.item.id, productId: row.item.productId, productCode: row.productCode, quantity: row.quantity.toFixed(4), unitCost: row.unitCost.toFixed(4) });
       await tx.update(purchaseOrderItems).set({ receivedQuantity: sql`${purchaseOrderItems.receivedQuantity} + ${row.quantity.toFixed(4)}` }).where(eq(purchaseOrderItems.id, row.item.id));
-      await tx.insert(stockMovements).values({ organizationId: order.organizationId, companyId: input.companyId, periodId: input.periodId, productCode: row.productCode, type: "IN", quantity: row.quantity.toFixed(4), unitCost: row.unitCost.toFixed(4), correlationId: `receipt:${receiptId}:${row.item.id}` });
+      await tx.insert(stockMovements).values({ organizationId: order.organizationId, companyId: input.companyId, periodId: input.periodId, warehouseId: input.warehouseId, productCode: row.productCode, type: "IN", quantity: row.quantity.toFixed(4), unitCost: row.unitCost.toFixed(4), correlationId: `receipt:${receiptId}:${row.item.id}` });
     }
     return receiptId;
   });

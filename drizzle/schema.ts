@@ -226,6 +226,8 @@ export const stockMovements = mysqlTable("stockMovements", {
   organizationId: int("organizationId").notNull(),
   companyId: int("companyId").notNull(),
   periodId: int("periodId").notNull(),
+  warehouseId: int("warehouseId"),
+  transferGroupId: varchar("transferGroupId", { length: 128 }),
   productCode: varchar("productCode", { length: 80 }).notNull(),
   type: mysqlEnum("type", ["IN", "OUT"]).notNull(),
   quantity: decimal("quantity", { precision: 18, scale: 4 }).notNull(),
@@ -235,6 +237,19 @@ export const stockMovements = mysqlTable("stockMovements", {
   correlationId: varchar("correlationId", { length: 128 }).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
+export const warehouses = mysqlTable("warehouses", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  code: varchar("code", { length: 40 }).notNull(),
+  name: varchar("name", { length: 180 }).notNull(),
+  address: varchar("address", { length: 255 }),
+  active: int("active").default(1).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  companyCodeUnique: uniqueIndex("warehouses_company_code_unique").on(table.companyId, table.code),
+}));
 
 export const fileAssets = mysqlTable("fileAssets", {
   id: int("id").autoincrement().primaryKey(),

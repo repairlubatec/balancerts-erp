@@ -962,6 +962,25 @@
 - [x] Implementar Enter como avanço para o campo seguinte em todos os formulários
 - [x] Preservar submissão explícita, botões, caixas multilinha e controlos especiais
 - [x] Criar testes de teclado e validar todos os módulos operacionais
+- [x] Inventariar lacunas do módulo Operações e requisitos de stock/armazém
+- [ ] Completar catálogo operacional, armazéns, movimentos e valorização
+- [ ] Implementar inventários, transferências, lotes/seriais quando aplicável e recepções
+- [ ] Integrar Operações com Compras, Comercial, Contabilidade e Tesouraria
+- [ ] Reforçar permissões, auditoria, relatórios e navegação Operações
+- [ ] Executar suite Operações, revisão visual e guardar checkpoint
 - [x] Verificar lacunas internas em cadastros, documentos, impostos, liquidações e integrações
 - [x] Confirmar ausência de pontos mortos, termos em inglês e janelas fora do shell
 - [x] Corrigir e testar eventuais falhas de numeração antes do checkpoint
+
+## Operações — etapa de armazéns, transferências e recepções
+
+- [x] Integrar formulário desktop de Stock para registar entradas e saídas por período e armazém
+- [x] Integrar criação persistente de armazéns com auditoria e isolamento por empresa
+- [x] Integrar transferência atómica entre armazéns com movimentos de saída e entrada auditáveis
+- [x] Impedir transferências acima do stock disponível na origem
+- [x] Reforçar idempotência e detectar transferências incompletas
+- [x] Expor e apresentar saldos valorizados por armazém e artigo em AOA
+- [x] Ligar recepções de compras ao armazém seleccionado e aos movimentos de entrada
+- [x] Validar TypeScript e testes de Operações, Inventário e Compras
+- [ ] Implementar contagem física persistente com aprovação e ajuste auditado
+- [ ] Rever visualmente o posto Stock autenticado e concluir testes de integração do ciclo completo

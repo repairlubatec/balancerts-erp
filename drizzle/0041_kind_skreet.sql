@@ -1,0 +1,1 @@
+ALTER TABLE `stockMovements` ADD `transferGroupId` varchar(128);
