@@ -860,11 +860,11 @@
 - [x] Ajustar o teste de preenchimento assistido para um perfil com permissão de validação
 
 # Continuação — Minhas Empresas e Empresas completos
-- [ ] Auditar todos os botões, menus, pesquisas, filtros, rotas e contratos dos módulos
-- [ ] Completar backend de criação, edição, activação, configuração e detalhe de empresas
-- [ ] Completar selecção da empresa activa e encaminhamento operacional
-- [ ] Implementar feedback interno desktop para sucesso, erro e validação
-- [ ] Adicionar testes de fluxos, RBAC, isolamento, auditoria e idioma português
+- [x] Auditar todos os botões, menus, pesquisas, filtros, rotas e contratos dos módulos
+- [x] Completar backend de criação, edição, activação, configuração e detalhe de empresas
+- [x] Completar selecção da empresa activa e encaminhamento operacional
+- [x] Implementar feedback interno desktop para sucesso, erro e validação
+- [x] Adicionar testes de fluxos, RBAC, isolamento, auditoria e idioma português
 - [x] Validar visualmente e funcionalmente os dois módulos; documentar e guardar checkpoint
 - [x] Corrigir os contratos da janela de edição de empresa e voltar a validar TypeScript
 - [x] Tornar a janela de edição compatível com contextos de teste sem companies.update

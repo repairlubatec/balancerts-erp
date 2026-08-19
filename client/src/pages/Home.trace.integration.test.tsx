@@ -44,6 +44,7 @@ vi.mock("@/lib/trpc", () => ({
       customerAging: { useQuery: () => ({ data: { rows: [], totals: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } }, isLoading: false }) },
       supplierAging: { useQuery: () => ({ data: { rows: [], totals: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } }, isLoading: false }) },
       reconciliation: { useQuery: () => ({ data: { companyId: 1, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } }, isLoading: false }) },
+      saftReadiness: { useQuery: () => ({ data: { ready: false, missing: ["MASTERFILES_SUPPLIERS"], submissionEligible: false }, isLoading: false }) },
       journal: { useQuery: () => ({ data: { entries: [{ entryId: 1, sourceDocumentId: 1, description: "FT 2026/00482", createdAt: new Date("2026-08-18T08:00:00.000Z"), accountCode: "21.1.1", accountName: "Cliente nacional", debit: 1250000, credit: 0 }], totals: { debit: 1250000, credit: 1250000 } }, isLoading: false }) },
     },
   },
@@ -81,6 +82,15 @@ describe("Home traceability integration", () => {
     expect(locationState.navigate).toHaveBeenCalledWith("/empresas");
     fireEvent.click(screen.getAllByRole("button", { name: "Abrir auditoria" })[0]!);
     expect(locationState.navigate).toHaveBeenCalledWith("/auditoria");
+  });
+
+  it("filters authorized companies by operational state", () => {
+    cleanup();
+    locationState.current = "/";
+    window.history.pushState({}, "", "/");
+    render(<Home />);
+    fireEvent.change(screen.getByRole("combobox", { name: "Filtrar empresas por estado" }), { target: { value: "BLOQUEADO" } });
+    expect(screen.getByText("Nenhuma empresa autorizada no tenant actual.")).toBeTruthy();
   });
 
   it("opens and submits the company creation form", async () => {
