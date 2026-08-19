@@ -1031,3 +1031,13 @@
 - [x] Acrescentar e validar cobertura de integração dos fluxos críticos de empresa, documentos, pagamentos, stock, fecho e auditoria
 - [x] Remover o warning persistente da configuração pnpm e rever os formulários genéricos do shell
 - [x] Validar o fluxo Electron e a configuração dos alvos Windows/macOS através do empacotamento desktop Linux no sandbox
+
+## Continuação pós-auditoria — melhoria autónoma
+
+- [x] Rever lacunas de operação, segurança, desempenho, documentação e distribuição após o checkpoint técnico
+- [x] Melhorar gestão de memberships por organização, funções, estados, auditoria e permissões administrativas
+- [x] Melhorar diagnóstico de ambiente e prontidão operacional no posto Definições
+- [x] Expandir monitorização, health checks e tratamento de erros operacionais
+- [x] Expandir testes de fluxos críticos e validação de empacotamento desktop
+- [x] Rever interface desktop, acessibilidade, idioma e desempenho de carregamento
+- [x] Executar validação integral e guardar checkpoint da ronda de melhorias

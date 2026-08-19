@@ -56,6 +56,12 @@ async function startServer() {
   } else {
     serveStatic(app);
   }
+  app.use((error: unknown, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (res.headersSent) return next(error);
+    const requestId = res.getHeader("X-Request-Id") || "desconhecido";
+    console.error(`[HTTP ${requestId}]`, error);
+    res.status(500).json({ error: "INTERNAL_SERVER_ERROR", requestId, message: "Ocorreu um erro interno. Consulte a auditoria técnica pelo identificador do pedido." });
+  });
 
   const preferredPort = parseInt(process.env.PORT || "3000");
   const port = await findAvailablePort(preferredPort);
