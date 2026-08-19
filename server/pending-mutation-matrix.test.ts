@@ -9,6 +9,9 @@ describe("pending mutation policy", () => {
       "companies.activate",
       "inventory.record",
       "files.register",
+      "files.updateMetadata",
+      "files.newVersion",
+      "files.archive",
       "documents.reserveNumber",
       "documents.transition",
       "accounting.post",
@@ -25,11 +28,11 @@ describe("pending mutation policy", () => {
 
   it("allows pending only for provisioning operations", () => {
     const expected = new Map([
-      ["companies.create", true], ["companies.activate", true], ["inventory.record", false], ["files.register", false],
+      ["companies.create", true], ["companies.activate", true], ["inventory.record", false], ["files.register", false], ["files.updateMetadata", false], ["files.newVersion", false], ["files.archive", false],
       ["documents.reserveNumber", false], ["documents.transition", false], ["accounting.post", false], ["reversal.post", false],
       ["fixedAssets.postDepreciation", false], ["closing.validateReopen", false],
     ]);
     for (const [mutation, allowsPending] of expected) expect(getPendingMutationPolicy(mutation)?.allowsPending).toBe(allowsPending);
-    expect(pendingMutationPolicy.filter((item) => !item.allowsPending).length).toBe(8);
+    expect(pendingMutationPolicy.filter((item) => !item.allowsPending).length).toBe(11);
   });
 });

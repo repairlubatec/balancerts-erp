@@ -795,3 +795,12 @@
 - [x] Criar interface desktop do arquivo dentro do módulo Documentos
 - [x] Adicionar testes de persistência, isolamento, ACL, versionamento e apresentação portuguesa
 - [x] Validar TypeScript, build, testes e experiência visual; documentar e guardar checkpoint
+
+# Continuação — Visualizador PDF interno P1
+- [x] Auditar o fluxo actual de preparação e abertura de PDFs
+- [x] Criar janela interna de visualização PDF sem target blank nem pop-up do navegador
+- [x] Ligar a visualização a documentos e ficheiros com validação de acesso
+- [x] Adicionar controlos desktop para fechar, maximizar, zoom e download controlado
+- [x] Adicionar testes de fluxo, permissões, idioma e ausência de abertura externa
+- [x] Validar TypeScript, build, testes e screenshot; documentar e guardar checkpoint
+- [x] Corrigir a política de mutações críticas para incluir as operações do arquivo digital
