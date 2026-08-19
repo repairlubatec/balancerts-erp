@@ -851,6 +851,7 @@ export const payrollRuleSets = mysqlTable("payrollRuleSets", {
   verificationStatus: mysqlEnum("verificationStatus", ["INTERNAL_REVIEW", "EXTERNALLY_VERIFIED", "SUPERSEDED"]).default("INTERNAL_REVIEW").notNull(),
   salaryAccountCode: varchar("salaryAccountCode", { length: 30 }),
   socialExpenseAccountCode: varchar("socialExpenseAccountCode", { length: 30 }),
+  socialPayableAccountCode: varchar("socialPayableAccountCode", { length: 30 }),
   irtPayableAccountCode: varchar("irtPayableAccountCode", { length: 30 }),
   netPayableAccountCode: varchar("netPayableAccountCode", { length: 30 }),
   createdBy: int("createdBy").notNull(),

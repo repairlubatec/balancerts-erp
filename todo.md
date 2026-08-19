@@ -1117,3 +1117,12 @@
 - [x] Preparar lançamento contabilístico opcional validado e aprovado, sem posting automático
 - [x] Adicionar teste dedicado contra auto-aprovação e validar isolamento através da suite tenant-aware
 - [x] Executar suite/build, rever visualmente e guardar checkpoint
+
+## RH — diário salarial opcional
+
+- [x] Definir contas, linhas e equilíbrio do diário salarial
+- [x] Implementar geração validada do diário com revisão contabilística
+- [x] Implementar aprovação final separada e bloqueio após publicação
+- [x] Integrar auditoria, origem da folha e prevenção de duplicados
+- [x] Adicionar testes de equilíbrio, permissões, idempotência e auto-aprovação
+- [x] Executar suite/build, rever visualmente e guardar checkpoint

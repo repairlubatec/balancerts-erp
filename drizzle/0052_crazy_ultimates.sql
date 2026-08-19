@@ -1,0 +1,1 @@
+ALTER TABLE `payrollRuleSets` ADD `socialPayableAccountCode` varchar(30);

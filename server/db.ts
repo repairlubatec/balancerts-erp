@@ -514,7 +514,7 @@ export async function getPayrollRuleSetsForUserCompany(userId: number, companyId
   if (!db) return [];
   return db.select({ ruleSet: payrollRuleSets }).from(payrollRuleSets).where(and(eq(payrollRuleSets.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuleSets.effectiveFrom));
 }
-export async function createPayrollRuleSetForUser(input: { userId: number; organizationId: number; companyId: number; version: string; effectiveFrom: Date; effectiveTo?: Date; socialEmployeeRate: number; socialEmployerRate: number; irtBrackets: string; sourceUrl?: string; salaryAccountCode?: string; socialExpenseAccountCode?: string; irtPayableAccountCode?: string; netPayableAccountCode?: string }) {
+export async function createPayrollRuleSetForUser(input: { userId: number; organizationId: number; companyId: number; version: string; effectiveFrom: Date; effectiveTo?: Date; socialEmployeeRate: number; socialEmployerRate: number; irtBrackets: string; sourceUrl?: string; salaryAccountCode?: string; socialExpenseAccountCode?: string; socialPayableAccountCode?: string; irtPayableAccountCode?: string; netPayableAccountCode?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertCompanyReady(db, input.userId, input.companyId);
@@ -592,6 +592,33 @@ export async function approvePayrollAccountingPreparationForUser(input: { userId
   await db.update(payrollRuns).set({ accountingApprovedBy: input.userId, accountingApprovedAt: approvedAt, accountingReference: input.accountingReference.trim() }).where(eq(payrollRuns.id, input.runId));
   await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_ACCOUNTING_PREPARATION_APPROVED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ ...run, accountingApprovedBy: input.userId, accountingApprovedAt: approvedAt, accountingReference: input.accountingReference.trim() }), correlationId: `payroll-run:${run.id}:accounting-approve` });
   return db.select({ run: payrollRuns }).from(payrollRuns).where(eq(payrollRuns.id, input.runId)).limit(1);
+}
+export async function postPayrollJournalForUser(input: { userId: number; companyId: number; runId: number; idempotencyKey: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const run = await getPayrollRunForUser(db, input.userId, input.companyId, input.runId);
+  if (run.status !== "POSTED" || run.accountingLinkStatus !== "PREPARED" || !run.accountingApprovedBy) throw new Error("PAYROLL_ACCOUNTING_APPROVAL_REQUIRED");
+  const rule = await db.select({ ruleSet: payrollRuleSets }).from(payrollRuleSets).where(and(eq(payrollRuleSets.id, run.ruleSetId), eq(payrollRuleSets.companyId, input.companyId))).limit(1);
+  const configuredCodes = [rule[0]?.ruleSet.salaryAccountCode, rule[0]?.ruleSet.socialExpenseAccountCode, rule[0]?.ruleSet.socialPayableAccountCode, rule[0]?.ruleSet.irtPayableAccountCode, rule[0]?.ruleSet.netPayableAccountCode];
+  if (!rule[0] || configuredCodes.some((code) => !code?.trim()) || new Set(configuredCodes).size !== configuredCodes.length) throw new Error("PAYROLL_ACCOUNTS_INCOMPLETE");
+  const accounts = await db.select().from(chartAccounts).where(eq(chartAccounts.companyId, input.companyId));
+  const accountByCode = new Map(accounts.map((account) => [account.code, account]));
+  const selectedAccounts = configuredCodes.map((code) => accountByCode.get(code!));
+  if (selectedAccounts.some((account) => !account || account.postable !== 1)) throw new Error("PAYROLL_ACCOUNT_NOT_POSTABLE");
+  const period = await db.select({ period: fiscalPeriods }).from(fiscalPeriods).where(and(eq(fiscalPeriods.companyId, input.companyId), eq(fiscalPeriods.year, run.year), eq(fiscalPeriods.month, run.month))).limit(1);
+  if (!period[0]) throw new Error("PAYROLL_FISCAL_PERIOD_NOT_FOUND");
+  const [salaryAccount, socialExpenseAccount, socialPayableAccount, irtPayableAccount, netPayableAccount] = selectedAccounts;
+  const lines = [
+    { accountId: salaryAccount!.id, debit: Number(run.grossTotal), credit: 0, postable: true, validFrom: new Date() },
+    { accountId: socialExpenseAccount!.id, debit: Number(run.socialEmployerTotal), credit: 0, postable: true, validFrom: new Date() },
+    { accountId: socialPayableAccount!.id, debit: 0, credit: Number(run.socialEmployeeTotal) + Number(run.socialEmployerTotal), postable: true, validFrom: new Date() },
+    { accountId: irtPayableAccount!.id, debit: 0, credit: Number(run.irtTotal), postable: true, validFrom: new Date() },
+    { accountId: netPayableAccount!.id, debit: 0, credit: Number(run.netTotal), postable: true, validFrom: new Date() },
+  ].filter((line) => line.debit > 0 || line.credit > 0);
+  const entry = await postJournalEntry({ companyId: input.companyId, periodId: period[0].period.id, idempotencyKey: input.idempotencyKey, description: `Processamento salarial ${String(run.month).padStart(2, "0")}/${run.year}`, documentReference: run.accountingReference ?? `FOLHA-${run.id}`, journalCode: "SALARIOS", reviewRequired: true, createdBy: input.userId, lines });
+  await db.update(payrollRuns).set({ accountingLinkStatus: "POSTED", accountingReference: `DIARIO-${entry.entryId ?? entry.entry?.id}` }).where(eq(payrollRuns.id, input.runId));
+  await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_ACCOUNTING_JOURNAL_CREATED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ accountingLinkStatus: "POSTED", entryId: entry.entryId ?? entry.entry?.id }), correlationId: input.idempotencyKey });
+  return { ...entry, payrollRunId: run.id };
 }
 export async function getPayrollItemsForUserRun(userId: number, companyId: number, runId: number) {
   const db = await getDb();
