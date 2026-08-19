@@ -18,5 +18,7 @@ describe("rótulos de apresentação em português", () => {
     expect(presentationLabel("IN")).toBe("Entrada");
     expect(presentationLabel("PAYMENT_CREATED")).toBe("Pagamento Criado");
     expect(presentationLabel("treasuryTransaction")).toBe("Tesouraria Movimento");
+    expect(presentationLabel("ui-payment-1-1787119815771")).toBe("Movimento de tesouraria");
+    expect(presentationLabel("treasury-reconciliation:42")).toBe("Reconciliação de tesouraria");
   });
 });

@@ -761,3 +761,13 @@
 - [x] Corrigir feedbacks, destinos, estados de carregamento e mensagens de erro das acções
 - [x] Validar todos os fluxos com testes, TypeScript, build e verificação visual
 - [x] Documentar resultados e guardar checkpoint
+
+# Janelas desktop e referências da Tesouraria
+
+- [x] Localizar e eliminar diálogos `window.prompt`, `window.alert` e confirmações do navegador nos fluxos operacionais
+- [x] Criar janela interna de confirmação com moldura Windows, foco, validação e botões portugueses
+- [x] Integrar a janela interna na reconciliação de movimentos
+- [x] Substituir referências técnicas como ui-payment por descrição portuguesa na interface
+- [x] Preservar identificadores técnicos apenas na auditoria e nos contratos internos
+- [x] Validar acessibilidade, testes, TypeScript, build e screenshots
+- [x] Documentar e guardar checkpoint

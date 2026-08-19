@@ -57,6 +57,8 @@ const labels: Record<string, string> = {
 
 export function presentationLabel(value: string | null | undefined): string {
   if (!value) return "—";
+  if (/^(ui-)?payment-\d+-\d+$/i.test(value)) return "Movimento de tesouraria";
+  if (/^treasury-reconciliation:\d+$/i.test(value)) return "Reconciliação de tesouraria";
   if (labels[value]) return labels[value];
   if (value.includes("_")) {
     return value.split("_").map((token) => labels[token] ?? token.toLowerCase()).join(" ").replace(/^./, (character) => character.toUpperCase());
@@ -73,7 +75,9 @@ export function statusLabel(value: string | null | undefined): string {
 
 export function userFacingError(message: string | null | undefined): string {
   if (!message) return "Ocorreu um erro operacional.";
-  const replacements: Array<[RegExp, string]> = [
+  const technicalLabels: Array<[RegExp, string]> = [
+    [/^(ui-)?payment-\d+-\d+$/i, "Movimento de tesouraria"],
+    [/^treasury-reconciliation:\d+$/i, "Reconciliação de tesouraria"],
     [/Input validation failed/gi, "Os dados indicados não são válidos"],
     [/UNAUTHORIZED/gi, "Sessão não autorizada"],
     [/FORBIDDEN/gi, "Operação não permitida para o seu perfil"],
@@ -85,5 +89,5 @@ export function userFacingError(message: string | null | undefined): string {
     [/DUPLICATE/gi, "Registo duplicado"],
     [/Too small: expected number to be greater than 0/gi, "Indique um número superior a zero"],
   ];
-  return replacements.reduce((current, [pattern, replacement]) => current.replace(pattern, replacement), message).replace(/\b[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+\b/g, (code) => presentationLabel(code));
+  return technicalLabels.reduce((current, [pattern, replacement]) => current.replace(pattern, replacement), message).replace(/\b[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+\b/g, (code) => presentationLabel(code));
 }
