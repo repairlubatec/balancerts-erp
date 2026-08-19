@@ -771,3 +771,11 @@
 - [x] Preservar identificadores técnicos apenas na auditoria e nos contratos internos
 - [x] Validar acessibilidade, testes, TypeScript, build e screenshots
 - [x] Documentar e guardar checkpoint
+
+# Garantia final — janelas internas e português integral
+
+- [x] Confirmar ausência de window.prompt, window.alert, window.confirm e diálogos nativos do navegador no frontend
+- [x] Pesquisar termos ingleses visíveis em componentes, páginas, menus, estados, mensagens, exportações e documentação apresentada
+- [x] Corrigir ocorrências visíveis encontradas sem alterar códigos técnicos internos
+- [x] Validar janelas internas, acessibilidade, testes, TypeScript, build e screenshots
+- [x] Documentar garantia final e guardar checkpoint
