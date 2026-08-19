@@ -1233,3 +1233,12 @@
 - [x] Alinhar o tipo do selector com Pendente, Em curso e Concluída
 - [x] Garantir auditoria e filtro correcto após concluir uma tarefa
 - [x] Testar, executar build, rever visualmente e guardar checkpoint
+
+## RH — exportação colectiva de recibos
+
+- [x] Exportar mapa colectivo filtrado para CSV
+- [x] Exportar mapa colectivo filtrado para Excel
+- [x] Incluir identificação, bruto, descontos, IRT e líquido
+- [x] Manter PDF/ impressão e distinguir mapa colectivo de recibo individual
+- [x] Testar filtros, totais, idioma e isolamento por empresa
+- [x] Executar build, rever visualmente e guardar checkpoint

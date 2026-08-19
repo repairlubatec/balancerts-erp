@@ -14,6 +14,19 @@ export function formatReceiptMode(selectedEmployeeId: string, itemCount: number)
   return selectedEmployeeId ? "Recibo individual" : `Mapa colectivo (${itemCount})`;
 }
 
+export function buildReceiptExportRows(items: Array<{ employee: { fullName: string; employeeNumber: string }; item: { grossAmount: string | number; socialEmployeeAmount: string | number; irtAmount: string | number; netAmount: string | number } }>) {
+  const rows = items.map(({ employee, item }) => ({
+    Colaborador: employee.fullName,
+    Numero: employee.employeeNumber,
+    Bruto_AOA: Number(item.grossAmount),
+    Seguranca_Social_AOA: Number(item.socialEmployeeAmount),
+    IRT_AOA: Number(item.irtAmount),
+    Liquido_AOA: Number(item.netAmount),
+  }));
+  const totals = calculateReceiptTotals(items.map(({ item }) => item));
+  return { rows, totals };
+}
+
 export function calculateReceiptTotals(items: Array<{ grossAmount: string | number; socialEmployeeAmount: string | number; irtAmount: string | number; netAmount: string | number }>) {
   return items.reduce(
     (totals, item) => ({

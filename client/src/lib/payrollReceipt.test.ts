@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateReceiptTotals, formatInternalReceiptPeriod, formatPayrollActor, formatReceiptMode } from "./payrollReceipt";
+import { buildReceiptExportRows, calculateReceiptTotals, formatInternalReceiptPeriod, formatPayrollActor, formatReceiptMode } from "./payrollReceipt";
 
 describe("recibo interno de RH", () => {
   it("formata o período salarial em português", () => {
@@ -22,5 +22,11 @@ describe("recibo interno de RH", () => {
   it("distingue mapa colectivo de recibo individual", () => {
     expect(formatReceiptMode("", 3)).toBe("Mapa colectivo (3)");
     expect(formatReceiptMode("17", 1)).toBe("Recibo individual");
+  });
+
+  it("prepara linhas e total para CSV e Excel", () => {
+    const result = buildReceiptExportRows([{ employee: { fullName: "Ana Silva", employeeNumber: "001" }, item: { grossAmount: "100000", socialEmployeeAmount: "3000", irtAmount: "5000", netAmount: "92000" } }]);
+    expect(result.rows[0]).toEqual({ Colaborador: "Ana Silva", Numero: "001", Bruto_AOA: 100000, Seguranca_Social_AOA: 3000, IRT_AOA: 5000, Liquido_AOA: 92000 });
+    expect(result.totals).toEqual({ gross: 100000, socialSecurity: 3000, irt: 5000, net: 92000 });
   });
 });
