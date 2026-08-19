@@ -24,3 +24,7 @@ O posto regista o resultado do teste no histórico. Uma indisponibilidade local 
 A IA local recebe apenas o pedido autorizado pelo fluxo do ERP. As sugestões de classificação e preenchimento permanecem propostas; uma pessoa deve rever e aprovar ou rejeitar cada sugestão. Nenhuma sugestão aprovada altera automaticamente documentos, impostos, lançamentos ou movimentos.
 
 Azure e OpenAI permanecem desactivados nesta fase. Podem ser configurados mais tarde, quando existirem credenciais, autorização e critérios de homologação.
+
+## Revisão visual
+
+A rota Balancerts IA foi revista no shell desktop. O diagnóstico apresenta correctamente o estado indisponível quando Ollama não está instalado no ambiente de teste, os comandos em linhas separadas, os botões para copiar e testar novamente e a configuração local sem abrir janelas do navegador.

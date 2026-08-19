@@ -1012,3 +1012,11 @@
 - [x] Garantir privacidade, ausência de envio para a nuvem e funcionamento offline
 - [x] Executar testes, revisão visual e guardar checkpoint da solução local
 - [x] Documentar a instalação e utilização no Windows sem activar providers pagos
+
+## Automação da IA local — continuação
+
+- [x] Criar diagnóstico automático do provider local no posto Balancerts IA
+- [x] Preparar configuração inicial segura para Ollama sem activar providers pagos
+- [x] Mostrar instruções accionáveis quando Ollama não estiver instalado ou disponível
+- [x] Validar fallback offline, privacidade e revisão humana obrigatória
+- [x] Executar suite final e guardar checkpoint da automação local
