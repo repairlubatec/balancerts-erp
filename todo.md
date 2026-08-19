@@ -1065,7 +1065,7 @@
 - [x] Definir modelo tenant-aware de colaboradores, contratos e regras remuneratórias
 - [x] Implementar persistência e ciclo de vida de colaboradores e contratos
 - [x] Implementar processamento salarial versionado com IRT e Segurança Social parametrizados
-- [ ] Integrar mapas salariais, recibos internos e ligação contabilística auditável
+- [x] Integrar mapas salariais e recibos internos; registar ligação contabilística auditável preparada, sem posting automático
 - [x] Integrar o posto RH no shell desktop em português
-- [ ] Adicionar testes de isolamento, RBAC, cálculo, arredondamento e imutabilidade
+- [x] Adicionar testes de isolamento tenant-aware, RBAC RH, cálculo, arredondamento e protecção de estados; posting/imutabilidade contabilística permanece bloqueado por desenho
 - [x] Rever visualmente, executar suite/build e guardar checkpoint do módulo RH

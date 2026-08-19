@@ -531,6 +531,12 @@ export async function getPayrollRunsForUserCompany(userId: number, companyId: nu
   if (!db) return [];
   return db.select({ run: payrollRuns, ruleSet: payrollRuleSets }).from(payrollRuns).innerJoin(payrollRuleSets, eq(payrollRuns.ruleSetId, payrollRuleSets.id)).where(and(eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuns.year), desc(payrollRuns.month));
 }
+export async function getPayrollItemsForUserRun(userId: number, companyId: number, runId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ item: payrollItems, employee: employees, contract: employmentContracts }).from(payrollItems).innerJoin(employees, eq(payrollItems.employeeId, employees.id)).innerJoin(employmentContracts, eq(payrollItems.contractId, employmentContracts.id)).innerJoin(payrollRuns, eq(payrollItems.runId, payrollRuns.id)).where(and(eq(payrollItems.companyId, companyId), eq(payrollItems.runId, runId), eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId)));
+}
+
 export async function calculatePayrollRunForUser(input: { userId: number; organizationId: number; companyId: number; ruleSetId: number; year: number; month: number }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");

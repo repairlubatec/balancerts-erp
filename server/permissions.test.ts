@@ -28,6 +28,12 @@ describe("role segregation", () => {
     expect(can("auditor", "human_resources", "update")).toBe(false);
   });
 
+  it("applies company-scoped RH overrides without granting validation", () => {
+    expect(can("user", "human_resources", "read", ["human_resources:read"])).toBe(true);
+    expect(can("user", "human_resources", "create", ["human_resources:read"])).toBe(false);
+    expect(can("user", "human_resources", "validate", ["human_resources:read", "human_resources:create"])).toBe(false);
+  });
+
   it("normalises permission overrides for deterministic storage", () => {
     expect(normalizePermissionOverrides([" Treasury:READ ", "treasury:read", "", "accounting:post"])).toEqual(["treasury:read", "accounting:post"]);
   });
