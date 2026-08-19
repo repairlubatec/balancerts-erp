@@ -1101,3 +1101,11 @@
 - [x] Configurar contas contabilísticas de salários por empresa
 - [x] Testar segregação, histórico de conferência e preparação contabilística através da suite, TypeScript e revisão visual; prazos persistentes permanecem pendentes
 - [x] Executar suite/build, rever visualmente e guardar checkpoint
+
+## RH — gestão de tarefas e aprovação contabilística
+
+- [x] Adicionar mutations para responsável, prazo e estado das tarefas RH
+- [x] Integrar edição de tarefas no Centro de Tarefas com RBAC
+- [x] Preparar pedido de lançamento contabilístico com aprovação dupla, sem posting automático
+- [x] Validar segregação, transições e tenant isolation através da suite integral e TypeScript
+- [x] Executar suite/build, rever visualmente e guardar checkpoint

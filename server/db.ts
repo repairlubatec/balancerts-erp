@@ -536,6 +536,23 @@ export async function getHumanResourcesTasksForUserCompany(userId: number, compa
   if (!db) return [];
   return db.select({ task: humanResourcesTasks }).from(humanResourcesTasks).where(and(eq(humanResourcesTasks.companyId, companyId), or(eq(humanResourcesTasks.status, "PENDING"), eq(humanResourcesTasks.status, "IN_PROGRESS")), organizationAccessCondition(userId))).orderBy(humanResourcesTasks.dueDate);
 }
+export async function updateHumanResourcesTaskForUser(input: { userId: number; companyId: number; taskId: number; status?: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"; assigneeUserId?: number | null; dueDate?: Date | null }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(eq(humanResourcesTasks.id, input.taskId), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  const row = rows[0];
+  if (!row) throw new Error("HR_TASK_NOT_FOUND_OR_FORBIDDEN");
+  if (input.assigneeUserId) {
+    const member = await db.select({ id: organizationMemberships.id }).from(organizationMemberships).where(and(eq(organizationMemberships.organizationId, row.organizationId), eq(organizationMemberships.userId, input.assigneeUserId), eq(organizationMemberships.status, "ACTIVE"))).limit(1);
+    if (!member[0]) throw new Error("HR_TASK_ASSIGNEE_NOT_IN_ORGANIZATION");
+  }
+  const changes = { ...(input.status !== undefined ? { status: input.status, ...(input.status === "COMPLETED" ? { completedBy: input.userId, completedAt: new Date() } : {}) } : {}), ...(input.assigneeUserId !== undefined ? { assigneeUserId: input.assigneeUserId } : {}), ...(input.dueDate !== undefined ? { dueDate: input.dueDate } : {}) };
+  if (!Object.keys(changes).length) return { task: row.task };
+  await db.update(humanResourcesTasks).set(changes).where(eq(humanResourcesTasks.id, input.taskId));
+  await appendAuditEventForUser({ organizationId: row.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "HR_TASK_UPDATED", entityType: "humanResourcesTask", entityId: String(input.taskId), beforeState: JSON.stringify(row.task), afterState: JSON.stringify({ ...row.task, ...changes }), correlationId: `hr-task:${input.taskId}:update` });
+  const updated = await db.select({ task: humanResourcesTasks }).from(humanResourcesTasks).where(eq(humanResourcesTasks.id, input.taskId)).limit(1);
+  return updated[0];
+}
 async function getPayrollRunForUser(db: NonNullable<Awaited<ReturnType<typeof getDb>>>, userId: number, companyId: number, runId: number) {
   const rows = await db.select({ run: payrollRuns }).from(payrollRuns).where(and(eq(payrollRuns.id, runId), eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).limit(1);
   const run = rows[0]?.run;
@@ -559,10 +576,21 @@ export async function closePayrollRunForUser(input: { userId: number; companyId:
   const run = await getPayrollRunForUser(db, input.userId, input.companyId, input.runId);
   if (run.status !== "APPROVED") throw new Error("PAYROLL_RUN_NOT_APPROVED");
   const closedAt = new Date();
-  await db.update(payrollRuns).set({ status: "POSTED", closedBy: input.userId, closedAt, accountingLinkStatus: "PREPARED" }).where(eq(payrollRuns.id, input.runId));
+  await db.update(payrollRuns).set({ status: "POSTED", closedBy: input.userId, closedAt, accountingLinkStatus: "PREPARED", accountingPreparedBy: input.userId, accountingPreparedAt: closedAt, accountingReference: `FOLHA-${input.runId}` }).where(eq(payrollRuns.id, input.runId));
   await db.update(humanResourcesTasks).set({ status: "COMPLETED", completedBy: input.userId, completedAt: closedAt }).where(and(eq(humanResourcesTasks.payrollRunId, input.runId), eq(humanResourcesTasks.status, "PENDING")));
   await db.insert(humanResourcesTasks).values({ organizationId: run.organizationId, companyId: run.companyId, payrollRunId: input.runId, title: `Folha ${String(run.month).padStart(2, "0")}/${run.year} pronta para lançamento contabilístico`, dueDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), createdBy: input.userId });
   await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_RUN_CLOSED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ ...run, status: "POSTED", accountingLinkStatus: "PREPARED", closedBy: input.userId }), correlationId: `payroll-run:${run.id}:close` });
+  return db.select({ run: payrollRuns }).from(payrollRuns).where(eq(payrollRuns.id, input.runId)).limit(1);
+}
+export async function approvePayrollAccountingPreparationForUser(input: { userId: number; companyId: number; runId: number; accountingReference: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const run = await getPayrollRunForUser(db, input.userId, input.companyId, input.runId);
+  if (run.status !== "POSTED" || run.accountingLinkStatus !== "PREPARED" || !run.accountingPreparedBy) throw new Error("PAYROLL_ACCOUNTING_NOT_READY");
+  if (run.accountingPreparedBy === input.userId) throw new Error("PAYROLL_ACCOUNTING_SECOND_APPROVER_REQUIRED");
+  const approvedAt = new Date();
+  await db.update(payrollRuns).set({ accountingApprovedBy: input.userId, accountingApprovedAt: approvedAt, accountingReference: input.accountingReference.trim() }).where(eq(payrollRuns.id, input.runId));
+  await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_ACCOUNTING_PREPARATION_APPROVED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ ...run, accountingApprovedBy: input.userId, accountingApprovedAt: approvedAt, accountingReference: input.accountingReference.trim() }), correlationId: `payroll-run:${run.id}:accounting-approve` });
   return db.select({ run: payrollRuns }).from(payrollRuns).where(eq(payrollRuns.id, input.runId)).limit(1);
 }
 export async function getPayrollItemsForUserRun(userId: number, companyId: number, runId: number) {
