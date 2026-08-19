@@ -1191,3 +1191,10 @@
 - [x] Adicionar filtro por prazo e tarefas vencidas
 - [x] Testar combinação de filtros e isolamento por empresa
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## Centro de Tarefas — ligação à auditoria
+
+- [x] Adicionar acesso directo ao histórico de auditoria de cada tarefa RH
+- [x] Preservar escopo por empresa e parâmetros de entidade
+- [x] Testar navegação e ausência de acesso cruzado
+- [x] Executar build, rever visualmente e guardar checkpoint
