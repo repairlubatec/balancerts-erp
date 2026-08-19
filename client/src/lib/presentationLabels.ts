@@ -39,12 +39,19 @@ const labels: Record<string, string> = {
   OPEN: "Aberto",
   EXCEPTION: "Excepção",
   DOCUMENT: "Documento",
-  BUSINESS: "Operacional",
   TREASURY: "Tesouraria",
   TRANSACTION: "Movimento",
   NUMBER: "Número",
   RESERVED: "Reservado",
   SERIES: "Série",
+  COMPANY: "Empresa",
+  COUNTERPARTY: "Contraparte",
+  ACCOUNT: "Conta",
+  CONFIGURATION: "Configuração",
+  ACTIVATED: "Activada",
+  UPDATED: "Actualizado",
+  CASH_ACCOUNT: "Conta de caixa",
+  BUSINESS: "Operacional",
   CREATED: "Criado",
   CANCEL: "Cancelamento",
   POSTED: "Publicado",
@@ -59,6 +66,20 @@ export function presentationLabel(value: string | null | undefined): string {
   if (!value) return "—";
   if (/^(ui-)?payment-\d+-\d+$/i.test(value)) return "Movimento de tesouraria";
   if (/^treasury-reconciliation:\d+$/i.test(value)) return "Reconciliação de tesouraria";
+  if (value === "documentSeries") return "Série documental";
+  if (value === "treasuryTransaction") return "Movimento de tesouraria";
+  if (value === "company") return "Empresa";
+  if (value === "counterparty") return "Contraparte";
+  if (value === "cashAccount") return "Conta de caixa";
+  if (value === "businessDocument" || value === "operationalDocument") return "Documento operacional";
+  if (/^document:/i.test(value)) return "Documento operacional";
+  if (/^company:/i.test(value)) return "Empresa";
+  if (/^counterparty:/i.test(value)) return "Contraparte";
+  if (/^cash-account:/i.test(value)) return "Conta de caixa";
+  if (/^\d+:FT:\d+$/i.test(value)) return "Reserva de numeração";
+  if (/^cleanup-/i.test(value)) return "Limpeza operacional";
+  if (/^manual-test-/i.test(value)) return "Teste operacional";
+  if (value === "stockMovement") return "Movimento de stock";
   if (labels[value]) return labels[value];
   if (value.includes("_")) {
     return value.split("_").map((token) => labels[token] ?? token.toLowerCase()).join(" ").replace(/^./, (character) => character.toUpperCase());

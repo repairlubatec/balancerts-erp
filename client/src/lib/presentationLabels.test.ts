@@ -17,8 +17,17 @@ describe("rótulos de apresentação em português", () => {
     expect(presentationLabel("BANK")).toBe("Banco");
     expect(presentationLabel("IN")).toBe("Entrada");
     expect(presentationLabel("PAYMENT_CREATED")).toBe("Pagamento Criado");
-    expect(presentationLabel("treasuryTransaction")).toBe("Tesouraria Movimento");
+    expect(presentationLabel("treasuryTransaction")).toBe("Movimento de tesouraria");
     expect(presentationLabel("ui-payment-1-1787119815771")).toBe("Movimento de tesouraria");
     expect(presentationLabel("treasury-reconciliation:42")).toBe("Reconciliação de tesouraria");
+    expect(presentationLabel("documentSeries")).toBe("Série documental");
+    expect(presentationLabel("stockMovement")).toBe("Movimento de stock");
+    expect(presentationLabel("counterparty")).toBe("Contraparte");
+    expect(presentationLabel("cashAccount")).toBe("Conta de caixa");
+    expect(presentationLabel("document:2310001:archive")).toBe("Documento operacional");
+    expect(presentationLabel("company:1:activation")).toBe("Empresa");
+    expect(presentationLabel("counterparty:2070001")).toBe("Contraparte");
+    expect(presentationLabel("cash-account:2070001")).toBe("Conta de caixa");
+    expect(presentationLabel("1:FT:2")).toBe("Reserva de numeração");
   });
 });

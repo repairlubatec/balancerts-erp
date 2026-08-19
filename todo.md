@@ -779,3 +779,11 @@
 - [x] Corrigir ocorrências visíveis encontradas sem alterar códigos técnicos internos
 - [x] Validar janelas internas, acessibilidade, testes, TypeScript, build e screenshots
 - [x] Documentar garantia final e guardar checkpoint
+
+# Continuação automática após garantia de idioma e janelas
+
+- [x] Auditar lacunas funcionais restantes nos módulos e no shell Windows; identificada e corrigida exposição técnica no módulo Auditoria
+- [x] Seleccionar e implementar a próxima melhoria prioritária com dados reais e sem placeholders: normalização de entidades e correlações do trilho de Auditoria
+- [x] Validar todos os fluxos críticos, idioma português e ausência de pop-ups web
+- [x] Rever testes, TypeScript, build e experiência desktop/PWA
+- [x] Documentar a continuação e guardar checkpoint
