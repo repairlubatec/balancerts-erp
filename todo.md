@@ -1077,3 +1077,11 @@
 - [x] Preparar lançamento contabilístico opcional após aprovação, sem execução automática
 - [x] Adicionar testes de cálculo, arredondamento, RBAC e segregação; transições são protegidas por estado e auditoria
 - [x] Executar suite/build, rever visualmente e guardar checkpoint
+
+## RH — exportação, recibos e notificações
+
+- [x] Adicionar exportação CSV/XLSX dos mapas salariais
+- [x] Adicionar recibo interno imprimível por colaborador e período
+- [x] Adicionar notificações internas de folhas pendentes
+- [x] Testar exportação, impressão, isolamento e estados pendentes através da suite, TypeScript e validação tenant-aware
+- [x] Executar suite/build, rever visualmente e guardar checkpoint
