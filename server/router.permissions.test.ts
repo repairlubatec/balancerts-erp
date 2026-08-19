@@ -52,6 +52,15 @@ describe("protected accounting procedures", () => {
     expect(create).toHaveBeenCalledWith(expect.objectContaining({ userId: 8, nif: "5001121871", legalForm: "Sociedade por Quotas", ivaRegime: "EXCLUSAO", legalRepresentatives: "Fausto Silva; Luís Jordão" }));
   });
 
+  it("edits a company profile without changing its NIF", async () => {
+    const update = vi.spyOn(db, "updateCompanyForUser").mockResolvedValue({ company: { id: 41, name: "Repair Lubatec actualizada", nif: "5001121871" }, organization: { id: 5 } } as never);
+    const caller = appRouter.createCaller(contextWithRole("admin"));
+    await expect(caller.companies.update({ companyId: 41, name: "Repair Lubatec actualizada", address: "Shopping Millennium, Loja 141" })).resolves.toMatchObject({ company: { name: "Repair Lubatec actualizada" } });
+    expect(update).toHaveBeenCalledWith({ userId: 8, companyId: 41, name: "Repair Lubatec actualizada", address: "Shopping Millennium, Loja 141" });
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.companies.update({ companyId: 41, name: "Alteração não autorizada" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("allows document emission for Contabilista and blocks Financeiro", async () => {
     const transition = vi.spyOn(db, "transitionBusinessDocument").mockResolvedValue({ id: 7, from: "VALIDATED", to: "ISSUED" });
     const accountant = appRouter.createCaller(contextWithRole("contabilista"));

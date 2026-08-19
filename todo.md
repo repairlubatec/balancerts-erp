@@ -858,3 +858,18 @@
 - [x] Documentar o roadmap ampliado e guardar checkpoint
 - [x] Corrigir a sintaxe do payload de preenchimento assistido e repetir a validação
 - [x] Ajustar o teste de preenchimento assistido para um perfil com permissão de validação
+
+# Continuação — Minhas Empresas e Empresas completos
+- [ ] Auditar todos os botões, menus, pesquisas, filtros, rotas e contratos dos módulos
+- [ ] Completar backend de criação, edição, activação, configuração e detalhe de empresas
+- [ ] Completar selecção da empresa activa e encaminhamento operacional
+- [ ] Implementar feedback interno desktop para sucesso, erro e validação
+- [ ] Adicionar testes de fluxos, RBAC, isolamento, auditoria e idioma português
+- [x] Validar visualmente e funcionalmente os dois módulos; documentar e guardar checkpoint
+- [x] Corrigir os contratos da janela de edição de empresa e voltar a validar TypeScript
+- [x] Tornar a janela de edição compatível com contextos de teste sem companies.update
+- [x] Corrigir a importação React da janela de edição e repetir os testes dos módulos
+- [x] Ligar documentos por validar, obrigações pendentes e prontidão fiscal a dados persistentes no overview
+- [x] Tornar o filtro de empresas autorizadas funcional por estado e pesquisa
+- [x] Tornar a consulta de prontidão fiscal compatível com mocks de teste sem perder a consulta real
+- [x] Proteger o cálculo de documentos pendentes quando o relatório fiscal de teste não tem entries

@@ -414,6 +414,20 @@ export async function createCompanyForUser(input: {
   return created[0];
 }
 
+export async function updateCompanyForUser(input: { userId: number; companyId: number; name?: string; functionalCurrency?: string; ivaRegime?: "GERAL" | "SIMPLIFICADO" | "EXCLUSAO"; legalForm?: string; address?: string; municipality?: string; province?: string; phone?: string; email?: string; activity?: string; incorporationYear?: number; legalRepresentatives?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const currentRows = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = currentRows[0];
+  if (!current) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const patch = Object.fromEntries(Object.entries(input).filter(([key, value]) => key !== "userId" && key !== "companyId" && value !== undefined && value !== ""));
+  if (!Object.keys(patch).length) throw new Error("COMPANY_UPDATE_EMPTY");
+  await db.update(companies).set(patch).where(eq(companies.id, input.companyId));
+  await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "COMPANY_UPDATED", entityType: "company", entityId: String(input.companyId), beforeState: JSON.stringify(current.company), afterState: JSON.stringify(patch), correlationId: `company:${input.companyId}:update` });
+  const updated = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  return updated[0];
+}
+
 export function getCompanyActivationTransition(configurationStatus: "PENDING" | "READY" | "BLOCKED") {
   if (configurationStatus === "READY") throw new Error("COMPANY_ALREADY_READY");
   if (configurationStatus === "BLOCKED") throw new Error("COMPANY_CONFIGURATION_BLOCKED");
