@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { can } from "./permissions";
+import { can, normalizePermissionOverrides } from "./permissions";
 
 describe("role segregation", () => {
   it("allows accounting posting only to authorised roles", () => {
@@ -12,5 +12,15 @@ describe("role segregation", () => {
     expect(can("auditor", "audit", "read")).toBe(true);
     expect(can("auditor", "audit", "issue")).toBe(false);
     expect(can("admin", "any-module", "reopen")).toBe(true);
+  });
+
+  it("grants an explicit company-scoped override without changing the base role", () => {
+    expect(can("user", "treasury", "read")).toBe(false);
+    expect(can("user", "treasury", "read", ["treasury:read"])).toBe(true);
+    expect(can("user", "treasury", "create", ["treasury:read"])).toBe(false);
+  });
+
+  it("normalises permission overrides for deterministic storage", () => {
+    expect(normalizePermissionOverrides([" Treasury:READ ", "treasury:read", "", "accounting:post"])).toEqual(["treasury:read", "accounting:post"]);
   });
 });

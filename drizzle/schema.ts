@@ -31,6 +31,7 @@ export const organizationMemberships = mysqlTable("organizationMemberships", {
   organizationId: int("organizationId").notNull().references(() => organizations.id),
   userId: int("userId").notNull().references(() => users.id),
   role: mysqlEnum("role", ["user", "admin", "contabilista", "financeiro", "operador", "auditor"]).default("user").notNull(),
+  permissions: json("permissions").$type<string[]>().default([]).notNull(),
   status: mysqlEnum("status", ["INVITED", "ACTIVE", "SUSPENDED", "REMOVED"]).default("INVITED").notNull(),
   invitedBy: int("invitedBy"),
   joinedAt: timestamp("joinedAt"),

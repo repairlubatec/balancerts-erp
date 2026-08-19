@@ -403,6 +403,12 @@ export async function getEffectiveRoleForUserCompany(userId: number, companyId: 
   const rows = await db.select({ role: organizationMemberships.role }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).innerJoin(organizationMemberships, eq(organizationMemberships.organizationId, organizations.id)).where(and(eq(companies.id, companyId), eq(organizationMemberships.userId, userId), eq(organizationMemberships.status, "ACTIVE"))).limit(1);
   return rows[0]?.role ?? null;
 }
+export async function getEffectivePermissionsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [] as string[];
+  const rows = await db.select({ permissions: organizationMemberships.permissions }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).innerJoin(organizationMemberships, eq(organizationMemberships.organizationId, organizations.id)).where(and(eq(companies.id, companyId), eq(organizationMemberships.userId, userId), eq(organizationMemberships.status, "ACTIVE"))).limit(1);
+  return Array.isArray(rows[0]?.permissions) ? rows[0].permissions : [];
+}
 
 export async function getOrganizationMembershipsForUser(userId: number, organizationId?: number) {
   const db = await getDb();
@@ -432,13 +438,14 @@ export async function createOrganizationMembershipForUser(input: { actorUserId: 
   return getOrganizationMembershipsForUser(input.userId, input.organizationId);
 }
 
-export async function updateOrganizationMembershipForUser(input: { actorUserId: number; membershipId: number; status?: "INVITED" | "ACTIVE" | "SUSPENDED" | "REMOVED"; role?: "user" | "admin" | "contabilista" | "financeiro" | "operador" | "auditor" }) {
+export async function updateOrganizationMembershipForUser(input: { actorUserId: number; membershipId: number; status?: "INVITED" | "ACTIVE" | "SUSPENDED" | "REMOVED"; role?: "user" | "admin" | "contabilista" | "financeiro" | "operador" | "auditor"; permissions?: string[] }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const row = await db.select({ membership: organizationMemberships, organization: organizations }).from(organizationMemberships).innerJoin(organizations, eq(organizationMemberships.organizationId, organizations.id)).where(and(eq(organizationMemberships.id, input.membershipId), organizationAccessCondition(input.actorUserId))).limit(1);
   if (!row[0]) throw new Error("ORGANIZATION_MEMBERSHIP_FORBIDDEN");
-  await db.update(organizationMemberships).set({ ...(input.status ? { status: input.status, joinedAt: input.status === "ACTIVE" ? new Date() : row[0].membership.joinedAt } : {}), ...(input.role ? { role: input.role } : {}) }).where(eq(organizationMemberships.id, input.membershipId));
-  await appendAuditEventForUser({ organizationId: row[0].membership.organizationId, companyId: null, actorUserId: input.actorUserId, action: "ORGANIZATION_MEMBERSHIP_UPDATED", entityType: "organizationMembership", entityId: String(input.membershipId), beforeState: JSON.stringify({ userId: row[0].membership.userId, role: row[0].membership.role, status: row[0].membership.status }), afterState: JSON.stringify({ userId: row[0].membership.userId, role: input.role ?? row[0].membership.role, status: input.status ?? row[0].membership.status }), correlationId: `organization-membership:${input.membershipId}` });
+  const permissions = input.permissions ? Array.from(new Set(input.permissions.map((value) => value.trim().toLowerCase()).filter(Boolean))) : undefined;
+  await db.update(organizationMemberships).set({ ...(input.status ? { status: input.status, joinedAt: input.status === "ACTIVE" ? new Date() : row[0].membership.joinedAt } : {}), ...(input.role ? { role: input.role } : {}), ...(permissions ? { permissions } : {}) }).where(eq(organizationMemberships.id, input.membershipId));
+  await appendAuditEventForUser({ organizationId: row[0].membership.organizationId, companyId: null, actorUserId: input.actorUserId, action: "ORGANIZATION_MEMBERSHIP_UPDATED", entityType: "organizationMembership", entityId: String(input.membershipId), beforeState: JSON.stringify({ userId: row[0].membership.userId, role: row[0].membership.role, status: row[0].membership.status }), afterState: JSON.stringify({ userId: row[0].membership.userId, role: input.role ?? row[0].membership.role, permissions: permissions ?? row[0].membership.permissions, status: input.status ?? row[0].membership.status }), correlationId: `organization-membership:${input.membershipId}` });
   return getOrganizationMembershipsForUser(row[0].membership.userId, row[0].membership.organizationId);
 }
 

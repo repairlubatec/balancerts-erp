@@ -10,7 +10,16 @@ const matrix: Record<BalancertsRole, Partial<Record<string, Permission[]>>> = {
   user: {},
 };
 
-export function can(role: BalancertsRole, module: string, permission: Permission) {
+export function permissionKey(module: string, permission: Permission) {
+  return `${module}:${permission}`;
+}
+
+export function can(role: BalancertsRole, module: string, permission: Permission, overrides: readonly string[] = []) {
+  if (overrides.includes("*" ) || overrides.includes(permissionKey(module, permission))) return true;
   const allowed = matrix[role]["*"] ?? matrix[role][module] ?? [];
   return allowed.includes(permission);
+}
+
+export function normalizePermissionOverrides(values: readonly string[] = []) {
+  return Array.from(new Set(values.map((value) => value.trim().toLowerCase()).filter(Boolean)));
 }

@@ -1,0 +1,1 @@
+ALTER TABLE `organizationMemberships` ADD `permissions` json DEFAULT ('[]') NOT NULL;

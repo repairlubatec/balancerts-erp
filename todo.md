@@ -1050,3 +1050,12 @@
 - [x] Optimizar carregamento dos módulos e reduzir o bundle inicial
 - [x] Expandir testes de aceitação e segurança dos fluxos críticos
 - [x] Executar validação integral e guardar checkpoint da nova ronda
+
+## Continuação autónoma — acessos e distribuição
+
+- [x] Definir permissões granulares por módulo e acção para memberships
+- [x] Integrar a função efectiva no controlo operacional e na auditoria administrativa
+- [ ] Melhorar diagnóstico de produção, métricas e alertas
+- [ ] Optimizar carregamento e exportações do shell desktop
+- [x] Reforçar validação dos pacotes EXE, MSI e DMG
+- [x] Executar suite integral, revisão visual e guardar checkpoint

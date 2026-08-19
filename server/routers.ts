@@ -6,7 +6,7 @@ import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
 import { createHash } from "node:crypto";
-import { activateCompanyForUser, appendAuditEvent, appendAuditEventForUser, assertAuditScopeForUser, assertClosedFiscalPeriodForUserCompany, createCompanyForUser, updateCompanyForUser, setPrimaryLegalRepresentativeForUser, createFiscalExerciseForUser, createFiscalPeriodForUser, closeFiscalPeriodForUser, reopenFiscalPeriodForUser, getDocumentSeriesForUserCompany, createDocumentSeriesForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getEffectiveRoleForUserCompany, getOrganizationMembershipsForUser, listOrganizationMembershipsForUser, createOrganizationMembershipForUser, updateOrganizationMembershipForUser, getDocumentAccountingChainForUserCompany, getDocumentOriginReconciliationForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getAgingForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany,   getJournalForUserCompany,
+import { activateCompanyForUser, appendAuditEvent, appendAuditEventForUser, assertAuditScopeForUser, assertClosedFiscalPeriodForUserCompany, createCompanyForUser, updateCompanyForUser, setPrimaryLegalRepresentativeForUser, createFiscalExerciseForUser, createFiscalPeriodForUser, closeFiscalPeriodForUser, reopenFiscalPeriodForUser, getDocumentSeriesForUserCompany, createDocumentSeriesForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getEffectiveRoleForUserCompany, getEffectivePermissionsForUserCompany, getOrganizationMembershipsForUser, listOrganizationMembershipsForUser, createOrganizationMembershipForUser, updateOrganizationMembershipForUser, getDocumentAccountingChainForUserCompany, getDocumentOriginReconciliationForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getAgingForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany,   getJournalForUserCompany,
   listPendingJournalEntriesForUser,
   reviewJournalEntryForUser,
   transferBetweenCashAccountsForUser,
@@ -30,8 +30,11 @@ import { storageGetSignedUrl, storagePut } from "./storage";
 import { buildAgtComplianceCalendar, validateAgtFiscalRecord } from "./tax-compliance";
 import { generateAgtQrCodeDataUrl, validateAgtQrPayload } from "./agt-qrcode";
 
-const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) => protectedProcedure.use(({ ctx, next }) => {
-  if (!can(ctx.user.role as BalancertsRole, module, permission)) throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
+const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) => protectedProcedure.use(async ({ ctx, next, getRawInput }) => {
+  const rawInput = await getRawInput();
+  const companyId = typeof rawInput === "object" && rawInput !== null && "companyId" in rawInput && typeof rawInput.companyId === "number" ? rawInput.companyId : undefined;
+  const overrides = companyId ? await getEffectivePermissionsForUserCompany(ctx.user.id, companyId) : [];
+  if (!can(ctx.user.role as BalancertsRole, module, permission, overrides)) throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
   return next();
 });
 
@@ -80,7 +83,7 @@ export const appRouter = router({
       try { return await createOrganizationMembershipForUser({ actorUserId: ctx.user.id, ...input }); }
       catch (error) { if (error instanceof Error && error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN") throw new TRPCError({ code: "FORBIDDEN", message: "ORGANIZATION_MEMBERSHIP_FORBIDDEN" }); throw error; }
     }),
-    updateMembership: roleProcedure("companies", "update").input(z.object({ membershipId: z.number().int().positive(), status: z.enum(["INVITED", "ACTIVE", "SUSPENDED", "REMOVED"]).optional(), role: z.enum(["user", "admin", "contabilista", "financeiro", "operador", "auditor"]).optional() })).mutation(async ({ ctx, input }) => {
+    updateMembership: roleProcedure("companies", "update").input(z.object({ membershipId: z.number().int().positive(), status: z.enum(["INVITED", "ACTIVE", "SUSPENDED", "REMOVED"]).optional(), role: z.enum(["user", "admin", "contabilista", "financeiro", "operador", "auditor"]).optional(), permissions: z.array(z.string().trim().min(3).max(80)).max(100).optional() })).mutation(async ({ ctx, input }) => {
       try { return await updateOrganizationMembershipForUser({ actorUserId: ctx.user.id, ...input }); }
       catch (error) { if (error instanceof Error && error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN") throw new TRPCError({ code: "FORBIDDEN", message: "ORGANIZATION_MEMBERSHIP_FORBIDDEN" }); throw error; }
     }),
