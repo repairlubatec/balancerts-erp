@@ -1020,3 +1020,14 @@
 - [x] Mostrar instruções accionáveis quando Ollama não estiver instalado ou disponível
 - [x] Validar fallback offline, privacidade e revisão humana obrigatória
 - [x] Executar suite final e guardar checkpoint da automação local
+
+## Endurecimento técnico pós-auditoria
+
+- [x] Criar memberships por organização com função, estado e permissões
+- [ ] Aplicar o scope de membership às consultas e mutações tenant-aware
+- [ ] Adicionar integridade relacional e índices necessários sem destruir dados
+- [ ] Reforçar headers HTTP, limites de pedidos, rate limiting e observabilidade
+- [ ] Criar estratégia documentada de backup, restauro e verificação
+- [ ] Acrescentar testes E2E dos fluxos críticos de empresa, documentos, pagamentos, stock, fecho e auditoria
+- [ ] Remover warnings persistentes e rever os formulários genéricos do shell
+- [ ] Validar empacotamento Windows em ambiente limpo antes da distribuição

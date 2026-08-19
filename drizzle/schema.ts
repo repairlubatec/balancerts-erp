@@ -26,6 +26,20 @@ export const organizations = mysqlTable("organizations", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const organizationMemberships = mysqlTable("organizationMemberships", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  userId: int("userId").notNull(),
+  role: mysqlEnum("role", ["user", "admin", "contabilista", "financeiro", "operador", "auditor"]).default("user").notNull(),
+  status: mysqlEnum("status", ["INVITED", "ACTIVE", "SUSPENDED", "REMOVED"]).default("INVITED").notNull(),
+  invitedBy: int("invitedBy"),
+  joinedAt: timestamp("joinedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  organizationUserUnique: uniqueIndex("organization_memberships_organization_user_unique").on(table.organizationId, table.userId),
+}));
+
 export const companies = mysqlTable("companies", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

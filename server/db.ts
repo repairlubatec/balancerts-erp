@@ -1,9 +1,9 @@
 import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
-import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
+import { and, desc, eq, gte, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
+  auditEvents, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, validateStockMovement } from "./operations";
@@ -376,7 +376,61 @@ export async function getUserByOpenId(openId: string) {
 export async function getCompaniesForUser(userId: number) {
   const db = await getDb();
   if (!db) return [];
-  return db.select({ company: companies, organization: organizations, platform: platforms }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(platforms, eq(organizations.platformId, platforms.id)).where(eq(organizations.ownerUserId, userId)).orderBy(companies.name);
+  return db.select({ company: companies, organization: organizations, platform: platforms }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(platforms, eq(organizations.platformId, platforms.id)).leftJoin(organizationMemberships, eq(organizationMemberships.organizationId, organizations.id)).where(or(eq(organizations.ownerUserId, userId), and(eq(organizationMemberships.userId, userId), eq(organizationMemberships.status, "ACTIVE")))).orderBy(companies.name);
+}
+
+export async function assertOrganizationAccessForUser(userId: number, organizationId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ id: organizations.id, ownerUserId: organizations.ownerUserId }).from(organizations).leftJoin(organizationMemberships, eq(organizationMemberships.organizationId, organizations.id)).where(and(eq(organizations.id, organizationId), or(eq(organizations.ownerUserId, userId), and(eq(organizationMemberships.userId, userId), eq(organizationMemberships.status, "ACTIVE"))))).limit(1);
+  if (!rows[0]) throw new Error("ORGANIZATION_ACCESS_FORBIDDEN");
+  return rows[0].id;
+}
+
+export async function assertCompanyAccessForUser(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ companyId: companies.id, organizationId: organizations.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(organizationMemberships, eq(organizationMemberships.organizationId, organizations.id)).where(and(eq(companies.id, companyId), or(eq(organizations.ownerUserId, userId), and(eq(organizationMemberships.userId, userId), eq(organizationMemberships.status, "ACTIVE"))))).limit(1);
+  if (!rows[0]) throw new Error("COMPANY_ACCESS_FORBIDDEN");
+  return rows[0];
+}
+
+export async function getOrganizationMembershipsForUser(userId: number, organizationId?: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ membership: organizationMemberships, organization: organizations }).from(organizationMemberships).innerJoin(organizations, eq(organizationMemberships.organizationId, organizations.id)).where(and(eq(organizationMemberships.userId, userId), ...(organizationId ? [eq(organizationMemberships.organizationId, organizationId)] : []))).orderBy(desc(organizationMemberships.id));
+}
+
+export async function listOrganizationMembershipsForUser(input: { actorUserId: number; organizationId: number }) {
+  const db = await getDb();
+  if (!db) return [];
+  const organization = await db.select({ id: organizations.id, ownerUserId: organizations.ownerUserId }).from(organizations).where(eq(organizations.id, input.organizationId)).limit(1);
+  if (!organization[0]) throw new Error("ORGANIZATION_NOT_FOUND");
+  if (organization[0].ownerUserId !== input.actorUserId) {
+    const active = await db.select({ id: organizationMemberships.id }).from(organizationMemberships).where(and(eq(organizationMemberships.organizationId, input.organizationId), eq(organizationMemberships.userId, input.actorUserId), eq(organizationMemberships.status, "ACTIVE"))).limit(1);
+    if (!active[0]) throw new Error("ORGANIZATION_MEMBERSHIP_FORBIDDEN");
+  }
+  return db.select({ membership: organizationMemberships, organization: organizations }).from(organizationMemberships).innerJoin(organizations, eq(organizationMemberships.organizationId, organizations.id)).where(eq(organizationMemberships.organizationId, input.organizationId)).orderBy(desc(organizationMemberships.id));
+}
+
+export async function createOrganizationMembershipForUser(input: { actorUserId: number; organizationId: number; userId: number; role: "user" | "admin" | "contabilista" | "financeiro" | "operador" | "auditor" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const organization = await db.select().from(organizations).where(and(eq(organizations.id, input.organizationId), eq(organizations.ownerUserId, input.actorUserId))).limit(1);
+  if (!organization[0]) throw new Error("ORGANIZATION_MEMBERSHIP_FORBIDDEN");
+  await db.insert(organizationMemberships).values({ organizationId: input.organizationId, userId: input.userId, role: input.role, status: "ACTIVE", invitedBy: input.actorUserId, joinedAt: new Date() }).onDuplicateKeyUpdate({ set: { role: input.role, status: "ACTIVE", invitedBy: input.actorUserId, joinedAt: new Date() } });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: null, actorUserId: input.actorUserId, action: "ORGANIZATION_MEMBERSHIP_ASSIGNED", entityType: "organizationMembership", entityId: `${input.organizationId}:${input.userId}`, beforeState: null, afterState: JSON.stringify({ userId: input.userId, role: input.role, status: "ACTIVE" }), correlationId: `organization-membership:${input.organizationId}:${input.userId}` });
+  return getOrganizationMembershipsForUser(input.userId, input.organizationId);
+}
+
+export async function updateOrganizationMembershipForUser(input: { actorUserId: number; membershipId: number; status?: "INVITED" | "ACTIVE" | "SUSPENDED" | "REMOVED"; role?: "user" | "admin" | "contabilista" | "financeiro" | "operador" | "auditor" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const row = await db.select({ membership: organizationMemberships, organization: organizations }).from(organizationMemberships).innerJoin(organizations, eq(organizationMemberships.organizationId, organizations.id)).where(and(eq(organizationMemberships.id, input.membershipId), eq(organizations.ownerUserId, input.actorUserId))).limit(1);
+  if (!row[0]) throw new Error("ORGANIZATION_MEMBERSHIP_FORBIDDEN");
+  await db.update(organizationMemberships).set({ ...(input.status ? { status: input.status, joinedAt: input.status === "ACTIVE" ? new Date() : row[0].membership.joinedAt } : {}), ...(input.role ? { role: input.role } : {}) }).where(eq(organizationMemberships.id, input.membershipId));
+  await appendAuditEventForUser({ organizationId: row[0].membership.organizationId, companyId: null, actorUserId: input.actorUserId, action: "ORGANIZATION_MEMBERSHIP_UPDATED", entityType: "organizationMembership", entityId: String(input.membershipId), beforeState: JSON.stringify({ userId: row[0].membership.userId, role: row[0].membership.role, status: row[0].membership.status }), afterState: JSON.stringify({ userId: row[0].membership.userId, role: input.role ?? row[0].membership.role, status: input.status ?? row[0].membership.status }), correlationId: `organization-membership:${input.membershipId}` });
+  return getOrganizationMembershipsForUser(row[0].membership.userId, row[0].membership.organizationId);
 }
 
 export async function createCompanyForUser(input: {
@@ -553,10 +607,10 @@ export async function assertAuditScopeForUser(input: { actorUserId: number; orga
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   if (input.companyId !== null && input.companyId !== undefined) {
-    const scope = await db.select({ organizationId: organizations.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.id, input.organizationId), eq(organizations.ownerUserId, input.actorUserId))).limit(1);
+    const scope = await db.select({ organizationId: organizations.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(organizationMemberships, eq(organizationMemberships.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.id, input.organizationId), or(eq(organizations.ownerUserId, input.actorUserId), and(eq(organizationMemberships.userId, input.actorUserId), eq(organizationMemberships.status, "ACTIVE"))))).limit(1);
     if (!scope[0]) throw new Error("AUDIT_SCOPE_FORBIDDEN");
   } else {
-    const scope = await db.select({ id: organizations.id }).from(organizations).where(and(eq(organizations.id, input.organizationId), eq(organizations.ownerUserId, input.actorUserId))).limit(1);
+    const scope = await db.select({ id: organizations.id }).from(organizations).leftJoin(organizationMemberships, eq(organizationMemberships.organizationId, organizations.id)).where(and(eq(organizations.id, input.organizationId), or(eq(organizations.ownerUserId, input.actorUserId), and(eq(organizationMemberships.userId, input.actorUserId), eq(organizationMemberships.status, "ACTIVE"))))).limit(1);
     if (!scope[0]) throw new Error("AUDIT_SCOPE_FORBIDDEN");
   }
   return true as const;

@@ -6,7 +6,7 @@ import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
 import { createHash } from "node:crypto";
-import { activateCompanyForUser, appendAuditEvent, appendAuditEventForUser, assertAuditScopeForUser, assertClosedFiscalPeriodForUserCompany, createCompanyForUser, updateCompanyForUser, setPrimaryLegalRepresentativeForUser, createFiscalExerciseForUser, createFiscalPeriodForUser, closeFiscalPeriodForUser, reopenFiscalPeriodForUser, getDocumentSeriesForUserCompany, createDocumentSeriesForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getDocumentAccountingChainForUserCompany, getDocumentOriginReconciliationForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getAgingForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany,   getJournalForUserCompany,
+import { activateCompanyForUser, appendAuditEvent, appendAuditEventForUser, assertAuditScopeForUser, assertClosedFiscalPeriodForUserCompany, createCompanyForUser, updateCompanyForUser, setPrimaryLegalRepresentativeForUser, createFiscalExerciseForUser, createFiscalPeriodForUser, closeFiscalPeriodForUser, reopenFiscalPeriodForUser, getDocumentSeriesForUserCompany, createDocumentSeriesForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getOrganizationMembershipsForUser, listOrganizationMembershipsForUser, createOrganizationMembershipForUser, updateOrganizationMembershipForUser, getDocumentAccountingChainForUserCompany, getDocumentOriginReconciliationForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getAgingForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany,   getJournalForUserCompany,
   listPendingJournalEntriesForUser,
   reviewJournalEntryForUser,
   transferBetweenCashAccountsForUser,
@@ -71,6 +71,18 @@ export const appRouter = router({
     exercises: roleProcedure("companies", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getExercisesForUserCompany(ctx.user.id, input.companyId)),
     periods: roleProcedure("companies", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getPeriodsForUserCompany(ctx.user.id, input.companyId)),
     documents: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentsForUserCompany(ctx.user.id, input.companyId)),
+    memberships: roleProcedure("companies", "read").input(z.object({ organizationId: z.number().int().positive() })).query(async ({ ctx, input }) => {
+      try { return await listOrganizationMembershipsForUser({ actorUserId: ctx.user.id, organizationId: input.organizationId }); }
+      catch (error) { if (error instanceof Error && error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN") throw new TRPCError({ code: "FORBIDDEN", message: error.message }); throw error; }
+    }),
+    addMembership: roleProcedure("companies", "update").input(z.object({ organizationId: z.number().int().positive(), userId: z.number().int().positive(), role: z.enum(["user", "admin", "contabilista", "financeiro", "operador", "auditor"]) })).mutation(async ({ ctx, input }) => {
+      try { return await createOrganizationMembershipForUser({ actorUserId: ctx.user.id, ...input }); }
+      catch (error) { if (error instanceof Error && error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN") throw new TRPCError({ code: "FORBIDDEN", message: "ORGANIZATION_MEMBERSHIP_FORBIDDEN" }); throw error; }
+    }),
+    updateMembership: roleProcedure("companies", "update").input(z.object({ membershipId: z.number().int().positive(), status: z.enum(["INVITED", "ACTIVE", "SUSPENDED", "REMOVED"]).optional(), role: z.enum(["user", "admin", "contabilista", "financeiro", "operador", "auditor"]).optional() })).mutation(async ({ ctx, input }) => {
+      try { return await updateOrganizationMembershipForUser({ actorUserId: ctx.user.id, ...input }); }
+      catch (error) { if (error instanceof Error && error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN") throw new TRPCError({ code: "FORBIDDEN", message: "ORGANIZATION_MEMBERSHIP_FORBIDDEN" }); throw error; }
+    }),
   }),
   counterparties: router({
     list: roleProcedure("customers", "read").input(z.object({ companyId: z.number().int().positive(), kind: z.enum(["CUSTOMER", "SUPPLIER"]).optional() })).query(({ ctx, input }) => getCounterpartiesForUserCompany(ctx.user.id, input.companyId, input.kind)),
