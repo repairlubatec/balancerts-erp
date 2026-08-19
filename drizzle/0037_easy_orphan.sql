@@ -1,0 +1,1 @@
+ALTER TABLE `accountingAdjustments` ADD `linesJson` text;

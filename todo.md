@@ -939,3 +939,11 @@
 - [x] Implementar prioridades P1 contabilísticas: saldos iniciais, regularizações avançadas e relatórios analíticos
 - [x] Integrar todas as operações nos módulos desktop sem pontos mortos ou termos em inglês
 - [x] Executar suite integral, revisão visual e validação de regressões antes do checkpoint consolidado
+- [x] Auditar critérios de fecho de Contabilidade e Tesouraria antes de avançar
+- [x] Completar validação, aprovação, publicação e bloqueio de saldos iniciais
+- [x] Completar validação, aprovação, publicação e bloqueio de regularizações
+- [x] Preparar adaptador de execução bancária externa sem comunicação real
+- [x] Preparar adaptador AGT sem submissão ou alegação de homologação
+- [x] Testar e guardar checkpoint do ciclo final financeiro
+- [x] Verificar fluxos financeiros críticos, permissões, isolamento e pontos mortos
+- [x] Executar validação funcional e visual final dos módulos financeiros

@@ -141,6 +141,7 @@ export const accountingAdjustments = mysqlTable("accountingAdjustments", {
   companyId: int("companyId").notNull(),
   periodId: int("periodId").notNull(),
   journalEntryId: int("journalEntryId"),
+  linesJson: text("linesJson"),
   adjustmentType: mysqlEnum("adjustmentType", ["REGULARIZACAO", "RECLASSIFICACAO", "ACRESCIMO", "DIFERIMENTO", "CORRECCAO"]).notNull(),
   reason: varchar("reason", { length: 500 }).notNull(),
   status: mysqlEnum("status", ["DRAFT", "PENDING", "APPROVED", "REJECTED", "POSTED"]).default("DRAFT").notNull(),

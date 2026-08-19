@@ -1412,15 +1412,66 @@ export async function listOpeningBalancesForUser(input: { userId: number; compan
   return db.select({ openingBalance: openingBalances, account: chartAccounts }).from(openingBalances).innerJoin(companies, eq(openingBalances.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).innerJoin(chartAccounts, eq(openingBalances.accountId, chartAccounts.id)).where(and(...conditions)).orderBy(desc(openingBalances.createdAt));
 }
 
-export async function createAccountingAdjustmentForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; adjustmentType: "REGULARIZACAO" | "RECLASSIFICACAO" | "ACRESCIMO" | "DIFERIMENTO" | "CORRECCAO"; reason: string }) {
+type P1AccountingLine = { accountId: number; debit: number; credit: number };
+function validateP1AccountingLines(lines: P1AccountingLine[]) {
+  if (lines.length < 2) throw new Error("ACCOUNTING_LINES_REQUIRED");
+  const debit = lines.reduce((sum, line) => sum + line.debit, 0);
+  const credit = lines.reduce((sum, line) => sum + line.credit, 0);
+  if (!lines.every((line) => Number.isInteger(line.accountId) && line.accountId > 0 && line.debit >= 0 && line.credit >= 0 && (line.debit === 0 || line.credit === 0))) throw new Error("ACCOUNTING_LINE_INVALID");
+  if (debit <= 0 || Math.abs(debit - credit) > 0.01) throw new Error("ACCOUNTING_LINES_UNBALANCED");
+  return { debit: Number(debit.toFixed(2)), credit: Number(credit.toFixed(2)) };
+}
+
+export async function createAccountingAdjustmentForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; adjustmentType: "REGULARIZACAO" | "RECLASSIFICACAO" | "ACRESCIMO" | "DIFERIMENTO" | "CORRECCAO"; reason: string; lines: P1AccountingLine[] }) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   if (!input.reason.trim()) throw new Error("ADJUSTMENT_REASON_REQUIRED");
+  const totals = validateP1AccountingLines(input.lines);
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
   await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
-  const inserted = await db.insert(accountingAdjustments).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, adjustmentType: input.adjustmentType, reason: input.reason.trim(), createdBy: input.userId, status: "DRAFT" });
+  const inserted = await db.insert(accountingAdjustments).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, adjustmentType: input.adjustmentType, reason: input.reason.trim(), linesJson: JSON.stringify(input.lines), createdBy: input.userId, status: "DRAFT" });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "ACCOUNTING_ADJUSTMENT_CREATED", entityType: "accountingAdjustment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, id, status: "DRAFT" }), correlationId: `accounting-adjustment:${input.companyId}:${input.periodId}:${id}` });
-  return { id, status: "DRAFT" as const };
+  return { id, status: "DRAFT" as const, ...totals };
+}
+
+export async function reviewOpeningBalanceForUser(input: { userId: number; companyId: number; openingBalanceId: number; decision: "VALIDATED" | "REJECTED"; reason?: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ openingBalance: openingBalances, organizationId: companies.organizationId }).from(openingBalances).innerJoin(companies, eq(openingBalances.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(openingBalances.id, input.openingBalanceId), eq(openingBalances.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!rows[0] || rows[0].openingBalance.status !== "DRAFT") throw new Error("OPENING_BALANCE_NOT_REVIEWABLE");
+  await db.update(openingBalances).set({ status: input.decision, validatedBy: input.userId, validatedAt: new Date(), reason: input.reason?.trim() || rows[0].openingBalance.reason }).where(eq(openingBalances.id, input.openingBalanceId));
+  await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: input.decision === "VALIDATED" ? "OPENING_BALANCE_VALIDATED" : "OPENING_BALANCE_REJECTED", entityType: "openingBalance", entityId: String(input.openingBalanceId), beforeState: JSON.stringify({ status: "DRAFT" }), afterState: JSON.stringify({ status: input.decision, reason: input.reason ?? null }), correlationId: `opening-review:${input.openingBalanceId}` });
+  return { id: input.openingBalanceId, status: input.decision } as const;
+}
+
+export async function publishOpeningBalancesForUser(input: { userId: number; companyId: number; periodId: number }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ openingBalance: openingBalances, organizationId: companies.organizationId }).from(openingBalances).innerJoin(companies, eq(openingBalances.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(openingBalances.companyId, input.companyId), eq(openingBalances.periodId, input.periodId), eq(openingBalances.status, "VALIDATED" as const), eq(organizations.ownerUserId, input.userId)));
+  if (!rows.length) throw new Error("OPENING_BALANCES_NOT_READY");
+  const totals = validateP1AccountingLines(rows.map(({ openingBalance }) => ({ accountId: openingBalance.accountId, debit: Number(openingBalance.debit), credit: Number(openingBalance.credit) })));
+  const entry = await postJournalEntry({ companyId: input.companyId, periodId: input.periodId, idempotencyKey: `opening-post:${input.companyId}:${input.periodId}`, description: "Saldos iniciais do período", journalCode: "ABERTURA", createdBy: input.userId, lines: rows.map(({ openingBalance }) => ({ accountId: openingBalance.accountId, debit: Number(openingBalance.debit), credit: Number(openingBalance.credit), postable: true, validFrom: new Date(), currency: openingBalance.currency, exchangeRate: 1 })) });
+  await db.update(openingBalances).set({ status: "POSTED", journalEntryId: entry.entryId }).where(and(eq(openingBalances.companyId, input.companyId), eq(openingBalances.periodId, input.periodId), eq(openingBalances.status, "VALIDATED" as const)));
+  return { entryId: entry.entryId, ...totals, status: "POSTED" as const };
+}
+
+export async function reviewAccountingAdjustmentForUser(input: { userId: number; companyId: number; adjustmentId: number; decision: "APPROVED" | "REJECTED"; reason?: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ adjustment: accountingAdjustments, organizationId: companies.organizationId }).from(accountingAdjustments).innerJoin(companies, eq(accountingAdjustments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(accountingAdjustments.id, input.adjustmentId), eq(accountingAdjustments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!rows[0] || rows[0].adjustment.status !== "DRAFT") throw new Error("ACCOUNTING_ADJUSTMENT_NOT_REVIEWABLE");
+  if (!rows[0].adjustment.linesJson) throw new Error("ACCOUNTING_LINES_REQUIRED");
+  validateP1AccountingLines(JSON.parse(rows[0].adjustment.linesJson) as P1AccountingLine[]);
+  await db.update(accountingAdjustments).set({ status: input.decision, reviewedBy: input.userId, reviewedAt: new Date(), reason: input.reason?.trim() || rows[0].adjustment.reason }).where(eq(accountingAdjustments.id, input.adjustmentId));
+  await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: input.decision === "APPROVED" ? "ACCOUNTING_ADJUSTMENT_APPROVED" : "ACCOUNTING_ADJUSTMENT_REJECTED", entityType: "accountingAdjustment", entityId: String(input.adjustmentId), beforeState: JSON.stringify({ status: "DRAFT" }), afterState: JSON.stringify({ status: input.decision, reason: input.reason ?? null }), correlationId: `adjustment-review:${input.adjustmentId}` });
+  return { id: input.adjustmentId, status: input.decision } as const;
+}
+
+export async function publishAccountingAdjustmentForUser(input: { userId: number; companyId: number; adjustmentId: number }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ adjustment: accountingAdjustments }).from(accountingAdjustments).innerJoin(companies, eq(accountingAdjustments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(accountingAdjustments.id, input.adjustmentId), eq(accountingAdjustments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!rows[0] || rows[0].adjustment.status !== "APPROVED" || !rows[0].adjustment.linesJson) throw new Error("ACCOUNTING_ADJUSTMENT_NOT_READY");
+  const lines = JSON.parse(rows[0].adjustment.linesJson) as P1AccountingLine[]; validateP1AccountingLines(lines);
+  const entry = await postJournalEntry({ companyId: input.companyId, periodId: rows[0].adjustment.periodId, idempotencyKey: `adjustment-post:${input.adjustmentId}`, description: rows[0].adjustment.reason, journalCode: "OPERACOES_DIVERSAS", createdBy: input.userId, lines: lines.map((line) => ({ ...line, postable: true, validFrom: new Date(), currency: "AOA", exchangeRate: 1 })) });
+  await db.update(accountingAdjustments).set({ status: "POSTED", journalEntryId: entry.entryId }).where(eq(accountingAdjustments.id, input.adjustmentId));
+  return { id: input.adjustmentId, entryId: entry.entryId, status: "POSTED" as const };
 }
 
 export async function listAccountingAdjustmentsForUser(input: { userId: number; companyId: number; periodId?: number }) {
