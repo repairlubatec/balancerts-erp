@@ -870,6 +870,11 @@ export const payrollRuns = mysqlTable("payrollRuns", {
   createdBy: int("createdBy").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  approvedBy: int("approvedBy"),
+  approvedAt: timestamp("approvedAt"),
+  closedBy: int("closedBy"),
+  closedAt: timestamp("closedAt"),
+  accountingLinkStatus: mysqlEnum("accountingLinkStatus", ["NOT_PREPARED", "PREPARED", "POSTED"]).default("NOT_PREPARED").notNull(),
 }, (table) => ({
   companyPayrollPeriodUnique: uniqueIndex("payroll_runs_company_period_unique").on(table.companyId, table.year, table.month),
 }));

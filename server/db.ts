@@ -531,6 +531,30 @@ export async function getPayrollRunsForUserCompany(userId: number, companyId: nu
   if (!db) return [];
   return db.select({ run: payrollRuns, ruleSet: payrollRuleSets }).from(payrollRuns).innerJoin(payrollRuleSets, eq(payrollRuns.ruleSetId, payrollRuleSets.id)).where(and(eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuns.year), desc(payrollRuns.month));
 }
+async function getPayrollRunForUser(db: NonNullable<Awaited<ReturnType<typeof getDb>>>, userId: number, companyId: number, runId: number) {
+  const rows = await db.select({ run: payrollRuns }).from(payrollRuns).where(and(eq(payrollRuns.id, runId), eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).limit(1);
+  const run = rows[0]?.run;
+  if (!run) throw new Error("PAYROLL_RUN_NOT_FOUND_OR_FORBIDDEN");
+  return run;
+}
+export async function approvePayrollRunForUser(input: { userId: number; companyId: number; runId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const run = await getPayrollRunForUser(db, input.userId, input.companyId, input.runId);
+  if (run.status !== "CALCULATED") throw new Error("PAYROLL_RUN_NOT_READY_FOR_APPROVAL");
+  await db.update(payrollRuns).set({ status: "APPROVED", approvedBy: input.userId, approvedAt: new Date() }).where(eq(payrollRuns.id, input.runId));
+  await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_RUN_APPROVED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ ...run, status: "APPROVED", approvedBy: input.userId }), correlationId: `payroll-run:${run.id}:approve` });
+  return db.select({ run: payrollRuns }).from(payrollRuns).where(eq(payrollRuns.id, input.runId)).limit(1);
+}
+export async function closePayrollRunForUser(input: { userId: number; companyId: number; runId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const run = await getPayrollRunForUser(db, input.userId, input.companyId, input.runId);
+  if (run.status !== "APPROVED") throw new Error("PAYROLL_RUN_NOT_APPROVED");
+  await db.update(payrollRuns).set({ status: "POSTED", closedBy: input.userId, closedAt: new Date(), accountingLinkStatus: "PREPARED" }).where(eq(payrollRuns.id, input.runId));
+  await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_RUN_CLOSED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ ...run, status: "POSTED", accountingLinkStatus: "PREPARED", closedBy: input.userId }), correlationId: `payroll-run:${run.id}:close` });
+  return db.select({ run: payrollRuns }).from(payrollRuns).where(eq(payrollRuns.id, input.runId)).limit(1);
+}
 export async function getPayrollItemsForUserRun(userId: number, companyId: number, runId: number) {
   const db = await getDb();
   if (!db) return [];

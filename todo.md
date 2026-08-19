@@ -1069,3 +1069,11 @@
 - [x] Integrar o posto RH no shell desktop em português
 - [x] Adicionar testes de isolamento tenant-aware, RBAC RH, cálculo, arredondamento e protecção de estados; posting/imutabilidade contabilística permanece bloqueado por desenho
 - [x] Rever visualmente, executar suite/build e guardar checkpoint do módulo RH
+
+## RH — aprovação, mapas e ligação contabilística
+
+- [x] Implementar estados de aprovação e fecho mensal imutável da folha
+- [x] Adicionar mapas salariais e recibos internos consultáveis; impressão formal permanece deliberadamente interna
+- [x] Preparar lançamento contabilístico opcional após aprovação, sem execução automática
+- [x] Adicionar testes de cálculo, arredondamento, RBAC e segregação; transições são protegidas por estado e auditoria
+- [x] Executar suite/build, rever visualmente e guardar checkpoint

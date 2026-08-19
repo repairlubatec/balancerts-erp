@@ -337,6 +337,13 @@
       "when": 1787160153716,
       "tag": "0047_unknown_wiccan",
       "breakpoints": true
+    },
+    {
+      "idx": 48,
+      "version": "5",
+      "when": 1787160869932,
+      "tag": "0048_purple_white_tiger",
+      "breakpoints": true
     }
   ]
 }
