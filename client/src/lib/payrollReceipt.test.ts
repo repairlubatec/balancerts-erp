@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildReceiptExportRows, calculateReceiptTotals, formatInternalReceiptPeriod, formatPayrollActor, formatReceiptMode } from "./payrollReceipt";
+import { buildPayrollReceiptPdf, buildReceiptExportRows, calculateReceiptTotals, formatInternalReceiptPeriod, formatPayrollActor, formatReceiptMode } from "./payrollReceipt";
 
 describe("recibo interno de RH", () => {
   it("formata o período salarial em português", () => {
@@ -28,5 +28,11 @@ describe("recibo interno de RH", () => {
     const result = buildReceiptExportRows([{ employee: { fullName: "Ana Silva", employeeNumber: "001" }, item: { grossAmount: "100000", socialEmployeeAmount: "3000", irtAmount: "5000", netAmount: "92000" } }]);
     expect(result.rows[0]).toEqual({ Colaborador: "Ana Silva", Numero: "001", Bruto_AOA: 100000, Seguranca_Social_AOA: 3000, IRT_AOA: 5000, Liquido_AOA: 92000 });
     expect(result.totals).toEqual({ gross: 100000, socialSecurity: 3000, irt: 5000, net: 92000 });
+  });
+
+  it("gera PDF individual válido para o pacote de recibos", () => {
+    const bytes = buildPayrollReceiptPdf({ companyName: "Repair Lubatec", period: "09/2026", issuedOn: "19/08/2026", employeeName: "Ana Silva", employeeNumber: "001", gross: 100000, socialSecurity: 3000, irt: 5000, net: 92000 });
+    expect(new TextDecoder().decode(bytes)).toContain("%PDF-1.4");
+    expect(bytes.length).toBeGreaterThan(500);
   });
 });

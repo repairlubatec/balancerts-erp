@@ -1242,3 +1242,11 @@
 - [x] Manter PDF/ impressão e distinguir mapa colectivo de recibo individual
 - [x] Testar filtros, totais, idioma e isolamento por empresa
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## RH — ZIP de recibos individuais
+
+- [x] Definir geração PDF individual em memória para cada colaborador
+- [x] Gerar ZIP com um ficheiro PDF por colaborador da folha colectiva
+- [x] Integrar descarga do ZIP no posto RH
+- [x] Validar nomes, conteúdo, filtros e isolamento por empresa
+- [x] Executar build, rever visualmente e guardar checkpoint
