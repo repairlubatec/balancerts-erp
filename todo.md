@@ -1226,3 +1226,10 @@
 - [x] Preservar combinação com filtros detalhados e actualizar contadores
 - [x] Testar isolamento, idioma e experiência desktop
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## Centro de Tarefas — conclusão persistente
+
+- [x] Confirmar estados aceites pelo procedimento de actualização
+- [x] Alinhar o tipo do selector com Pendente, Em curso e Concluída
+- [x] Garantir auditoria e filtro correcto após concluir uma tarefa
+- [x] Testar, executar build, rever visualmente e guardar checkpoint

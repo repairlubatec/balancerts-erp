@@ -529,7 +529,7 @@ export async function createPayrollRuleSetForUser(input: { userId: number; organ
 export async function getPayrollRunsForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
-  const rows = await db.select({ run: payrollRuns, ruleSet: payrollRuleSets }).from(payrollRuns).innerJoin(payrollRuleSets, eq(payrollRuns.ruleSetId, payrollRuleSets.id)).where(and(eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuns.year), desc(payrollRuns.month));
+  const rows = await db.select({ run: payrollRuns, ruleSet: payrollRuleSets }).from(payrollRuns).innerJoin(payrollRuleSets, eq(payrollRuns.ruleSetId, payrollRuleSets.id)).innerJoin(companies, eq(payrollRuns.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuns.year), desc(payrollRuns.month));
   const actorIds = Array.from(new Set(rows.flatMap(({ run }) => [run.createdBy, run.reviewedBy, run.approvedBy, run.accountingPreparedBy, run.accountingApprovedBy].filter((id): id is number => Boolean(id)))));
   const actorRows = actorIds.length ? await db.select({ id: users.id, name: users.name, email: users.email }).from(users).where(inArray(users.id, actorIds)) : [];
   const actorById = new Map(actorRows.map((actor) => [actor.id, actor]));
@@ -554,7 +554,7 @@ export async function createHumanResourcesTaskForUser(input: { userId: number; o
 export async function getHumanResourcesTasksForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
-  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(eq(humanResourcesTasks.companyId, companyId), or(eq(humanResourcesTasks.status, "PENDING"), eq(humanResourcesTasks.status, "IN_PROGRESS")), organizationAccessCondition(userId))).orderBy(humanResourcesTasks.dueDate);
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(humanResourcesTasks.companyId, companyId), or(eq(humanResourcesTasks.status, "PENDING"), eq(humanResourcesTasks.status, "IN_PROGRESS"), eq(humanResourcesTasks.status, "COMPLETED")), organizationAccessCondition(userId))).orderBy(humanResourcesTasks.dueDate);
   const actorIds = Array.from(new Set(rows.flatMap(({ task }) => [task.assigneeUserId, task.createdBy, task.completedBy].filter((id): id is number => Boolean(id)))));
   const actorRows = actorIds.length ? await db.select({ id: users.id, name: users.name, email: users.email }).from(users).where(inArray(users.id, actorIds)) : [];
   const actorById = new Map(actorRows.map((actor) => [actor.id, actor]));
