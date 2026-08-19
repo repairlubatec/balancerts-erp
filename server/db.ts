@@ -215,7 +215,7 @@ export async function getTreasuryTransactionsForUserCompany(userId: number, comp
   return db.select({ transaction: treasuryTransactions, account: cashAccounts }).from(treasuryTransactions).innerJoin(cashAccounts, eq(treasuryTransactions.cashAccountId, cashAccounts.id)).innerJoin(companies, eq(treasuryTransactions.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(treasuryTransactions.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(treasuryTransactions.valueDate);
 }
 
-export async function createPaymentForUser(input: { userId: number; organizationId: number; companyId: number; periodId?: number; documentId?: number; cashAccountId?: number; direction: "RECEIPT" | "PAYMENT"; amount: number; currency?: string; paidAt: Date; method: "CASH" | "BANK_TRANSFER" | "CARD" | "OTHER"; idempotencyKey: string; correlationId: string }) {
+export async function createPaymentForUser(input: { userId: number; organizationId: number; companyId: number; periodId?: number; documentId?: number; cashAccountId?: number; direction: "RECEIPT" | "PAYMENT"; amount: number; currency?: string; paidAt: Date; method: "CASH" | "BANK_TRANSFER" | "CARD" | "OTHER"; approvalRequired?: boolean; idempotencyKey: string; correlationId: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
@@ -233,15 +233,15 @@ export async function createPaymentForUser(input: { userId: number; organization
   }
   const existing = await db.select().from(payments).where(eq(payments.idempotencyKey, input.idempotencyKey)).limit(1);
   if (existing[0]) return { payment: existing[0], idempotent: true };
-  const result = await db.insert(payments).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, documentId: input.documentId, direction: input.direction, amount: String(input.amount), currency: input.currency ?? "AOA", paidAt: input.paidAt, method: input.method, idempotencyKey: input.idempotencyKey, correlationId: input.correlationId, createdBy: input.userId });
+  const result = await db.insert(payments).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, documentId: input.documentId, cashAccountId: input.cashAccountId, direction: input.direction, amount: String(input.amount), currency: input.currency ?? "AOA", paidAt: input.paidAt, method: input.method, approvalStatus: input.approvalRequired ? "PENDING" : "APPROVED", approvedBy: input.approvalRequired ? undefined : input.userId, approvedAt: input.approvalRequired ? undefined : new Date(), idempotencyKey: input.idempotencyKey, correlationId: input.correlationId, createdBy: input.userId });
   const id = Number(result[0].insertId);
   let treasuryTransactionId: number | undefined;
-  if (input.cashAccountId) {
+  if (input.cashAccountId && !input.approvalRequired) {
     const treasury = await db.insert(treasuryTransactions).values({ companyId: input.companyId, periodId: input.periodId, cashAccountId: input.cashAccountId, paymentId: id, direction: input.direction === "RECEIPT" ? "IN" : "OUT", amount: String(input.amount), valueDate: input.paidAt, correlationId: input.correlationId });
     treasuryTransactionId = Number(treasury[0].insertId);
     await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "TREASURY_TRANSACTION_CREATED", entityType: "treasuryTransaction", entityId: String(treasuryTransactionId), beforeState: null, afterState: JSON.stringify({ paymentId: id, periodId: input.periodId ?? null, cashAccountId: input.cashAccountId, direction: input.direction === "RECEIPT" ? "IN" : "OUT", amount: input.amount }), correlationId: input.correlationId });
   }
-  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_CREATED", entityType: "payment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ direction: input.direction, amount: input.amount, periodId: input.periodId ?? null, documentId: input.documentId ?? null, cashAccountId: input.cashAccountId ?? null, status: "PENDING" }), correlationId: input.correlationId });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_CREATED", entityType: "payment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ direction: input.direction, amount: input.amount, periodId: input.periodId ?? null, documentId: input.documentId ?? null, cashAccountId: input.cashAccountId ?? null, status: "PENDING", approvalStatus: input.approvalRequired ? "PENDING" : "APPROVED" }), correlationId: input.correlationId });
   return { payment: { id, ...input, status: "PENDING" as const }, treasuryTransactionId, idempotent: false };
 }
 
@@ -479,6 +479,10 @@ export async function closeFiscalPeriodForUser(input: { userId: number; organiza
   const current = rows[0];
   if (!current) throw new Error("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
   if (current.period.status === "CLOSED") throw new Error("FISCAL_PERIOD_ALREADY_CLOSED");
+  const pendingEntries = await db.select({ id: journalEntries.id }).from(journalEntries).where(and(eq(journalEntries.companyId, input.companyId), eq(journalEntries.periodId, input.periodId), eq(journalEntries.reviewStatus, "PENDING"))).limit(1);
+  if (pendingEntries[0]) throw new Error("PERIOD_HAS_PENDING_JOURNAL_REVIEWS");
+  const unreconciled = await db.select({ id: treasuryTransactions.id }).from(treasuryTransactions).where(and(eq(treasuryTransactions.companyId, input.companyId), eq(treasuryTransactions.periodId, input.periodId), eq(treasuryTransactions.reconciliationStatus, "UNRECONCILED"))).limit(1);
+  if (unreconciled[0]) throw new Error("PERIOD_HAS_UNRECONCILED_TREASURY_TRANSACTIONS");
   await db.update(fiscalPeriods).set({ status: "CLOSED", closedAt: new Date() }).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId)));
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FISCAL_PERIOD_CLOSED", entityType: "fiscalPeriod", entityId: String(input.periodId), beforeState: JSON.stringify({ status: current.period.status }), afterState: JSON.stringify({ status: "CLOSED" }), correlationId: input.correlationId });
   return { periodId: input.periodId, from: current.period.status, to: "CLOSED" as const, audited: true };
@@ -987,7 +991,7 @@ export async function getDocumentAccountingChainForUserCompany(userId: number, c
 export async function getJournalRowsForUserCompany(userId: number, companyId: number, periodId?: number): Promise<JournalRow[]> {
   const db = await getDb();
   if (!db) return [];
-  const rows = await db.select({ entryId: journalEntries.id, description: journalEntries.description, createdAt: journalEntries.createdAt, sourceDocumentId: journalEntries.sourceDocumentId, accountCode: chartAccounts.code, accountName: chartAccounts.name, debit: journalLines.debit, credit: journalLines.credit }).from(journalLines).innerJoin(journalEntries, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(organizations.ownerUserId, userId), eq(companies.id, companyId), eq(journalEntries.status, "POSTED"), periodId ? eq(journalEntries.periodId, periodId) : undefined));
+  const rows = await db.select({ entryId: journalEntries.id, description: journalEntries.description, createdAt: journalEntries.createdAt, sourceDocumentId: journalEntries.sourceDocumentId, accountCode: chartAccounts.code, accountName: chartAccounts.name, debit: journalLines.debit, credit: journalLines.credit }).from(journalLines).innerJoin(journalEntries, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(organizations.ownerUserId, userId), eq(companies.id, companyId), eq(journalEntries.status, "POSTED"), eq(journalEntries.reviewStatus, "APPROVED"), periodId ? eq(journalEntries.periodId, periodId) : undefined));
   return rows.map((row) => ({ ...row, debit: Number(row.debit), credit: Number(row.credit) }));
 }
 
@@ -1110,7 +1114,7 @@ export async function transitionBusinessDocument(input: { userId: number; compan
   return { id: input.documentId, from: current.document.status, to: input.to };
 }
 
-export async function postJournalEntry(input: { companyId: number; periodId: number; sourceDocumentId?: number; supportFileAssetId?: number; documentReference?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; reversalOfEntryId?: number; idempotencyKey: string; description: string; createdBy: number; lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[] }) {
+export async function postJournalEntry(input: { companyId: number; periodId: number; sourceDocumentId?: number; supportFileAssetId?: number; documentReference?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; reversalOfEntryId?: number; idempotencyKey: string; description: string; createdBy: number; reviewRequired?: boolean; lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[] }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const companyContext = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.createdBy))).limit(1);
@@ -1137,14 +1141,14 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
     if (existing[0]) return { entry: existing[0], idempotent: true };
     const period = await tx.select().from(fiscalPeriods).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId))).limit(1);
     if (!period[0] || period[0].status === "CLOSED") throw new Error("PERIOD_NOT_OPEN");
-    const inserted = await tx.insert(journalEntries).values({ companyId: input.companyId, periodId: input.periodId, sourceDocumentId: input.sourceDocumentId, supportFileAssetId: input.supportFileAssetId, documentReference: input.documentReference, journalCode: input.journalCode ?? "GERAL", costCenter: input.costCenter, analyticalDimension: input.analyticalDimension, reversalOfEntryId: input.reversalOfEntryId, idempotencyKey: input.idempotencyKey, description: input.description, createdBy: input.createdBy, status: "POSTED", reviewStatus: "APPROVED", reviewedBy: input.createdBy, reviewedAt: new Date() });
+    const inserted = await tx.insert(journalEntries).values({ companyId: input.companyId, periodId: input.periodId, sourceDocumentId: input.sourceDocumentId, supportFileAssetId: input.supportFileAssetId, documentReference: input.documentReference, journalCode: input.journalCode ?? "GERAL", costCenter: input.costCenter, analyticalDimension: input.analyticalDimension, reversalOfEntryId: input.reversalOfEntryId, idempotencyKey: input.idempotencyKey, description: input.description, createdBy: input.createdBy, status: "POSTED", reviewStatus: input.reviewRequired ? "PENDING" : "APPROVED", reviewedBy: input.reviewRequired ? undefined : input.createdBy, reviewedAt: input.reviewRequired ? undefined : new Date() });
     const entryId = Number(inserted[0].insertId);
     await tx.insert(journalLines).values(input.lines.map((line) => ({ entryId, accountId: line.accountId, debit: line.debit.toFixed(2), credit: line.credit.toFixed(2), currency: line.currency ?? "AOA", exchangeRate: (line.exchangeRate ?? 1).toFixed(8) })));
     if (input.reversalOfEntryId !== undefined) await tx.update(journalEntries).set({ status: "REVERSED" }).where(and(eq(journalEntries.id, input.reversalOfEntryId), eq(journalEntries.companyId, input.companyId), eq(journalEntries.status, "POSTED")));
     return { entryId, idempotent: false };
   });
   if (!result.idempotent) {
-    await appendAuditEventForUser({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: input.reversalOfEntryId ? "JOURNAL_ENTRY_REVERSED" : "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), beforeState: input.reversalOfEntryId ? JSON.stringify({ reversalOfEntryId: input.reversalOfEntryId }) : null, afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, supportFileAssetId: input.supportFileAssetId, documentReference: input.documentReference, journalCode: input.journalCode ?? "GERAL", costCenter: input.costCenter, analyticalDimension: input.analyticalDimension, reversalOfEntryId: input.reversalOfEntryId, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
+    await appendAuditEventForUser({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: input.reversalOfEntryId ? "JOURNAL_ENTRY_REVERSED" : input.reviewRequired ? "JOURNAL_ENTRY_SUBMITTED" : "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), beforeState: input.reversalOfEntryId ? JSON.stringify({ reversalOfEntryId: input.reversalOfEntryId }) : null, afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, supportFileAssetId: input.supportFileAssetId, documentReference: input.documentReference, journalCode: input.journalCode ?? "GERAL", costCenter: input.costCenter, analyticalDimension: input.analyticalDimension, reversalOfEntryId: input.reversalOfEntryId, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
   }
   return result;
 }
@@ -1412,4 +1416,63 @@ export async function matchBankStatementLineForUser(input: { userId: number; com
   await db.update(treasuryTransactions).set({ reconciliationStatus: "RECONCILED" }).where(eq(treasuryTransactions.id, input.treasuryTransactionId));
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "BANK_STATEMENT_LINE_MATCHED", entityType: "bankStatementLine", entityId: String(input.lineId), beforeState: JSON.stringify({ status: rows[0].line.status, matchedTreasuryTransactionId: rows[0].line.matchedTreasuryTransactionId }), afterState: JSON.stringify({ status: "MATCHED", matchedTreasuryTransactionId: input.treasuryTransactionId, reason: input.reason ?? null }), correlationId: `extracto-linha:${input.lineId}` });
   return { lineId: input.lineId, treasuryTransactionId: input.treasuryTransactionId, status: "MATCHED" as const };
+}
+
+
+export async function reviewJournalEntryForUser(input: { userId: number; companyId: number; entryId: number; decision: "APPROVED" | "REJECTED"; reason?: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ entry: journalEntries, organizationId: companies.organizationId }).from(journalEntries).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(journalEntries.id, input.entryId), eq(journalEntries.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!rows[0]) throw new Error("JOURNAL_ENTRY_NOT_FOUND_OR_FORBIDDEN");
+  if (rows[0].entry.reviewStatus !== "PENDING") throw new Error("JOURNAL_ENTRY_ALREADY_REVIEWED");
+  if (rows[0].entry.createdBy === input.userId) throw new Error("JOURNAL_ENTRY_CREATOR_CANNOT_REVIEW");
+  await db.update(journalEntries).set({ reviewStatus: input.decision, reviewedBy: input.userId, reviewedAt: new Date() }).where(and(eq(journalEntries.id, input.entryId), eq(journalEntries.companyId, input.companyId), eq(journalEntries.reviewStatus, "PENDING")));
+  await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: input.decision === "APPROVED" ? "JOURNAL_ENTRY_APPROVED" : "JOURNAL_ENTRY_REJECTED", entityType: "journalEntry", entityId: String(input.entryId), beforeState: JSON.stringify({ reviewStatus: "PENDING" }), afterState: JSON.stringify({ reviewStatus: input.decision, reason: input.reason ?? null }), correlationId: `journal-review:${input.entryId}` });
+  return { id: input.entryId, reviewStatus: input.decision } as const;
+}
+
+export async function listPendingJournalEntriesForUser(input: { userId: number; companyId: number; periodId?: number }) {
+  const db = await getDb(); if (!db) return [];
+  const conditions = [eq(journalEntries.companyId, input.companyId), eq(journalEntries.reviewStatus, "PENDING" as const), eq(organizations.ownerUserId, input.userId)];
+  if (input.periodId) conditions.push(eq(journalEntries.periodId, input.periodId));
+  return db.select({ entry: journalEntries }).from(journalEntries).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(...conditions)).orderBy(desc(journalEntries.createdAt));
+}
+
+
+export async function transferBetweenCashAccountsForUser(input: { userId: number; organizationId: number; companyId: number; periodId?: number; fromCashAccountId: number; toCashAccountId: number; amount: number; valueDate: Date; correlationId: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  if (input.fromCashAccountId === input.toCashAccountId) throw new Error("TRANSFER_ACCOUNTS_MUST_DIFFER");
+  if (input.amount <= 0) throw new Error("TRANSFER_AMOUNT_INVALID");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  if (input.periodId) await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
+  const accounts = await db.select({ account: cashAccounts }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.companyId, input.companyId), sql`${cashAccounts.id} in (${input.fromCashAccountId}, ${input.toCashAccountId})`, eq(organizations.ownerUserId, input.userId)));
+  if (accounts.length !== 2) throw new Error("TRANSFER_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  if (accounts[0].account.currency !== accounts[1].account.currency) throw new Error("TRANSFER_CURRENCY_MUST_MATCH");
+  const existing = await db.select({ id: treasuryTransactions.id }).from(treasuryTransactions).where(and(eq(treasuryTransactions.companyId, input.companyId), eq(treasuryTransactions.correlationId, input.correlationId))).limit(1);
+  if (existing[0]) return { correlationId: input.correlationId, idempotent: true };
+  const result = await db.transaction(async (tx) => {
+    const out = await tx.insert(treasuryTransactions).values({ companyId: input.companyId, periodId: input.periodId, cashAccountId: input.fromCashAccountId, direction: "OUT", amount: input.amount.toFixed(2), valueDate: input.valueDate, correlationId: input.correlationId });
+    const into = await tx.insert(treasuryTransactions).values({ companyId: input.companyId, periodId: input.periodId, cashAccountId: input.toCashAccountId, direction: "IN", amount: input.amount.toFixed(2), valueDate: input.valueDate, correlationId: input.correlationId });
+    return { outId: Number(out[0].insertId), intoId: Number(into[0].insertId) };
+  });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "TREASURY_INTERNAL_TRANSFER_CREATED", entityType: "treasuryTransfer", entityId: input.correlationId, beforeState: null, afterState: JSON.stringify({ ...input, amount: input.amount.toFixed(2), outId: result.outId, intoId: result.intoId }), correlationId: input.correlationId });
+  return { ...result, correlationId: input.correlationId, idempotent: false };
+}
+
+
+export async function approvePaymentForUser(input: { userId: number; companyId: number; paymentId: number; executionReference?: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ payment: payments, organizationId: companies.organizationId }).from(payments).innerJoin(companies, eq(payments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(payments.id, input.paymentId), eq(payments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!rows[0]) throw new Error("PAYMENT_NOT_FOUND_OR_FORBIDDEN");
+  if (rows[0].payment.createdBy === input.userId) throw new Error("PAYMENT_CREATOR_CANNOT_APPROVE");
+  if (rows[0].payment.approvalStatus === "APPROVED") return { paymentId: input.paymentId, idempotent: true };
+  if (rows[0].payment.approvalStatus !== "PENDING") throw new Error("PAYMENT_ALREADY_REVIEWED");
+  await db.transaction(async (tx) => {
+    await tx.update(payments).set({ approvalStatus: "APPROVED", approvedBy: input.userId, approvedAt: new Date(), executionReference: input.executionReference, status: "CONFIRMED" }).where(and(eq(payments.id, input.paymentId), eq(payments.companyId, input.companyId), eq(payments.approvalStatus, "PENDING")));
+    if (rows[0].payment.cashAccountId) {
+      const existing = await tx.select({ id: treasuryTransactions.id }).from(treasuryTransactions).where(and(eq(treasuryTransactions.paymentId, input.paymentId), eq(treasuryTransactions.companyId, input.companyId))).limit(1);
+      if (!existing[0]) await tx.insert(treasuryTransactions).values({ companyId: input.companyId, periodId: rows[0].payment.periodId, cashAccountId: rows[0].payment.cashAccountId, paymentId: input.paymentId, direction: rows[0].payment.direction === "RECEIPT" ? "IN" : "OUT", amount: rows[0].payment.amount, valueDate: rows[0].payment.paidAt, correlationId: `payment:${input.paymentId}` });
+    }
+  });
+  await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_APPROVED_EXECUTED", entityType: "payment", entityId: String(input.paymentId), beforeState: JSON.stringify({ approvalStatus: "PENDING" }), afterState: JSON.stringify({ approvalStatus: "APPROVED", status: "CONFIRMED", executionReference: input.executionReference ?? null }), correlationId: `payment-approval:${input.paymentId}` });
+  return { paymentId: input.paymentId, idempotent: false };
 }

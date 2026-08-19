@@ -232,6 +232,27 @@
       "when": 1787136812040,
       "tag": "0032_condemned_piledriver",
       "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "5",
+      "when": 1787137494145,
+      "tag": "0033_fancy_roland_deschain",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "5",
+      "when": 1787137731341,
+      "tag": "0034_clear_sabra",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "5",
+      "when": 1787137873804,
+      "tag": "0035_shocking_talkback",
+      "breakpoints": true
     }
   ]
 }

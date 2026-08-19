@@ -911,16 +911,21 @@
 
 # Implementação P0 — Contabilidade e Tesouraria Angola
 - [x] Criar sub-registo fiscal por operação, regime, imposto, retenção e período
-- [ ] Criar workflow contabilístico rascunho, validação, aprovação, publicação e reversão com segregação
-- [ ] Tornar o fecho materialmente validado no servidor, com bloqueios reais
+- [x] Criar workflow contabilístico rascunho, validação, aprovação, publicação e reversão com segregação
+- [x] Tornar o fecho materialmente validado no servidor, com bloqueios reais
 - [x] Completar cadastro bancário com banco, agência, identificadores e conta contabilística
 - [x] Criar importação persistente de extractos bancários com hash, linhas e idempotência
 - [x] Criar reconciliação por linha e actualização auditada; diferenças/fecho global permanecem na próxima parte P0
-- [ ] Completar ciclo de pagamento com preparação, aprovação, execução, confirmação e comprovativo
-- [ ] Implementar transferências internas entre contas com duas pernas atómicas
+- [x] Completar ciclo de pagamento com preparação, aprovação, execução e comprovativo; confirmação externa continua dependente de banco
+- [x] Implementar transferências internas entre contas com duas pernas atómicas
 - [x] Ligar sub-registo fiscal e extractos aos painéis desktop e ao contexto empresa/período
-- [ ] Adicionar testes P0, rever visualmente e guardar checkpoint
+- [x] Rever visualmente e guardar checkpoint P0 final
 - [x] Corrigir import duplicado de hashing no servidor antes das operações P0
 - [x] Corrigir a tipagem das linhas do extracto no painel de Tesouraria P0
-- [x] Criar testes específicos do parser de extractos; testes de integração dos contratos P0 continuam a ser ampliados
+- [x] Criar testes específicos do parser de extractos e dos contratos P0
 - [x] Corrigir a tipagem dos registos fiscais no painel P0
+- [x] Corrigir a edição do fluxo de pagamento com aprovação obrigatória usando contexto exclusivo
+- [x] Persistir cashAccountId nos pagamentos para executar aprovação sem perder a conta de destino
+- [x] Corrigir a tipagem dos lançamentos pendentes no painel de revisão contabilística
+- [x] Ligar a opção de aprovação obrigatória ao formulário desktop de pagamentos
+- [x] Traduzir o estado visual External Pendente do sub-registo fiscal

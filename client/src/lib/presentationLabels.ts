@@ -51,6 +51,7 @@ const labels: Record<string, string> = {
   OUT: "Saída",
   OPEN: "Aberto",
   EXCEPTION: "Excepção",
+  EXTERNAL: "Externo",
   DOCUMENT: "Documento",
   TREASURY: "Tesouraria",
   TRANSACTION: "Movimento",

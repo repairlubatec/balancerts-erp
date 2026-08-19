@@ -216,3 +216,35 @@ describe("protected accounting procedures", () => {
     await expect(caller.fixedAssets.postDepreciation({ organizationId: 1, companyId: 1, periodId: 1, assetId: 1, amount: 10, expenseAccountId: 1, accumulatedDepreciationAccountId: 2, correlationId: "asset-permission" })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 });
+
+
+describe("prioridades P0 de Contabilidade e Tesouraria", () => {
+  it("bloqueia revisão contabilística para operador e permite validação apenas ao contabilista", async () => {
+    const review = vi.spyOn(db, "reviewJournalEntryForUser").mockResolvedValue({ id: 9, reviewStatus: "APPROVED" });
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.accounting.review({ companyId: 41, entryId: 9, decision: "APPROVED" })).resolves.toMatchObject({ reviewStatus: "APPROVED" });
+    expect(review).toHaveBeenCalledWith({ userId: 8, companyId: 41, entryId: 9, decision: "APPROVED" });
+    const operator = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operator.accounting.review({ companyId: 41, entryId: 9, decision: "APPROVED" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
+  it("bloqueia transferência interna para operador e encaminha a operação ao servidor", async () => {
+    const transfer = vi.spyOn(db, "transferBetweenCashAccountsForUser").mockResolvedValue({ outId: 1, intoId: 2, correlationId: "transfer-test-1", idempotent: false });
+    const finance = appRouter.createCaller(contextWithRole("financeiro"));
+    await expect(finance.treasury.transferInternal({ organizationId: 7, companyId: 41, fromCashAccountId: 10, toCashAccountId: 11, amount: 500, valueDate: new Date("2026-08-19"), correlationId: "transfer-test-1" })).resolves.toMatchObject({ outId: 1, intoId: 2 });
+    expect(transfer).toHaveBeenCalledWith(expect.objectContaining({ userId: 8, companyId: 41, amount: 500 }));
+    const operator = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operator.treasury.transferInternal({ organizationId: 7, companyId: 41, fromCashAccountId: 10, toCashAccountId: 11, amount: 500, valueDate: new Date("2026-08-19"), correlationId: "transfer-test-2" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
+  it("encaminha preparação e aprovação de pagamento para funções separadas", async () => {
+    const create = vi.spyOn(db, "createPaymentForUser").mockResolvedValue({ payment: { id: 5, approvalStatus: "PENDING" }, treasuryTransactionId: undefined, idempotent: false } as never);
+    const approve = vi.spyOn(db, "approvePaymentForUser").mockResolvedValue({ paymentId: 5, idempotent: false });
+    const finance = appRouter.createCaller(contextWithRole("financeiro"));
+    await expect(finance.treasury.createPayment({ organizationId: 7, companyId: 41, direction: "PAYMENT", amount: 100, paidAt: new Date("2026-08-19"), method: "BANK_TRANSFER", approvalRequired: true, idempotencyKey: "payment-test-1", correlationId: "payment-test-1" })).resolves.toMatchObject({ idempotent: false });
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.treasury.approvePayment({ companyId: 41, paymentId: 5, executionReference: "comprovativo-5" })).resolves.toMatchObject({ paymentId: 5 });
+    expect(create).toHaveBeenCalledWith(expect.objectContaining({ approvalRequired: true, userId: 8 }));
+    expect(approve).toHaveBeenCalledWith({ companyId: 41, paymentId: 5, executionReference: "comprovativo-5", userId: 8 });
+  });
+});
