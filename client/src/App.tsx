@@ -27,6 +27,7 @@ function Router() {
       <Route path="/auditoria" component={Home} />
       <Route path="/empresas" component={Home} />
       <Route path="/definicoes" component={Home} />
+      <Route path="/ia" component={Home} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

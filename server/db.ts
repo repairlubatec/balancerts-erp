@@ -3,14 +3,61 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+  auditEvents, balancertsIaConfigs, balancertsIaLogs, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
 import { ENV } from "./_core/env";
+import { AIRouter, type IAConfig, type IARequest } from "./balancerts-ia/providers";
 
 let _db: ReturnType<typeof drizzle> | null = null;
+
+export async function getBalancertsIaConfigForUserCompany(input: { userId: number; companyId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ config: balancertsIaConfigs, company: companies }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(balancertsIaConfigs, eq(balancertsIaConfigs.companyId, companies.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const row = rows[0];
+  if (!row) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  return row.config ?? { id: 0, organizationId: row.company.organizationId, companyId: row.company.id, enabled: 1, localEnabled: 1, localBaseUrl: "http://127.0.0.1", localPort: 11434, localModel: "qwen2.5:3b", azureEnabled: 0, azureEndpoint: null, azureDeployment: null, azureSecretRef: null, openaiEnabled: 0, openaiModel: "gpt-5-mini", openaiSecretRef: null, createdAt: new Date(), updatedAt: new Date() };
+}
+
+export async function updateBalancertsIaConfigForUser(input: { userId: number; companyId: number; enabled: boolean; localEnabled: boolean; localBaseUrl: string; localPort: number; localModel: string; azureEnabled: boolean; azureEndpoint?: string; azureDeployment?: string; azureSecretRef?: string; openaiEnabled: boolean; openaiModel: string; openaiSecretRef?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const companyRows = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const company = companyRows[0];
+  if (!company) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  await db.insert(balancertsIaConfigs).values({ organizationId: company.company.organizationId, companyId: input.companyId, enabled: input.enabled ? 1 : 0, localEnabled: input.localEnabled ? 1 : 0, localBaseUrl: input.localBaseUrl, localPort: input.localPort, localModel: input.localModel, azureEnabled: input.azureEnabled ? 1 : 0, azureEndpoint: input.azureEndpoint || null, azureDeployment: input.azureDeployment || null, azureSecretRef: input.azureSecretRef || null, openaiEnabled: input.openaiEnabled ? 1 : 0, openaiModel: input.openaiModel, openaiSecretRef: input.openaiSecretRef || null }).onDuplicateKeyUpdate({ set: { enabled: input.enabled ? 1 : 0, localEnabled: input.localEnabled ? 1 : 0, localBaseUrl: input.localBaseUrl, localPort: input.localPort, localModel: input.localModel, azureEnabled: input.azureEnabled ? 1 : 0, azureEndpoint: input.azureEndpoint || null, azureDeployment: input.azureDeployment || null, azureSecretRef: input.azureSecretRef || null, openaiEnabled: input.openaiEnabled ? 1 : 0, openaiModel: input.openaiModel, openaiSecretRef: input.openaiSecretRef || null } });
+  await appendAuditEventForUser({ organizationId: company.company.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "BALANCERTS_IA_CONFIG_UPDATED", entityType: "balancertsIaConfig", entityId: String(input.companyId), beforeState: null, afterState: JSON.stringify({ enabled: input.enabled, localEnabled: input.localEnabled, azureEnabled: input.azureEnabled, openaiEnabled: input.openaiEnabled }), correlationId: `balancerts-ia-config:${input.companyId}` });
+  return getBalancertsIaConfigForUserCompany({ userId: input.userId, companyId: input.companyId });
+}
+
+export async function getBalancertsIaStatusForUserCompany(input: { userId: number; companyId: number }) {
+  const config = await getBalancertsIaConfigForUserCompany(input);
+  const iaConfig: IAConfig = { localEnabled: Boolean(config.localEnabled), localBaseUrl: config.localBaseUrl, localPort: config.localPort, localModel: config.localModel, azureEnabled: Boolean(config.azureEnabled), azureEndpoint: config.azureEndpoint, azureDeployment: config.azureDeployment, openaiEnabled: Boolean(config.openaiEnabled), openaiModel: config.openaiModel };
+  if (!config.enabled) return { enabled: false, local: false, azure: false, openai: false, internet: false, mode: "DESACTIVADO" as const };
+  const status = await new AIRouter(iaConfig).status();
+  return { enabled: true, ...status };
+}
+
+export async function createBalancertsIaLogForUser(input: { userId: number; companyId: number; operation: string; provider: string; model?: string; confidence?: number; requestSummary?: string; resultSummary?: string; responseMs?: number; error?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ company: companies }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const company = rows[0]?.company;
+  if (!company) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  await db.insert(balancertsIaLogs).values({ organizationId: company.organizationId, companyId: input.companyId, userId: input.userId, operation: input.operation, provider: input.provider, model: input.model, confidence: input.confidence?.toFixed(2), requestSummary: input.requestSummary?.slice(0, 2000), resultSummary: input.resultSummary?.slice(0, 2000), responseMs: input.responseMs, error: input.error?.slice(0, 1000) });
+  return { recorded: true };
+}
+
+export async function getBalancertsIaLogsForUserCompany(input: { userId: number; companyId: number; limit?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const owner = await db.select({ company: companies }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!owner[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  return db.select().from(balancertsIaLogs).where(and(eq(balancertsIaLogs.companyId, input.companyId), eq(balancertsIaLogs.organizationId, owner[0].company.organizationId))).orderBy(desc(balancertsIaLogs.id)).limit(Math.min(input.limit ?? 50, 100));
+}
 
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {

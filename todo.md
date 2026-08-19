@@ -830,3 +830,14 @@
 - [x] Adicionar testes de RBAC, origem, duplicação e preservação de estados
 - [x] Validar TypeScript, build, suite completa e revisão visual; documentar e guardar checkpoint
 - [x] Actualizar as expectativas da matriz pendente para purchases.convertToSupplierDraft
+
+# Continuação — Balancerts IA Fase 1
+- [x] Definir contrato modular IAProvider e tarefas suportadas
+- [x] Implementar LocalAIProvider, AzureAIProvider e OpenAIProvider sem credenciais expostas
+- [x] Implementar roteador offline-first e estado de ligação sem bloquear o ERP
+- [x] Criar persistência tenant-aware de configurações não secretas e logs mínimos
+- [x] Integrar menu, dashboard, estado e definições Balancerts IA no shell desktop
+- [x] Adicionar permissões, testes, desactivação segura e apresentação 100% portuguesa
+- [x] Validar TypeScript, build, suite completa, revisão visual e documentar a Fase 1
+- [x] Corrigir o estado do roteador para não consultar providers desactivados
+- [x] Corrigir termos visíveis cloud, Provider e Offline no módulo Balancerts IA

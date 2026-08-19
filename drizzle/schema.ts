@@ -100,6 +100,42 @@ export const journalLines = mysqlTable("journalLines", {
   exchangeRate: decimal("exchangeRate", { precision: 18, scale: 8 }).default("1").notNull(),
 });
 
+export const balancertsIaConfigs = mysqlTable("balancertsIaConfigs", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull().unique(),
+  enabled: int("enabled").default(1).notNull(),
+  localEnabled: int("localEnabled").default(1).notNull(),
+  localBaseUrl: varchar("localBaseUrl", { length: 255 }).default("http://127.0.0.1").notNull(),
+  localPort: int("localPort").default(11434).notNull(),
+  localModel: varchar("localModel", { length: 120 }).default("qwen2.5:3b").notNull(),
+  azureEnabled: int("azureEnabled").default(0).notNull(),
+  azureEndpoint: varchar("azureEndpoint", { length: 255 }),
+  azureDeployment: varchar("azureDeployment", { length: 120 }),
+  azureSecretRef: varchar("azureSecretRef", { length: 160 }),
+  openaiEnabled: int("openaiEnabled").default(0).notNull(),
+  openaiModel: varchar("openaiModel", { length: 120 }).default("gpt-5-mini").notNull(),
+  openaiSecretRef: varchar("openaiSecretRef", { length: 160 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const balancertsIaLogs = mysqlTable("balancertsIaLogs", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  userId: int("userId").notNull(),
+  operation: varchar("operation", { length: 80 }).notNull(),
+  provider: varchar("provider", { length: 40 }).notNull(),
+  model: varchar("model", { length: 120 }),
+  confidence: decimal("confidence", { precision: 5, scale: 2 }),
+  requestSummary: text("requestSummary"),
+  resultSummary: text("resultSummary"),
+  responseMs: int("responseMs"),
+  error: text("error"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const integrationOperations = mysqlTable("integrationOperations", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),
