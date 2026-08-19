@@ -32,6 +32,12 @@ function pdfEscape(value: string) {
   return ascii.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
 }
 
+import { zipSync } from "fflate";
+
+export function buildReceiptZip(files: Record<string, Uint8Array>) {
+  return zipSync(files);
+}
+
 export function buildPayrollReceiptPdf(input: { companyName: string; period: string; issuedOn: string; employeeName: string; employeeNumber: string; gross: number; socialSecurity: number; irt: number; net: number }) {
   const money = (value: number) => `${value.toLocaleString("pt-PT")} AOA`;
   const lines = [

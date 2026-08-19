@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildPayrollReceiptPdf, buildReceiptExportRows, calculateReceiptTotals, formatInternalReceiptPeriod, formatPayrollActor, formatReceiptMode } from "./payrollReceipt";
+import { buildPayrollReceiptPdf, buildReceiptExportRows, buildReceiptZip, calculateReceiptTotals, formatInternalReceiptPeriod, formatPayrollActor, formatReceiptMode } from "./payrollReceipt";
 
 describe("recibo interno de RH", () => {
   it("formata o período salarial em português", () => {
@@ -34,5 +34,11 @@ describe("recibo interno de RH", () => {
     const bytes = buildPayrollReceiptPdf({ companyName: "Repair Lubatec", period: "09/2026", issuedOn: "19/08/2026", employeeName: "Ana Silva", employeeNumber: "001", gross: 100000, socialSecurity: 3000, irt: 5000, net: 92000 });
     expect(new TextDecoder().decode(bytes)).toContain("%PDF-1.4");
     expect(bytes.length).toBeGreaterThan(500);
+  });
+
+  it("gera um pacote ZIP válido para vários recibos", () => {
+    const archive = buildReceiptZip({ "recibos/001-Ana-Silva.pdf": buildPayrollReceiptPdf({ companyName: "Repair Lubatec", period: "09/2026", issuedOn: "19/08/2026", employeeName: "Ana Silva", employeeNumber: "001", gross: 100000, socialSecurity: 3000, irt: 5000, net: 92000 }), "recibos/002-Joao-Costa.pdf": buildPayrollReceiptPdf({ companyName: "Repair Lubatec", period: "09/2026", issuedOn: "19/08/2026", employeeName: "Joao Costa", employeeNumber: "002", gross: 120000, socialSecurity: 3600, irt: 7000, net: 109400 }) });
+    expect(new TextDecoder().decode(archive.slice(0, 2))).toBe("PK");
+    expect(archive.length).toBeGreaterThan(900);
   });
 });

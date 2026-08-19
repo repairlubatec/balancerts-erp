@@ -4,11 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { zipSync } from "fflate";
 import { trpc } from "@/lib/trpc";
 import { userFacingError } from "@/lib/presentationLabels";
 import { cn } from "@/lib/utils";
-import { buildPayrollReceiptPdf, buildReceiptExportRows, formatInternalReceiptPeriod, formatPayrollActor, formatReceiptMode } from "@/lib/payrollReceipt";
+import { buildPayrollReceiptPdf, buildReceiptExportRows, buildReceiptZip, formatInternalReceiptPeriod, formatPayrollActor, formatReceiptMode } from "@/lib/payrollReceipt";
 
 type Props = { company?: { id: number; organizationId: number; name?: string; logoUrl?: string | null } };
 
@@ -64,7 +63,7 @@ export function HumanResourcesPanel({ company }: Props) {
       const fileName = safeName || "colaborador-" + employee.id;
       return [`recibos/${fileName}.pdf`, buildPayrollReceiptPdf({ companyName: company?.name ?? "Empresa activa", period: formatInternalReceiptPeriod(selectedRun), issuedOn: new Date().toLocaleDateString("pt-PT"), employeeName: employee.fullName, employeeNumber: employee.employeeNumber, gross: Number(item.grossAmount), socialSecurity: Number(item.socialEmployeeAmount), irt: Number(item.irtAmount), net: Number(item.netAmount) })];
     }));
-    const blob = new Blob([new Uint8Array(zipSync(files))], { type: "application/zip" });
+    const blob = new Blob([new Uint8Array(buildReceiptZip(files))], { type: "application/zip" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
