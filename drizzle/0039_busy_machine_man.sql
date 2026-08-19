@@ -1,0 +1,1 @@
+ALTER TABLE `documentSeries` ADD CONSTRAINT `document_series_company_code_type_unique` UNIQUE(`companyId`,`code`,`documentType`);

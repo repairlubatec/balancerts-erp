@@ -956,3 +956,6 @@
 - [x] Preparar SAF-T, AGT/MINFIN, permissões e validações sem submissão real
 - [x] Executar suite Comercial, revisão visual e guardar checkpoint
 - [x] Corrigir a rota /comercial que apresenta janela não encontrada
+- [x] Auditar numeração sequencial por empresa, série, tipo e exercício
+- [x] Validar concorrência, idempotência, lacunas, anulações e reinício por exercício
+- [x] Corrigir e testar eventuais falhas de numeração antes do checkpoint

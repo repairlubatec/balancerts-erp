@@ -1,4 +1,4 @@
-import { decimal, int, json, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { decimal, int, json, mysqlEnum, mysqlTable, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -278,7 +278,9 @@ export const documentSeries = mysqlTable("documentSeries", {
   documentType: varchar("documentType", { length: 32 }).notNull(),
   nextNumber: int("nextNumber").default(1).notNull(),
   active: int("active").default(1).notNull(),
-});
+}, (table) => ({
+  companyCodeTypeUnique: uniqueIndex("document_series_company_code_type_unique").on(table.companyId, table.code, table.documentType),
+}));
 
 export const businessDocuments = mysqlTable("businessDocuments", {
   id: int("id").autoincrement().primaryKey(),
