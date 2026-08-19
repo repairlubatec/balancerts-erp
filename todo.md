@@ -958,4 +958,10 @@
 - [x] Corrigir a rota /comercial que apresenta janela não encontrada
 - [x] Auditar numeração sequencial por empresa, série, tipo e exercício
 - [x] Validar concorrência, idempotência, lacunas, anulações e reinício por exercício
+- [x] Auditar conformidade Comercial de ponta a ponta antes de avançar
+- [x] Implementar Enter como avanço para o campo seguinte em todos os formulários
+- [x] Preservar submissão explícita, botões, caixas multilinha e controlos especiais
+- [x] Criar testes de teclado e validar todos os módulos operacionais
+- [x] Verificar lacunas internas em cadastros, documentos, impostos, liquidações e integrações
+- [x] Confirmar ausência de pontos mortos, termos em inglês e janelas fora do shell
 - [x] Corrigir e testar eventuais falhas de numeração antes do checkpoint

@@ -1,4 +1,5 @@
 import { useAuth } from "@/_core/hooks/useAuth";
+import { focusNextField } from "@/lib/financialContext";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -424,7 +425,7 @@ function DashboardLayoutContent({
             </div>
           </div>
         )}
-        <main className={cn("erp-workspace flex min-h-0 flex-1 flex-col bg-[#dfe4ea] p-3", activeWindowState.maximized && "erp-workspace--maximized")}>
+        <main onKeyDown={focusNextField} className={cn("erp-workspace flex min-h-0 flex-1 flex-col bg-[#dfe4ea] p-3", activeWindowState.maximized && "erp-workspace--maximized")}>
           <DesktopWindowFrame
             title={activeMenuItem?.label ?? "Área de trabalho"}
             subtitle="Sessão operacional · Angola"
