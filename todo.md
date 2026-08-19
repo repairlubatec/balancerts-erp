@@ -1198,3 +1198,13 @@
 - [x] Preservar escopo por empresa e parâmetros de entidade
 - [x] Testar navegação e ausência de acesso cruzado
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## Revisão transversal — ronda de qualidade
+
+- [x] Auditar termos em inglês e identificadores técnicos visíveis na interface
+- [x] Auditar botões, links, rotas e acções sem resposta
+- [x] Rever isolamento por empresa e validações tenant-aware nos módulos críticos
+- [x] Rever erros de consola, rede, TypeScript e build
+- [x] Rever visualmente as principais janelas desktop e estados vazios
+- [x] Corrigir falhas confirmadas e adicionar testes
+- [x] Executar validação final, rever visualmente e guardar checkpoint

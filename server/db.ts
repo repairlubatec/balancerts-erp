@@ -426,7 +426,7 @@ export async function listOrganizationMembershipsForUser(input: { actorUserId: n
     const active = await db.select({ id: organizationMemberships.id }).from(organizationMemberships).where(and(eq(organizationMemberships.organizationId, input.organizationId), eq(organizationMemberships.userId, input.actorUserId), eq(organizationMemberships.status, "ACTIVE"))).limit(1);
     if (!active[0]) throw new Error("ORGANIZATION_MEMBERSHIP_FORBIDDEN");
   }
-  return db.select({ membership: organizationMemberships, organization: organizations }).from(organizationMemberships).innerJoin(organizations, eq(organizationMemberships.organizationId, organizations.id)).where(eq(organizationMemberships.organizationId, input.organizationId)).orderBy(desc(organizationMemberships.id));
+  return db.select({ membership: organizationMemberships, organization: organizations, user: { id: users.id, name: users.name, email: users.email } }).from(organizationMemberships).innerJoin(organizations, eq(organizationMemberships.organizationId, organizations.id)).innerJoin(users, eq(organizationMemberships.userId, users.id)).where(eq(organizationMemberships.organizationId, input.organizationId)).orderBy(desc(organizationMemberships.id));
 }
 
 export async function createOrganizationMembershipForUser(input: { actorUserId: number; organizationId: number; userId: number; role: "user" | "admin" | "contabilista" | "financeiro" | "operador" | "auditor" }) {
@@ -481,7 +481,7 @@ export async function updateEmployeeForUser(input: { userId: number; companyId: 
 export async function getEmploymentContractsForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
-  return db.select({ contract: employmentContracts, employee: employees }).from(employmentContracts).innerJoin(employees, eq(employmentContracts.employeeId, employees.id)).where(and(eq(employmentContracts.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(employmentContracts.id));
+  return db.select({ contract: employmentContracts, employee: employees }).from(employmentContracts).innerJoin(employees, eq(employmentContracts.employeeId, employees.id)).innerJoin(companies, eq(employmentContracts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(employmentContracts.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(employmentContracts.id));
 }
 export async function createEmploymentContractForUser(input: { userId: number; organizationId: number; companyId: number; employeeId: number; contractNumber: string; contractType: "INDETERMINADO" | "TERMO" | "TEMPO_PARCIAL" | "ESTAGIO" | "PRESTACAO_SERVICOS"; position: string; department?: string; startDate: Date; endDate?: Date; baseSalary: number; salaryCurrency?: string; weeklyHours?: number; workSchedule?: string }) {
   const db = await getDb();
@@ -512,7 +512,7 @@ export async function transitionEmploymentContractForUser(input: { userId: numbe
 export async function getPayrollRuleSetsForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
-  return db.select({ ruleSet: payrollRuleSets }).from(payrollRuleSets).where(and(eq(payrollRuleSets.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuleSets.effectiveFrom));
+  return db.select({ ruleSet: payrollRuleSets }).from(payrollRuleSets).innerJoin(companies, eq(payrollRuleSets.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(payrollRuleSets.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuleSets.effectiveFrom));
 }
 export async function createPayrollRuleSetForUser(input: { userId: number; organizationId: number; companyId: number; version: string; effectiveFrom: Date; effectiveTo?: Date; socialEmployeeRate: number; socialEmployerRate: number; irtBrackets: string; sourceUrl?: string; salaryAccountCode?: string; socialExpenseAccountCode?: string; socialPayableAccountCode?: string; irtPayableAccountCode?: string; netPayableAccountCode?: string }) {
   const db = await getDb();
