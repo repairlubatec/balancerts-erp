@@ -11,6 +11,15 @@ export function buildStockTransfer(input: { fromWarehouseId: number; toWarehouse
   return { ...movement, productCode: input.productCode.trim(), transferGroupId: input.transferGroupId.trim(), fromWarehouseId: input.fromWarehouseId, toWarehouseId: input.toWarehouseId };
 }
 
+export function validateStockCountLine(input: { productCode: string; expectedQuantity: number; countedQuantity: number; unitCost: number }) {
+  const productCode = input.productCode.trim().toUpperCase();
+  if (!productCode) throw new Error("STOCK_COUNT_PRODUCT_REQUIRED");
+  if (!Number.isFinite(input.expectedQuantity) || input.expectedQuantity < 0) throw new Error("STOCK_COUNT_EXPECTED_INVALID");
+  if (!Number.isFinite(input.countedQuantity) || input.countedQuantity < 0) throw new Error("STOCK_COUNT_COUNTED_INVALID");
+  if (!Number.isFinite(input.unitCost) || input.unitCost < 0) throw new Error("STOCK_COUNT_UNIT_COST_INVALID");
+  return { productCode, expectedQuantity: Number(input.expectedQuantity.toFixed(4)), countedQuantity: Number(input.countedQuantity.toFixed(4)), unitCost: Number(input.unitCost.toFixed(4)) };
+}
+
 export function validateStockMovement(input: { quantity: number; unitCost: number; type: "IN" | "OUT" }) {
   if (!Number.isFinite(input.quantity) || input.quantity <= 0) throw new Error("STOCK_QUANTITY_INVALID");
   if (!Number.isFinite(input.unitCost) || input.unitCost < 0) throw new Error("STOCK_UNIT_COST_INVALID");

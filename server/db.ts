@@ -3,10 +3,10 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
+  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
-import { buildStockTransfer, normalizeWarehouseCode, validateStockMovement } from "./operations";
+import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, validateStockMovement } from "./operations";
 import { applyReconciliationAdjustment } from "./reconciliation";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
@@ -578,6 +578,73 @@ export async function getAuditEventsForUserCompany(userId: number, companyId: nu
   if (from) filters.push(gte(auditEvents.createdAt, from));
   if (to) filters.push(lte(auditEvents.createdAt, to));
   return db.select({ event: auditEvents }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).where(and(...filters)).orderBy(desc(auditEvents.id));
+}
+
+type StockCountLineInput = { productCode: string; expectedQuantity: number; countedQuantity: number; unitCost: number };
+
+export async function createStockCountForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; warehouseId?: number; reference: string; countDate: Date; notes?: string; items: StockCountLineInput[] }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
+  if (!input.items.length) throw new Error("STOCK_COUNT_ITEMS_REQUIRED");
+  const uniqueCodes = new Set(input.items.map((item) => item.productCode.trim().toUpperCase()));
+  if (uniqueCodes.size !== input.items.length) throw new Error("STOCK_COUNT_DUPLICATE_PRODUCT");
+  if (input.warehouseId) {
+    const warehouse = await db.select({ id: warehouses.id }).from(warehouses).where(and(eq(warehouses.id, input.warehouseId), eq(warehouses.companyId, input.companyId), eq(warehouses.active, 1))).limit(1);
+    if (!warehouse[0]) throw new Error("WAREHOUSE_NOT_FOUND_OR_FORBIDDEN");
+  }
+  const normalized = input.items.map((item) => validateStockCountLine(item));
+  const result = await db.transaction(async (tx) => {
+    const inserted = await tx.insert(stockCounts).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, warehouseId: input.warehouseId, reference: input.reference.trim(), countDate: input.countDate, notes: input.notes?.trim() || undefined, createdBy: input.userId });
+    const countId = Number(inserted[0].insertId);
+    for (const item of normalized) await tx.insert(stockCountItems).values({ organizationId: input.organizationId, companyId: input.companyId, countId, productCode: item.productCode, expectedQuantity: item.expectedQuantity.toFixed(4), countedQuantity: item.countedQuantity.toFixed(4), unitCost: item.unitCost.toFixed(4) });
+    return countId;
+  });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "STOCK_COUNT_CREATED", entityType: "stockCount", entityId: String(result), beforeState: null, afterState: JSON.stringify({ reference: input.reference, warehouseId: input.warehouseId ?? null, itemCount: normalized.length }), correlationId: `stock-count:${result}` });
+  return { id: result, status: "DRAFT" as const, reference: input.reference.trim() };
+}
+
+export async function listStockCountsForUserCompany(input: { userId: number; companyId: number }) {
+  const db = await getDb();
+  if (!db) return [];
+  const rows = await db.select({ count: stockCounts, organization: organizations }).from(stockCounts).innerJoin(organizations, eq(stockCounts.organizationId, organizations.id)).where(and(eq(stockCounts.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).orderBy(desc(stockCounts.id));
+  return Promise.all(rows.map(async ({ count }) => ({ count, items: await db.select({ item: stockCountItems }).from(stockCountItems).where(and(eq(stockCountItems.countId, count.id), eq(stockCountItems.companyId, input.companyId))).orderBy(stockCountItems.productCode) })));
+}
+
+export async function reviewStockCountForUser(input: { userId: number; companyId: number; countId: number; decision: "VALIDATED" | "CANCELLED" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ count: stockCounts, organization: organizations }).from(stockCounts).innerJoin(organizations, eq(stockCounts.organizationId, organizations.id)).where(and(eq(stockCounts.id, input.countId), eq(stockCounts.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = rows[0];
+  if (!current || current.count.status !== "DRAFT") throw new Error("STOCK_COUNT_NOT_DRAFT_OR_FORBIDDEN");
+  await db.update(stockCounts).set({ status: input.decision, validatedBy: input.decision === "VALIDATED" ? input.userId : undefined }).where(eq(stockCounts.id, input.countId));
+  await appendAuditEventForUser({ organizationId: current.count.organizationId, companyId: input.companyId, actorUserId: input.userId, action: `STOCK_COUNT_${input.decision}`, entityType: "stockCount", entityId: String(input.countId), beforeState: JSON.stringify({ status: current.count.status }), afterState: JSON.stringify({ status: input.decision }), correlationId: `stock-count:${input.countId}:${input.decision}` });
+  return { id: input.countId, status: input.decision };
+}
+
+export async function applyStockCountForUser(input: { userId: number; companyId: number; countId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ count: stockCounts, organization: organizations }).from(stockCounts).innerJoin(organizations, eq(stockCounts.organizationId, organizations.id)).where(and(eq(stockCounts.id, input.countId), eq(stockCounts.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = rows[0];
+  if (!current || current.count.status !== "VALIDATED") throw new Error("STOCK_COUNT_NOT_VALIDATED_OR_FORBIDDEN");
+  await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: current.count.periodId });
+  const items = await db.select({ item: stockCountItems }).from(stockCountItems).where(and(eq(stockCountItems.countId, input.countId), eq(stockCountItems.companyId, input.companyId)));
+  const adjustments = items.map(({ item }) => ({ item, difference: Number(item.countedQuantity) - Number(item.expectedQuantity) })).filter(({ difference }) => Math.abs(difference) > 0.0000001);
+  const result = await db.transaction(async (tx) => {
+    const movementIds: Array<{ itemId: number; movementId: number }> = [];
+    for (const adjustment of adjustments) {
+      const movement = await tx.insert(stockMovements).values({ organizationId: current.count.organizationId, companyId: input.companyId, periodId: current.count.periodId, warehouseId: current.count.warehouseId, productCode: adjustment.item.productCode, type: adjustment.difference > 0 ? "IN" : "OUT", quantity: Math.abs(adjustment.difference).toFixed(4), unitCost: adjustment.item.unitCost, sourceDocumentId: undefined, correlationId: `stock-count:${input.countId}:${adjustment.item.id}` });
+      const movementId = Number(movement[0].insertId);
+      await tx.update(stockCountItems).set({ adjustmentMovementId: movementId }).where(eq(stockCountItems.id, adjustment.item.id));
+      movementIds.push({ itemId: adjustment.item.id, movementId });
+    }
+    await tx.update(stockCounts).set({ status: "APPLIED", appliedAt: new Date() }).where(eq(stockCounts.id, input.countId));
+    return movementIds;
+  });
+  await appendAuditEventForUser({ organizationId: current.count.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "STOCK_COUNT_APPLIED", entityType: "stockCount", entityId: String(input.countId), beforeState: JSON.stringify({ status: current.count.status }), afterState: JSON.stringify({ status: "APPLIED", adjustmentCount: result.length }), correlationId: `stock-count:${input.countId}:apply` });
+  return { id: input.countId, status: "APPLIED" as const, adjustments: result };
 }
 
 export async function getStockBalancesForUserCompany(input: { userId: number; companyId: number }) {

@@ -251,6 +251,39 @@ export const warehouses = mysqlTable("warehouses", {
   companyCodeUnique: uniqueIndex("warehouses_company_code_unique").on(table.companyId, table.code),
 }));
 
+export const stockCounts = mysqlTable("stockCounts", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  periodId: int("periodId").notNull(),
+  warehouseId: int("warehouseId"),
+  reference: varchar("reference", { length: 80 }).notNull(),
+  countDate: timestamp("countDate").notNull(),
+  status: mysqlEnum("status", ["DRAFT", "VALIDATED", "APPLIED", "CANCELLED"]).default("DRAFT").notNull(),
+  notes: text("notes"),
+  createdBy: int("createdBy").notNull(),
+  validatedBy: int("validatedBy"),
+  appliedAt: timestamp("appliedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  companyReferenceUnique: uniqueIndex("stock_counts_company_reference_unique").on(table.companyId, table.reference),
+}));
+
+export const stockCountItems = mysqlTable("stockCountItems", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  countId: int("countId").notNull(),
+  productCode: varchar("productCode", { length: 80 }).notNull(),
+  expectedQuantity: decimal("expectedQuantity", { precision: 18, scale: 4 }).notNull(),
+  countedQuantity: decimal("countedQuantity", { precision: 18, scale: 4 }).notNull(),
+  unitCost: decimal("unitCost", { precision: 18, scale: 4 }).notNull(),
+  adjustmentMovementId: int("adjustmentMovementId"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  countProductUnique: uniqueIndex("stock_count_items_count_product_unique").on(table.countId, table.productCode),
+}));
+
 export const fileAssets = mysqlTable("fileAssets", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),
