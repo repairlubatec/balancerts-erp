@@ -1126,3 +1126,11 @@
 - [x] Integrar auditoria, origem da folha e prevenção de duplicados
 - [x] Adicionar testes de equilíbrio, permissões, idempotência e auto-aprovação
 - [x] Executar suite/build, rever visualmente e guardar checkpoint
+
+## RH — rastreabilidade e exportação do diário
+
+- [x] Mostrar responsáveis, conferente e aprovador no detalhe da folha
+- [x] Ligar o diário salarial ao Centro de Auditoria
+- [x] Exportar linhas do diário em CSV/XLSX
+- [x] Testar exportação, rastreabilidade e isolamento
+- [x] Executar suite/build, rever visualmente e guardar checkpoint

@@ -620,6 +620,14 @@ export async function postPayrollJournalForUser(input: { userId: number; company
   await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_ACCOUNTING_JOURNAL_CREATED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ accountingLinkStatus: "POSTED", entryId: entry.entryId ?? entry.entry?.id }), correlationId: input.idempotencyKey });
   return { ...entry, payrollRunId: run.id };
 }
+export async function getPayrollJournalForUserRun(input: { userId: number; companyId: number; runId: number }) {
+  const db = await getDb();
+  if (!db) return [];
+  const run = await getPayrollRunForUser(db, input.userId, input.companyId, input.runId);
+  const entryId = run.accountingReference?.startsWith("DIARIO-") ? Number(run.accountingReference.slice(7)) : 0;
+  if (!entryId) return [];
+  return db.select({ entry: journalEntries, line: journalLines, account: chartAccounts }).from(journalEntries).innerJoin(journalLines, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(chartAccounts.id, journalLines.accountId)).where(and(eq(journalEntries.id, entryId), eq(journalEntries.companyId, input.companyId), organizationAccessCondition(input.userId))).orderBy(journalLines.id);
+}
 export async function getPayrollItemsForUserRun(userId: number, companyId: number, runId: number) {
   const db = await getDb();
   if (!db) return [];
