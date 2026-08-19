@@ -994,3 +994,12 @@
 - [x] Completar centro de auditoria com filtros, detalhe e exportação controlada
 - [x] Rever RBAC, isolamento, idioma português e navegação desktop no módulo Controlo
 - [x] Executar suite integral, revisão visual e guardar checkpoint do módulo Controlo
+
+## Balancerts IA e Definições — nova etapa
+
+- [x] Inventariar os painéis, procedimentos e estados actuais de Balancerts IA e Definições
+- [x] Completar configuração persistente e estado do provider Balancerts IA
+- [x] Completar sugestões, revisão humana, preenchimento assistido e auditoria sem aplicação automática
+- [x] Completar Definições com destinos operacionais, normas, séries, permissões e integrações preparadas
+- [x] Rever RBAC, isolamento, idioma português e navegação desktop nos dois postos
+- [x] Executar suite integral, revisão visual e guardar checkpoint dos dois postos
