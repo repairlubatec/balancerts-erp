@@ -1,0 +1,2 @@
+ALTER TABLE `organizationMemberships` ADD CONSTRAINT `organizationMemberships_organizationId_organizations_id_fk` FOREIGN KEY (`organizationId`) REFERENCES `organizations`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `organizationMemberships` ADD CONSTRAINT `organizationMemberships_userId_users_id_fk` FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;

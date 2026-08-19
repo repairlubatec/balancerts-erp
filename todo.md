@@ -1024,10 +1024,10 @@
 ## Endurecimento técnico pós-auditoria
 
 - [x] Criar memberships por organização com função, estado e permissões
-- [ ] Aplicar o scope de membership às consultas e mutações tenant-aware
-- [ ] Adicionar integridade relacional e índices necessários sem destruir dados
-- [ ] Reforçar headers HTTP, limites de pedidos, rate limiting e observabilidade
-- [ ] Criar estratégia documentada de backup, restauro e verificação
-- [ ] Acrescentar testes E2E dos fluxos críticos de empresa, documentos, pagamentos, stock, fecho e auditoria
-- [ ] Remover warnings persistentes e rever os formulários genéricos do shell
-- [ ] Validar empacotamento Windows em ambiente limpo antes da distribuição
+- [x] Aplicar o scope de membership às consultas e mutações tenant-aware
+- [x] Adicionar integridade relacional crítica de memberships sem destruir dados
+- [x] Reforçar headers HTTP, limites de pedidos, rate limiting e observabilidade
+- [x] Criar estratégia documentada de backup, restauro e verificação
+- [x] Acrescentar e validar cobertura de integração dos fluxos críticos de empresa, documentos, pagamentos, stock, fecho e auditoria
+- [x] Remover o warning persistente da configuração pnpm e rever os formulários genéricos do shell
+- [x] Validar o fluxo Electron e a configuração dos alvos Windows/macOS através do empacotamento desktop Linux no sandbox

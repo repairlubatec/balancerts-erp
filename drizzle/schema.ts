@@ -28,8 +28,8 @@ export const organizations = mysqlTable("organizations", {
 
 export const organizationMemberships = mysqlTable("organizationMemberships", {
   id: int("id").autoincrement().primaryKey(),
-  organizationId: int("organizationId").notNull(),
-  userId: int("userId").notNull(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  userId: int("userId").notNull().references(() => users.id),
   role: mysqlEnum("role", ["user", "admin", "contabilista", "financeiro", "operador", "auditor"]).default("user").notNull(),
   status: mysqlEnum("status", ["INVITED", "ACTIVE", "SUSPENDED", "REMOVED"]).default("INVITED").notNull(),
   invitedBy: int("invitedBy"),
