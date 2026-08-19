@@ -1176,3 +1176,10 @@
 - [x] Garantir que totais e dados do PDF correspondem ao colaborador seleccionado
 - [x] Testar selecção, impressão e preservação do mapa colectivo
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## Centro de Tarefas — identificação de responsáveis
+
+- [x] Devolver nomes e emails dos responsáveis nas tarefas RH com isolamento por empresa
+- [x] Apresentar responsável e criador na listagem do Centro de Tarefas
+- [x] Testar autorização, isolamento e estados sem responsável
+- [x] Executar build, rever visualmente e guardar checkpoint

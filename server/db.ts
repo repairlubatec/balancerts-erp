@@ -554,7 +554,11 @@ export async function createHumanResourcesTaskForUser(input: { userId: number; o
 export async function getHumanResourcesTasksForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
-  return db.select({ task: humanResourcesTasks }).from(humanResourcesTasks).where(and(eq(humanResourcesTasks.companyId, companyId), or(eq(humanResourcesTasks.status, "PENDING"), eq(humanResourcesTasks.status, "IN_PROGRESS")), organizationAccessCondition(userId))).orderBy(humanResourcesTasks.dueDate);
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(eq(humanResourcesTasks.companyId, companyId), or(eq(humanResourcesTasks.status, "PENDING"), eq(humanResourcesTasks.status, "IN_PROGRESS")), organizationAccessCondition(userId))).orderBy(humanResourcesTasks.dueDate);
+  const actorIds = Array.from(new Set(rows.flatMap(({ task }) => [task.assigneeUserId, task.createdBy, task.completedBy].filter((id): id is number => Boolean(id)))));
+  const actorRows = actorIds.length ? await db.select({ id: users.id, name: users.name, email: users.email }).from(users).where(inArray(users.id, actorIds)) : [];
+  const actorById = new Map(actorRows.map((actor) => [actor.id, actor]));
+  return rows.map(({ task }) => ({ task, actors: { assignee: task.assigneeUserId ? actorById.get(task.assigneeUserId) ?? null : null, creator: actorById.get(task.createdBy) ?? null, completer: task.completedBy ? actorById.get(task.completedBy) ?? null : null } }));
 }
 export async function updateHumanResourcesTaskForUser(input: { userId: number; companyId: number; taskId: number; status?: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"; assigneeUserId?: number | null; dueDate?: Date | null; priority?: "LOW" | "NORMAL" | "HIGH" | "URGENT" }) {
   const db = await getDb();
