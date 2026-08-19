@@ -1160,3 +1160,19 @@
 - [x] Integrar formulário de criação no Centro de Tarefas
 - [x] Testar isolamento, permissões, responsável e prazo
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## RH — logótipo oficial no recibo PDF
+
+- [ ] Localizar e confirmar o activo oficial da Repair Lubatec
+- [ ] Preparar o logótipo para cabeçalho sem perda de legibilidade
+- [ ] Integrar o logótipo no recibo interno PDF com fallback sem imagem
+- [ ] Validar associação da empresa, impressão e testes
+- [ ] Executar build, rever visualmente e guardar checkpoint
+
+## RH — recibo individual por colaborador
+
+- [x] Adicionar selecção de colaborador no detalhe da folha
+- [x] Alternar entre mapa colectivo e recibo individual
+- [x] Garantir que totais e dados do PDF correspondem ao colaborador seleccionado
+- [x] Testar selecção, impressão e preservação do mapa colectivo
+- [x] Executar build, rever visualmente e guardar checkpoint
