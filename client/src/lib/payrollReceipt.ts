@@ -28,7 +28,8 @@ export function buildReceiptExportRows(items: Array<{ employee: { fullName: stri
 }
 
 function pdfEscape(value: string) {
-  return value.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+  const ascii = value.normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").replace(/[^\\x20-\\x7E]/g, "?");
+  return ascii.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
 }
 
 export function buildPayrollReceiptPdf(input: { companyName: string; period: string; issuedOn: string; employeeName: string; employeeNumber: string; gross: number; socialSecurity: number; irt: number; net: number }) {
