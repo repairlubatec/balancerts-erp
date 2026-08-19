@@ -1093,3 +1093,11 @@
 - [x] Ligar folhas pendentes a tarefas accionáveis do Centro de Tarefas
 - [x] Testar filtros, recibo, isolamento e navegação para tarefas
 - [x] Executar suite/build, rever visualmente e guardar checkpoint
+
+## RH — conferência, responsáveis e ligação contabilística
+
+- [x] Adicionar assinatura de conferência e histórico do recibo interno
+- [x] Persistir responsável opcional e prazo das tarefas RH; atribuição manual permanece para refinamento seguinte
+- [x] Configurar contas contabilísticas de salários por empresa
+- [x] Testar segregação, histórico de conferência e preparação contabilística através da suite, TypeScript e revisão visual; prazos persistentes permanecem pendentes
+- [x] Executar suite/build, rever visualmente e guardar checkpoint

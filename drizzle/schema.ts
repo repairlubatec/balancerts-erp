@@ -849,6 +849,10 @@ export const payrollRuleSets = mysqlTable("payrollRuleSets", {
   irtBrackets: text("irtBrackets").notNull(),
   sourceUrl: varchar("sourceUrl", { length: 512 }),
   verificationStatus: mysqlEnum("verificationStatus", ["INTERNAL_REVIEW", "EXTERNALLY_VERIFIED", "SUPERSEDED"]).default("INTERNAL_REVIEW").notNull(),
+  salaryAccountCode: varchar("salaryAccountCode", { length: 30 }),
+  socialExpenseAccountCode: varchar("socialExpenseAccountCode", { length: 30 }),
+  irtPayableAccountCode: varchar("irtPayableAccountCode", { length: 30 }),
+  netPayableAccountCode: varchar("netPayableAccountCode", { length: 30 }),
   createdBy: int("createdBy").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 }, (table) => ({
@@ -875,8 +879,27 @@ export const payrollRuns = mysqlTable("payrollRuns", {
   closedBy: int("closedBy"),
   closedAt: timestamp("closedAt"),
   accountingLinkStatus: mysqlEnum("accountingLinkStatus", ["NOT_PREPARED", "PREPARED", "POSTED"]).default("NOT_PREPARED").notNull(),
+  reviewedBy: int("reviewedBy"),
+  reviewedAt: timestamp("reviewedAt"),
+  reviewNotes: text("reviewNotes"),
 }, (table) => ({
   companyPayrollPeriodUnique: uniqueIndex("payroll_runs_company_period_unique").on(table.companyId, table.year, table.month),
+}));
+export const humanResourcesTasks = mysqlTable("humanResourcesTasks", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  companyId: int("companyId").notNull().references(() => companies.id),
+  payrollRunId: int("payrollRunId").references(() => payrollRuns.id),
+  title: varchar("title", { length: 180 }).notNull(),
+  status: mysqlEnum("status", ["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"]).default("PENDING").notNull(),
+  assigneeUserId: int("assigneeUserId").references(() => users.id),
+  dueDate: timestamp("dueDate"),
+  createdBy: int("createdBy").notNull().references(() => users.id),
+  completedBy: int("completedBy").references(() => users.id),
+  completedAt: timestamp("completedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  companyTaskIndex: uniqueIndex("hr_tasks_company_id_index").on(table.companyId, table.id),
 }));
 export const payrollItems = mysqlTable("payrollItems", {
   id: int("id").autoincrement().primaryKey(),

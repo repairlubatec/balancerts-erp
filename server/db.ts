@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
+  auditEvents, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, validateStockMovement } from "./operations";
@@ -514,7 +514,7 @@ export async function getPayrollRuleSetsForUserCompany(userId: number, companyId
   if (!db) return [];
   return db.select({ ruleSet: payrollRuleSets }).from(payrollRuleSets).where(and(eq(payrollRuleSets.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuleSets.effectiveFrom));
 }
-export async function createPayrollRuleSetForUser(input: { userId: number; organizationId: number; companyId: number; version: string; effectiveFrom: Date; effectiveTo?: Date; socialEmployeeRate: number; socialEmployerRate: number; irtBrackets: string; sourceUrl?: string }) {
+export async function createPayrollRuleSetForUser(input: { userId: number; organizationId: number; companyId: number; version: string; effectiveFrom: Date; effectiveTo?: Date; socialEmployeeRate: number; socialEmployerRate: number; irtBrackets: string; sourceUrl?: string; salaryAccountCode?: string; socialExpenseAccountCode?: string; irtPayableAccountCode?: string; netPayableAccountCode?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertCompanyReady(db, input.userId, input.companyId);
@@ -531,6 +531,11 @@ export async function getPayrollRunsForUserCompany(userId: number, companyId: nu
   if (!db) return [];
   return db.select({ run: payrollRuns, ruleSet: payrollRuleSets }).from(payrollRuns).innerJoin(payrollRuleSets, eq(payrollRuns.ruleSetId, payrollRuleSets.id)).where(and(eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(payrollRuns.year), desc(payrollRuns.month));
 }
+export async function getHumanResourcesTasksForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ task: humanResourcesTasks }).from(humanResourcesTasks).where(and(eq(humanResourcesTasks.companyId, companyId), or(eq(humanResourcesTasks.status, "PENDING"), eq(humanResourcesTasks.status, "IN_PROGRESS")), organizationAccessCondition(userId))).orderBy(humanResourcesTasks.dueDate);
+}
 async function getPayrollRunForUser(db: NonNullable<Awaited<ReturnType<typeof getDb>>>, userId: number, companyId: number, runId: number) {
   const rows = await db.select({ run: payrollRuns }).from(payrollRuns).where(and(eq(payrollRuns.id, runId), eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).limit(1);
   const run = rows[0]?.run;
@@ -542,7 +547,9 @@ export async function approvePayrollRunForUser(input: { userId: number; companyI
   if (!db) throw new Error("Database unavailable");
   const run = await getPayrollRunForUser(db, input.userId, input.companyId, input.runId);
   if (run.status !== "CALCULATED") throw new Error("PAYROLL_RUN_NOT_READY_FOR_APPROVAL");
-  await db.update(payrollRuns).set({ status: "APPROVED", approvedBy: input.userId, approvedAt: new Date() }).where(eq(payrollRuns.id, input.runId));
+  const reviewedAt = new Date();
+  await db.update(payrollRuns).set({ status: "APPROVED", approvedBy: input.userId, approvedAt: reviewedAt, reviewedBy: input.userId, reviewedAt, reviewNotes: "Conferência realizada no posto RH antes da aprovação." }).where(eq(payrollRuns.id, input.runId));
+  await db.update(humanResourcesTasks).set({ status: "COMPLETED", completedBy: input.userId, completedAt: reviewedAt }).where(and(eq(humanResourcesTasks.payrollRunId, input.runId), eq(humanResourcesTasks.status, "PENDING")));
   await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_RUN_APPROVED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ ...run, status: "APPROVED", approvedBy: input.userId }), correlationId: `payroll-run:${run.id}:approve` });
   return db.select({ run: payrollRuns }).from(payrollRuns).where(eq(payrollRuns.id, input.runId)).limit(1);
 }
@@ -551,7 +558,10 @@ export async function closePayrollRunForUser(input: { userId: number; companyId:
   if (!db) throw new Error("Database unavailable");
   const run = await getPayrollRunForUser(db, input.userId, input.companyId, input.runId);
   if (run.status !== "APPROVED") throw new Error("PAYROLL_RUN_NOT_APPROVED");
-  await db.update(payrollRuns).set({ status: "POSTED", closedBy: input.userId, closedAt: new Date(), accountingLinkStatus: "PREPARED" }).where(eq(payrollRuns.id, input.runId));
+  const closedAt = new Date();
+  await db.update(payrollRuns).set({ status: "POSTED", closedBy: input.userId, closedAt, accountingLinkStatus: "PREPARED" }).where(eq(payrollRuns.id, input.runId));
+  await db.update(humanResourcesTasks).set({ status: "COMPLETED", completedBy: input.userId, completedAt: closedAt }).where(and(eq(humanResourcesTasks.payrollRunId, input.runId), eq(humanResourcesTasks.status, "PENDING")));
+  await db.insert(humanResourcesTasks).values({ organizationId: run.organizationId, companyId: run.companyId, payrollRunId: input.runId, title: `Folha ${String(run.month).padStart(2, "0")}/${run.year} pronta para lançamento contabilístico`, dueDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), createdBy: input.userId });
   await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_RUN_CLOSED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ ...run, status: "POSTED", accountingLinkStatus: "PREPARED", closedBy: input.userId }), correlationId: `payroll-run:${run.id}:close` });
   return db.select({ run: payrollRuns }).from(payrollRuns).where(eq(payrollRuns.id, input.runId)).limit(1);
 }
@@ -582,6 +592,8 @@ export async function calculatePayrollRunForUser(input: { userId: number; organi
     await db.insert(payrollItems).values({ organizationId: input.organizationId, companyId: input.companyId, runId, employeeId: row.employee.id, contractId: row.contract.id, grossAmount: String(calculated.grossAmount), socialEmployeeAmount: String(calculated.socialEmployeeAmount), irtAmount: String(calculated.irtAmount), socialEmployerAmount: String(calculated.socialEmployerAmount), netAmount: String(calculated.netAmount), breakdown: JSON.stringify({ taxableAmount: calculated.taxableAmount, ruleSetId: rule.id, ruleVersion: rule.version }) });
   }
   await db.update(payrollRuns).set({ grossTotal: String(grossTotal), socialEmployeeTotal: String(socialEmployeeTotal), irtTotal: String(irtTotal), socialEmployerTotal: String(socialEmployerTotal), netTotal: String(netTotal) }).where(eq(payrollRuns.id, runId));
+  const approvalDueDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
+  await db.insert(humanResourcesTasks).values({ organizationId: input.organizationId, companyId: input.companyId, payrollRunId: runId, title: `Folha ${String(input.month).padStart(2, "0")}/${input.year} requer aprovação`, dueDate: approvalDueDate, createdBy: input.userId });
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYROLL_RUN_CALCULATED", entityType: "payrollRun", entityId: String(runId), beforeState: null, afterState: JSON.stringify({ year: input.year, month: input.month, status: "CALCULATED", employees: contractRows.length, grossTotal, netTotal, ruleVersion: rule.version }), correlationId: `payroll-run:${runId}` });
   return db.select({ run: payrollRuns, ruleSet: payrollRuleSets }).from(payrollRuns).innerJoin(payrollRuleSets, eq(payrollRuns.ruleSetId, payrollRuleSets.id)).where(eq(payrollRuns.id, runId)).limit(1);
 }
