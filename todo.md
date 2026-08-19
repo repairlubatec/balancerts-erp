@@ -741,3 +741,13 @@
 - [x] Implementar a lacuna funcional prioritária seleccionada: Centro de Tarefas PMR com pendências reais, estados persistentes e encaminhamento accionável; restantes produtos PMR ficam documentados como extensões de escopo
 - [x] Rever testes Vitest, TypeScript, build e screenshots desktop/PWA
 - [x] Guardar checkpoint da auditoria e implementação
+
+# Auditoria linguística 360 — português integral
+
+- [x] Inventariar termos visíveis em inglês na interface, estados, mensagens, menus, tabelas, exportações e documentação apresentada ao utilizador
+- [x] Separar identificadores técnicos internos que não devem ser traduzidos no código ou na base de dados
+- [x] Criar mapa consistente de tradução para estados, acções, módulos, mensagens e validações
+- [x] Corrigir ocorrências visíveis em inglês sem quebrar contratos tRPC, auditoria ou SAF-T
+- [x] Validar pesquisa global, módulos, estados, exportações e mensagens de erro em português
+- [x] Rever testes, TypeScript, build e screenshots
+- [x] Documentar a auditoria e guardar checkpoint

@@ -101,7 +101,7 @@ describe("Home traceability integration", () => {
     fireEvent.change(screen.getByPlaceholderText("Actividade principal"), { target: { value: "Serviços" } });
     fireEvent.change(screen.getByPlaceholderText("Nome(s) e separação por ;"), { target: { value: "Representante Teste" } });
     fireEvent.submit(screen.getByRole("button", { name: "Criar empresa" }).closest("form")!);
-    await waitFor(() => expect(screen.getByText(/Empresa Empresa Teste criada em estado PENDING/)).toBeTruthy());
+    await waitFor(() => expect(screen.getByText(/Empresa Empresa Teste criada em estado pendente/)).toBeTruthy());
   });
 
   it("opens the command palette from a module action", () => {
@@ -263,7 +263,7 @@ describe("Home traceability integration", () => {
     ];
     window.history.pushState({}, "", "/");
     render(<Home />);
-    expect(screen.getAllByText("DOCUMENT_NUMBER_RESERVED")).toHaveLength(2);
+    expect(screen.getAllByText("Documento Número Reservado")).toHaveLength(2);
   });
 
   it("navigates back from an account context and opens the corresponding report", async () => {
