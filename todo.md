@@ -1041,3 +1041,12 @@
 - [x] Expandir testes de fluxos críticos e validação de empacotamento desktop
 - [x] Rever interface desktop, acessibilidade, idioma e desempenho de carregamento
 - [x] Executar validação integral e guardar checkpoint da ronda de melhorias
+
+## Continuação autónoma — nova ronda
+
+- [x] Rever prioridades ainda abertas de permissões, operação, desempenho e distribuição
+- [x] Melhorar gestão de funções e acessos por organização sem quebrar tenants existentes
+- [x] Melhorar prontidão desktop, diagnóstico e documentação de instalação
+- [x] Optimizar carregamento dos módulos e reduzir o bundle inicial
+- [x] Expandir testes de aceitação e segurança dos fluxos críticos
+- [x] Executar validação integral e guardar checkpoint da nova ronda

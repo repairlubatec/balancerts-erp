@@ -397,6 +397,13 @@ export async function assertCompanyAccessForUser(userId: number, companyId: numb
   return rows[0];
 }
 
+export async function getEffectiveRoleForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select({ role: organizationMemberships.role }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).innerJoin(organizationMemberships, eq(organizationMemberships.organizationId, organizations.id)).where(and(eq(companies.id, companyId), eq(organizationMemberships.userId, userId), eq(organizationMemberships.status, "ACTIVE"))).limit(1);
+  return rows[0]?.role ?? null;
+}
+
 export async function getOrganizationMembershipsForUser(userId: number, organizationId?: number) {
   const db = await getDb();
   if (!db) return [];

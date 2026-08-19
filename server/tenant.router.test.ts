@@ -17,6 +17,15 @@ describe("tenant-aware company queries", () => {
   });
 });
 
+describe("effective company role", () => {
+  it("resolves the effective role for the authenticated actor and company", async () => {
+    vi.spyOn(db, "getEffectiveRoleForUserCompany").mockResolvedValue("contabilista");
+    const result = await appRouter.createCaller(auditorContext).companies.effectiveRole({ companyId: 4 });
+    expect(result).toBe("contabilista");
+    expect(db.getEffectiveRoleForUserCompany).toHaveBeenCalledWith(63, 4);
+  });
+});
+
 describe("organization memberships", () => {
   it("allows an authenticated user to read own memberships", async () => {
     vi.spyOn(db, "listOrganizationMembershipsForUser").mockResolvedValue([]);
