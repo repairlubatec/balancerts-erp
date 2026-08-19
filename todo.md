@@ -883,3 +883,18 @@
 - [x] Validar visualmente Contabilidade e Tesouraria e guardar checkpoint
 - [x] Adicionar o período fiscal ao contrato do painel de Tesouraria e ao movimento persistente
 - [x] Corrigir importações do handler de Enter após a separação do utilitário
+
+# Ampliação — Posto completo de Contabilidade
+- [x] Inventariar lacunas do posto contabilístico actual contra operações reais de uma empresa angolana
+- [x] Rever e documentar a base PGCA, a necessidade de versionamento e os limites de actualização oficial
+- [x] Implementar manutenção inicial do plano de contas por empresa com hierarquia, vigência, lançabilidade e auditoria
+- [x] Ligar Diário, Balancete, Resultados e Balanço ao período fiscal; completar extractos e exportação ainda pendentes
+- [ ] Completar lançamento manual com documentos, centros de custo, dimensões e validações
+- [ ] Implementar importação de movimentos com revisão, pré-validação e idempotência
+- [ ] Completar apuramentos, regularizações, reclassificações e encerramento de exercício
+- [ ] Ligar ferramentas contabilísticas à auditoria, permissões, aprovação e histórico imutável
+- [ ] Validar o posto contabilístico ampliado com testes, revisão visual e checkpoint final
+- [x] Corrigir o import de mensagens do novo posto contabilístico e integrar o painel na Contabilidade
+- [x] Tornar o painel do plano de contas compatível com mocks antigos e repetir os testes de Contabilidade
+- [x] Actualizar o teste do lançamento para seleccionar contas PGCA pelos rótulos acessíveis
+- [x] Corrigir compatibilidade da rota de rastreabilidade sem periodId e repetir a suite completa

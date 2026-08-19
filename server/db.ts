@@ -984,38 +984,38 @@ export async function getDocumentAccountingChainForUserCompany(userId: number, c
   return { document: first.document, entries: Array.from(entries.values()) };
 }
 
-export async function getJournalRowsForUserCompany(userId: number, companyId: number): Promise<JournalRow[]> {
+export async function getJournalRowsForUserCompany(userId: number, companyId: number, periodId?: number): Promise<JournalRow[]> {
   const db = await getDb();
   if (!db) return [];
-  const rows = await db.select({ entryId: journalEntries.id, description: journalEntries.description, createdAt: journalEntries.createdAt, sourceDocumentId: journalEntries.sourceDocumentId, accountCode: chartAccounts.code, accountName: chartAccounts.name, debit: journalLines.debit, credit: journalLines.credit }).from(journalLines).innerJoin(journalEntries, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(organizations.ownerUserId, userId), eq(companies.id, companyId), eq(journalEntries.status, "POSTED")));
+  const rows = await db.select({ entryId: journalEntries.id, description: journalEntries.description, createdAt: journalEntries.createdAt, sourceDocumentId: journalEntries.sourceDocumentId, accountCode: chartAccounts.code, accountName: chartAccounts.name, debit: journalLines.debit, credit: journalLines.credit }).from(journalLines).innerJoin(journalEntries, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(organizations.ownerUserId, userId), eq(companies.id, companyId), eq(journalEntries.status, "POSTED"), periodId ? eq(journalEntries.periodId, periodId) : undefined));
   return rows.map((row) => ({ ...row, debit: Number(row.debit), credit: Number(row.credit) }));
 }
 
-export async function getTrialBalanceForUserCompany(userId: number, companyId: number) {
-  const rows = await getJournalRowsForUserCompany(userId, companyId);
+export async function getTrialBalanceForUserCompany(userId: number, companyId: number, periodId?: number) {
+  const rows = await getJournalRowsForUserCompany(userId, companyId, periodId);
   return buildTrialBalance(rows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
 }
 
-export async function getJournalForUserCompany(userId: number, companyId: number) {
-  return buildJournal(await getJournalRowsForUserCompany(userId, companyId));
+export async function getJournalForUserCompany(userId: number, companyId: number, periodId?: number) {
+  return buildJournal(await getJournalRowsForUserCompany(userId, companyId, periodId));
 }
 
-export async function getLedgerForUserCompany(userId: number, companyId: number, accountCode?: string) {
-  return buildLedger(await getJournalRowsForUserCompany(userId, companyId), accountCode);
+export async function getLedgerForUserCompany(userId: number, companyId: number, accountCode?: string, periodId?: number) {
+  return buildLedger(await getJournalRowsForUserCompany(userId, companyId, periodId), accountCode);
 }
 
-export async function getIncomeStatementForUserCompany(userId: number, companyId: number) {
-  const rows = await getJournalRowsForUserCompany(userId, companyId);
+export async function getIncomeStatementForUserCompany(userId: number, companyId: number, periodId?: number) {
+  const rows = await getJournalRowsForUserCompany(userId, companyId, periodId);
   return buildIncomeStatement(rows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
 }
 
-export async function getBalanceSheetForUserCompany(userId: number, companyId: number) {
-  const rows = await getJournalRowsForUserCompany(userId, companyId);
+export async function getBalanceSheetForUserCompany(userId: number, companyId: number, periodId?: number) {
+  const rows = await getJournalRowsForUserCompany(userId, companyId, periodId);
   return buildBalanceSheet(rows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
 }
 
-export async function getReportTraceForUserCompany(userId: number, companyId: number, report: "TRIAL_BALANCE" | "INCOME_STATEMENT" | "BALANCE_SHEET", accountCode?: string) {
-  const rows = await getJournalRowsForUserCompany(userId, companyId);
+export async function getReportTraceForUserCompany(userId: number, companyId: number, report: "TRIAL_BALANCE" | "INCOME_STATEMENT" | "BALANCE_SHEET", accountCode?: string, periodId?: number) {
+  const rows = await getJournalRowsForUserCompany(userId, companyId, periodId);
   const scopedRows = accountCode ? rows.filter((row) => row.accountCode === accountCode) : rows;
   const reportRows = report === "TRIAL_BALANCE" ? buildTrialBalance(scopedRows) : report === "INCOME_STATEMENT" ? buildIncomeStatement(scopedRows) : buildBalanceSheet(scopedRows);
   const documentIds = Array.from(new Set(scopedRows.map((row) => row.sourceDocumentId).filter((id): id is number => id !== null)));
@@ -1272,4 +1272,43 @@ export async function createDocumentSeriesForUser(input: { userId: number; compa
   await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: "DOCUMENT_SERIES_CREATED", entityType: "documentSeries", entityId: String(inserted[0].insertId), beforeState: null, afterState: JSON.stringify({ code, documentType, nextNumber, active: 1 }), correlationId: `company:${input.companyId}:series:${code}:${documentType}` });
   const created = await db.select({ series: documentSeries }).from(documentSeries).where(eq(documentSeries.id, Number(inserted[0].insertId))).limit(1);
   return created[0];
+}
+
+export async function getChartAccountsForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ account: chartAccounts }).from(chartAccounts).innerJoin(companies, eq(chartAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(chartAccounts.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(chartAccounts.code);
+}
+
+export async function createChartAccountForUser(input: { userId: number; companyId: number; code: string; name: string; parentCode?: string; postable?: boolean; validFrom: Date; validTo?: Date | null }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const scope = await db.select({ company: companies, organizationId: organizations.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!scope[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  if (input.parentCode) {
+    const parent = await db.select({ id: chartAccounts.id }).from(chartAccounts).where(and(eq(chartAccounts.companyId, input.companyId), eq(chartAccounts.code, input.parentCode))).limit(1);
+    if (!parent[0]) throw new Error("PARENT_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  }
+  const duplicate = await db.select({ id: chartAccounts.id }).from(chartAccounts).where(and(eq(chartAccounts.companyId, input.companyId), eq(chartAccounts.code, input.code.trim()))).limit(1);
+  if (duplicate[0]) throw new Error("ACCOUNT_CODE_ALREADY_EXISTS");
+  const result = await db.insert(chartAccounts).values({ companyId: input.companyId, code: input.code.trim(), name: input.name.trim(), parentCode: input.parentCode?.trim() || null, postable: input.postable === false ? 0 : 1, validFrom: input.validFrom, validTo: input.validTo ?? null });
+  const id = Number(result[0].insertId);
+  await appendAuditEventForUser({ organizationId: scope[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CHART_ACCOUNT_CREATED", entityType: "chartAccount", entityId: String(id), beforeState: null, afterState: JSON.stringify({ id, code: input.code.trim(), name: input.name.trim(), parentCode: input.parentCode ?? null, postable: input.postable !== false }), correlationId: `chart-account:${id}` });
+  return { id, audited: true };
+}
+
+export async function updateChartAccountForUser(input: { userId: number; companyId: number; accountId: number; name?: string; parentCode?: string | null; postable?: boolean; validTo?: Date | null }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ account: chartAccounts, organizationId: organizations.id }).from(chartAccounts).innerJoin(companies, eq(chartAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(chartAccounts.id, input.accountId), eq(chartAccounts.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = rows[0];
+  if (!current) throw new Error("ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  if (input.parentCode) {
+    if (input.parentCode === current.account.code) throw new Error("ACCOUNT_PARENT_CYCLE");
+    const parent = await db.select({ id: chartAccounts.id }).from(chartAccounts).where(and(eq(chartAccounts.companyId, input.companyId), eq(chartAccounts.code, input.parentCode))).limit(1);
+    if (!parent[0]) throw new Error("PARENT_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  }
+  await db.update(chartAccounts).set({ ...(input.name === undefined ? {} : { name: input.name.trim() }), ...(input.parentCode === undefined ? {} : { parentCode: input.parentCode?.trim() || null }), ...(input.postable === undefined ? {} : { postable: input.postable ? 1 : 0 }), ...(input.validTo === undefined ? {} : { validTo: input.validTo }) }).where(eq(chartAccounts.id, input.accountId));
+  await appendAuditEventForUser({ organizationId: current.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CHART_ACCOUNT_UPDATED", entityType: "chartAccount", entityId: String(input.accountId), beforeState: JSON.stringify(current.account), afterState: JSON.stringify({ ...current.account, ...input }), correlationId: `chart-account:${input.accountId}` });
+  return { id: input.accountId, audited: true };
 }

@@ -27,7 +27,7 @@ vi.mock("@/lib/trpc", () => ({
     },
     inventory: { record: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) } },
     documents: { list: { useQuery: () => ({ data: [], isLoading: false }) }, createDraft: { useMutation: (options?: { onSuccess?: (result: { documentNumber: string }) => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.({ documentNumber: "FT 2026/TEST" })), isPending: false, error: null }) }, transition: { useMutation: (options?: { onSuccess?: (result: { from: "DRAFT"; to: "VALIDATED" }) => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.({ from: "DRAFT", to: "VALIDATED" })), isPending: false, error: null }) } },
-    accounting: { validateEntry: { useMutation: (options?: { onSuccess?: (result: { ok: true; debit: number; credit: number }) => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.({ ok: true, debit: 100, credit: 100 })), isPending: false, error: null }) }, post: { useMutation: (options?: { onSuccess?: (result: { entryId: number }) => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.({ entryId: 1 })), isPending: false, error: null }) } },
+    accounting: { accounts: { useQuery: () => ({ data: [{ account: { id: 11, code: "11", name: "Meios monetários", postable: 1 } }, { account: { id: 21, code: "21", name: "Clientes", postable: 1 } }], isLoading: false }) }, validateEntry: { useMutation: (options?: { onSuccess?: (result: { ok: true; debit: number; credit: number }) => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.({ ok: true, debit: 100, credit: 100 })), isPending: false, error: null }) }, post: { useMutation: (options?: { onSuccess?: (result: { entryId: number }) => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.({ entryId: 1 })), isPending: false, error: null }) } },
     closing: {
       evaluate: { useMutation: () => ({ mutate: vi.fn((_input: unknown, options?: { onSuccess?: (result: { canClose: boolean; blockers: unknown[] }) => unknown }) => { options?.onSuccess?.({ canClose: false, blockers: [{ code: "DOCUMENTS_VALIDATED" }] }); }), isPending: false, error: null }) },
       close: { useMutation: (options?: { onSuccess?: () => unknown }) => ({ mutate: vi.fn(() => options?.onSuccess?.()), isPending: false, error: null }) },
@@ -152,8 +152,8 @@ describe("Home traceability integration", () => {
     window.history.pushState({}, "", "/contabilidade");
     render(<Home />);
     fireEvent.change(screen.getByPlaceholderText("Descrição"), { target: { value: "Ajuste operacional" } });
-    fireEvent.change(screen.getByPlaceholderText("Conta débito ID"), { target: { value: "11" } });
-    fireEvent.change(screen.getByPlaceholderText("Conta crédito ID"), { target: { value: "21" } });
+    fireEvent.change(screen.getByLabelText("Conta a débito"), { target: { value: "11" } });
+    fireEvent.change(screen.getByLabelText("Conta a crédito"), { target: { value: "21" } });
     fireEvent.change(screen.getByPlaceholderText("Valor AOA"), { target: { value: "2500" } });
     fireEvent.click(screen.getByRole("button", { name: "Validar e publicar" }));
     await waitFor(() => expect(screen.getByText("Lançamento #1 publicado e auditado.")).toBeTruthy());
