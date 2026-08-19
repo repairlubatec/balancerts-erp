@@ -17,6 +17,20 @@ describe("router Balancerts IA", () => {
     expect(status).toHaveBeenCalledWith({ userId: 52, companyId: 2 });
   });
 
+  it("testa a disponibilidade local sem enviar conteúdo fiscal", async () => {
+    const testLocal = vi.spyOn(db, "testBalancertsIaLocalProviderForUser").mockResolvedValue({ provider: "local", model: "qwen2.5:3b", available: false, responseMs: 12 });
+    const result = await appRouter.createCaller(context("admin")).ia.testLocalProvider({ companyId: 2 });
+    expect(result).toEqual({ provider: "local", model: "qwen2.5:3b", available: false, responseMs: 12 });
+    expect(testLocal).toHaveBeenCalledWith({ userId: 52, companyId: 2 });
+  });
+
+  it("encaminha preenchimento assistido como sugestão separada", async () => {
+    const suggest = vi.spyOn(db, "createBalancertsIaDocumentSuggestionForUser").mockResolvedValue({ suggestion: { id: 9 } as never, alreadyExists: false });
+    const result = await appRouter.createCaller(context("admin")).ia.suggestDraftCompletion({ companyId: 2, documentId: 8 });
+    expect(result.alreadyExists).toBe(false);
+    expect(suggest).toHaveBeenCalledWith({ userId: 52, companyId: 2, documentId: 8, task: "PREENCHER_RASCUNHO" });
+  });
+
   it("consulta sugestões pendentes com isolamento pelo router", async () => {
     const list = vi.spyOn(db, "getBalancertsIaSuggestionsForUserCompany").mockResolvedValue([]);
     const result = await appRouter.createCaller(context("auditor")).ia.suggestions({ companyId: 2, status: "PROPOSED" });

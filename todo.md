@@ -849,3 +849,12 @@
 - [x] Criar centro desktop de revisão, aprovação e rejeição humana
 - [x] Adicionar permissões, auditoria, isolamento e testes de segurança
 - [x] Validar idioma, ausência de efeitos fiscais, TypeScript, build e suite completa; documentar e guardar checkpoint
+
+# Continuação — Roadmap Balancerts IA ampliado
+- [x] Adicionar filtros por confiança, estado, provider e período no centro de revisão
+- [x] Implementar preenchimento assistido de rascunhos sem aplicação automática
+- [x] Adicionar teste controlado do provider IA local
+- [x] Validar segurança, auditoria, isolamento, idioma e regressões do roadmap
+- [x] Documentar o roadmap ampliado e guardar checkpoint
+- [x] Corrigir a sintaxe do payload de preenchimento assistido e repetir a validação
+- [x] Ajustar o teste de preenchimento assistido para um perfil com permissão de validação

@@ -1,6 +1,6 @@
 import { invokeLLM } from "../_core/llm";
 
-export type IATask = "classificar" | "autocomplete" | "sugerir" | "analisar_documento" | "assistente" | "detectar_duplicado";
+export type IATask = "classificar" | "preencher_rascunho" | "autocomplete" | "sugerir" | "analisar_documento" | "assistente" | "detectar_duplicado";
 
 export type IARequest = {
   task: IATask;

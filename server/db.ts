@@ -9,11 +9,22 @@ import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
 import { ENV } from "./_core/env";
-import { AIRouter, type IAConfig, type IARequest } from "./balancerts-ia/providers";
+import { AIRouter, LocalAIProvider, type IAConfig, type IARequest } from "./balancerts-ia/providers";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
-export async function createBalancertsIaDocumentSuggestionForUser(input: { userId: number; companyId: number; documentId: number }) {
+export async function testBalancertsIaLocalProviderForUser(input: { userId: number; companyId: number }) {
+  const config = await getBalancertsIaConfigForUserCompany(input);
+  if (!config.enabled || !config.localEnabled) throw new Error("IA_LOCAL_DESACTIVADA");
+  const started = Date.now();
+  const provider = new LocalAIProvider({ localBaseUrl: config.localBaseUrl, localPort: config.localPort, localModel: config.localModel });
+  const available = await provider.isAvailable();
+  const responseMs = Date.now() - started;
+  await createBalancertsIaLogForUser({ userId: input.userId, companyId: input.companyId, operation: "TESTE_IA_LOCAL", provider: "local", model: provider.model, responseMs, resultSummary: JSON.stringify({ available, endpoint: `${config.localBaseUrl}:${config.localPort}` }) });
+  return { provider: "local", model: provider.model, available, responseMs };
+}
+
+export async function createBalancertsIaDocumentSuggestionForUser(input: { userId: number; companyId: number; documentId: number; task?: "CLASSIFICAR_DOCUMENTO" | "PREENCHER_RASCUNHO" }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const rows = await db.select({ document: businessDocuments, company: companies, organization: organizations }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(businessDocuments.id, input.documentId), eq(businessDocuments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
@@ -21,16 +32,18 @@ export async function createBalancertsIaDocumentSuggestionForUser(input: { userI
   if (!row) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
   const config = await getBalancertsIaConfigForUserCompany({ userId: input.userId, companyId: input.companyId });
   if (!config.enabled) throw new Error("IA_DESACTIVADA");
-  const idempotencyKey = `document-classification:${input.companyId}:${input.documentId}:${row.document.immutableHash ?? row.document.createdAt.getTime()}`;
+  const task = input.task ?? "CLASSIFICAR_DOCUMENTO";
+  if (task === "PREENCHER_RASCUNHO" && row.document.status !== "DRAFT") throw new Error("IA_RASCUNHO_REQUER_DOCUMENTO_EM_RASCUNHO");
+  const idempotencyKey = `document-${task.toLowerCase()}:${input.companyId}:${input.documentId}:${row.document.immutableHash ?? row.document.createdAt.getTime()}`;
   const existing = await db.select().from(balancertsIaSuggestions).where(eq(balancertsIaSuggestions.idempotencyKey, idempotencyKey)).limit(1);
   if (existing[0]) return { suggestion: existing[0], alreadyExists: true };
   const iaConfig: IAConfig = { localEnabled: Boolean(config.localEnabled), localBaseUrl: config.localBaseUrl, localPort: config.localPort, localModel: config.localModel, azureEnabled: Boolean(config.azureEnabled), azureEndpoint: config.azureEndpoint, azureDeployment: config.azureDeployment, openaiEnabled: Boolean(config.openaiEnabled), openaiModel: config.openaiModel };
   const safeInput = { documentType: row.document.documentType, status: row.document.status, counterpartyType: row.document.counterpartyType, ivaRegime: row.document.ivaRegime, currency: row.document.currency, netAmount: row.document.netAmount, taxAmount: row.document.taxAmount, totalAmount: row.document.totalAmount };
   let result;
-  try { result = await new AIRouter(iaConfig).execute({ task: "classificar", input: "Classifica este documento apenas para revisão humana. Não alteres dados nem executes operações.", context: safeInput }); } catch (error) { await createBalancertsIaLogForUser({ userId: input.userId, companyId: input.companyId, operation: "CLASSIFICAR_DOCUMENTO", provider: "router", requestSummary: JSON.stringify(safeInput), error: error instanceof Error ? error.message : "IA_ERROR" }); throw error; }
+  try { result = await new AIRouter(iaConfig).execute({ task: task === "PREENCHER_RASCUNHO" ? "preencher_rascunho" : "classificar", input: task === "PREENCHER_RASCUNHO" ? "Sugere o preenchimento deste rascunho apenas para revisão humana. Não alteres dados nem executes operações." : "Classifica este documento apenas para revisão humana. Não alteres dados nem executes operações.", context: safeInput }); } catch (error) { await createBalancertsIaLogForUser({ userId: input.userId, companyId: input.companyId, operation: task, provider: "router", requestSummary: JSON.stringify(safeInput), error: error instanceof Error ? error.message : "IA_ERROR" }); throw error; }
   const suggestionPayload = JSON.stringify({ proposta: result.content, aplicaçãoAutomática: false, revisãoObrigatória: true });
-  await db.insert(balancertsIaSuggestions).values({ organizationId: row.company.organizationId, companyId: input.companyId, createdBy: input.userId, targetType: "DOCUMENT", targetId: input.documentId, task: "CLASSIFICAR_DOCUMENTO", status: "PROPOSED", provider: result.provider, model: result.model, confidence: "50.00", idempotencyKey, inputSummary: JSON.stringify(safeInput), beforeState: JSON.stringify({ status: row.document.status, documentType: row.document.documentType, ivaRegime: row.document.ivaRegime }), suggestion: suggestionPayload });
-  await createBalancertsIaLogForUser({ userId: input.userId, companyId: input.companyId, operation: "CLASSIFICAR_DOCUMENTO", provider: result.provider, model: result.model, confidence: 50, requestSummary: JSON.stringify(safeInput), resultSummary: suggestionPayload, responseMs: result.responseMs });
+  await db.insert(balancertsIaSuggestions).values({ organizationId: row.company.organizationId, companyId: input.companyId, createdBy: input.userId, targetType: "DOCUMENT", targetId: input.documentId, task, status: "PROPOSED", provider: result.provider, model: result.model, confidence: "50.00", idempotencyKey, inputSummary: JSON.stringify(safeInput), beforeState: JSON.stringify({ status: row.document.status, documentType: row.document.documentType, ivaRegime: row.document.ivaRegime }), suggestion: suggestionPayload });
+  await createBalancertsIaLogForUser({ userId: input.userId, companyId: input.companyId, operation: task, provider: result.provider, model: result.model, confidence: 50, requestSummary: JSON.stringify(safeInput), resultSummary: suggestionPayload, responseMs: result.responseMs });
   const created = await db.select().from(balancertsIaSuggestions).where(eq(balancertsIaSuggestions.idempotencyKey, idempotencyKey)).limit(1);
   return { suggestion: created[0], alreadyExists: false };
 }
