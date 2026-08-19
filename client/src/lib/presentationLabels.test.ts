@@ -11,6 +11,14 @@ describe("rótulos de apresentação em português", () => {
     expect(statusLabel("DOCUMENT_ARCHIVED")).toBe("Documento Arquivado");
   });
 
+  it("traduz estados e entidade de Compras", () => {
+    expect(presentationLabel("SUBMITTED")).toBe("Submetida");
+    expect(presentationLabel("APPROVED")).toBe("Aprovada");
+    expect(presentationLabel("RECEIVED")).toBe("Recebida");
+    expect(presentationLabel("purchaseOrder")).toBe("Encomenda de compra");
+    expect(presentationLabel("PURCHASE_ORDER_CREATED")).toBe("Encomenda de compra criada");
+  });
+
   it("traduz tipos e direcções técnicas conhecidas", () => {
     expect(presentationLabel("SERVICE")).toBe("Serviço");
     expect(presentationLabel("CUSTOMER")).toBe("Cliente");

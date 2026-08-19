@@ -169,6 +169,13 @@
       "when": 1787124891522,
       "tag": "0023_green_invisible_woman",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "5",
+      "when": 1787125968741,
+      "tag": "0024_rich_marvel_zombies",
+      "breakpoints": true
     }
   ]
 }

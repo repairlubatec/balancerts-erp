@@ -6,6 +6,8 @@ export const pendingMutationPolicy = [
   { mutation: "files.updateMetadata", allowsPending: false, guard: "owner+assertCompanyReady" },
   { mutation: "files.newVersion", allowsPending: false, guard: "owner+assertCompanyReady" },
   { mutation: "files.archive", allowsPending: false, guard: "owner+assertCompanyReady" },
+  { mutation: "purchases.create", allowsPending: false, guard: "supplier+assertCompanyReady" },
+  { mutation: "purchases.transition", allowsPending: false, guard: "owner+assertCompanyReady" },
   { mutation: "documents.reserveNumber", allowsPending: false, guard: "assertCompanyReady" },
   { mutation: "documents.transition", allowsPending: false, guard: "assertCompanyReady" },
   { mutation: "accounting.post", allowsPending: false, guard: "configurationStatus+period" },

@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { BarChart3, Building2, Calculator, ChevronDown, ClipboardCheck, FileText, Landmark, LayoutDashboard, LogOut, PanelLeft, Receipt, Settings2, ShieldCheck, Truck, UsersRound, WalletCards, Warehouse } from "lucide-react";
+import { BarChart3, Building2, Calculator, ChevronDown, ClipboardCheck, FileText, Landmark, LayoutDashboard, LogOut, PanelLeft, Receipt, Settings2, ShieldCheck, ShoppingCart, Truck, UsersRound, WalletCards, Warehouse } from "lucide-react";
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
@@ -40,6 +40,7 @@ const menuItems = [
   { icon: Receipt, label: "Facturação", group: "Comercial", path: "/facturacao" },
   { icon: UsersRound, label: "Clientes", group: "Comercial", path: "/clientes" },
   { icon: Truck, label: "Fornecedores", group: "Comercial", path: "/fornecedores" },
+  { icon: ShoppingCart, label: "Compras", group: "Comercial", path: "/compras" },
   { icon: FileText, label: "Documentos", group: "Comercial", path: "/documentos" },
   { icon: Warehouse, label: "Stock", group: "Operações", path: "/stock" },
   { icon: Warehouse, label: "Imobilizado", group: "Operações", path: "/imobilizado" },

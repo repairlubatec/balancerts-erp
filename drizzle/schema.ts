@@ -226,6 +226,45 @@ export const products = mysqlTable("products", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const purchaseOrders = mysqlTable("purchaseOrders", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  supplierId: int("supplierId").notNull(),
+  orderNumber: varchar("orderNumber", { length: 80 }).notNull(),
+  status: mysqlEnum("status", ["DRAFT", "SUBMITTED", "APPROVED", "RECEIVED", "CANCELLED"]).default("DRAFT").notNull(),
+  currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
+  netAmount: decimal("netAmount", { precision: 18, scale: 2 }).default("0").notNull(),
+  taxAmount: decimal("taxAmount", { precision: 18, scale: 2 }).default("0").notNull(),
+  totalAmount: decimal("totalAmount", { precision: 18, scale: 2 }).default("0").notNull(),
+  requestedDate: timestamp("requestedDate").notNull(),
+  expectedDate: timestamp("expectedDate"),
+  notes: text("notes"),
+  createdBy: int("createdBy").notNull(),
+  approvedBy: int("approvedBy"),
+  approvedAt: timestamp("approvedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const purchaseOrderItems = mysqlTable("purchaseOrderItems", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  orderId: int("orderId").notNull(),
+  lineNumber: int("lineNumber").notNull(),
+  productId: int("productId"),
+  description: varchar("description", { length: 255 }).notNull(),
+  quantity: decimal("quantity", { precision: 18, scale: 4 }).notNull(),
+  unitPrice: decimal("unitPrice", { precision: 18, scale: 4 }).notNull(),
+  taxRate: decimal("taxRate", { precision: 8, scale: 4 }).default("0").notNull(),
+  netAmount: decimal("netAmount", { precision: 18, scale: 2 }).notNull(),
+  taxAmount: decimal("taxAmount", { precision: 18, scale: 2 }).default("0").notNull(),
+  totalAmount: decimal("totalAmount", { precision: 18, scale: 2 }).notNull(),
+  receivedQuantity: decimal("receivedQuantity", { precision: 18, scale: 4 }).default("0").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const fixedAssets = mysqlTable("fixedAssets", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

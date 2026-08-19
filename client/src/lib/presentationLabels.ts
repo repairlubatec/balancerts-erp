@@ -8,6 +8,16 @@ const labels: Record<string, string> = {
   COMPLETED: "Concluído",
   CUSTOMER: "Cliente",
   DRAFT: "Rascunho",
+  SUBMITTED: "Submetida",
+  APPROVED: "Aprovada",
+  RECEIVED: "Recebida",
+  PURCHASE_ORDER: "Encomenda de compra",
+  PURCHASE_ORDER_CREATED: "Encomenda de compra criada",
+  PURCHASE_ORDER_SUBMITTED: "Encomenda de compra submetida",
+  PURCHASE_ORDER_APPROVED: "Encomenda de compra aprovada",
+  PURCHASE_ORDER_RECEIVED: "Encomenda de compra recebida",
+  PURCHASE_ORDER_CANCELLED: "Encomenda de compra anulada",
+  purchaseOrder: "Encomenda de compra",
   FAILED: "Falhou",
   GENERAL: "Geral",
   INVALID: "Inválido",
@@ -80,6 +90,7 @@ export function presentationLabel(value: string | null | undefined): string {
   if (/^cleanup-/i.test(value)) return "Limpeza operacional";
   if (/^manual-test-/i.test(value)) return "Teste operacional";
   if (value === "stockMovement") return "Movimento de stock";
+  if (value === "purchaseOrder") return "Encomenda de compra";
   if (labels[value]) return labels[value];
   if (value.includes("_")) {
     return value.split("_").map((token) => labels[token] ?? token.toLowerCase()).join(" ").replace(/^./, (character) => character.toUpperCase());

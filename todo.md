@@ -804,3 +804,12 @@
 - [x] Adicionar testes de fluxo, permissões, idioma e ausência de abertura externa
 - [x] Validar TypeScript, build, testes e screenshot; documentar e guardar checkpoint
 - [x] Corrigir a política de mutações críticas para incluir as operações do arquivo digital
+
+# Continuação — Compras e encomendas P1
+- [x] Auditar fornecedores, produtos, documentos e permissões existentes
+- [x] Criar encomendas de compra e linhas persistentes com estados controlados
+- [x] Expor consultas e mutações tenant-aware com auditoria e idempotência
+- [x] Integrar o posto de compras no shell desktop e na navegação em português
+- [x] Adicionar testes de ciclo, permissões, isolamento e transições
+- [x] Validar base de dados, TypeScript, build, testes e experiência visual; documentar e guardar checkpoint
+- [x] Actualizar as expectativas do teste da matriz crítica para incluir compras.create e compras.transition

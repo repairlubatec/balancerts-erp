@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+  auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
@@ -542,6 +542,44 @@ export async function getFileAssetForUser(input: { userId: number; companyId: nu
   const allowed = JSON.parse(file.allowedUserIds ?? "[]") as number[];
   if (file.ownerUserId !== input.userId && !allowed.includes(input.userId)) throw new Error("FILE_DOWNLOAD_FORBIDDEN");
   return { ...file, allowedUserIds: allowed };
+}
+
+export async function createPurchaseOrderForUser(input: { userId: number; organizationId: number; companyId: number; supplierId: number; currency?: string; requestedDate: Date; expectedDate?: Date; notes?: string; items: Array<{ productId?: number; description: string; quantity: number; unitPrice: number; taxRate?: number }> }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const supplier = await db.select({ id: counterparties.id }).from(counterparties).where(and(eq(counterparties.id, input.supplierId), eq(counterparties.companyId, input.companyId), eq(counterparties.kind, "SUPPLIER"))).limit(1);
+  if (!supplier[0]) throw new Error("SUPPLIER_NOT_FOUND_OR_FORBIDDEN");
+  if (!input.items.length) throw new Error("PURCHASE_ORDER_ITEMS_REQUIRED");
+  const normalized = input.items.map((item, index) => { const quantity = Number(item.quantity); const unitPrice = Number(item.unitPrice); const taxRate = Number(item.taxRate ?? 0); const netAmount = Math.round(quantity * unitPrice * 100) / 100; const taxAmount = Math.round(netAmount * taxRate) / 10000; return { ...item, lineNumber: index + 1, quantity, unitPrice, taxRate, netAmount, taxAmount, totalAmount: Math.round((netAmount + taxAmount) * 100) / 100 }; });
+  const totals = normalized.reduce((sum, item) => ({ net: sum.net + item.netAmount, tax: sum.tax + item.taxAmount, total: sum.total + item.totalAmount }), { net: 0, tax: 0, total: 0 });
+  const orderNumber = `EC/${input.requestedDate.getUTCFullYear()}/${Date.now()}`;
+  const result = await db.insert(purchaseOrders).values({ organizationId: input.organizationId, companyId: input.companyId, supplierId: input.supplierId, orderNumber, currency: input.currency ?? "AOA", netAmount: totals.net.toFixed(2), taxAmount: totals.tax.toFixed(2), totalAmount: totals.total.toFixed(2), requestedDate: input.requestedDate, expectedDate: input.expectedDate, notes: input.notes, createdBy: input.userId });
+  const orderId = Number(result[0].insertId);
+  await db.insert(purchaseOrderItems).values(normalized.map((item) => ({ organizationId: input.organizationId, companyId: input.companyId, orderId, lineNumber: item.lineNumber, productId: item.productId, description: item.description, quantity: item.quantity.toFixed(4), unitPrice: item.unitPrice.toFixed(4), taxRate: item.taxRate.toFixed(4), netAmount: item.netAmount.toFixed(2), taxAmount: item.taxAmount.toFixed(2), totalAmount: item.totalAmount.toFixed(2) })));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PURCHASE_ORDER_CREATED", entityType: "purchaseOrder", entityId: String(orderId), beforeState: null, afterState: JSON.stringify({ orderNumber, supplierId: input.supplierId, status: "DRAFT", totals }), correlationId: `purchase:${orderId}` });
+  return { id: orderId, orderNumber, status: "DRAFT" as const, totals, itemCount: normalized.length };
+}
+
+export async function getPurchaseOrdersForUserCompany(input: { userId: number; companyId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ order: purchaseOrders, supplier: counterparties }).from(purchaseOrders).innerJoin(counterparties, eq(purchaseOrders.supplierId, counterparties.id)).innerJoin(organizations, eq(purchaseOrders.organizationId, organizations.id)).where(and(eq(purchaseOrders.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).orderBy(desc(purchaseOrders.id));
+  return Promise.all(rows.map(async ({ order, supplier }) => ({ order, supplier, items: await db.select({ item: purchaseOrderItems }).from(purchaseOrderItems).where(and(eq(purchaseOrderItems.orderId, order.id), eq(purchaseOrderItems.companyId, input.companyId))).orderBy(purchaseOrderItems.lineNumber) })));
+}
+
+export async function transitionPurchaseOrderForUser(input: { userId: number; companyId: number; orderId: number; target: "SUBMITTED" | "APPROVED" | "RECEIVED" | "CANCELLED"; reason?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ order: purchaseOrders, organization: organizations }).from(purchaseOrders).innerJoin(organizations, eq(purchaseOrders.organizationId, organizations.id)).where(and(eq(purchaseOrders.id, input.orderId), eq(purchaseOrders.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const current = rows[0];
+  if (!current) throw new Error("PURCHASE_ORDER_NOT_FOUND_OR_FORBIDDEN");
+  const allowed: Record<string, string[]> = { DRAFT: ["SUBMITTED", "CANCELLED"], SUBMITTED: ["APPROVED", "CANCELLED"], APPROVED: ["RECEIVED", "CANCELLED"], RECEIVED: [], CANCELLED: [] };
+  if (!allowed[current.order.status]?.includes(input.target)) throw new Error("PURCHASE_ORDER_INVALID_TRANSITION");
+  await db.update(purchaseOrders).set({ status: input.target, approvedBy: input.target === "APPROVED" ? input.userId : current.order.approvedBy, approvedAt: input.target === "APPROVED" ? new Date() : current.order.approvedAt }).where(eq(purchaseOrders.id, input.orderId));
+  await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: `PURCHASE_ORDER_${input.target}`, entityType: "purchaseOrder", entityId: String(input.orderId), beforeState: JSON.stringify({ status: current.order.status }), afterState: JSON.stringify({ status: input.target, reason: input.reason ?? null }), correlationId: `purchase:${input.orderId}:${input.target}` });
+  return { id: input.orderId, previousStatus: current.order.status, status: input.target };
 }
 
 export async function reserveDocumentNumber(input: { userId: number; companyId: number; series: string; documentType: string }) {

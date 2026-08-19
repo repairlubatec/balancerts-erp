@@ -1,0 +1,40 @@
+CREATE TABLE `purchaseOrderItems` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`organizationId` int NOT NULL,
+	`companyId` int NOT NULL,
+	`orderId` int NOT NULL,
+	`lineNumber` int NOT NULL,
+	`productId` int,
+	`description` varchar(255) NOT NULL,
+	`quantity` decimal(18,4) NOT NULL,
+	`unitPrice` decimal(18,4) NOT NULL,
+	`taxRate` decimal(8,4) NOT NULL DEFAULT '0',
+	`netAmount` decimal(18,2) NOT NULL,
+	`taxAmount` decimal(18,2) NOT NULL DEFAULT '0',
+	`totalAmount` decimal(18,2) NOT NULL,
+	`receivedQuantity` decimal(18,4) NOT NULL DEFAULT '0',
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `purchaseOrderItems_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `purchaseOrders` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`organizationId` int NOT NULL,
+	`companyId` int NOT NULL,
+	`supplierId` int NOT NULL,
+	`orderNumber` varchar(80) NOT NULL,
+	`status` enum('DRAFT','SUBMITTED','APPROVED','RECEIVED','CANCELLED') NOT NULL DEFAULT 'DRAFT',
+	`currency` varchar(3) NOT NULL DEFAULT 'AOA',
+	`netAmount` decimal(18,2) NOT NULL DEFAULT '0',
+	`taxAmount` decimal(18,2) NOT NULL DEFAULT '0',
+	`totalAmount` decimal(18,2) NOT NULL DEFAULT '0',
+	`requestedDate` timestamp NOT NULL,
+	`expectedDate` timestamp,
+	`notes` text,
+	`createdBy` int NOT NULL,
+	`approvedBy` int,
+	`approvedAt` timestamp,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `purchaseOrders_id` PRIMARY KEY(`id`)
+);
