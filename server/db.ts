@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
@@ -182,13 +182,13 @@ export async function createProductForUser(input: { userId: number; companyId: n
   return { id, ...input };
 }
 
-export async function updateCashAccountForUser(input: { userId: number; companyId: number; cashAccountId: number; name?: string; accountNumber?: string }) {
+export async function updateCashAccountForUser(input: { userId: number; companyId: number; cashAccountId: number; name?: string; accountNumber?: string; bankName?: string; bankCode?: string; branchName?: string; iban?: string; accountingAccountId?: number }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const rows = await db.select({ account: cashAccounts, organizationId: companies.organizationId }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.id, input.cashAccountId), eq(cashAccounts.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
   if (!rows[0]) throw new Error("CASH_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
   const before = rows[0].account;
-  await db.update(cashAccounts).set({ ...(input.name === undefined ? {} : { name: input.name }), ...(input.accountNumber === undefined ? {} : { accountNumber: input.accountNumber }) }).where(eq(cashAccounts.id, input.cashAccountId));
+  await db.update(cashAccounts).set({ ...(input.name === undefined ? {} : { name: input.name }), ...(input.accountNumber === undefined ? {} : { accountNumber: input.accountNumber }), ...(input.bankName === undefined ? {} : { bankName: input.bankName }), ...(input.bankCode === undefined ? {} : { bankCode: input.bankCode }), ...(input.branchName === undefined ? {} : { branchName: input.branchName }), ...(input.iban === undefined ? {} : { iban: input.iban }), ...(input.accountingAccountId === undefined ? {} : { accountingAccountId: input.accountingAccountId }) }).where(eq(cashAccounts.id, input.cashAccountId));
   await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CASH_ACCOUNT_UPDATED", entityType: "cashAccount", entityId: String(input.cashAccountId), beforeState: JSON.stringify(before), afterState: JSON.stringify({ ...before, ...input }), correlationId: `cash-account:${input.cashAccountId}` });
   return { id: input.cashAccountId };
 }
@@ -199,11 +199,11 @@ export async function getCashAccountsForUserCompany(userId: number, companyId: n
   return db.select({ account: cashAccounts }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(cashAccounts.name);
 }
 
-export async function createCashAccountForUser(input: { userId: number; organizationId: number; companyId: number; name: string; kind: "CASH" | "BANK"; accountNumber?: string; currency?: string }) {
+export async function createCashAccountForUser(input: { userId: number; organizationId: number; companyId: number; name: string; kind: "CASH" | "BANK"; bankName?: string; bankCode?: string; branchName?: string; accountNumber?: string; iban?: string; accountingAccountId?: number; currency?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
-  const result = await db.insert(cashAccounts).values({ companyId: input.companyId, name: input.name, kind: input.kind, accountNumber: input.accountNumber, currency: input.currency ?? "AOA" });
+  const result = await db.insert(cashAccounts).values({ companyId: input.companyId, name: input.name, kind: input.kind, bankName: input.bankName, bankCode: input.bankCode, branchName: input.branchName, accountNumber: input.accountNumber, iban: input.iban, accountingAccountId: input.accountingAccountId, currency: input.currency ?? "AOA" });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CASH_ACCOUNT_CREATED", entityType: "cashAccount", entityId: String(id), beforeState: null, afterState: JSON.stringify({ name: input.name, kind: input.kind, currency: input.currency ?? "AOA" }), correlationId: `cash-account:${id}` });
   return { id, ...input };
@@ -1352,4 +1352,64 @@ export async function importJournalEntriesForUser(input: { userId: number; compa
     published.push({ entryId: Number(result.entryId ?? result.entry?.id), idempotent: result.idempotent });
   }
   return { count: published.length, published };
+}
+
+
+export async function createFiscalTaxRecordForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; taxType: "IVA" | "IAC" | "INDUSTRIAL" | "IRT" | "IEC" | "RETENCAO" | "OUTRO"; direction: "OUTPUT" | "INPUT" | "WITHHELD"; regime?: string; taxCode?: string; baseAmount: number; taxAmount: number; withheldAmount?: number; currency?: string; dueDate?: Date; sourceReference?: string; idempotencyKey: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const scope = await db.select({ organizationId: organizations.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).innerJoin(fiscalPeriods, eq(fiscalPeriods.companyId, companies.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), eq(fiscalPeriods.id, input.periodId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!scope[0]) throw new Error("FISCAL_TAX_SCOPE_FORBIDDEN");
+  const existing = await db.select({ record: fiscalTaxRecords }).from(fiscalTaxRecords).where(eq(fiscalTaxRecords.idempotencyKey, input.idempotencyKey)).limit(1);
+  if (existing[0]) return { record: existing[0].record, idempotent: true };
+  const inserted = await db.insert(fiscalTaxRecords).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, taxType: input.taxType, direction: input.direction, regime: input.regime, taxCode: input.taxCode, baseAmount: String(input.baseAmount), taxAmount: String(input.taxAmount), withheldAmount: String(input.withheldAmount ?? 0), currency: input.currency ?? "AOA", dueDate: input.dueDate, sourceReference: input.sourceReference, idempotencyKey: input.idempotencyKey, createdBy: input.userId, status: "CALCULATED" });
+  const id = Number(inserted[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FISCAL_TAX_RECORD_CREATED", entityType: "fiscalTaxRecord", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, userId: undefined }), correlationId: input.idempotencyKey });
+  return { record: { id, ...input, status: "CALCULATED" as const }, idempotent: false };
+}
+
+export async function listFiscalTaxRecordsForUser(input: { userId: number; companyId: number; periodId?: number; taxType?: "IVA" | "IAC" | "INDUSTRIAL" | "IRT" | "IEC" | "RETENCAO" | "OUTRO" }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const conditions = [eq(fiscalTaxRecords.companyId, input.companyId), eq(organizations.ownerUserId, input.userId)];
+  if (input.periodId) conditions.push(eq(fiscalTaxRecords.periodId, input.periodId));
+  if (input.taxType) conditions.push(eq(fiscalTaxRecords.taxType, input.taxType));
+  return db.select({ record: fiscalTaxRecords }).from(fiscalTaxRecords).innerJoin(companies, eq(fiscalTaxRecords.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(...conditions)).orderBy(desc(fiscalTaxRecords.createdAt));
+}
+
+export async function importBankStatementForUser(input: { userId: number; organizationId: number; companyId: number; cashAccountId: number; statementDate: Date; openingBalance: number; closingBalance: number; currency?: string; originalFilename: string; rows: Array<{ bookingDate: Date; valueDate: Date; description: string; externalReference?: string; counterparty?: string; direction: "IN" | "OUT"; amount: number; balance?: number }> }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const account = await db.select({ account: cashAccounts }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.id, input.cashAccountId), eq(cashAccounts.companyId, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!account[0]) throw new Error("CASH_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  const payload = JSON.stringify({ companyId: input.companyId, cashAccountId: input.cashAccountId, statementDate: input.statementDate.toISOString(), openingBalance: input.openingBalance, closingBalance: input.closingBalance, currency: input.currency ?? "AOA", filename: input.originalFilename, rows: input.rows });
+  const sha256 = createHash("sha256").update(payload).digest("hex");
+  const existing = await db.select({ importRow: bankStatementImports }).from(bankStatementImports).where(eq(bankStatementImports.sha256, sha256)).limit(1);
+  if (existing[0]) return { importRow: existing[0].importRow, idempotent: true };
+  const inserted = await db.insert(bankStatementImports).values({ organizationId: input.organizationId, companyId: input.companyId, cashAccountId: input.cashAccountId, statementDate: input.statementDate, openingBalance: String(input.openingBalance), closingBalance: String(input.closingBalance), currency: input.currency ?? account[0].account.currency, originalFilename: input.originalFilename, sha256, idempotencyKey: `extracto:${sha256}`, createdBy: input.userId, status: "IMPORTED" });
+  const importId = Number(inserted[0].insertId);
+  for (const row of input.rows) {
+    const fingerprint = createHash("sha256").update(JSON.stringify({ importId, ...row })).digest("hex");
+    await db.insert(bankStatementLines).values({ importId, companyId: input.companyId, bookingDate: row.bookingDate, valueDate: row.valueDate, description: row.description, externalReference: row.externalReference, counterparty: row.counterparty, direction: row.direction, amount: String(row.amount), balance: row.balance === undefined ? undefined : String(row.balance), fingerprint, status: "UNMATCHED" });
+  }
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "BANK_STATEMENT_IMPORTED", entityType: "bankStatementImport", entityId: String(importId), beforeState: null, afterState: JSON.stringify({ importId, cashAccountId: input.cashAccountId, statementDate: input.statementDate, rowCount: input.rows.length, sha256 }), correlationId: `extracto:${sha256}` });
+  return { importRow: { id: importId, sha256, rowCount: input.rows.length, status: "IMPORTED" as const }, idempotent: false };
+}
+
+export async function listBankStatementLinesForUser(input: { userId: number; companyId: number; cashAccountId?: number; importId?: number; status?: "UNMATCHED" | "SUGGESTED" | "MATCHED" | "EXCEPTION" }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const conditions = [eq(bankStatementLines.companyId, input.companyId), eq(organizations.ownerUserId, input.userId)];
+  if (input.importId) conditions.push(eq(bankStatementLines.importId, input.importId));
+  if (input.status) conditions.push(eq(bankStatementLines.status, input.status));
+  if (input.cashAccountId) conditions.push(eq(bankStatementImports.cashAccountId, input.cashAccountId));
+  return db.select({ line: bankStatementLines, importRow: bankStatementImports }).from(bankStatementLines).innerJoin(bankStatementImports, eq(bankStatementLines.importId, bankStatementImports.id)).innerJoin(companies, eq(bankStatementLines.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(...conditions)).orderBy(desc(bankStatementLines.valueDate));
+}
+
+export async function matchBankStatementLineForUser(input: { userId: number; companyId: number; organizationId: number; lineId: number; treasuryTransactionId: number; reason?: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ line: bankStatementLines, importRow: bankStatementImports }).from(bankStatementLines).innerJoin(bankStatementImports, eq(bankStatementLines.importId, bankStatementImports.id)).innerJoin(companies, eq(bankStatementLines.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(bankStatementLines.id, input.lineId), eq(bankStatementLines.companyId, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!rows[0]) throw new Error("BANK_STATEMENT_LINE_NOT_FOUND_OR_FORBIDDEN");
+  const transaction = await db.select({ transaction: treasuryTransactions }).from(treasuryTransactions).innerJoin(companies, eq(treasuryTransactions.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(treasuryTransactions.id, input.treasuryTransactionId), eq(treasuryTransactions.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!transaction[0]) throw new Error("TREASURY_TRANSACTION_NOT_FOUND_OR_FORBIDDEN");
+  await db.update(bankStatementLines).set({ matchedTreasuryTransactionId: input.treasuryTransactionId, status: "MATCHED" }).where(eq(bankStatementLines.id, input.lineId));
+  await db.update(treasuryTransactions).set({ reconciliationStatus: "RECONCILED" }).where(eq(treasuryTransactions.id, input.treasuryTransactionId));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "BANK_STATEMENT_LINE_MATCHED", entityType: "bankStatementLine", entityId: String(input.lineId), beforeState: JSON.stringify({ status: rows[0].line.status, matchedTreasuryTransactionId: rows[0].line.matchedTreasuryTransactionId }), afterState: JSON.stringify({ status: "MATCHED", matchedTreasuryTransactionId: input.treasuryTransactionId, reason: input.reason ?? null }), correlationId: `extracto-linha:${input.lineId}` });
+  return { lineId: input.lineId, treasuryTransactionId: input.treasuryTransactionId, status: "MATCHED" as const };
 }

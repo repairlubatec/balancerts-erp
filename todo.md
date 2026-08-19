@@ -900,3 +900,27 @@
 - [x] Corrigir compatibilidade da rota de rastreabilidade sem periodId e repetir a suite completa
 - [x] Corrigir o import do rótulo português no painel de apuramento e validar o fecho
 - [x] Substituir o selector nativo de ficheiro da importação por controlo visual português sem termos do navegador
+
+# Auditoria profunda — Contabilidade e Tesouraria no mercado angolano
+- [x] Inventariar funções, rotas, tabelas, permissões e testes actuais de Contabilidade e Tesouraria
+- [x] Rever os documentos do Google Drive e os materiais oficiais já fornecidos
+- [x] Pesquisar legislação, regulamentos e orientações oficiais angolanas aplicáveis
+- [x] Comparar requisitos de mercado angolano com as capacidades implementadas
+- [x] Classificar lacunas por obrigatório, comercialmente necessário, recomendado e dependente de AGT/bancos
+- [x] Produzir relatório técnico com fontes, evidências, riscos, prioridades e limites de conformidade
+
+# Implementação P0 — Contabilidade e Tesouraria Angola
+- [x] Criar sub-registo fiscal por operação, regime, imposto, retenção e período
+- [ ] Criar workflow contabilístico rascunho, validação, aprovação, publicação e reversão com segregação
+- [ ] Tornar o fecho materialmente validado no servidor, com bloqueios reais
+- [x] Completar cadastro bancário com banco, agência, identificadores e conta contabilística
+- [x] Criar importação persistente de extractos bancários com hash, linhas e idempotência
+- [x] Criar reconciliação por linha e actualização auditada; diferenças/fecho global permanecem na próxima parte P0
+- [ ] Completar ciclo de pagamento com preparação, aprovação, execução, confirmação e comprovativo
+- [ ] Implementar transferências internas entre contas com duas pernas atómicas
+- [x] Ligar sub-registo fiscal e extractos aos painéis desktop e ao contexto empresa/período
+- [ ] Adicionar testes P0, rever visualmente e guardar checkpoint
+- [x] Corrigir import duplicado de hashing no servidor antes das operações P0
+- [x] Corrigir a tipagem das linhas do extracto no painel de Tesouraria P0
+- [x] Criar testes específicos do parser de extractos; testes de integração dos contratos P0 continuam a ser ampliados
+- [x] Corrigir a tipagem dos registos fiscais no painel P0
