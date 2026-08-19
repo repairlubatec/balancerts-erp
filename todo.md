@@ -934,3 +934,8 @@
 - [x] Implementar calendário interno de obrigações fiscais por empresa e período
 - [x] Criar testes de integração para ajustes de reconciliação, confirmação de pagamentos e obrigações fiscais
 - [x] Rever visualmente as novas janelas desktop e guardar checkpoint das prioridades P0
+- [x] Inventariar e fechar todas as prioridades P0 e P1 ainda pendentes
+- [x] Completar operações financeiras e fiscais pendentes com persistência, RBAC e auditoria
+- [x] Implementar prioridades P1 contabilísticas: saldos iniciais, regularizações avançadas e relatórios analíticos
+- [x] Integrar todas as operações nos módulos desktop sem pontos mortos ou termos em inglês
+- [x] Executar suite integral, revisão visual e validação de regressões antes do checkpoint consolidado

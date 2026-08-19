@@ -117,6 +117,38 @@ export const journalLines = mysqlTable("journalLines", {
   exchangeRate: decimal("exchangeRate", { precision: 18, scale: 8 }).default("1").notNull(),
 });
 
+export const openingBalances = mysqlTable("openingBalances", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  periodId: int("periodId").notNull(),
+  accountId: int("accountId").notNull(),
+  debit: decimal("debit", { precision: 18, scale: 2 }).default("0").notNull(),
+  credit: decimal("credit", { precision: 18, scale: 2 }).default("0").notNull(),
+  currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
+  status: mysqlEnum("status", ["DRAFT", "VALIDATED", "POSTED", "REJECTED"]).default("DRAFT").notNull(),
+  journalEntryId: int("journalEntryId"),
+  reason: varchar("reason", { length: 500 }),
+  createdBy: int("createdBy").notNull(),
+  validatedBy: int("validatedBy"),
+  validatedAt: timestamp("validatedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export const accountingAdjustments = mysqlTable("accountingAdjustments", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  periodId: int("periodId").notNull(),
+  journalEntryId: int("journalEntryId"),
+  adjustmentType: mysqlEnum("adjustmentType", ["REGULARIZACAO", "RECLASSIFICACAO", "ACRESCIMO", "DIFERIMENTO", "CORRECCAO"]).notNull(),
+  reason: varchar("reason", { length: 500 }).notNull(),
+  status: mysqlEnum("status", ["DRAFT", "PENDING", "APPROVED", "REJECTED", "POSTED"]).default("DRAFT").notNull(),
+  createdBy: int("createdBy").notNull(),
+  reviewedBy: int("reviewedBy"),
+  reviewedAt: timestamp("reviewedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
 export const balancertsIaConfigs = mysqlTable("balancertsIaConfigs", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

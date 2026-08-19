@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { applyReconciliationAdjustment } from "./reconciliation";
@@ -1324,6 +1324,16 @@ export async function updateChartAccountForUser(input: { userId: number; company
   return { id: input.accountId, audited: true };
 }
 
+export async function getAnalyticalCostCenterReportForUserCompany(input: { userId: number; companyId: number; periodId?: number }) {
+  const db = await getDb(); if (!db) return [];
+  const conditions = [eq(journalEntries.companyId, input.companyId), eq(organizations.ownerUserId, input.userId), eq(journalEntries.status, "POSTED" as const)];
+  if (input.periodId) conditions.push(eq(journalEntries.periodId, input.periodId));
+  const rows = await db.select({ costCenter: journalEntries.costCenter, dimension: journalEntries.analyticalDimension, debit: journalLines.debit, credit: journalLines.credit, accountCode: chartAccounts.code, accountName: chartAccounts.name }).from(journalEntries).innerJoin(journalLines, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(...conditions));
+  const groups = new Map<string, { costCenter: string; dimension: string; debit: number; credit: number; saldo: number; lines: number }>();
+  for (const row of rows) { const costCenter = row.costCenter ?? "SEM_CENTRO"; const dimension = row.dimension ?? "GERAL"; const key = `${costCenter}:${dimension}`; const current = groups.get(key) ?? { costCenter, dimension, debit: 0, credit: 0, saldo: 0, lines: 0 }; current.debit += Number(row.debit); current.credit += Number(row.credit); current.saldo += Number(row.debit) - Number(row.credit); current.lines += 1; groups.set(key, current); }
+  return Array.from(groups.values()).map((group) => ({ ...group, debit: Number(group.debit.toFixed(2)), credit: Number(group.credit.toFixed(2)), saldo: Number(group.saldo.toFixed(2)) })).sort((a, b) => a.costCenter.localeCompare(b.costCenter));
+}
+
 export async function getCostCentersForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
@@ -1380,6 +1390,44 @@ export async function listFiscalTaxRecordsForUser(input: { userId: number; compa
   if (input.periodId) conditions.push(eq(fiscalTaxRecords.periodId, input.periodId));
   if (input.taxType) conditions.push(eq(fiscalTaxRecords.taxType, input.taxType));
   return db.select({ record: fiscalTaxRecords }).from(fiscalTaxRecords).innerJoin(companies, eq(fiscalTaxRecords.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(...conditions)).orderBy(desc(fiscalTaxRecords.createdAt));
+}
+
+export async function createOpeningBalanceForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; accountId: number; debit: number; credit: number; currency?: string; reason?: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  if (input.debit < 0 || input.credit < 0 || (input.debit === 0 && input.credit === 0) || (input.debit > 0 && input.credit > 0)) throw new Error("OPENING_BALANCE_MUST_HAVE_ONE_SIDE");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
+  const account = await db.select({ account: chartAccounts }).from(chartAccounts).where(and(eq(chartAccounts.id, input.accountId), eq(chartAccounts.companyId, input.companyId), eq(chartAccounts.postable, 1))).limit(1);
+  if (!account[0]) throw new Error("OPENING_BALANCE_ACCOUNT_NOT_POSTABLE");
+  const inserted = await db.insert(openingBalances).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, accountId: input.accountId, debit: input.debit.toFixed(2), credit: input.credit.toFixed(2), currency: input.currency ?? "AOA", reason: input.reason, createdBy: input.userId, status: "DRAFT" });
+  const id = Number(inserted[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "OPENING_BALANCE_CREATED", entityType: "openingBalance", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, id, status: "DRAFT" }), correlationId: `opening-balance:${input.companyId}:${input.periodId}:${id}` });
+  return { id, status: "DRAFT" as const };
+}
+
+export async function listOpeningBalancesForUser(input: { userId: number; companyId: number; periodId?: number }) {
+  const db = await getDb(); if (!db) return [];
+  const conditions = [eq(openingBalances.companyId, input.companyId), eq(organizations.ownerUserId, input.userId)];
+  if (input.periodId) conditions.push(eq(openingBalances.periodId, input.periodId));
+  return db.select({ openingBalance: openingBalances, account: chartAccounts }).from(openingBalances).innerJoin(companies, eq(openingBalances.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).innerJoin(chartAccounts, eq(openingBalances.accountId, chartAccounts.id)).where(and(...conditions)).orderBy(desc(openingBalances.createdAt));
+}
+
+export async function createAccountingAdjustmentForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; adjustmentType: "REGULARIZACAO" | "RECLASSIFICACAO" | "ACRESCIMO" | "DIFERIMENTO" | "CORRECCAO"; reason: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  if (!input.reason.trim()) throw new Error("ADJUSTMENT_REASON_REQUIRED");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
+  const inserted = await db.insert(accountingAdjustments).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, adjustmentType: input.adjustmentType, reason: input.reason.trim(), createdBy: input.userId, status: "DRAFT" });
+  const id = Number(inserted[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "ACCOUNTING_ADJUSTMENT_CREATED", entityType: "accountingAdjustment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, id, status: "DRAFT" }), correlationId: `accounting-adjustment:${input.companyId}:${input.periodId}:${id}` });
+  return { id, status: "DRAFT" as const };
+}
+
+export async function listAccountingAdjustmentsForUser(input: { userId: number; companyId: number; periodId?: number }) {
+  const db = await getDb(); if (!db) return [];
+  const conditions = [eq(accountingAdjustments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId)];
+  if (input.periodId) conditions.push(eq(accountingAdjustments.periodId, input.periodId));
+  return db.select({ adjustment: accountingAdjustments }).from(accountingAdjustments).innerJoin(companies, eq(accountingAdjustments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(...conditions)).orderBy(desc(accountingAdjustments.createdAt));
 }
 
 export async function getFiscalObligationsForUserCompany(input: { userId: number; companyId: number; year: number; periodId?: number }) {
