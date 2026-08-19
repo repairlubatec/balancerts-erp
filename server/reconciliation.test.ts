@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { reconcileBankMovements } from "./reconciliation";
+import { applyReconciliationAdjustment, reconcileBankMovements } from "./reconciliation";
 
 describe("bank reconciliation", () => {
   it("matches by reference before falling back to amount and date", () => {
@@ -16,5 +16,14 @@ describe("bank reconciliation", () => {
     expect(result.reconciled).toBe(false);
     expect(result.unmatchedBank).toHaveLength(1);
     expect(result.unmatchedLedger).toHaveLength(1);
+  });
+
+  it("applies an authorised adjustment and requires its reason", () => {
+    expect(applyReconciliationAdjustment(125.5, 125.5, "Diferença bancária identificada no extracto")).toEqual({ adjustmentAmount: 125.5, difference: 0, reconciled: true, adjustmentReason: "Diferença bancária identificada no extracto" });
+    expect(() => applyReconciliationAdjustment(10, 10)).toThrow("RECONCILIATION_ADJUSTMENT_REASON_REQUIRED");
+  });
+
+  it("rejects an adjustment above the safety limit", () => {
+    expect(() => applyReconciliationAdjustment(10, 1_000_000_000.01, "Ajuste")).toThrow("RECONCILIATION_ADJUSTMENT_TOO_LARGE");
   });
 });

@@ -1,6 +1,14 @@
 export type BankMovement = { id: string; reference?: string; amount: number; date: string };
 export type LedgerMovement = { id: string; reference?: string; amount: number; date: string };
 
+export function applyReconciliationAdjustment(rawDifference: number, adjustmentAmount = 0, adjustmentReason?: string) {
+  const roundedAdjustment = Number(adjustmentAmount.toFixed(2));
+  if (Math.abs(roundedAdjustment) > 0.01 && !adjustmentReason?.trim()) throw new Error("RECONCILIATION_ADJUSTMENT_REASON_REQUIRED");
+  if (Math.abs(roundedAdjustment) > 1_000_000_000) throw new Error("RECONCILIATION_ADJUSTMENT_TOO_LARGE");
+  const difference = Number((rawDifference - roundedAdjustment).toFixed(2));
+  return { adjustmentAmount: roundedAdjustment, difference, reconciled: Math.abs(difference) <= 0.01, adjustmentReason: adjustmentReason?.trim() ?? null };
+}
+
 export function reconcileBankMovements(bank: BankMovement[], ledger: LedgerMovement[], tolerance = 0.01) {
   const used = new Set<string>();
   const matches: Array<{ bankId: string; ledgerId: string; confidence: "REFERENCE" | "AMOUNT_DATE" }> = [];

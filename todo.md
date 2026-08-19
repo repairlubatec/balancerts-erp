@@ -929,3 +929,8 @@
 - [x] Corrigir a tipagem dos lançamentos pendentes no painel de revisão contabilística
 - [x] Ligar a opção de aprovação obrigatória ao formulário desktop de pagamentos
 - [x] Traduzir o estado visual External Pendente do sub-registo fiscal
+- [x] Implementar reconciliação com diferenças, ajustes autorizados e motivo obrigatório
+- [x] Implementar confirmação auditada de execução de pagamentos por comprovativo e estado
+- [x] Implementar calendário interno de obrigações fiscais por empresa e período
+- [x] Criar testes de integração para ajustes de reconciliação, confirmação de pagamentos e obrigações fiscais
+- [x] Rever visualmente as novas janelas desktop e guardar checkpoint das prioridades P0

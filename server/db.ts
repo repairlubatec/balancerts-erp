@@ -6,6 +6,7 @@ import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtS
   auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
+import { applyReconciliationAdjustment } from "./reconciliation";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
 import { ENV } from "./_core/env";
@@ -878,7 +879,7 @@ export async function getPaymentsForUserCompany(userId: number, companyId: numbe
   return db.select({ payment: payments }).from(payments).innerJoin(companies, eq(payments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(payments.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(desc(payments.createdAt));
 }
 
-export async function reconcileCashAccountForUser(input: { userId: number; companyId: number; cashAccountId: number; statementDate: Date; openingBalance: number; closingBalance: number }) {
+export async function reconcileCashAccountForUser(input: { userId: number; companyId: number; cashAccountId: number; statementDate: Date; openingBalance: number; closingBalance: number; adjustmentAmount?: number; adjustmentReason?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const account = await db.select({ account: cashAccounts, organizationId: companies.organizationId }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.id, input.cashAccountId), eq(cashAccounts.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
@@ -886,11 +887,13 @@ export async function reconcileCashAccountForUser(input: { userId: number; compa
   const movements = await db.select({ direction: treasuryTransactions.direction, amount: treasuryTransactions.amount }).from(treasuryTransactions).where(and(eq(treasuryTransactions.companyId, input.companyId), eq(treasuryTransactions.cashAccountId, input.cashAccountId)));
   const netMovement = movements.reduce((sum, movement) => sum + (movement.direction === "IN" ? Number(movement.amount) : -Number(movement.amount)), 0);
   const systemBalance = input.openingBalance + netMovement;
-  const difference = Number((input.closingBalance - systemBalance).toFixed(2));
-  const status = Math.abs(difference) <= 0.01 ? "RECONCILED" as const : "OPEN" as const;
+  const rawDifference = Number((input.closingBalance - systemBalance).toFixed(2));
+  const adjustment = applyReconciliationAdjustment(rawDifference, input.adjustmentAmount, input.adjustmentReason);
+  const { adjustmentAmount, difference } = adjustment;
+  const status = adjustment.reconciled ? "RECONCILED" as const : "OPEN" as const;
   const inserted = await db.insert(cashReconciliations).values({ companyId: input.companyId, cashAccountId: input.cashAccountId, statementDate: input.statementDate, openingBalance: input.openingBalance.toFixed(2), closingBalance: input.closingBalance.toFixed(2), systemBalance: systemBalance.toFixed(2), difference: difference.toFixed(2), status, createdBy: input.userId });
   const id = Number(inserted[0].insertId);
-  await appendAuditEventForUser({ organizationId: account[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CASH_ACCOUNT_RECONCILED", entityType: "cashReconciliation", entityId: String(id), beforeState: null, afterState: JSON.stringify({ cashAccountId: input.cashAccountId, closingBalance: input.closingBalance, systemBalance, difference, status }), correlationId: `cash-reconciliation:${input.cashAccountId}:${input.statementDate.toISOString()}` });
+  await appendAuditEventForUser({ organizationId: account[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CASH_ACCOUNT_RECONCILED", entityType: "cashReconciliation", entityId: String(id), beforeState: null, afterState: JSON.stringify({ cashAccountId: input.cashAccountId, closingBalance: input.closingBalance, systemBalance, rawDifference, adjustmentAmount, adjustmentReason: input.adjustmentReason?.trim() ?? null, difference, status }), correlationId: `cash-reconciliation:${input.cashAccountId}:${input.statementDate.toISOString()}` });
   return { id, cashAccountId: input.cashAccountId, systemBalance, difference, status };
 }
 
@@ -1379,6 +1382,16 @@ export async function listFiscalTaxRecordsForUser(input: { userId: number; compa
   return db.select({ record: fiscalTaxRecords }).from(fiscalTaxRecords).innerJoin(companies, eq(fiscalTaxRecords.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(...conditions)).orderBy(desc(fiscalTaxRecords.createdAt));
 }
 
+export async function getFiscalObligationsForUserCompany(input: { userId: number; companyId: number; year: number; periodId?: number }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const scope = await db.select({ company: companies, organizationId: organizations.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!scope[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const conditions = [eq(fiscalTaxRecords.companyId, input.companyId), gte(fiscalTaxRecords.dueDate, new Date(`${input.year}-01-01T00:00:00.000Z`)), lte(fiscalTaxRecords.dueDate, new Date(`${input.year}-12-31T23:59:59.999Z`))];
+  if (input.periodId) conditions.push(eq(fiscalTaxRecords.periodId, input.periodId));
+  const records = await db.select({ record: fiscalTaxRecords }).from(fiscalTaxRecords).where(and(...conditions)).orderBy(fiscalTaxRecords.dueDate);
+  return { companyId: input.companyId, year: input.year, obligations: records.map(({ record }) => ({ id: record.id, kind: record.taxType, code: record.taxCode ?? record.taxType, dueDate: record.dueDate, amount: record.taxAmount, withheldAmount: record.withheldAmount, currency: record.currency, status: record.status, periodId: record.periodId, sourceReference: record.sourceReference })) };
+}
+
 export async function importBankStatementForUser(input: { userId: number; organizationId: number; companyId: number; cashAccountId: number; statementDate: Date; openingBalance: number; closingBalance: number; currency?: string; originalFilename: string; rows: Array<{ bookingDate: Date; valueDate: Date; description: string; externalReference?: string; counterparty?: string; direction: "IN" | "OUT"; amount: number; balance?: number }> }) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   const account = await db.select({ account: cashAccounts }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.id, input.cashAccountId), eq(cashAccounts.companyId, input.companyId), eq(companies.organizationId, input.organizationId), eq(organizations.ownerUserId, input.userId))).limit(1);
@@ -1466,6 +1479,7 @@ export async function approvePaymentForUser(input: { userId: number; companyId: 
   if (rows[0].payment.createdBy === input.userId) throw new Error("PAYMENT_CREATOR_CANNOT_APPROVE");
   if (rows[0].payment.approvalStatus === "APPROVED") return { paymentId: input.paymentId, idempotent: true };
   if (rows[0].payment.approvalStatus !== "PENDING") throw new Error("PAYMENT_ALREADY_REVIEWED");
+  if (rows[0].payment.method === "BANK_TRANSFER" && !input.executionReference?.trim()) throw new Error("PAYMENT_EXECUTION_REFERENCE_REQUIRED");
   await db.transaction(async (tx) => {
     await tx.update(payments).set({ approvalStatus: "APPROVED", approvedBy: input.userId, approvedAt: new Date(), executionReference: input.executionReference, status: "CONFIRMED" }).where(and(eq(payments.id, input.paymentId), eq(payments.companyId, input.companyId), eq(payments.approvalStatus, "PENDING")));
     if (rows[0].payment.cashAccountId) {
