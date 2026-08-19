@@ -320,6 +320,9 @@ export const counterparties = mysqlTable("counterparties", {
   address: varchar("address", { length: 255 }),
   municipality: varchar("municipality", { length: 120 }),
   province: varchar("province", { length: 120 }),
+  paymentTermsDays: int("paymentTermsDays").default(0).notNull(),
+  creditLimit: decimal("creditLimit", { precision: 18, scale: 2 }).default("0").notNull(),
+  preferredCurrency: varchar("preferredCurrency", { length: 3 }).default("AOA").notNull(),
   active: int("active").default(1).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
@@ -332,6 +335,9 @@ export const products = mysqlTable("products", {
   kind: mysqlEnum("kind", ["GOOD", "SERVICE"]).notNull(),
   unitCode: varchar("unitCode", { length: 16 }).default("UN").notNull(),
   taxCode: varchar("taxCode", { length: 40 }),
+  salePrice: decimal("salePrice", { precision: 18, scale: 4 }).default("0").notNull(),
+  purchasePrice: decimal("purchasePrice", { precision: 18, scale: 4 }).default("0").notNull(),
+  stockManaged: int("stockManaged").default(1).notNull(),
   active: int("active").default(1).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

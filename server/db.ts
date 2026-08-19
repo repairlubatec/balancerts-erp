@@ -156,11 +156,11 @@ export async function getCounterpartiesForUserCompany(userId: number, companyId:
   return db.select({ counterparty: counterparties }).from(counterparties).innerJoin(companies, eq(counterparties.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(...conditions)).orderBy(counterparties.name);
 }
 
-export async function createCounterpartyForUser(input: { userId: number; organizationId: number; companyId: number; kind: "CUSTOMER" | "SUPPLIER"; taxId?: string; name: string; email?: string; phone?: string; address?: string; municipality?: string; province?: string }) {
+export async function createCounterpartyForUser(input: { userId: number; organizationId: number; companyId: number; kind: "CUSTOMER" | "SUPPLIER"; taxId?: string; name: string; email?: string; phone?: string; address?: string; municipality?: string; province?: string; paymentTermsDays?: number; creditLimit?: number; preferredCurrency?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
-  const result = await db.insert(counterparties).values({ organizationId: input.organizationId, companyId: input.companyId, kind: input.kind, taxId: input.taxId, name: input.name, email: input.email, phone: input.phone, address: input.address, municipality: input.municipality, province: input.province });
+  const result = await db.insert(counterparties).values({ organizationId: input.organizationId, companyId: input.companyId, kind: input.kind, taxId: input.taxId, name: input.name, email: input.email, phone: input.phone, address: input.address, municipality: input.municipality, province: input.province, paymentTermsDays: input.paymentTermsDays ?? 0, creditLimit: (input.creditLimit ?? 0).toFixed(2), preferredCurrency: input.preferredCurrency ?? "AOA" });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "COUNTERPARTY_CREATED", entityType: "counterparty", entityId: String(id), beforeState: null, afterState: JSON.stringify({ kind: input.kind, name: input.name, taxId: input.taxId ?? null }), correlationId: `counterparty:${id}` });
   return { id, ...input };
@@ -172,12 +172,12 @@ export async function getProductsForUserCompany(userId: number, companyId: numbe
   return db.select({ product: products }).from(products).innerJoin(companies, eq(products.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(products.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(products.code);
 }
 
-export async function createProductForUser(input: { userId: number; companyId: number; code: string; name: string; kind: "GOOD" | "SERVICE"; unitCode?: string; taxCode?: string }) {
+export async function createProductForUser(input: { userId: number; companyId: number; code: string; name: string; kind: "GOOD" | "SERVICE"; unitCode?: string; taxCode?: string; salePrice?: number; purchasePrice?: number; stockManaged?: boolean }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const company = await db.select({ organizationId: companies.organizationId }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
-  const result = await db.insert(products).values({ companyId: input.companyId, code: input.code, name: input.name, kind: input.kind, unitCode: input.unitCode ?? "UN", taxCode: input.taxCode });
+  const result = await db.insert(products).values({ companyId: input.companyId, code: input.code, name: input.name, kind: input.kind, unitCode: input.unitCode ?? "UN", taxCode: input.taxCode, salePrice: (input.salePrice ?? 0).toFixed(4), purchasePrice: (input.purchasePrice ?? 0).toFixed(4), stockManaged: input.stockManaged === false ? 0 : 1 });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({ organizationId: company[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PRODUCT_CREATED", entityType: "product", entityId: String(id), beforeState: null, afterState: JSON.stringify({ code: input.code, name: input.name, kind: input.kind }), correlationId: `product:${id}` });
   return { id, ...input };
@@ -242,6 +242,7 @@ export async function createPaymentForUser(input: { userId: number; organization
     treasuryTransactionId = Number(treasury[0].insertId);
     await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "TREASURY_TRANSACTION_CREATED", entityType: "treasuryTransaction", entityId: String(treasuryTransactionId), beforeState: null, afterState: JSON.stringify({ paymentId: id, periodId: input.periodId ?? null, cashAccountId: input.cashAccountId, direction: input.direction === "RECEIPT" ? "IN" : "OUT", amount: input.amount }), correlationId: input.correlationId });
   }
+  if (input.documentId && !input.approvalRequired) await db.update(businessDocuments).set({ settledAmount: sql`LEAST(${businessDocuments.totalAmount}, ${businessDocuments.settledAmount} + ${input.amount.toFixed(2)})` }).where(and(eq(businessDocuments.id, input.documentId), eq(businessDocuments.companyId, input.companyId), sql`${businessDocuments.status} IN ('ISSUED','ACCOUNTED')`));
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_CREATED", entityType: "payment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ direction: input.direction, amount: input.amount, periodId: input.periodId ?? null, documentId: input.documentId ?? null, cashAccountId: input.cashAccountId ?? null, status: "PENDING", approvalStatus: input.approvalRequired ? "PENDING" : "APPROVED" }), correlationId: input.correlationId });
   return { payment: { id, ...input, status: "PENDING" as const }, treasuryTransactionId, idempotent: false };
 }
@@ -798,9 +799,16 @@ export async function createDraftBusinessDocumentForUser(input: { userId: number
   await assertCompanyReady(db, input.userId, input.companyId);
   const companyContext = await db.select({ organizationId: companies.organizationId, functionalCurrency: companies.functionalCurrency }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
   if (!companyContext[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
-  const counterparty = await db.select({ id: counterparties.id, name: counterparties.name, kind: counterparties.kind }).from(counterparties).where(and(eq(counterparties.id, input.counterpartyId), eq(counterparties.companyId, input.companyId), eq(counterparties.kind, input.counterpartyType))).limit(1);
+  const counterparty = await db.select({ id: counterparties.id, name: counterparties.name, kind: counterparties.kind, paymentTermsDays: counterparties.paymentTermsDays, creditLimit: counterparties.creditLimit }).from(counterparties).where(and(eq(counterparties.id, input.counterpartyId), eq(counterparties.companyId, input.companyId), eq(counterparties.kind, input.counterpartyType))).limit(1);
   if (!counterparty[0]) throw new Error("COUNTERPARTY_NOT_FOUND_OR_FORBIDDEN");
   if (["NC", "ND"].includes(input.documentType) && !input.correctsDocumentId) throw new Error("CORRECTION_ORIGIN_REQUIRED");
+  if (input.documentType === "AF" && input.counterpartyType !== "SUPPLIER") throw new Error("AUTOFATURACAO_REQUER_FORNECEDOR");
+  if (input.counterpartyType === "CUSTOMER" && Number(counterparty[0].creditLimit ?? 0) > 0) {
+    const balanceRows = await db.select({ outstanding: sql<string>`COALESCE(SUM(${businessDocuments.totalAmount} - ${businessDocuments.settledAmount}), 0)` }).from(businessDocuments).where(and(eq(businessDocuments.companyId, input.companyId), eq(businessDocuments.counterpartyId, input.counterpartyId), sql`${businessDocuments.status} IN ('ISSUED','ACCOUNTED')`));
+    const outstanding = Number(balanceRows[0]?.outstanding ?? 0);
+    const requested = input.items.reduce((sum, item) => sum + item.totalAmount, 0);
+    if (outstanding + requested > Number(counterparty[0].creditLimit)) throw new Error("CUSTOMER_CREDIT_LIMIT_EXCEEDED");
+  }
   if (input.correctsDocumentId) {
     const original = await db.select({ id: businessDocuments.id, status: businessDocuments.status }).from(businessDocuments).where(and(eq(businessDocuments.id, input.correctsDocumentId), eq(businessDocuments.companyId, input.companyId))).limit(1);
     if (!original[0]) throw new Error("CORRECTION_ORIGIN_NOT_FOUND_OR_FORBIDDEN");
@@ -811,7 +819,7 @@ export async function createDraftBusinessDocumentForUser(input: { userId: number
   if (Math.abs(totals.net + totals.tax - totals.total) > 0.01) throw new Error("DOCUMENT_TOTALS_UNBALANCED");
   const reserved = await reserveDocumentNumber({ userId: input.userId, companyId: input.companyId, series: input.series, documentType: input.documentType });
   const inserted = await db.transaction(async (tx) => {
-    const documentResult = await tx.insert(businessDocuments).values({ companyId: input.companyId, documentNumber: reserved.formatted, series: input.series, status: "DRAFT", documentType: input.documentType, customerName: counterparty[0].name, counterpartyId: input.counterpartyId, counterpartyType: input.counterpartyType, correctsDocumentId: input.correctsDocumentId, currency: input.currency ?? companyContext[0].functionalCurrency, ivaRegime: input.ivaRegime, netAmount: totals.net.toFixed(2), taxAmount: totals.tax.toFixed(2), totalAmount: totals.total.toFixed(2), dueDate: input.dueDate, createdBy: input.userId });
+    const documentResult = await tx.insert(businessDocuments).values({ companyId: input.companyId, documentNumber: reserved.formatted, series: input.series, status: "DRAFT", documentType: input.documentType, customerName: counterparty[0].name, counterpartyId: input.counterpartyId, counterpartyType: input.counterpartyType, correctsDocumentId: input.correctsDocumentId, currency: input.currency ?? companyContext[0].functionalCurrency, ivaRegime: input.ivaRegime, netAmount: totals.net.toFixed(2), taxAmount: totals.tax.toFixed(2), totalAmount: totals.total.toFixed(2), dueDate: input.dueDate ?? new Date(Date.now() + Number(counterparty[0].paymentTermsDays ?? 0) * 86400000), createdBy: input.userId });
     const documentId = Number(documentResult[0].insertId);
     for (let index = 0; index < input.items.length; index += 1) {
       const item = input.items[index];
@@ -834,14 +842,14 @@ async function assertCommercialDocumentMutable(input: { userId: number; companyI
   return row[0];
 }
 
-export async function updateProductForUser(input: { userId: number; companyId: number; productId: number; name?: string; taxCode?: string; unitCode?: string }) {
+export async function updateProductForUser(input: { userId: number; companyId: number; productId: number; name?: string; taxCode?: string; unitCode?: string; salePrice?: number; purchasePrice?: number; stockManaged?: boolean }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const row = await db.select({ product: products, organizationId: companies.organizationId }).from(products).innerJoin(companies, eq(products.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(products.id, input.productId), eq(products.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
   if (!row[0]) throw new Error("PRODUCT_NOT_FOUND_OR_FORBIDDEN");
   const linked = await db.select({ id: documentItems.id }).from(documentItems).innerJoin(businessDocuments, eq(documentItems.documentId, businessDocuments.id)).where(and(eq(documentItems.companyId, input.companyId), eq(documentItems.productId, input.productId), sql`${businessDocuments.status} IN ('ISSUED','ACCOUNTED','CANCELLED')`)).limit(1);
   if (linked[0]) throw new Error("PRODUCT_IMMUTABLE_AFTER_DOCUMENT_ISSUANCE");
-  await db.update(products).set({ name: input.name, taxCode: input.taxCode, unitCode: input.unitCode }).where(eq(products.id, input.productId));
+  await db.update(products).set({ name: input.name, taxCode: input.taxCode, unitCode: input.unitCode, salePrice: input.salePrice === undefined ? undefined : input.salePrice.toFixed(4), purchasePrice: input.purchasePrice === undefined ? undefined : input.purchasePrice.toFixed(4), stockManaged: input.stockManaged === undefined ? undefined : input.stockManaged ? 1 : 0 }).where(eq(products.id, input.productId));
   await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PRODUCT_UPDATED", entityType: "product", entityId: String(input.productId), beforeState: JSON.stringify(row[0].product), afterState: JSON.stringify({ ...row[0].product, ...input }), correlationId: `product:${input.productId}` });
   return { id: input.productId };
 }
@@ -908,14 +916,14 @@ export async function reconcileTreasuryTransactionForUser(input: { userId: numbe
   return { id: input.transactionId, reconciliationStatus: "RECONCILED" as const, alreadyReconciled: false };
 }
 
-export async function updateCounterpartyForUser(input: { userId: number; companyId: number; counterpartyId: number; name?: string; email?: string; phone?: string; address?: string }) {
+export async function updateCounterpartyForUser(input: { userId: number; companyId: number; counterpartyId: number; name?: string; email?: string; phone?: string; address?: string; paymentTermsDays?: number; creditLimit?: number; preferredCurrency?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const row = await db.select({ counterparty: counterparties, organizationId: companies.organizationId }).from(counterparties).innerJoin(companies, eq(counterparties.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(counterparties.id, input.counterpartyId), eq(counterparties.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
   if (!row[0]) throw new Error("COUNTERPARTY_NOT_FOUND_OR_FORBIDDEN");
   const linked = await db.select({ id: businessDocuments.id, status: businessDocuments.status }).from(businessDocuments).where(and(eq(businessDocuments.companyId, input.companyId), eq(businessDocuments.counterpartyId, input.counterpartyId))).limit(20);
   if (linked.some((document) => ["ISSUED", "ACCOUNTED", "CANCELLED"].includes(document.status))) throw new Error("COUNTERPARTY_IMMUTABLE_AFTER_DOCUMENT_ISSUANCE");
-  await db.update(counterparties).set({ name: input.name, email: input.email, phone: input.phone, address: input.address }).where(eq(counterparties.id, input.counterpartyId));
+  await db.update(counterparties).set({ name: input.name, email: input.email, phone: input.phone, address: input.address, paymentTermsDays: input.paymentTermsDays, creditLimit: input.creditLimit === undefined ? undefined : input.creditLimit.toFixed(2), preferredCurrency: input.preferredCurrency }).where(eq(counterparties.id, input.counterpartyId));
   await appendAuditEventForUser({ organizationId: row[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "COUNTERPARTY_UPDATED", entityType: "counterparty", entityId: String(input.counterpartyId), beforeState: JSON.stringify(row[0].counterparty), afterState: JSON.stringify({ ...row[0].counterparty, ...input }), correlationId: `counterparty:${input.counterpartyId}` });
   return { id: input.counterpartyId };
 }
@@ -1585,6 +1593,7 @@ export async function approvePaymentForUser(input: { userId: number; companyId: 
       const existing = await tx.select({ id: treasuryTransactions.id }).from(treasuryTransactions).where(and(eq(treasuryTransactions.paymentId, input.paymentId), eq(treasuryTransactions.companyId, input.companyId))).limit(1);
       if (!existing[0]) await tx.insert(treasuryTransactions).values({ companyId: input.companyId, periodId: rows[0].payment.periodId, cashAccountId: rows[0].payment.cashAccountId, paymentId: input.paymentId, direction: rows[0].payment.direction === "RECEIPT" ? "IN" : "OUT", amount: rows[0].payment.amount, valueDate: rows[0].payment.paidAt, correlationId: `payment:${input.paymentId}` });
     }
+    if (rows[0].payment.documentId) await tx.update(businessDocuments).set({ settledAmount: sql`LEAST(${businessDocuments.totalAmount}, ${businessDocuments.settledAmount} + ${rows[0].payment.amount})` }).where(and(eq(businessDocuments.id, rows[0].payment.documentId), eq(businessDocuments.companyId, input.companyId), sql`${businessDocuments.status} IN ('ISSUED','ACCOUNTED')`));
   });
   await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_APPROVED_EXECUTED", entityType: "payment", entityId: String(input.paymentId), beforeState: JSON.stringify({ approvalStatus: "PENDING" }), afterState: JSON.stringify({ approvalStatus: "APPROVED", status: "CONFIRMED", executionReference: input.executionReference ?? null }), correlationId: `payment-approval:${input.paymentId}` });
   return { paymentId: input.paymentId, idempotent: false };

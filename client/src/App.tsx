@@ -13,6 +13,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/contabilidade" component={Home} />
       <Route path="/facturacao" component={Home} />
+      <Route path="/comercial" component={Home} />
       <Route path="/clientes" component={Home} />
       <Route path="/fornecedores" component={Home} />
       <Route path="/compras" component={Home} />

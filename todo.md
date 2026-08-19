@@ -947,3 +947,12 @@
 - [x] Testar e guardar checkpoint do ciclo final financeiro
 - [x] Verificar fluxos financeiros críticos, permissões, isolamento e pontos mortos
 - [x] Executar validação funcional e visual final dos módulos financeiros
+- [x] Confirmar prontidão do módulo financeiro para avanço ao Comercial
+- [x] Separar melhorias financeiras não bloqueadoras das dependências externas
+- [x] Inventariar lacunas do módulo Comercial e requisitos AGT/MINFIN aplicáveis
+- [x] Completar clientes, fornecedores, produtos/serviços, preços e condições comerciais
+- [x] Completar documentos comerciais, séries, numeração, impostos, correcções e estados
+- [x] Integrar Comercial com Stock, Tesouraria, Contabilidade, arquivo e auditoria
+- [x] Preparar SAF-T, AGT/MINFIN, permissões e validações sem submissão real
+- [x] Executar suite Comercial, revisão visual e guardar checkpoint
+- [x] Corrigir a rota /comercial que apresenta janela não encontrada
