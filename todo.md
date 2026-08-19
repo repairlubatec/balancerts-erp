@@ -984,3 +984,13 @@
 - [x] Validar TypeScript e testes de Operações, Inventário e Compras
 - [x] Implementar contagem física persistente com aprovação e ajuste auditado
 - [x] Rever visualmente o posto Stock autenticado e concluir testes de integração do ciclo completo
+
+## Módulo Controlo — nova etapa
+
+- [x] Inventariar Fiscalidade, Relatórios, Fecho, Centro de Tarefas e Auditoria
+- [x] Completar validações fiscais, prontidão AGT e calendário de obrigações sem submissão externa
+- [x] Completar relatórios persistentes, filtros, reconciliação e rastreabilidade
+- [x] Completar checklist de fecho, reabertura auditada e tarefas accionáveis
+- [x] Completar centro de auditoria com filtros, detalhe e exportação controlada
+- [x] Rever RBAC, isolamento, idioma português e navegação desktop no módulo Controlo
+- [x] Executar suite integral, revisão visual e guardar checkpoint do módulo Controlo
