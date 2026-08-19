@@ -1085,3 +1085,11 @@
 - [x] Adicionar notificações internas de folhas pendentes
 - [x] Testar exportação, impressão, isolamento e estados pendentes através da suite, TypeScript e validação tenant-aware
 - [x] Executar suite/build, rever visualmente e guardar checkpoint
+
+## RH — recibo estruturado, filtros e tarefas
+
+- [x] Estruturar recibo interno com cabeçalho da empresa e conferência
+- [x] Adicionar filtros por ano, mês, estado e colaborador nos mapas
+- [x] Ligar folhas pendentes a tarefas accionáveis do Centro de Tarefas
+- [x] Testar filtros, recibo, isolamento e navegação para tarefas
+- [x] Executar suite/build, rever visualmente e guardar checkpoint
