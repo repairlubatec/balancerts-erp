@@ -373,3 +373,12 @@ button { cursor: pointer; }
     inset: 0;
   }
 }
+
+@media print {
+  @page { size: A4 portrait; margin: 14mm; }
+  body * { visibility: hidden !important; }
+  .rh-receipt-print, .rh-receipt-print * { visibility: visible !important; }
+  .rh-receipt-print { position: absolute !important; inset: 0 !important; width: 100% !important; margin: 0 !important; border: 0 !important; box-shadow: none !important; color: #102a43 !important; background: #fff !important; }
+  .rh-receipt-print table { page-break-inside: avoid; }
+  .rh-receipt-print .print\:hidden { display: none !important; }
+}

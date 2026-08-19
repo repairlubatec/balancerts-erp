@@ -1134,3 +1134,12 @@
 - [x] Exportar linhas do diário em CSV/XLSX
 - [x] Testar exportação, rastreabilidade e isolamento
 - [x] Executar suite/build, rever visualmente e guardar checkpoint
+
+## RH — recibo interno em PDF
+
+- [x] Preparar conteúdo do recibo interno com cabeçalho, período e aviso de uso interno
+- [x] Incluir remuneração, Segurança Social, IRT, outros descontos e líquido
+- [x] Incluir campo de conferência e espaços para assinatura
+- [x] Implementar impressão PDF sem popup do navegador, usando janela interna de impressão do sistema
+- [x] Validar idioma, dados apresentados, impressão e suite de testes
+- [x] Executar build, rever visualmente e guardar checkpoint
