@@ -1208,3 +1208,12 @@
 - [x] Rever visualmente as principais janelas desktop e estados vazios
 - [x] Corrigir falhas confirmadas e adicionar testes
 - [x] Executar validação final, rever visualmente e guardar checkpoint
+
+## RH — pré-visualização do recibo PDF
+
+- [x] Criar pré-visualização interna do recibo colectivo
+- [x] Manter pré-visualização individual por colaborador
+- [x] Exibir cabeçalho, período, valores, descontos, líquido e assinaturas
+- [x] Confirmar impressão apenas depois da pré-visualização
+- [x] Testar conteúdo, idioma, modo colectivo/individual e impressão
+- [x] Executar build, rever visualmente e guardar checkpoint

@@ -1,0 +1,20 @@
+}
+    const XLSX = await import("xlsx"); const sheet = XLSX.utils.json_to_sheet(rows); const book = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(book, sheet, "Mapa salarial"); XLSX.writeFile(book, `mapa-salarial-${selectedPayrollRunId}.xlsx`);
+    setFeedback("Mapa salarial exportado.");
+  };
+  const printInternalReceipt = () => { if (!selectedPayrollRunId || !receiptPayrollItems.length) return setFeedback("Seleccione uma folha e, se necessário, um colaborador com itens para imprimir."); window.print(); };
+  const exportJournal = async (format: "csv" | "xlsx") => {
+    const rows = (payrollJournal.data ?? []).map(({ line, account }: any) => ({ Conta: account.code, Descricao: account.name, Debito: Number(line.debit), Credito: Number(line.credit) }));
+    if (!rows.length) return setFeedback("O diário ainda não foi publicado ou não tem linhas disponíveis.");
+    if (format === "csv") { const csv = [Object.keys(rows[0]).join(";"), ...rows.map((row) => Object.values(row).join(";"))].join("\\n"); const url = URL.createObjectURL(new Blob(["\\ufeff" + csv], { type: "text/csv;charset=utf-8" })); const link = document.createElement("a"); link.href = url; link.download = `diario-salarial-${selectedPayrollRunId}.csv`; link.click(); URL.revokeObjectURL(url); return; }
+    const XLSX = await import("xlsx"); const sheet = XLSX.utils.json_to_sheet(rows); const book = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(book, sheet, "Diário salarial"); XLSX.writeFile(book, `diario-salarial-${selectedPayrollRunId}.xlsx`);
+    setFeedback("Diário salarial exportado para conferência interna.");
+  };
+  const filteredPayrollRuns = (payrollRuns.data ?? []).filter(({ run }) => (!payrollFilters.year || String(run.year) === payrollFilters.year) && (!payrollFilters.month || String(run.month) === payrollFilters.month) && (!payrollFilters.status || run.status === payrollFilters.status));
+  const selectedPayrollItems = (payrollItems.data ?? []).filter(({ employee }) => !payrollFilters.employee || employee.fullName.toLocaleLowerCase().includes(payrollFilters.employee.toLocaleLowerCase()) || employee.employeeNumber.toLocaleLowerCase().includes(payrollFilters.employee.toLocaleLowerCase()));
+  const receiptPayrollItems = selectedReceiptEmployeeId === "" ? selectedPayrollItems : selectedPayrollItems.filter(({ employee }) => String(employee.id) === selectedReceiptEmployeeId);
+  if (!companyId || !organizationId) return <Card className="border-amber-200 bg-amber-50"><CardContent className="p-5 text-sm text-amber-900">Seleccione uma empresa activa para trabalhar no módulo de Recursos Humanos.</CardContent></Card>;
+  const updateEmployee = (key: keyof typeof employeeForm) => (event: React.ChangeEvent<HTMLInputElement>) => setEmployeeForm((current) => ({ ...current, [key]: event.target.value }));
+  const updateContract = (key: keyof typeof contractForm) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setContractForm((current) => ({ ...current, [key]: event.target.value }));
+  const submitEmployee = (event: React.FormEvent) => { event.preventDefault(); if (!employeeForm.employeeNumber.trim() || !employeeForm.fullName.trim() || !employeeForm.position.trim()) return setFeedback("Indique número, nome e função do colaborador."); createEmployee.mutate({ organizationId, companyId, employeeNumber: employeeForm.employeeNumber.trim(), fullName: employeeForm.fullName.trim(), taxId: employeeForm.taxId.trim() || undefined, socialSecurityNumber: employeeForm.socialSecurityNumber.trim() || undefined, hireDate: new Date(employeeForm.hireDate), email: employeeForm.email.trim() || undefined, phone: employeeForm.phone.trim() || undefined }); };
+  const submitContract = (event: React.FormEvent) => { event.preventDefault(); const salary = Number(contractForm.baseSalary); if (!Number(contractForm.employeeId) || !contractForm.contractNumber.trim() || !contractForm.position.trim() || !Number.isFinite(salary) || salary < 0) return setFeedback("Preencha colabora

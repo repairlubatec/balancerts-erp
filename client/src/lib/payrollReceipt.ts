@@ -10,6 +10,10 @@ export function formatPayrollActor(actor: { name?: string | null; email?: string
   return `${actor.name || actor.email || "Utilizador"} · ${new Date(date).toLocaleString("pt-PT")}`;
 }
 
+export function formatReceiptMode(selectedEmployeeId: string, itemCount: number) {
+  return selectedEmployeeId ? "Recibo individual" : `Mapa colectivo (${itemCount})`;
+}
+
 export function calculateReceiptTotals(items: Array<{ grossAmount: string | number; socialEmployeeAmount: string | number; irtAmount: string | number; netAmount: string | number }>) {
   return items.reduce(
     (totals, item) => ({
