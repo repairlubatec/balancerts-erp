@@ -787,3 +787,11 @@
 - [x] Validar todos os fluxos críticos, idioma português e ausência de pop-ups web
 - [x] Rever testes, TypeScript, build e experiência desktop/PWA
 - [x] Documentar a continuação e guardar checkpoint
+
+# Continuação — Arquivo digital P1
+- [x] Criar metadados de arquivo digital com classificação, descrição, referência e versionamento
+- [x] Implementar consultas tenant-aware de pesquisa e detalhe do arquivo
+- [x] Implementar mutações de classificação, permissões e novas versões com auditoria
+- [x] Criar interface desktop do arquivo dentro do módulo Documentos
+- [x] Adicionar testes de persistência, isolamento, ACL, versionamento e apresentação portuguesa
+- [x] Validar TypeScript, build, testes e experiência visual; documentar e guardar checkpoint

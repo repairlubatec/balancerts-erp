@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+  auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
@@ -474,15 +474,63 @@ export async function recordStockMovement(input: { userId: number; organizationI
   return { id: movementId, ...input };
 }
 
-export async function createFileAsset(input: { userId: number; organizationId: number; companyId: number; storageKey: string; filename: string; mimeType: string; size: number; sha256: string; allowedUserIds?: number[] }) {
+export async function createFileAsset(input: { userId: number; organizationId: number; companyId: number; storageKey: string; filename: string; mimeType: string; size: number; sha256: string; allowedUserIds?: number[]; category?: "FISCAL" | "CONTABILISTICO" | "CONTRATO" | "RH" | "OUTRO"; description?: string; reference?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertCompanyReady(db, input.userId, input.companyId);
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
-  const result = await db.insert(fileAssets).values({ organizationId: input.organizationId, companyId: input.companyId, ownerUserId: input.userId, storageKey: input.storageKey, filename: input.filename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, allowedUserIds: JSON.stringify(input.allowedUserIds ?? []) });
+  const result = await db.insert(fileAssets).values({ organizationId: input.organizationId, companyId: input.companyId, ownerUserId: input.userId, storageKey: input.storageKey, filename: input.filename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, allowedUserIds: JSON.stringify(input.allowedUserIds ?? []), category: input.category ?? "OUTRO", description: input.description ?? null, reference: input.reference ?? null, currentVersion: 1 });
   const fileId = Number(result[0].insertId);
+  await db.insert(fileAssetVersions).values({ fileAssetId: fileId, organizationId: input.organizationId, companyId: input.companyId, versionNumber: 1, storageKey: input.storageKey, filename: input.filename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, createdBy: input.userId });
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FILE_ASSET_REGISTERED", entityType: "fileAsset", entityId: String(fileId), beforeState: null, afterState: JSON.stringify({ filename: input.filename, mimeType: input.mimeType, sha256: input.sha256, size: input.size }), correlationId: input.storageKey });
   return { id: fileId, storageKey: input.storageKey };
+}
+
+export async function listFileAssetsForUser(input: { userId: number; companyId: number; search?: string; category?: "FISCAL" | "CONTABILISTICO" | "CONTRATO" | "RH" | "OUTRO" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ file: fileAssets }).from(fileAssets).innerJoin(organizations, eq(fileAssets.organizationId, organizations.id)).where(and(eq(fileAssets.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).orderBy(desc(fileAssets.updatedAt), desc(fileAssets.id));
+  const search = input.search?.trim().toLocaleLowerCase("pt-PT");
+  return rows.map(({ file }) => ({ ...file, allowedUserIds: JSON.parse(file.allowedUserIds ?? "[]") as number[] })).filter((file) => !file.archivedAt && (!input.category || file.category === input.category) && (!search || [file.filename, file.description ?? "", file.reference ?? ""].some((value) => value.toLocaleLowerCase("pt-PT").includes(search))));
+}
+
+export async function updateFileAssetMetadataForUser(input: { userId: number; companyId: number; fileId: number; category?: "FISCAL" | "CONTABILISTICO" | "CONTRATO" | "RH" | "OUTRO"; description?: string; reference?: string; allowedUserIds?: number[] }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const file = await getFileAssetForUser(input);
+  if (file.ownerUserId !== input.userId) throw new Error("FILE_METADATA_FORBIDDEN");
+  await db.update(fileAssets).set({ category: input.category, description: input.description, reference: input.reference, allowedUserIds: input.allowedUserIds ? JSON.stringify(input.allowedUserIds) : undefined }).where(and(eq(fileAssets.id, input.fileId), eq(fileAssets.companyId, input.companyId)));
+  await appendAuditEventForUser({ organizationId: file.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FILE_ASSET_METADATA_UPDATED", entityType: "fileAsset", entityId: String(input.fileId), beforeState: JSON.stringify({ category: file.category, description: file.description, reference: file.reference, allowedUserIds: file.allowedUserIds }), afterState: JSON.stringify({ category: input.category ?? file.category, description: input.description ?? file.description, reference: input.reference ?? file.reference, allowedUserIds: input.allowedUserIds ?? file.allowedUserIds }), correlationId: `file:${input.fileId}:metadata` });
+  return getFileAssetForUser(input);
+}
+
+export async function archiveFileAssetForUser(input: { userId: number; companyId: number; fileId: number; reason: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const file = await getFileAssetForUser(input);
+  if (file.ownerUserId !== input.userId) throw new Error("FILE_ARCHIVE_FORBIDDEN");
+  await db.update(fileAssets).set({ archivedAt: new Date() }).where(and(eq(fileAssets.id, input.fileId), eq(fileAssets.companyId, input.companyId)));
+  await appendAuditEventForUser({ organizationId: file.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FILE_ASSET_ARCHIVED", entityType: "fileAsset", entityId: String(input.fileId), beforeState: JSON.stringify({ archivedAt: file.archivedAt }), afterState: JSON.stringify({ archivedAt: new Date().toISOString(), reason: input.reason }), correlationId: `file:${input.fileId}:archive` });
+  return { id: input.fileId, archived: true };
+}
+
+export async function createFileAssetVersion(input: { userId: number; companyId: number; fileId: number; storageKey: string; filename: string; mimeType: string; size: number; sha256: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const file = await getFileAssetForUser(input);
+  if (file.ownerUserId !== input.userId) throw new Error("FILE_VERSION_FORBIDDEN");
+  const versionNumber = file.currentVersion + 1;
+  await db.insert(fileAssetVersions).values({ fileAssetId: input.fileId, organizationId: file.organizationId, companyId: input.companyId, versionNumber, storageKey: input.storageKey, filename: input.filename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, createdBy: input.userId });
+  await db.update(fileAssets).set({ storageKey: input.storageKey, filename: input.filename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, currentVersion: versionNumber }).where(and(eq(fileAssets.id, input.fileId), eq(fileAssets.companyId, input.companyId)));
+  await appendAuditEventForUser({ organizationId: file.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FILE_ASSET_VERSION_CREATED", entityType: "fileAsset", entityId: String(input.fileId), beforeState: JSON.stringify({ version: file.currentVersion, sha256: file.sha256 }), afterState: JSON.stringify({ version: versionNumber, sha256: input.sha256 }), correlationId: `file:${input.fileId}:version:${versionNumber}` });
+  return { id: input.fileId, versionNumber };
+}
+
+export async function getFileAssetVersionsForUser(input: { userId: number; companyId: number; fileId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const file = await getFileAssetForUser(input);
+  return db.select({ version: fileAssetVersions }).from(fileAssetVersions).where(and(eq(fileAssetVersions.fileAssetId, input.fileId), eq(fileAssetVersions.companyId, input.companyId))).orderBy(desc(fileAssetVersions.versionNumber));
 }
 
 export async function getFileAssetForUser(input: { userId: number; companyId: number; fileId: number }) {

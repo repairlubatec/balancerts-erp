@@ -139,6 +139,27 @@ export const fileAssets = mysqlTable("fileAssets", {
   size: int("size").notNull(),
   sha256: varchar("sha256", { length: 64 }).notNull(),
   allowedUserIds: text("allowedUserIds"),
+  category: mysqlEnum("category", ["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"]).default("OUTRO").notNull(),
+  description: text("description"),
+  reference: varchar("reference", { length: 180 }),
+  currentVersion: int("currentVersion").default(1).notNull(),
+  archivedAt: timestamp("archivedAt"),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const fileAssetVersions = mysqlTable("fileAssetVersions", {
+  id: int("id").autoincrement().primaryKey(),
+  fileAssetId: int("fileAssetId").notNull(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  versionNumber: int("versionNumber").notNull(),
+  storageKey: varchar("storageKey", { length: 512 }).notNull(),
+  filename: varchar("filename", { length: 255 }).notNull(),
+  mimeType: varchar("mimeType", { length: 128 }).notNull(),
+  size: int("size").notNull(),
+  sha256: varchar("sha256", { length: 64 }).notNull(),
+  createdBy: int("createdBy").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 

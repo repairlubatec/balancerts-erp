@@ -40,4 +40,26 @@ describe("files router", () => {
     await expect(appRouter.createCaller(context("auditor")).files.downloadUrl({ companyId: 2, fileId: 7 })).rejects.toThrow("FILE_ACL_FORBIDDEN");
     expect(signed).not.toHaveBeenCalled();
   });
+
+  it("pesquisa o arquivo com escopo e filtros persistentes", async () => {
+    const list = vi.spyOn(db, "listFileAssetsForUser").mockResolvedValue([{ id: 9, filename: "contrato.pdf", category: "CONTRATO", currentVersion: 1 } as never]);
+    const result = await appRouter.createCaller(context("auditor")).files.list({ companyId: 2, search: "contrato", category: "CONTRATO" });
+    expect(result).toHaveLength(1);
+    expect(list).toHaveBeenCalledWith({ userId: 52, companyId: 2, search: "contrato", category: "CONTRATO" });
+  });
+
+  it("bloqueia alterações de arquivo a um utilizador sem permissão de escrita", async () => {
+    const update = vi.spyOn(db, "updateFileAssetMetadataForUser");
+    await expect(appRouter.createCaller(context("user")).files.updateMetadata({ companyId: 2, fileId: 9, category: "FISCAL" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(update).not.toHaveBeenCalled();
+  });
+
+  it("regista nova versão através de armazenamento antes da persistência", async () => {
+    vi.spyOn(db, "getFileAssetForUser").mockResolvedValue({ id: 9, organizationId: 1, currentVersion: 1, ownerUserId: 52 } as never);
+    vi.spyOn(storage, "storagePut").mockResolvedValue({ key: "org/1/company/2/documents/9-versao-2.txt", url: "/manus-storage/9-versao-2.txt" });
+    const createVersion = vi.spyOn(db, "createFileAssetVersion").mockResolvedValue({ id: 9, versionNumber: 2 });
+    const result = await appRouter.createCaller(context("admin")).files.newVersion({ companyId: 2, fileId: 9, filename: "revisto.txt", mimeType: "text/plain", dataBase64: Buffer.from("novo").toString("base64") });
+    expect(result.versionNumber).toBe(2);
+    expect(createVersion).toHaveBeenCalledWith(expect.objectContaining({ userId: 52, companyId: 2, fileId: 9, filename: "revisto.txt", sha256: expect.any(String) }));
+  });
 });

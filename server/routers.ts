@@ -20,7 +20,7 @@ import { buildReopenAudit, evaluatePeriodClose, validateReopenReason } from "./c
 import { buildDecree71Coverage, validateNormativeCoverage } from "./normative";
 import { convertToFunctionalCurrency } from "./currency";
 import { buildReversalLines, reversalDescription } from "./reversal";
-import { createFileAsset, getFileAssetForUser, recordStockMovement } from "./db";
+import { archiveFileAssetForUser, createFileAsset, createFileAssetVersion, getFileAssetForUser, getFileAssetVersionsForUser, listFileAssetsForUser, recordStockMovement, updateFileAssetMetadataForUser } from "./db";
 import { prepareTenantFile } from "./files";
 import { storageGetSignedUrl, storagePut } from "./storage";
 import { buildAgtComplianceCalendar, validateAgtFiscalRecord } from "./tax-compliance";
@@ -145,11 +145,22 @@ export const appRouter = router({
     confirmReviewBatch: roleProcedure("documents", "issue").input(z.object({ companyId: z.number().int().positive(), batchId: z.number().int().positive() })).mutation(({ ctx, input }) => confirmDocumentImportBatchForUser({ userId: ctx.user.id, companyId: input.companyId, batchId: input.batchId })),
   }),
   files: router({
-    register: roleProcedure("documents", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), filename: z.string().min(1), mimeType: z.string().min(1), dataBase64: z.string().min(1), allowedUserIds: z.array(z.number().int().positive()).optional() })).mutation(async ({ ctx, input }) => {
+    register: roleProcedure("documents", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), filename: z.string().min(1), mimeType: z.string().min(1), dataBase64: z.string().min(1), allowedUserIds: z.array(z.number().int().positive()).optional(), category: z.enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"]).optional(), description: z.string().max(2000).optional(), reference: z.string().max(180).optional() })).mutation(async ({ ctx, input }) => {
       const data = Buffer.from(input.dataBase64, "base64");
       const prepared = prepareTenantFile({ ...input, userId: ctx.user.id, data });
       const uploaded = await storagePut(prepared.key, data, prepared.mimeType);
-      return createFileAsset({ ...prepared, userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, storageKey: uploaded.key });
+      return createFileAsset({ ...prepared, userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, storageKey: uploaded.key, category: input.category, description: input.description, reference: input.reference });
+    }),
+    list: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), search: z.string().max(120).optional(), category: z.enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"]).optional() })).query(({ ctx, input }) => listFileAssetsForUser({ ...input, userId: ctx.user.id })),
+    updateMetadata: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive(), category: z.enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"]).optional(), description: z.string().max(2000).optional(), reference: z.string().max(180).optional(), allowedUserIds: z.array(z.number().int().positive()).optional() })).mutation(({ ctx, input }) => updateFileAssetMetadataForUser({ ...input, userId: ctx.user.id })),
+    archive: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive(), reason: z.string().trim().min(3).max(500) })).mutation(({ ctx, input }) => archiveFileAssetForUser({ ...input, userId: ctx.user.id })),
+    versions: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive() })).query(({ ctx, input }) => getFileAssetVersionsForUser({ ...input, userId: ctx.user.id })),
+    newVersion: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive(), filename: z.string().min(1), mimeType: z.string().min(1), dataBase64: z.string().min(1) })).mutation(async ({ ctx, input }) => {
+      const data = Buffer.from(input.dataBase64, "base64");
+      const current = await getFileAssetForUser({ userId: ctx.user.id, companyId: input.companyId, fileId: input.fileId });
+      const prepared = prepareTenantFile({ organizationId: current.organizationId, companyId: input.companyId, userId: ctx.user.id, filename: `${input.fileId}-versao-${Date.now()}-${input.filename}`, mimeType: input.mimeType, data });
+      const uploaded = await storagePut(prepared.key, data, prepared.mimeType);
+      return createFileAssetVersion({ userId: ctx.user.id, companyId: input.companyId, fileId: input.fileId, storageKey: uploaded.key, filename: input.filename, mimeType: input.mimeType, size: prepared.size, sha256: prepared.sha256 });
     }),
     metadata: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive() })).query(({ ctx, input }) => getFileAssetForUser({ ...input, userId: ctx.user.id })),
     downloadUrl: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive() })).query(async ({ ctx, input }) => {
