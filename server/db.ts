@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+  auditEvents, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
@@ -580,6 +580,49 @@ export async function transitionPurchaseOrderForUser(input: { userId: number; co
   await db.update(purchaseOrders).set({ status: input.target, approvedBy: input.target === "APPROVED" ? input.userId : current.order.approvedBy, approvedAt: input.target === "APPROVED" ? new Date() : current.order.approvedAt }).where(eq(purchaseOrders.id, input.orderId));
   await appendAuditEventForUser({ organizationId: current.organization.id, companyId: input.companyId, actorUserId: input.userId, action: `PURCHASE_ORDER_${input.target}`, entityType: "purchaseOrder", entityId: String(input.orderId), beforeState: JSON.stringify({ status: current.order.status }), afterState: JSON.stringify({ status: input.target, reason: input.reason ?? null }), correlationId: `purchase:${input.orderId}:${input.target}` });
   return { id: input.orderId, previousStatus: current.order.status, status: input.target };
+}
+
+export async function receivePurchaseOrderForUser(input: { userId: number; companyId: number; periodId: number; orderId: number; receivedAt: Date; idempotencyKey: string; notes?: string; items: Array<{ orderItemId: number; quantity: number; unitCost?: number }> }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
+  if (!input.items.length) throw new Error("PURCHASE_RECEIPT_ITEMS_REQUIRED");
+  const existing = await db.select({ receipt: purchaseReceipts }).from(purchaseReceipts).innerJoin(organizations, eq(purchaseReceipts.organizationId, organizations.id)).where(and(eq(purchaseReceipts.companyId, input.companyId), eq(purchaseReceipts.idempotencyKey, input.idempotencyKey), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (existing[0]) return { id: existing[0].receipt.id, receiptNumber: existing[0].receipt.receiptNumber, status: "ALREADY_REGISTERED" as const };
+  const orderRows = await db.select({ order: purchaseOrders, organizationId: organizations.id }).from(purchaseOrders).innerJoin(organizations, eq(purchaseOrders.organizationId, organizations.id)).where(and(eq(purchaseOrders.id, input.orderId), eq(purchaseOrders.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const order = orderRows[0];
+  if (!order || !["APPROVED", "RECEIVED"].includes(order.order.status)) throw new Error("PURCHASE_ORDER_NOT_APPROVED_OR_FORBIDDEN");
+  const orderItems = await db.select({ item: purchaseOrderItems }).from(purchaseOrderItems).where(and(eq(purchaseOrderItems.orderId, input.orderId), eq(purchaseOrderItems.companyId, input.companyId)));
+  const byId = new Map(orderItems.map(({ item }) => [item.id, item]));
+  const normalized = [] as Array<{ item: typeof orderItems[number]["item"]; quantity: number; unitCost: number; productCode: string }>;
+  for (const received of input.items) {
+    const item = byId.get(received.orderItemId);
+    const quantity = Number(received.quantity);
+    if (!item || !Number.isFinite(quantity) || quantity <= 0) throw new Error("PURCHASE_RECEIPT_LINE_INVALID");
+    const remaining = Number(item.quantity) - Number(item.receivedQuantity);
+    if (quantity > remaining + 0.000001) throw new Error("PURCHASE_RECEIPT_QUANTITY_EXCEEDS_ORDER");
+    if (!item.productId) throw new Error("PURCHASE_RECEIPT_PRODUCT_REQUIRED");
+    const product = await db.select({ code: products.code }).from(products).where(and(eq(products.id, item.productId), eq(products.companyId, input.companyId), eq(products.active, 1))).limit(1);
+    if (!product[0]) throw new Error("PURCHASE_RECEIPT_PRODUCT_NOT_FOUND_OR_FORBIDDEN");
+    normalized.push({ item, quantity, unitCost: received.unitCost === undefined ? Number(item.unitPrice) : Number(received.unitCost), productCode: product[0].code });
+  }
+  const receiptNumber = `REC/${input.receivedAt.getUTCFullYear()}/${Date.now()}`;
+  const receipt = await db.transaction(async (tx) => {
+    const result = await tx.insert(purchaseReceipts).values({ organizationId: order.organizationId, companyId: input.companyId, orderId: input.orderId, receiptNumber, periodId: input.periodId, receivedAt: input.receivedAt, notes: input.notes, idempotencyKey: input.idempotencyKey, createdBy: input.userId });
+    const receiptId = Number(result[0].insertId);
+    for (const row of normalized) {
+      await tx.insert(purchaseReceiptItems).values({ organizationId: order.organizationId, companyId: input.companyId, receiptId, orderItemId: row.item.id, productId: row.item.productId, productCode: row.productCode, quantity: row.quantity.toFixed(4), unitCost: row.unitCost.toFixed(4) });
+      await tx.update(purchaseOrderItems).set({ receivedQuantity: sql`${purchaseOrderItems.receivedQuantity} + ${row.quantity.toFixed(4)}` }).where(eq(purchaseOrderItems.id, row.item.id));
+      await tx.insert(stockMovements).values({ organizationId: order.organizationId, companyId: input.companyId, periodId: input.periodId, productCode: row.productCode, type: "IN", quantity: row.quantity.toFixed(4), unitCost: row.unitCost.toFixed(4), correlationId: `receipt:${receiptId}:${row.item.id}` });
+    }
+    return receiptId;
+  });
+  const refreshed = await db.select({ item: purchaseOrderItems }).from(purchaseOrderItems).where(and(eq(purchaseOrderItems.orderId, input.orderId), eq(purchaseOrderItems.companyId, input.companyId)));
+  const fullyReceived = refreshed.every(({ item }) => Number(item.receivedQuantity) >= Number(item.quantity) - 0.000001);
+  if (fullyReceived && order.order.status !== "RECEIVED") await db.update(purchaseOrders).set({ status: "RECEIVED" }).where(eq(purchaseOrders.id, input.orderId));
+  await appendAuditEventForUser({ organizationId: order.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PURCHASE_RECEIPT_REGISTERED", entityType: "purchaseReceipt", entityId: String(receipt), beforeState: JSON.stringify({ orderId: input.orderId, status: order.order.status }), afterState: JSON.stringify({ receiptNumber, status: fullyReceived ? "RECEIVED" : order.order.status, itemCount: normalized.length }), correlationId: `receipt:${receipt}` });
+  return { id: receipt, receiptNumber, status: fullyReceived ? "RECEIVED" as const : "PARTIALLY_RECEIVED" as const };
 }
 
 export async function reserveDocumentNumber(input: { userId: number; companyId: number; series: string; documentType: string }) {

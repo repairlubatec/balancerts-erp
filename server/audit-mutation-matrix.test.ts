@@ -18,6 +18,7 @@ describe("critical mutation audit matrix", () => {
       ["companies.activate", "COMPANY_ACTIVATED", "company"],
       ["inventory.record", "STOCK_MOVEMENT_RECORDED", "stockMovement"],
       ["files.register", "FILE_ASSET_REGISTERED", "fileAsset"],
+      ["purchases.receive", "PURCHASE_RECEIPT_REGISTERED", "purchaseReceipt"],
       ["documents.reserveNumber", "DOCUMENT_NUMBER_RESERVED", "documentSeries"],
       ["documents.transition", "DOCUMENT_ISSUED", "businessDocument"],
       ["accounting.post", "JOURNAL_ENTRY_POSTED", "journalEntry"],

@@ -265,6 +265,33 @@ export const purchaseOrderItems = mysqlTable("purchaseOrderItems", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const purchaseReceipts = mysqlTable("purchaseReceipts", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  orderId: int("orderId").notNull(),
+  receiptNumber: varchar("receiptNumber", { length: 80 }).notNull(),
+  periodId: int("periodId").notNull(),
+  receivedAt: timestamp("receivedAt").notNull(),
+  notes: text("notes"),
+  idempotencyKey: varchar("idempotencyKey", { length: 160 }).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const purchaseReceiptItems = mysqlTable("purchaseReceiptItems", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  receiptId: int("receiptId").notNull(),
+  orderItemId: int("orderItemId").notNull(),
+  productId: int("productId"),
+  productCode: varchar("productCode", { length: 80 }).notNull(),
+  quantity: decimal("quantity", { precision: 18, scale: 4 }).notNull(),
+  unitCost: decimal("unitCost", { precision: 18, scale: 4 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const fixedAssets = mysqlTable("fixedAssets", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

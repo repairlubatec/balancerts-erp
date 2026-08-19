@@ -30,6 +30,13 @@ describe("router de compras", () => {
     expect(create).toHaveBeenCalledWith(expect.objectContaining({ userId: 52, supplierId: 3, items: [expect.objectContaining({ description: "Serviço" })] }));
   });
 
+  it("recebe parcialmente uma encomenda aprovada através do contrato", async () => {
+    const receive = vi.spyOn(db, "receivePurchaseOrderForUser").mockResolvedValue({ id: 11, receiptNumber: "REC/2026/11", status: "PARTIALLY_RECEIVED" });
+    const result = await appRouter.createCaller(context("contabilista")).purchases.receive({ companyId: 2, periodId: 3, orderId: 10, receivedAt: new Date(), idempotencyKey: "receipt-test-10", items: [{ orderItemId: 20, quantity: 2 }] });
+    expect(result.status).toBe("PARTIALLY_RECEIVED");
+    expect(receive).toHaveBeenCalledWith(expect.objectContaining({ userId: 52, periodId: 3, orderId: 10, idempotencyKey: "receipt-test-10", items: [{ orderItemId: 20, quantity: 2 }] }));
+  });
+
   it("transita uma encomenda com validação", async () => {
     const transition = vi.spyOn(db, "transitionPurchaseOrderForUser").mockResolvedValue({ id: 10, previousStatus: "DRAFT", status: "SUBMITTED" });
     const result = await appRouter.createCaller(context("admin")).purchases.transition({ companyId: 2, orderId: 10, target: "SUBMITTED" });

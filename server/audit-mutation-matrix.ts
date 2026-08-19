@@ -8,6 +8,7 @@ export const criticalMutationAuditMatrix = [
   { mutation: "files.archive", tables: ["fileAssets"], action: "FILE_ASSET_ARCHIVED", entityType: "fileAsset" },
   { mutation: "purchases.create", tables: ["purchaseOrders", "purchaseOrderItems"], action: "PURCHASE_ORDER_CREATED", entityType: "purchaseOrder" },
   { mutation: "purchases.transition", tables: ["purchaseOrders"], action: "PURCHASE_ORDER_<TARGET_STATUS>", entityType: "purchaseOrder" },
+  { mutation: "purchases.receive", tables: ["purchaseReceipts", "purchaseReceiptItems", "purchaseOrderItems", "stockMovements"], action: "PURCHASE_RECEIPT_REGISTERED", entityType: "purchaseReceipt" },
   { mutation: "documents.reserveNumber", tables: ["documentSeries"], action: "DOCUMENT_NUMBER_RESERVED", entityType: "documentSeries" },
   { mutation: "documents.transition", tables: ["businessDocuments"], action: "DOCUMENT_<TARGET_STATUS>", entityType: "businessDocument" },
   { mutation: "accounting.post", tables: ["journalEntries", "journalLines"], action: "JOURNAL_ENTRY_POSTED", entityType: "journalEntry" },

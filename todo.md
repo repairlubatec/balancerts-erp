@@ -813,3 +813,11 @@
 - [x] Adicionar testes de ciclo, permissões, isolamento e transições
 - [x] Validar base de dados, TypeScript, build, testes e experiência visual; documentar e guardar checkpoint
 - [x] Actualizar as expectativas do teste da matriz crítica para incluir compras.create e compras.transition
+
+# Continuação — Recepção de stock ligada a compras P1
+- [x] Auditar linhas de encomendas, produtos e movimentos de stock existentes
+- [x] Criar recepções persistentes com quantidades parciais e diferenças controladas
+- [x] Expor mutação tenant-aware com permissões, idempotência e auditoria
+- [x] Integrar recepção no posto Compras e no módulo Stock
+- [x] Adicionar testes de ciclo, limites de quantidade, isolamento e apresentação portuguesa
+- [x] Validar migração, TypeScript, build, suite completa e revisão visual; documentar e guardar checkpoint

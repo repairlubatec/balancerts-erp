@@ -17,6 +17,8 @@ describe("rótulos de apresentação em português", () => {
     expect(presentationLabel("RECEIVED")).toBe("Recebida");
     expect(presentationLabel("purchaseOrder")).toBe("Encomenda de compra");
     expect(presentationLabel("PURCHASE_ORDER_CREATED")).toBe("Encomenda de compra criada");
+    expect(presentationLabel("PARTIALLY_RECEIVED")).toBe("Recebida parcialmente");
+    expect(presentationLabel("PURCHASE_RECEIPT_REGISTERED")).toBe("Recepção de stock registada");
   });
 
   it("traduz tipos e direcções técnicas conhecidas", () => {
