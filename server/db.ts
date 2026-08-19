@@ -215,10 +215,14 @@ export async function getTreasuryTransactionsForUserCompany(userId: number, comp
   return db.select({ transaction: treasuryTransactions, account: cashAccounts }).from(treasuryTransactions).innerJoin(cashAccounts, eq(treasuryTransactions.cashAccountId, cashAccounts.id)).innerJoin(companies, eq(treasuryTransactions.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(treasuryTransactions.companyId, companyId), eq(organizations.ownerUserId, userId))).orderBy(treasuryTransactions.valueDate);
 }
 
-export async function createPaymentForUser(input: { userId: number; organizationId: number; companyId: number; documentId?: number; cashAccountId?: number; direction: "RECEIPT" | "PAYMENT"; amount: number; currency?: string; paidAt: Date; method: "CASH" | "BANK_TRANSFER" | "CARD" | "OTHER"; idempotencyKey: string; correlationId: string }) {
+export async function createPaymentForUser(input: { userId: number; organizationId: number; companyId: number; periodId?: number; documentId?: number; cashAccountId?: number; direction: "RECEIPT" | "PAYMENT"; amount: number; currency?: string; paidAt: Date; method: "CASH" | "BANK_TRANSFER" | "CARD" | "OTHER"; idempotencyKey: string; correlationId: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  if (input.periodId) {
+    const period = await db.select({ id: fiscalPeriods.id }).from(fiscalPeriods).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId))).limit(1);
+    if (!period[0]) throw new Error("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
+  }
   if (input.documentId) {
     const document = await db.select({ id: businessDocuments.id }).from(businessDocuments).where(and(eq(businessDocuments.id, input.documentId), eq(businessDocuments.companyId, input.companyId))).limit(1);
     if (!document[0]) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
@@ -229,15 +233,15 @@ export async function createPaymentForUser(input: { userId: number; organization
   }
   const existing = await db.select().from(payments).where(eq(payments.idempotencyKey, input.idempotencyKey)).limit(1);
   if (existing[0]) return { payment: existing[0], idempotent: true };
-  const result = await db.insert(payments).values({ organizationId: input.organizationId, companyId: input.companyId, documentId: input.documentId, direction: input.direction, amount: String(input.amount), currency: input.currency ?? "AOA", paidAt: input.paidAt, method: input.method, idempotencyKey: input.idempotencyKey, correlationId: input.correlationId, createdBy: input.userId });
+  const result = await db.insert(payments).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, documentId: input.documentId, direction: input.direction, amount: String(input.amount), currency: input.currency ?? "AOA", paidAt: input.paidAt, method: input.method, idempotencyKey: input.idempotencyKey, correlationId: input.correlationId, createdBy: input.userId });
   const id = Number(result[0].insertId);
   let treasuryTransactionId: number | undefined;
   if (input.cashAccountId) {
-    const treasury = await db.insert(treasuryTransactions).values({ companyId: input.companyId, cashAccountId: input.cashAccountId, paymentId: id, direction: input.direction === "RECEIPT" ? "IN" : "OUT", amount: String(input.amount), valueDate: input.paidAt, correlationId: input.correlationId });
+    const treasury = await db.insert(treasuryTransactions).values({ companyId: input.companyId, periodId: input.periodId, cashAccountId: input.cashAccountId, paymentId: id, direction: input.direction === "RECEIPT" ? "IN" : "OUT", amount: String(input.amount), valueDate: input.paidAt, correlationId: input.correlationId });
     treasuryTransactionId = Number(treasury[0].insertId);
-    await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "TREASURY_TRANSACTION_CREATED", entityType: "treasuryTransaction", entityId: String(treasuryTransactionId), beforeState: null, afterState: JSON.stringify({ paymentId: id, cashAccountId: input.cashAccountId, direction: input.direction === "RECEIPT" ? "IN" : "OUT", amount: input.amount }), correlationId: input.correlationId });
+    await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "TREASURY_TRANSACTION_CREATED", entityType: "treasuryTransaction", entityId: String(treasuryTransactionId), beforeState: null, afterState: JSON.stringify({ paymentId: id, periodId: input.periodId ?? null, cashAccountId: input.cashAccountId, direction: input.direction === "RECEIPT" ? "IN" : "OUT", amount: input.amount }), correlationId: input.correlationId });
   }
-  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_CREATED", entityType: "payment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ direction: input.direction, amount: input.amount, documentId: input.documentId ?? null, cashAccountId: input.cashAccountId ?? null, status: "PENDING" }), correlationId: input.correlationId });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_CREATED", entityType: "payment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ direction: input.direction, amount: input.amount, periodId: input.periodId ?? null, documentId: input.documentId ?? null, cashAccountId: input.cashAccountId ?? null, status: "PENDING" }), correlationId: input.correlationId });
   return { payment: { id, ...input, status: "PENDING" as const }, treasuryTransactionId, idempotent: false };
 }
 

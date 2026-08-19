@@ -873,3 +873,13 @@
 - [x] Tornar o filtro de empresas autorizadas funcional por estado e pesquisa
 - [x] Tornar a consulta de prontidão fiscal compatível com mocks de teste sem perder a consulta real
 - [x] Proteger o cálculo de documentos pendentes quando o relatório fiscal de teste não tem entries
+
+# Continuação — Exercício e empresa nos módulos financeiros
+- [x] Criar selector de exercício com calendário interno para Contabilidade e Tesouraria
+- [x] Criar janela interna de escolha entre todas as empresas autorizadas
+- [x] Aplicar empresa e exercício seleccionados às consultas e mutações reais dos dois módulos
+- [x] Implementar avanço sequencial por Enter em todos os formulários financeiros relevantes
+- [x] Cobrir os fluxos com testes de empresa, exercício, Enter, RBAC, isolamento e feedback
+- [x] Validar visualmente Contabilidade e Tesouraria e guardar checkpoint
+- [x] Adicionar o período fiscal ao contrato do painel de Tesouraria e ao movimento persistente
+- [x] Corrigir importações do handler de Enter após a separação do utilitário

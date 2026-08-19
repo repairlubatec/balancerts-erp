@@ -400,6 +400,7 @@ export const payments = mysqlTable("payments", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),
   companyId: int("companyId").notNull(),
+  periodId: int("periodId"),
   documentId: int("documentId"),
   direction: mysqlEnum("direction", ["RECEIPT", "PAYMENT"]).notNull(),
   amount: decimal("amount", { precision: 18, scale: 2 }).notNull(),
@@ -428,6 +429,7 @@ export const cashAccounts = mysqlTable("cashAccounts", {
 export const treasuryTransactions = mysqlTable("treasuryTransactions", {
   id: int("id").autoincrement().primaryKey(),
   companyId: int("companyId").notNull(),
+  periodId: int("periodId"),
   cashAccountId: int("cashAccountId").notNull(),
   paymentId: int("paymentId"),
   direction: mysqlEnum("direction", ["IN", "OUT"]).notNull(),
