@@ -1,0 +1,23 @@
+CREATE TABLE `balancertsIaSuggestions` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`organizationId` int NOT NULL,
+	`companyId` int NOT NULL,
+	`createdBy` int NOT NULL,
+	`reviewedBy` int,
+	`targetType` enum('DOCUMENT','FILE','IMPORT_ROW') NOT NULL,
+	`targetId` int NOT NULL,
+	`task` varchar(80) NOT NULL,
+	`status` enum('PROPOSED','APPROVED','REJECTED','EXPIRED') NOT NULL DEFAULT 'PROPOSED',
+	`provider` varchar(40) NOT NULL,
+	`model` varchar(120),
+	`confidence` decimal(5,2) NOT NULL,
+	`idempotencyKey` varchar(160) NOT NULL,
+	`inputSummary` text NOT NULL,
+	`beforeState` text NOT NULL,
+	`suggestion` text NOT NULL,
+	`reviewNote` varchar(500),
+	`reviewedAt` timestamp,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `balancertsIaSuggestions_id` PRIMARY KEY(`id`),
+	CONSTRAINT `balancertsIaSuggestions_idempotencyKey_unique` UNIQUE(`idempotencyKey`)
+);

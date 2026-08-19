@@ -21,6 +21,13 @@ describe("rótulos de apresentação em português", () => {
     expect(presentationLabel("PURCHASE_RECEIPT_REGISTERED")).toBe("Recepção de stock registada");
   });
 
+  it("traduz operações e entidades Balancerts IA", () => {
+    expect(presentationLabel("CLASSIFICAR_DOCUMENTO")).toBe("Classificação documental");
+    expect(presentationLabel("BALANCERTS_IA_SUGGESTION_APPROVED")).toBe("Sugestão Balancerts IA aprovada");
+    expect(presentationLabel("balancertsIaSuggestion")).toBe("Sugestão Balancerts IA");
+    expect(presentationLabel("router")).toBe("Roteador interno");
+  });
+
   it("traduz tipos e direcções técnicas conhecidas", () => {
     expect(presentationLabel("SERVICE")).toBe("Serviço");
     expect(presentationLabel("CUSTOMER")).toBe("Cliente");

@@ -73,6 +73,11 @@ const labels: Record<string, string> = {
   ENTRY: "Lançamento",
   AGT: "AGT",
   EXCLUSAO: "Exclusão",
+  CLASSIFICAR_DOCUMENTO: "Classificação documental",
+  BALANCERTS_IA_SUGGESTION_APPROVED: "Sugestão Balancerts IA aprovada",
+  BALANCERTS_IA_SUGGESTION_REJECTED: "Sugestão Balancerts IA rejeitada",
+  balancertsIaSuggestion: "Sugestão Balancerts IA",
+  router: "Roteador interno",
 };
 
 export function presentationLabel(value: string | null | undefined): string {

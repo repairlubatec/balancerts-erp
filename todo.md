@@ -841,3 +841,11 @@
 - [x] Validar TypeScript, build, suite completa, revisão visual e documentar a Fase 1
 - [x] Corrigir o estado do roteador para não consultar providers desactivados
 - [x] Corrigir termos visíveis cloud, Provider e Offline no módulo Balancerts IA
+
+# Continuação — Classificação documental assistida Balancerts IA
+- [x] Auditar documentos, importação e campos seguros para classificação
+- [x] Criar sugestões persistentes com confiança, origem e estado de revisão
+- [x] Implementar classificação assistida sem alterar documentos automaticamente
+- [x] Criar centro desktop de revisão, aprovação e rejeição humana
+- [x] Adicionar permissões, auditoria, isolamento e testes de segurança
+- [x] Validar idioma, ausência de efeitos fiscais, TypeScript, build e suite completa; documentar e guardar checkpoint

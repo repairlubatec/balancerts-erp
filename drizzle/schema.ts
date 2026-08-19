@@ -120,6 +120,28 @@ export const balancertsIaConfigs = mysqlTable("balancertsIaConfigs", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const balancertsIaSuggestions = mysqlTable("balancertsIaSuggestions", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  createdBy: int("createdBy").notNull(),
+  reviewedBy: int("reviewedBy"),
+  targetType: mysqlEnum("targetType", ["DOCUMENT", "FILE", "IMPORT_ROW"]).notNull(),
+  targetId: int("targetId").notNull(),
+  task: varchar("task", { length: 80 }).notNull(),
+  status: mysqlEnum("status", ["PROPOSED", "APPROVED", "REJECTED", "EXPIRED"]).default("PROPOSED").notNull(),
+  provider: varchar("provider", { length: 40 }).notNull(),
+  model: varchar("model", { length: 120 }),
+  confidence: decimal("confidence", { precision: 5, scale: 2 }).notNull(),
+  idempotencyKey: varchar("idempotencyKey", { length: 160 }).notNull().unique(),
+  inputSummary: text("inputSummary").notNull(),
+  beforeState: text("beforeState").notNull(),
+  suggestion: text("suggestion").notNull(),
+  reviewNote: varchar("reviewNote", { length: 500 }),
+  reviewedAt: timestamp("reviewedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const balancertsIaLogs = mysqlTable("balancertsIaLogs", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, balancertsIaConfigs, balancertsIaLogs, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
@@ -12,6 +12,48 @@ import { ENV } from "./_core/env";
 import { AIRouter, type IAConfig, type IARequest } from "./balancerts-ia/providers";
 
 let _db: ReturnType<typeof drizzle> | null = null;
+
+export async function createBalancertsIaDocumentSuggestionForUser(input: { userId: number; companyId: number; documentId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ document: businessDocuments, company: companies, organization: organizations }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(businessDocuments.id, input.documentId), eq(businessDocuments.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const row = rows[0];
+  if (!row) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+  const config = await getBalancertsIaConfigForUserCompany({ userId: input.userId, companyId: input.companyId });
+  if (!config.enabled) throw new Error("IA_DESACTIVADA");
+  const idempotencyKey = `document-classification:${input.companyId}:${input.documentId}:${row.document.immutableHash ?? row.document.createdAt.getTime()}`;
+  const existing = await db.select().from(balancertsIaSuggestions).where(eq(balancertsIaSuggestions.idempotencyKey, idempotencyKey)).limit(1);
+  if (existing[0]) return { suggestion: existing[0], alreadyExists: true };
+  const iaConfig: IAConfig = { localEnabled: Boolean(config.localEnabled), localBaseUrl: config.localBaseUrl, localPort: config.localPort, localModel: config.localModel, azureEnabled: Boolean(config.azureEnabled), azureEndpoint: config.azureEndpoint, azureDeployment: config.azureDeployment, openaiEnabled: Boolean(config.openaiEnabled), openaiModel: config.openaiModel };
+  const safeInput = { documentType: row.document.documentType, status: row.document.status, counterpartyType: row.document.counterpartyType, ivaRegime: row.document.ivaRegime, currency: row.document.currency, netAmount: row.document.netAmount, taxAmount: row.document.taxAmount, totalAmount: row.document.totalAmount };
+  let result;
+  try { result = await new AIRouter(iaConfig).execute({ task: "classificar", input: "Classifica este documento apenas para revisão humana. Não alteres dados nem executes operações.", context: safeInput }); } catch (error) { await createBalancertsIaLogForUser({ userId: input.userId, companyId: input.companyId, operation: "CLASSIFICAR_DOCUMENTO", provider: "router", requestSummary: JSON.stringify(safeInput), error: error instanceof Error ? error.message : "IA_ERROR" }); throw error; }
+  const suggestionPayload = JSON.stringify({ proposta: result.content, aplicaçãoAutomática: false, revisãoObrigatória: true });
+  await db.insert(balancertsIaSuggestions).values({ organizationId: row.company.organizationId, companyId: input.companyId, createdBy: input.userId, targetType: "DOCUMENT", targetId: input.documentId, task: "CLASSIFICAR_DOCUMENTO", status: "PROPOSED", provider: result.provider, model: result.model, confidence: "50.00", idempotencyKey, inputSummary: JSON.stringify(safeInput), beforeState: JSON.stringify({ status: row.document.status, documentType: row.document.documentType, ivaRegime: row.document.ivaRegime }), suggestion: suggestionPayload });
+  await createBalancertsIaLogForUser({ userId: input.userId, companyId: input.companyId, operation: "CLASSIFICAR_DOCUMENTO", provider: result.provider, model: result.model, confidence: 50, requestSummary: JSON.stringify(safeInput), resultSummary: suggestionPayload, responseMs: result.responseMs });
+  const created = await db.select().from(balancertsIaSuggestions).where(eq(balancertsIaSuggestions.idempotencyKey, idempotencyKey)).limit(1);
+  return { suggestion: created[0], alreadyExists: false };
+}
+
+export async function getBalancertsIaSuggestionsForUserCompany(input: { userId: number; companyId: number; status?: "PROPOSED" | "APPROVED" | "REJECTED" | "EXPIRED" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const owner = await db.select({ company: companies }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!owner[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  return db.select().from(balancertsIaSuggestions).where(and(eq(balancertsIaSuggestions.companyId, input.companyId), eq(balancertsIaSuggestions.organizationId, owner[0].company.organizationId), ...(input.status ? [eq(balancertsIaSuggestions.status, input.status)] : []))).orderBy(desc(balancertsIaSuggestions.id)).limit(100);
+}
+
+export async function reviewBalancertsIaSuggestionForUser(input: { userId: number; companyId: number; suggestionId: number; decision: "APPROVED" | "REJECTED"; reviewNote?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ suggestion: balancertsIaSuggestions, company: companies }).from(balancertsIaSuggestions).innerJoin(companies, eq(balancertsIaSuggestions.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(balancertsIaSuggestions.id, input.suggestionId), eq(balancertsIaSuggestions.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  const row = rows[0];
+  if (!row) throw new Error("IA_SUGGESTION_NOT_FOUND_OR_FORBIDDEN");
+  if (row.suggestion.status !== "PROPOSED") throw new Error("IA_SUGGESTION_ALREADY_REVIEWED");
+  await db.update(balancertsIaSuggestions).set({ status: input.decision, reviewedBy: input.userId, reviewedAt: new Date(), reviewNote: input.reviewNote?.trim() || null }).where(eq(balancertsIaSuggestions.id, input.suggestionId));
+  await appendAuditEventForUser({ organizationId: row.company.organizationId, companyId: input.companyId, actorUserId: input.userId, action: input.decision === "APPROVED" ? "BALANCERTS_IA_SUGGESTION_APPROVED" : "BALANCERTS_IA_SUGGESTION_REJECTED", entityType: "balancertsIaSuggestion", entityId: String(input.suggestionId), beforeState: JSON.stringify({ status: row.suggestion.status, targetId: row.suggestion.targetId }), afterState: JSON.stringify({ status: input.decision, applied: false }), correlationId: `balancerts-ia-suggestion:${input.suggestionId}` });
+  return { id: input.suggestionId, status: input.decision, applied: false } as const;
+}
 
 export async function getBalancertsIaConfigForUserCompany(input: { userId: number; companyId: number }) {
   const db = await getDb();
