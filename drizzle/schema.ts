@@ -77,15 +77,32 @@ export const chartAccounts = mysqlTable("chartAccounts", {
   validTo: timestamp("validTo"),
 });
 
+export const costCenters = mysqlTable("costCenters", {
+  id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId").notNull(),
+  code: varchar("code", { length: 40 }).notNull(),
+  name: varchar("name", { length: 180 }).notNull(),
+  active: int("active").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const journalEntries = mysqlTable("journalEntries", {
   id: int("id").autoincrement().primaryKey(),
   companyId: int("companyId").notNull(),
   periodId: int("periodId").notNull(),
   sourceDocumentId: int("sourceDocumentId"),
+  supportFileAssetId: int("supportFileAssetId"),
+  documentReference: varchar("documentReference", { length: 120 }),
+  journalCode: varchar("journalCode", { length: 32 }).default("GERAL").notNull(),
+  costCenter: varchar("costCenter", { length: 80 }),
+  analyticalDimension: varchar("analyticalDimension", { length: 120 }),
   reversalOfEntryId: int("reversalOfEntryId"),
   idempotencyKey: varchar("idempotencyKey", { length: 120 }).notNull().unique(),
   status: mysqlEnum("status", ["POSTED", "REVERSED"]).default("POSTED").notNull(),
   description: text("description").notNull(),
+  reviewStatus: mysqlEnum("reviewStatus", ["PENDING", "APPROVED"]).default("APPROVED").notNull(),
+  reviewedBy: int("reviewedBy"),
+  reviewedAt: timestamp("reviewedAt"),
   createdBy: int("createdBy").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

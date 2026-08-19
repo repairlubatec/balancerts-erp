@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, isNull, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
+  auditEvents, balancertsIaConfigs, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, chartAccounts, companies, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockMovements, treasuryTransactions, users } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
@@ -1110,7 +1110,7 @@ export async function transitionBusinessDocument(input: { userId: number; compan
   return { id: input.documentId, from: current.document.status, to: input.to };
 }
 
-export async function postJournalEntry(input: { companyId: number; periodId: number; sourceDocumentId?: number; reversalOfEntryId?: number; idempotencyKey: string; description: string; createdBy: number; lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[] }) {
+export async function postJournalEntry(input: { companyId: number; periodId: number; sourceDocumentId?: number; supportFileAssetId?: number; documentReference?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; reversalOfEntryId?: number; idempotencyKey: string; description: string; createdBy: number; lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[] }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const companyContext = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.createdBy))).limit(1);
@@ -1120,6 +1120,10 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
   if (input.sourceDocumentId !== undefined) {
     const source = await db.select({ id: businessDocuments.id }).from(businessDocuments).where(and(eq(businessDocuments.id, input.sourceDocumentId), eq(businessDocuments.companyId, input.companyId))).limit(1);
     if (!source[0]) throw new Error("SOURCE_DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+  }
+  if (input.supportFileAssetId !== undefined) {
+    const support = await db.select({ id: fileAssets.id }).from(fileAssets).where(and(eq(fileAssets.id, input.supportFileAssetId), eq(fileAssets.companyId, input.companyId), eq(fileAssets.organizationId, companyContext[0].company.organizationId))).limit(1);
+    if (!support[0]) throw new Error("SUPPORT_FILE_NOT_FOUND_OR_FORBIDDEN");
   }
   if (input.reversalOfEntryId !== undefined) {
     const original = await db.select({ id: journalEntries.id, status: journalEntries.status }).from(journalEntries).where(and(eq(journalEntries.id, input.reversalOfEntryId), eq(journalEntries.companyId, input.companyId))).limit(1);
@@ -1133,14 +1137,14 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
     if (existing[0]) return { entry: existing[0], idempotent: true };
     const period = await tx.select().from(fiscalPeriods).where(and(eq(fiscalPeriods.id, input.periodId), eq(fiscalPeriods.companyId, input.companyId))).limit(1);
     if (!period[0] || period[0].status === "CLOSED") throw new Error("PERIOD_NOT_OPEN");
-    const inserted = await tx.insert(journalEntries).values({ companyId: input.companyId, periodId: input.periodId, sourceDocumentId: input.sourceDocumentId, reversalOfEntryId: input.reversalOfEntryId, idempotencyKey: input.idempotencyKey, description: input.description, createdBy: input.createdBy, status: "POSTED" });
+    const inserted = await tx.insert(journalEntries).values({ companyId: input.companyId, periodId: input.periodId, sourceDocumentId: input.sourceDocumentId, supportFileAssetId: input.supportFileAssetId, documentReference: input.documentReference, journalCode: input.journalCode ?? "GERAL", costCenter: input.costCenter, analyticalDimension: input.analyticalDimension, reversalOfEntryId: input.reversalOfEntryId, idempotencyKey: input.idempotencyKey, description: input.description, createdBy: input.createdBy, status: "POSTED", reviewStatus: "APPROVED", reviewedBy: input.createdBy, reviewedAt: new Date() });
     const entryId = Number(inserted[0].insertId);
     await tx.insert(journalLines).values(input.lines.map((line) => ({ entryId, accountId: line.accountId, debit: line.debit.toFixed(2), credit: line.credit.toFixed(2), currency: line.currency ?? "AOA", exchangeRate: (line.exchangeRate ?? 1).toFixed(8) })));
     if (input.reversalOfEntryId !== undefined) await tx.update(journalEntries).set({ status: "REVERSED" }).where(and(eq(journalEntries.id, input.reversalOfEntryId), eq(journalEntries.companyId, input.companyId), eq(journalEntries.status, "POSTED")));
     return { entryId, idempotent: false };
   });
   if (!result.idempotent) {
-    await appendAuditEventForUser({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: input.reversalOfEntryId ? "JOURNAL_ENTRY_REVERSED" : "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), beforeState: input.reversalOfEntryId ? JSON.stringify({ reversalOfEntryId: input.reversalOfEntryId }) : null, afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, reversalOfEntryId: input.reversalOfEntryId, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
+    await appendAuditEventForUser({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: input.reversalOfEntryId ? "JOURNAL_ENTRY_REVERSED" : "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), beforeState: input.reversalOfEntryId ? JSON.stringify({ reversalOfEntryId: input.reversalOfEntryId }) : null, afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, supportFileAssetId: input.supportFileAssetId, documentReference: input.documentReference, journalCode: input.journalCode ?? "GERAL", costCenter: input.costCenter, analyticalDimension: input.analyticalDimension, reversalOfEntryId: input.reversalOfEntryId, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
   }
   return result;
 }
@@ -1311,4 +1315,41 @@ export async function updateChartAccountForUser(input: { userId: number; company
   await db.update(chartAccounts).set({ ...(input.name === undefined ? {} : { name: input.name.trim() }), ...(input.parentCode === undefined ? {} : { parentCode: input.parentCode?.trim() || null }), ...(input.postable === undefined ? {} : { postable: input.postable ? 1 : 0 }), ...(input.validTo === undefined ? {} : { validTo: input.validTo }) }).where(eq(chartAccounts.id, input.accountId));
   await appendAuditEventForUser({ organizationId: current.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CHART_ACCOUNT_UPDATED", entityType: "chartAccount", entityId: String(input.accountId), beforeState: JSON.stringify(current.account), afterState: JSON.stringify({ ...current.account, ...input }), correlationId: `chart-account:${input.accountId}` });
   return { id: input.accountId, audited: true };
+}
+
+export async function getCostCentersForUserCompany(userId: number, companyId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ center: costCenters }).from(costCenters).innerJoin(companies, eq(costCenters.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(costCenters.companyId, companyId), eq(costCenters.active, 1), eq(organizations.ownerUserId, userId))).orderBy(costCenters.code);
+}
+
+export async function createCostCenterForUser(input: { userId: number; companyId: number; code: string; name: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const scope = await db.select({ company: companies, organizationId: organizations.id }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(organizations.ownerUserId, input.userId))).limit(1);
+  if (!scope[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const code = input.code.trim();
+  const duplicate = await db.select({ id: costCenters.id }).from(costCenters).where(and(eq(costCenters.companyId, input.companyId), eq(costCenters.code, code))).limit(1);
+  if (duplicate[0]) throw new Error("COST_CENTER_CODE_ALREADY_EXISTS");
+  const result = await db.insert(costCenters).values({ companyId: input.companyId, code, name: input.name.trim(), active: 1 });
+  const id = Number(result[0].insertId);
+  await appendAuditEventForUser({ organizationId: scope[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "COST_CENTER_CREATED", entityType: "costCenter", entityId: String(id), beforeState: null, afterState: JSON.stringify({ id, code, name: input.name.trim() }), correlationId: `cost-center:${id}` });
+  return { id, audited: true };
+}
+
+export type AccountingImportRow = { periodId: number; description: string; debitAccountId: number; creditAccountId: number; amount: number; documentReference?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; idempotencyKey: string };
+
+export async function importJournalEntriesForUser(input: { userId: number; companyId: number; rows: AccountingImportRow[] }) {
+  if (input.rows.length === 0 || input.rows.length > 500) throw new Error("IMPORT_ROWS_LIMIT");
+  for (const row of input.rows) {
+    if (!row.description.trim() || !Number.isInteger(row.debitAccountId) || !Number.isInteger(row.creditAccountId) || !Number.isFinite(row.amount) || row.amount <= 0 || !row.idempotencyKey.trim()) throw new Error("IMPORT_ROW_INVALID");
+    const validation = validateBalancedEntry([{ accountId: row.debitAccountId, debit: row.amount, credit: 0, postable: true, validFrom: new Date() }, { accountId: row.creditAccountId, debit: 0, credit: row.amount, postable: true, validFrom: new Date() }]);
+    if (!validation.ok) throw new Error(validation.reason);
+  }
+  const published = [] as Array<{ entryId: number; idempotent: boolean }>;
+  for (const row of input.rows) {
+    const result = await postJournalEntry({ companyId: input.companyId, periodId: row.periodId, description: row.description.trim(), documentReference: row.documentReference?.trim() || undefined, journalCode: row.journalCode?.trim() || "GERAL", costCenter: row.costCenter?.trim() || undefined, analyticalDimension: row.analyticalDimension?.trim() || undefined, idempotencyKey: row.idempotencyKey.trim(), createdBy: input.userId, lines: [{ accountId: row.debitAccountId, debit: row.amount, credit: 0, postable: true, validFrom: new Date(), currency: "AOA", exchangeRate: 1 }, { accountId: row.creditAccountId, debit: 0, credit: row.amount, postable: true, validFrom: new Date(), currency: "AOA", exchangeRate: 1 }] });
+    published.push({ entryId: Number(result.entryId ?? result.entry?.id), idempotent: result.idempotent });
+  }
+  return { count: published.length, published };
 }

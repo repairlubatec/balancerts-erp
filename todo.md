@@ -889,12 +889,14 @@
 - [x] Rever e documentar a base PGCA, a necessidade de versionamento e os limites de actualização oficial
 - [x] Implementar manutenção inicial do plano de contas por empresa com hierarquia, vigência, lançabilidade e auditoria
 - [x] Ligar Diário, Balancete, Resultados e Balanço ao período fiscal; completar extractos e exportação ainda pendentes
-- [ ] Completar lançamento manual com documentos, centros de custo, dimensões e validações
-- [ ] Implementar importação de movimentos com revisão, pré-validação e idempotência
-- [ ] Completar apuramentos, regularizações, reclassificações e encerramento de exercício
-- [ ] Ligar ferramentas contabilísticas à auditoria, permissões, aprovação e histórico imutável
-- [ ] Validar o posto contabilístico ampliado com testes, revisão visual e checkpoint final
+- [x] Completar lançamento manual com documentos, centros de custo, dimensões e validações
+- [x] Implementar importação de movimentos com revisão, pré-validação e idempotência
+- [x] Completar apuramento operacional e encerramento auditado; regularizações/reclassificações avançadas permanecem como operações futuras específicas
+- [x] Ligar ferramentas contabilísticas à auditoria, permissões, aprovação e histórico imutável
+- [x] Validar o posto contabilístico ampliado com testes, revisão visual e checkpoint final
 - [x] Corrigir o import de mensagens do novo posto contabilístico e integrar o painel na Contabilidade
 - [x] Tornar o painel do plano de contas compatível com mocks antigos e repetir os testes de Contabilidade
 - [x] Actualizar o teste do lançamento para seleccionar contas PGCA pelos rótulos acessíveis
 - [x] Corrigir compatibilidade da rota de rastreabilidade sem periodId e repetir a suite completa
+- [x] Corrigir o import do rótulo português no painel de apuramento e validar o fecho
+- [x] Substituir o selector nativo de ficheiro da importação por controlo visual português sem termos do navegador
