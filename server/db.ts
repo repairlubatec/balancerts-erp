@@ -10,7 +10,7 @@ import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, val
 import { applyReconciliationAdjustment } from "./reconciliation";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
 import { validateBalancedEntry, validateDocumentTransition, type JournalLineInput } from "./accounting";
-import { calculatePayrollAmounts, parseIrtBrackets } from "./payroll";
+import { assertSecondApprover, calculatePayrollAmounts, parseIrtBrackets } from "./payroll";
 import { ENV } from "./_core/env";
 import { AIRouter, LocalAIProvider, type IAConfig, type IARequest } from "./balancerts-ia/providers";
 
@@ -587,7 +587,7 @@ export async function approvePayrollAccountingPreparationForUser(input: { userId
   if (!db) throw new Error("Database unavailable");
   const run = await getPayrollRunForUser(db, input.userId, input.companyId, input.runId);
   if (run.status !== "POSTED" || run.accountingLinkStatus !== "PREPARED" || !run.accountingPreparedBy) throw new Error("PAYROLL_ACCOUNTING_NOT_READY");
-  if (run.accountingPreparedBy === input.userId) throw new Error("PAYROLL_ACCOUNTING_SECOND_APPROVER_REQUIRED");
+  assertSecondApprover(run.accountingPreparedBy, input.userId);
   const approvedAt = new Date();
   await db.update(payrollRuns).set({ accountingApprovedBy: input.userId, accountingApprovedAt: approvedAt, accountingReference: input.accountingReference.trim() }).where(eq(payrollRuns.id, input.runId));
   await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_ACCOUNTING_PREPARATION_APPROVED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ ...run, accountingApprovedBy: input.userId, accountingApprovedAt: approvedAt, accountingReference: input.accountingReference.trim() }), correlationId: `payroll-run:${run.id}:accounting-approve` });

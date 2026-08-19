@@ -1109,3 +1109,11 @@
 - [x] Preparar pedido de lançamento contabilístico com aprovação dupla, sem posting automático
 - [x] Validar segregação, transições e tenant isolation através da suite integral e TypeScript
 - [x] Executar suite/build, rever visualmente e guardar checkpoint
+
+## RH — atribuição e lançamento contabilístico opcional
+
+- [x] Adicionar selector de utilizadores para responsável da tarefa RH
+- [x] Reforçar bloqueio contra auto-aprovação e acesso entre empresas
+- [x] Preparar lançamento contabilístico opcional validado e aprovado, sem posting automático
+- [x] Adicionar teste dedicado contra auto-aprovação e validar isolamento através da suite tenant-aware
+- [x] Executar suite/build, rever visualmente e guardar checkpoint

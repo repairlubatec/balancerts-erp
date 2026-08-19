@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculatePayrollAmounts, calculateProgressiveIrt, parseIrtBrackets } from "./payroll";
+import { assertSecondApprover, calculatePayrollAmounts, calculateProgressiveIrt, parseIrtBrackets } from "./payroll";
 
 describe("cálculo salarial parametrizado", () => {
   const brackets = parseIrtBrackets('[{"upTo":100000,"rate":0},{"upTo":200000,"rate":5},{"upTo":null,"rate":10}]');
@@ -15,6 +15,11 @@ describe("cálculo salarial parametrizado", () => {
 
   it("mantém zero quando o rendimento não atinge a faixa tributável", () => {
     expect(calculateProgressiveIrt(80000, brackets)).toBe(0);
+  });
+
+  it("impede que a mesma pessoa prepare e aprove a ligação contabilística", () => {
+    expect(() => assertSecondApprover(7, 7)).toThrow("PAYROLL_ACCOUNTING_SECOND_APPROVER_REQUIRED");
+    expect(() => assertSecondApprover(7, 8)).not.toThrow();
   });
 
   it("rejeita tabela sem faixa aberta ou com limites fora de ordem", () => {
