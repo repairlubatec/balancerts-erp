@@ -1151,3 +1151,12 @@
 - [x] Distinguir claramente estados sem actor ou data registados
 - [x] Testar a apresentação e a segregação de funções
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## Centro de Tarefas — tarefas RH manuais
+
+- [x] Definir prioridade e campos da tarefa manual
+- [x] Implementar criação tenant-aware com responsável activo opcional
+- [x] Registar auditoria da criação e alterações subsequentes
+- [x] Integrar formulário de criação no Centro de Tarefas
+- [x] Testar isolamento, permissões, responsável e prazo
+- [x] Executar build, rever visualmente e guardar checkpoint

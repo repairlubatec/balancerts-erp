@@ -535,12 +535,28 @@ export async function getPayrollRunsForUserCompany(userId: number, companyId: nu
   const actorById = new Map(actorRows.map((actor) => [actor.id, actor]));
   return rows.map(({ run, ruleSet }) => ({ run, ruleSet, actors: { creator: run.createdBy ? actorById.get(run.createdBy) ?? null : null, reviewer: run.reviewedBy ? actorById.get(run.reviewedBy) ?? null : null, approver: run.approvedBy ? actorById.get(run.approvedBy) ?? null : null, accountingPreparer: run.accountingPreparedBy ? actorById.get(run.accountingPreparedBy) ?? null : null, accountingApprover: run.accountingApprovedBy ? actorById.get(run.accountingApprovedBy) ?? null : null } }));
 }
+export async function createHumanResourcesTaskForUser(input: { userId: number; organizationId: number; companyId: number; title: string; description?: string; priority: "LOW" | "NORMAL" | "HIGH" | "URGENT"; assigneeUserId?: number; dueDate?: Date }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const company = await db.select({ organizationId: companies.organizationId }).from(companies).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), organizationAccessCondition(input.userId))).limit(1);
+  if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  if (input.assigneeUserId) {
+    const member = await db.select({ id: organizationMemberships.id }).from(organizationMemberships).where(and(eq(organizationMemberships.organizationId, input.organizationId), eq(organizationMemberships.userId, input.assigneeUserId), eq(organizationMemberships.status, "ACTIVE"))).limit(1);
+    if (!member[0]) throw new Error("HR_TASK_ASSIGNEE_NOT_IN_ORGANIZATION");
+  }
+  const inserted = await db.insert(humanResourcesTasks).values({ organizationId: input.organizationId, companyId: input.companyId, title: input.title.trim(), description: input.description?.trim() || null, priority: input.priority, assigneeUserId: input.assigneeUserId, dueDate: input.dueDate, createdBy: input.userId });
+  const taskId = Number(inserted[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "HR_TASK_CREATED", entityType: "humanResourcesTask", entityId: String(taskId), beforeState: null, afterState: JSON.stringify({ title: input.title.trim(), description: input.description?.trim() || null, priority: input.priority, assigneeUserId: input.assigneeUserId ?? null, dueDate: input.dueDate ?? null }), correlationId: `hr-task:${taskId}:create` });
+  const task = await db.select({ task: humanResourcesTasks }).from(humanResourcesTasks).where(eq(humanResourcesTasks.id, taskId)).limit(1);
+  return task[0];
+}
+
 export async function getHumanResourcesTasksForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
   return db.select({ task: humanResourcesTasks }).from(humanResourcesTasks).where(and(eq(humanResourcesTasks.companyId, companyId), or(eq(humanResourcesTasks.status, "PENDING"), eq(humanResourcesTasks.status, "IN_PROGRESS")), organizationAccessCondition(userId))).orderBy(humanResourcesTasks.dueDate);
 }
-export async function updateHumanResourcesTaskForUser(input: { userId: number; companyId: number; taskId: number; status?: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"; assigneeUserId?: number | null; dueDate?: Date | null }) {
+export async function updateHumanResourcesTaskForUser(input: { userId: number; companyId: number; taskId: number; status?: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"; assigneeUserId?: number | null; dueDate?: Date | null; priority?: "LOW" | "NORMAL" | "HIGH" | "URGENT" }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(eq(humanResourcesTasks.id, input.taskId), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
@@ -550,7 +566,7 @@ export async function updateHumanResourcesTaskForUser(input: { userId: number; c
     const member = await db.select({ id: organizationMemberships.id }).from(organizationMemberships).where(and(eq(organizationMemberships.organizationId, row.organizationId), eq(organizationMemberships.userId, input.assigneeUserId), eq(organizationMemberships.status, "ACTIVE"))).limit(1);
     if (!member[0]) throw new Error("HR_TASK_ASSIGNEE_NOT_IN_ORGANIZATION");
   }
-  const changes = { ...(input.status !== undefined ? { status: input.status, ...(input.status === "COMPLETED" ? { completedBy: input.userId, completedAt: new Date() } : {}) } : {}), ...(input.assigneeUserId !== undefined ? { assigneeUserId: input.assigneeUserId } : {}), ...(input.dueDate !== undefined ? { dueDate: input.dueDate } : {}) };
+  const changes = { ...(input.status !== undefined ? { status: input.status, ...(input.status === "COMPLETED" ? { completedBy: input.userId, completedAt: new Date() } : {}) } : {}), ...(input.assigneeUserId !== undefined ? { assigneeUserId: input.assigneeUserId } : {}), ...(input.dueDate !== undefined ? { dueDate: input.dueDate } : {}), ...(input.priority !== undefined ? { priority: input.priority } : {}) };
   if (!Object.keys(changes).length) return { task: row.task };
   await db.update(humanResourcesTasks).set(changes).where(eq(humanResourcesTasks.id, input.taskId));
   await appendAuditEventForUser({ organizationId: row.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "HR_TASK_UPDATED", entityType: "humanResourcesTask", entityId: String(input.taskId), beforeState: JSON.stringify(row.task), afterState: JSON.stringify({ ...row.task, ...changes }), correlationId: `hr-task:${input.taskId}:update` });

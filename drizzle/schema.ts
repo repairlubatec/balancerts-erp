@@ -897,6 +897,8 @@ export const humanResourcesTasks = mysqlTable("humanResourcesTasks", {
   companyId: int("companyId").notNull().references(() => companies.id),
   payrollRunId: int("payrollRunId").references(() => payrollRuns.id),
   title: varchar("title", { length: 180 }).notNull(),
+  description: text("description"),
+  priority: mysqlEnum("priority", ["LOW", "NORMAL", "HIGH", "URGENT"]).default("NORMAL").notNull(),
   status: mysqlEnum("status", ["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"]).default("PENDING").notNull(),
   assigneeUserId: int("assigneeUserId").references(() => users.id),
   dueDate: timestamp("dueDate"),
