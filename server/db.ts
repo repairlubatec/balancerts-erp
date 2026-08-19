@@ -566,7 +566,7 @@ export async function getPurchaseOrdersForUserCompany(input: { userId: number; c
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const rows = await db.select({ order: purchaseOrders, supplier: counterparties }).from(purchaseOrders).innerJoin(counterparties, eq(purchaseOrders.supplierId, counterparties.id)).innerJoin(organizations, eq(purchaseOrders.organizationId, organizations.id)).where(and(eq(purchaseOrders.companyId, input.companyId), eq(organizations.ownerUserId, input.userId))).orderBy(desc(purchaseOrders.id));
-  return Promise.all(rows.map(async ({ order, supplier }) => ({ order, supplier, items: await db.select({ item: purchaseOrderItems }).from(purchaseOrderItems).where(and(eq(purchaseOrderItems.orderId, order.id), eq(purchaseOrderItems.companyId, input.companyId))).orderBy(purchaseOrderItems.lineNumber) })));
+  return Promise.all(rows.map(async ({ order, supplier }) => ({ order, supplier, items: await db.select({ item: purchaseOrderItems }).from(purchaseOrderItems).where(and(eq(purchaseOrderItems.orderId, order.id), eq(purchaseOrderItems.companyId, input.companyId))).orderBy(purchaseOrderItems.lineNumber), receipts: await db.select({ receipt: purchaseReceipts }).from(purchaseReceipts).where(and(eq(purchaseReceipts.orderId, order.id), eq(purchaseReceipts.companyId, input.companyId))).orderBy(desc(purchaseReceipts.id)) })));
 }
 
 export async function transitionPurchaseOrderForUser(input: { userId: number; companyId: number; orderId: number; target: "SUBMITTED" | "APPROVED" | "RECEIVED" | "CANCELLED"; reason?: string }) {
@@ -623,6 +623,31 @@ export async function receivePurchaseOrderForUser(input: { userId: number; compa
   if (fullyReceived && order.order.status !== "RECEIVED") await db.update(purchaseOrders).set({ status: "RECEIVED" }).where(eq(purchaseOrders.id, input.orderId));
   await appendAuditEventForUser({ organizationId: order.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PURCHASE_RECEIPT_REGISTERED", entityType: "purchaseReceipt", entityId: String(receipt), beforeState: JSON.stringify({ orderId: input.orderId, status: order.order.status }), afterState: JSON.stringify({ receiptNumber, status: fullyReceived ? "RECEIVED" : order.order.status, itemCount: normalized.length }), correlationId: `receipt:${receipt}` });
   return { id: receipt, receiptNumber, status: fullyReceived ? "RECEIVED" as const : "PARTIALLY_RECEIVED" as const };
+}
+
+export async function convertPurchaseReceiptToSupplierDraftForUser(input: { userId: number; companyId: number; receiptId: number; series: string; documentType: string; ivaRegime: "GERAL" | "SIMPLIFICADO" | "EXCLUSAO" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyReady(db, input.userId, input.companyId);
+  const receiptRows = await db.select({ receipt: purchaseReceipts, order: purchaseOrders, supplier: counterparties, organizationId: organizations.id }).from(purchaseReceipts).innerJoin(purchaseOrders, eq(purchaseReceipts.orderId, purchaseOrders.id)).innerJoin(counterparties, eq(purchaseOrders.supplierId, counterparties.id)).innerJoin(organizations, eq(purchaseReceipts.organizationId, organizations.id)).where(and(eq(purchaseReceipts.id, input.receiptId), eq(purchaseReceipts.companyId, input.companyId), eq(organizations.ownerUserId, input.userId), eq(counterparties.kind, "SUPPLIER"))).limit(1);
+  const context = receiptRows[0];
+  if (!context) throw new Error("PURCHASE_RECEIPT_NOT_FOUND_OR_FORBIDDEN");
+  const conversionKey = `receipt-to-supplier-document:${input.companyId}:${input.receiptId}`;
+  const existing = await db.select({ document: businessDocuments }).from(businessDocuments).where(and(eq(businessDocuments.companyId, input.companyId), eq(businessDocuments.sourceReceiptId, input.receiptId), eq(businessDocuments.conversionKey, conversionKey))).limit(1);
+  if (existing[0]) return { id: existing[0].document.id, documentNumber: existing[0].document.documentNumber, status: existing[0].document.status, alreadyConverted: true as const };
+  const receiptItems = await db.select({ receiptItem: purchaseReceiptItems, orderItem: purchaseOrderItems }).from(purchaseReceiptItems).innerJoin(purchaseOrderItems, eq(purchaseReceiptItems.orderItemId, purchaseOrderItems.id)).where(and(eq(purchaseReceiptItems.receiptId, input.receiptId), eq(purchaseReceiptItems.companyId, input.companyId))).orderBy(purchaseReceiptItems.id);
+  if (!receiptItems.length) throw new Error("PURCHASE_RECEIPT_WITHOUT_LINES");
+  const items = receiptItems.map(({ receiptItem, orderItem }) => { const quantity = Number(receiptItem.quantity); const unitPrice = Number(receiptItem.unitCost); const netAmount = Math.round(quantity * unitPrice * 100) / 100; const taxRate = Number(orderItem.taxRate); const taxAmount = Math.round(netAmount * taxRate) / 10000; return { productId: receiptItem.productId ?? undefined, description: orderItem.description, quantity, unitPrice, netAmount, taxAmount, totalAmount: Math.round((netAmount + taxAmount) * 100) / 100, taxRate, taxType: taxAmount > 0 ? "IVA" : undefined }; });
+  try {
+    const created = await createDraftBusinessDocumentForUser({ userId: input.userId, companyId: input.companyId, series: input.series, documentType: input.documentType, counterpartyId: context.supplier.id, counterpartyType: "SUPPLIER", ivaRegime: input.ivaRegime, currency: context.order.currency, items });
+    await db.update(businessDocuments).set({ sourceReceiptId: input.receiptId, conversionKey }).where(and(eq(businessDocuments.id, created.id), eq(businessDocuments.companyId, input.companyId)));
+    await appendAuditEventForUser({ organizationId: context.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PURCHASE_RECEIPT_CONVERTED_TO_SUPPLIER_DRAFT", entityType: "businessDocument", entityId: String(created.id), beforeState: null, afterState: JSON.stringify({ sourceReceiptId: input.receiptId, documentNumber: created.documentNumber, status: "DRAFT", issued: false, accounted: false }), correlationId: conversionKey });
+    return { id: created.id, documentNumber: created.documentNumber, status: "DRAFT" as const, alreadyConverted: false as const };
+  } catch (error) {
+    const duplicate = await db.select({ document: businessDocuments }).from(businessDocuments).where(and(eq(businessDocuments.companyId, input.companyId), eq(businessDocuments.conversionKey, conversionKey))).limit(1);
+    if (duplicate[0]) return { id: duplicate[0].document.id, documentNumber: duplicate[0].document.documentNumber, status: duplicate[0].document.status, alreadyConverted: true as const };
+    throw error;
+  }
 }
 
 export async function reserveDocumentNumber(input: { userId: number; companyId: number; series: string; documentType: string }) {

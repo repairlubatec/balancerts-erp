@@ -821,3 +821,12 @@
 - [x] Integrar recepção no posto Compras e no módulo Stock
 - [x] Adicionar testes de ciclo, limites de quantidade, isolamento e apresentação portuguesa
 - [x] Validar migração, TypeScript, build, suite completa e revisão visual; documentar e guardar checkpoint
+
+# Continuação — Conversão de recepção em documento de fornecedor P1
+- [x] Auditar criação de documentos de fornecedor e dados das recepções
+- [x] Implementar conversão controlada para rascunho de documento de fornecedor
+- [x] Garantir idempotência, origem, isolamento e auditoria sem emissão automática
+- [x] Integrar o comando no posto Compras em português
+- [x] Adicionar testes de RBAC, origem, duplicação e preservação de estados
+- [x] Validar TypeScript, build, suite completa e revisão visual; documentar e guardar checkpoint
+- [x] Actualizar as expectativas da matriz pendente para purchases.convertToSupplierDraft

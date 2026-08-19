@@ -37,6 +37,13 @@ describe("router de compras", () => {
     expect(receive).toHaveBeenCalledWith(expect.objectContaining({ userId: 52, periodId: 3, orderId: 10, idempotencyKey: "receipt-test-10", items: [{ orderItemId: 20, quantity: 2 }] }));
   });
 
+  it("converte uma recepção num rascunho de fornecedor", async () => {
+    const convert = vi.spyOn(db, "convertPurchaseReceiptToSupplierDraftForUser").mockResolvedValue({ id: 18, documentNumber: "FT/000018", status: "DRAFT", alreadyConverted: false });
+    const result = await appRouter.createCaller(context("contabilista")).purchases.convertToSupplierDraft({ companyId: 2, receiptId: 11, series: "FT", documentType: "FT", ivaRegime: "EXCLUSAO" });
+    expect(result).toMatchObject({ documentNumber: "FT/000018", status: "DRAFT", alreadyConverted: false });
+    expect(convert).toHaveBeenCalledWith({ userId: 52, companyId: 2, receiptId: 11, series: "FT", documentType: "FT", ivaRegime: "EXCLUSAO" });
+  });
+
   it("transita uma encomenda com validação", async () => {
     const transition = vi.spyOn(db, "transitionPurchaseOrderForUser").mockResolvedValue({ id: 10, previousStatus: "DRAFT", status: "SUBMITTED" });
     const result = await appRouter.createCaller(context("admin")).purchases.transition({ companyId: 2, orderId: 10, target: "SUBMITTED" });

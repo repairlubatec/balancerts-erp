@@ -193,6 +193,8 @@ export const businessDocuments = mysqlTable("businessDocuments", {
   createdBy: int("createdBy").notNull(),
   immutableHash: varchar("immutableHash", { length: 64 }),
   correctsDocumentId: int("correctsDocumentId"),
+  sourceReceiptId: int("sourceReceiptId"),
+  conversionKey: varchar("conversionKey", { length: 160 }).unique(),
   cancellationReason: varchar("cancellationReason", { length: 255 }),
   archivedAt: timestamp("archivedAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
