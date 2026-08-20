@@ -1614,3 +1614,10 @@
 - [x] Validar teclado, foco, fecho e navegação dos menus
 - [x] Rever todos os rótulos para português
 - [x] Guardar checkpoint da correcção da barra superior
+
+## Copyright e titularidade
+
+- [x] Localizar referências de copyright, autoria e direitos
+- [x] Actualizar a atribuição para Copyright © Repair Lubatec
+- [x] Rever produto, manifesto e documentação
+- [x] Validar e guardar checkpoint da atribuição

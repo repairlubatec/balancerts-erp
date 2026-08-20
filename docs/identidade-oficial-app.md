@@ -17,3 +17,11 @@ O instalador Windows deverá apontar o recurso `.ico` preparado para o executáv
 Uma futura versão macOS deverá converter o mesmo activo original para o conjunto `.icns` dentro do pacote da aplicação. A conversão deve preservar a composição quadrada e a legibilidade do símbolo em tamanhos pequenos; a criação do pacote `.icns` depende da máquina macOS ou da ferramenta de empacotamento seleccionada.
 
 A integração actual não declara assinatura de código, publicação na Microsoft Store, notarização Apple ou certificação AGT. Esses estados só podem ser confirmados depois de o instalador final ser criado, assinado, testado e, quando aplicável, notarizado ou homologado pela entidade externa.
+
+## Titularidade
+
+O nome comercial do produto permanece **BALANCERTS.ERP**. A atribuição de autoria e titularidade apresentada no produto é:
+
+> Copyright © Repair Lubatec
+
+Esta atribuição identifica a entidade criadora e titular indicada pelo proprietário do projecto. Não substitui eventuais registos de propriedade intelectual, contratos de cessão, licenças de terceiros ou outros documentos jurídicos que possam ser necessários para a distribuição comercial.

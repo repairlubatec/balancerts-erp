@@ -2,6 +2,8 @@
   "name": "BALANCERTS.ERP",
   "short_name": "BALANCERTS",
   "description": "Gestão contabilística e financeira empresarial para Angola.",
+  "author": "Repair Lubatec",
+  "copyright": "Copyright © Repair Lubatec",
   "lang": "pt-PT",
   "start_url": "/",
   "display": "standalone",

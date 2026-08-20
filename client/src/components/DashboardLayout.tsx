@@ -361,7 +361,7 @@ function DashboardLayoutContent({
               <button
                 onClick={toggleSidebar}
                   className="h-7 w-7 flex items-center justify-center rounded-sm border border-[#b8c3cf] bg-[#f5f7f9] hover:bg-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1267d6] shrink-0"
-                aria-label="Toggle navigation"
+                aria-label="Mostrar ou ocultar navegação"
               >
                 <PanelLeft className="h-4 w-4 text-muted-foreground" />
               </button>
@@ -420,6 +420,7 @@ function DashboardLayoutContent({
                     <p className="text-xs text-muted-foreground truncate mt-1.5">
                       {user?.email || "-"}
                     </p>
+                    <p className="mt-1 truncate text-[9px] text-[#687787]">Copyright © Repair Lubatec</p>
                   </div>
                 </button>
               </DropdownMenuTrigger>
