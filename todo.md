@@ -1490,3 +1490,11 @@
 - [x] Integrar limpeza com preferências persistentes e selecção
 - [x] Testar limpeza, persistência e regressões
 - [x] Guardar checkpoint e continuar validação pendente
+
+## Validação E2E descartável — RH → Contabilidade → Auditoria
+
+- [x] Mapear contratos de teste e limpeza descartável
+- [x] Implementar cenário E2E de tarefas RH isoladas
+- [x] Validar fluxo contabilístico, permissões e auditoria
+- [x] Executar testes, limpar dados temporários e registar resultados
+- [x] Guardar checkpoint e continuar validação real pendente

@@ -538,7 +538,7 @@ export async function getPayrollRunsForUserCompany(userId: number, companyId: nu
 export async function createHumanResourcesTaskForUser(input: { userId: number; organizationId: number; companyId: number; title: string; description?: string; priority: "LOW" | "NORMAL" | "HIGH" | "URGENT"; assigneeUserId?: number; dueDate?: Date }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  const company = await db.select({ organizationId: companies.organizationId }).from(companies).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), organizationAccessCondition(input.userId))).limit(1);
+  const company = await db.select({ organizationId: companies.organizationId }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId), organizationAccessCondition(input.userId))).limit(1);
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   if (input.assigneeUserId) {
     const member = await db.select({ id: organizationMemberships.id }).from(organizationMemberships).where(and(eq(organizationMemberships.organizationId, input.organizationId), eq(organizationMemberships.userId, input.assigneeUserId), eq(organizationMemberships.status, "ACTIVE"))).limit(1);
@@ -563,7 +563,7 @@ export async function getHumanResourcesTasksForUserCompany(userId: number, compa
 export async function updateHumanResourcesTaskForUser(input: { userId: number; companyId: number; taskId: number; status?: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"; assigneeUserId?: number | null; dueDate?: Date | null; priority?: "LOW" | "NORMAL" | "HIGH" | "URGENT" }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(eq(humanResourcesTasks.id, input.taskId), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(humanResourcesTasks.id, input.taskId), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
   const row = rows[0];
   if (!row) throw new Error("HR_TASK_NOT_FOUND_OR_FORBIDDEN");
   if (input.assigneeUserId) {
@@ -582,7 +582,7 @@ export async function updateHumanResourcesTasksPriorityForUser(input: { userId: 
   if (!db) throw new Error("Database unavailable");
   const uniqueTaskIds = Array.from(new Set(input.taskIds));
   if (!uniqueTaskIds.length || uniqueTaskIds.length > 100) throw new Error("HR_TASKS_EMPTY_SELECTION");
-  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(inArray(humanResourcesTasks.id, uniqueTaskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(inArray(humanResourcesTasks.id, uniqueTaskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
   if (rows.length !== uniqueTaskIds.length) throw new Error("HR_TASKS_NOT_FOUND_OR_FORBIDDEN");
   for (const row of rows) {
     await db.update(humanResourcesTasks).set({ priority: input.priority }).where(and(eq(humanResourcesTasks.id, row.task.id), eq(humanResourcesTasks.companyId, input.companyId)));
@@ -596,7 +596,7 @@ export async function undoHumanResourcesTasksPriorityForUser(input: { userId: nu
   const uniqueChanges = Array.from(new Map(input.changes.map((change) => [change.taskId, change])).values());
   if (!uniqueChanges.length || uniqueChanges.length > 100) throw new Error("HR_TASKS_EMPTY_SELECTION");
   const taskIds = uniqueChanges.map((change) => change.taskId);
-  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(inArray(humanResourcesTasks.id, taskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(inArray(humanResourcesTasks.id, taskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
   if (rows.length !== uniqueChanges.length) throw new Error("HR_TASKS_NOT_FOUND_OR_FORBIDDEN");
   const changesById = new Map(uniqueChanges.map((change) => [change.taskId, change]));
   for (const row of rows) { const previous = changesById.get(row.task.id)!; if (row.task.priority !== previous.appliedPriority) throw new Error("HR_TASK_PRIORITY_CHANGED_SINCE_BULK_UPDATE"); }
@@ -608,7 +608,7 @@ export async function updateHumanResourcesTasksDueDateForUser(input: { userId: n
   if (!db) throw new Error("Database unavailable");
   const uniqueTaskIds = Array.from(new Set(input.taskIds));
   if (!uniqueTaskIds.length || uniqueTaskIds.length > 100) throw new Error("HR_TASKS_EMPTY_SELECTION");
-  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(inArray(humanResourcesTasks.id, uniqueTaskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(inArray(humanResourcesTasks.id, uniqueTaskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
   if (rows.length !== uniqueTaskIds.length) throw new Error("HR_TASKS_NOT_FOUND_OR_FORBIDDEN");
   for (const row of rows) {
     await db.update(humanResourcesTasks).set({ dueDate: input.dueDate }).where(and(eq(humanResourcesTasks.id, row.task.id), eq(humanResourcesTasks.companyId, input.companyId)));
@@ -622,7 +622,7 @@ export async function undoHumanResourcesTasksDueDateForUser(input: { userId: num
   const uniqueChanges = Array.from(new Map(input.changes.map((change) => [change.taskId, change])).values());
   if (!uniqueChanges.length || uniqueChanges.length > 100) throw new Error("HR_TASKS_EMPTY_SELECTION");
   const taskIds = uniqueChanges.map((change) => change.taskId);
-  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(inArray(humanResourcesTasks.id, taskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(inArray(humanResourcesTasks.id, taskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
   if (rows.length !== uniqueChanges.length) throw new Error("HR_TASKS_NOT_FOUND_OR_FORBIDDEN");
   const changesById = new Map(uniqueChanges.map((change) => [change.taskId, change]));
   for (const row of rows) {
@@ -642,7 +642,7 @@ export async function undoHumanResourcesTasksDueDateForUser(input: { userId: num
 export async function undoHumanResourcesTaskDueDateForUser(input: { userId: number; companyId: number; taskId: number; appliedDueDate: Date | null; previousDueDate: Date | null }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(eq(humanResourcesTasks.id, input.taskId), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(humanResourcesTasks.id, input.taskId), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
   const row = rows[0];
   if (!row) throw new Error("HR_TASK_NOT_FOUND_OR_FORBIDDEN");
   const currentDueDate = row.task.dueDate ? new Date(row.task.dueDate).getTime() : null;
@@ -659,7 +659,7 @@ export async function updateHumanResourcesTasksStatusForUser(input: { userId: nu
   if (!db) throw new Error("Database unavailable");
   const uniqueTaskIds = Array.from(new Set(input.taskIds));
   if (!uniqueTaskIds.length) throw new Error("HR_TASKS_EMPTY_SELECTION");
-  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(inArray(humanResourcesTasks.id, uniqueTaskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(inArray(humanResourcesTasks.id, uniqueTaskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
   if (rows.length !== uniqueTaskIds.length) throw new Error("HR_TASKS_NOT_FOUND_OR_FORBIDDEN");
   const completedAt = input.status === "COMPLETED" ? new Date() : null;
   for (const row of rows) {
@@ -675,7 +675,7 @@ export async function undoHumanResourcesTasksStatusForUser(input: { userId: numb
   const uniqueChanges = Array.from(new Map(input.changes.map((change) => [change.taskId, change])).values());
   if (!uniqueChanges.length || uniqueChanges.length > 100) throw new Error("HR_TASKS_EMPTY_SELECTION");
   const taskIds = uniqueChanges.map((change) => change.taskId);
-  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(inArray(humanResourcesTasks.id, taskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(inArray(humanResourcesTasks.id, taskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
   if (rows.length !== uniqueChanges.length) throw new Error("HR_TASKS_NOT_FOUND_OR_FORBIDDEN");
   const changesById = new Map(uniqueChanges.map((change) => [change.taskId, change]));
   if (rows.some(({ task }) => task.status !== changesById.get(task.id)?.appliedStatus)) throw new Error("HR_TASKS_CHANGED_SINCE_BULK_UPDATE");
