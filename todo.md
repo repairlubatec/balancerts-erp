@@ -1524,3 +1524,11 @@
 - [x] Implementar configuração de destinatários de alertas por empresa
 - [x] Preparar teste operacional real com tarefas existentes — execução aguarda tarefas reais na Repair Lubatec
 - [x] Testar, rever visualmente, guardar checkpoint e entregar
+
+## Centro de Tarefas — exportação de notificações
+
+- [x] Mapear histórico e exportação CSV existentes
+- [x] Implementar exportação do histórico de notificações
+- [x] Integrar acção desktop e feedback em português
+- [x] Testar conteúdo, isolamento e regressões
+- [x] Rever visualmente, guardar checkpoint e entregar
