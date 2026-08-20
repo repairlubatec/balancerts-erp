@@ -1654,3 +1654,11 @@
 - [x] Adicionar impressão PDF do painel com filtros activos
 - [x] Validar dados, permissões, PDF e build
 - [x] Guardar checkpoint desta melhoria
+
+## PDF analítico e arquivo interno
+
+- [x] Auditar impressão e arquivo interno existentes
+- [x] Acrescentar assinatura, data de emissão e copyright ao PDF analítico
+- [x] Ligar o relatório ao arquivo interno com metadados
+- [x] Validar permissões, impressão, arquivo e build
+- [x] Guardar checkpoint desta melhoria
