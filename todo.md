@@ -1400,3 +1400,10 @@
 - [x] Sincronizar indicadores, filtros, auditoria e prazos
 - [x] Testar edição, permissões e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — toast ao alterar data limite
+
+- [x] Mapear mutação inline e feedbacks existentes
+- [x] Ligar toast ao sucesso da alteração da data limite
+- [x] Testar sucesso, erro e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
