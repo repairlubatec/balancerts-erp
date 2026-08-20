@@ -1374,3 +1374,12 @@
 - [x] Sincronizar com filtros, paginação, selecção e exportação
 - [x] Testar filtro e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — prazos próximos
+
+- [x] Mapear regra actual de prazos e classes visuais
+- [x] Calcular tarefas activas com prazo hoje ou amanhã
+- [x] Destacar a amarelo e adicionar etiqueta acessível
+- [x] Preservar vermelho para tarefas atrasadas e excluir estados finais
+- [x] Testar datas, prioridade visual e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
