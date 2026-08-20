@@ -940,9 +940,80 @@ export const auditEvents = mysqlTable("auditEvents", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const saadiStudies = mysqlTable("saadiStudies", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyCode: varchar("studyCode", { length: 64 }).notNull(),
+  name: varchar("name", { length: 180 }).notNull(),
+  status: mysqlEnum("status", ["DRAFT", "ACTIVE", "ARCHIVED"]).default("DRAFT").notNull(),
+  baseCurrency: varchar("baseCurrency", { length: 3 }).default("AOA").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  organizationCompanyCodeUnique: uniqueIndex("saadi_studies_org_company_code_unique").on(table.organizationId, table.companyId, table.studyCode),
+}));
+
+export const saadiSnapshots = mysqlTable("saadiSnapshots", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyId: int("studyId").notNull(),
+  asOf: timestamp("asOf").notNull(),
+  sourceFingerprint: varchar("sourceFingerprint", { length: 64 }).notNull(),
+  payloadJson: text("payloadJson").notNull(),
+  status: mysqlEnum("status", ["READY", "STALE", "INVALID"]).default("READY").notNull(),
+  idempotencyKey: varchar("idempotencyKey", { length: 160 }).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  snapshotIdempotencyUnique: uniqueIndex("saadi_snapshots_idempotency_unique").on(table.organizationId, table.companyId, table.idempotencyKey),
+  snapshotFingerprintUnique: uniqueIndex("saadi_snapshots_fingerprint_unique").on(table.organizationId, table.companyId, table.sourceFingerprint),
+}));
+
+export const saadiVersions = mysqlTable("saadiVersions", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyId: int("studyId").notNull(),
+  snapshotId: int("snapshotId").notNull(),
+  versionNumber: int("versionNumber").notNull(),
+  status: mysqlEnum("status", ["DRAFT", "IN_REVIEW", "APPROVED", "ARCHIVED"]).default("DRAFT").notNull(),
+  assumptionsJson: text("assumptionsJson").notNull(),
+  projectionsJson: text("projectionsJson").notNull(),
+  versionHash: varchar("versionHash", { length: 64 }).notNull(),
+  createdBy: int("createdBy").notNull(),
+  approvedBy: int("approvedBy"),
+  approvedAt: timestamp("approvedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  studyVersionUnique: uniqueIndex("saadi_versions_study_version_unique").on(table.studyId, table.versionNumber),
+  versionHashUnique: uniqueIndex("saadi_versions_hash_unique").on(table.organizationId, table.companyId, table.versionHash),
+}));
+
+export const saadiProvenance = mysqlTable("saadiProvenance", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  snapshotId: int("snapshotId").notNull(),
+  sourceType: varchar("sourceType", { length: 80 }).notNull(),
+  sourceEntityId: varchar("sourceEntityId", { length: 120 }).notNull(),
+  sourceHash: varchar("sourceHash", { length: 64 }).notNull(),
+  capturedAt: timestamp("capturedAt").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  provenanceSourceUnique: uniqueIndex("saadi_provenance_source_unique").on(table.snapshotId, table.sourceType, table.sourceEntityId),
+}));
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type Company = typeof companies.$inferSelect;
 export type FiscalPeriod = typeof fiscalPeriods.$inferSelect;
 export type JournalEntry = typeof journalEntries.$inferSelect;
 export type BusinessDocument = typeof businessDocuments.$inferSelect;
+export type SaadiStudy = typeof saadiStudies.$inferSelect;
+export type SaadiSnapshot = typeof saadiSnapshots.$inferSelect;
+export type SaadiVersion = typeof saadiVersions.$inferSelect;
+export type SaadiProvenance = typeof saadiProvenance.$inferSelect;

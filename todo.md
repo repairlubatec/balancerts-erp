@@ -1842,3 +1842,10 @@
 
 - [x] Definir catálogo tipado de permissões SAADI sem atribuir permissões a utilizadores
 - [x] Testar que nenhuma permissão SAADI equivale a posting, pagamento, emissão, stock ou AGT — 8 testes SAADI aprovados no conjunto
+
+## SAADI — primeiro incremento persistente isolado
+
+- [x] Definir tabelas SAADI para estudos, snapshots, versões e proveniência sem referências mutáveis ao ERP
+- [x] Gerar e rever a migração SQL SAADI antes de qualquer aplicação
+- [x] Criar helpers de leitura e gravação idempotente com organização e empresa obrigatórias
+- [x] Criar testes de isolamento, idempotência e não mutação de documentos, lançamentos, stock e pagamentos — 11 testes SAADI aprovados; escrita limitada às tabelas SAADI
