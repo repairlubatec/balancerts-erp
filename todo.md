@@ -1441,3 +1441,12 @@
 - [x] Integrar toast, auditoria e possibilidade de desfazer
 - [x] Testar segurança, selecção e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — prioridade e estado em massa
+
+- [x] Mapear acções em massa e mutações existentes
+- [x] Implementar mutações tenant-aware de prioridade e estado
+- [x] Adicionar controlos e confirmação interna
+- [x] Integrar toast, auditoria e possibilidade de desfazer
+- [x] Testar segurança, selecção e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint

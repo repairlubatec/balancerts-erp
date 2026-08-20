@@ -577,6 +577,32 @@ export async function updateHumanResourcesTaskForUser(input: { userId: number; c
   const updated = await db.select({ task: humanResourcesTasks }).from(humanResourcesTasks).where(eq(humanResourcesTasks.id, input.taskId)).limit(1);
   return updated[0];
 }
+export async function updateHumanResourcesTasksPriorityForUser(input: { userId: number; companyId: number; taskIds: number[]; priority: "LOW" | "NORMAL" | "HIGH" | "URGENT" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const uniqueTaskIds = Array.from(new Set(input.taskIds));
+  if (!uniqueTaskIds.length || uniqueTaskIds.length > 100) throw new Error("HR_TASKS_EMPTY_SELECTION");
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(inArray(humanResourcesTasks.id, uniqueTaskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
+  if (rows.length !== uniqueTaskIds.length) throw new Error("HR_TASKS_NOT_FOUND_OR_FORBIDDEN");
+  for (const row of rows) {
+    await db.update(humanResourcesTasks).set({ priority: input.priority }).where(and(eq(humanResourcesTasks.id, row.task.id), eq(humanResourcesTasks.companyId, input.companyId)));
+    await appendAuditEventForUser({ organizationId: row.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "HR_TASK_PRIORITY_UPDATED", entityType: "humanResourcesTask", entityId: String(row.task.id), beforeState: JSON.stringify(row.task), afterState: JSON.stringify({ ...row.task, priority: input.priority }), correlationId: `hr-task:${row.task.id}:bulk-priority` });
+  }
+  return { updatedCount: rows.length, taskIds: rows.map(({ task }) => task.id), appliedPriority: input.priority, previousStates: rows.map(({ task }) => ({ taskId: task.id, appliedPriority: input.priority, previousPriority: task.priority })) };
+}
+export async function undoHumanResourcesTasksPriorityForUser(input: { userId: number; companyId: number; changes: Array<{ taskId: number; appliedPriority: "LOW" | "NORMAL" | "HIGH" | "URGENT"; previousPriority: "LOW" | "NORMAL" | "HIGH" | "URGENT" }> }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const uniqueChanges = Array.from(new Map(input.changes.map((change) => [change.taskId, change])).values());
+  if (!uniqueChanges.length || uniqueChanges.length > 100) throw new Error("HR_TASKS_EMPTY_SELECTION");
+  const taskIds = uniqueChanges.map((change) => change.taskId);
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(inArray(humanResourcesTasks.id, taskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
+  if (rows.length !== uniqueChanges.length) throw new Error("HR_TASKS_NOT_FOUND_OR_FORBIDDEN");
+  const changesById = new Map(uniqueChanges.map((change) => [change.taskId, change]));
+  for (const row of rows) { const previous = changesById.get(row.task.id)!; if (row.task.priority !== previous.appliedPriority) throw new Error("HR_TASK_PRIORITY_CHANGED_SINCE_BULK_UPDATE"); }
+  for (const row of rows) { const previous = changesById.get(row.task.id)!; await db.update(humanResourcesTasks).set({ priority: previous.previousPriority }).where(and(eq(humanResourcesTasks.id, row.task.id), eq(humanResourcesTasks.companyId, input.companyId), eq(humanResourcesTasks.priority, previous.appliedPriority))); await appendAuditEventForUser({ organizationId: row.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "HR_TASK_BULK_PRIORITY_UNDONE", entityType: "humanResourcesTask", entityId: String(row.task.id), beforeState: JSON.stringify(row.task), afterState: JSON.stringify({ ...row.task, priority: previous.previousPriority }), correlationId: `hr-task:${row.task.id}:bulk-priority-undo` }); }
+  return { revertedCount: rows.length, taskIds: rows.map(({ task }) => task.id) };
+}
 export async function updateHumanResourcesTasksDueDateForUser(input: { userId: number; companyId: number; taskIds: number[]; dueDate: Date | null }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
