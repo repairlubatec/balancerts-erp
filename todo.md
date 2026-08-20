@@ -1855,3 +1855,9 @@
 - [x] Adicionar permissões SAADI explícitas ao RBAC para leitura e gestão do módulo
 - [x] Expor router tRPC SAADI tenant-aware apenas para estudos e snapshots
 - [x] Testar router SAADI por papel, organização e empresa sem posting, emissão, pagamento ou stock — 15 testes SAADI aprovados
+
+## SAADI — superfície desktop inicial
+
+- [x] Adicionar entrada SAADI à navegação lateral e rota desktop em português
+- [x] Criar ecrã inicial de estudos SAADI com empresa/organização explícitas e estados de carregamento
+- [x] Testar a renderização inicial e os estados sem dados — teste React aprovado e verificação visual em /saadi
