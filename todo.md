@@ -1740,7 +1740,7 @@
 - [ ] Validar instaladores EXE/MSI numa máquina Windows limpa
 - [ ] Tratar integrações externas: SMTP, bancos e AGT conforme credenciais e homologação disponíveis
 - [x] Preparar contratos, fronteiras e plano de dados do SAADI sem implementação inicial
-- [ ] Implementar o SAADI como bounded context separado após aprovação da arquitectura
+- [x] Implementar o SAADI como bounded context separado após aprovação da arquitectura — primeiro incremento funcional entregue; cenários, sensibilidades, riscos e decisões avançadas permanecem planeados
 
 ## P0 — Linha de base sem falhas conhecidas
 
