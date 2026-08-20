@@ -1532,3 +1532,11 @@
 - [x] Integrar acção desktop e feedback em português
 - [x] Testar conteúdo, isolamento e regressões
 - [x] Rever visualmente, guardar checkpoint e entregar
+
+## Centro de Tarefas — exportação para Excel
+
+- [x] Mapear dependência e formato de exportação Excel existentes
+- [x] Implementar exportação da lista filtrada para XLSX
+- [x] Integrar acção desktop e feedback em português
+- [x] Testar conteúdo, nomes de colunas e regressões
+- [x] Rever visualmente, guardar checkpoint e entregar
