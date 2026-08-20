@@ -1284,3 +1284,11 @@
 - [x] Integrar toast no sucesso da alteração de estado em massa
 - [x] Testar mensagem, duração e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — seleccionar tudo no cabeçalho
+
+- [x] Mapear selecção das tarefas visíveis e filtros activos
+- [x] Adicionar controlo “Seleccionar tudo” no cabeçalho da lista
+- [x] Sincronizar selecção, limpeza e estado parcial
+- [x] Testar selecção com filtros e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
