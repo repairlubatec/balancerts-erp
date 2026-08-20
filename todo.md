@@ -1317,3 +1317,11 @@
 - [x] Sincronizar filtros com selecção visível, contador e acções em massa
 - [x] Testar filtros, selecção e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — pesquisa por título ou descrição
+
+- [x] Mapear dados pesquisáveis e filtragem actual
+- [x] Adicionar barra de pesquisa por nome ou descrição
+- [x] Sincronizar pesquisa com filtros, selecção e acções em massa
+- [x] Testar pesquisa, limpeza e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
