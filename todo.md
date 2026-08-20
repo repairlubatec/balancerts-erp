@@ -1796,4 +1796,4 @@
 - [x] Auditar o contrato tRPC, arquivo documental, remetente contextual e serviço SMTP
 - [x] Registar falhas de envio na auditoria sem expor conteúdo de documentos ou credenciais
 - [x] Melhorar feedback operacional para configuração SMTP pendente e erro de autenticação
-- [ ] Validar permissões, isolamento, anexos, idioma e testes do fluxo interno
+- [x] Validar permissões, isolamento, anexos, idioma e testes do fluxo interno

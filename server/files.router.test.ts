@@ -2,13 +2,14 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { appRouter } from "./routers";
 import * as db from "./db";
 import * as storage from "./storage";
+import * as emailService from "./email-service";
 import type { TrpcContext } from "./_core/context";
 
 function context(role: "admin" | "auditor" | "user"): TrpcContext {
   return { user: { id: 52, openId: role, name: role, email: `${role}@example.com`, loginMethod: "test", role, createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() }, req: { protocol: "https", headers: {} } as TrpcContext["req"], res: { clearCookie: () => undefined } as TrpcContext["res"] };
 }
 
-afterEach(() => vi.restoreAllMocks());
+afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 
 describe("files router", () => {
   it("registers a tenant file through storage before persisting metadata", async () => {
@@ -52,6 +53,30 @@ describe("files router", () => {
     const update = vi.spyOn(db, "updateFileAssetMetadataForUser");
     await expect(appRouter.createCaller(context("user")).files.updateMetadata({ companyId: 2, fileId: 9, category: "FISCAL" })).rejects.toMatchObject({ code: "FORBIDDEN" });
     expect(update).not.toHaveBeenCalled();
+  });
+
+  it("envia documento com anexo e regista auditoria de sucesso", async () => {
+    vi.spyOn(db, "getFileAssetForUser").mockResolvedValue({ id: 7, organizationId: 1, storageKey: "org/1/company/2/file.pdf", filename: "file.pdf", mimeType: "application/pdf", size: 10, sha256: "a".repeat(64) } as never);
+    vi.spyOn(db, "getCompaniesForUser").mockResolvedValue([{ company: { id: 2, organizationId: 1, email: "empresa@example.com" } } as never]);
+    vi.spyOn(storage, "storageGetSignedUrl").mockResolvedValue("https://signed.example/file.pdf");
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("conteudo-pdf", { status: 200 })));
+    const send = vi.spyOn(emailService, "sendEmail").mockResolvedValue({ messageId: "msg-7" } as never);
+    const audit = vi.spyOn(db, "appendAuditEventForUser").mockResolvedValue({} as never);
+    const result = await appRouter.createCaller(context("admin")).files.sendByEmail({ companyId: 2, fileId: 7, to: ["cliente@example.com"], subject: "Documento", message: "Segue o documento." });
+    expect(result).toMatchObject({ sent: true, sender: "empresa@example.com", senderSource: "EMPRESA", messageId: "msg-7" });
+    expect(send).toHaveBeenCalledWith(expect.objectContaining({ from: "empresa@example.com", to: ["cliente@example.com"], subject: "Documento", attachments: [expect.objectContaining({ filename: "file.pdf", contentType: "application/pdf" })] }));
+    expect(audit).toHaveBeenCalledWith(expect.objectContaining({ action: "DOCUMENT_EMAIL_SENT", entityId: "7", companyId: 2 }));
+  });
+
+  it("regista falha SMTP sem expor o erro técnico ao utilizador", async () => {
+    vi.spyOn(db, "getFileAssetForUser").mockResolvedValue({ id: 7, organizationId: 1, storageKey: "org/1/company/2/file.pdf", filename: "file.pdf", mimeType: "application/pdf", size: 10, sha256: "a".repeat(64) } as never);
+    vi.spyOn(db, "getCompaniesForUser").mockResolvedValue([{ company: { id: 2, organizationId: 1, email: "empresa@example.com" } } as never]);
+    vi.spyOn(storage, "storageGetSignedUrl").mockResolvedValue("https://signed.example/file.pdf");
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("conteudo-pdf", { status: 200 })));
+    vi.spyOn(emailService, "sendEmail").mockRejectedValue(new Error("Invalid login: 535-5.7.8 Username and Password not accepted"));
+    const audit = vi.spyOn(db, "appendAuditEventForUser").mockResolvedValue({} as never);
+    await expect(appRouter.createCaller(context("admin")).files.sendByEmail({ companyId: 2, fileId: 7, to: ["cliente@example.com"], subject: "Documento", message: "Segue o documento." })).rejects.toThrow("autenticação do servidor de email falhou");
+    expect(audit).toHaveBeenCalledWith(expect.objectContaining({ action: "DOCUMENT_EMAIL_FAILED", entityId: "7", afterState: expect.stringContaining("AUTENTICACAO_SMTP_FALHOU") }));
   });
 
   it("regista nova versão através de armazenamento antes da persistência", async () => {
