@@ -1736,7 +1736,7 @@
 - [ ] Fixar as três falhas actuais da suite de testes: SMTP Gmail 535 e dois testes do painel financeiro
 - [x] Concluir os testes E2E dos fluxos críticos com dados controlados — 12 testes de integração e 52 testes modulares aprovados
 - [ ] Reforçar segurança de produção, backup/restauro, integridade referencial e observabilidade
-- [ ] Executar validação operacional com dados reais anonimizados da Repair Lubatec
+- [x] Executar validação operacional com dados reais anonimizados da Repair Lubatec — leitura tenant-aware da Repair Lubatec e cenários controlados descartáveis aprovados; não foram escritos dados empresariais reais
 - [ ] Validar instaladores EXE/MSI numa máquina Windows limpa
 - [ ] Tratar integrações externas: SMTP, bancos e AGT conforme credenciais e homologação disponíveis
 - [x] Preparar contratos, fronteiras e plano de dados do SAADI sem implementação inicial
@@ -1748,7 +1748,7 @@
 - [x] Corrigir os dois testes de rastreabilidade do painel financeiro por mocks tRPC incompletos
 - [ ] Executar novamente os testes direccionados dos três bloqueios
 - [ ] Executar a suite Vitest completa
-- [ ] Verificar logs de servidor e consola após as correcções
+- [x] Verificar logs de servidor e consola após as correcções — sem novos erros internos; permanece apenas a falha externa SMTP 535
 - [ ] Actualizar o estado da linha de base P0
 
 ## P1 — Protecção operacional do ERP
@@ -1821,3 +1821,13 @@
 - [x] Executar cenário controlado específico de RH com colaboradores e folha temporária
 - [x] Executar cenário controlado específico de compras com fornecedor e recepção temporários
 - [x] Executar cenário controlado específico de banca com extracto temporário
+
+## SAADI — preparação isolada após P2
+
+- [x] Definir fronteiras funcionais entre SAADI e BALANCERTS.ERP
+- [x] Definir contratos de leitura e snapshots sem mutação do ERP
+- [x] Modelar Projecto, Estudo, Versão, premissas, cenários e decisões — modelo conceptual documentado, sem tabelas implementadas
+- [x] Definir proveniência, versionamento, aprovação e auditoria SAADI
+- [x] Definir permissões SAADI e isolamento por organização/empresa
+- [x] Preparar plano de implementação sem alterar o núcleo contabilístico
+- [x] Documentar critérios de aceitação e riscos de integração SAADI
