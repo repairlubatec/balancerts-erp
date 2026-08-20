@@ -1591,3 +1591,10 @@
 - [x] Validar idioma, exportações, auditoria e experiência desktop — contratos, rótulos e acções internas revistos
 - [x] Executar suite final, build e revisão visual
 - [x] Registar resultados e entregar progresso
+
+## Fecho operacional — critérios e dependências
+
+- [x] Definir critérios de aceitação operacional reais
+- [x] Preparar checklist do fluxo RH para auditoria
+- [x] Documentar bloqueios AGT, banco, activos e distribuição
+- [x] Entregar plano de fecho operacional
