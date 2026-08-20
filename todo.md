@@ -1849,3 +1849,9 @@
 - [x] Gerar e rever a migração SQL SAADI antes de qualquer aplicação
 - [x] Criar helpers de leitura e gravação idempotente com organização e empresa obrigatórias
 - [x] Criar testes de isolamento, idempotência e não mutação de documentos, lançamentos, stock e pagamentos — 11 testes SAADI aprovados; escrita limitada às tabelas SAADI
+
+## SAADI — API protegida sem operações do ERP
+
+- [x] Adicionar permissões SAADI explícitas ao RBAC para leitura e gestão do módulo
+- [x] Expor router tRPC SAADI tenant-aware apenas para estudos e snapshots
+- [x] Testar router SAADI por papel, organização e empresa sem posting, emissão, pagamento ou stock — 15 testes SAADI aprovados

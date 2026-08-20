@@ -1,5 +1,7 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
+import { createSaadiSnapshot, createSaadiStudy, listSaadiStudiesForUser } from "./saadi";
+import { saadiSnapshotSchema, saadiSnapshotRequestSchema } from "../shared/saadi-contracts";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
@@ -50,6 +52,11 @@ export const appRouter = router({
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
       return { success: true } as const;
     }),
+  }),
+  saadi: router({
+    studies: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive() })).query(({ ctx, input }) => listSaadiStudiesForUser({ ...input, userId: ctx.user.id })),
+    createStudy: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyCode: z.string().trim().min(1).max(64), name: z.string().trim().min(1).max(180), baseCurrency: z.string().trim().length(3).default("AOA") })).mutation(({ ctx, input }) => createSaadiStudy({ ...input, userId: ctx.user.id })),
+    createSnapshot: roleProcedure("saadi", "create").input(z.object({ studyId: z.number().int().positive(), request: saadiSnapshotRequestSchema, snapshot: saadiSnapshotSchema, idempotencyKey: z.string().trim().min(1).max(160) })).mutation(({ ctx, input }) => createSaadiSnapshot({ ...input, userId: ctx.user.id })),
   }),
   companies: router({
     list: roleProcedure("companies", "read").query(({ ctx }) => getCompaniesForUser(ctx.user.id)),
