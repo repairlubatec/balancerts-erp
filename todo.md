@@ -1407,3 +1407,11 @@
 - [x] Ligar toast ao sucesso da alteração da data limite
 - [x] Testar sucesso, erro e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — limpar data limite
+
+- [x] Mapear campo inline e mutação de remoção de prazo
+- [x] Adicionar botão “Limpar data” na linha da tarefa
+- [x] Sincronizar remoção com toast, alertas e filtros
+- [x] Testar remoção, permissões e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
