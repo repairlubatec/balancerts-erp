@@ -1601,11 +1601,11 @@
 
 ## Identidade oficial — ícone do software
 
-- [ ] Preparar o logótipo oficial para os formatos de ícone da aplicação
-- [ ] Integrar ícone no PWA, favicon e shell desktop
-- [ ] Preparar referências para instaladores Windows e eventual macOS
-- [ ] Validar legibilidade e consistência visual
-- [ ] Guardar checkpoint da identidade oficial preparada
+- [x] Preparar o logótipo oficial para os formatos de ícone da aplicação
+- [x] Integrar ícone no PWA, favicon e shell desktop
+- [x] Preparar referências para instaladores Windows e eventual macOS
+- [x] Validar legibilidade e consistência visual
+- [x] Guardar checkpoint da identidade oficial preparada
 
 ## Barra de menus superior — correcção funcional
 

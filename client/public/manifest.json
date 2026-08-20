@@ -9,10 +9,16 @@
   "theme_color": "#1267d6",
   "icons": [
     {
-      "src": "/manus-storage/LOGO_ebb307b3.jpeg",
-      "sizes": "640x640",
-      "type": "image/jpeg",
+      "src": "/manus-storage/balancerts-icon-192_6e85689e.png",
+      "sizes": "192x192",
+      "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "/manus-storage/balancerts-icon-512_50b9c923.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
