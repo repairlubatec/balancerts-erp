@@ -21,7 +21,8 @@
     "db:push": "drizzle-kit generate && drizzle-kit migrate",
     "db:backup": "node scripts/backup-database.mjs",
     "db:restore:verify": "node scripts/restore-database-verify.mjs",
-    "db:integrity:audit": "node scripts/audit-referential-integrity.mjs"
+    "db:integrity:audit": "node scripts/audit-referential-integrity.mjs",
+    "db:repair:journal-3420001": "tsx scripts/repair-orphan-journal-3420001.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.693.0",

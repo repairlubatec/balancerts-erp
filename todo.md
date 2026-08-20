@@ -1764,7 +1764,22 @@
 
 ## P1 — Pendências descobertas na validação
 
-- [ ] Corrigir os dois `journalLines` órfãos do lançamento 3420001 após confirmação do contabilista da conta correcta
+- [x] Corrigir os dois `journalLines` órfãos do lançamento 3420001 após confirmação do contabilista da conta correcta
 - [ ] Criar uma `RESTORE_DATABASE_URL` isolada e executar um restauro real não destrutivo com validação dos módulos
-- [ ] Repetir a auditoria de integridade referencial até obter zero órfãos
+- [x] Repetir a auditoria de integridade referencial até obter zero órfãos
 - [ ] Repetir a suite completa depois de corrigir a credencial SMTP Gmail
+
+## Correcção segura de lançamentos órfãos — validação PGC
+
+- [x] Verificar se os códigos PGC 4511 e 6131 existem no plano de contas persistido e obter os IDs internos
+- [x] Confirmar empresa, período, valores, débitos, créditos e origem do lançamento 3420001 “Cama”
+- [x] Confirmar que 6131 corresponde efectivamente a uma venda de mercadoria no mercado nacional
+- [x] Preparar correcção não destrutiva, auditada e autorizada sem apagar o lançamento original
+- [x] Reexecutar auditoria de integridade, testes e reconciliação contabilística
+
+## Correcção autorizada dos lançamentos órfãos
+
+- [x] Criar as contas PGC 4511 — Caixa Kwanza e 6131 — Mercadorias — Mercado nacional para a Repair Lubatec com IDs internos válidos
+- [x] Remapear as duas linhas do lançamento 3420001 sem alterar valores, moeda, débito, crédito ou histórico
+- [x] Registar a correcção com auditoria append-only e correlação explícita
+- [x] Validar zero órfãos, equilíbrio do lançamento e reconciliação dos relatórios
