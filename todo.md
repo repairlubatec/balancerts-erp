@@ -1423,3 +1423,12 @@
 - [x] Sincronizar com pesquisa, estado, prioridade, selecção e paginação
 - [x] Testar filtro, limpeza e exportação
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — desfazer data limite
+
+- [x] Mapear estado anterior e mutação inline de data
+- [x] Implementar reversão segura e tenant-aware da data limite
+- [x] Adicionar acção “Desfazer” ao toast de prazo
+- [x] Sincronizar reversão com alertas, filtros e auditoria
+- [x] Testar concorrência, permissões e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint

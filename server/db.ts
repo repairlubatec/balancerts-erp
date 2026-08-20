@@ -577,6 +577,21 @@ export async function updateHumanResourcesTaskForUser(input: { userId: number; c
   const updated = await db.select({ task: humanResourcesTasks }).from(humanResourcesTasks).where(eq(humanResourcesTasks.id, input.taskId)).limit(1);
   return updated[0];
 }
+export async function undoHumanResourcesTaskDueDateForUser(input: { userId: number; companyId: number; taskId: number; appliedDueDate: Date | null; previousDueDate: Date | null }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(eq(humanResourcesTasks.id, input.taskId), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  const row = rows[0];
+  if (!row) throw new Error("HR_TASK_NOT_FOUND_OR_FORBIDDEN");
+  const currentDueDate = row.task.dueDate ? new Date(row.task.dueDate).getTime() : null;
+  const appliedDueDate = input.appliedDueDate ? new Date(input.appliedDueDate).getTime() : null;
+  if (currentDueDate !== appliedDueDate) throw new Error("HR_TASK_DUE_DATE_CHANGED_SINCE_UPDATE");
+  const currentPredicate = input.appliedDueDate ? eq(humanResourcesTasks.dueDate, input.appliedDueDate) : isNull(humanResourcesTasks.dueDate);
+  const result = await db.update(humanResourcesTasks).set({ dueDate: input.previousDueDate }).where(and(eq(humanResourcesTasks.id, input.taskId), eq(humanResourcesTasks.companyId, input.companyId), currentPredicate));
+  if (!result) throw new Error("HR_TASK_DUE_DATE_UNDO_FAILED");
+  await appendAuditEventForUser({ organizationId: row.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "HR_TASK_DUE_DATE_UNDONE", entityType: "humanResourcesTask", entityId: String(input.taskId), beforeState: JSON.stringify(row.task), afterState: JSON.stringify({ ...row.task, dueDate: input.previousDueDate }), correlationId: `hr-task:${input.taskId}:due-date-undo` });
+  return { taskId: input.taskId, dueDate: input.previousDueDate };
+}
 export async function updateHumanResourcesTasksStatusForUser(input: { userId: number; companyId: number; taskIds: number[]; status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED" }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
