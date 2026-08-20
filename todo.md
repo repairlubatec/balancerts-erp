@@ -1276,3 +1276,11 @@
 - [x] Garantir cancelamento sem mutação e confirmação com a mutação existente
 - [x] Testar acessibilidade, cancelamento, confirmação e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — toast de sucesso em massa
+
+- [x] Mapear sistema de notificações existente
+- [x] Criar toast acessível no canto superior direito
+- [x] Integrar toast no sucesso da alteração de estado em massa
+- [x] Testar mensagem, duração e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint

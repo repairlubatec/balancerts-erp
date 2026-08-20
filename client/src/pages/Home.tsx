@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import React from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,6 +17,7 @@ import { TreasuryApprovalPanel } from "@/components/TreasuryApprovalPanel";
 import { ModuleContextBar, ModuleSecurityNotice } from "@/components/ModuleContextBar";
 import { DesktopReasonDialog } from "@/components/DesktopReasonDialog";
 import { DesktopConfirmDialog } from "@/components/DesktopConfirmDialog";
+import { getBulkTaskStatusNotification } from "@/lib/taskNotifications";
 import { DesktopOverviewPanel } from "@/components/DesktopOverviewPanel";
 import { CompanyEditPanel } from "@/components/CompanyEditPanel";
 import { AccountingWorkbenchPanel, AccountingCostCenterPanel, AccountingImportPanel, AccountingClosingPanel, AccountingApprovalPanel } from "@/components/AccountingWorkbenchPanel";
@@ -275,7 +277,7 @@ function TaskCenterPanel({ activeCompanyId }: { activeCompanyId?: number }) {
   const [bulkStatus, setBulkStatus] = React.useState<"PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED">("COMPLETED");
   const [bulkConfirmOpen, setBulkConfirmOpen] = React.useState(false);
   const updateHrTask = trpc.humanResources.updateTask.useMutation({ onSuccess: async () => { await utils.humanResources.tasks.invalidate(); }, onError: (error) => setTaskFeedback(`Não foi possível actualizar a tarefa: ${userFacingError(error.message)}`) });
-  const updateTasksStatusBulk = trpc.humanResources.updateTasksStatusBulk.useMutation({ onSuccess: async (result) => { await utils.humanResources.tasks.invalidate(); setSelectedTaskIds([]); setBulkConfirmOpen(false); setTaskFeedback(`${result.updatedCount} tarefa(s) actualizada(s) para ${result.status === "COMPLETED" ? "Concluída" : result.status === "IN_PROGRESS" ? "Em curso" : result.status === "CANCELLED" ? "Cancelada" : "Pendente"}. Cada alteração foi auditada.`); }, onError: (error) => { setBulkConfirmOpen(false); setTaskFeedback(`Não foi possível actualizar as tarefas: ${userFacingError(error.message)}`); } });
+  const updateTasksStatusBulk = trpc.humanResources.updateTasksStatusBulk.useMutation({ onSuccess: async (result) => { await utils.humanResources.tasks.invalidate(); setSelectedTaskIds([]); setBulkConfirmOpen(false); const notification = getBulkTaskStatusNotification(result.status, result.updatedCount); setTaskFeedback(notification.feedback); toast.success(notification.title, { description: notification.description, duration: 5000 }); }, onError: (error) => { setBulkConfirmOpen(false); setTaskFeedback(`Não foi possível actualizar as tarefas: ${userFacingError(error.message)}`); } });
   const createHrTask = trpc.humanResources.createTask.useMutation({ onSuccess: async () => { await utils.humanResources.tasks.invalidate(); setTaskForm({ title: "", description: "", priority: "NORMAL", assigneeUserId: "", dueDate: "" }); setTaskFeedback("Tarefa RH criada e auditada."); }, onError: (error) => setTaskFeedback(`Não foi possível criar a tarefa: ${userFacingError(error.message)}`) });
   const { data: companyRows } = trpc.companies.list.useQuery();
   const activeCompany = companyRows?.find(({ company }) => company.id === activeCompanyId) ?? companyRows?.[0];
