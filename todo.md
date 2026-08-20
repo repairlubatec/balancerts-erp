@@ -1674,29 +1674,29 @@
 
 ## Comunicação por correio electrónico
 
-- [ ] Auditar emails em empresas, clientes, fornecedores e colaboradores
-- [ ] Completar validação e persistência de endereços
-- [ ] Integrar destinatários nos documentos e arquivo
-- [ ] Preparar envio com confirmação e auditoria
-- [ ] Validar isolamento, idioma, testes e build
+- [x] Auditar emails em empresas, clientes, fornecedores e colaboradores
+- [x] Completar validação e persistência de endereços
+- [x] Integrar destinatários nos documentos e arquivo
+- [x] Preparar envio com confirmação e auditoria
+- [x] Validar isolamento, idioma, testes e build
 - [ ] Guardar checkpoint da comunicação por email
 
 ## Configuração automática de envio
 
-- [ ] Inspeccionar configuração de correio disponível
-- [ ] Completar preparação interna de envio e validação
+- [x] Inspeccionar configuração de correio disponível
+- [x] Completar preparação interna de envio e validação
 - [ ] Activar integração real quando houver credenciais
-- [ ] Validar envio, auditoria, permissões e build
+- [x] Validar envio, auditoria, permissões e build
 - [ ] Guardar checkpoint da configuração de email
 
 ## Remetente automático por contexto
 
-- [ ] Definir hierarquia empresa → contabilista → conta autorizada
-- [ ] Validar permissões de envio por perfil
-- [ ] Completar remetente e destinatário em documentos
-- [ ] Implementar confirmação e auditoria do envio
-- [ ] Ligar serviço de correio sem remetente fixo
-- [ ] Validar bloqueios, isolamento, idioma e build
+- [x] Definir hierarquia empresa → contabilista → conta autorizada
+- [x] Validar permissões de envio por perfil
+- [x] Completar remetente e destinatário em documentos
+- [x] Implementar confirmação e auditoria do envio
+- [x] Ligar serviço de correio sem remetente fixo
+- [x] Validar bloqueios, isolamento, idioma e build
 - [ ] Guardar checkpoint do remetente automático
 
 ## Configuração Gmail automática

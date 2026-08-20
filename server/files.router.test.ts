@@ -55,6 +55,15 @@ describe("files router", () => {
     expect(update).not.toHaveBeenCalled();
   });
 
+  it("sugere destinatários persistidos com deduplicação tenant-aware", async () => {
+    vi.spyOn(db, "getCompaniesForUser").mockResolvedValue([{ company: { id: 2, organizationId: 1, name: "Repair Lubatec", email: "empresa@example.com" } } as never]);
+    vi.spyOn(db, "getEffectivePermissionsForUserCompany").mockResolvedValue([]);
+    vi.spyOn(db, "getCounterpartiesForUserCompany").mockResolvedValue([{ counterparty: { kind: "CUSTOMER", name: "Cliente", email: "cliente@example.com" } }, { counterparty: { kind: "SUPPLIER", name: "Fornecedor", email: "empresa@example.com" } }] as never);
+    vi.spyOn(db, "getEmployeesForUserCompany").mockResolvedValue([{ employee: { fullName: "Colaborador", email: "colaborador@example.com" } }] as never);
+    const result = await appRouter.createCaller(context("admin")).files.recipients({ companyId: 2 });
+    expect(result).toEqual([{ kind: "CLIENTE", name: "Cliente", email: "cliente@example.com" }, { kind: "COLABORADOR", name: "Colaborador", email: "colaborador@example.com" }, { kind: "EMPRESA", name: "Repair Lubatec", email: "empresa@example.com" }]);
+  });
+
   it("envia documento com anexo e regista auditoria de sucesso", async () => {
     vi.spyOn(db, "getFileAssetForUser").mockResolvedValue({ id: 7, organizationId: 1, storageKey: "org/1/company/2/file.pdf", filename: "file.pdf", mimeType: "application/pdf", size: 10, sha256: "a".repeat(64) } as never);
     vi.spyOn(db, "getCompaniesForUser").mockResolvedValue([{ company: { id: 2, organizationId: 1, email: "empresa@example.com" } } as never]);

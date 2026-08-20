@@ -256,6 +256,22 @@ export const appRouter = router({
       return createFileAsset({ ...prepared, userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, storageKey: uploaded.key, category: input.category, description: input.description, reference: input.reference });
     }),
     list: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), search: z.string().max(120).optional(), category: z.enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"]).optional(), from: z.coerce.date().optional(), to: z.coerce.date().optional() })).query(({ ctx, input }) => listFileAssetsForUser({ ...input, userId: ctx.user.id })),
+    recipients: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive() })).query(async ({ ctx, input }) => {
+      const [companyRows, overrides] = await Promise.all([getCompaniesForUser(ctx.user.id), getEffectivePermissionsForUserCompany(ctx.user.id, input.companyId)]);
+      const company = companyRows.find(({ company }) => company.id === input.companyId);
+      if (!company) throw new TRPCError({ code: "FORBIDDEN", message: "Empresa não autorizada." });
+      const recipients: Array<{ kind: "EMPRESA" | "CLIENTE" | "FORNECEDOR" | "COLABORADOR"; name: string; email: string }> = [];
+      if (company.company.email) recipients.push({ kind: "EMPRESA", name: company.company.name, email: company.company.email });
+      if (can(ctx.user.role as BalancertsRole, "customers", "read", overrides)) {
+        const counterparties = await getCounterpartiesForUserCompany(ctx.user.id, input.companyId);
+        recipients.push(...counterparties.flatMap(({ counterparty }) => counterparty.email ? [{ kind: counterparty.kind === "CUSTOMER" ? "CLIENTE" as const : "FORNECEDOR" as const, name: counterparty.name, email: counterparty.email }] : []));
+      }
+      if (can(ctx.user.role as BalancertsRole, "human_resources", "read", overrides)) {
+        const employees = await getEmployeesForUserCompany(ctx.user.id, input.companyId);
+        recipients.push(...employees.flatMap(({ employee }) => employee.email ? [{ kind: "COLABORADOR" as const, name: employee.fullName, email: employee.email }] : []));
+      }
+      return recipients.filter((recipient, index, all) => all.findIndex((item) => item.email.toLowerCase() === recipient.email.toLowerCase()) === index).sort((a, b) => a.name.localeCompare(b.name, "pt-PT"));
+    }),
     updateMetadata: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive(), category: z.enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"]).optional(), description: z.string().max(2000).optional(), reference: z.string().max(180).optional(), allowedUserIds: z.array(z.number().int().positive()).optional() })).mutation(({ ctx, input }) => updateFileAssetMetadataForUser({ ...input, userId: ctx.user.id })),
     archive: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive(), reason: z.string().trim().min(3).max(500) })).mutation(({ ctx, input }) => archiveFileAssetForUser({ ...input, userId: ctx.user.id })),
     versions: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive() })).query(({ ctx, input }) => getFileAssetVersionsForUser({ ...input, userId: ctx.user.id })),
