@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, or, sql } from "drizzle-orm";
 import { getDb } from "./db";
-import { companies, organizations, saadiSnapshots, saadiStudies } from "../drizzle/schema";
-import { saadiSnapshotSchema, saadiSnapshotRequestSchema, type SaadiSnapshot as SaadiSnapshotContract, type SaadiSnapshotRequest } from "../shared/saadi-contracts";
+import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions } from "../drizzle/schema";
+import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema, type SaadiSnapshot as SaadiSnapshotContract, type SaadiSnapshotRequest, type SaadiVersion } from "../shared/saadi-contracts";
 
 const organizationAccessCondition = (userId: number) => or(
   eq(organizations.ownerUserId, userId),
@@ -109,6 +109,74 @@ export async function createSaadiSnapshot(input: {
     eq(saadiSnapshots.idempotencyKey, key),
   )).limit(1);
   return { snapshot: created[0], alreadyExists: false } as const;
+}
+
+export function validateSaadiVersionInput(input: { version: SaadiVersion; organizationId: number; companyId: number }) {
+  const version = saadiVersionSchema.parse(input.version);
+  if (input.organizationId <= 0 || input.companyId <= 0) throw new Error("SAADI_SCOPE_REQUIRED");
+  if (version.status === "APROVADA" && version.sourceSnapshotIds.length === 0) throw new Error("SAADI_APPROVED_VERSION_REQUIRES_SOURCE");
+  const calculatedHash = hashPayload({ ...version, contentHash: undefined });
+  if (version.contentHash !== calculatedHash) throw new Error("SAADI_VERSION_HASH_INVALID");
+  return version;
+}
+
+export async function listSaadiSnapshotsForUser(input: { userId: number; organizationId: number; companyId: number; studyId?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  return db.select().from(saadiSnapshots).where(and(
+    eq(saadiSnapshots.organizationId, input.organizationId),
+    eq(saadiSnapshots.companyId, input.companyId),
+    ...(input.studyId ? [eq(saadiSnapshots.studyId, input.studyId)] : []),
+  )).orderBy(desc(saadiSnapshots.id));
+}
+
+export async function listSaadiVersionsForUser(input: { userId: number; organizationId: number; companyId: number; studyId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  return db.select().from(saadiVersions).where(and(
+    eq(saadiVersions.organizationId, input.organizationId),
+    eq(saadiVersions.companyId, input.companyId),
+    eq(saadiVersions.studyId, input.studyId),
+  )).orderBy(desc(saadiVersions.versionNumber));
+}
+
+export async function createSaadiVersion(input: { userId: number; organizationId: number; companyId: number; studyId: number; snapshotId: number; version: SaadiVersion }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const version = validateSaadiVersionInput({ version: input.version, organizationId: input.organizationId, companyId: input.companyId });
+  await assertCompanyAccess(input);
+  const study = await db.select().from(saadiStudies).where(and(eq(saadiStudies.id, input.studyId), eq(saadiStudies.organizationId, input.organizationId), eq(saadiStudies.companyId, input.companyId))).limit(1);
+  if (!study[0]) throw new Error("SAADI_STUDY_NOT_FOUND_OR_FORBIDDEN");
+  const snapshot = await db.select().from(saadiSnapshots).where(and(eq(saadiSnapshots.id, input.snapshotId), eq(saadiSnapshots.organizationId, input.organizationId), eq(saadiSnapshots.companyId, input.companyId), eq(saadiSnapshots.studyId, input.studyId))).limit(1);
+  if (!snapshot[0]) throw new Error("SAADI_SNAPSHOT_NOT_FOUND_OR_FORBIDDEN");
+  const existing = await db.select().from(saadiVersions).where(and(eq(saadiVersions.studyId, input.studyId), eq(saadiVersions.versionNumber, version.versionNumber))).limit(1);
+  if (existing[0]) return { version: existing[0], alreadyExists: true } as const;
+  await db.insert(saadiVersions).values({ organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, snapshotId: input.snapshotId, versionNumber: version.versionNumber, status: version.status === "RASCUNHO" ? "DRAFT" : version.status === "EM_REVISAO" ? "IN_REVIEW" : version.status === "APROVADA" ? "APPROVED" : "ARCHIVED", assumptionsJson: JSON.stringify(version.assumptions), projectionsJson: JSON.stringify(version.projections), versionHash: version.contentHash, createdBy: input.userId });
+  const created = await db.select().from(saadiVersions).where(and(eq(saadiVersions.studyId, input.studyId), eq(saadiVersions.versionNumber, version.versionNumber))).limit(1);
+  return { version: created[0], alreadyExists: false } as const;
+}
+
+export async function transitionSaadiVersionForUser(input: { userId: number; organizationId: number; companyId: number; versionId: number; decision: "APPROVE" | "ARCHIVE" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  const rows = await db.select().from(saadiVersions).where(and(eq(saadiVersions.id, input.versionId), eq(saadiVersions.organizationId, input.organizationId), eq(saadiVersions.companyId, input.companyId))).limit(1);
+  const current = rows[0];
+  if (!current) throw new Error("SAADI_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  if (input.decision === "APPROVE" && current.status !== "IN_REVIEW") throw new Error("SAADI_VERSION_REVIEW_REQUIRED");
+  if (input.decision === "ARCHIVE" && current.status === "ARCHIVED") return { id: current.id, status: current.status, alreadyArchived: true } as const;
+  const nextStatus = input.decision === "APPROVE" ? "APPROVED" : "ARCHIVED";
+  await db.update(saadiVersions).set({ status: nextStatus, ...(input.decision === "APPROVE" ? { approvedBy: input.userId, approvedAt: new Date() } : {}) }).where(eq(saadiVersions.id, input.versionId));
+  return { id: current.id, status: nextStatus, alreadyArchived: false } as const;
+}
+
+export async function listSaadiProvenanceForUser(input: { userId: number; organizationId: number; companyId: number; snapshotId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  return db.select().from(saadiProvenance).where(and(eq(saadiProvenance.organizationId, input.organizationId), eq(saadiProvenance.companyId, input.companyId), eq(saadiProvenance.snapshotId, input.snapshotId))).orderBy(desc(saadiProvenance.id));
 }
 
 export async function listSaadiStudiesForUser(input: { userId: number; organizationId: number; companyId: number }) {

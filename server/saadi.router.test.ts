@@ -30,6 +30,19 @@ describe("router SAADI", () => {
     expect(lookup).not.toHaveBeenCalled();
   });
 
+  it("encaminha a aprovação de versão apenas para o helper autorizado", async () => {
+    const transition = vi.spyOn(saadi, "transitionSaadiVersionForUser").mockResolvedValue({ id: 7, status: "APPROVED", alreadyArchived: false });
+    const result = await appRouter.createCaller(context("contabilista")).saadi.transitionVersion({ organizationId: 10, companyId: 20, versionId: 7, decision: "APPROVE" });
+    expect(result.status).toBe("APPROVED");
+    expect(transition).toHaveBeenCalledWith({ userId: 52, organizationId: 10, companyId: 20, versionId: 7, decision: "APPROVE" });
+  });
+
+  it("bloqueia Auditor de aprovar versão, pois apenas lê o módulo", async () => {
+    const transition = vi.spyOn(saadi, "transitionSaadiVersionForUser");
+    await expect(appRouter.createCaller(context("auditor")).saadi.transitionVersion({ organizationId: 10, companyId: 20, versionId: 7, decision: "APPROVE" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(transition).not.toHaveBeenCalled();
+  });
+
   it("bloqueia Operador de criar snapshots, apesar de permitir leitura", async () => {
     const create = vi.spyOn(saadi, "createSaadiSnapshot");
     const request = { organizationId: 10, companyId: 20, periodIds: [30], currency: "AOA", purpose: "Análise", contractVersion: "v1.0", correlationId: "r-1", includeHrDetails: false };

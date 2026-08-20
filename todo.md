@@ -1865,3 +1865,28 @@
 ## Distribuição desktop — preparação interna
 
 - [x] Validar build Electron de directório Linux com URL HTTPS configurado — EXE/MSI e validação em Windows limpo continuam pendentes
+
+## Plano ampliado de conclusão — execução interna
+
+- [x] Adicionar criação de versões SAADI com número sequencial, hash de conteúdo e estado controlado
+- [x] Adicionar leitura tenant-aware de snapshots, versões e proveniência
+- [x] Adicionar validação de proveniência e hash antes de aprovar uma versão SAADI
+- [x] Adicionar aprovação e arquivamento de versões SAADI sem modificar o ERP
+- [x] Cobrir idempotência, concorrência lógica e conflitos de versão SAADI — idempotência e bloqueios de transição cobertos; concorrência de base real permanece para teste de integração
+- [x] Acrescentar painel desktop de versões e proveniência SAADI
+- [x] Garantir que todas as mensagens novas SAADI permanecem em português
+- [x] Auditar rotas novas, estados vazios, erros e permissões no frontend — teste React, testes tRPC e verificação visual aprovados
+- [x] Executar teste de regressão dos módulos existentes após cada incremento — 348/349 testes aprovados; única falha continua a ser SMTP Gmail 535 externo
+- [x] Verificar build Electron, configuração HTTPS e artefactos de distribuição — build de produção e pacote Linux de directório aprovados; EXE/MSI e Windows limpo pendentes
+- [x] Rever todos os textos visíveis do SAADI e remover termos técnicos ingleses desnecessários
+- [x] Actualizar documentação de fronteiras, modelo de dados e critérios de aceitação SAADI
+
+## Plano ampliado de conclusão — dependências externas
+
+- [ ] Corrigir SMTP Gmail com palavra-passe de aplicação válida e repetir a suite completa
+- [ ] Criar destino MySQL/TiDB isolado e executar restauro real não destrutivo
+- [ ] Validar EXE/MSI numa máquina Windows limpa e recolher evidência de instalação/actualização
+- [ ] Validar assinatura de código e certificado de distribuição Windows fora do sandbox
+- [ ] Obter credenciais e endpoint oficiais AGT para homologação controlada
+- [ ] Obter credenciais e documentação dos bancos para integração bancária
+- [ ] Executar testes de aceitação com utilizadores da Repair Lubatec e dados anonimizados

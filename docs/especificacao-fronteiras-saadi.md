@@ -1,6 +1,6 @@
 # Especificação inicial das fronteiras SAADI/BALANCERTS.ERP
 
-**Estado:** preparação arquitectural, sem implementação funcional do SAADI  
+**Estado:** primeiro incremento funcional isolado implementado e validado; motor completo de cenários e integrações externas ainda pendentes  
 **Produto anfitrião:** BALANCERTS.ERP  
 **Titular:** Repair Lubatec  
 **Autor:** Manus AI  
@@ -8,7 +8,7 @@
 
 ## 1. Objectivo e regra principal
 
-Este documento define a fronteira segura para uma futura integração do SAADI com o BALANCERTS.ERP. Não cria tabelas, routers, permissões, páginas, integrações ou dados. O propósito é impedir que uma futura implementação misture análise e projecção com os registos contabilísticos, fiscais, comerciais, de tesouraria, RH ou auditoria que constituem a realidade operacional do ERP.
+Este documento define a fronteira segura do SAADI integrado no BALANCERTS.ERP. O primeiro incremento já possui tabelas, contratos, permissões próprias, helpers tenant-aware, router protegido e interface desktop; o documento continua a impedir que a implementação misture análise e projecção com os registos contabilísticos, fiscais, comerciais, de tesouraria, RH ou auditoria do ERP. O propósito é impedir que uma futura implementação misture análise e projecção com os registos contabilísticos, fiscais, comerciais, de tesouraria, RH ou auditoria que constituem a realidade operacional do ERP.
 
 > **BALANCERTS.ERP executa, regista e controla a realidade empresarial. SAADI analisa, modela, projecta e apoia decisões.**
 
@@ -30,13 +30,13 @@ O BALANCERTS deve continuar a funcionar integralmente se o SAADI estiver desliga
 
 ## 3. Modelo conceptual proposto para o SAADI
 
-A primeira versão deve ser um bounded context próprio. As entidades abaixo são uma proposta de desenho, não tabelas implementadas.
+A primeira versão foi implementada como bounded context próprio. As entidades abaixo distinguem o que já existe no primeiro incremento do que permanece planeado.
 
 | Entidade | Finalidade | Relações essenciais |
 |---|---|---|
 | `SaadiProject` | Agrupar uma iniciativa de análise ou investimento | Organização proprietária, utilizador responsável, estudos e estado. |
-| `SaadiStudy` | Representar um estudo dentro de um projecto | Projecto, empresa analisada, objectivo, período de referência e estado. |
-| `SaadiVersion` | Congelar uma versão reproduzível do estudo | Estudo, número de versão, autor, data, estado e hash de conteúdo. |
+| `SaadiStudy` | Representar um estudo dentro de um projecto | Projecto, empresa analisada, objectivo, período de referência e estado. **Implementado no primeiro incremento.** |
+| `SaadiVersion` | Congelar uma versão reproduzível do estudo | Estudo, número de versão, autor, data, estado e hash de conteúdo. **Implementado com criação, leitura, hash e transição controlada.** |
 | `SaadiExternalCompany` | Representar uma entidade analisada que pode não ser empresa operacional do ERP | Projecto, identificação externa, fonte e estado de correspondência. |
 | `SaadiAssumption` | Registar uma premissa explícita | Versão, categoria, valor, unidade, origem, confiança e vigência. |
 | `SaadiProjection` | Guardar uma projecção calculada | Versão, métrica, período, valor, moeda, método e proveniência. |
@@ -44,8 +44,8 @@ A primeira versão deve ser um bounded context próprio. As entidades abaixo sã
 | `SaadiSensitivity` | Registar variações e impacto | Cenário, variável, intervalo, resultado e método. |
 | `SaadiRisk` | Registar risco, impacto e mitigação | Estudo, categoria, probabilidade, impacto, responsável e estado. |
 | `SaadiDecision` | Registar uma decisão baseada no estudo | Versão aprovada, decisor, data, fundamento e estado. |
-| `SaadiDataSnapshot` | Congelar dados lidos do BALANCERTS | Empresa, período, timestamp, origem, filtros, hash e estado. |
-| `SaadiDataLineage` | Explicar a origem de cada métrica | Snapshot, entidade de origem, identificador, transformação e versão. |
+| `SaadiDataSnapshot` | Congelar dados lidos do BALANCERTS | Empresa, período, timestamp, origem, filtros, hash e estado. **Implementado com chave idempotente e leitura tenant-aware.** |
+| `SaadiDataLineage` | Explicar a origem de cada métrica | Snapshot, entidade de origem, identificador, transformação e versão. **Tabela criada e leitura protegida; preenchimento detalhado depende do motor de extracção.** |
 | `SaadiIntegrationRun` | Controlar uma leitura ou sincronização | Chave idempotente, estado, tentativas, erro, início, fim e correlação. |
 
 O identificador de uma empresa externa não deve ser tratado como `companyId` do BALANCERTS. Quando existir correspondência autorizada, deve ser guardada numa relação explícita, com origem, actor que confirmou a ligação e data de confirmação. Uma correspondência nunca deve ser inferida apenas pelo nome ou pelo NIF.
@@ -109,4 +109,4 @@ Também é obrigatório demonstrar que um erro ou indisponibilidade da leitura n
 
 ## 10. Decisões adiadas
 
-A criação de entidades SAADI no código, a definição final de permissões por empresa, a política de retenção de snapshots, a ligação a fornecedores externos, a utilização de dados individuais de RH e a aprovação de decisões permanecem para uma etapa posterior. Esta especificação não autoriza a implementação automática dessas áreas.
+O motor completo de cenários, sensibilidades, riscos, decisões e integrações externas permanece para uma etapa posterior. A política de retenção de snapshots, a utilização de dados individuais de RH e a homologação AGT continuam condicionadas por decisão funcional, credenciais e validação externa. A criação de estudos, snapshots e versões do primeiro incremento não autoriza qualquer mutação do ERP.
