@@ -1548,3 +1548,10 @@
 - [x] Integrar acção desktop e feedback de segurança
 - [x] Testar colunas, isolamento e regressões
 - [x] Rever visualmente, guardar checkpoint e entregar
+
+## Documentação — cronologia completa do projecto
+
+- [x] Recolher histórico de implementação e checkpoints
+- [x] Classificar funcionalidades feitas, validadas, preparadas e pendentes
+- [x] Redigir cronologia completa e plano de conclusão
+- [x] Entregar cronologia ao utilizador
