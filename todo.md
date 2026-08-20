@@ -1325,3 +1325,11 @@
 - [x] Sincronizar pesquisa com filtros, selecção e acções em massa
 - [x] Testar pesquisa, limpeza e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — indicador visual de prioridade
+
+- [x] Mapear prioridades persistidas e marcador actual
+- [x] Adicionar indicador visual Alta, Média e Baixa em cada tarefa
+- [x] Garantir texto acessível e coerência com o filtro de prioridade
+- [x] Testar prioridades e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
