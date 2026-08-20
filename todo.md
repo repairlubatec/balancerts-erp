@@ -1507,3 +1507,12 @@
 - [x] Acrescentar resumo com contadores atrasadas, hoje e amanhã
 - [x] Testar regras, persistência, filtros e interface
 - [x] Guardar checkpoint e entregar
+
+## Centro de Tarefas — preferências, contadores e notificações internas
+
+- [x] Confirmar persistência dos filtros por utilizador e empresa entre sessões
+- [x] Manter contadores separados para hoje e amanhã
+- [x] Implementar notificações internas quando uma tarefa entra no intervalo de urgência
+- [x] Deduplicar notificações e respeitar o isolamento por empresa
+- [x] Testar persistência, contagens, idioma e regressões
+- [x] Rever visualmente, guardar checkpoint e entregar
