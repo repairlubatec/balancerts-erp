@@ -1837,3 +1837,8 @@
 - [x] Criar tipos e esquemas de validação para pedidos de snapshot SAADI
 - [x] Criar tipos e esquemas de proveniência, premissas, projecções e versões
 - [x] Testar os contratos sem abrir ligações à base de dados nem activar routers — TypeScript e 5 testes aprovados
+
+## SAADI — catálogo de permissões sem activação
+
+- [x] Definir catálogo tipado de permissões SAADI sem atribuir permissões a utilizadores
+- [x] Testar que nenhuma permissão SAADI equivale a posting, pagamento, emissão, stock ou AGT — 8 testes SAADI aprovados no conjunto
