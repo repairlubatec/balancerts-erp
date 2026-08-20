@@ -1831,3 +1831,9 @@
 - [x] Definir permissões SAADI e isolamento por organização/empresa
 - [x] Preparar plano de implementação sem alterar o núcleo contabilístico
 - [x] Documentar critérios de aceitação e riscos de integração SAADI
+
+## SAADI — contratos partilhados sem integração activa
+
+- [x] Criar tipos e esquemas de validação para pedidos de snapshot SAADI
+- [x] Criar tipos e esquemas de proveniência, premissas, projecções e versões
+- [x] Testar os contratos sem abrir ligações à base de dados nem activar routers — TypeScript e 5 testes aprovados
