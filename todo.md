@@ -1341,3 +1341,11 @@
 - [x] Sincronizar página com filtros, contador e selecção em massa
 - [x] Testar navegação e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — ordenação por cabeçalho
+
+- [x] Mapear prioridades, nomes e pipeline actual de filtros e paginação
+- [x] Adicionar ordenação clicável por nome e prioridade
+- [x] Mostrar direcção da ordenação e sincronizar com paginação
+- [x] Testar ordenação, filtros, selecção e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
