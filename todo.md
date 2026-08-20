@@ -1628,3 +1628,12 @@
 - [x] Acrescentar copyright nos geradores de PDF
 - [x] Preparar checklist de revisão jurídica para distribuição comercial
 - [x] Validar e guardar checkpoint
+
+## Análise Financeira Global
+
+- [x] Auditar consultas e componentes de relatórios existentes
+- [x] Definir indicadores tenant-aware por empresa, exercício e período
+- [x] Implementar cartões, gráficos e tabelas financeiras
+- [x] Adicionar filtros, navegação para origens e exportações
+- [x] Validar permissões, dados reais, visual e build
+- [x] Guardar checkpoint do painel financeiro

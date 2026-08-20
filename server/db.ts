@@ -2147,3 +2147,49 @@ export async function approvePaymentForUser(input: { userId: number; companyId: 
   await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_APPROVED_EXECUTED", entityType: "payment", entityId: String(input.paymentId), beforeState: JSON.stringify({ approvalStatus: "PENDING" }), afterState: JSON.stringify({ approvalStatus: "APPROVED", status: "CONFIRMED", executionReference: input.executionReference ?? null }), correlationId: `payment-approval:${input.paymentId}` });
   return { paymentId: input.paymentId, idempotent: false };
 }
+
+export async function getFinancialDashboardForUserCompany(userId: number, companyId: number, periodId?: number) {
+  const [journal, incomeStatement, balanceSheet, customerAging, supplierAging, fiscalRegister] = await Promise.all([
+    getJournalForUserCompany(userId, companyId, periodId),
+    getIncomeStatementForUserCompany(userId, companyId, periodId),
+    getBalanceSheetForUserCompany(userId, companyId, periodId),
+    getAgingForUserCompany(userId, companyId, "CUSTOMER", new Date()),
+    getAgingForUserCompany(userId, companyId, "SUPPLIER", new Date()),
+    getFiscalRegisterForUserCompany(userId, companyId),
+  ]);
+  const monthly = new Map<string, { period: string; revenue: number; expenses: number; result: number; debit: number; credit: number }>();
+  for (const row of journal.entries) {
+    const date = new Date(row.createdAt);
+    const key = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}`;
+    const current = monthly.get(key) ?? { period: `${String(date.getUTCMonth() + 1).padStart(2, "0")}/${date.getUTCFullYear()}`, revenue: 0, expenses: 0, result: 0, debit: 0, credit: 0 };
+    const amount = Number(row.debit) - Number(row.credit);
+    if (row.accountCode.startsWith("7")) current.revenue += Number(row.credit) - Number(row.debit);
+    if (row.accountCode.startsWith("6")) current.expenses += amount;
+    current.debit += Number(row.debit);
+    current.credit += Number(row.credit);
+    current.result = current.revenue - current.expenses;
+    monthly.set(key, current);
+  }
+  const monthlySeries = Array.from(monthly.values()).sort((a, b) => a.period.localeCompare(b.period)).slice(-12).map((row) => Object.fromEntries(Object.entries(row).map(([key, value]) => [key, typeof value === "number" ? Number(value.toFixed(2)) : value])));
+  const revenueRows = incomeStatement.rows.filter((row) => row.accountCode.startsWith("7")).sort((a, b) => Math.abs(b.credit - b.debit) - Math.abs(a.credit - a.debit)).slice(0, 8).map((row) => ({ accountCode: row.accountCode, label: row.accountName, amount: Number(Math.abs(row.credit - row.debit).toFixed(2)) }));
+  const expenseRows = incomeStatement.rows.filter((row) => row.accountCode.startsWith("6")).sort((a, b) => Math.abs(b.debit - b.credit) - Math.abs(a.debit - a.credit)).slice(0, 8).map((row) => ({ accountCode: row.accountCode, label: row.accountName, amount: Number(Math.abs(row.debit - row.credit).toFixed(2)) }));
+  return {
+    companyId,
+    periodId: periodId ?? null,
+    currency: "AOA",
+    kpis: {
+      revenue: incomeStatement.revenue,
+      expenses: incomeStatement.expenses,
+      netIncome: incomeStatement.netIncome,
+      receivable: customerAging.totals.outstanding,
+      payable: supplierAging.totals.outstanding,
+      treasuryBalance: balanceSheet.assets - customerAging.totals.outstanding,
+      documentsTotal: fiscalRegister.totals.totalAmount,
+    },
+    monthlySeries,
+    revenueRows,
+    expenseRows,
+    aging: { receivable: customerAging.totals, payable: supplierAging.totals },
+    reconciliation: { debit: journal.totals.debit, credit: journal.totals.credit, balanced: Math.abs(journal.totals.debit - journal.totals.credit) <= 0.005 },
+  };
+}
