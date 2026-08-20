@@ -1813,3 +1813,11 @@
 - [ ] Executar apenas cenários de escrita controlados e autorizados — pendente de autorização explícita e dados reais/anonimizados para RH, Stock, Compras e banca
 - [x] Reconciliar resultados e documentar bloqueios externos
 - [ ] Executar testes finais e guardar checkpoint P2 — testes P2 direccionados 16/16 e build aprovados; checkpoint ainda pendente
+
+## P2 — Cenários controlados descartáveis
+
+- [x] Executar E2E descartável de empresa, exercício, documento, contabilidade, stock, ficheiro, fecho, reabertura e auditoria
+- [x] Executar E2E descartável de importação CSV/XLSX, revisão, produto, PDF, hash, ACL e isolamento
+- [ ] Executar cenário controlado específico de RH com colaboradores e folha temporária
+- [ ] Executar cenário controlado específico de compras com fornecedor e recepção temporários
+- [ ] Executar cenário controlado específico de banca com extracto temporário

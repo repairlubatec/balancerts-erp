@@ -62,3 +62,9 @@ A integração específica da Repair Lubatec confirmou as superfícies contabil�
 A P2 está **tecnicamente validada para os fluxos que possuem dados persistidos e para os contratos cobertos por testes**. Não está correcto declarar a validação empresarial completa de RH, Stock, Compras ou banca, porque esses módulos não têm dados reais da Repair Lubatec no tenant. Também não está correcto declarar o envio por email real, AGT ou integração bancária como concluídos.
 
 O próximo passo seguro é obter ficheiros reais anonimizados ou autorização para cenários controlados de escrita nos módulos sem dados. Esses cenários devem ser identificáveis, reversíveis ou descartáveis e nunca devem ser confundidos com movimentos fiscais ou contabilísticos definitivos. A validação de RH requer colaboradores, contratos e uma folha de teste; a de Stock requer produtos, armazém e movimentos; a de Compras requer fornecedores e uma recepção; a bancária requer extracto e credenciais do banco.
+
+## Cenários controlados descartáveis executados
+
+Além da leitura do tenant real, foram executados dois cenários em ambiente descartável, sem tocar na Repair Lubatec. O ciclo E2E descartável passou 1/1 e criou/limpou uma empresa temporária, exercício, período, série, documento, lançamento, movimento de stock, ficheiro, depreciação, estorno, reconciliação, fecho e reabertura com auditoria. O fluxo de importação e revisão passou 1/1 e criou/limpou produtos e lotes temporários, cobrindo CSV, XLSX, revisão de linhas inválidas, confirmação, hash PDF, ACL e isolamento.
+
+Estes cenários comprovam que o sistema suporta escrita controlada e limpeza tenant-aware. Não substituem dados reais da Repair Lubatec e não cobrem uma folha salarial real, compras reais ou uma reconciliação bancária com extracto real.
