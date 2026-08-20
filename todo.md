@@ -1383,3 +1383,11 @@
 - [x] Preservar vermelho para tarefas atrasadas e excluir estados finais
 - [x] Testar datas, prioridade visual e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — edição rápida da data limite
+
+- [x] Mapear mutação existente e edição inline actual
+- [x] Adicionar campo de data editável directamente na linha
+- [x] Guardar alteração e actualizar alertas, filtros e exportação
+- [x] Testar edição, permissões e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
