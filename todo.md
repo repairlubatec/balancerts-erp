@@ -1292,3 +1292,11 @@
 - [x] Sincronizar selecção, limpeza e estado parcial
 - [x] Testar selecção com filtros e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — contador de selecção
+
+- [x] Mapear o cabeçalho e o estado de selecção actual
+- [x] Adicionar contador visual exacto no cabeçalho
+- [x] Sincronizar contador com selecção, limpeza e filtros
+- [x] Testar contagem e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint

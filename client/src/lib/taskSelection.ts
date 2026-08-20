@@ -1,3 +1,7 @@
+export function getSelectedTaskCount(selectedTaskIds: number[]) {
+  return selectedTaskIds.length;
+}
+
 export function getVisibleTaskSelectionState(visibleTaskIds: number[], selectedTaskIds: number[]) {
   const selected = new Set(selectedTaskIds);
   const allSelected = visibleTaskIds.length > 0 && visibleTaskIds.every((taskId) => selected.has(taskId));
