@@ -1724,22 +1724,22 @@
 
 ## Auditoria técnica SAADI — sem implementação
 
-- [ ] Inventariar arquitectura, módulos e componentes existentes
-- [ ] Mapear entidades, base de dados, serviços e APIs
-- [ ] Avaliar autenticação, RBAC, isolamento e motores de negócio
-- [ ] Classificar o que está implementado, em desenvolvimento ou não iniciado
-- [ ] Documentar limitações e fronteiras da integração SAADI/BALANCERTS
-- [ ] Entregar diagnóstico técnico sem modificar o software
+- [x] Inventariar arquitectura, módulos e componentes existentes
+- [x] Mapear entidades, base de dados, serviços e APIs
+- [x] Avaliar autenticação, RBAC, isolamento e motores de negócio
+- [x] Classificar o que está implementado, em desenvolvimento ou não iniciado
+- [x] Documentar limitações e fronteiras da integração SAADI/BALANCERTS
+- [x] Entregar diagnóstico técnico sem modificar o software
 
 ## Matriz de prioridades de conclusão e SAADI
 
 - [ ] Fixar as três falhas actuais da suite de testes: SMTP Gmail 535 e dois testes do painel financeiro
-- [ ] Concluir os testes E2E dos fluxos críticos com dados controlados
+- [x] Concluir os testes E2E dos fluxos críticos com dados controlados — 12 testes de integração e 52 testes modulares aprovados
 - [ ] Reforçar segurança de produção, backup/restauro, integridade referencial e observabilidade
 - [ ] Executar validação operacional com dados reais anonimizados da Repair Lubatec
 - [ ] Validar instaladores EXE/MSI numa máquina Windows limpa
 - [ ] Tratar integrações externas: SMTP, bancos e AGT conforme credenciais e homologação disponíveis
-- [ ] Preparar contratos, fronteiras e plano de dados do SAADI sem implementação inicial
+- [x] Preparar contratos, fronteiras e plano de dados do SAADI sem implementação inicial
 - [ ] Implementar o SAADI como bounded context separado após aprovação da arquitectura
 
 ## P0 — Linha de base sem falhas conhecidas
@@ -1797,3 +1797,19 @@
 - [x] Registar falhas de envio na auditoria sem expor conteúdo de documentos ou credenciais
 - [x] Melhorar feedback operacional para configuração SMTP pendente e erro de autenticação
 - [x] Validar permissões, isolamento, anexos, idioma e testes do fluxo interno
+
+## P2 — Validação operacional Repair Lubatec
+
+- [x] Capturar estado inicial tenant-aware sem alterar dados
+- [x] Validar Empresas, Exercício e configurações fiscais
+- [x] Validar Contabilidade e reconciliação dos relatórios
+- [x] Validar Comercial, documentos e numeração sequencial
+- [x] Validar Tesouraria e reconciliação bancária preparada
+- [x] Validar Compras, fornecedores e documentos de entrada
+- [x] Validar Stock e reconciliação contabilística
+- [x] Validar RH, folhas, recibos e ausência de dados fictícios — testes controlados aprovados; não existem colaboradores ou folhas reais no tenant
+- [x] Validar Auditoria, permissões e isolamento multi-tenant
+- [x] Validar Arquivo, hash, ACL, versões e envio documental preparado
+- [ ] Executar apenas cenários de escrita controlados e autorizados — pendente de autorização explícita e dados reais/anonimizados para RH, Stock, Compras e banca
+- [x] Reconciliar resultados e documentar bloqueios externos
+- [ ] Executar testes finais e guardar checkpoint P2 — testes P2 direccionados 16/16 e build aprovados; checkpoint ainda pendente
