@@ -1366,3 +1366,11 @@
 - [x] Garantir informação acessível e coerência com exportação e filtros
 - [x] Testar prazos, atraso e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — filtro rápido de atrasadas
+
+- [x] Mapear filtro rápido e regra actual de atraso
+- [x] Adicionar botão “Atrasadas” na interface
+- [x] Sincronizar com filtros, paginação, selecção e exportação
+- [x] Testar filtro e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
