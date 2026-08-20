@@ -1516,3 +1516,11 @@
 - [x] Deduplicar notificações e respeitar o isolamento por empresa
 - [x] Testar persistência, contagens, idioma e regressões
 - [x] Rever visualmente, guardar checkpoint e entregar
+
+## Centro de Tarefas — histórico e destinatários de notificações
+
+- [x] Mapear dados de notificações e permissões por empresa
+- [x] Implementar histórico consultável de notificações dispensadas
+- [x] Implementar configuração de destinatários de alertas por empresa
+- [x] Preparar teste operacional real com tarefas existentes — execução aguarda tarefas reais na Repair Lubatec
+- [x] Testar, rever visualmente, guardar checkpoint e entregar

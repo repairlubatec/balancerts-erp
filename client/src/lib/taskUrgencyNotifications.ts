@@ -45,3 +45,21 @@ export function collectNewTaskUrgencyNotifications(tasks: Array<TaskUrgencyTask 
 export function writeTaskUrgencyNotificationLedger(storage: Pick<Storage, "setItem"> | undefined, key: string, ledger: string[]) {
   storage?.setItem(key, JSON.stringify(ledger));
 }
+
+export function taskUrgencyHistoryKey(userId: number | string | undefined, companyId: number | undefined) {
+  return `balancerts.taskUrgencyHistory.v1:${userId ?? "anonimo"}:${companyId ?? "sem-empresa"}`;
+}
+
+export function readTaskUrgencyHistory(storage: Pick<Storage, "getItem"> | undefined, key: string): TaskUrgencyNotification[] {
+  if (!storage) return [];
+  try {
+    const parsed = JSON.parse(storage.getItem(key) ?? "[]");
+    return Array.isArray(parsed) ? parsed.filter((value): value is TaskUrgencyNotification => Boolean(value && typeof value.id === "string" && typeof value.title === "string" && (value.bucket === "HOJE" || value.bucket === "AMANHA"))) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function writeTaskUrgencyHistory(storage: Pick<Storage, "setItem"> | undefined, key: string, history: TaskUrgencyNotification[]) {
+  storage?.setItem(key, JSON.stringify(history.slice(-100)));
+}
