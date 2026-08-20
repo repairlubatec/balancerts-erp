@@ -1309,3 +1309,11 @@
 - [x] Sincronizar lista, contador e feedback após reversão
 - [x] Testar segurança, auditoria, reversão e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — filtros rápidos por estado
+
+- [x] Mapear estados persistidos e filtros rápidos existentes
+- [x] Adicionar filtros Pendente, Em curso, Concluída e Cancelada
+- [x] Sincronizar filtros com selecção visível, contador e acções em massa
+- [x] Testar filtros, selecção e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
