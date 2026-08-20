@@ -1913,3 +1913,10 @@
 - [x] Ler integralmente o Documento 2 e comparar entidades, relações, estados, constraints, isolamento, contratos, auditoria e migrações com o código/schema actuais
 - [x] Identificar conflitos, limitações e decisões pendentes sem alterar código, schema, dados, permissões ou integrações
 - [x] Produzir avaliação técnica para aprovação antes de qualquer Documento 3 ou programação — relatório em /home/ubuntu/saadi-documento2-avaliacao.md
+
+## Documento 3 SAADI — contrato API/tRPC para aprovação
+
+- [x] Elaborar integralmente o contrato de API/tRPC do SAADI em conformidade com os Documentos 1 e 2 aprovados — relatório em /home/ubuntu/documento-3-saadi-contrato-api-trpc.md
+- [x] Definir routers, procedimentos, inputs, outputs, versionamento, autorização, isolamento, erros, limites, idempotência e observabilidade
+- [x] Comparar o Documento 3 com o router e contratos actuais sem alterar código, schema, dados, permissões, interfaces ou integrações
+- [x] Entregar o Documento 3 para análise e aprovação formal antes de qualquer implementação
