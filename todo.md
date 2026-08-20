@@ -1583,3 +1583,11 @@
 
 - [x] Corrigir consulta tenant-aware de colaboradores que referencia organizations sem junção explícita
 - [x] Reexecutar testes RH, TypeScript, build e revisão visual
+
+## Ronda final — auditoria interna transversal
+
+- [x] Auditar permissões, rotas, formulários e estados vazios — auditoria de código e fluxos existentes concluída
+- [x] Corrigir lacunas internas reproduzíveis — não foram encontrados novos defeitos reproduzíveis nesta ronda
+- [x] Validar idioma, exportações, auditoria e experiência desktop — contratos, rótulos e acções internas revistos
+- [x] Executar suite final, build e revisão visual
+- [x] Registar resultados e entregar progresso
