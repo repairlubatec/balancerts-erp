@@ -1646,3 +1646,11 @@
 - [x] Melhorar ligações dos gráficos às origens contabilísticas
 - [x] Validar permissões, isolamento, exportações e build
 - [x] Guardar checkpoint da evolução analítica
+
+## Comparação homóloga e impressão do painel
+
+- [x] Auditar suporte a períodos homólogos e impressão PDF
+- [x] Implementar comparação automática com o período homólogo
+- [x] Adicionar impressão PDF do painel com filtros activos
+- [x] Validar dados, permissões, PDF e build
+- [x] Guardar checkpoint desta melhoria

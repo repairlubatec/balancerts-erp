@@ -2149,13 +2149,17 @@ export async function approvePaymentForUser(input: { userId: number; companyId: 
 }
 
 export async function getFinancialDashboardForUserCompany(input: { userId: number; companyId: number; periodId?: number; comparisonPeriodId?: number; costCenter?: string; analyticalDimension?: string }) {
-  const [currentRows, comparisonRows, customerAging, supplierAging, fiscalRegister] = await Promise.all([
+  const [currentRows, customerAging, supplierAging, fiscalRegister, periodRows] = await Promise.all([
     getJournalRowsForUserCompany(input.userId, input.companyId, input.periodId),
-    input.comparisonPeriodId ? getJournalRowsForUserCompany(input.userId, input.companyId, input.comparisonPeriodId) : Promise.resolve([]),
     getAgingForUserCompany(input.userId, input.companyId, "CUSTOMER", new Date()),
     getAgingForUserCompany(input.userId, input.companyId, "SUPPLIER", new Date()),
     getFiscalRegisterForUserCompany(input.userId, input.companyId),
+    getPeriodsForUserCompany(input.userId, input.companyId),
   ]);
+  const currentPeriod = periodRows.find(({ period }) => period.id === input.periodId)?.period ?? periodRows[0]?.period;
+  const automaticComparison = currentPeriod ? periodRows.find(({ period }) => period.year === currentPeriod.year - 1 && period.month === currentPeriod.month)?.period.id : undefined;
+  const resolvedComparisonPeriodId = input.comparisonPeriodId ?? automaticComparison;
+  const comparisonRows = resolvedComparisonPeriodId ? await getJournalRowsForUserCompany(input.userId, input.companyId, resolvedComparisonPeriodId) : [];
   const matches = (row: JournalRow) => (!input.costCenter || row.costCenter === input.costCenter) && (!input.analyticalDimension || row.analyticalDimension === input.analyticalDimension);
   const rows = currentRows.filter(matches);
   const comparisonFilteredRows = comparisonRows.filter(matches);
@@ -2183,7 +2187,7 @@ export async function getFinancialDashboardForUserCompany(input: { userId: numbe
   return {
     companyId: input.companyId,
     periodId: input.periodId ?? null,
-    comparisonPeriodId: input.comparisonPeriodId ?? null,
+    comparisonPeriodId: resolvedComparisonPeriodId ?? null,
     filters: { costCenter: input.costCenter ?? null, analyticalDimension: input.analyticalDimension ?? null },
     currency: "AOA",
     kpis: {

@@ -381,4 +381,10 @@ button { cursor: pointer; }
   .rh-receipt-print { position: absolute !important; inset: 0 !important; width: 100% !important; margin: 0 !important; border: 0 !important; box-shadow: none !important; color: #102a43 !important; background: #fff !important; }
   .rh-receipt-print table { page-break-inside: avoid; }
   .rh-receipt-print .print\:hidden { display: none !important; }
+  body:has(.financial-dashboard-print) * { visibility: hidden !important; }
+  .financial-dashboard-print, .financial-dashboard-print * { visibility: visible !important; }
+  .financial-dashboard-print { position: absolute !important; inset: 0 !important; width: 100% !important; margin: 0 !important; border: 0 !important; box-shadow: none !important; color: #102a43 !important; background: #fff !important; }
+  .financial-dashboard-print .print\:hidden { display: none !important; }
+  .financial-dashboard-print .recharts-responsive-container { break-inside: avoid; }
+  .financial-dashboard-print .recharts-wrapper { max-width: 100% !important; }
 }
