@@ -28,7 +28,7 @@ import { buildReversalLines, reversalDescription } from "./reversal";
 import { archiveFileAssetForUser, createFileAsset, createFileAssetVersion, getFileAssetForUser, getFileAssetVersionsForUser, listFileAssetsForUser, recordStockMovement, updateFileAssetMetadataForUser } from "./db";
 import { prepareTenantFile } from "./files";
 import { storageGetSignedUrl, storagePut } from "./storage";
-import { sendEmail } from "./email-service";
+import { classifyEmailFailure, emailFailureMessage, sendEmail } from "./email-service";
 import { resolveEmailSender } from "./email-routing";
 import { buildAgtComplianceCalendar, validateAgtFiscalRecord } from "./tax-compliance";
 import { generateAgtQrCodeDataUrl, validateAgtQrPayload } from "./agt-qrcode";
@@ -286,7 +286,13 @@ export const appRouter = router({
         await appendAuditEventForUser({ organizationId: companyAccess.company.organizationId, companyId: input.companyId, actorUserId: ctx.user.id, action: "DOCUMENT_EMAIL_SENT", entityType: "fileAsset", entityId: String(file.id), beforeState: null, afterState: JSON.stringify({ to: input.to, cc: input.cc ?? [], subject: input.subject, senderSource: sender.source, messageId: result.messageId }), correlationId: `email:${file.id}:${Date.now()}` });
         return { sent: true, sender: sender.address, senderSource: sender.source, messageId: result.messageId };
       } catch (error) {
-        throw new TRPCError({ code: "PRECONDITION_FAILED", message: error instanceof Error ? error.message : "Não foi possível enviar o documento." });
+        const failureCode = classifyEmailFailure(error);
+        try {
+          await appendAuditEventForUser({ organizationId: companyAccess.company.organizationId, companyId: input.companyId, actorUserId: ctx.user.id, action: "DOCUMENT_EMAIL_FAILED", entityType: "fileAsset", entityId: String(file.id), beforeState: null, afterState: JSON.stringify({ to: input.to, cc: input.cc ?? [], subject: input.subject, senderSource: sender.source, failureCode }), correlationId: `email-failed:${file.id}:${Date.now()}` });
+        } catch {
+          // A falha de auditoria não deve ocultar a causa original do envio.
+        }
+        throw new TRPCError({ code: "PRECONDITION_FAILED", message: emailFailureMessage(failureCode) });
       }
     }),
   }),

@@ -1745,7 +1745,7 @@
 ## P0 — Linha de base sem falhas conhecidas
 
 - [ ] Corrigir autenticação SMTP Gmail com erro 535 sem expor credenciais
-- [ ] Corrigir os dois testes de rastreabilidade do painel financeiro por mocks tRPC incompletos
+- [x] Corrigir os dois testes de rastreabilidade do painel financeiro por mocks tRPC incompletos
 - [ ] Executar novamente os testes direccionados dos três bloqueios
 - [ ] Executar a suite Vitest completa
 - [ ] Verificar logs de servidor e consola após as correcções
@@ -1790,3 +1790,10 @@
 - [x] Verificar se é possível criar utilizador exclusivo com permissões apenas na base de restauro — não suportado pelos privilégios actuais
 - [ ] Configurar `RESTORE_DATABASE_URL` apenas depois de existir um destino real e isolado
 - [ ] Executar restauro verificável e validação dos módulos sem tocar na produção
+
+## Email documental — fecho interno sem SMTP real
+
+- [x] Auditar o contrato tRPC, arquivo documental, remetente contextual e serviço SMTP
+- [x] Registar falhas de envio na auditoria sem expor conteúdo de documentos ou credenciais
+- [x] Melhorar feedback operacional para configuração SMTP pendente e erro de autenticação
+- [ ] Validar permissões, isolamento, anexos, idioma e testes do fluxo interno

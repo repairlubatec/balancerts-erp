@@ -14,6 +14,23 @@ export function assertSmtpConfigured() {
   if (!ENV.smtpUser || !ENV.smtpPassword) throw new Error("CONFIGURACAO_SMTP_PENDENTE");
 }
 
+export type EmailFailureCode = "CONFIGURACAO_SMTP_PENDENTE" | "DESTINATARIO_EMAIL_INVALIDO" | "AUTENTICACAO_SMTP_FALHOU" | "ENVIO_EMAIL_FALHOU";
+
+export function classifyEmailFailure(error: unknown): EmailFailureCode {
+  const rawMessage = error instanceof Error ? error.message : "";
+  if (rawMessage === "CONFIGURACAO_SMTP_PENDENTE") return "CONFIGURACAO_SMTP_PENDENTE";
+  if (rawMessage === "DESTINATARIO_EMAIL_INVALIDO") return "DESTINATARIO_EMAIL_INVALIDO";
+  if (/535|authentication|auth/i.test(rawMessage)) return "AUTENTICACAO_SMTP_FALHOU";
+  return "ENVIO_EMAIL_FALHOU";
+}
+
+export function emailFailureMessage(code: EmailFailureCode) {
+  if (code === "CONFIGURACAO_SMTP_PENDENTE") return "O envio de email ainda não está configurado para esta conta.";
+  if (code === "DESTINATARIO_EMAIL_INVALIDO") return "Existe um destinatário de email inválido.";
+  if (code === "AUTENTICACAO_SMTP_FALHOU") return "A autenticação do servidor de email falhou. Verifique as credenciais SMTP.";
+  return "Não foi possível enviar o documento por email.";
+}
+
 export async function sendEmail(message: OutgoingEmail) {
   assertSmtpConfigured();
   assertEmailAddresses([message.from, ...message.to, ...(message.cc ?? []), ...(message.bcc ?? [])]);
