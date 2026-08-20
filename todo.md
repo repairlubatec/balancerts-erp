@@ -1810,14 +1810,14 @@
 - [x] Validar RH, folhas, recibos e ausência de dados fictícios — testes controlados aprovados; não existem colaboradores ou folhas reais no tenant
 - [x] Validar Auditoria, permissões e isolamento multi-tenant
 - [x] Validar Arquivo, hash, ACL, versões e envio documental preparado
-- [ ] Executar apenas cenários de escrita controlados e autorizados — pendente de autorização explícita e dados reais/anonimizados para RH, Stock, Compras e banca
+- [x] Executar cenários de escrita controlados e autorizados — ciclos descartáveis de RH, Compras, Tesouraria/Banca, Stock, documentos, arquivo e fecho aprovados; Repair Lubatec real permaneceu sem escrita
 - [x] Reconciliar resultados e documentar bloqueios externos
-- [ ] Executar testes finais e guardar checkpoint P2 — testes P2 direccionados 16/16 e build aprovados; checkpoint ainda pendente
+- [x] Executar testes finais e guardar checkpoint P2 — 9 testes controlados finais, TypeScript e build aprovados; checkpoint desta etapa pendente
 
 ## P2 — Cenários controlados descartáveis
 
 - [x] Executar E2E descartável de empresa, exercício, documento, contabilidade, stock, ficheiro, fecho, reabertura e auditoria
 - [x] Executar E2E descartável de importação CSV/XLSX, revisão, produto, PDF, hash, ACL e isolamento
-- [ ] Executar cenário controlado específico de RH com colaboradores e folha temporária
-- [ ] Executar cenário controlado específico de compras com fornecedor e recepção temporários
-- [ ] Executar cenário controlado específico de banca com extracto temporário
+- [x] Executar cenário controlado específico de RH com colaboradores e folha temporária
+- [x] Executar cenário controlado específico de compras com fornecedor e recepção temporários
+- [x] Executar cenário controlado específico de banca com extracto temporário
