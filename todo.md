@@ -1861,3 +1861,7 @@
 - [x] Adicionar entrada SAADI à navegação lateral e rota desktop em português
 - [x] Criar ecrã inicial de estudos SAADI com empresa/organização explícitas e estados de carregamento
 - [x] Testar a renderização inicial e os estados sem dados — teste React aprovado e verificação visual em /saadi
+
+## Distribuição desktop — preparação interna
+
+- [x] Validar build Electron de directório Linux com URL HTTPS configurado — EXE/MSI e validação em Windows limpo continuam pendentes
