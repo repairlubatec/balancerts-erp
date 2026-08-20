@@ -1877,7 +1877,7 @@
 - [x] Garantir que todas as mensagens novas SAADI permanecem em português
 - [x] Auditar rotas novas, estados vazios, erros e permissões no frontend — teste React, testes tRPC e verificação visual aprovados
 - [x] Executar teste de regressão dos módulos existentes após cada incremento — 348/349 testes aprovados; única falha continua a ser SMTP Gmail 535 externo
-- [x] Verificar build Electron, configuração HTTPS e artefactos de distribuição — build de produção e pacote Linux de directório aprovados; EXE/MSI e Windows limpo pendentes
+- [x] Verificar build Electron, configuração HTTPS e artefactos de distribuição — build de produção e pacote Linux de directório aprovados após auditoria; EXE/MSI e Windows limpo pendentes
 - [x] Rever todos os textos visíveis do SAADI e remover termos técnicos ingleses desnecessários
 - [x] Actualizar documentação de fronteiras, modelo de dados e critérios de aceitação SAADI
 
