@@ -48,3 +48,33 @@ describe("organization memberships", () => {
   });
 
 });
+
+describe("multiutilizador e isolamento de permissões", () => {
+  const userContext = (id: number): TrpcContext => ({ user: { id, openId: `tenant-user-${id}`, name: `Utilizador ${id}`, email: `user${id}@example.com`, loginMethod: "test", role: "user", createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() }, req: { protocol: "https", headers: {} } as TrpcContext["req"], res: { clearCookie: () => undefined } as TrpcContext["res"] });
+
+  it("permite consulta a utilizador com override explícito no membership", async () => {
+    vi.spyOn(db, "getEffectivePermissionsForUserCompany").mockResolvedValue(["companies:read"]);
+    vi.spyOn(db, "getEffectiveRoleForUserCompany").mockResolvedValue("contabilista");
+    const result = await appRouter.createCaller(userContext(72)).companies.effectiveRole({ companyId: 14 });
+    expect(result).toBe("contabilista");
+    expect(db.getEffectivePermissionsForUserCompany).toHaveBeenCalledWith(72, 14);
+    expect(db.getEffectiveRoleForUserCompany).toHaveBeenCalledWith(72, 14);
+  });
+
+  it("bloqueia utilizador sem membership ou override antes da consulta", async () => {
+    vi.spyOn(db, "getEffectivePermissionsForUserCompany").mockResolvedValue([]);
+    const getRole = vi.spyOn(db, "getEffectiveRoleForUserCompany");
+    await expect(appRouter.createCaller(userContext(73)).companies.effectiveRole({ companyId: 14 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(getRole).not.toHaveBeenCalled();
+  });
+
+  it("mantém as consultas separadas por actor", async () => {
+    const getCompanies = vi.spyOn(db, "getCompaniesForUser").mockImplementation(async (userId) => [{ company: { id: userId, name: `Empresa ${userId}`, nif: `5000000${userId}`, configurationStatus: "READY", ivaRegime: "EXCLUSAO", functionalCurrency: "AOA", organizationId: userId } } as never]);
+    const adminResult = await appRouter.createCaller(adminContext).companies.list();
+    const auditorResult = await appRouter.createCaller(auditorContext).companies.list();
+    expect(adminResult[0]?.company.id).toBe(1);
+    expect(auditorResult[0]?.company.id).toBe(63);
+    expect(getCompanies).toHaveBeenNthCalledWith(1, 1);
+    expect(getCompanies).toHaveBeenNthCalledWith(2, 63);
+  });
+});

@@ -13,6 +13,9 @@ describe("hardening de segurança HTTP", () => {
     expect(headers.get("X-Content-Type-Options")).toBe("nosniff");
     expect(headers.get("X-Frame-Options")).toBe("DENY");
     expect(headers.get("Referrer-Policy")).toBe("strict-origin-when-cross-origin");
+    expect(headers.get("X-DNS-Prefetch-Control")).toBe("off");
+    expect(headers.get("Cross-Origin-Opener-Policy")).toBe("same-origin");
+    expect(headers.get("Cross-Origin-Resource-Policy")).toBe("same-origin");
   });
 
   it("expõe métricas operacionais sem conteúdo de pedidos", () => {

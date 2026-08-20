@@ -1694,7 +1694,16 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
     if (!original[0]) throw new Error("REVERSAL_ENTRY_NOT_FOUND_OR_FORBIDDEN");
     if (original[0].status === "REVERSED") throw new Error("REVERSAL_ALREADY_EXISTS");
   }
-  const validation = validateBalancedEntry(input.lines);
+  const accountIds = Array.from(new Set(input.lines.map((line) => line.accountId)));
+  const accountRows = accountIds.length ? await db.select({ id: chartAccounts.id, companyId: chartAccounts.companyId, postable: chartAccounts.postable, validFrom: chartAccounts.validFrom, validTo: chartAccounts.validTo }).from(chartAccounts).where(and(eq(chartAccounts.companyId, input.companyId), inArray(chartAccounts.id, accountIds))) : [];
+  if (accountRows.length !== accountIds.length) throw new Error("ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  const accountsById = new Map(accountRows.map((account) => [account.id, account]));
+  const authoritativeLines = input.lines.map((line) => {
+    const account = accountsById.get(line.accountId);
+    if (!account) throw new Error("ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+    return { ...line, postable: Boolean(account.postable), validFrom: account.validFrom, validTo: account.validTo };
+  });
+  const validation = validateBalancedEntry(authoritativeLines);
   if (!validation.ok) throw new Error(validation.reason);
   const result = await db.transaction(async (tx) => {
     const existing = await tx.select().from(journalEntries).where(eq(journalEntries.idempotencyKey, input.idempotencyKey)).limit(1);

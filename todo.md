@@ -1671,3 +1671,100 @@
 - [x] Executar teste controlado do arquivamento
 - [x] Validar permissões, testes e build
 - [x] Guardar checkpoint do arquivo melhorado
+
+## Comunicação por correio electrónico
+
+- [ ] Auditar emails em empresas, clientes, fornecedores e colaboradores
+- [ ] Completar validação e persistência de endereços
+- [ ] Integrar destinatários nos documentos e arquivo
+- [ ] Preparar envio com confirmação e auditoria
+- [ ] Validar isolamento, idioma, testes e build
+- [ ] Guardar checkpoint da comunicação por email
+
+## Configuração automática de envio
+
+- [ ] Inspeccionar configuração de correio disponível
+- [ ] Completar preparação interna de envio e validação
+- [ ] Activar integração real quando houver credenciais
+- [ ] Validar envio, auditoria, permissões e build
+- [ ] Guardar checkpoint da configuração de email
+
+## Remetente automático por contexto
+
+- [ ] Definir hierarquia empresa → contabilista → conta autorizada
+- [ ] Validar permissões de envio por perfil
+- [ ] Completar remetente e destinatário em documentos
+- [ ] Implementar confirmação e auditoria do envio
+- [ ] Ligar serviço de correio sem remetente fixo
+- [ ] Validar bloqueios, isolamento, idioma e build
+- [ ] Guardar checkpoint do remetente automático
+
+## Configuração Gmail automática
+
+- [ ] Fixar automaticamente smtp.gmail.com, porta 587, STARTTLS e utilizador da empresa
+- [ ] Receber SMTP_PASSWORD exclusivamente no cartão seguro
+- [ ] Validar autenticação SMTP e envio controlado
+- [ ] Guardar checkpoint da configuração automática
+
+## Canal Gmail por autorização/API
+
+- [ ] Reconfigurar canal principal para autorização Gmail/API
+- [ ] Implementar envio contextual com anexos
+- [ ] Registar estados, confirmação e auditoria
+- [ ] Testar envio controlado, permissões e idioma
+- [ ] Guardar checkpoint do canal Gmail
+
+## SMTP Gmail em produção
+
+- [ ] Fixar parâmetros SMTP Gmail de produção
+- [ ] Implementar serviço de envio e anexos
+- [ ] Integrar remetente contextual no ERP
+- [ ] Testar envio controlado e auditoria
+- [ ] Guardar checkpoint do SMTP Gmail
+
+## Auditoria técnica SAADI — sem implementação
+
+- [ ] Inventariar arquitectura, módulos e componentes existentes
+- [ ] Mapear entidades, base de dados, serviços e APIs
+- [ ] Avaliar autenticação, RBAC, isolamento e motores de negócio
+- [ ] Classificar o que está implementado, em desenvolvimento ou não iniciado
+- [ ] Documentar limitações e fronteiras da integração SAADI/BALANCERTS
+- [ ] Entregar diagnóstico técnico sem modificar o software
+
+## Matriz de prioridades de conclusão e SAADI
+
+- [ ] Fixar as três falhas actuais da suite de testes: SMTP Gmail 535 e dois testes do painel financeiro
+- [ ] Concluir os testes E2E dos fluxos críticos com dados controlados
+- [ ] Reforçar segurança de produção, backup/restauro, integridade referencial e observabilidade
+- [ ] Executar validação operacional com dados reais anonimizados da Repair Lubatec
+- [ ] Validar instaladores EXE/MSI numa máquina Windows limpa
+- [ ] Tratar integrações externas: SMTP, bancos e AGT conforme credenciais e homologação disponíveis
+- [ ] Preparar contratos, fronteiras e plano de dados do SAADI sem implementação inicial
+- [ ] Implementar o SAADI como bounded context separado após aprovação da arquitectura
+
+## P0 — Linha de base sem falhas conhecidas
+
+- [ ] Corrigir autenticação SMTP Gmail com erro 535 sem expor credenciais
+- [ ] Corrigir os dois testes de rastreabilidade do painel financeiro por mocks tRPC incompletos
+- [ ] Executar novamente os testes direccionados dos três bloqueios
+- [ ] Executar a suite Vitest completa
+- [ ] Verificar logs de servidor e consola após as correcções
+- [ ] Actualizar o estado da linha de base P0
+
+## P1 — Protecção operacional do ERP
+
+- [x] Auditar o estado actual de backup, restauro, segurança HTTP, observabilidade e integridade referencial
+- [x] Definir e documentar uma estratégia de backup/restauro não destrutiva
+- [x] Implementar verificação operacional de backup e restauro sem apagar dados existentes
+- [x] Reforçar headers HTTP, limites e observabilidade do servidor
+- [ ] Rever e validar integridade referencial e índices sem migração destrutiva
+- [x] Criar testes multiutilizador de memberships e RBAC em organizações e empresas
+- [ ] Executar testes direccionados, suite completa e validação de produção local
+- [ ] Guardar checkpoint da P1 após todo o TODO estar actualizado
+
+## P1 — Pendências descobertas na validação
+
+- [ ] Corrigir os dois `journalLines` órfãos do lançamento 3420001 após confirmação do contabilista da conta correcta
+- [ ] Criar uma `RESTORE_DATABASE_URL` isolada e executar um restauro real não destrutivo com validação dos módulos
+- [ ] Repetir a auditoria de integridade referencial até obter zero órfãos
+- [ ] Repetir a suite completa depois de corrigir a credencial SMTP Gmail

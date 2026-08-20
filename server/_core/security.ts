@@ -5,6 +5,7 @@ type Bucket = { startedAt: number; count: number };
 const buckets = new Map<string, Bucket>();
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 180;
+const MAX_BUCKETS = 10_000;
 const runtimeMetrics = { startedAt: Date.now(), requests: 0, responses2xx: 0, responses4xx: 0, responses5xx: 0, rateLimited: 0, totalDurationMs: 0 };
 
 export const securityHeaders: RequestHandler = (req, res, next) => {
@@ -25,6 +26,11 @@ export const securityHeaders: RequestHandler = (req, res, next) => {
   res.setHeader("X-Frame-Options", "DENY");
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
+  res.setHeader("X-DNS-Prefetch-Control", "off");
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+  res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
+  const requestPath = req.path ?? req.originalUrl ?? "";
+  if (requestPath.startsWith("/api/") || requestPath === "/healthz") res.setHeader("Cache-Control", "no-store");
   if (process.env.NODE_ENV !== "development") res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
   next();
 };
@@ -34,6 +40,10 @@ export const apiRateLimit: RequestHandler = (req, res, next) => {
   const forwardedAddress = Array.isArray(forwarded) ? forwarded[0] : forwarded?.split(",")[0]?.trim();
   const key = `${forwardedAddress || req.socket.remoteAddress || "unknown"}:${req.path}`;
   const now = Date.now();
+  if (buckets.size > MAX_BUCKETS) {
+    buckets.forEach((value, bucketKey) => { if (now - value.startedAt >= WINDOW_MS) buckets.delete(bucketKey); });
+    if (buckets.size > MAX_BUCKETS) buckets.delete(buckets.keys().next().value as string);
+  }
   const bucket = buckets.get(key);
   if (!bucket || now - bucket.startedAt >= WINDOW_MS) {
     buckets.set(key, { startedAt: now, count: 1 });
