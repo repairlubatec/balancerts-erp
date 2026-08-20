@@ -23,6 +23,7 @@ import { buildTasksCsv, taskExportFilename } from "@/lib/taskExport";
 import { describeBulkTaskChange, getBulkTaskPriorityLabel } from "@/lib/taskBulkActions";
 import { compareTaskDueDates } from "@/lib/taskSorting";
 import { isDueTodayOrTomorrow } from "@/lib/taskDueFilters";
+import { readTaskPreferences, taskPreferencesKey, writeTaskPreferences } from "@/lib/taskPreferences";
 import { DesktopOverviewPanel } from "@/components/DesktopOverviewPanel";
 import { CompanyEditPanel } from "@/components/CompanyEditPanel";
 import { AccountingWorkbenchPanel, AccountingCostCenterPanel, AccountingImportPanel, AccountingClosingPanel, AccountingApprovalPanel } from "@/components/AccountingWorkbenchPanel";
@@ -274,6 +275,7 @@ function ClosingChecklistPanel({ company, period }: { company?: { id: number; or
 
 function TaskCenterPanel({ activeCompanyId }: { activeCompanyId?: number }) {
   const [, setLocation] = useLocation();
+  const { user } = useAuth();
   const utils = trpc.useUtils();
   const [taskForm, setTaskForm] = React.useState({ title: "", description: "", priority: "NORMAL" as "LOW" | "NORMAL" | "HIGH" | "URGENT", assigneeUserId: "", dueDate: "" });
   const [taskFilters, setTaskFilters] = React.useState({ search: "", priority: "", state: "", assignee: "", due: "" });
@@ -281,6 +283,7 @@ function TaskCenterPanel({ activeCompanyId }: { activeCompanyId?: number }) {
   const [selectedTaskIds, setSelectedTaskIds] = React.useState<number[]>([]);
   const [taskPage, setTaskPage] = React.useState(1);
   const [taskSort, setTaskSort] = React.useState<{ field: "name" | "priority" | "dueDate"; direction: "asc" | "desc" }>({ field: "name", direction: "asc" });
+  const [taskPreferencesHydrated, setTaskPreferencesHydrated] = React.useState(false);
   const [bulkStatus, setBulkStatus] = React.useState<"PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED">("COMPLETED");
   const [bulkDueDate, setBulkDueDate] = React.useState("");
   const [bulkDueAction, setBulkDueAction] = React.useState<"SET" | "CLEAR">("SET");
@@ -301,6 +304,9 @@ function TaskCenterPanel({ activeCompanyId }: { activeCompanyId?: number }) {
   const { data: companyRows } = trpc.companies.list.useQuery();
   const activeCompany = companyRows?.find(({ company }) => company.id === activeCompanyId) ?? companyRows?.[0];
   const companyId = activeCompany?.company.id;
+  const taskPreferenceKey = taskPreferencesKey(user?.id, companyId);
+  React.useEffect(() => { if (!companyId || !user?.id) return; const preferences = readTaskPreferences(window.localStorage, taskPreferenceKey); setTaskSort(preferences.sort); setTaskFilters(preferences.filters); setTaskPreferencesHydrated(true); }, [companyId, taskPreferenceKey, user?.id]);
+  React.useEffect(() => { if (!taskPreferencesHydrated || !companyId || !user?.id) return; writeTaskPreferences(window.localStorage, taskPreferenceKey, { sort: taskSort, filters: taskFilters }); }, [companyId, taskFilters, taskPreferenceKey, taskPreferencesHydrated, taskSort, user?.id]);
   const { data: taskMemberships } = trpc.companies.memberships.useQuery({ organizationId: activeCompany?.company.organizationId ?? 0 }, { enabled: Boolean(activeCompany?.company.organizationId) });
   const { data: documents, isLoading: documentsLoading } = trpc.documents.list.useQuery({ companyId: companyId ?? 0 }, { enabled: Boolean(companyId) });
   const { data: readiness, isLoading: readinessLoading } = trpc.reports.saftReadiness.useQuery({ companyId: companyId ?? 0 }, { enabled: Boolean(companyId) });

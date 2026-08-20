@@ -1466,3 +1466,19 @@
 - [x] Adicionar controlo visual e sincronizar a lista
 - [x] Testar filtros, regressões e interface
 - [x] Guardar checkpoint e entregar
+
+## Validação operacional final — RH → Contabilidade → Auditoria
+
+- [ ] Identificar tarefas RH reais elegíveis e preservar o estado inicial
+- [ ] Executar alteração em massa controlada com confirmação
+- [ ] Executar desfazer e confirmar reposição do estado inicial
+- [ ] Validar fluxo RH para Contabilidade
+- [ ] Validar auditoria, permissões e isolamento multi-tenant
+- [ ] Registar resultados, executar testes finais e guardar checkpoint
+
+## Centro de Tarefas — preferências entre sessões
+
+- [x] Persistir localmente a ordenação e filtros do Centro de Tarefas por utilizador
+- [x] Restaurar preferências com valores válidos e idioma português
+- [x] Testar persistência, limpeza e regressões
+- [x] Guardar checkpoint e entregar progresso
