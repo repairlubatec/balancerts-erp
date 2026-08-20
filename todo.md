@@ -1679,7 +1679,7 @@
 - [x] Integrar destinatários nos documentos e arquivo
 - [x] Preparar envio com confirmação e auditoria
 - [x] Validar isolamento, idioma, testes e build
-- [ ] Guardar checkpoint da comunicação por email
+- [x] Guardar checkpoint da comunicação por email
 
 ## Configuração automática de envio
 
@@ -1687,7 +1687,7 @@
 - [x] Completar preparação interna de envio e validação
 - [ ] Activar integração real quando houver credenciais
 - [x] Validar envio, auditoria, permissões e build
-- [ ] Guardar checkpoint da configuração de email
+- [x] Guardar checkpoint da configuração de email
 
 ## Remetente automático por contexto
 
@@ -1697,7 +1697,7 @@
 - [x] Implementar confirmação e auditoria do envio
 - [x] Ligar serviço de correio sem remetente fixo
 - [x] Validar bloqueios, isolamento, idioma e build
-- [ ] Guardar checkpoint do remetente automático
+- [x] Guardar checkpoint do remetente automático
 
 ## Configuração Gmail automática
 
