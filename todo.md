@@ -1621,3 +1621,10 @@
 - [x] Actualizar a atribuição para Copyright © Repair Lubatec
 - [x] Rever produto, manifesto e documentação
 - [x] Validar e guardar checkpoint da atribuição
+
+## Copyright no produto e distribuição
+
+- [x] Acrescentar Copyright © Repair Lubatec no ecrã Sobre
+- [x] Acrescentar copyright nos geradores de PDF
+- [x] Preparar checklist de revisão jurídica para distribuição comercial
+- [x] Validar e guardar checkpoint

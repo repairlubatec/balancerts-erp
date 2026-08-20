@@ -8,6 +8,7 @@ export type FiscalPdfInput = { company: FiscalPdfCompany; document: { documentNu
 
 function money(value: string | number, currency: string) { return `${Number(value).toFixed(2)} ${currency}`; }
 function dataUrlToBuffer(value: string) { return Buffer.from(value.replace(/^data:image\/png;base64,/, ""), "base64"); }
+export const BALANCERTS_COPYRIGHT = "Copyright © Repair Lubatec";
 const OFFICIAL_AGT_LOGO_URL = "https://portaldoparceiro.minfin.gov.ao/doc-agt/faturacao-electronica/1/_attachments/logo.png";
 async function loadOfficialAgtLogo() {
   try {
@@ -41,6 +42,7 @@ export async function buildFiscalDocumentPdf(input: FiscalPdfInput) {
   pdf.moveDown(1).fontSize(8).fillColor("#6b7280").text("DOCUMENTO DE PREPARAÇÃO INTERNA — NÃO CERTIFICADO/HOMOLOGADO PELA AGT.");
   pdf.text(`Hash SHA-256: ${hash}`, { width: 360 });
   pdf.text(`Consulta QR: ${qrUrl}`, { width: 360 });
+  pdf.moveDown(1).fontSize(8).fillColor("#6b7280").text(BALANCERTS_COPYRIGHT, { align: "center" });
   const qrX = 430;
   const qrY = Math.max(500, pdf.y - 80);
   pdf.image(dataUrlToBuffer(qrDataUrl), qrX, qrY, { fit: [100, 100] });

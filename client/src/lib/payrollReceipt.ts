@@ -67,6 +67,7 @@ export function buildPayrollReceiptPdf(input: { companyName: string; period: str
     `Líquido a pagar: ${money(input.net)}`,
     "",
     "Documento interno para conferência. Não substitui recibo oficial nem declaração fiscal.",
+    "Copyright © Repair Lubatec",
     "",
     "Conferência interna: ________________________________",
     "Data: ____ / ____ / ________",

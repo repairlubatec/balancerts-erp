@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowDownRight, ArrowUpRight, ChevronRight, Command, Filter, MoreHorizontal, Plus, Search } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, ChevronRight, Command, Filter, Info, MoreHorizontal, Plus, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -80,6 +80,7 @@ export function DesktopOverviewPanel({
 }: DesktopOverviewPanelProps) {
   const filteredActions = actions.filter(({ label }) => label.toLowerCase().includes(paletteQuery.toLowerCase()));
   const searchRef = React.useRef<HTMLInputElement>(null);
+  const [aboutOpen, setAboutOpen] = React.useState(false);
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap items-center gap-1 border-b border-[#aeb8c4] bg-[#e6eaef] px-2 py-1.5 text-[11px]">
@@ -88,7 +89,7 @@ export function DesktopOverviewPanel({
         <Button type="button" variant="ghost" size="sm" onClick={onOpenAudit} className="h-7 rounded-sm px-2 text-[11px] text-[#1d2a38] hover:bg-white"><MoreHorizontal className="mr-1.5 h-3.5 w-3.5 text-[#1267d6]" /> Actividade</Button>
         <span className="mx-1 h-5 border-l border-[#bdc6d0]" />
         {actions.slice(0, 4).map(({ path, label, icon: Icon }) => <Button key={path} type="button" variant="ghost" size="sm" onClick={() => onOpenAction(path)} className="hidden h-7 rounded-sm px-2 text-[11px] text-[#536273] hover:bg-white lg:inline-flex"><Icon className="mr-1.5 h-3.5 w-3.5" />{label}</Button>)}
-        <div className="ml-auto flex items-center gap-1.5"><Command className="h-3.5 w-3.5 text-[#6e7c8b]" /><span className="text-[10px] text-[#6e7c8b]">Ctrl/Cmd+K</span></div>
+        <div className="ml-auto flex items-center gap-1.5"><Command className="h-3.5 w-3.5 text-[#6e7c8b]" /><span className="text-[10px] text-[#6e7c8b]">Ctrl/Cmd+K</span><Button type="button" variant="ghost" size="sm" onClick={() => setAboutOpen(true)} className="h-7 rounded-sm px-2 text-[11px] text-[#536273] hover:bg-white"><Info className="mr-1 h-3.5 w-3.5 text-[#1267d6]" /> Sobre</Button></div>
       </div>
 
       <div className="grid grid-cols-4 divide-x border border-[#bfc9d4] bg-[#fbfcfd]">
@@ -110,6 +111,7 @@ export function DesktopOverviewPanel({
         <div className="border border-[#aeb8c4] bg-white"><div className="border-b border-[#cbd3dc] bg-[#eef1f4] px-2 py-1.5 text-xs font-semibold text-[#1d2a38]">Resumo operacional</div><div className="space-y-1 px-3 py-2 text-[11px] text-[#566574]"><div className="flex justify-between"><span>Documentos por validar</span><strong className="text-[#1d2a38]">{documentosPendentes}</strong></div><div className="flex justify-between"><span>Obrigações pendentes</span><strong className="text-[#1d2a38]">{obrigacoesPendentes}</strong></div><div className="flex justify-between"><span>Integrações AGT</span><strong className="text-[#a26911]">{prontidaoFiscal}</strong></div></div></div>
       </div>
       {paletteOpen && <div className="fixed inset-0 z-50 flex items-start justify-center bg-[#172b42]/30 px-4 pt-[12vh] backdrop-blur-[1px]" onClick={onClosePalette}><div className="w-full max-w-lg border border-[#9eabb8] bg-white shadow-2xl" onClick={(event) => event.stopPropagation()}><div className="flex items-center gap-2 border-b border-[#cbd3dc] bg-[#eef1f4] px-3 py-2"><Search className="h-4 w-4 text-[#667789]" /><input autoFocus value={paletteQuery} onChange={(event) => onPaletteQueryChange(event.target.value)} placeholder="Ir para módulo, empresa ou acção…" className="flex-1 bg-transparent text-sm outline-none" /><kbd className="border border-[#bfc9d4] bg-white px-1.5 py-0.5 text-[10px] text-[#667789]">ESC</kbd></div><div className="divide-y divide-[#e0e5ea]">{filteredActions.map(({ path, label, icon: Icon }) => <button key={path} type="button" onClick={() => { onOpenAction(path); onClosePalette(); }} className="flex w-full items-center gap-2 px-3 py-2 text-left text-xs text-[#1d2a38] hover:bg-[#e7f0fa]"><Icon className="h-3.5 w-3.5 text-[#1267d6]" />{label}<ChevronRight className="ml-auto h-3.5 w-3.5 text-[#98a5b2]" /></button>)}</div></div></div>}
+      {aboutOpen && <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#172b42]/30 px-4" onClick={() => setAboutOpen(false)}><div role="dialog" aria-modal="true" aria-labelledby="sobre-balancerts-titulo" className="w-full max-w-md border border-[#9eabb8] bg-white shadow-2xl" onClick={(event) => event.stopPropagation()}><div className="flex items-center gap-2 border-b border-[#cbd3dc] bg-[#eef1f4] px-3 py-2"><Info className="h-4 w-4 text-[#1267d6]" /><h2 id="sobre-balancerts-titulo" className="text-sm font-semibold text-[#1d2a38]">Sobre o BALANCERTS.ERP</h2><button type="button" aria-label="Fechar Sobre" onClick={() => setAboutOpen(false)} className="ml-auto text-lg leading-none text-[#687787] hover:text-[#1d2a38]">×</button></div><div className="space-y-3 p-4 text-xs text-[#566574]"><div><p className="text-base font-semibold text-[#1267d6]">BALANCERTS<span className="text-[#79c324]">.ERP</span></p><p className="mt-1">Gestão contabilística, fiscal e empresarial para Angola.</p></div><div className="border-t border-[#e0e5ea] pt-3"><p><strong className="text-[#1d2a38]">Copyright © Repair Lubatec</strong></p><p className="mt-1">Software criado pela Repair Lubatec.</p><p className="mt-1">Versão operacional interna · Preparação de distribuição</p></div><p className="border-t border-[#e0e5ea] pt-3 text-[10px] text-[#7b8794]">A integração AGT e a distribuição assinada dependem das respectivas validações e credenciais externas.</p></div><div className="flex justify-end border-t border-[#d9e0e7] bg-[#f4f6f8] px-3 py-2"><Button type="button" size="sm" onClick={() => setAboutOpen(false)} className="h-7 rounded-sm bg-[#1267d6] text-[11px] hover:bg-[#0f58b8]">Fechar</Button></div></div></div>}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildFiscalDocumentPdf } from "./fiscal-document-pdf";
+import { BALANCERTS_COPYRIGHT, buildFiscalDocumentPdf } from "./fiscal-document-pdf";
 
 describe("fiscal preparation PDF", () => {
   it("builds a PDF with hash, official QR URL and non-certification notice", async () => {
@@ -14,6 +14,7 @@ describe("fiscal preparation PDF", () => {
     expect(result.qrUrl).toContain("document=FT%20FT2026S1%2F000001");
     expect(result.certified).toBe(false);
     expect(result.mimeType).toBe("application/pdf");
+    expect(BALANCERTS_COPYRIGHT).toBe("Copyright © Repair Lubatec");
     const imageCount = (result.buffer.toString("latin1").match(/\/Subtype \/Image/g) ?? []).length;
     expect(imageCount).toBeGreaterThanOrEqual(2);
   });
