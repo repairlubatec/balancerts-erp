@@ -1925,3 +1925,9 @@
 
 - [x] Comparar integralmente o Documento 3 com os Documentos 1 e 2 aprovados e identificar incompatibilidades, inconsistências, ambiguidades e lacunas — parecer em /home/ubuntu/saadi-documento3-confronto.md
 - [x] Produzir parecer de compatibilidade e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces ou integrações
+
+## Documento 3.2 SAADI — parecer sem implementação
+
+- [x] Ler e confrontar integralmente o Documento 3.2 com os Documentos 1 e 2 aprovados e com o código/schema actuais — parecer em /home/ubuntu/saadi-documento3-2-parecer.md
+- [x] Classificar problemas como BLOQUEADOR, ALTO, MÉDIO, BAIXO ou INFORMATIVO e propor apenas correcções documentais
+- [x] Produzir parecer final e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações ou configurações
