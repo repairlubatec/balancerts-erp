@@ -1920,3 +1920,8 @@
 - [x] Definir routers, procedimentos, inputs, outputs, versionamento, autorização, isolamento, erros, limites, idempotência e observabilidade
 - [x] Comparar o Documento 3 com o router e contratos actuais sem alterar código, schema, dados, permissões, interfaces ou integrações
 - [x] Entregar o Documento 3 para análise e aprovação formal antes de qualquer implementação
+
+## Confrontação Documento 3 SAADI — análise sem implementação
+
+- [x] Comparar integralmente o Documento 3 com os Documentos 1 e 2 aprovados e identificar incompatibilidades, inconsistências, ambiguidades e lacunas — parecer em /home/ubuntu/saadi-documento3-confronto.md
+- [x] Produzir parecer de compatibilidade e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces ou integrações
