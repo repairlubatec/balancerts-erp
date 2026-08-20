@@ -1391,3 +1391,12 @@
 - [x] Guardar alteração e actualizar alertas, filtros e exportação
 - [x] Testar edição, permissões e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — edição rápida de prioridade e estado
+
+- [x] Mapear controlos inline e mutações existentes
+- [x] Adicionar edição rápida de prioridade na linha
+- [x] Adicionar edição rápida de estado na linha
+- [x] Sincronizar indicadores, filtros, auditoria e prazos
+- [x] Testar edição, permissões e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
