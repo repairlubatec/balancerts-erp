@@ -1482,3 +1482,11 @@
 - [x] Restaurar preferências com valores válidos e idioma português
 - [x] Testar persistência, limpeza e regressões
 - [x] Guardar checkpoint e entregar progresso
+
+## Centro de Tarefas — limpeza rápida
+
+- [x] Mapear limpeza de filtros e ordenação existente
+- [x] Implementar botão Limpar filtros
+- [x] Integrar limpeza com preferências persistentes e selecção
+- [x] Testar limpeza, persistência e regressões
+- [x] Guardar checkpoint e continuar validação pendente
