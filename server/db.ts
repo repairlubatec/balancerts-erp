@@ -590,9 +590,25 @@ export async function updateHumanResourcesTasksStatusForUser(input: { userId: nu
     await db.update(humanResourcesTasks).set(changes).where(and(eq(humanResourcesTasks.id, row.task.id), eq(humanResourcesTasks.companyId, input.companyId)));
     await appendAuditEventForUser({ organizationId: row.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "HR_TASK_UPDATED", entityType: "humanResourcesTask", entityId: String(row.task.id), beforeState: JSON.stringify(row.task), afterState: JSON.stringify({ ...row.task, ...changes }), correlationId: `hr-task:${row.task.id}:bulk-status` });
   }
-  return { updatedCount: rows.length, taskIds: rows.map(({ task }) => task.id), status: input.status };
+    return { updatedCount: rows.length, taskIds: rows.map(({ task }) => task.id), status: input.status, previousStates: rows.map(({ task }) => ({ taskId: task.id, appliedStatus: input.status, previousStatus: task.status, previousCompletedBy: task.completedBy, previousCompletedAt: task.completedAt })) };
 }
-
+export async function undoHumanResourcesTasksStatusForUser(input: { userId: number; companyId: number; changes: Array<{ taskId: number; appliedStatus: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"; previousStatus: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"; previousCompletedBy: number | null; previousCompletedAt: Date | null }> }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const uniqueChanges = Array.from(new Map(input.changes.map((change) => [change.taskId, change])).values());
+  if (!uniqueChanges.length || uniqueChanges.length > 100) throw new Error("HR_TASKS_EMPTY_SELECTION");
+  const taskIds = uniqueChanges.map((change) => change.taskId);
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(inArray(humanResourcesTasks.id, taskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
+  if (rows.length !== uniqueChanges.length) throw new Error("HR_TASKS_NOT_FOUND_OR_FORBIDDEN");
+  const changesById = new Map(uniqueChanges.map((change) => [change.taskId, change]));
+  if (rows.some(({ task }) => task.status !== changesById.get(task.id)?.appliedStatus)) throw new Error("HR_TASKS_CHANGED_SINCE_BULK_UPDATE");
+  for (const row of rows) {
+    const previous = changesById.get(row.task.id)!;
+    await db.update(humanResourcesTasks).set({ status: previous.previousStatus, completedBy: previous.previousCompletedBy, completedAt: previous.previousCompletedAt }).where(and(eq(humanResourcesTasks.id, row.task.id), eq(humanResourcesTasks.companyId, input.companyId), eq(humanResourcesTasks.status, previous.appliedStatus)));
+    await appendAuditEventForUser({ organizationId: row.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "HR_TASK_BULK_UNDONE", entityType: "humanResourcesTask", entityId: String(row.task.id), beforeState: JSON.stringify(row.task), afterState: JSON.stringify({ ...row.task, status: previous.previousStatus, completedBy: previous.previousCompletedBy, completedAt: previous.previousCompletedAt }), correlationId: `hr-task:${row.task.id}:bulk-undo` });
+  }
+  return { revertedCount: rows.length, taskIds: rows.map(({ task }) => task.id) };
+}
 async function getPayrollRunForUser(db: NonNullable<Awaited<ReturnType<typeof getDb>>>, userId: number, companyId: number, runId: number) {
   const rows = await db.select({ run: payrollRuns }).from(payrollRuns).where(and(eq(payrollRuns.id, runId), eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).limit(1);
   const run = rows[0]?.run;

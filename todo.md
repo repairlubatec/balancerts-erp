@@ -1300,3 +1300,12 @@
 - [x] Sincronizar contador com selecção, limpeza e filtros
 - [x] Testar contagem e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — desfazer alteração em massa
+
+- [x] Mapear o estado anterior da última operação em massa
+- [x] Criar reversão tenant-aware e auditada
+- [x] Adicionar botão “Desfazer” ao toast de sucesso
+- [x] Sincronizar lista, contador e feedback após reversão
+- [x] Testar segurança, auditoria, reversão e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint

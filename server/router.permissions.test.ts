@@ -217,6 +217,15 @@ describe("protected accounting procedures", () => {
     await expect(operator.humanResources.updateTasksStatusBulk({ companyId: 41, taskIds: [11], status: "IN_PROGRESS" })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
+  it("permite desfazer alteração em lote ao contabilista e bloqueia o operador", async () => {
+    const undo = vi.spyOn(db, "undoHumanResourcesTasksStatusForUser").mockResolvedValue({ revertedCount: 2, taskIds: [11, 12] });
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.humanResources.undoTasksStatusBulk({ companyId: 41, changes: [{ taskId: 11, appliedStatus: "COMPLETED", previousStatus: "PENDING", previousCompletedBy: null, previousCompletedAt: null }, { taskId: 12, appliedStatus: "COMPLETED", previousStatus: "IN_PROGRESS", previousCompletedBy: null, previousCompletedAt: null }] })).resolves.toMatchObject({ revertedCount: 2 });
+    expect(undo).toHaveBeenCalledWith(expect.objectContaining({ userId: 8, companyId: 41 }));
+    const operator = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operator.humanResources.undoTasksStatusBulk({ companyId: 41, changes: [{ taskId: 11, appliedStatus: "COMPLETED", previousStatus: "PENDING", previousCompletedBy: null, previousCompletedAt: null }] })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("rejects role-incompatible fiscal, treasury, stock and fixed-asset operations", async () => {
     const caller = appRouter.createCaller(contextWithRole("auditor"));
     await expect(caller.fiscal.calculateIva({ netAmount: 100, regime: "GERAL", rule: { code: "IVA", regime: "GERAL", validFrom: new Date("2026-01-01"), rate: 0.14, evidence: "DP-71/25" } })).rejects.toMatchObject({ code: "FORBIDDEN" });
