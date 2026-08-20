@@ -1357,3 +1357,12 @@
 - [x] Adicionar botão de exportação da lista actual
 - [x] Testar conteúdo, filtros, isolamento e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — data limite e atrasos
+
+- [x] Mapear campo de prazo, criação, edição e filtros existentes
+- [x] Reforçar o campo de data limite com rótulo claro
+- [x] Destacar a vermelho as tarefas atrasadas
+- [x] Garantir informação acessível e coerência com exportação e filtros
+- [x] Testar prazos, atraso e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
