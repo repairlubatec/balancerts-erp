@@ -1555,3 +1555,11 @@
 - [x] Classificar funcionalidades feitas, validadas, preparadas e pendentes
 - [x] Redigir cronologia completa e plano de conclusão
 - [x] Entregar cronologia ao utilizador
+
+## Análise final — conclusão, integrações e distribuição
+
+- [x] Inventariar lacunas reais do projecto para estado final
+- [x] Recolher requisitos e custos actuais de integrações externas
+- [x] Comparar alternativas pagas e gratuitas, incluindo assinatura de código
+- [x] Redigir plano factual de conclusão, sem declarar certificação não obtida
+- [x] Entregar análise ao utilizador
