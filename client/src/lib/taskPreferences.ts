@@ -1,6 +1,6 @@
 import type { TaskDueValue } from "./taskSorting";
 
-export type TaskPreferenceSort = { field: "name" | "priority" | "dueDate"; direction: "asc" | "desc" };
+export type TaskPreferenceSort = { field: "name" | "priority" | "dueDate" | "urgency"; direction: "asc" | "desc" };
 export type TaskPreferenceFilters = { search: string; priority: string; state: string; assignee: string; due: string };
 export type TaskPreferences = { sort: TaskPreferenceSort; filters: TaskPreferenceFilters };
 
@@ -19,7 +19,7 @@ export function readTaskPreferences(storage: Pick<Storage, "getItem"> | undefine
     const parsed = JSON.parse(storage.getItem(key) ?? "null") as Partial<TaskPreferences> | null;
     const sort = parsed?.sort;
     const filters = parsed?.filters;
-    const validSort = sort?.field === "name" || sort?.field === "priority" || sort?.field === "dueDate" ? { field: sort.field, direction: sort.direction === "desc" ? "desc" : "asc" } as TaskPreferenceSort : DEFAULT_PREFERENCES.sort;
+    const validSort = sort?.field === "name" || sort?.field === "priority" || sort?.field === "dueDate" || sort?.field === "urgency" ? { field: sort.field, direction: sort.direction === "desc" ? "desc" : "asc" } as TaskPreferenceSort : DEFAULT_PREFERENCES.sort;
     return { sort: validSort, filters: { ...DEFAULT_PREFERENCES.filters, ...(filters ?? {}), search: typeof filters?.search === "string" ? filters.search : "", priority: typeof filters?.priority === "string" ? filters.priority : "", state: typeof filters?.state === "string" ? filters.state : "", assignee: typeof filters?.assignee === "string" ? filters.assignee : "", due: typeof filters?.due === "string" ? filters.due : "" } };
   } catch { return DEFAULT_PREFERENCES; }
 }

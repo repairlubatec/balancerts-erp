@@ -10,7 +10,7 @@ describe("preferências do Centro de Tarefas", () => {
     const values = new Map<string, string>();
     const storage = { setItem: (key: string, value: string) => values.set(key, value), getItem: (key: string) => values.get(key) ?? null };
     const key = taskPreferencesKey(1, 2);
-    const preferences = { sort: { field: "dueDate" as const, direction: "asc" as const }, filters: { search: "folha", priority: "Alta", state: "Pendente", assignee: "Fausto", due: "HOJE_AMANHA" } };
+    const preferences = { sort: { field: "urgency" as const, direction: "asc" as const }, filters: { search: "folha", priority: "Alta", state: "Pendente", assignee: "Fausto", due: "HOJE_AMANHA" } };
     writeTaskPreferences(storage, key, preferences);
     expect(readTaskPreferences(storage, key)).toEqual(preferences);
   });

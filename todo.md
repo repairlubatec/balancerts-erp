@@ -1469,12 +1469,12 @@
 
 ## Validação operacional final — RH → Contabilidade → Auditoria
 
-- [ ] Identificar tarefas RH reais elegíveis e preservar o estado inicial
-- [ ] Executar alteração em massa controlada com confirmação
-- [ ] Executar desfazer e confirmar reposição do estado inicial
-- [ ] Validar fluxo RH para Contabilidade
-- [ ] Validar auditoria, permissões e isolamento multi-tenant
-- [ ] Registar resultados, executar testes finais e guardar checkpoint
+- [x] Identificar tarefas RH reais elegíveis e preservar o estado inicial — não existem tarefas RH persistidas na Repair Lubatec
+- [ ] Executar alteração em massa controlada com confirmação — aguarda pelo menos duas tarefas RH reais na Repair Lubatec
+- [ ] Executar desfazer e confirmar reposição do estado inicial — aguarda a execução da alteração real
+- [x] Validar fluxo RH para Contabilidade — validação técnica concluída; sem folha real persistida para validar no tenant
+- [x] Validar auditoria, permissões e isolamento multi-tenant — testes E2E descartáveis aprovados
+- [x] Registar resultados, executar testes finais e guardar checkpoint
 
 ## Centro de Tarefas — preferências entre sessões
 
@@ -1498,3 +1498,12 @@
 - [x] Validar fluxo contabilístico, permissões e auditoria
 - [x] Executar testes, limpar dados temporários e registar resultados
 - [x] Guardar checkpoint e continuar validação real pendente
+
+## Centro de Tarefas — urgência operacional e resumo
+
+- [x] Mapear ordenação, preferências e regras de prazo actuais
+- [x] Implementar cálculo testável de urgência operacional
+- [x] Integrar ordenação por urgência e persistência da preferência
+- [x] Acrescentar resumo com contadores atrasadas, hoje e amanhã
+- [x] Testar regras, persistência, filtros e interface
+- [x] Guardar checkpoint e entregar
