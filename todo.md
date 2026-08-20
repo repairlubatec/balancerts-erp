@@ -1662,3 +1662,12 @@
 - [x] Ligar o relatório ao arquivo interno com metadados
 - [x] Validar permissões, impressão, arquivo e build
 - [x] Guardar checkpoint desta melhoria
+
+## Arquivo documental e assinatura futura
+
+- [x] Auditar pesquisa do arquivo e suporte de assinatura digital
+- [x] Adicionar filtros por tipo e período ao arquivo
+- [x] Preparar metadados para assinatura digital futura
+- [x] Executar teste controlado do arquivamento
+- [x] Validar permissões, testes e build
+- [x] Guardar checkpoint do arquivo melhorado

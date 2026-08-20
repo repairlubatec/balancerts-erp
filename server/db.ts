@@ -1157,12 +1157,12 @@ export async function createFileAsset(input: { userId: number; organizationId: n
   return { id: fileId, storageKey: input.storageKey };
 }
 
-export async function listFileAssetsForUser(input: { userId: number; companyId: number; search?: string; category?: "FISCAL" | "CONTABILISTICO" | "CONTRATO" | "RH" | "OUTRO" }) {
+export async function listFileAssetsForUser(input: { userId: number; companyId: number; search?: string; category?: "FISCAL" | "CONTABILISTICO" | "CONTRATO" | "RH" | "OUTRO"; from?: Date; to?: Date }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const rows = await db.select({ file: fileAssets }).from(fileAssets).innerJoin(organizations, eq(fileAssets.organizationId, organizations.id)).where(and(eq(fileAssets.companyId, input.companyId), organizationAccessCondition(input.userId))).orderBy(desc(fileAssets.updatedAt), desc(fileAssets.id));
   const search = input.search?.trim().toLocaleLowerCase("pt-PT");
-  return rows.map(({ file }) => ({ ...file, allowedUserIds: JSON.parse(file.allowedUserIds ?? "[]") as number[] })).filter((file) => !file.archivedAt && (!input.category || file.category === input.category) && (!search || [file.filename, file.description ?? "", file.reference ?? ""].some((value) => value.toLocaleLowerCase("pt-PT").includes(search))));
+  return rows.map(({ file }) => ({ ...file, allowedUserIds: JSON.parse(file.allowedUserIds ?? "[]") as number[] })).filter((file) => !file.archivedAt && (!input.category || file.category === input.category) && (!input.from || file.createdAt >= input.from) && (!input.to || file.createdAt <= input.to) && (!search || [file.filename, file.description ?? "", file.reference ?? ""].some((value) => value.toLocaleLowerCase("pt-PT").includes(search))));
 }
 
 export async function updateFileAssetMetadataForUser(input: { userId: number; companyId: number; fileId: number; category?: "FISCAL" | "CONTABILISTICO" | "CONTRATO" | "RH" | "OUTRO"; description?: string; reference?: string; allowedUserIds?: number[] }) {
