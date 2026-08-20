@@ -1458,3 +1458,11 @@
 - [x] Integrar controlo visual, paginação e exportação
 - [x] Testar regressões e rever visualmente
 - [x] Guardar checkpoint e entregar
+
+## Centro de Tarefas — prazos de hoje ou amanhã
+
+- [x] Mapear regras de prazo e filtros existentes
+- [x] Implementar regra do filtro hoje ou amanhã
+- [x] Adicionar controlo visual e sincronizar a lista
+- [x] Testar filtros, regressões e interface
+- [x] Guardar checkpoint e entregar
