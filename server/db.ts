@@ -453,7 +453,7 @@ export async function updateOrganizationMembershipForUser(input: { actorUserId: 
 export async function getEmployeesForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
-  return db.select({ employee: employees }).from(employees).where(and(eq(employees.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(employees.id));
+  return db.select({ employee: employees }).from(employees).innerJoin(companies, eq(employees.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(employees.companyId, companyId), organizationAccessCondition(userId))).orderBy(desc(employees.id));
 }
 export async function createEmployeeForUser(input: { userId: number; organizationId: number; companyId: number; employeeNumber: string; fullName: string; taxId?: string; socialSecurityNumber?: string; birthDate?: Date; hireDate: Date; email?: string; phone?: string; address?: string; bankName?: string; bankAccount?: string }) {
   const db = await getDb();

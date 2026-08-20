@@ -1570,3 +1570,16 @@
 - [x] Classificar tarefas por dependência, custo e prioridade
 - [x] Definir sequência prática até à versão final
 - [x] Entregar continuação da análise ao utilizador
+
+## Ronda final de conclusão do software
+
+- [x] Auditar erros reproduzíveis, botões, rotas e funções pendentes — foi encontrada e corrigida a consulta de colaboradores sem junção organizations
+- [x] Corrigir defeitos internos confirmados — correcção tenant-aware validada com 12 testes direccionados
+- [x] Completar fluxos internos sem dependências externas — sem novos bloqueios internos reproduzíveis na ronda final
+- [x] Executar testes finais, build e revisão visual — 82 ficheiros, 298 testes, TypeScript e build aprovados; sem erros recentes nos logs
+- [x] Registar dependências externas e entregar estado final — AGT, banco, dados RH e distribuição continuam explicitamente separados
+
+## Correcção descoberta na ronda final
+
+- [x] Corrigir consulta tenant-aware de colaboradores que referencia organizations sem junção explícita
+- [x] Reexecutar testes RH, TypeScript, build e revisão visual
