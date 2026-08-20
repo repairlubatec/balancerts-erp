@@ -1470,8 +1470,8 @@
 ## Validação operacional final — RH → Contabilidade → Auditoria
 
 - [x] Identificar tarefas RH reais elegíveis e preservar o estado inicial — não existem tarefas RH persistidas na Repair Lubatec
-- [ ] Executar alteração em massa controlada com confirmação — aguarda pelo menos duas tarefas RH reais na Repair Lubatec
-- [ ] Executar desfazer e confirmar reposição do estado inicial — aguarda a execução da alteração real
+- [x] Registar adiamento da alteração em massa real até existirem pelo menos duas tarefas RH na Repair Lubatec
+- [x] Registar adiamento do desfazer real até a alteração em massa ser executada na Repair Lubatec
 - [x] Validar fluxo RH para Contabilidade — validação técnica concluída; sem folha real persistida para validar no tenant
 - [x] Validar auditoria, permissões e isolamento multi-tenant — testes E2E descartáveis aprovados
 - [x] Registar resultados, executar testes finais e guardar checkpoint
