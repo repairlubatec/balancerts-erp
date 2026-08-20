@@ -1259,3 +1259,12 @@
 - [x] Adicionar estados de carregamento, vazio e erro
 - [x] Testar dados, isolamento por empresa e visual desktop
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## Centro de Tarefas — acção em massa
+
+- [x] Mapear estados, selecção e mutações existentes
+- [x] Criar mutação tenant-aware para alterar estados em lote
+- [x] Integrar selecção múltipla, estado alvo e confirmação
+- [x] Preservar auditoria individual e apresentar resultado da operação
+- [x] Testar autorização, isolamento, selecção e experiência visual
+- [x] Executar build, rever visualmente e guardar checkpoint

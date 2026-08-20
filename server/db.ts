@@ -577,6 +577,22 @@ export async function updateHumanResourcesTaskForUser(input: { userId: number; c
   const updated = await db.select({ task: humanResourcesTasks }).from(humanResourcesTasks).where(eq(humanResourcesTasks.id, input.taskId)).limit(1);
   return updated[0];
 }
+export async function updateHumanResourcesTasksStatusForUser(input: { userId: number; companyId: number; taskIds: number[]; status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const uniqueTaskIds = Array.from(new Set(input.taskIds));
+  if (!uniqueTaskIds.length) throw new Error("HR_TASKS_EMPTY_SELECTION");
+  const rows = await db.select({ task: humanResourcesTasks, organizationId: companies.organizationId }).from(humanResourcesTasks).innerJoin(companies, eq(humanResourcesTasks.companyId, companies.id)).where(and(inArray(humanResourcesTasks.id, uniqueTaskIds), eq(humanResourcesTasks.companyId, input.companyId), organizationAccessCondition(input.userId)));
+  if (rows.length !== uniqueTaskIds.length) throw new Error("HR_TASKS_NOT_FOUND_OR_FORBIDDEN");
+  const completedAt = input.status === "COMPLETED" ? new Date() : null;
+  for (const row of rows) {
+    const changes = input.status === "COMPLETED" ? { status: input.status, completedBy: input.userId, completedAt } : { status: input.status, completedBy: null, completedAt: null };
+    await db.update(humanResourcesTasks).set(changes).where(and(eq(humanResourcesTasks.id, row.task.id), eq(humanResourcesTasks.companyId, input.companyId)));
+    await appendAuditEventForUser({ organizationId: row.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "HR_TASK_UPDATED", entityType: "humanResourcesTask", entityId: String(row.task.id), beforeState: JSON.stringify(row.task), afterState: JSON.stringify({ ...row.task, ...changes }), correlationId: `hr-task:${row.task.id}:bulk-status` });
+  }
+  return { updatedCount: rows.length, taskIds: rows.map(({ task }) => task.id), status: input.status };
+}
+
 async function getPayrollRunForUser(db: NonNullable<Awaited<ReturnType<typeof getDb>>>, userId: number, companyId: number, runId: number) {
   const rows = await db.select({ run: payrollRuns }).from(payrollRuns).where(and(eq(payrollRuns.id, runId), eq(payrollRuns.companyId, companyId), organizationAccessCondition(userId))).limit(1);
   const run = rows[0]?.run;

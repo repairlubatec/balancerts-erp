@@ -208,6 +208,15 @@ describe("protected accounting procedures", () => {
     expect(post).not.toHaveBeenCalled();
   });
 
+  it("permite alteração de estado em lote ao contabilista e bloqueia o operador", async () => {
+    const bulk = vi.spyOn(db, "updateHumanResourcesTasksStatusForUser").mockResolvedValue({ updatedCount: 2, taskIds: [11, 12], status: "COMPLETED" });
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.humanResources.updateTasksStatusBulk({ companyId: 41, taskIds: [11, 12, 11], status: "COMPLETED" })).resolves.toMatchObject({ updatedCount: 2, status: "COMPLETED" });
+    expect(bulk).toHaveBeenCalledWith({ userId: 8, companyId: 41, taskIds: [11, 12, 11], status: "COMPLETED" });
+    const operator = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operator.humanResources.updateTasksStatusBulk({ companyId: 41, taskIds: [11], status: "IN_PROGRESS" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("rejects role-incompatible fiscal, treasury, stock and fixed-asset operations", async () => {
     const caller = appRouter.createCaller(contextWithRole("auditor"));
     await expect(caller.fiscal.calculateIva({ netAmount: 100, regime: "GERAL", rule: { code: "IVA", regime: "GERAL", validFrom: new Date("2026-01-01"), rate: 0.14, evidence: "DP-71/25" } })).rejects.toMatchObject({ code: "FORBIDDEN" });
