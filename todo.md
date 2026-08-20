@@ -1415,3 +1415,11 @@
 - [x] Sincronizar remoção com toast, alertas e filtros
 - [x] Testar remoção, permissões e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — filtro rápido sem data limite
+
+- [x] Mapear filtros rápidos e regra de tarefas sem prazo
+- [x] Adicionar botão “Sem data limite” na interface
+- [x] Sincronizar com pesquisa, estado, prioridade, selecção e paginação
+- [x] Testar filtro, limpeza e exportação
+- [x] Rever visualmente, executar build e guardar checkpoint
