@@ -1540,3 +1540,11 @@
 - [x] Integrar acção desktop e feedback em português
 - [x] Testar conteúdo, nomes de colunas e regressões
 - [x] Rever visualmente, guardar checkpoint e entregar
+
+## Auditoria — exportação para Excel
+
+- [x] Mapear histórico de auditoria e exportadores existentes
+- [x] Implementar exportação XLSX da auditoria
+- [x] Integrar acção desktop e feedback de segurança
+- [x] Testar colunas, isolamento e regressões
+- [x] Rever visualmente, guardar checkpoint e entregar
