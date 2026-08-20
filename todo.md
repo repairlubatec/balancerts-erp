@@ -1563,3 +1563,10 @@
 - [x] Comparar alternativas pagas e gratuitas, incluindo assinatura de código
 - [x] Redigir plano factual de conclusão, sem declarar certificação não obtida
 - [x] Entregar análise ao utilizador
+
+## Análise final — matriz prática de conclusão
+
+- [x] Organizar matriz completa de conclusão por módulo
+- [x] Classificar tarefas por dependência, custo e prioridade
+- [x] Definir sequência prática até à versão final
+- [x] Entregar continuação da análise ao utilizador
