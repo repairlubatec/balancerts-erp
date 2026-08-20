@@ -1450,3 +1450,11 @@
 - [x] Integrar toast, auditoria e possibilidade de desfazer
 - [x] Testar segurança, selecção e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — ordenação por data limite
+
+- [x] Mapear ordenação e modelo de prazo existentes
+- [x] Implementar ordenação por data limite, com atrasadas primeiro
+- [x] Integrar controlo visual, paginação e exportação
+- [x] Testar regressões e rever visualmente
+- [x] Guardar checkpoint e entregar
