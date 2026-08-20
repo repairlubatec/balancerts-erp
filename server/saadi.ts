@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, or, sql } from "drizzle-orm";
-import { getDb } from "./db";
+import { appendAuditEventForUser, getDb } from "./db";
 import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions } from "../drizzle/schema";
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema, type SaadiSnapshot as SaadiSnapshotContract, type SaadiSnapshotRequest, type SaadiVersion } from "../shared/saadi-contracts";
 
@@ -65,7 +65,9 @@ export async function createSaadiStudy(input: {
   const rows = await db.select().from(saadiStudies)
     .where(and(eq(saadiStudies.organizationId, input.organizationId), eq(saadiStudies.companyId, input.companyId), eq(saadiStudies.studyCode, studyCode)))
     .orderBy(desc(saadiStudies.id)).limit(1);
-  return rows[0];
+  const created = rows[0];
+  if (created) await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_STUDY_CREATED", entityType: "saadiStudy", entityId: String(created.id), beforeState: null, afterState: JSON.stringify({ studyCode, status: created.status }), correlationId: `saadi-study:${created.id}` });
+  return created;
 }
 
 export async function createSaadiSnapshot(input: {
@@ -108,6 +110,7 @@ export async function createSaadiSnapshot(input: {
     eq(saadiSnapshots.companyId, request.companyId),
     eq(saadiSnapshots.idempotencyKey, key),
   )).limit(1);
+  if (created[0]) await appendAuditEventForUser({ organizationId: request.organizationId, companyId: request.companyId, actorUserId: input.userId, action: "SAADI_SNAPSHOT_CREATED", entityType: "saadiSnapshot", entityId: String(created[0].id), beforeState: null, afterState: JSON.stringify({ studyId: input.studyId, status: created[0].status, sourceFingerprint: created[0].sourceFingerprint }), correlationId: `saadi-snapshot:${created[0].id}` });
   return { snapshot: created[0], alreadyExists: false } as const;
 }
 
@@ -155,6 +158,7 @@ export async function createSaadiVersion(input: { userId: number; organizationId
   if (existing[0]) return { version: existing[0], alreadyExists: true } as const;
   await db.insert(saadiVersions).values({ organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, snapshotId: input.snapshotId, versionNumber: version.versionNumber, status: version.status === "RASCUNHO" ? "DRAFT" : version.status === "EM_REVISAO" ? "IN_REVIEW" : version.status === "APROVADA" ? "APPROVED" : "ARCHIVED", assumptionsJson: JSON.stringify(version.assumptions), projectionsJson: JSON.stringify(version.projections), versionHash: version.contentHash, createdBy: input.userId });
   const created = await db.select().from(saadiVersions).where(and(eq(saadiVersions.studyId, input.studyId), eq(saadiVersions.versionNumber, version.versionNumber))).limit(1);
+  if (created[0]) await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_VERSION_CREATED", entityType: "saadiVersion", entityId: String(created[0].id), beforeState: null, afterState: JSON.stringify({ studyId: input.studyId, versionNumber: created[0].versionNumber, status: created[0].status, versionHash: created[0].versionHash }), correlationId: `saadi-version:${created[0].id}` });
   return { version: created[0], alreadyExists: false } as const;
 }
 
@@ -169,6 +173,7 @@ export async function transitionSaadiVersionForUser(input: { userId: number; org
   if (input.decision === "ARCHIVE" && current.status === "ARCHIVED") return { id: current.id, status: current.status, alreadyArchived: true } as const;
   const nextStatus = input.decision === "APPROVE" ? "APPROVED" : "ARCHIVED";
   await db.update(saadiVersions).set({ status: nextStatus, ...(input.decision === "APPROVE" ? { approvedBy: input.userId, approvedAt: new Date() } : {}) }).where(eq(saadiVersions.id, input.versionId));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: input.decision === "APPROVE" ? "SAADI_VERSION_APPROVED" : "SAADI_VERSION_ARCHIVED", entityType: "saadiVersion", entityId: String(current.id), beforeState: JSON.stringify({ status: current.status }), afterState: JSON.stringify({ status: nextStatus, versionNumber: current.versionNumber }), correlationId: `saadi-version-transition:${current.id}:${nextStatus}` });
   return { id: current.id, status: nextStatus, alreadyArchived: false } as const;
 }
 

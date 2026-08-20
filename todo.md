@@ -1890,3 +1890,12 @@
 - [ ] Obter credenciais e endpoint oficiais AGT para homologação controlada
 - [ ] Obter credenciais e documentação dos bancos para integração bancária
 - [ ] Executar testes de aceitação com utilizadores da Repair Lubatec e dados anonimizados
+
+## Auditoria de lacunas — ciclo actual
+
+- [x] Corrigir painel SAADI para consultar proveniência e permitir transições controladas de versões
+- [x] Testar visualmente e por React os novos controlos SAADI — TypeScript, 11 testes específicos e captura desktop aprovados
+- [x] Auditar todas as rotas de módulos contra o encaminhamento interno da Home — rotas operacionais encaminham para ModulePage; /saadi usa ecrã dedicado
+- [x] Executar regressão completa depois das correcções do ciclo actual — 348/349 testes aprovados após auditoria; única falha é autenticação SMTP Gmail 535 externa
+
+- [x] Acrescentar auditoria append-only às criações e transições SAADI — actor, organização, empresa, estados e correlação; TypeScript, build e 14 testes específicos aprovados
