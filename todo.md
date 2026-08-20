@@ -1783,3 +1783,10 @@
 - [x] Remapear as duas linhas do lançamento 3420001 sem alterar valores, moeda, débito, crédito ou histórico
 - [x] Registar a correcção com auditoria append-only e correlação explícita
 - [x] Validar zero órfãos, equilíbrio do lançamento e reconciliação dos relatórios
+
+## Destino isolado para verificação de restauro
+
+- [x] Verificar se o ambiente gerido suporta criar a base `balancerts_restore_test` separada da produção — não suportado pelos privilégios actuais
+- [x] Verificar se é possível criar utilizador exclusivo com permissões apenas na base de restauro — não suportado pelos privilégios actuais
+- [ ] Configurar `RESTORE_DATABASE_URL` apenas depois de existir um destino real e isolado
+- [ ] Executar restauro verificável e validação dos módulos sem tocar na produção
