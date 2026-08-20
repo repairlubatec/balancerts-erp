@@ -1432,3 +1432,12 @@
 - [x] Sincronizar reversão com alertas, filtros e auditoria
 - [x] Testar concorrência, permissões e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — data limite em massa
+
+- [x] Mapear selecção em massa e mutações de prazo existentes
+- [x] Implementar mutação tenant-aware para alterar ou limpar prazos em massa
+- [x] Adicionar controlos e confirmação interna da operação
+- [x] Integrar toast, auditoria e possibilidade de desfazer
+- [x] Testar segurança, selecção e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
