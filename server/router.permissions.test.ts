@@ -95,7 +95,7 @@ describe("protected accounting procedures", () => {
     const dashboard = vi.spyOn(db, "getFinancialDashboardForUserCompany").mockResolvedValue({ companyId: 41, periodId: null, currency: "AOA", kpis: { revenue: 0, expenses: 0, netIncome: 0, receivable: 0, payable: 0, treasuryBalance: 0, documentsTotal: 0 }, monthlySeries: [], revenueRows: [], expenseRows: [], aging: { receivable: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } }, payable: { outstanding: 0, byBucket: { CURRENT: 0, DAYS_1_30: 0, DAYS_31_60: 0, DAYS_61_90: 0, OVER_90: 0 } } }, reconciliation: { debit: 0, credit: 0, balanced: true } });
     const auditor = appRouter.createCaller(contextWithRole("auditor"));
     await expect(auditor.reports.financialDashboard({ companyId: 41 })).resolves.toMatchObject({ companyId: 41, currency: "AOA" });
-    expect(dashboard).toHaveBeenCalledWith(8, 41, undefined);
+    expect(dashboard).toHaveBeenCalledWith({ userId: 8, companyId: 41 });
     const operator = appRouter.createCaller(contextWithRole("operador"));
     await expect(operator.reports.financialDashboard({ companyId: 41 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });

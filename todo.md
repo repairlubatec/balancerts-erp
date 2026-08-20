@@ -1637,3 +1637,12 @@
 - [x] Adicionar filtros, navegação para origens e exportações
 - [x] Validar permissões, dados reais, visual e build
 - [x] Guardar checkpoint do painel financeiro
+
+## Evolução da análise financeira
+
+- [x] Auditar suporte a comparação de períodos e dimensões analíticas
+- [x] Expandir consulta com comparação entre períodos
+- [x] Adicionar filtros por centro de custo e dimensão analítica
+- [x] Melhorar ligações dos gráficos às origens contabilísticas
+- [x] Validar permissões, isolamento, exportações e build
+- [x] Guardar checkpoint da evolução analítica

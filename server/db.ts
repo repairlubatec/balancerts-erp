@@ -1551,7 +1551,7 @@ export async function getDocumentAccountingChainForUserCompany(userId: number, c
 export async function getJournalRowsForUserCompany(userId: number, companyId: number, periodId?: number): Promise<JournalRow[]> {
   const db = await getDb();
   if (!db) return [];
-  const rows = await db.select({ entryId: journalEntries.id, description: journalEntries.description, createdAt: journalEntries.createdAt, sourceDocumentId: journalEntries.sourceDocumentId, accountCode: chartAccounts.code, accountName: chartAccounts.name, debit: journalLines.debit, credit: journalLines.credit }).from(journalLines).innerJoin(journalEntries, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(organizationAccessCondition(userId), eq(companies.id, companyId), eq(journalEntries.status, "POSTED"), eq(journalEntries.reviewStatus, "APPROVED"), periodId ? eq(journalEntries.periodId, periodId) : undefined));
+  const rows = await db.select({ entryId: journalEntries.id, description: journalEntries.description, createdAt: journalEntries.createdAt, sourceDocumentId: journalEntries.sourceDocumentId, accountCode: chartAccounts.code, accountName: chartAccounts.name, debit: journalLines.debit, credit: journalLines.credit, costCenter: journalEntries.costCenter, analyticalDimension: journalEntries.analyticalDimension }).from(journalLines).innerJoin(journalEntries, eq(journalLines.entryId, journalEntries.id)).innerJoin(chartAccounts, eq(journalLines.accountId, chartAccounts.id)).innerJoin(companies, eq(journalEntries.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(organizationAccessCondition(userId), eq(companies.id, companyId), eq(journalEntries.status, "POSTED"), eq(journalEntries.reviewStatus, "APPROVED"), periodId ? eq(journalEntries.periodId, periodId) : undefined));
   return rows.map((row) => ({ ...row, debit: Number(row.debit), credit: Number(row.credit) }));
 }
 
@@ -2148,15 +2148,22 @@ export async function approvePaymentForUser(input: { userId: number; companyId: 
   return { paymentId: input.paymentId, idempotent: false };
 }
 
-export async function getFinancialDashboardForUserCompany(userId: number, companyId: number, periodId?: number) {
-  const [journal, incomeStatement, balanceSheet, customerAging, supplierAging, fiscalRegister] = await Promise.all([
-    getJournalForUserCompany(userId, companyId, periodId),
-    getIncomeStatementForUserCompany(userId, companyId, periodId),
-    getBalanceSheetForUserCompany(userId, companyId, periodId),
-    getAgingForUserCompany(userId, companyId, "CUSTOMER", new Date()),
-    getAgingForUserCompany(userId, companyId, "SUPPLIER", new Date()),
-    getFiscalRegisterForUserCompany(userId, companyId),
+export async function getFinancialDashboardForUserCompany(input: { userId: number; companyId: number; periodId?: number; comparisonPeriodId?: number; costCenter?: string; analyticalDimension?: string }) {
+  const [currentRows, comparisonRows, customerAging, supplierAging, fiscalRegister] = await Promise.all([
+    getJournalRowsForUserCompany(input.userId, input.companyId, input.periodId),
+    input.comparisonPeriodId ? getJournalRowsForUserCompany(input.userId, input.companyId, input.comparisonPeriodId) : Promise.resolve([]),
+    getAgingForUserCompany(input.userId, input.companyId, "CUSTOMER", new Date()),
+    getAgingForUserCompany(input.userId, input.companyId, "SUPPLIER", new Date()),
+    getFiscalRegisterForUserCompany(input.userId, input.companyId),
   ]);
+  const matches = (row: JournalRow) => (!input.costCenter || row.costCenter === input.costCenter) && (!input.analyticalDimension || row.analyticalDimension === input.analyticalDimension);
+  const rows = currentRows.filter(matches);
+  const comparisonFilteredRows = comparisonRows.filter(matches);
+  const journal = buildJournal(rows);
+  const comparisonJournal = buildJournal(comparisonFilteredRows);
+  const incomeStatement = buildIncomeStatement(rows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
+  const balanceSheet = buildBalanceSheet(rows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
+  const comparisonIncomeStatement = buildIncomeStatement(comparisonFilteredRows.map(({ accountCode, accountName, debit, credit }) => ({ accountCode, accountName, debit, credit })));
   const monthly = new Map<string, { period: string; revenue: number; expenses: number; result: number; debit: number; credit: number }>();
   for (const row of journal.entries) {
     const date = new Date(row.createdAt);
@@ -2174,8 +2181,10 @@ export async function getFinancialDashboardForUserCompany(userId: number, compan
   const revenueRows = incomeStatement.rows.filter((row) => row.accountCode.startsWith("7")).sort((a, b) => Math.abs(b.credit - b.debit) - Math.abs(a.credit - a.debit)).slice(0, 8).map((row) => ({ accountCode: row.accountCode, label: row.accountName, amount: Number(Math.abs(row.credit - row.debit).toFixed(2)) }));
   const expenseRows = incomeStatement.rows.filter((row) => row.accountCode.startsWith("6")).sort((a, b) => Math.abs(b.debit - b.credit) - Math.abs(a.debit - a.credit)).slice(0, 8).map((row) => ({ accountCode: row.accountCode, label: row.accountName, amount: Number(Math.abs(row.debit - row.credit).toFixed(2)) }));
   return {
-    companyId,
-    periodId: periodId ?? null,
+    companyId: input.companyId,
+    periodId: input.periodId ?? null,
+    comparisonPeriodId: input.comparisonPeriodId ?? null,
+    filters: { costCenter: input.costCenter ?? null, analyticalDimension: input.analyticalDimension ?? null },
     currency: "AOA",
     kpis: {
       revenue: incomeStatement.revenue,
@@ -2186,6 +2195,7 @@ export async function getFinancialDashboardForUserCompany(userId: number, compan
       treasuryBalance: balanceSheet.assets - customerAging.totals.outstanding,
       documentsTotal: fiscalRegister.totals.totalAmount,
     },
+    comparison: { revenue: comparisonIncomeStatement.revenue, expenses: comparisonIncomeStatement.expenses, netIncome: comparisonIncomeStatement.netIncome, debit: comparisonJournal.totals.debit, credit: comparisonJournal.totals.credit },
     monthlySeries,
     revenueRows,
     expenseRows,

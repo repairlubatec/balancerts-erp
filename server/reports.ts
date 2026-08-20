@@ -10,6 +10,8 @@ export type JournalRow = PostedLine & {
   description: string;
   createdAt: Date;
   sourceDocumentId: number | null;
+  costCenter?: string | null;
+  analyticalDimension?: string | null;
 };
 
 const money = (value: number) => Math.round(value * 100) / 100;
