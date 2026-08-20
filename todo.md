@@ -1333,3 +1333,11 @@
 - [x] Garantir texto acessível e coerência com o filtro de prioridade
 - [x] Testar prioridades e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — paginação da lista
+
+- [x] Mapear lista filtrada e selecção visível actual
+- [x] Adicionar paginação acessível à lista de tarefas
+- [x] Sincronizar página com filtros, contador e selecção em massa
+- [x] Testar navegação e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
