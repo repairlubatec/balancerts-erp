@@ -1757,7 +1757,7 @@
 - [x] Definir e documentar uma estratégia de backup/restauro não destrutiva
 - [x] Implementar verificação operacional de backup e restauro sem apagar dados existentes
 - [x] Reforçar headers HTTP, limites e observabilidade do servidor
-- [ ] Rever e validar integridade referencial e índices sem migração destrutiva
+- [x] Rever e validar integridade referencial e índices sem migração destrutiva
 - [x] Criar testes multiutilizador de memberships e RBAC em organizações e empresas
 - [ ] Executar testes direccionados, suite completa e validação de produção local
 - [ ] Guardar checkpoint da P1 após todo o TODO estar actualizado
