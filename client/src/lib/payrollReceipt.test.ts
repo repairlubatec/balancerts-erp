@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildPayrollReceiptPdf, buildReceiptExportRows, buildReceiptZip, calculateReceiptTotals, formatInternalReceiptPeriod, formatPayrollActor, formatReceiptMode } from "./payrollReceipt";
+import { buildPayrollCostSeries, buildPayrollReceiptPdf, buildReceiptExportRows, buildReceiptZip, calculateReceiptTotals, formatInternalReceiptPeriod, formatPayrollActor, formatReceiptMode } from "./payrollReceipt";
 
 describe("recibo interno de RH", () => {
   it("formata o período salarial em português", () => {
@@ -34,6 +34,21 @@ describe("recibo interno de RH", () => {
     const bytes = buildPayrollReceiptPdf({ companyName: "Repair Lubatec", period: "09/2026", issuedOn: "19/08/2026", employeeName: "Ana Silva", employeeNumber: "001", gross: 100000, socialSecurity: 3000, irt: 5000, net: 92000 });
     expect(new TextDecoder().decode(bytes)).toContain("%PDF-1.4");
     expect(bytes.length).toBeGreaterThan(500);
+  });
+
+  it("agrega custos salariais por mês e calcula encargos patronais", () => {
+    expect(buildPayrollCostSeries([
+      { year: 2026, month: 2, grossTotal: "100000", socialEmployerTotal: "8000" },
+      { year: 2026, month: 2, grossTotal: "50000", socialEmployerTotal: "4000" },
+    ])).toEqual([{ period: "02/2026", gross: 150000, employerCharges: 12000, total: 162000 }]);
+  });
+
+  it("ordena a série e limita o gráfico aos seis meses mais recentes", () => {
+    const result = buildPayrollCostSeries(Array.from({ length: 7 }, (_, index) => ({ year: 2026, month: index + 1, grossTotal: 100000, socialEmployerTotal: 8000 })));
+    expect(result).toHaveLength(6);
+    expect(result[0]?.period).toBe("02/2026");
+    expect(result.at(-1)?.period).toBe("07/2026");
+    expect(result.at(-1)?.total).toBe(108000);
   });
 
   it("gera um pacote ZIP válido para vários recibos", () => {

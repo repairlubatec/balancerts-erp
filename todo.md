@@ -1250,3 +1250,12 @@
 - [x] Integrar descarga do ZIP no posto RH
 - [x] Validar nomes, conteúdo, filtros e isolamento por empresa
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## RH — gráfico de custos salariais
+
+- [x] Definir série mensal tenant-aware a partir de folhas persistidas
+- [x] Expor custos brutos, encargos patronais e total mensal
+- [x] Integrar gráfico no painel principal do RH com idioma português
+- [x] Adicionar estados de carregamento, vazio e erro
+- [x] Testar dados, isolamento por empresa e visual desktop
+- [x] Executar build, rever visualmente e guardar checkpoint

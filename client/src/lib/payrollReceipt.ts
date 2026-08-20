@@ -14,6 +14,21 @@ export function formatReceiptMode(selectedEmployeeId: string, itemCount: number)
   return selectedEmployeeId ? "Recibo individual" : `Mapa colectivo (${itemCount})`;
 }
 
+export function buildPayrollCostSeries(runs: Array<{ year: number; month: number; grossTotal: string | number; socialEmployerTotal: string | number }>) {
+  const grouped = new Map<string, { period: string; gross: number; employerCharges: number; total: number }>();
+  runs.forEach((run) => {
+    const key = `${run.year}-${String(run.month).padStart(2, "0")}`;
+    const gross = Number(run.grossTotal ?? 0);
+    const employerCharges = Number(run.socialEmployerTotal ?? 0);
+    const current = grouped.get(key) ?? { period: `${String(run.month).padStart(2, "0")}/${run.year}`, gross: 0, employerCharges: 0, total: 0 };
+    current.gross += gross;
+    current.employerCharges += employerCharges;
+    current.total = current.gross + current.employerCharges;
+    grouped.set(key, current);
+  });
+  return Array.from(grouped.entries()).sort(([a], [b]) => a.localeCompare(b)).slice(-6).map(([, value]) => value);
+}
+
 export function buildReceiptExportRows(items: Array<{ employee: { fullName: string; employeeNumber: string }; item: { grossAmount: string | number; socialEmployeeAmount: string | number; irtAmount: string | number; netAmount: string | number } }>) {
   const rows = items.map(({ employee, item }) => ({
     Colaborador: employee.fullName,
