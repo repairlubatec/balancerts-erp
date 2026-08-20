@@ -1268,3 +1268,11 @@
 - [x] Preservar auditoria individual e apresentar resultado da operação
 - [x] Testar autorização, isolamento, selecção e experiência visual
 - [x] Executar build, rever visualmente e guardar checkpoint
+
+## Centro de Tarefas — modal de confirmação em massa
+
+- [x] Substituir a confirmação em linha por modal interno
+- [x] Apresentar quantidade e estado alvo no modal
+- [x] Garantir cancelamento sem mutação e confirmação com a mutação existente
+- [x] Testar acessibilidade, cancelamento, confirmação e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
