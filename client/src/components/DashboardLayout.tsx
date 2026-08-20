@@ -234,12 +234,54 @@ function DashboardLayoutContent({
       toggleSidebar();
       return;
     }
+    if (command === "new-company") {
+      selectWorkspace("/empresas");
+      setLocation("/empresas?new=company");
+      return;
+    }
+    if (command === "new-document") {
+      selectWorkspace("/facturacao");
+      setLocation("/facturacao?new=1");
+      return;
+    }
+    if (command === "refresh") {
+      window.location.reload();
+      return;
+    }
+    if (command === "shortcuts") {
+      setLocation("/?shortcuts=1");
+      return;
+    }
+    if (command === "undo" || command === "redo") {
+      window.dispatchEvent(new CustomEvent("balancerts:command", { detail: { command } }));
+      return;
+    }
     if (command === "operations") {
       selectWorkspace("/facturacao");
       return;
     }
+    if (command === "treasury") {
+      selectWorkspace("/tesouraria");
+      return;
+    }
+    if (command === "tasks") {
+      selectWorkspace("/tarefas");
+      return;
+    }
+    if (command === "hr") {
+      selectWorkspace("/rh");
+      return;
+    }
     if (command === "reports") {
       selectWorkspace("/relatorios");
+      return;
+    }
+    if (command === "audit") {
+      selectWorkspace("/auditoria");
+      return;
+    }
+    if (command === "fiscal") {
+      selectWorkspace("/fiscalidade");
       return;
     }
     if (command === "file") {

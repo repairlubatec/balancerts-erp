@@ -1598,3 +1598,19 @@
 - [x] Preparar checklist do fluxo RH para auditoria
 - [x] Documentar bloqueios AGT, banco, activos e distribuição
 - [x] Entregar plano de fecho operacional
+
+## Identidade oficial — ícone do software
+
+- [ ] Preparar o logótipo oficial para os formatos de ícone da aplicação
+- [ ] Integrar ícone no PWA, favicon e shell desktop
+- [ ] Preparar referências para instaladores Windows e eventual macOS
+- [ ] Validar legibilidade e consistência visual
+- [ ] Guardar checkpoint da identidade oficial preparada
+
+## Barra de menus superior — correcção funcional
+
+- [x] Auditar Ficheiro, Editar, Ver, Operações, Relatórios e Janela
+- [x] Corrigir menus que não abrem ou têm comandos sem acção
+- [x] Validar teclado, foco, fecho e navegação dos menus
+- [x] Rever todos os rótulos para português
+- [x] Guardar checkpoint da correcção da barra superior
