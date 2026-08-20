@@ -1349,3 +1349,11 @@
 - [x] Mostrar direcção da ordenação e sincronizar com paginação
 - [x] Testar ordenação, filtros, selecção e regressões
 - [x] Rever visualmente, executar build e guardar checkpoint
+
+## Centro de Tarefas — exportação CSV
+
+- [x] Mapear dados filtrados e ordenados para exportação
+- [x] Criar gerador CSV seguro e testável
+- [x] Adicionar botão de exportação da lista actual
+- [x] Testar conteúdo, filtros, isolamento e regressões
+- [x] Rever visualmente, executar build e guardar checkpoint
