@@ -1735,7 +1735,7 @@
 
 - [ ] Fixar as três falhas actuais da suite de testes: SMTP Gmail 535 e dois testes do painel financeiro
 - [x] Concluir os testes E2E dos fluxos críticos com dados controlados — 12 testes de integração e 52 testes modulares aprovados
-- [ ] Reforçar segurança de produção, backup/restauro, integridade referencial e observabilidade
+- [x] Reforçar segurança de produção, backup/restauro, integridade referencial e observabilidade — implementação validada; restauro real isolado permanece pendente
 - [x] Executar validação operacional com dados reais anonimizados da Repair Lubatec — leitura tenant-aware da Repair Lubatec e cenários controlados descartáveis aprovados; não foram escritos dados empresariais reais
 - [ ] Validar instaladores EXE/MSI numa máquina Windows limpa
 - [ ] Tratar integrações externas: SMTP, bancos e AGT conforme credenciais e homologação disponíveis
