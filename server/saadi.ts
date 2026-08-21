@@ -52,6 +52,7 @@ export async function createSaadiStudy(input: {
   name: string;
   investmentDomain?: "IMOBILIARIO" | "AGRICULTURA" | "INDUSTRIA" | "ENERGIA" | "HOTELARIA" | "LOGISTICA" | "OUTRO";
   baseCurrency?: string;
+  projectionHorizonYears?: number;
 }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
@@ -66,6 +67,7 @@ export async function createSaadiStudy(input: {
     name,
     investmentDomain: input.investmentDomain ?? "OUTRO",
     baseCurrency: (input.baseCurrency ?? "AOA").trim().toUpperCase(),
+    projectionHorizonYears: Math.min(Math.max(input.projectionHorizonYears ?? 5, 3), 30),
     createdBy: input.userId,
   });
   const rows = await db.select().from(saadiStudies)

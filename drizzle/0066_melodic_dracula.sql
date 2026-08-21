@@ -1,0 +1,1 @@
+ALTER TABLE `saadiStudies` ADD `projectionHorizonYears` int DEFAULT 5 NOT NULL;

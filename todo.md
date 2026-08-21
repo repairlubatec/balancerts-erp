@@ -2425,7 +2425,7 @@
 - [x] Implementar IntegrationRun, estados, retries, timeouts e reconciliação
 - [x] Implementar associação de múltiplos snapshots às versões e proveniência por métrica
 - [x] Expandir adaptadores semânticos de leitura ERP para comercial, compras, tesouraria, stock, RH e fiscalidade
-- [ ] Implementar premissas financeiras adicionais exigidas pelo PDF
+- [x] Implementar premissas financeiras adicionais exigidas pelo PDF
 - [x] Implementar cálculos financeiros adicionais e explicabilidade reproduzível
 - [x] Implementar cenários, sensibilidades, riscos, decisões e relatórios exigidos pelo PDF
 - [ ] Implementar RBAC por procedimento, auditoria, limites e paginação
@@ -2476,3 +2476,12 @@
 - [x] Aplicar leitura somente de dados autorizados da empresa e organização
 - [x] Expor o resumo operacional pelo router protegido SAADI
 - [x] Validar TypeScript sem erros após a expansão do adaptador
+
+### Bloco 6 concluído — horizonte e premissas financeiras
+
+- [x] Persistir o horizonte de projecção no estudo, com valor padrão de 5 anos
+- [x] Validar horizonte entre 3 e 30 anos para estudos ERP e externos
+- [x] Disponibilizar escolhas de 3, 5, 7, 10, 15 e 20 anos no formulário desktop
+- [x] Manter as premissas com valor, unidade, anos, fonte, origem e observação
+- [x] Aplicar a migração não destrutiva 0066
+- [x] Validar TypeScript sem erros após a integração

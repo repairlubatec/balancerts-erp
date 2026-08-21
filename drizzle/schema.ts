@@ -959,6 +959,7 @@ export const saadiStudies = mysqlTable("saadiStudies", {
   investmentDomain: mysqlEnum("investmentDomain", ["IMOBILIARIO", "AGRICULTURA", "INDUSTRIA", "ENERGIA", "HOTELARIA", "LOGISTICA", "OUTRO"]).default("OUTRO").notNull(),
   status: mysqlEnum("status", ["DRAFT", "ACTIVE", "ARCHIVED"]).default("DRAFT").notNull(),
   workflowStatus: mysqlEnum("workflowStatus", ["RASCUNHO", "EM_ANALISE", "AGUARDANDO_VALIDACAO", "VALIDADO", "CONCLUIDO", "ARQUIVADO"]).default("RASCUNHO").notNull(),
+  projectionHorizonYears: int("projectionHorizonYears").default(5).notNull(),
   baseCurrency: varchar("baseCurrency", { length: 3 }).default("AOA").notNull(),
   createdBy: int("createdBy").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
