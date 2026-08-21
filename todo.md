@@ -2191,7 +2191,7 @@
 - [x] Definir pontos de integração, novas entidades, migrações, permissões e riscos
 - [x] Produzir relatório SAADI — Auditoria Técnica e Plano de Integração
 - [x] Guardar checkpoint da Fase 1 antes de qualquer implementação adicional
-- [ ] Só depois da Fase 1 implementar o SAADI por tarefas completas com testes e checkpoints
+- [x] Só depois da Fase 1 implementar o SAADI por tarefas completas com testes e checkpoints
 
 ## Fase 2–3 do PDF — Integração SAADI–ERP
 
@@ -2208,7 +2208,7 @@
 - [x] Expor procedimentos tRPC server-side para contexto empresarial e resumo contabilístico
 - [x] Testar isolamento de empresa, classificação de dados e integridade do envelope
 - [x] Validar TypeScript e testes dirigidos do marco
-- [ ] Guardar checkpoint do adaptador e continuar para a captura imutável com proveniência
+- [x] Guardar checkpoint do adaptador e continuar para a captura imutável com proveniência
 
 ## Segundo marco funcional — Captura imutável ERP → SAADI
 
@@ -2369,3 +2369,11 @@
 - [x] Ordenar e destacar a hipótese mais favorável sem alterar dados do ERP
 - [x] Testar DTO, isolamento e apresentação em português
 - [x] Guardar checkpoint do décimo terceiro marco
+
+## Décimo quarto marco funcional — Equilíbrio do financiamento
+
+- [x] Calcular fontes totais e diferença face ao investimento inicial
+- [x] Alertar sobre financiamento insuficiente ou excedente
+- [x] Apresentar a validação no painel SAADI em português
+- [x] Testar valores equilibrados, insuficientes e excedentes
+- [x] Guardar checkpoint do décimo quarto marco
