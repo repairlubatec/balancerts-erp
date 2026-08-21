@@ -1943,3 +1943,9 @@
 - [x] Reavaliar independentemente a versão consolidada revista contra os Documentos 1 e 2 e a arquitectura actual — parecer em /home/ubuntu/saadi-avaliacao-formal-3.2-revisado.md
 - [x] Verificar se todos os BLOQUEADORES e ALTOS foram realmente eliminados e classificar problemas remanescentes — permanecem 2 BLOQUEADORES e 6 ALTOS
 - [x] Produzir parecer formal e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações ou configurações — decisão NÃO APROVADO; Documento 4 não iniciado
+
+## Documento 3.2.1 SAADI — consolidação documental autorizada
+
+- [x] Redigir o Documento 3.2.1 completo, incorporando as correcções dos 2 BLOQUEADORES e 6 problemas ALTOS — documento em /home/ubuntu/documento-3-saadi-contrato-api-trpc-v3.2.1.md
+- [x] Autoauditar a versão 3.2.1 contra os Documentos 1 e 2 e delimitar questões dos Documentos 4, 5 e 6 — recomenda-se nova avaliação formal
+- [x] Guardar checkpoint documental sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações, configurações ou arquitectura
