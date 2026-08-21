@@ -2428,7 +2428,7 @@
 - [x] Implementar premissas financeiras adicionais exigidas pelo PDF
 - [x] Implementar cálculos financeiros adicionais e explicabilidade reproduzível
 - [x] Implementar cenários, sensibilidades, riscos, decisões e relatórios exigidos pelo PDF
-- [ ] Implementar RBAC por procedimento, auditoria, limites e paginação
+- [x] Implementar RBAC por procedimento, auditoria, limites e paginação
 - [ ] Completar a interface desktop SAADI em português e sem popups do navegador
 - [ ] Criar testes unitários, integração, segurança, imutabilidade e não-escrita no ERP
 - [ ] Executar validação visual e aceitação com dados controlados da Repair Lubatec
@@ -2485,3 +2485,12 @@
 - [x] Manter as premissas com valor, unidade, anos, fonte, origem e observação
 - [x] Aplicar a migração não destrutiva 0066
 - [x] Validar TypeScript sem erros após a integração
+
+### Bloco 7 concluído — RBAC e segurança de procedimentos
+
+- [x] Aplicar RBAC por procedimento através do módulo SAADI
+- [x] Manter perfis financeiro, operador e auditor em leitura no SAADI
+- [x] Permitir criação e validação ao contabilista conforme a matriz de permissões
+- [x] Manter autorização server-side, isolamento por organização e limites de consulta
+- [x] Criar testes de RBAC, overrides e não concessão de acesso ao utilizador comum
+- [x] Validar 13 testes SAADI e TypeScript sem erros
