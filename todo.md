@@ -2332,3 +2332,12 @@
 - [x] Testar prestação mensal, serviço total e juros totais
 - [x] Testar rejeição de dívida sem prazo
 - [x] Validar TypeScript e 16 testes dirigidos SAADI
+
+## Décimo primeiro marco funcional — Financiamento por cenário
+
+- [x] Persistir capital próprio, dívida, taxa e prazo em cada cenário SAADI
+- [x] Calcular e guardar o serviço da dívida por cenário
+- [x] Apresentar financiamento associado na comparação de cenários
+- [x] Manter todos os campos analíticos fora das entidades de pagamentos do ERP
+- [x] Testar criação, actualização, isolamento e determinismo
+- [x] Guardar checkpoint do décimo primeiro marco

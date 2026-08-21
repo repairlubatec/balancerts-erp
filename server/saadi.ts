@@ -386,9 +386,10 @@ export async function saveSaadiScenario(input: { userId: number; organizationId:
   if (!study[0]) throw new Error("SAADI_STUDY_NOT_FOUND_OR_FORBIDDEN");
   const existing = await db.select().from(saadiScenarios).where(and(eq(saadiScenarios.organizationId, input.organizationId), eq(saadiScenarios.companyId, input.companyId), eq(saadiScenarios.studyId, input.studyId), eq(saadiScenarios.name, name))).limit(1);
   const result = calculateFeasibility({ initialInvestment: input.feasibility.initialInvestment, discountRate: input.feasibility.discountRate, cashFlows: input.feasibility.cashFlows });
-  const resultJson = JSON.stringify(result);
+  const financing = calculateFinancing(input.feasibility.debtAmount ?? 0, input.feasibility.equityAmount ?? 0, input.feasibility.debtInterestRate ?? 0, input.feasibility.debtTermMonths ?? 0);
+  const resultJson = JSON.stringify({ ...result, financing });
   const resultHash = hashPayload({ name, feasibility: input.feasibility, result });
-  const values = { organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, name, initialInvestment: String(input.feasibility.initialInvestment), discountRate: String(input.feasibility.discountRate), cashFlowsJson: JSON.stringify(input.feasibility.cashFlows), resultJson, resultHash, decision: result.decision, createdBy: input.userId } as const;
+  const values = { organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, name, initialInvestment: String(input.feasibility.initialInvestment), discountRate: String(input.feasibility.discountRate), cashFlowsJson: JSON.stringify(input.feasibility.cashFlows), equityAmount: String(input.feasibility.equityAmount ?? 0), debtAmount: String(input.feasibility.debtAmount ?? 0), debtInterestRate: String(input.feasibility.debtInterestRate ?? 0), debtTermMonths: input.feasibility.debtTermMonths ?? 0, resultJson, resultHash, decision: result.decision, createdBy: input.userId } as const;
   if (existing[0]) await db.update(saadiScenarios).set(values).where(eq(saadiScenarios.id, existing[0].id));
   else await db.insert(saadiScenarios).values(values);
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_SCENARIO_CALCULATED", entityType: "saadiScenario", entityId: String(input.studyId), beforeState: null, afterState: JSON.stringify({ name, resultHash, decision: result.decision }), correlationId: `saadi-scenario:${input.studyId}:${name}` });
