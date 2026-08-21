@@ -37,6 +37,7 @@ const menuItems = [
   { icon: LayoutDashboard, label: "Minhas Empresas", group: "Contexto", path: "/" },
   { icon: Building2, label: "Empresas", group: "Contexto", path: "/empresas" },
   { icon: Calculator, label: "Contabilidade", group: "Financeira", path: "/contabilidade" },
+  { icon: Calculator, label: "PGCA", group: "Financeira", path: "/pgca" },
   { icon: WalletCards, label: "Tesouraria", group: "Financeira", path: "/tesouraria" },
   { icon: Receipt, label: "Facturação", group: "Comercial", path: "/facturacao" },
   { icon: UsersRound, label: "Clientes", group: "Comercial", path: "/clientes" },

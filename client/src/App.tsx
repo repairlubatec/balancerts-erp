@@ -7,6 +7,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Saadi from "./pages/Saadi";
+import Pgca from "./pages/Pgca";
 
 function Router() {
   return (
@@ -31,6 +32,7 @@ function Router() {
       <Route path="/definicoes" component={Home} />
       <Route path="/ia" component={Home} />
       <Route path="/saadi" component={Saadi} />
+      <Route path="/pgca" component={Pgca} />
       <Route path="/rh" component={Home} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

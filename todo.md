@@ -2533,3 +2533,29 @@
 - [x] Exigir revisão humana antes de validar ou aplicar qualquer resultado
 - [x] Testar importação, análise, categorização, rejeição e validação
 - [x] Guardar checkpoint do fluxo de importação documental
+
+## Reconstrução rigorosa do PGCA angolano
+
+- [ ] Auditar o plano de contas actual, contas usadas, hierarquia, IVA e códigos hardcoded
+- [ ] Pesquisar e registar as fontes normativas angolanas e alterações posteriores aplicáveis
+- [ ] Criar catálogo PGC versionado com fontes legais, vigência, natureza e estados
+- [ ] Criar mapa de migração conta antiga → conta nova com motivo e fonte
+- [ ] Implementar hierarquia, contas de agrupamento, contas de movimento e contas analíticas
+- [ ] Implementar validação automática e dashboard de conformidade do PGC
+- [ ] Implementar banco de regras contabilísticas sem códigos hardcoded
+- [ ] Integrar o novo PGC com IVA, compras, vendas, stock, tesouraria, salários, imobilizado e relatórios
+- [ ] Integrar o novo PGC como fonte oficial do Balancerts IA e do SAADI
+- [ ] Implementar migração segura, backup, rollback e preservação de históricos
+- [ ] Criar administração do PGC com RBAC, histórico e fontes normativas
+- [ ] Executar testes contabilísticos completos e aceitação controlada sem activar dados não validados
+
+- [x] Gerar e aplicar a migração 0067 do metamodelo versionado PGCA sem operações destrutivas
+- [x] Criar serviço server-side PGCA com isolamento por organização/empresa e auditoria
+- [x] Expor procedimentos tRPC protegidos para versões, fontes, contas, auditoria, mapas e regras contabilísticas
+- [x] Criar a interface desktop administrativa do PGCA em português
+- [ ] Executar auditoria real do plano de contas legado e apresentar resultados no painel de conformidade
+- [ ] Importar a estrutura normativa confirmada do Decreto n.º 82/01 e regras IVA sem inventar contas não validadas
+- [ ] Implementar aprovação/activação versionada do PGCA com bloqueios e segregação de funções
+- [ ] Ligar o motor de lançamentos às AccountingRules sem códigos contabilísticos hardcoded
+- [x] Criar testes Vitest do serviço PGCA, RBAC, isolamento e não-escrita do legado
+- [x] Corrigir o nome residual “Disposable” da empresa técnica para terminologia portuguesa no painel PGCA
