@@ -5,6 +5,8 @@ import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema, type SaadiSnapshot as SaadiSnapshotContract, type SaadiSnapshotRequest, type SaadiVersion } from "../shared/saadi-contracts";
 import { calculateFeasibility } from "./saadi-financial";
 import { readSaadiAccountingSummary } from "./saadi-erp-read";
+import { storagePut } from "./storage";
+import { buildSaadiFeasibilityPdf } from "./saadi-report-pdf";
 
 const organizationAccessCondition = (userId: number) => or(
   eq(organizations.ownerUserId, userId),
@@ -125,6 +127,22 @@ export async function captureSaadiErpAccountingSnapshot(input: { userId: number;
   const content = { request: input.request, status: "CONCLUIDA" as const, capturedAt, provenance: [{ sourceSystem: "BALANCERTS.ERP" as const, sourceContract: "erp.accounting.read", sourceEntity: "accounting.read", organizationId: input.request.organizationId, companyId: input.request.companyId, periodIds: input.request.periodIds, extractedAt: capturedAt, contractVersion: input.request.contractVersion, transformation: "LEITURA_DIRECTA", contentHash: summary.integrityHash }], metrics: { periodos: input.request.periodIds.length, linhasBalancete: Array.isArray(summary.data.trialBalance) ? summary.data.trialBalance.length : 0, receitaRealizada: Number(summary.data.incomeStatement.revenue), despesasRealizadas: Number(summary.data.incomeStatement.expenses), resultadoLiquidoRealizado: Number(summary.data.incomeStatement.netIncome) } };
   const contentHash = hashPayload(content);
   return createSaadiSnapshot({ userId: input.userId, studyId: input.studyId, idempotencyKey: `erp-accounting:${input.request.correlationId}`, request: input.request, snapshot: { ...content, contentHash } });
+}
+
+export async function generateSaadiFeasibilityReport(input: { userId: number; organizationId: number; companyId: number; studyId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  const [study] = await db.select().from(saadiStudies).where(and(eq(saadiStudies.id, input.studyId), eq(saadiStudies.organizationId, input.organizationId), eq(saadiStudies.companyId, input.companyId))).limit(1);
+  if (!study) throw new Error("SAADI_STUDY_NOT_FOUND_OR_FORBIDDEN");
+  const feasibility = await getSaadiFeasibilityForUser(input);
+  const risks = await db.select().from(saadiRisks).where(and(eq(saadiRisks.organizationId, input.organizationId), eq(saadiRisks.companyId, input.companyId), eq(saadiRisks.studyId, input.studyId))).orderBy(desc(saadiRisks.exposure));
+  const decisions = await db.select().from(saadiDecisions).where(and(eq(saadiDecisions.organizationId, input.organizationId), eq(saadiDecisions.companyId, input.companyId), eq(saadiDecisions.studyId, input.studyId))).orderBy(desc(saadiDecisions.decidedAt));
+  const result = await buildSaadiFeasibilityPdf({ companyName: String(input.companyId), studyCode: study.studyCode, studyName: study.name, investmentDomain: study.investmentDomain, currency: feasibility.input?.currency ?? study.baseCurrency, feasibility: feasibility.input && feasibility.result ? { ...feasibility.input, ...feasibility.result } : undefined, risks, decisions });
+  const filename = `estudo-viabilidade-${study.studyCode}-${new Date().toISOString().slice(0, 10)}.pdf`;
+  const uploaded = await storagePut(`saadi/${input.organizationId}/${input.companyId}/${filename}`, result.buffer, result.mimeType);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_REPORT_GENERATED", entityType: "saadiStudy", entityId: String(input.studyId), beforeState: null, afterState: JSON.stringify({ filename, key: uploaded.key }), correlationId: `saadi-report:${input.studyId}` });
+  return { filename, url: uploaded.url, key: uploaded.key };
 }
 
 export async function submitSaadiDecision(input: { userId: number; organizationId: number; companyId: number; studyId: number; versionId: number; decision: "APROVAR" | "REJEITAR" | "PEDIR_REVISAO"; justification: string }) {

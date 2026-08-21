@@ -2236,7 +2236,7 @@
 - [x] Persistir o domínio no estudo sem afectar entidades operacionais do ERP
 - [x] Expor o domínio no procedimento e no formulário de criação
 - [x] Testar valores válidos, valor por defeito e isolamento
-- [ ] Guardar checkpoint do quarto marco
+- [x] Guardar checkpoint do quarto marco
 
 ## Quinto marco funcional — Riscos e decisão analítica
 
@@ -2245,7 +2245,7 @@
 - [x] Expor procedimentos server-side com RBAC e auditoria
 - [x] Apresentar registo de riscos no painel do estudo
 - [x] Testar cálculo de exposição, isolamento e operações em português
-- [ ] Guardar checkpoint do quinto marco
+- [x] Guardar checkpoint do quinto marco
 
 ## Sexto marco funcional — Decisão de investimento
 
@@ -2255,4 +2255,12 @@
 - [x] Expor consulta server-side com RBAC e auditoria
 - [x] Apresentar decisão no painel SAADI sem escrever no ERP
 - [x] Testar decisão, imutabilidade, isolamento e validações
-- [ ] Guardar checkpoint do sexto marco
+- [x] Guardar checkpoint do sexto marco
+
+## Sétimo marco funcional — Relatório PDF SAADI
+
+- [x] Criar gerador PDF com premissas, VPL, TIR, payback, ROI, riscos e decisões
+- [x] Expor endpoint protegido para gerar e armazenar o relatório
+- [x] Apresentar acção de geração e ligação ao relatório no painel SAADI
+- [x] Validar TypeScript e 13 testes dirigidos SAADI
+- [ ] Guardar checkpoint do sétimo marco
