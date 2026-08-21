@@ -1979,3 +1979,9 @@
 - [x] Detalhar máquinas de estados com transições, actores, permissões, pré-condições, efeitos e auditoria — adenda em /home/ubuntu/adenda-estados-limites-documento-3.2.2-saadi.md
 - [x] Fixar limites de segurança, paginação, payload, períodos, carga, concorrência, retries, timeout e isolamento
 - [x] Produzir adenda de validação sem alterar código, schema, dados, permissões, routers, interfaces ou integrações
+
+## Nova avaliação formal independente do Documento 3.2.2
+
+- [x] Reavaliar Documento 3.2.2, matriz de correspondência e adenda de estados/limites contra Documentos 1 e 2 e arquitectura actual — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3.2.2.md
+- [x] Classificar problemas remanescentes e decidir formalmente APROVADO, APROVADO COM RESSALVAS ou NÃO APROVADO — decisão NÃO APROVADO: 2 bloqueadores e 6 altos
+- [x] Produzir parecer independente e guardar checkpoint sem alterar o projecto
