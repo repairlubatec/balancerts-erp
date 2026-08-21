@@ -1042,6 +1042,21 @@ export const saadiScenarios = mysqlTable("saadiScenarios", {
   studyScenarioNameUnique: uniqueIndex("saadi_scenarios_study_name_unique").on(table.organizationId, table.companyId, table.studyId, table.name),
 }));
 
+export const saadiDecisions = mysqlTable("saadiDecisions", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyId: int("studyId").notNull(),
+  versionId: int("versionId").notNull(),
+  decision: mysqlEnum("decision", ["APROVAR", "REJEITAR", "PEDIR_REVISAO"]).notNull(),
+  justification: text("justification").notNull(),
+  decidedBy: int("decidedBy").notNull(),
+  decidedAt: timestamp("decidedAt").defaultNow().notNull(),
+  decisionHash: varchar("decisionHash", { length: 64 }).notNull(),
+}, (table) => ({
+  versionDecisionUnique: uniqueIndex("saadi_decisions_version_unique").on(table.versionId),
+}));
+
 export const saadiRisks = mysqlTable("saadiRisks", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

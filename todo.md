@@ -2246,3 +2246,13 @@
 - [x] Apresentar registo de riscos no painel do estudo
 - [x] Testar cálculo de exposição, isolamento e operações em português
 - [ ] Guardar checkpoint do quinto marco
+
+## Sexto marco funcional — Decisão de investimento
+
+- [x] Criar persistência da decisão analítica do estudo
+- [x] Implementar submissão humana com decisão, fundamentação e responsável
+- [x] Impedir duplicação de decisão para a mesma versão aprovada
+- [x] Expor consulta server-side com RBAC e auditoria
+- [x] Apresentar decisão no painel SAADI sem escrever no ERP
+- [x] Testar decisão, imutabilidade, isolamento e validações
+- [ ] Guardar checkpoint do sexto marco

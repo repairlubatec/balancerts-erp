@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, or, sql } from "drizzle-orm";
 import { appendAuditEventForUser, getDb } from "./db";
-import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions, saadiFeasibilityInputs, saadiFinancialResults, saadiScenarios, saadiRisks, saadiVarianceReports } from "../drizzle/schema";
+import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions, saadiFeasibilityInputs, saadiDecisions, saadiFinancialResults, saadiScenarios, saadiRisks, saadiVarianceReports } from "../drizzle/schema";
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema, type SaadiSnapshot as SaadiSnapshotContract, type SaadiSnapshotRequest, type SaadiVersion } from "../shared/saadi-contracts";
 import { calculateFeasibility } from "./saadi-financial";
 import { readSaadiAccountingSummary } from "./saadi-erp-read";
@@ -125,6 +125,31 @@ export async function captureSaadiErpAccountingSnapshot(input: { userId: number;
   const content = { request: input.request, status: "CONCLUIDA" as const, capturedAt, provenance: [{ sourceSystem: "BALANCERTS.ERP" as const, sourceContract: "erp.accounting.read", sourceEntity: "accounting.read", organizationId: input.request.organizationId, companyId: input.request.companyId, periodIds: input.request.periodIds, extractedAt: capturedAt, contractVersion: input.request.contractVersion, transformation: "LEITURA_DIRECTA", contentHash: summary.integrityHash }], metrics: { periodos: input.request.periodIds.length, linhasBalancete: Array.isArray(summary.data.trialBalance) ? summary.data.trialBalance.length : 0, receitaRealizada: Number(summary.data.incomeStatement.revenue), despesasRealizadas: Number(summary.data.incomeStatement.expenses), resultadoLiquidoRealizado: Number(summary.data.incomeStatement.netIncome) } };
   const contentHash = hashPayload(content);
   return createSaadiSnapshot({ userId: input.userId, studyId: input.studyId, idempotencyKey: `erp-accounting:${input.request.correlationId}`, request: input.request, snapshot: { ...content, contentHash } });
+}
+
+export async function submitSaadiDecision(input: { userId: number; organizationId: number; companyId: number; studyId: number; versionId: number; decision: "APROVAR" | "REJEITAR" | "PEDIR_REVISAO"; justification: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  const justification = input.justification.trim();
+  if (!justification) throw new Error("SAADI_DECISION_JUSTIFICATION_REQUIRED");
+  const [version] = await db.select().from(saadiVersions).where(and(eq(saadiVersions.id, input.versionId), eq(saadiVersions.organizationId, input.organizationId), eq(saadiVersions.companyId, input.companyId), eq(saadiVersions.studyId, input.studyId))).limit(1);
+  if (!version) throw new Error("SAADI_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  if (version.status !== "APPROVED") throw new Error("SAADI_DECISION_REQUIRES_APPROVED_VERSION");
+  const existing = await db.select().from(saadiDecisions).where(eq(saadiDecisions.versionId, input.versionId)).limit(1);
+  if (existing[0]) return { ...existing[0], alreadyExists: true };
+  const decisionHash = hashPayload({ organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, versionId: input.versionId, decision: input.decision, justification, versionHash: version.versionHash });
+  const values = { organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, versionId: input.versionId, decision: input.decision, justification, decidedBy: input.userId, decisionHash };
+  await db.insert(saadiDecisions).values(values);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_DECISION_SUBMITTED", entityType: "saadiDecision", entityId: String(input.versionId), beforeState: null, afterState: JSON.stringify(values), correlationId: `saadi-decision:${input.versionId}` });
+  return { ...values, alreadyExists: false };
+}
+
+export async function listSaadiDecisionsForUser(input: { userId: number; organizationId: number; companyId: number; studyId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  return db.select().from(saadiDecisions).where(and(eq(saadiDecisions.organizationId, input.organizationId), eq(saadiDecisions.companyId, input.companyId), eq(saadiDecisions.studyId, input.studyId))).orderBy(desc(saadiDecisions.decidedAt));
 }
 
 export async function createSaadiRisk(input: { userId: number; organizationId: number; companyId: number; studyId: number; title: string; description: string; probability: number; impact: number; response?: "EVITAR" | "REDUZIR" | "TRANSFERIR" | "ACEITAR" }) {
