@@ -2577,3 +2577,4 @@
 - [x] Garantir que compras, vendas, stock e relatórios não contornam o posting central PGCA; a transição contabilística exige lançamento publicado e a parametrização normativa fica no motor central
 - [ ] Parametrizar automaticamente as AccountingRules específicas de compras, vendas e stock quando esses fluxos passarem a publicar lançamentos automáticos
 - [x] Retirar o PGCA da navegação principal e manter a Contabilidade como ponto operacional único do plano de contas
+- [x] Mostrar na Contabilidade a cobertura das AccountingRules activas por operação, versão e empresa
