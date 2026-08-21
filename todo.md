@@ -2274,3 +2274,8 @@
 
 - [x] Criar teste de geração de PDF válido com premissas, riscos e decisão
 - [x] Validar TypeScript e 14 testes dirigidos SAADI
+
+## Experiência do relatório SAADI
+
+- [x] Trocar abertura em nova janela por descarregamento directo dentro do shell
+- [x] Validar TypeScript e 14 testes dirigidos SAADI
