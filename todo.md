@@ -2571,3 +2571,4 @@
 - [x] Preservar leitura de históricos legados através de mapa de migração, sem reescrever lançamentos já publicados
 - [x] Criar testes de não-regressão para lançamento PGCA, isolamento por empresa e bloqueio de versão não activa
 - [x] Verificar visualmente o fluxo operacional da Contabilidade com selecção de contas PGCA
+- [x] Integrar a postagem da folha salarial com contas PGCA confirmadas e AccountingRules SALARIOS/FOLHA quando existir versão activa

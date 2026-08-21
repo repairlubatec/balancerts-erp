@@ -741,14 +741,27 @@ export async function postPayrollJournalForUser(input: { userId: number; company
   const period = await db.select({ period: fiscalPeriods }).from(fiscalPeriods).where(and(eq(fiscalPeriods.companyId, input.companyId), eq(fiscalPeriods.year, run.year), eq(fiscalPeriods.month, run.month))).limit(1);
   if (!period[0]) throw new Error("PAYROLL_FISCAL_PERIOD_NOT_FOUND");
   const [salaryAccount, socialExpenseAccount, socialPayableAccount, irtPayableAccount, netPayableAccount] = selectedAccounts;
+  const activePgc = await db.select({ version: pgcVersions }).from(pgcVersions).where(and(eq(pgcVersions.organizationId, run.organizationId), eq(pgcVersions.status, "ACTIVE"), lte(pgcVersions.effectiveFrom, new Date()), or(isNull(pgcVersions.effectiveTo), gte(pgcVersions.effectiveTo, new Date())))).limit(1);
+  const pgcOperationalByCode = new Map<string, number>();
+  if (activePgc[0]) {
+    const normativeRows = await Promise.all(configuredCodes.map((code) => db.select({ account: pgcAccounts }).from(pgcAccounts).where(and(eq(pgcAccounts.organizationId, run.organizationId), eq(pgcAccounts.versionId, activePgc[0].version.id), eq(pgcAccounts.code, code!), eq(pgcAccounts.validationStatus, "CONFIRMED"), eq(pgcAccounts.acceptsEntries, 1), eq(pgcAccounts.active, 1))).limit(1)));
+    if (normativeRows.some((rows) => !rows[0])) throw new Error("PAYROLL_PGC_ACCOUNTS_UNMAPPED");
+    for (const rows of normativeRows) {
+      const normative = rows[0]!.account;
+      const resolved = await resolveActivePgcOperationalAccount(db, { userId: input.userId, organizationId: run.organizationId, companyId: input.companyId, pgcAccountId: normative.id });
+      if (!resolved) throw new Error("PAYROLL_PGC_OPERATIONAL_MAPPING_REQUIRED");
+      pgcOperationalByCode.set(normative.code, resolved.operationalAccountId);
+    }
+  }
+  const operationalId = (code: string, fallback: number) => pgcOperationalByCode.get(code) ?? fallback;
   const lines = [
-    { accountId: salaryAccount!.id, debit: Number(run.grossTotal), credit: 0, postable: true, validFrom: new Date() },
-    { accountId: socialExpenseAccount!.id, debit: Number(run.socialEmployerTotal), credit: 0, postable: true, validFrom: new Date() },
-    { accountId: socialPayableAccount!.id, debit: 0, credit: Number(run.socialEmployeeTotal) + Number(run.socialEmployerTotal), postable: true, validFrom: new Date() },
-    { accountId: irtPayableAccount!.id, debit: 0, credit: Number(run.irtTotal), postable: true, validFrom: new Date() },
-    { accountId: netPayableAccount!.id, debit: 0, credit: Number(run.netTotal), postable: true, validFrom: new Date() },
+    { accountId: operationalId(configuredCodes[0]!, salaryAccount!.id), debit: Number(run.grossTotal), credit: 0, postable: true, validFrom: new Date() },
+    { accountId: operationalId(configuredCodes[1]!, socialExpenseAccount!.id), debit: Number(run.socialEmployerTotal), credit: 0, postable: true, validFrom: new Date() },
+    { accountId: operationalId(configuredCodes[2]!, socialPayableAccount!.id), debit: 0, credit: Number(run.socialEmployeeTotal) + Number(run.socialEmployerTotal), postable: true, validFrom: new Date() },
+    { accountId: operationalId(configuredCodes[3]!, irtPayableAccount!.id), debit: 0, credit: Number(run.irtTotal), postable: true, validFrom: new Date() },
+    { accountId: operationalId(configuredCodes[4]!, netPayableAccount!.id), debit: 0, credit: Number(run.netTotal), postable: true, validFrom: new Date() },
   ].filter((line) => line.debit > 0 || line.credit > 0);
-  const entry = await postJournalEntry({ companyId: input.companyId, periodId: period[0].period.id, idempotencyKey: input.idempotencyKey, description: `Processamento salarial ${String(run.month).padStart(2, "0")}/${run.year}`, documentReference: run.accountingReference ?? `FOLHA-${run.id}`, journalCode: "SALARIOS", reviewRequired: true, createdBy: input.userId, lines });
+  const entry = await postJournalEntry({ companyId: input.companyId, periodId: period[0].period.id, idempotencyKey: input.idempotencyKey, description: `Processamento salarial ${String(run.month).padStart(2, "0")}/${run.year}`, documentReference: run.accountingReference ?? `FOLHA-${run.id}`, journalCode: "SALARIOS", reviewRequired: true, createdBy: input.userId, accountingRuleOperation: activePgc[0] ? "SALARIOS" : undefined, accountingRuleDocumentType: activePgc[0] ? "FOLHA" : undefined, lines });
   await db.update(payrollRuns).set({ accountingLinkStatus: "POSTED", accountingReference: `DIARIO-${entry.entryId ?? entry.entry?.id}` }).where(eq(payrollRuns.id, input.runId));
   await appendAuditEventForUser({ organizationId: run.organizationId, companyId: run.companyId, actorUserId: input.userId, action: "PAYROLL_ACCOUNTING_JOURNAL_CREATED", entityType: "payrollRun", entityId: String(run.id), beforeState: JSON.stringify(run), afterState: JSON.stringify({ accountingLinkStatus: "POSTED", entryId: entry.entryId ?? entry.entry?.id }), correlationId: input.idempotencyKey });
   return { ...entry, payrollRunId: run.id };
