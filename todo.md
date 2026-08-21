@@ -1955,3 +1955,9 @@
 - [x] Ler integralmente o documento anexado e confrontar a versão 3.2.1 com os Documentos 1 e 2 e a arquitectura actual — parecer em /home/ubuntu/saadi-avaliacao-final-documento-3.2.1.md
 - [x] Classificar rigorosamente conflitos, bloqueadores, problemas altos e ressalvas — permanecem 3 problemas ALTOS; decisão NÃO APROVADO
 - [x] Produzir parecer formal independente e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações ou configurações
+
+## Proposta SAADI 3.2.2 — análise de aprovação documental
+
+- [x] Ler e confrontar integralmente a proposta 3.2.2 com os Documentos 1 e 2 e a arquitectura actual — parecer em /home/ubuntu/saadi-avaliacao-proposta-3.2.2.md
+- [x] Verificar se as correcções aos três problemas ALTOS são determinísticas e compatíveis — a proposta é mandato de revisão, não contrato final
+- [x] Produzir parecer formal e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações ou configurações — autorização de revisão aceite; Documento 3.2.2 ainda não aprovado
