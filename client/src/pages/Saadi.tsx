@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
-import { Building2, FlaskConical, Plus, RefreshCw, ShieldCheck } from "lucide-react";
+import { Building2, Database, FlaskConical, GitCompareArrows, Plus, RefreshCw, ShieldCheck } from "lucide-react";
 
 const studyStatusLabel = (status: string) => status === "DRAFT" ? "Rascunho" : status === "ACTIVE" ? "Activo" : "Arquivado";
 const versionStatusLabel = (status: string) => status === "APPROVED" ? "Aprovada" : status === "IN_REVIEW" ? "Em revisão" : status === "ARCHIVED" ? "Arquivada" : "Rascunho";
@@ -38,6 +38,9 @@ export default function Saadi() {
     { enabled: Boolean(activeCompanyId && organizationId && selectedStudyId) },
   );
   const selectedSnapshotId = snapshots.data?.[0]?.id;
+  const [periodId, setPeriodId] = useState("1");
+  const [varianceMetric, setVarianceMetric] = useState("resultadoLiquidoRealizado");
+  const [projectedValue, setProjectedValue] = useState("0");
   const feasibility = trpc.saadi.feasibility.useQuery(activeCompanyId && organizationId && selectedStudyId ? { organizationId, companyId: activeCompanyId, studyId: selectedStudyId } : { organizationId: 0, companyId: 0, studyId: 0 }, { enabled: Boolean(activeCompanyId && organizationId && selectedStudyId) });
   const [initialInvestment, setInitialInvestment] = useState("1000000");
   const [discountRate, setDiscountRate] = useState("0.15");
@@ -47,6 +50,9 @@ export default function Saadi() {
   const calculateFeasibility = trpc.saadi.calculateFeasibility.useMutation({ onSuccess: async () => { await feasibility.refetch(); } });
   const scenarios = trpc.saadi.scenarios.useQuery(activeCompanyId && organizationId && selectedStudyId ? { organizationId, companyId: activeCompanyId, studyId: selectedStudyId } : { organizationId: 0, companyId: 0, studyId: 0 }, { enabled: Boolean(activeCompanyId && organizationId && selectedStudyId) });
   const saveScenario = trpc.saadi.saveScenario.useMutation({ onSuccess: async () => { await scenarios.refetch(); } });
+  const captureErpSnapshot = trpc.saadi.captureErpAccountingSnapshot.useMutation({ onSuccess: async () => { await snapshots.refetch(); } });
+  const variances = trpc.saadi.variances.useQuery(activeCompanyId && organizationId && selectedStudyId ? { organizationId, companyId: activeCompanyId, studyId: selectedStudyId, snapshotId: selectedSnapshotId } : { organizationId: 0, companyId: 0, studyId: 0 }, { enabled: Boolean(activeCompanyId && organizationId && selectedStudyId) });
+  const compareVariance = trpc.saadi.compareProjectionToRealized.useMutation({ onSuccess: async () => { await variances.refetch(); } });
   const provenance = trpc.saadi.provenance.useQuery(
     activeCompanyId && organizationId && selectedSnapshotId ? { companyId: activeCompanyId, organizationId, snapshotId: selectedSnapshotId } : { companyId: 0, organizationId: 0, snapshotId: 0 },
     { enabled: Boolean(activeCompanyId && organizationId && selectedSnapshotId) },
@@ -136,6 +142,27 @@ export default function Saadi() {
             </div>
             <div className="flex flex-wrap items-end gap-2 border-t border-[#dbe5f1] pt-3"><div className="min-w-[220px] flex-1"><Label htmlFor="saadi-scenario">Nome do cenário</Label><Input id="saadi-scenario" value={scenarioName} onChange={(event) => setScenarioName(event.target.value)} placeholder="Cenário optimista" /></div><Button type="button" variant="outline" disabled={saveScenario.isPending || !scenarioName.trim()} onClick={() => { const flows = cashFlows.split(",").map((value) => Number(value.trim())); if (activeCompanyId && organizationId && selectedStudyId) saveScenario.mutate({ organizationId, companyId: activeCompanyId, studyId: selectedStudyId, name: scenarioName, feasibility: { initialInvestment: Number(initialInvestment), discountRate: Number(discountRate), cashFlows: flows, currency: selected?.company.functionalCurrency ?? "AOA" } }); }}>Guardar cenário calculado</Button></div>
             {scenarios.data?.length ? <div className="space-y-2"><p className="text-xs font-semibold text-[#102a43]">Cenários guardados</p>{scenarios.data.map((scenario) => <div key={scenario.id} className="flex items-center justify-between rounded border border-[#dbe5f1] bg-white px-3 py-2 text-xs"><span>{scenario.name}</span><span className={scenario.decision === "PROSSEGUIR" ? "font-semibold text-emerald-700" : scenario.decision === "REJEITAR" ? "font-semibold text-rose-700" : "font-semibold text-amber-700"}>{scenario.decision === "PROSSEGUIR" ? "Prosseguir" : scenario.decision === "REJEITAR" ? "Rejeitar" : "Rever"}</span></div>)}</div> : null}
+            <div className="rounded border border-[#dbe5f1] bg-[#f6faff] p-3">
+              <div className="flex items-center gap-2"><Database className="h-4 w-4 text-[#1267d6]" /><p className="text-xs font-semibold text-[#102a43]">Dados realizados do BALANCERTS.ERP</p></div>
+              <p className="mt-1 text-[11px] text-slate-500">Captura somente de leitura. Os movimentos contabilísticos do ERP não serão alterados.</p>
+              <div className="mt-3 flex flex-wrap items-end gap-2">
+                <div><Label htmlFor="saadi-period">Período contabilístico</Label><Input id="saadi-period" type="number" min="1" value={periodId} onChange={(event) => setPeriodId(event.target.value)} className="w-32" /></div>
+                <Button type="button" variant="outline" disabled={captureErpSnapshot.isPending || !activeCompanyId || !organizationId || !selectedStudyId} onClick={() => { if (activeCompanyId && organizationId && selectedStudyId) captureErpSnapshot.mutate({ studyId: selectedStudyId, request: { organizationId, companyId: activeCompanyId, periodIds: [Number(periodId)], currency: selected?.company.functionalCurrency ?? "AOA", purpose: "Análise do realizado contabilístico", contractVersion: "v1.0", correlationId: `erp-accounting-${selectedStudyId}-${periodId}`, includeHrDetails: false } }); }}><Database className="mr-1 h-3.5 w-3.5" />{captureErpSnapshot.isPending ? "A capturar…" : "Capturar realizado"}</Button>
+                {captureErpSnapshot.isSuccess && <span className="text-[11px] text-emerald-700">Captura concluída com proveniência.</span>}
+                {captureErpSnapshot.error && <span role="alert" className="text-[11px] text-rose-700">Não foi possível capturar o período seleccionado.</span>}
+              </div>
+            </div>
+            <div className="rounded border border-[#dbe5f1] bg-white p-3">
+              <div className="flex items-center gap-2"><GitCompareArrows className="h-4 w-4 text-[#1267d6]" /><p className="text-xs font-semibold text-[#102a43]">Projectado versus realizado</p></div>
+              <p className="mt-1 text-[11px] text-slate-500">Compare um valor projectado com uma métrica realizada proveniente da captura ERP.</p>
+              <div className="mt-3 flex flex-wrap items-end gap-2">
+                <div className="min-w-[190px]"><Label htmlFor="saadi-variance-metric">Métrica realizada</Label><select id="saadi-variance-metric" value={varianceMetric} onChange={(event) => setVarianceMetric(event.target.value)} className="h-9 w-full rounded-md border border-[#dbe5f1] bg-white px-2 text-xs"><option value="resultadoLiquidoRealizado">Resultado líquido realizado</option><option value="receitaRealizada">Receita realizada</option><option value="despesasRealizadas">Despesas realizadas</option></select></div>
+                <div><Label htmlFor="saadi-projected-value">Valor projectado</Label><Input id="saadi-projected-value" type="number" step="0.01" value={projectedValue} onChange={(event) => setProjectedValue(event.target.value)} className="w-36" /></div>
+                <Button type="button" variant="outline" disabled={compareVariance.isPending || !selectedSnapshotId} onClick={() => { if (activeCompanyId && organizationId && selectedStudyId && selectedSnapshotId) compareVariance.mutate({ organizationId, companyId: activeCompanyId, studyId: selectedStudyId, snapshotId: selectedSnapshotId, metric: varianceMetric, projectedValue: Number(projectedValue), currency: selected?.company.functionalCurrency ?? "AOA" }); }}><GitCompareArrows className="mr-1 h-3.5 w-3.5" />{compareVariance.isPending ? "A comparar…" : "Calcular desvio"}</Button>
+              </div>
+              {variances.data?.length ? <div className="mt-3 space-y-1">{variances.data.map((variance) => <div key={variance.id} className="flex flex-wrap items-center justify-between rounded bg-[#f8fafc] px-2 py-1 text-[11px]"><span>{variance.metric === "resultadoLiquidoRealizado" ? "Resultado líquido" : variance.metric === "receitaRealizada" ? "Receita" : "Despesas"}</span><span>Projectado: {Number(variance.projectedValue).toLocaleString("pt-PT")} · Realizado: {Number(variance.realizedValue).toLocaleString("pt-PT")} · Desvio: {Number(variance.absoluteVariance).toLocaleString("pt-PT")}</span></div>)}</div> : <p className="mt-2 text-[11px] text-slate-500">Ainda não existem desvios calculados para esta captura.</p>}
+              {compareVariance.error && <p role="alert" className="mt-2 text-[11px] text-rose-700">Não foi possível calcular o desvio. Capture primeiro os dados realizados.</p>}
+            </div>
             {feasibility.data?.result ? <div className="grid gap-3 md:grid-cols-4">
               <div className="rounded border border-[#dbe5f1] bg-white p-3"><p className="text-[11px] text-slate-500">Valor presente líquido</p><p className="mt-1 text-lg font-semibold text-[#102a43]">{feasibility.data.result.npv.toLocaleString("pt-PT", { maximumFractionDigits: 2 })} {feasibility.data.input?.currency}</p></div>
               <div className="rounded border border-[#dbe5f1] bg-white p-3"><p className="text-[11px] text-slate-500">Taxa interna de rentabilidade</p><p className="mt-1 text-lg font-semibold text-[#102a43]">{feasibility.data.result.irr === null ? "—" : `${(feasibility.data.result.irr * 100).toFixed(2)}%`}</p></div>

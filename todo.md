@@ -2217,7 +2217,7 @@
 - [x] Garantir idempotência por correlação e ausência de escrita no ERP
 - [x] Expor procedimento tRPC protegido para captura
 - [x] Validar TypeScript e 12 testes dirigidos SAADI
-- [ ] Guardar checkpoint da captura e continuar para comparação projectado versus realizado
+- [x] Guardar checkpoint da captura e continuar para comparação projectado versus realizado
 
 ## Terceiro marco funcional — Projectado versus realizado
 
@@ -2227,4 +2227,4 @@
 - [x] Expor consulta e cálculo server-side com isolamento por organização e empresa
 - [x] Apresentar a comparação no painel SAADI sem transformar o desvio em lançamento ERP
 - [x] Testar comparação, limites, isolamento e não-regressão
-- [ ] Guardar checkpoint do terceiro marco
+- [x] Guardar checkpoint do terceiro marco
