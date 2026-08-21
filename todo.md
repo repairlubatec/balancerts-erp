@@ -2519,3 +2519,7 @@
 - [x] Criar testes unitários, integração, segurança e não-escrita operacional
 - [x] Executar validação visual e aceitação controlada — painel /ia verificado e fluxo offline coberto por testes
 - [x] Guardar checkpoints de cada bloco concluído
+
+### Documentação de dependências externas
+
+- [x] Criar roteiro seguro para restauro isolado, validação Windows, assinatura, AGT, banca e aceitação Repair Lubatec
