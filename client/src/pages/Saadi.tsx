@@ -91,6 +91,19 @@ export default function Saadi() {
     if (!rows.length) return "Não existem empresas autorizadas para o utilizador actual.";
     return `${rows.length} empresa${rows.length === 1 ? "" : "s"} disponível${rows.length === 1 ? "" : "eis"}.`;
   }, [companies.isLoading, rows.length]);
+  const readiness = useMemo(() => {
+    const checks = [
+      { key: "study", label: "Estudo criado", done: Boolean(selectedStudyId) },
+      { key: "inputs", label: "Premissas financeiras guardadas", done: Boolean(feasibility.data?.input) },
+      { key: "result", label: "Análise financeira calculada", done: Boolean(feasibility.data?.result) },
+      { key: "snapshot", label: "Dados realizados capturados", done: Boolean(snapshots.data?.length) },
+      { key: "version", label: "Versão para validação", done: Boolean(versions.data?.length) },
+      { key: "risk", label: "Riscos avaliados", done: Boolean(risks.data?.length) },
+      { key: "decision", label: "Decisão humana registada", done: Boolean(decisions.data?.length) },
+    ];
+    const completed = checks.filter((check) => check.done).length;
+    return { checks, completed, percentage: Math.round((completed / checks.length) * 100) };
+  }, [decisions.data, feasibility.data, risks.data, selectedStudyId, snapshots.data, versions.data]);
 
   return (
     <div className="space-y-4 p-4 text-[#1d2a38]">
@@ -137,6 +150,11 @@ export default function Saadi() {
           </CardContent>
         </Card>
       </div>
+
+      <Card className="rounded-sm border-[#bfc9d4] bg-[#fbfcfd] shadow-none">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"><CardTitle className="text-sm text-[#102a43]">Prontidão do estudo</CardTitle><Badge variant="outline" className={readiness.percentage === 100 ? "border-emerald-200 text-emerald-700" : "border-amber-200 text-amber-700"}>{readiness.percentage}% concluído</Badge></CardHeader>
+        <CardContent className="space-y-3"><div className="h-2 overflow-hidden rounded-full bg-slate-100"><div className={`h-full rounded-full transition-all ${readiness.percentage === 100 ? "bg-emerald-500" : "bg-[#1267d6]"}`} style={{ width: `${readiness.percentage}%` }} /></div><div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">{readiness.checks.map((check) => <div key={check.key} className={`rounded border px-2 py-2 text-[11px] ${check.done ? "border-emerald-200 bg-emerald-50 text-emerald-800" : "border-amber-200 bg-amber-50 text-amber-800"}`}><span className="mr-1 font-semibold">{check.done ? "✓" : "!"}</span>{check.label}</div>)}</div>{!selectedStudyId ? <p className="text-[11px] text-slate-500">Crie ou seleccione um estudo para iniciar o preenchimento guiado.</p> : readiness.percentage < 100 ? <p className="text-[11px] text-slate-500">Complete os itens pendentes pela ordem apresentada. Nenhum passo altera os registos operacionais do BALANCERTS.ERP.</p> : <p className="text-[11px] text-emerald-700">O estudo tem os elementos essenciais registados para análise e decisão.</p>}</CardContent>
+      </Card>
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card className="rounded-sm border-[#bfc9d4] bg-[#fbfcfd] shadow-none">

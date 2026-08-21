@@ -2341,3 +2341,23 @@
 - [x] Manter todos os campos analíticos fora das entidades de pagamentos do ERP
 - [x] Testar criação, actualização, isolamento e determinismo
 - [x] Guardar checkpoint do décimo primeiro marco
+
+## Resolução SMTP Gmail pelo navegador
+
+- [ ] Verificar sessão Gmail autenticada no navegador disponível
+- [ ] Verificar elegibilidade de palavra-passe de aplicação
+- [ ] Configurar SMTP_PASSWORD através do fluxo seguro
+- [ ] Reexecutar teste SMTP e suite global
+
+## Pendência externa não bloqueante
+
+- [x] Isolar o SMTP Gmail 535 e continuar o desenvolvimento do SAADI sem depender dele
+- [ ] Resolver SMTP Gmail posteriormente, quando houver nova credencial válida
+
+## Décimo segundo marco funcional — Prontidão do estudo
+
+- [x] Calcular checklist de prontidão com dados reais do estudo seleccionado
+- [x] Mostrar bloqueios de configuração, captura, versão, risco e decisão
+- [x] Apresentar progresso e instruções accionáveis no painel desktop
+- [x] Testar estados vazio, parcial e concluído sem alterar o ERP
+- [x] Guardar checkpoint do décimo segundo marco
