@@ -2621,3 +2621,6 @@
 - [x] D3 local: criar DTO semântico versionado para extractos bancários, independente do formato do banco
 - [x] D3 local: validar hash, moeda, datas, saldos e idempotência do extracto antes da persistência
 - [x] Actualizar os dossiers D3 e D5 com os contratos locais implementados e os limites que continuam externos
+- [x] Rever visualmente página a página o quadro de contas do Decreto n.º 82/01 e separar confirmações de ambiguidades OCR
+- [x] Importar apenas contas PGCA visualmente confirmadas numa versão em revisão, sem activar linhas ambíguas
+- [x] Testar hierarquia, duplicação, conta-mãe, auditoria e isolamento das contas PGCA importadas
