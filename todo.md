@@ -2421,10 +2421,10 @@
 
 - [x] Ler e decompor integralmente o PDF em requisitos verificáveis
 - [x] Confrontar cada requisito com o SAADI actual, schema, routers, interface e testes
-- [ ] Implementar Project, ExternalCompany e CompanyLink conforme o domínio aprovado
+- [x] Implementar Project, ExternalCompany e CompanyLink conforme o domínio aprovado
 - [x] Implementar IntegrationRun, estados, retries, timeouts e reconciliação
 - [x] Implementar associação de múltiplos snapshots às versões e proveniência por métrica
-- [ ] Expandir adaptadores semânticos de leitura ERP para comercial, compras, tesouraria, stock, RH e fiscalidade
+- [x] Expandir adaptadores semânticos de leitura ERP para comercial, compras, tesouraria, stock, RH e fiscalidade
 - [ ] Implementar premissas financeiras adicionais exigidas pelo PDF
 - [x] Implementar cálculos financeiros adicionais e explicabilidade reproduzível
 - [x] Implementar cenários, sensibilidades, riscos, decisões e relatórios exigidos pelo PDF
@@ -2468,3 +2468,11 @@
 - [x] Auditar transições do ciclo de vida por utilizador e estudo
 - [x] Integrar o controlo de workflow no painel desktop em português
 - [x] Validar TypeScript sem erros após a integração do workflow
+
+### Bloco 5 concluído — leitura semântica dos domínios ERP
+
+- [x] Expor resumo de comercial, compras, tesouraria, pagamentos, stock, RH e fiscalidade
+- [x] Manter o envelope ACTUAL_REALIZED com autoridade ERP, versão e hash de integridade
+- [x] Aplicar leitura somente de dados autorizados da empresa e organização
+- [x] Expor o resumo operacional pelo router protegido SAADI
+- [x] Validar TypeScript sem erros após a expansão do adaptador

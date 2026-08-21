@@ -1,5 +1,7 @@
 import { createHash } from "node:crypto";
-import { getBalanceSheetForUserCompany, getCompaniesForUser, getIncomeStatementForUserCompany, getTrialBalanceForUserCompany } from "./db";
+import { and, eq, sql } from "drizzle-orm";
+import { businessDocuments, employees, fiscalTaxRecords, payments, purchaseOrders, stockMovements, treasuryTransactions } from "../drizzle/schema";
+import { getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getIncomeStatementForUserCompany, getTrialBalanceForUserCompany } from "./db";
 
 export type SaadiDataClass = "ACTUAL_REALIZED";
 
@@ -34,6 +36,22 @@ export async function readSaadiCompanyContext(userId: number, companyId: number)
 async function contextFor(userId: number, companyId: number) {
   const context = await readSaadiCompanyContext(userId, companyId);
   return { context, organizationId: context.organizationId };
+}
+
+export async function readSaadiOperationalSummary(userId: number, companyId: number, periodId?: number) {
+  const { context, organizationId } = await contextFor(userId, companyId);
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const [documents, purchases, paymentsSummary, treasury, stock, humanResources, taxes] = await Promise.all([
+    db.select({ total: sql<number>`count(*)`, gross: sql<string>`coalesce(sum(totalAmount), 0)` }).from(businessDocuments).where(eq(businessDocuments.companyId, companyId)),
+    db.select({ total: sql<number>`count(*)` }).from(purchaseOrders).where(and(eq(purchaseOrders.organizationId, organizationId), eq(purchaseOrders.companyId, companyId))),
+    db.select({ total: sql<number>`count(*)`, amount: sql<string>`coalesce(sum(amount), 0)` }).from(payments).where(and(eq(payments.organizationId, organizationId), eq(payments.companyId, companyId))),
+    db.select({ total: sql<number>`count(*)`, amountIn: sql<string>`coalesce(sum(case when direction = 'IN' then amount else 0 end), 0)`, amountOut: sql<string>`coalesce(sum(case when direction = 'OUT' then amount else 0 end), 0)` }).from(treasuryTransactions).where(eq(treasuryTransactions.companyId, companyId)),
+    db.select({ total: sql<number>`count(*)`, quantity: sql<string>`coalesce(sum(quantity), 0)` }).from(stockMovements).where(and(eq(stockMovements.organizationId, organizationId), eq(stockMovements.companyId, companyId))),
+    db.select({ total: sql<number>`count(*)` }).from(employees).where(and(eq(employees.organizationId, organizationId), eq(employees.companyId, companyId))),
+    db.select({ total: sql<number>`count(*)`, amount: sql<string>`coalesce(sum(taxAmount), 0)` }).from(fiscalTaxRecords).where(and(eq(fiscalTaxRecords.organizationId, organizationId), eq(fiscalTaxRecords.companyId, companyId))),
+  ]);
+  return envelope({ organizationId, companyId, asOf: context.asOf, sourceSystem: "BALANCERTS.ERP", sourceService: "operational-domains.read", sourceVersion: "erp-read-v1", dataClass: "ACTUAL_REALIZED", authority: "ERP", data: { periodId: periodId ?? null, commercial: documents[0] ?? { total: 0, gross: "0" }, purchases: purchases[0] ?? { total: 0 }, treasury: treasury[0] ?? { total: 0, amountIn: "0", amountOut: "0" }, payments: paymentsSummary[0] ?? { total: 0, amount: "0" }, stock: stock[0] ?? { total: 0, quantity: "0" }, humanResources: humanResources[0] ?? { total: 0 }, fiscality: taxes[0] ?? { total: 0, amount: "0" } } });
 }
 
 export async function readSaadiAccountingSummary(userId: number, companyId: number, periodId?: number) {

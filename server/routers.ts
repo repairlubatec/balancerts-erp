@@ -2,7 +2,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { calculateSaadiFeasibilityForUser, captureSaadiErpAccountingSnapshot, compareSaadiProjectionToRealized, createSaadiRisk, createSaadiSnapshot, generateSaadiFeasibilityReport, listSaadiDecisionsForUser, submitSaadiDecision, createSaadiStudy, createSaadiVersion, getSaadiFeasibilityForUser, listSaadiProvenanceForUser, listSaadiScenariosForUser, listSaadiSnapshotsForUser, listSaadiRisksForUser, listSaadiStudiesForUser, listSaadiVariancesForUser, listSaadiVersionsForUser, saveSaadiFeasibilityInput, saveSaadiScenario, transitionSaadiVersionForUser } from "./saadi";
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema } from "../shared/saadi-contracts";
-import { readSaadiAccountingSummary, readSaadiCompanyContext } from "./saadi-erp-read";
+import { readSaadiAccountingSummary, readSaadiCompanyContext, readSaadiOperationalSummary } from "./saadi-erp-read";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
@@ -59,6 +59,7 @@ export const appRouter = router({
     studies: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive() })).query(({ ctx, input }) => listSaadiStudiesForUser({ ...input, userId: ctx.user.id })),
     erpCompanyContext: roleProcedure("saadi", "read").input(z.object({ companyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => readSaadiCompanyContext(ctx.user.id, input.companyId)),
     erpAccountingSummary: roleProcedure("saadi", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() }).strict()).query(({ ctx, input }) => readSaadiAccountingSummary(ctx.user.id, input.companyId, input.periodId)),
+    erpOperationalSummary: roleProcedure("saadi", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() }).strict()).query(({ ctx, input }) => readSaadiOperationalSummary(ctx.user.id, input.companyId, input.periodId)),
     captureErpAccountingSnapshot: roleProcedure("saadi", "create").input(z.object({ studyId: z.number().int().positive(), request: saadiSnapshotRequestSchema }).strict()).mutation(({ ctx, input }) => captureSaadiErpAccountingSnapshot({ ...input, userId: ctx.user.id })),
     compareProjectionToRealized: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), snapshotId: z.number().int().positive(), metric: z.string().trim().min(1).max(160), projectedValue: z.number().finite(), currency: z.string().trim().length(3).default("AOA") }).strict()).mutation(({ ctx, input }) => compareSaadiProjectionToRealized({ ...input, userId: ctx.user.id })),
     variances: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), snapshotId: z.number().int().positive().optional() }).strict()).query(({ ctx, input }) => listSaadiVariancesForUser({ ...input, userId: ctx.user.id })),
