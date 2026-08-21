@@ -18,6 +18,7 @@ describe("disposable tenant persisted E2E cycle", () => {
   it("reserves, emits, posts, reconciles, closes and reopens without touching Repair Lubatec", async () => {
     const db = await getDb();
     expect(db).toBeTruthy();
+    await db!.update(fiscalPeriods).set({ status: "OPEN", closedAt: null }).where(and(eq(fiscalPeriods.companyId, TEST_COMPANY_ID), eq(fiscalPeriods.year, 2026), eq(fiscalPeriods.month, 1)));
     const periodRows = await db!.select({ id: fiscalPeriods.id }).from(fiscalPeriods).where(and(eq(fiscalPeriods.companyId, TEST_COMPANY_ID), eq(fiscalPeriods.year, 2026), eq(fiscalPeriods.month, 1)));
     const periodId = periodRows[0]?.id;
     expect(periodId).toBeTruthy();

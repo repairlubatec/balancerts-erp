@@ -23,6 +23,7 @@ describe("expanded tenant-aware operational modules", () => {
     const db = await getDb();
     expect(db).toBeTruthy();
     const caller = appRouter.createCaller(adminContext());
+    await db!.update(fiscalPeriods).set({ status: "OPEN", closedAt: null }).where(eq(fiscalPeriods.companyId, COMPANY_ID));
     const suffix = Date.now();
     let counterpartyId: number | undefined;
     let productId: number | undefined;

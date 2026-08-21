@@ -2584,3 +2584,7 @@
 - [x] Reorganizar a Contabilidade para que o ecrã principal não tenha scroll vertical e cada operação abra por botão num fluxo dedicado
 - [x] Garantir que os formulários de lançamentos, importação, consultas, IVA, tesouraria e fecho são acessíveis em janelas/painéis próprios
 - [x] Validar a navegação por botões e impedir que campos operacionais fiquem escondidos abaixo da dobra
+- [x] Corrigir o botão Novo lançamento para abrir directamente o formulário operacional, sem depender apenas de URL
+- [x] Corrigir o botão Importar para abrir directamente o fluxo de importação documental/CSV
+- [x] Remover o scroll vertical da Contabilidade, usando janelas operacionais com área interna controlada e fecho visível
+- [x] Testar os dois botões e confirmar que nenhuma operação fica inacessível por estar abaixo da dobra
