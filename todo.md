@@ -2590,5 +2590,5 @@
 - [x] Testar os dois botões e confirmar que nenhuma operação fica inacessível por estar abaixo da dobra
 - [x] Corrigir chaves React duplicadas no selector de contas do Novo lançamento (`3420001`)
 - [x] Validar a rota /contabilidade?entry=new sem avisos de consola ou regressões
-- [ ] Acrescentar titular e saldo inicial nas contas bancárias de Tesouraria, com migração não destrutiva
-- [ ] Expor titular e saldo inicial nos contratos e formulário de criação/edição de contas bancárias
+- [x] Acrescentar titular e saldo inicial nas contas bancárias de Tesouraria, com migração não destrutiva
+- [x] Expor titular e saldo inicial nos contratos e formulário de criação/edição de contas bancárias
