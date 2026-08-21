@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { skipToken } from "@tanstack/react-query";
 
-const statusLabel: Record<string, string> = { DRAFT: "Rascunho", UNDER_REVIEW: "Em revisão", VALIDATED: "Validada", ACTIVE: "Activa", SUPERSEDED: "Substituída", ARCHIVED: "Arquivada", NEEDS_NORMATIVE_VALIDATION: "Validação normativa pendente", CONFIRMED: "Confirmada", PENDING: "Pendente", RUNNING: "Em execução", COMPLETED: "Concluída", FAILED: "Falhou", REVIEWED: "Revisto", APPROVED: "Aprovado", APPLIED: "Aplicado", REJECTED: "Rejeitado" };
+const statusLabel: Record<string, string> = { DRAFT: "Rascunho", UNDER_REVIEW: "Em revisão", VALIDATED: "Validada", ACTIVE: "Activa", SUPERSEDED: "Substituída", ARCHIVED: "Arquivada", NEEDS_NORMATIVE_VALIDATION: "Validação normativa pendente", CONFIRMED: "Confirmada", PENDING: "Pendente", RUNNING: "Em execução", COMPLETED: "Concluída", FAILED: "Falhou", REVIEWED: "Revisto", APPROVED: "Aprovado", APPLIED: "Aplicado", REJECTED: "Rejeitada", CONFLICT: "Conflito", INVALID: "Inválida", DUPLICATE: "Duplicada", MISSING_PARENT: "Conta-pai em falta" };
 const accountTypeLabel: Record<string, string> = { CLASS: "Classe", GROUP: "Grupo", MOVEMENT: "Movimento", ANALYTICAL: "Analítica" };
 const natureLabel: Record<string, string> = { DEBIT: "Devedora", CREDIT: "Credora", MIXED: "Mista", NOT_APPLICABLE: "Não aplicável" };
 
