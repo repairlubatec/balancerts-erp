@@ -2561,3 +2561,13 @@
 - [x] Corrigir o nome residual “Disposable” da empresa técnica para terminologia portuguesa no painel PGCA
 - [x] Importar como rascunho a hierarquia PGCA confirmada por OCR (4/45/451/4511 e 6/61/613/6131), sem activar contas
 - [ ] Confirmar integralmente a lista normativa no PDF oficial e catalogar regras IVA aplicáveis
+
+## Reorientação: Contabilidade operacional baseada no novo PGCA
+
+- [x] Auditar todos os fluxos contabilísticos que ainda seleccionam contas directamente de chartAccounts
+- [x] Criar adaptador server-side de conta operacional para conta PGCA activa, com bloqueio de contas sem correspondência
+- [x] Fazer a Contabilidade usar o catálogo PGCA activo na criação e edição de lançamentos
+- [ ] Integrar a resolução PGCA nos fluxos de compras, vendas, tesouraria, stock, salários, imobilizado e relatórios
+- [x] Preservar leitura de históricos legados através de mapa de migração, sem reescrever lançamentos já publicados
+- [x] Criar testes de não-regressão para lançamento PGCA, isolamento por empresa e bloqueio de versão não activa
+- [x] Verificar visualmente o fluxo operacional da Contabilidade com selecção de contas PGCA

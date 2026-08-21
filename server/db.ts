@@ -1680,6 +1680,8 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
   const companyContext = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), organizationAccessCondition(input.createdBy))).limit(1);
   if (!companyContext[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   if (companyContext[0].company.configurationStatus !== "READY") throw new Error("COMPANY_CONFIGURATION_PENDING");
+  const activePgc = await db.select({ id: pgcVersions.id }).from(pgcVersions).where(and(eq(pgcVersions.organizationId, companyContext[0].company.organizationId), eq(pgcVersions.status, "ACTIVE"), lte(pgcVersions.effectiveFrom, new Date()), or(isNull(pgcVersions.effectiveTo), gte(pgcVersions.effectiveTo, new Date())))).limit(1);
+  if (activePgc[0] && !input.accountingRuleOperation) throw new Error("PGC_ACCOUNTING_RULE_REQUIRED");
   await assertFiscalPeriodForUserCompany({ actorUserId: input.createdBy, companyId: input.companyId, periodId: input.periodId });
   if (input.sourceDocumentId !== undefined) {
     const source = await db.select({ id: businessDocuments.id }).from(businessDocuments).where(and(eq(businessDocuments.id, input.sourceDocumentId), eq(businessDocuments.companyId, input.companyId))).limit(1);
@@ -1696,11 +1698,11 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
   }
   let resolvedAccountingRule: typeof accountingRules.$inferSelect | undefined;
   if (input.accountingRuleOperation) {
-    const ruleRows = await db.select({ rule: accountingRules }).from(accountingRules).innerJoin(pgcVersions, eq(accountingRules.versionId, pgcVersions.id)).where(and(eq(accountingRules.organizationId, companyContext[0].company.organizationId), eq(accountingRules.companyId, input.companyId), eq(accountingRules.operation, input.accountingRuleOperation), input.accountingRuleDocumentType ? eq(accountingRules.documentType, input.accountingRuleDocumentType) : sql`1 = 1`, eq(accountingRules.active, 1), eq(pgcVersions.status, "ACTIVE"), lte(accountingRules.effectiveFrom, new Date()), or(isNull(accountingRules.effectiveTo), gte(accountingRules.effectiveTo, new Date())))).orderBy(accountingRules.priority).limit(1);
+    const ruleRows = await db.select({ rule: accountingRules }).from(accountingRules).innerJoin(pgcVersions, eq(accountingRules.versionId, pgcVersions.id)).where(and(eq(accountingRules.organizationId, companyContext[0].company.organizationId), or(eq(accountingRules.companyId, input.companyId), isNull(accountingRules.companyId)), eq(accountingRules.operation, input.accountingRuleOperation), input.accountingRuleDocumentType ? eq(accountingRules.documentType, input.accountingRuleDocumentType) : sql`1 = 1`, eq(accountingRules.active, 1), eq(pgcVersions.status, "ACTIVE"), lte(accountingRules.effectiveFrom, new Date()), or(isNull(accountingRules.effectiveTo), gte(accountingRules.effectiveTo, new Date())))).orderBy(accountingRules.priority).limit(1);
     resolvedAccountingRule = ruleRows[0]?.rule;
     if (!resolvedAccountingRule) throw new Error("ACCOUNTING_RULE_NOT_FOUND");
     if (resolvedAccountingRule.debitAccountId === null || resolvedAccountingRule.creditAccountId === null) throw new Error("ACCOUNTING_RULE_INCOMPLETE");
-    const normativeAccounts = await db.select({ id: pgcAccounts.id, code: pgcAccounts.code }).from(pgcAccounts).where(inArray(pgcAccounts.id, [resolvedAccountingRule.debitAccountId, resolvedAccountingRule.creditAccountId]));
+    const normativeAccounts = await db.select({ id: pgcAccounts.id, code: pgcAccounts.code }).from(pgcAccounts).where(and(eq(pgcAccounts.organizationId, companyContext[0].company.organizationId), eq(pgcAccounts.versionId, resolvedAccountingRule.versionId), eq(pgcAccounts.validationStatus, "CONFIRMED"), inArray(pgcAccounts.id, [resolvedAccountingRule.debitAccountId, resolvedAccountingRule.creditAccountId])));
     if (normativeAccounts.length !== 2) throw new Error("ACCOUNTING_RULE_NORMATIVE_ACCOUNT_NOT_FOUND");
     const normativeCodes = new Set(normativeAccounts.map((account) => account.code));
     const operationalAccounts = await db.select({ id: chartAccounts.id, code: chartAccounts.code }).from(chartAccounts).where(and(eq(chartAccounts.companyId, input.companyId), inArray(chartAccounts.code, Array.from(normativeCodes))));
@@ -1972,17 +1974,42 @@ export async function listFiscalTaxRecordsForUser(input: { userId: number; compa
   return db.select({ record: fiscalTaxRecords }).from(fiscalTaxRecords).innerJoin(companies, eq(fiscalTaxRecords.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(...conditions)).orderBy(desc(fiscalTaxRecords.createdAt));
 }
 
-export async function createOpeningBalanceForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; accountId: number; debit: number; credit: number; currency?: string; reason?: string }) {
+async function resolveActivePgcOperationalAccount(db: any, input: { userId: number; organizationId: number; companyId: number; pgcAccountId?: number }) {
+  const active = await db.select({ version: pgcVersions }).from(pgcVersions).where(and(eq(pgcVersions.organizationId, input.organizationId), eq(pgcVersions.status, "ACTIVE"), lte(pgcVersions.effectiveFrom, new Date()), or(isNull(pgcVersions.effectiveTo), gte(pgcVersions.effectiveTo, new Date())))).limit(1);
+  if (!active[0]) return null;
+  if (!input.pgcAccountId) throw new Error("PGC_ACCOUNT_REFERENCE_REQUIRED");
+  const normative = await db.select({ account: pgcAccounts }).where(and(eq(pgcAccounts.id, input.pgcAccountId), eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, active[0].version.id), eq(pgcAccounts.validationStatus, "CONFIRMED"), eq(pgcAccounts.acceptsEntries, 1), eq(pgcAccounts.active, 1))).limit(1);
+  if (!normative[0]) throw new Error("PGC_ACCOUNT_NOT_CONFIRMED");
+  const operational = await db.select({ account: chartAccounts }).where(and(eq(chartAccounts.companyId, input.companyId), eq(chartAccounts.code, normative[0].account.code), eq(chartAccounts.postable, 1))).limit(1);
+  if (!operational[0]) throw new Error("PGC_ACCOUNT_OPERATIONAL_MAPPING_REQUIRED");
+  return { operationalAccountId: operational[0].account.id, pgcAccountId: normative[0].account.id, pgcCode: normative[0].account.code };
+}
+
+export async function createOpeningBalanceForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; accountId?: number; pgcAccountId?: number; debit: number; credit: number; currency?: string; reason?: string }) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   if (input.debit < 0 || input.credit < 0 || (input.debit === 0 && input.credit === 0) || (input.debit > 0 && input.credit > 0)) throw new Error("OPENING_BALANCE_MUST_HAVE_ONE_SIDE");
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
   await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
-  const account = await db.select({ account: chartAccounts }).from(chartAccounts).where(and(eq(chartAccounts.id, input.accountId), eq(chartAccounts.companyId, input.companyId), eq(chartAccounts.postable, 1))).limit(1);
+  const resolvedPgc = await resolveActivePgcOperationalAccount(db, input);
+  const operationalAccountId = resolvedPgc?.operationalAccountId ?? input.accountId;
+  if (!operationalAccountId) throw new Error("OPENING_BALANCE_ACCOUNT_REQUIRED");
+  const account = await db.select({ account: chartAccounts }).from(chartAccounts).where(and(eq(chartAccounts.id, operationalAccountId), eq(chartAccounts.companyId, input.companyId), eq(chartAccounts.postable, 1))).limit(1);
   if (!account[0]) throw new Error("OPENING_BALANCE_ACCOUNT_NOT_POSTABLE");
-  const inserted = await db.insert(openingBalances).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, accountId: input.accountId, debit: input.debit.toFixed(2), credit: input.credit.toFixed(2), currency: input.currency ?? "AOA", reason: input.reason, createdBy: input.userId, status: "DRAFT" });
+  const inserted = await db.insert(openingBalances).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, accountId: operationalAccountId, debit: input.debit.toFixed(2), credit: input.credit.toFixed(2), currency: input.currency ?? "AOA", reason: input.reason, createdBy: input.userId, status: "DRAFT" });
   const id = Number(inserted[0].insertId);
-  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "OPENING_BALANCE_CREATED", entityType: "openingBalance", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, id, status: "DRAFT" }), correlationId: `opening-balance:${input.companyId}:${input.periodId}:${id}` });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "OPENING_BALANCE_CREATED", entityType: "openingBalance", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, accountId: operationalAccountId, pgcAccountId: resolvedPgc?.pgcAccountId ?? null, pgcCode: resolvedPgc?.pgcCode ?? null, id, status: "DRAFT" }), correlationId: `opening-balance:${input.companyId}:${input.periodId}:${id}` });
   return { id, status: "DRAFT" as const };
+}
+
+export async function postJournalEntryWithPgcAccountsForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; operation: string; documentType?: string; sourceDocumentId?: number; supportFileAssetId?: number; documentReference?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; reviewRequired?: boolean; idempotencyKey: string; description: string; lines: Array<{ pgcAccountId: number; debit: number; credit: number; currency?: string; exchangeRate?: number }> }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const resolvedLines = await Promise.all(input.lines.map(async (line) => {
+    const resolved = await resolveActivePgcOperationalAccount(db, { userId: input.userId, organizationId: input.organizationId, companyId: input.companyId, pgcAccountId: line.pgcAccountId });
+    if (!resolved) throw new Error("PGC_ACTIVE_VERSION_REQUIRED");
+    return { accountId: resolved.operationalAccountId, debit: line.debit, credit: line.credit, currency: line.currency ?? "AOA", exchangeRate: line.exchangeRate ?? 1, postable: true, validFrom: new Date() };
+  }));
+  return postJournalEntry({ ...input, createdBy: input.userId, accountingRuleOperation: input.operation, accountingRuleDocumentType: input.documentType, lines: resolvedLines });
 }
 
 export async function listOpeningBalancesForUser(input: { userId: number; companyId: number; periodId?: number }) {
@@ -1992,12 +2019,12 @@ export async function listOpeningBalancesForUser(input: { userId: number; compan
   return db.select({ openingBalance: openingBalances, account: chartAccounts }).from(openingBalances).innerJoin(companies, eq(openingBalances.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).innerJoin(chartAccounts, eq(openingBalances.accountId, chartAccounts.id)).where(and(...conditions)).orderBy(desc(openingBalances.createdAt));
 }
 
-type P1AccountingLine = { accountId: number; debit: number; credit: number };
+type P1AccountingLine = { accountId?: number; pgcAccountId?: number; debit: number; credit: number };
 function validateP1AccountingLines(lines: P1AccountingLine[]) {
   if (lines.length < 2) throw new Error("ACCOUNTING_LINES_REQUIRED");
   const debit = lines.reduce((sum, line) => sum + line.debit, 0);
   const credit = lines.reduce((sum, line) => sum + line.credit, 0);
-  if (!lines.every((line) => Number.isInteger(line.accountId) && line.accountId > 0 && line.debit >= 0 && line.credit >= 0 && (line.debit === 0 || line.credit === 0))) throw new Error("ACCOUNTING_LINE_INVALID");
+  if (!lines.every((line) => Number.isInteger(line.accountId) && line.accountId! > 0 && line.debit >= 0 && line.credit >= 0 && (line.debit === 0 || line.credit === 0))) throw new Error("ACCOUNTING_LINE_INVALID");
   if (debit <= 0 || Math.abs(debit - credit) > 0.01) throw new Error("ACCOUNTING_LINES_UNBALANCED");
   return { debit: Number(debit.toFixed(2)), credit: Number(credit.toFixed(2)) };
 }
@@ -2005,10 +2032,14 @@ function validateP1AccountingLines(lines: P1AccountingLine[]) {
 export async function createAccountingAdjustmentForUser(input: { userId: number; organizationId: number; companyId: number; periodId: number; adjustmentType: "REGULARIZACAO" | "RECLASSIFICACAO" | "ACRESCIMO" | "DIFERIMENTO" | "CORRECCAO"; reason: string; lines: P1AccountingLine[] }) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   if (!input.reason.trim()) throw new Error("ADJUSTMENT_REASON_REQUIRED");
-  const totals = validateP1AccountingLines(input.lines);
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
   await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
-  const inserted = await db.insert(accountingAdjustments).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, adjustmentType: input.adjustmentType, reason: input.reason.trim(), linesJson: JSON.stringify(input.lines), createdBy: input.userId, status: "DRAFT" });
+  const operationalLines = await Promise.all(input.lines.map(async (line) => {
+    const resolved = await resolveActivePgcOperationalAccount(db, { userId: input.userId, organizationId: input.organizationId, companyId: input.companyId, pgcAccountId: line.pgcAccountId });
+    return { ...line, accountId: resolved?.operationalAccountId ?? line.accountId };
+  }));
+  const totals = validateP1AccountingLines(operationalLines);
+  const inserted = await db.insert(accountingAdjustments).values({ organizationId: input.organizationId, companyId: input.companyId, periodId: input.periodId, adjustmentType: input.adjustmentType, reason: input.reason.trim(), linesJson: JSON.stringify(operationalLines), createdBy: input.userId, status: "DRAFT" });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "ACCOUNTING_ADJUSTMENT_CREATED", entityType: "accountingAdjustment", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, id, status: "DRAFT" }), correlationId: `accounting-adjustment:${input.companyId}:${input.periodId}:${id}` });
   return { id, status: "DRAFT" as const, ...totals };
@@ -2028,7 +2059,8 @@ export async function publishOpeningBalancesForUser(input: { userId: number; com
   const rows = await db.select({ openingBalance: openingBalances, organizationId: companies.organizationId }).from(openingBalances).innerJoin(companies, eq(openingBalances.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(openingBalances.companyId, input.companyId), eq(openingBalances.periodId, input.periodId), eq(openingBalances.status, "VALIDATED" as const), organizationAccessCondition(input.userId)));
   if (!rows.length) throw new Error("OPENING_BALANCES_NOT_READY");
   const totals = validateP1AccountingLines(rows.map(({ openingBalance }) => ({ accountId: openingBalance.accountId, debit: Number(openingBalance.debit), credit: Number(openingBalance.credit) })));
-  const entry = await postJournalEntry({ companyId: input.companyId, periodId: input.periodId, idempotencyKey: `opening-post:${input.companyId}:${input.periodId}`, description: "Saldos iniciais do período", journalCode: "ABERTURA", createdBy: input.userId, lines: rows.map(({ openingBalance }) => ({ accountId: openingBalance.accountId, debit: Number(openingBalance.debit), credit: Number(openingBalance.credit), postable: true, validFrom: new Date(), currency: openingBalance.currency, exchangeRate: 1 })) });
+  const activePgc = await db.select({ id: pgcVersions.id }).from(pgcVersions).where(and(eq(pgcVersions.organizationId, rows[0].organizationId), eq(pgcVersions.status, "ACTIVE"), lte(pgcVersions.effectiveFrom, new Date()), or(isNull(pgcVersions.effectiveTo), gte(pgcVersions.effectiveTo, new Date())))).limit(1);
+  const entry = await postJournalEntry({ companyId: input.companyId, periodId: input.periodId, idempotencyKey: `opening-post:${input.companyId}:${input.periodId}`, description: "Saldos iniciais do período", journalCode: "ABERTURA", createdBy: input.userId, accountingRuleOperation: activePgc[0] ? "ABERTURA" : undefined, lines: rows.map(({ openingBalance }) => ({ accountId: openingBalance.accountId, debit: Number(openingBalance.debit), credit: Number(openingBalance.credit), postable: true, validFrom: new Date(), currency: openingBalance.currency, exchangeRate: 1 })) });
   await db.update(openingBalances).set({ status: "POSTED", journalEntryId: entry.entryId }).where(and(eq(openingBalances.companyId, input.companyId), eq(openingBalances.periodId, input.periodId), eq(openingBalances.status, "VALIDATED" as const)));
   return { entryId: entry.entryId, ...totals, status: "POSTED" as const };
 }
@@ -2049,7 +2081,13 @@ export async function publishAccountingAdjustmentForUser(input: { userId: number
   const rows = await db.select({ adjustment: accountingAdjustments }).from(accountingAdjustments).innerJoin(companies, eq(accountingAdjustments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(accountingAdjustments.id, input.adjustmentId), eq(accountingAdjustments.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
   if (!rows[0] || rows[0].adjustment.status !== "APPROVED" || !rows[0].adjustment.linesJson) throw new Error("ACCOUNTING_ADJUSTMENT_NOT_READY");
   const lines = JSON.parse(rows[0].adjustment.linesJson) as P1AccountingLine[]; validateP1AccountingLines(lines);
-  const entry = await postJournalEntry({ companyId: input.companyId, periodId: rows[0].adjustment.periodId, idempotencyKey: `adjustment-post:${input.adjustmentId}`, description: rows[0].adjustment.reason, journalCode: "OPERACOES_DIVERSAS", createdBy: input.userId, lines: lines.map((line) => ({ ...line, postable: true, validFrom: new Date(), currency: "AOA", exchangeRate: 1 })) });
+  const adjustmentScope = await db.select({ organizationId: companies.organizationId }).from(companies).where(eq(companies.id, input.companyId)).limit(1);
+  const activePgc = adjustmentScope[0] ? await db.select({ id: pgcVersions.id }).from(pgcVersions).where(and(eq(pgcVersions.organizationId, adjustmentScope[0].organizationId), eq(pgcVersions.status, "ACTIVE"), lte(pgcVersions.effectiveFrom, new Date()), or(isNull(pgcVersions.effectiveTo), gte(pgcVersions.effectiveTo, new Date())))).limit(1) : [];
+  const journalLines = lines.map((line) => {
+    if (!line.accountId) throw new Error("ACCOUNTING_LINE_INVALID");
+    return { accountId: line.accountId, debit: line.debit, credit: line.credit, postable: true, validFrom: new Date(), currency: "AOA", exchangeRate: 1 };
+  });
+  const entry = await postJournalEntry({ companyId: input.companyId, periodId: rows[0].adjustment.periodId, idempotencyKey: `adjustment-post:${input.adjustmentId}`, description: rows[0].adjustment.reason, journalCode: "OPERACOES_DIVERSAS", createdBy: input.userId, accountingRuleOperation: activePgc[0] ? "OPERACOES_DIVERSAS" : undefined, lines: journalLines });
   await db.update(accountingAdjustments).set({ status: "POSTED", journalEntryId: entry.entryId }).where(eq(accountingAdjustments.id, input.adjustmentId));
   return { id: input.adjustmentId, entryId: entry.entryId, status: "POSTED" as const };
 }

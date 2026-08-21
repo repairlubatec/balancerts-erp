@@ -71,7 +71,7 @@ export async function reviewPgcSourceForUser(input: { userId: number; organizati
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   const version = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
   if (!version[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
-  if (!["DRAFT", "UNDER_REVIEW"].includes(version[0].version.status)) throw new Error("PGC_VERSION_NOT_REVIEWABLE");
+  if (version[0].version.status !== "UNDER_REVIEW") throw new Error("PGC_VERSION_NOT_REVIEWABLE");
   const source = await db.select().from(pgcSources).where(and(eq(pgcSources.id, input.sourceId), eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId))).limit(1);
   if (!source[0]) throw new Error("PGC_SOURCE_NOT_FOUND_OR_FORBIDDEN");
   if (input.verificationStatus !== "CONFIRMED" && !input.conflictNote?.trim()) throw new Error("PGC_SOURCE_REVIEW_NOTE_REQUIRED");
