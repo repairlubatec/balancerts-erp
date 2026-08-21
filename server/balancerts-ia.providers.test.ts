@@ -43,3 +43,14 @@ describe("Balancerts IA providers", () => {
     vi.unstubAllGlobals();
   });
 });
+
+  it("declara custo zero e ausência de API paga no diagnóstico", async () => {
+    const { getBalancertsIaDiagnostics } = await import("./balancerts-ia/diagnostics");
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")));
+    const diagnostic = await getBalancertsIaDiagnostics({ localBaseUrl: "http://127.0.0.1", localPort: 11434, localModel: "qwen2.5:3b" });
+    expect(diagnostic.offline).toBe(true);
+    expect(diagnostic.internetRequired).toBe(false);
+    expect(diagnostic.paidApiRequired).toBe(false);
+    expect(diagnostic.costPerDocumentKz).toBe(0);
+    vi.unstubAllGlobals();
+  });
