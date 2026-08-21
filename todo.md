@@ -2598,8 +2598,8 @@
 - [ ] Pesquisar rigorosamente PGCA, IVA, AGT, banca, restauro e distribuição Windows e apresentar parecer para confirmação antes de implementar
 - [ ] D1 — Completar o catálogo versionado PGCA/IVA em estado PENDING, com fonte, vigência, âmbito, auditoria e revisão humana
 - [x] D2 — Reforçar exportação, validação e pacote local SAF-T/AGT sem submissão real nem homologação declarada
-- [ ] Ler a aba oficial do PGCA/Decreto n.º 82/01 e a aba oficial da Lei n.º 14/23 do IVA, preservando evidência integral
-- [ ] Confrontar as fontes das duas abas com o catálogo actual e apresentar proposta de activação para confirmação
+- [x] Ler a aba oficial do PGCA/Decreto n.º 82/01 e a aba oficial da Lei n.º 14/23 do IVA, preservando evidência integral
+- [x] Confrontar as fontes das duas abas com o catálogo actual e apresentar proposta de activação para confirmação
 - [x] Processar integralmente o PDF oficial recebido do Decreto n.º 82/01 e preservar a extracção verificável do PGCA
 - [x] Comparar a estrutura extraída do PGCA com as contas actualmente activas no BALANCERTS.ERP, sem alterar dados
 - [x] Corrigir o teste de evidência PGCA para usar a formulação exacta do parecer e voltar a executar a validação
