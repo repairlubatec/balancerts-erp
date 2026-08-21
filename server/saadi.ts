@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, or, sql } from "drizzle-orm";
 import { appendAuditEventForUser, getDb } from "./db";
-import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions, saadiFeasibilityInputs, saadiFinancialResults } from "../drizzle/schema";
+import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions, saadiFeasibilityInputs, saadiFinancialResults, saadiScenarios } from "../drizzle/schema";
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema, type SaadiSnapshot as SaadiSnapshotContract, type SaadiSnapshotRequest, type SaadiVersion } from "../shared/saadi-contracts";
 import { calculateFeasibility } from "./saadi-financial";
 
@@ -253,4 +253,32 @@ export async function getSaadiFeasibilityForUser(input: { userId: number; organi
   const [saved] = await db.select().from(saadiFeasibilityInputs).where(and(eq(saadiFeasibilityInputs.organizationId, input.organizationId), eq(saadiFeasibilityInputs.companyId, input.companyId), eq(saadiFeasibilityInputs.studyId, input.studyId))).limit(1);
   const [result] = await db.select().from(saadiFinancialResults).where(and(eq(saadiFinancialResults.organizationId, input.organizationId), eq(saadiFinancialResults.companyId, input.companyId), eq(saadiFinancialResults.studyId, input.studyId))).limit(1);
   return { input: saved ? { initialInvestment: Number(saved.initialInvestment), discountRate: Number(saved.discountRate), cashFlows: JSON.parse(saved.cashFlowsJson) as number[], currency: saved.currency, inputHash: saved.inputHash } : null, result: result ? { npv: Number(result.npv), irr: result.irr ? Number(result.irr) : null, paybackMonths: result.paybackMonths ? Number(result.paybackMonths) : null, roi: Number(result.roi), decision: result.decision, resultHash: result.resultHash } : null };
+}
+
+
+export async function saveSaadiScenario(input: { userId: number; organizationId: number; companyId: number; studyId: number; name: string; feasibility: SaadiFeasibilityInput }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  const name = input.name.trim();
+  if (!name) throw new Error("SAADI_CENARIO_NOME_OBRIGATORIO");
+  validateFeasibilityInput(input.feasibility);
+  const study = await db.select().from(saadiStudies).where(and(eq(saadiStudies.id, input.studyId), eq(saadiStudies.organizationId, input.organizationId), eq(saadiStudies.companyId, input.companyId))).limit(1);
+  if (!study[0]) throw new Error("SAADI_STUDY_NOT_FOUND_OR_FORBIDDEN");
+  const existing = await db.select().from(saadiScenarios).where(and(eq(saadiScenarios.organizationId, input.organizationId), eq(saadiScenarios.companyId, input.companyId), eq(saadiScenarios.studyId, input.studyId), eq(saadiScenarios.name, name))).limit(1);
+  const result = calculateFeasibility({ initialInvestment: input.feasibility.initialInvestment, discountRate: input.feasibility.discountRate, cashFlows: input.feasibility.cashFlows });
+  const resultJson = JSON.stringify(result);
+  const resultHash = hashPayload({ name, feasibility: input.feasibility, result });
+  const values = { organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, name, initialInvestment: String(input.feasibility.initialInvestment), discountRate: String(input.feasibility.discountRate), cashFlowsJson: JSON.stringify(input.feasibility.cashFlows), resultJson, resultHash, decision: result.decision, createdBy: input.userId } as const;
+  if (existing[0]) await db.update(saadiScenarios).set(values).where(eq(saadiScenarios.id, existing[0].id));
+  else await db.insert(saadiScenarios).values(values);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_SCENARIO_CALCULATED", entityType: "saadiScenario", entityId: String(input.studyId), beforeState: null, afterState: JSON.stringify({ name, resultHash, decision: result.decision }), correlationId: `saadi-scenario:${input.studyId}:${name}` });
+  return { name, ...result, resultHash };
+}
+
+export async function listSaadiScenariosForUser(input: { userId: number; organizationId: number; companyId: number; studyId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  return db.select().from(saadiScenarios).where(and(eq(saadiScenarios.organizationId, input.organizationId), eq(saadiScenarios.companyId, input.companyId), eq(saadiScenarios.studyId, input.studyId))).orderBy(desc(saadiScenarios.createdAt));
 }

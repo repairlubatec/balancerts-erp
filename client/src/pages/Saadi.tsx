@@ -42,8 +42,11 @@ export default function Saadi() {
   const [initialInvestment, setInitialInvestment] = useState("1000000");
   const [discountRate, setDiscountRate] = useState("0.15");
   const [cashFlows, setCashFlows] = useState("300000,350000,400000,450000,500000");
+  const [scenarioName, setScenarioName] = useState("Cenário base");
   const saveFeasibility = trpc.saadi.saveFeasibilityInput.useMutation({ onSuccess: async () => { await feasibility.refetch(); } });
   const calculateFeasibility = trpc.saadi.calculateFeasibility.useMutation({ onSuccess: async () => { await feasibility.refetch(); } });
+  const scenarios = trpc.saadi.scenarios.useQuery(activeCompanyId && organizationId && selectedStudyId ? { organizationId, companyId: activeCompanyId, studyId: selectedStudyId } : { organizationId: 0, companyId: 0, studyId: 0 }, { enabled: Boolean(activeCompanyId && organizationId && selectedStudyId) });
+  const saveScenario = trpc.saadi.saveScenario.useMutation({ onSuccess: async () => { await scenarios.refetch(); } });
   const provenance = trpc.saadi.provenance.useQuery(
     activeCompanyId && organizationId && selectedSnapshotId ? { companyId: activeCompanyId, organizationId, snapshotId: selectedSnapshotId } : { companyId: 0, organizationId: 0, snapshotId: 0 },
     { enabled: Boolean(activeCompanyId && organizationId && selectedSnapshotId) },
@@ -131,6 +134,8 @@ export default function Saadi() {
               {calculateFeasibility.error && <p role="alert" className="self-center text-xs text-rose-700">Não foi possível calcular. Verifique se existem fluxos válidos.</p>}
               {saveFeasibility.isSuccess && <p role="status" className="self-center text-xs text-emerald-700">Premissas guardadas.</p>}
             </div>
+            <div className="flex flex-wrap items-end gap-2 border-t border-[#dbe5f1] pt-3"><div className="min-w-[220px] flex-1"><Label htmlFor="saadi-scenario">Nome do cenário</Label><Input id="saadi-scenario" value={scenarioName} onChange={(event) => setScenarioName(event.target.value)} placeholder="Cenário optimista" /></div><Button type="button" variant="outline" disabled={saveScenario.isPending || !scenarioName.trim()} onClick={() => { const flows = cashFlows.split(",").map((value) => Number(value.trim())); if (activeCompanyId && organizationId && selectedStudyId) saveScenario.mutate({ organizationId, companyId: activeCompanyId, studyId: selectedStudyId, name: scenarioName, feasibility: { initialInvestment: Number(initialInvestment), discountRate: Number(discountRate), cashFlows: flows, currency: selected?.company.functionalCurrency ?? "AOA" } }); }}>Guardar cenário calculado</Button></div>
+            {scenarios.data?.length ? <div className="space-y-2"><p className="text-xs font-semibold text-[#102a43]">Cenários guardados</p>{scenarios.data.map((scenario) => <div key={scenario.id} className="flex items-center justify-between rounded border border-[#dbe5f1] bg-white px-3 py-2 text-xs"><span>{scenario.name}</span><span className={scenario.decision === "PROSSEGUIR" ? "font-semibold text-emerald-700" : scenario.decision === "REJEITAR" ? "font-semibold text-rose-700" : "font-semibold text-amber-700"}>{scenario.decision === "PROSSEGUIR" ? "Prosseguir" : scenario.decision === "REJEITAR" ? "Rejeitar" : "Rever"}</span></div>)}</div> : null}
             {feasibility.data?.result ? <div className="grid gap-3 md:grid-cols-4">
               <div className="rounded border border-[#dbe5f1] bg-white p-3"><p className="text-[11px] text-slate-500">Valor presente líquido</p><p className="mt-1 text-lg font-semibold text-[#102a43]">{feasibility.data.result.npv.toLocaleString("pt-PT", { maximumFractionDigits: 2 })} {feasibility.data.input?.currency}</p></div>
               <div className="rounded border border-[#dbe5f1] bg-white p-3"><p className="text-[11px] text-slate-500">Taxa interna de rentabilidade</p><p className="mt-1 text-lg font-semibold text-[#102a43]">{feasibility.data.result.irr === null ? "—" : `${(feasibility.data.result.irr * 100).toFixed(2)}%`}</p></div>

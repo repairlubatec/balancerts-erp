@@ -1023,6 +1023,24 @@ export const saadiFeasibilityInputs = mysqlTable("saadiFeasibilityInputs", {
   studyInputUnique: uniqueIndex("saadi_feasibility_inputs_study_unique").on(table.organizationId, table.companyId, table.studyId),
 }));
 
+export const saadiScenarios = mysqlTable("saadiScenarios", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyId: int("studyId").notNull(),
+  name: varchar("name", { length: 120 }).notNull(),
+  initialInvestment: varchar("initialInvestment", { length: 40 }).notNull(),
+  discountRate: varchar("discountRate", { length: 40 }).notNull(),
+  cashFlowsJson: text("cashFlowsJson").notNull(),
+  resultJson: text("resultJson"),
+  resultHash: varchar("resultHash", { length: 64 }),
+  decision: mysqlEnum("decision", ["PROSSEGUIR", "REVER", "REJEITAR"]),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  studyScenarioNameUnique: uniqueIndex("saadi_scenarios_study_name_unique").on(table.organizationId, table.companyId, table.studyId, table.name),
+}));
+
 export const saadiFinancialResults = mysqlTable("saadiFinancialResults", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

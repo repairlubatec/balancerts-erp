@@ -393,6 +393,13 @@
       "when": 1787302246250,
       "tag": "0055_green_revanche",
       "breakpoints": true
+    },
+    {
+      "idx": 56,
+      "version": "5",
+      "when": 1787302647092,
+      "tag": "0056_sparkling_deathbird",
+      "breakpoints": true
     }
   ]
 }
