@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, or, sql } from "drizzle-orm";
 import { appendAuditEventForUser, getDb } from "./db";
-import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions, saadiFeasibilityInputs, saadiFinancialResults, saadiScenarios, saadiVarianceReports } from "../drizzle/schema";
+import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions, saadiFeasibilityInputs, saadiFinancialResults, saadiScenarios, saadiRisks, saadiVarianceReports } from "../drizzle/schema";
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema, type SaadiSnapshot as SaadiSnapshotContract, type SaadiSnapshotRequest, type SaadiVersion } from "../shared/saadi-contracts";
 import { calculateFeasibility } from "./saadi-financial";
 import { readSaadiAccountingSummary } from "./saadi-erp-read";
@@ -125,6 +125,29 @@ export async function captureSaadiErpAccountingSnapshot(input: { userId: number;
   const content = { request: input.request, status: "CONCLUIDA" as const, capturedAt, provenance: [{ sourceSystem: "BALANCERTS.ERP" as const, sourceContract: "erp.accounting.read", sourceEntity: "accounting.read", organizationId: input.request.organizationId, companyId: input.request.companyId, periodIds: input.request.periodIds, extractedAt: capturedAt, contractVersion: input.request.contractVersion, transformation: "LEITURA_DIRECTA", contentHash: summary.integrityHash }], metrics: { periodos: input.request.periodIds.length, linhasBalancete: Array.isArray(summary.data.trialBalance) ? summary.data.trialBalance.length : 0, receitaRealizada: Number(summary.data.incomeStatement.revenue), despesasRealizadas: Number(summary.data.incomeStatement.expenses), resultadoLiquidoRealizado: Number(summary.data.incomeStatement.netIncome) } };
   const contentHash = hashPayload(content);
   return createSaadiSnapshot({ userId: input.userId, studyId: input.studyId, idempotencyKey: `erp-accounting:${input.request.correlationId}`, request: input.request, snapshot: { ...content, contentHash } });
+}
+
+export async function createSaadiRisk(input: { userId: number; organizationId: number; companyId: number; studyId: number; title: string; description: string; probability: number; impact: number; response?: "EVITAR" | "REDUZIR" | "TRANSFERIR" | "ACEITAR" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  const title = input.title.trim();
+  const description = input.description.trim();
+  if (!title || !description) throw new Error("SAADI_RISK_FIELDS_REQUIRED");
+  if (!Number.isInteger(input.probability) || input.probability < 1 || input.probability > 5 || !Number.isInteger(input.impact) || input.impact < 1 || input.impact > 5) throw new Error("SAADI_RISK_SCALE_INVALID");
+  const [study] = await db.select().from(saadiStudies).where(and(eq(saadiStudies.id, input.studyId), eq(saadiStudies.organizationId, input.organizationId), eq(saadiStudies.companyId, input.companyId))).limit(1);
+  if (!study) throw new Error("SAADI_STUDY_NOT_FOUND_OR_FORBIDDEN");
+  const values = { organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, title, description, probability: input.probability, impact: input.impact, exposure: input.probability * input.impact, response: input.response ?? "REDUZIR", status: "ABERTO" as const, createdBy: input.userId };
+  await db.insert(saadiRisks).values(values);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_RISK_CREATED", entityType: "saadiRisk", entityId: `${input.studyId}:${title}`, beforeState: null, afterState: JSON.stringify(values), correlationId: `saadi-risk:${input.studyId}:${title}` });
+  return { ...values, exposureLabel: values.exposure >= 20 ? "Crítico" : values.exposure >= 12 ? "Alto" : values.exposure >= 6 ? "Moderado" : "Baixo" };
+}
+
+export async function listSaadiRisksForUser(input: { userId: number; organizationId: number; companyId: number; studyId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  return db.select().from(saadiRisks).where(and(eq(saadiRisks.organizationId, input.organizationId), eq(saadiRisks.companyId, input.companyId), eq(saadiRisks.studyId, input.studyId))).orderBy(desc(saadiRisks.exposure), desc(saadiRisks.createdAt));
 }
 
 export async function compareSaadiProjectionToRealized(input: { userId: number; organizationId: number; companyId: number; studyId: number; snapshotId: number; metric: string; projectedValue: number; currency?: string }) {

@@ -2237,3 +2237,12 @@
 - [x] Expor o domínio no procedimento e no formulário de criação
 - [x] Testar valores válidos, valor por defeito e isolamento
 - [ ] Guardar checkpoint do quarto marco
+
+## Quinto marco funcional — Riscos e decisão analítica
+
+- [x] Criar persistência de riscos do estudo SAADI
+- [x] Implementar avaliação de probabilidade, impacto, exposição e resposta
+- [x] Expor procedimentos server-side com RBAC e auditoria
+- [x] Apresentar registo de riscos no painel do estudo
+- [x] Testar cálculo de exposição, isolamento e operações em português
+- [ ] Guardar checkpoint do quinto marco

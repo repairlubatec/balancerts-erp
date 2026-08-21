@@ -1042,6 +1042,25 @@ export const saadiScenarios = mysqlTable("saadiScenarios", {
   studyScenarioNameUnique: uniqueIndex("saadi_scenarios_study_name_unique").on(table.organizationId, table.companyId, table.studyId, table.name),
 }));
 
+export const saadiRisks = mysqlTable("saadiRisks", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyId: int("studyId").notNull(),
+  title: varchar("title", { length: 180 }).notNull(),
+  description: text("description").notNull(),
+  probability: int("probability").notNull(),
+  impact: int("impact").notNull(),
+  exposure: int("exposure").notNull(),
+  response: mysqlEnum("response", ["EVITAR", "REDUZIR", "TRANSFERIR", "ACEITAR"]).default("REDUZIR").notNull(),
+  status: mysqlEnum("status", ["ABERTO", "MITIGADO", "ACEITE", "ENCERRADO"]).default("ABERTO").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  studyRiskTitleUnique: uniqueIndex("saadi_risks_study_title_unique").on(table.studyId, table.title),
+}));
+
 export const saadiVarianceReports = mysqlTable("saadiVarianceReports", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),
