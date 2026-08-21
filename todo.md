@@ -2588,3 +2588,5 @@
 - [x] Corrigir o botão Importar para abrir directamente o fluxo de importação documental/CSV
 - [x] Remover o scroll vertical da Contabilidade, usando janelas operacionais com área interna controlada e fecho visível
 - [x] Testar os dois botões e confirmar que nenhuma operação fica inacessível por estar abaixo da dobra
+- [x] Corrigir chaves React duplicadas no selector de contas do Novo lançamento (`3420001`)
+- [x] Validar a rota /contabilidade?entry=new sem avisos de consola ou regressões

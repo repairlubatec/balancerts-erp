@@ -20,7 +20,7 @@ export function AccountingWorkbenchPanel({ company, periodId }: { company?: Comp
   const activeVersion = (versionsQuery.data ?? []).find((version) => version.status === "ACTIVE");
   const accountsQuery = pgcApi?.accounts?.useQuery ? pgcApi.accounts.useQuery(company && activeVersion ? { organizationId: company.organizationId, versionId: activeVersion.id, search: query || undefined } : skipToken) : { data: [], isLoading: false };
   const rulesQuery = pgcApi?.accountingRules?.useQuery ? pgcApi.accountingRules.useQuery(company && activeVersion ? { organizationId: company.organizationId, versionId: activeVersion.id, companyId: company.id } : skipToken) : { data: [] };
-  const accounts = (accountsQuery.data ?? []) as PgcAccount[];
+  const accounts = Array.from(new Map(((accountsQuery.data ?? []) as PgcAccount[]).map((account) => [account.id, account])).values());
   const accountingRules = (rulesQuery.data ?? []) as Array<{ id: number; operation: string; documentType: string | null; active: number }>;
   const activeRuleOperations = Array.from(new Set(accountingRules.filter((rule) => rule.active === 1).map((rule) => rule.operation)));
   return <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_minmax(19rem,25rem)]">
@@ -55,7 +55,7 @@ export function AccountingImportPanel({ company, periodId }: { company?: Company
   const accountsQuery = pgcApi?.accounts?.useQuery ? pgcApi.accounts.useQuery(company && activeVersion ? { organizationId: company.organizationId, versionId: activeVersion.id } : skipToken) : { data: [] };
   const importMutation = accountingApi?.import?.useMutation ? accountingApi.import.useMutation({ onSuccess: (result) => { setFeedback(`${result.count} lançamento(s) importado(s) e auditado(s).`); setRows([]); }, onError: (error) => setFeedback(`Importação bloqueada: ${userFacingError(error.message)}`) }) : null;
   if (!company) return null;
-  const accounts = (accountsQuery.data ?? []) as Array<{ id: number; code: string; name: string; acceptsEntries: number; validationStatus: string }>;
+  const accounts = Array.from(new Map(((accountsQuery.data ?? []) as Array<{ id: number; code: string; name: string; acceptsEntries: number; validationStatus: string }>).map((account) => [account.id, account])).values());
   const activeAccounts = accounts.filter((account) => account.acceptsEntries === 1 && account.validationStatus === "CONFIRMED");
   const parse = (text: string) => {
     const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
