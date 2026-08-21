@@ -32,8 +32,6 @@ import { buildReversalLines, reversalDescription } from "./reversal";
 import { archiveFileAssetForUser, createFileAsset, createFileAssetVersion, getFileAssetForUser, getFileAssetVersionsForUser, listFileAssetsForUser, recordStockMovement, updateFileAssetMetadataForUser } from "./db";
 import { prepareTenantFile } from "./files";
 import { storageGetSignedUrl, storagePut } from "./storage";
-import { classifyEmailFailure, emailFailureMessage, sendEmail } from "./email-service";
-import { resolveEmailSender } from "./email-routing";
 import { buildAgtComplianceCalendar, validateAgtFiscalRecord } from "./tax-compliance";
 import { generateAgtQrCodeDataUrl, validateAgtQrPayload } from "./agt-qrcode";
 
@@ -318,30 +316,6 @@ export const appRouter = router({
     downloadUrl: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive() })).query(async ({ ctx, input }) => {
       const file = await getFileAssetForUser({ ...input, userId: ctx.user.id });
       return { ...file, url: await storageGetSignedUrl(file.storageKey) };
-    }),
-    sendByEmail: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive(), to: z.array(z.string().email()).min(1).max(20), cc: z.array(z.string().email()).max(20).optional(), bcc: z.array(z.string().email()).max(20).optional(), subject: z.string().trim().min(1).max(240), message: z.string().trim().min(1).max(10000) })).mutation(async ({ ctx, input }) => {
-      const file = await getFileAssetForUser({ userId: ctx.user.id, companyId: input.companyId, fileId: input.fileId });
-      const companyAccess = (await getCompaniesForUser(ctx.user.id)).find(({ company }) => company.id === input.companyId);
-      if (!companyAccess) throw new TRPCError({ code: "FORBIDDEN", message: "Empresa não autorizada." });
-      const sender = resolveEmailSender({ companyEmail: companyAccess.company.email, accountantEmail: ctx.user.email, accountEmail: ctx.user.email });
-      if (!sender) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Não existe remetente de email configurado para esta empresa ou utilizador." });
-      const signedUrl = await storageGetSignedUrl(file.storageKey);
-      const response = await fetch(signedUrl);
-      if (!response.ok) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Não foi possível obter o documento para anexar." });
-      const attachment = Buffer.from(await response.arrayBuffer());
-      try {
-        const result = await sendEmail({ from: sender.address, to: input.to, cc: input.cc, bcc: input.bcc, subject: input.subject, text: input.message, attachments: [{ filename: file.filename, content: attachment, contentType: file.mimeType }] });
-        await appendAuditEventForUser({ organizationId: companyAccess.company.organizationId, companyId: input.companyId, actorUserId: ctx.user.id, action: "DOCUMENT_EMAIL_SENT", entityType: "fileAsset", entityId: String(file.id), beforeState: null, afterState: JSON.stringify({ to: input.to, cc: input.cc ?? [], subject: input.subject, senderSource: sender.source, messageId: result.messageId }), correlationId: `email:${file.id}:${Date.now()}` });
-        return { sent: true, sender: sender.address, senderSource: sender.source, messageId: result.messageId };
-      } catch (error) {
-        const failureCode = classifyEmailFailure(error);
-        try {
-          await appendAuditEventForUser({ organizationId: companyAccess.company.organizationId, companyId: input.companyId, actorUserId: ctx.user.id, action: "DOCUMENT_EMAIL_FAILED", entityType: "fileAsset", entityId: String(file.id), beforeState: null, afterState: JSON.stringify({ to: input.to, cc: input.cc ?? [], subject: input.subject, senderSource: sender.source, failureCode }), correlationId: `email-failed:${file.id}:${Date.now()}` });
-        } catch {
-          // A falha de auditoria não deve ocultar a causa original do envio.
-        }
-        throw new TRPCError({ code: "PRECONDITION_FAILED", message: emailFailureMessage(failureCode) });
-      }
     }),
   }),
   reversal: router({

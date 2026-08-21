@@ -2407,3 +2407,12 @@
 - [x] Manter cada cenário independente e sem escrever no ERP
 - [x] Testar cenários equilibrados e não equilibrados
 - [x] Guardar checkpoint do décimo sétimo marco
+
+## Remoção da dependência SMTP
+
+- [x] Mapear referências de SMTP, Nodemailer, SMTP_USER e SMTP_PASSWORD
+- [x] Remover o fluxo de envio SMTP e respectivas configurações
+- [x] Remover ou actualizar o teste de autenticação SMTP
+- [x] Remover referências obsoletas ao erro Gmail 535 e à dependência SMTP
+- [x] Validar compilação e suite de testes sem SMTP
+- [x] Guardar checkpoint da remoção SMTP
