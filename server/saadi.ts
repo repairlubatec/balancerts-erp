@@ -3,7 +3,7 @@ import { and, desc, eq, or, sql } from "drizzle-orm";
 import { appendAuditEventForUser, getDb } from "./db";
 import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions, saadiFeasibilityInputs, saadiDecisions, saadiFinancialResults, saadiScenarios, saadiRisks, saadiVarianceReports } from "../drizzle/schema";
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema, type SaadiSnapshot as SaadiSnapshotContract, type SaadiSnapshotRequest, type SaadiVersion } from "../shared/saadi-contracts";
-import { calculateFeasibility } from "./saadi-financial";
+import { calculateFeasibility, calculateFinancing } from "./saadi-financial";
 import { readSaadiAccountingSummary } from "./saadi-erp-read";
 import { storagePut } from "./storage";
 import { buildSaadiFeasibilityPdf } from "./saadi-report-pdf";
@@ -139,7 +139,8 @@ export async function generateSaadiFeasibilityReport(input: { userId: number; or
   const feasibility = await getSaadiFeasibilityForUser(input);
   const risks = await db.select().from(saadiRisks).where(and(eq(saadiRisks.organizationId, input.organizationId), eq(saadiRisks.companyId, input.companyId), eq(saadiRisks.studyId, input.studyId))).orderBy(desc(saadiRisks.exposure));
   const decisions = await db.select().from(saadiDecisions).where(and(eq(saadiDecisions.organizationId, input.organizationId), eq(saadiDecisions.companyId, input.companyId), eq(saadiDecisions.studyId, input.studyId))).orderBy(desc(saadiDecisions.decidedAt));
-  const result = await buildSaadiFeasibilityPdf({ companyName: company?.name ?? "Empresa autorizada", companyNif: company?.nif, studyCode: study.studyCode, studyName: study.name, investmentDomain: study.investmentDomain, currency: feasibility.input?.currency ?? study.baseCurrency, feasibility: feasibility.input && feasibility.result ? { ...feasibility.input, ...feasibility.result } : undefined, risks, decisions });
+  const financing = feasibility.input ? calculateFinancing(feasibility.input.debtAmount ?? 0, feasibility.input.equityAmount ?? 0, feasibility.input.debtInterestRate ?? 0, feasibility.input.debtTermMonths ?? 0) : undefined;
+  const result = await buildSaadiFeasibilityPdf({ companyName: company?.name ?? "Empresa autorizada", companyNif: company?.nif, studyCode: study.studyCode, studyName: study.name, investmentDomain: study.investmentDomain, currency: feasibility.input?.currency ?? study.baseCurrency, feasibility: feasibility.input && feasibility.result ? { ...feasibility.input, ...feasibility.result, ...(financing ?? {}) } : undefined, risks, decisions });
   const filename = `estudo-viabilidade-${study.studyCode}-${new Date().toISOString().slice(0, 10)}.pdf`;
   const uploaded = await storagePut(`saadi/${input.organizationId}/${input.companyId}/${filename}`, result.buffer, result.mimeType);
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_REPORT_GENERATED", entityType: "saadiStudy", entityId: String(input.studyId), beforeState: null, afterState: JSON.stringify({ filename, key: uploaded.key }), correlationId: `saadi-report:${input.studyId}` });
@@ -370,7 +371,7 @@ export async function getSaadiFeasibilityForUser(input: { userId: number; organi
   await assertCompanyAccess(input);
   const [saved] = await db.select().from(saadiFeasibilityInputs).where(and(eq(saadiFeasibilityInputs.organizationId, input.organizationId), eq(saadiFeasibilityInputs.companyId, input.companyId), eq(saadiFeasibilityInputs.studyId, input.studyId))).limit(1);
   const [result] = await db.select().from(saadiFinancialResults).where(and(eq(saadiFinancialResults.organizationId, input.organizationId), eq(saadiFinancialResults.companyId, input.companyId), eq(saadiFinancialResults.studyId, input.studyId))).limit(1);
-  return { input: saved ? { initialInvestment: Number(saved.initialInvestment), discountRate: Number(saved.discountRate), cashFlows: JSON.parse(saved.cashFlowsJson) as number[], currency: saved.currency, inputHash: saved.inputHash } : null, result: result ? { npv: Number(result.npv), irr: result.irr ? Number(result.irr) : null, paybackMonths: result.paybackMonths ? Number(result.paybackMonths) : null, roi: Number(result.roi), decision: result.decision, resultHash: result.resultHash } : null };
+  return { input: saved ? { initialInvestment: Number(saved.initialInvestment), discountRate: Number(saved.discountRate), cashFlows: JSON.parse(saved.cashFlowsJson) as number[], currency: saved.currency, equityAmount: Number(saved.equityAmount), debtAmount: Number(saved.debtAmount), debtInterestRate: Number(saved.debtInterestRate), debtTermMonths: saved.debtTermMonths, inputHash: saved.inputHash } : null, result: result ? { npv: Number(result.npv), irr: result.irr ? Number(result.irr) : null, paybackMonths: result.paybackMonths ? Number(result.paybackMonths) : null, roi: Number(result.roi), decision: result.decision, resultHash: result.resultHash } : null };
 }
 
 

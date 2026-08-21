@@ -7,7 +7,7 @@ export type SaadiReportInput = {
   studyName: string;
   investmentDomain: string;
   currency: string;
-  feasibility?: { initialInvestment: number; discountRate: number; cashFlows: number[]; npv?: number | null; irr?: number | null; paybackMonths?: number | null; roi?: number | null; decision?: string };
+  feasibility?: { initialInvestment: number; discountRate: number; cashFlows: number[]; npv?: number | null; irr?: number | null; paybackMonths?: number | null; roi?: number | null; decision?: string; equityAmount?: number; debtAmount?: number; debtInterestRate?: number; debtTermMonths?: number; monthlyPayment?: number; totalDebtService?: number; totalInterest?: number };
   risks: Array<{ title: string; probability: number; impact: number; exposure: number; response: string }>;
   decisions: Array<{ decision: string; justification: string; decidedBy: number; decisionHash: string }>;
 };
@@ -36,6 +36,13 @@ export function buildSaadiFeasibilityPdf(input: SaadiReportInput) {
       pdf.text(`Prazo de retorno: ${f.paybackMonths == null ? "Não recuperado" : `${f.paybackMonths.toFixed(1)} períodos`}`);
       pdf.text(`ROI: ${f.roi == null ? "—" : `${(f.roi * 100).toFixed(2)}%`}`);
       pdf.text(`Decisão analítica: ${f.decision ?? "Não calculada"}`);
+      if (f.equityAmount != null || f.debtAmount != null) {
+        pdf.moveDown(0.4).font("Helvetica-Bold").text("Estrutura de financiamento");
+        pdf.font("Helvetica").text(`Capital próprio: ${(f.equityAmount ?? 0).toLocaleString("pt-PT")} ${input.currency}`);
+        pdf.text(`Financiamento externo: ${(f.debtAmount ?? 0).toLocaleString("pt-PT")} ${input.currency}`);
+        pdf.text(`Taxa da dívida: ${(((f.debtInterestRate ?? 0) * 100)).toFixed(2)}% · Prazo: ${f.debtTermMonths ?? 0} meses`);
+        pdf.text(`Prestação mensal: ${(f.monthlyPayment ?? 0).toLocaleString("pt-PT")} ${input.currency} · Juros totais: ${(f.totalInterest ?? 0).toLocaleString("pt-PT")} ${input.currency}`);
+      }
     } else pdf.font("Helvetica").fontSize(9).text("Sem premissas financeiras guardadas.");
     pdf.moveDown(0.8).font("Helvetica-Bold").fontSize(11).fillColor("#102a43").text("Riscos registados");
     if (input.risks.length) input.risks.forEach((risk) => pdf.font("Helvetica").fontSize(9).fillColor("#333333").text(`${risk.title} · probabilidade ${risk.probability}/5 · impacto ${risk.impact}/5 · exposição ${risk.exposure} · resposta ${risk.response}`));

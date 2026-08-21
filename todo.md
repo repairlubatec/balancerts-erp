@@ -2320,3 +2320,9 @@
 - [x] Suite global executada: 355 testes aprovados em 356
 - [x] Confirmar que os testes SAADI e TypeScript continuam aprovados
 - [ ] Resolver credencial SMTP Gmail 535, falha externa conhecida não causada pelo SAADI
+
+## Relatório PDF com financiamento
+
+- [x] Incluir capital próprio, dívida, taxa e prazo no relatório PDF
+- [x] Incluir prestação mensal e juros totais no relatório PDF
+- [x] Revalidar nome/NIF reais, TypeScript e 14 testes dirigidos SAADI
