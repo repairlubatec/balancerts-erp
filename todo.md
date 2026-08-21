@@ -2017,4 +2017,10 @@
 - [x] Fechar limites, retries, timeouts, idempotência, concorrência, auditoria, proveniência e versionamento
 - [x] Executar autoauditoria formal e corrigir contradições internas antes da apresentação — autoauditoria PASS documental
 - [x] Guardar o Documento 3 reconstruído em checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações
-- [ ] Apresentar o Documento 3 reconstruído para nova avaliação formal independente; não iniciar Documento 4
+- [x] Apresentar o Documento 3 reconstruído para nova avaliação formal independente; não iniciar Documento 4
+
+## Nova avaliação formal independente — Documento 3 reconstruído
+
+- [x] Ler e confrontar o Documento 3 reconstruído exclusivamente com os Documentos 1 e 2 aprovados — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3-reconstruido.md
+- [x] Verificar se os bloqueadores e problemas altos anteriores foram eliminados e classificar divergências remanescentes — NÃO APROVADO: 4 bloqueadores, 10 altos, 6 médios e 3 baixos
+- [x] Guardar o parecer formal e checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações; não iniciar Documento 4
