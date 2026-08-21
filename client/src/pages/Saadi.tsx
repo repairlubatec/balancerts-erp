@@ -11,11 +11,12 @@ import { Building2, FlaskConical, Plus, RefreshCw, ShieldCheck } from "lucide-re
 const studyStatusLabel = (status: string) => status === "DRAFT" ? "Rascunho" : status === "ACTIVE" ? "Activo" : "Arquivado";
 const versionStatusLabel = (status: string) => status === "APPROVED" ? "Aprovada" : status === "IN_REVIEW" ? "Em revisão" : status === "ARCHIVED" ? "Arquivada" : "Rascunho";
 const snapshotStatusLabel = (status: string) => status === "READY" ? "Pronto" : status === "STALE" ? "Desactualizado" : "Inválido";
+const companyDisplayName = (name: string) => name.replace(/BALANCERTS Test Tenant - Disposable/gi, "BALANCERTS — Empresa de teste").replace(/tenant/gi, "organização").replace(/disposable/gi, "teste");
 
 export default function Saadi() {
   const { user } = useAuth();
   const companies = trpc.companies.list.useQuery();
-  const rows = companies.data ?? [];
+  const rows = [...(companies.data ?? [])].sort((left, right) => (left.company.name.toLowerCase().includes("repair lubatec") ? -1 : right.company.name.toLowerCase().includes("repair lubatec") ? 1 : 0));
   const [companyId, setCompanyId] = useState<number | undefined>();
   const [studyId, setStudyId] = useState<number | undefined>();
   const [code, setCode] = useState("");
@@ -37,6 +38,12 @@ export default function Saadi() {
     { enabled: Boolean(activeCompanyId && organizationId && selectedStudyId) },
   );
   const selectedSnapshotId = snapshots.data?.[0]?.id;
+  const feasibility = trpc.saadi.feasibility.useQuery(activeCompanyId && organizationId && selectedStudyId ? { organizationId, companyId: activeCompanyId, studyId: selectedStudyId } : { organizationId: 0, companyId: 0, studyId: 0 }, { enabled: Boolean(activeCompanyId && organizationId && selectedStudyId) });
+  const [initialInvestment, setInitialInvestment] = useState("1000000");
+  const [discountRate, setDiscountRate] = useState("0.15");
+  const [cashFlows, setCashFlows] = useState("300000,350000,400000,450000,500000");
+  const saveFeasibility = trpc.saadi.saveFeasibilityInput.useMutation({ onSuccess: async () => { await feasibility.refetch(); } });
+  const calculateFeasibility = trpc.saadi.calculateFeasibility.useMutation({ onSuccess: async () => { await feasibility.refetch(); } });
   const provenance = trpc.saadi.provenance.useQuery(
     activeCompanyId && organizationId && selectedSnapshotId ? { companyId: activeCompanyId, organizationId, snapshotId: selectedSnapshotId } : { companyId: 0, organizationId: 0, snapshotId: 0 },
     { enabled: Boolean(activeCompanyId && organizationId && selectedSnapshotId) },
@@ -69,7 +76,7 @@ export default function Saadi() {
           <Label htmlFor="saadi-company">Empresa de trabalho</Label>
           <select id="saadi-company" aria-label="Empresa de trabalho SAADI" value={activeCompanyId ?? ""} onChange={(event) => { setCompanyId(Number(event.target.value)); setStudyId(undefined); }} className="h-9 w-full max-w-xl rounded-md border border-[#dbe5f1] bg-white px-2 text-xs">
             <option value="">Seleccionar empresa</option>
-            {rows.map(({ company }) => <option key={company.id} value={company.id}>{company.name} · {company.nif}</option>)}
+            {rows.map(({ company }) => <option key={company.id} value={company.id}>{companyDisplayName(company.name)} · {company.nif}</option>)}
           </select>
           <p className="text-xs text-slate-500">{statusText}{user?.name ? ` Utilizador: ${user.name}.` : ""}</p>
         </CardContent>
@@ -108,6 +115,31 @@ export default function Saadi() {
           <CardContent>{versions.isLoading ? <p className="text-xs text-slate-500">A carregar versões…</p> : !(versions.data ?? []).length ? <p className="text-xs text-slate-500">Sem versões criadas para o estudo seleccionado.</p> : <div className="space-y-2">{(versions.data ?? []).map((version) => <div key={version.id} className="rounded border border-[#dbe5f1] bg-white p-2"><div className="flex justify-between gap-2 text-xs"><span className="font-semibold text-[#102a43]">Versão {version.versionNumber}</span><Badge variant="outline">{versionStatusLabel(version.status)}</Badge></div><p className="mt-1 text-[11px] text-slate-500">Integridade: {version.versionHash.slice(0, 16)}… · Criada por {version.createdBy}</p><div className="mt-2 flex gap-2">{version.status === "IN_REVIEW" && <Button type="button" size="sm" className="bg-[#477514]" disabled={transitionVersion.isPending} onClick={() => activeCompanyId && organizationId && transitionVersion.mutate({ organizationId, companyId: activeCompanyId, versionId: version.id, decision: "APPROVE" })}>Aprovar</Button>}{version.status !== "ARCHIVED" && <Button type="button" size="sm" variant="outline" disabled={transitionVersion.isPending} onClick={() => activeCompanyId && organizationId && transitionVersion.mutate({ organizationId, companyId: activeCompanyId, versionId: version.id, decision: "ARCHIVE" })}>Arquivar</Button>}</div></div>)}</div>}{selectedSnapshotId && <p className="mt-2 text-[11px] text-slate-500">{provenance.isLoading ? "A carregar origem da captura…" : provenance.data?.length ? `${provenance.data.length} registo${provenance.data.length === 1 ? "" : "s"} de origem associado${provenance.data.length === 1 ? "" : "s"}.` : "A captura ainda não tem detalhes de origem registados."}</p>}</CardContent>
         </Card>
       </div>
+      <Card className="rounded-sm border-[#bfc9d4] bg-[#fbfcfd] shadow-none">
+        <CardHeader className="pb-2"><CardTitle className="text-sm text-[#102a43]">Estudo de Viabilidade — análise financeira</CardTitle></CardHeader>
+        <CardContent className="space-y-4">
+          {!selectedStudyId ? <p className="text-xs text-slate-500">Crie ou seleccione um estudo para iniciar a análise financeira.</p> : <>
+            <div className="grid gap-3 md:grid-cols-3">
+              <div><Label htmlFor="saadi-investment">Investimento inicial</Label><Input id="saadi-investment" type="number" min="0" step="0.01" value={initialInvestment} onChange={(event) => setInitialInvestment(event.target.value)} /></div>
+              <div><Label htmlFor="saadi-rate">Taxa de desconto anual</Label><Input id="saadi-rate" type="number" min="-0.99" max="10" step="0.01" value={discountRate} onChange={(event) => setDiscountRate(event.target.value)} /><p className="mt-1 text-[11px] text-slate-500">Use 0,15 para 15%.</p></div>
+              <div><Label htmlFor="saadi-cashflows">Fluxos de caixa anuais</Label><Input id="saadi-cashflows" value={cashFlows} onChange={(event) => setCashFlows(event.target.value)} placeholder="300000,350000,400000" /></div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button type="button" className="bg-[#1267d6]" disabled={saveFeasibility.isPending || !activeCompanyId || !organizationId} onClick={() => { const flows = cashFlows.split(",").map((value) => Number(value.trim())); if (activeCompanyId && organizationId && selectedStudyId) saveFeasibility.mutate({ organizationId, companyId: activeCompanyId, studyId: selectedStudyId, feasibility: { initialInvestment: Number(initialInvestment), discountRate: Number(discountRate), cashFlows: flows, currency: selected?.company.functionalCurrency ?? "AOA" } }); }}>Guardar premissas</Button>
+              <Button type="button" variant="outline" disabled={calculateFeasibility.isPending || !feasibility.data?.input} onClick={() => { if (activeCompanyId && organizationId && selectedStudyId) calculateFeasibility.mutate({ organizationId, companyId: activeCompanyId, studyId: selectedStudyId }); }}>Calcular viabilidade</Button>
+              {saveFeasibility.error && <p role="alert" className="self-center text-xs text-rose-700">Não foi possível guardar as premissas. Verifique os valores.</p>}
+              {calculateFeasibility.error && <p role="alert" className="self-center text-xs text-rose-700">Não foi possível calcular. Verifique se existem fluxos válidos.</p>}
+              {saveFeasibility.isSuccess && <p role="status" className="self-center text-xs text-emerald-700">Premissas guardadas.</p>}
+            </div>
+            {feasibility.data?.result ? <div className="grid gap-3 md:grid-cols-4">
+              <div className="rounded border border-[#dbe5f1] bg-white p-3"><p className="text-[11px] text-slate-500">Valor presente líquido</p><p className="mt-1 text-lg font-semibold text-[#102a43]">{feasibility.data.result.npv.toLocaleString("pt-PT", { maximumFractionDigits: 2 })} {feasibility.data.input?.currency}</p></div>
+              <div className="rounded border border-[#dbe5f1] bg-white p-3"><p className="text-[11px] text-slate-500">Taxa interna de rentabilidade</p><p className="mt-1 text-lg font-semibold text-[#102a43]">{feasibility.data.result.irr === null ? "—" : `${(feasibility.data.result.irr * 100).toFixed(2)}%`}</p></div>
+              <div className="rounded border border-[#dbe5f1] bg-white p-3"><p className="text-[11px] text-slate-500">Prazo de retorno</p><p className="mt-1 text-lg font-semibold text-[#102a43]">{feasibility.data.result.paybackMonths === null ? "Não recuperado" : `${feasibility.data.result.paybackMonths.toFixed(1)} períodos`}</p></div>
+              <div className="rounded border border-[#dbe5f1] bg-white p-3"><p className="text-[11px] text-slate-500">Decisão analítica</p><p className={`mt-1 text-lg font-semibold ${feasibility.data.result.decision === "PROSSEGUIR" ? "text-emerald-700" : feasibility.data.result.decision === "REJEITAR" ? "text-rose-700" : "text-amber-700"}`}>{feasibility.data.result.decision === "PROSSEGUIR" ? "Prosseguir" : feasibility.data.result.decision === "REJEITAR" ? "Rejeitar" : "Rever"}</p></div>
+            </div> : <p className="text-xs text-slate-500">Ainda não existe resultado calculado para este estudo.</p>}
+          </>}
+        </CardContent>
+      </Card>
     </div>
   );
 }

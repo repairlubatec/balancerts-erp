@@ -2162,3 +2162,21 @@
 - [x] Corrigir M-01 a M-05: compatibilidade de classificações, retenção, exemplos matemáticos, medição de desempenho e versionamento API
 - [x] Corrigir L-01 a L-03: rótulos portugueses, dicionário de enums e pacote de evidências
 - [x] Executar autoauditoria consolidada, guardar documentos corrigidos e preparar nova avaliação independente
+
+## Auditoria e implementação real do Estudo de Viabilidade SAADI
+
+- [x] Inventariar rotas, páginas, componentes, routers, tabelas e testes actualmente existentes para o SAADI
+- [x] Comparar o que está visível no software com o fluxo profissional de Estudo de Viabilidade
+- [x] Identificar e corrigir a divergência entre documentação SAADI e implementação executável
+- [x] Implementar fluxo funcional de Estudo de Viabilidade com dados persistentes, análise financeira e decisão auditável
+- [x] Validar o fluxo SAADI ponta a ponta no software e actualizar checkpoint
+
+## Implementação prática SAADI — Estudo de Viabilidade v1
+
+- [x] Criar entidades persistentes para premissas, fluxos de caixa, cenários e resultados financeiros do estudo
+- [x] Criar procedimentos server-side tenant-aware para gravar, consultar e calcular o estudo
+- [x] Implementar VPL, TIR, payback, ROI e análise de cenários com validações e hashes
+- [x] Construir interface SAADI operacional para preencher premissas, executar cálculo e visualizar resultados
+- [x] Ligar todos os botões, estados de carregamento, erros, sucesso e auditoria
+- [x] Criar testes Vitest do motor financeiro, isolamento e procedimentos SAADI
+- [x] Verificar visualmente o fluxo e guardar checkpoint funcional

@@ -1,0 +1,79 @@
+export type FeasibilityInput = {
+  initialInvestment: number;
+  discountRate: number;
+  cashFlows: number[];
+};
+
+export type FeasibilityResult = {
+  npv: number;
+  irr: number | null;
+  paybackMonths: number | null;
+  roi: number;
+  decision: "PROSSEGUIR" | "REVER" | "REJEITAR";
+  discountedCashFlows: number[];
+};
+
+function ensureFinite(value: number, name: string) {
+  if (!Number.isFinite(value)) throw new Error(`SAADI_${name}_INVALIDO`);
+}
+
+function npvAtRate(input: FeasibilityInput, rate: number) {
+  return -input.initialInvestment + input.cashFlows.reduce((total, flow, index) => total + flow / Math.pow(1 + rate, index + 1), 0);
+}
+
+function irrFor(input: FeasibilityInput) {
+  const hasPositive = input.cashFlows.some((flow) => flow > 0);
+  const hasNegative = input.cashFlows.some((flow) => flow < 0) || input.initialInvestment > 0;
+  if (!hasPositive || !hasNegative) return null;
+  let low = -0.9999;
+  let high = 10;
+  let lowValue = npvAtRate(input, low);
+  let highValue = npvAtRate(input, high);
+  for (let attempt = 0; attempt < 12 && lowValue * highValue > 0; attempt += 1) {
+    high *= 2;
+    highValue = npvAtRate(input, high);
+  }
+  if (lowValue * highValue > 0) return null;
+  for (let iteration = 0; iteration < 120; iteration += 1) {
+    const middle = (low + high) / 2;
+    const middleValue = npvAtRate(input, middle);
+    if (Math.abs(middleValue) < 0.000001) return middle;
+    if (lowValue * middleValue <= 0) {
+      high = middle;
+      highValue = middleValue;
+    } else {
+      low = middle;
+      lowValue = middleValue;
+    }
+  }
+  return (low + high) / 2;
+}
+
+function paybackFor(input: FeasibilityInput) {
+  let accumulated = -input.initialInvestment;
+  for (let index = 0; index < input.cashFlows.length; index += 1) {
+    const previous = accumulated;
+    accumulated += input.cashFlows[index];
+    if (accumulated >= 0) {
+      const flow = input.cashFlows[index];
+      return flow === 0 ? index + 1 : index + previous * -1 / flow + 1;
+    }
+  }
+  return null;
+}
+
+export function calculateFeasibility(input: FeasibilityInput): FeasibilityResult {
+  ensureFinite(input.initialInvestment, "INVESTIMENTO");
+  ensureFinite(input.discountRate, "TAXA");
+  if (input.initialInvestment <= 0) throw new Error("SAADI_INVESTIMENTO_INVALIDO");
+  if (input.discountRate <= -1) throw new Error("SAADI_TAXA_INVALIDA");
+  if (!input.cashFlows.length || input.cashFlows.length > 120) throw new Error("SAADI_FLUXOS_INVALIDOS");
+  input.cashFlows.forEach((flow) => ensureFinite(flow, "FLUXO"));
+  const discountedCashFlows = input.cashFlows.map((flow, index) => flow / Math.pow(1 + input.discountRate, index + 1));
+  const npv = -input.initialInvestment + discountedCashFlows.reduce((sum, flow) => sum + flow, 0);
+  const totalFlows = input.cashFlows.reduce((sum, flow) => sum + flow, 0);
+  const roi = (totalFlows - input.initialInvestment) / input.initialInvestment;
+  const irr = irrFor(input);
+  const decision = npv > 0 && (irr === null || irr > input.discountRate) ? "PROSSEGUIR" : npv >= 0 ? "REVER" : "REJEITAR";
+  return { npv, irr, paybackMonths: paybackFor(input), roi, decision, discountedCashFlows };
+}

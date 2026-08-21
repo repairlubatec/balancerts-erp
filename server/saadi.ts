@@ -1,8 +1,9 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, or, sql } from "drizzle-orm";
 import { appendAuditEventForUser, getDb } from "./db";
-import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions } from "../drizzle/schema";
+import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions, saadiFeasibilityInputs, saadiFinancialResults } from "../drizzle/schema";
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema, type SaadiSnapshot as SaadiSnapshotContract, type SaadiSnapshotRequest, type SaadiVersion } from "../shared/saadi-contracts";
+import { calculateFeasibility } from "./saadi-financial";
 
 const organizationAccessCondition = (userId: number) => or(
   eq(organizations.ownerUserId, userId),
@@ -192,4 +193,64 @@ export async function listSaadiStudiesForUser(input: { userId: number; organizat
     eq(saadiStudies.organizationId, input.organizationId),
     eq(saadiStudies.companyId, input.companyId),
   )).orderBy(desc(saadiStudies.id));
+}
+
+
+export type SaadiFeasibilityInput = {
+  initialInvestment: number;
+  discountRate: number;
+  cashFlows: number[];
+  currency: string;
+};
+
+function validateFeasibilityInput(input: SaadiFeasibilityInput) {
+  if (!Number.isFinite(input.initialInvestment) || input.initialInvestment <= 0) throw new Error("SAADI_INVESTIMENTO_INVALIDO");
+  if (!Number.isFinite(input.discountRate) || input.discountRate <= -1 || input.discountRate > 10) throw new Error("SAADI_TAXA_INVALIDA");
+  if (!Array.isArray(input.cashFlows) || input.cashFlows.length < 1 || input.cashFlows.length > 120) throw new Error("SAADI_FLUXOS_INVALIDOS");
+  if (input.cashFlows.some((flow) => !Number.isFinite(flow))) throw new Error("SAADI_FLUXO_INVALIDO");
+  if (!/^[A-Z]{3}$/.test(input.currency)) throw new Error("SAADI_MOEDA_INVALIDA");
+}
+
+export async function saveSaadiFeasibilityInput(input: { userId: number; organizationId: number; companyId: number; studyId: number; feasibility: SaadiFeasibilityInput }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  validateFeasibilityInput(input.feasibility);
+  const study = await db.select().from(saadiStudies).where(and(eq(saadiStudies.id, input.studyId), eq(saadiStudies.organizationId, input.organizationId), eq(saadiStudies.companyId, input.companyId))).limit(1);
+  if (!study[0]) throw new Error("SAADI_STUDY_NOT_FOUND_OR_FORBIDDEN");
+  const inputHash = hashPayload({ studyId: input.studyId, ...input.feasibility });
+  const existing = await db.select().from(saadiFeasibilityInputs).where(and(eq(saadiFeasibilityInputs.organizationId, input.organizationId), eq(saadiFeasibilityInputs.companyId, input.companyId), eq(saadiFeasibilityInputs.studyId, input.studyId))).limit(1);
+  if (existing[0]) {
+    await db.update(saadiFeasibilityInputs).set({ initialInvestment: String(input.feasibility.initialInvestment), discountRate: String(input.feasibility.discountRate), cashFlowsJson: JSON.stringify(input.feasibility.cashFlows), currency: input.feasibility.currency, inputHash, createdBy: input.userId }).where(eq(saadiFeasibilityInputs.id, existing[0].id));
+  } else {
+    await db.insert(saadiFeasibilityInputs).values({ organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, initialInvestment: String(input.feasibility.initialInvestment), discountRate: String(input.feasibility.discountRate), cashFlowsJson: JSON.stringify(input.feasibility.cashFlows), currency: input.feasibility.currency, inputHash, createdBy: input.userId });
+  }
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_FEASIBILITY_INPUT_SAVED", entityType: "saadiFeasibilityInput", entityId: String(input.studyId), beforeState: null, afterState: JSON.stringify({ inputHash }), correlationId: `saadi-feasibility-input:${input.studyId}` });
+  return { inputHash, saved: true };
+}
+
+export async function calculateSaadiFeasibilityForUser(input: { userId: number; organizationId: number; companyId: number; studyId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  const rows = await db.select().from(saadiFeasibilityInputs).where(and(eq(saadiFeasibilityInputs.organizationId, input.organizationId), eq(saadiFeasibilityInputs.companyId, input.companyId), eq(saadiFeasibilityInputs.studyId, input.studyId))).limit(1);
+  const saved = rows[0];
+  if (!saved) throw new Error("SAADI_FEASIBILITY_INPUT_REQUIRED");
+  const result = calculateFeasibility({ initialInvestment: Number(saved.initialInvestment), discountRate: Number(saved.discountRate), cashFlows: JSON.parse(saved.cashFlowsJson) as number[] });
+  const resultHash = hashPayload({ inputHash: saved.inputHash, result });
+  const existing = await db.select().from(saadiFinancialResults).where(and(eq(saadiFinancialResults.organizationId, input.organizationId), eq(saadiFinancialResults.companyId, input.companyId), eq(saadiFinancialResults.studyId, input.studyId))).limit(1);
+  const values = { organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, npv: result.npv.toFixed(2), irr: result.irr === null ? "" : result.irr.toFixed(8), paybackMonths: result.paybackMonths === null ? "" : result.paybackMonths.toFixed(2), roi: result.roi.toFixed(8), decision: result.decision, resultJson: JSON.stringify({ ...result, inputHash: saved.inputHash }), resultHash, calculatedBy: input.userId } as const;
+  if (existing[0]) await db.update(saadiFinancialResults).set(values).where(eq(saadiFinancialResults.id, existing[0].id));
+  else await db.insert(saadiFinancialResults).values(values);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_FEASIBILITY_CALCULATED", entityType: "saadiFinancialResult", entityId: String(input.studyId), beforeState: null, afterState: JSON.stringify({ resultHash, decision: result.decision }), correlationId: `saadi-feasibility-calculate:${input.studyId}` });
+  return { ...result, resultHash, inputHash: saved.inputHash, currency: saved.currency };
+}
+
+export async function getSaadiFeasibilityForUser(input: { userId: number; organizationId: number; companyId: number; studyId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertCompanyAccess(input);
+  const [saved] = await db.select().from(saadiFeasibilityInputs).where(and(eq(saadiFeasibilityInputs.organizationId, input.organizationId), eq(saadiFeasibilityInputs.companyId, input.companyId), eq(saadiFeasibilityInputs.studyId, input.studyId))).limit(1);
+  const [result] = await db.select().from(saadiFinancialResults).where(and(eq(saadiFinancialResults.organizationId, input.organizationId), eq(saadiFinancialResults.companyId, input.companyId), eq(saadiFinancialResults.studyId, input.studyId))).limit(1);
+  return { input: saved ? { initialInvestment: Number(saved.initialInvestment), discountRate: Number(saved.discountRate), cashFlows: JSON.parse(saved.cashFlowsJson) as number[], currency: saved.currency, inputHash: saved.inputHash } : null, result: result ? { npv: Number(result.npv), irr: result.irr ? Number(result.irr) : null, paybackMonths: result.paybackMonths ? Number(result.paybackMonths) : null, roi: Number(result.roi), decision: result.decision, resultHash: result.resultHash } : null };
 }

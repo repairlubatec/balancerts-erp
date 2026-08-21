@@ -1007,6 +1007,40 @@ export const saadiProvenance = mysqlTable("saadiProvenance", {
   provenanceSourceUnique: uniqueIndex("saadi_provenance_source_unique").on(table.snapshotId, table.sourceType, table.sourceEntityId),
 }));
 
+export const saadiFeasibilityInputs = mysqlTable("saadiFeasibilityInputs", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyId: int("studyId").notNull(),
+  initialInvestment: varchar("initialInvestment", { length: 40 }).notNull(),
+  discountRate: varchar("discountRate", { length: 40 }).notNull(),
+  cashFlowsJson: text("cashFlowsJson").notNull(),
+  currency: varchar("currency", { length: 3 }).notNull().default("AOA"),
+  inputHash: varchar("inputHash", { length: 64 }).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  studyInputUnique: uniqueIndex("saadi_feasibility_inputs_study_unique").on(table.organizationId, table.companyId, table.studyId),
+}));
+
+export const saadiFinancialResults = mysqlTable("saadiFinancialResults", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyId: int("studyId").notNull(),
+  npv: varchar("npv", { length: 40 }).notNull(),
+  irr: varchar("irr", { length: 40 }).notNull(),
+  paybackMonths: varchar("paybackMonths", { length: 40 }).notNull(),
+  roi: varchar("roi", { length: 40 }).notNull(),
+  decision: mysqlEnum("decision", ["PROSSEGUIR", "REVER", "REJEITAR"]).notNull(),
+  resultJson: text("resultJson").notNull(),
+  resultHash: varchar("resultHash", { length: 64 }).notNull(),
+  calculatedBy: int("calculatedBy").notNull(),
+  calculatedAt: timestamp("calculatedAt").defaultNow().notNull(),
+}, (table) => ({
+  studyResultUnique: uniqueIndex("saadi_financial_results_study_unique").on(table.organizationId, table.companyId, table.studyId),
+}));
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type Company = typeof companies.$inferSelect;

@@ -1,6 +1,6 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
-import { createSaadiSnapshot, createSaadiStudy, createSaadiVersion, listSaadiProvenanceForUser, listSaadiSnapshotsForUser, listSaadiStudiesForUser, listSaadiVersionsForUser, transitionSaadiVersionForUser } from "./saadi";
+import { calculateSaadiFeasibilityForUser, createSaadiSnapshot, createSaadiStudy, createSaadiVersion, getSaadiFeasibilityForUser, listSaadiProvenanceForUser, listSaadiSnapshotsForUser, listSaadiStudiesForUser, listSaadiVersionsForUser, saveSaadiFeasibilityInput, transitionSaadiVersionForUser } from "./saadi";
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema } from "../shared/saadi-contracts";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
@@ -62,6 +62,9 @@ export const appRouter = router({
     provenance: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), snapshotId: z.number().int().positive() })).query(({ ctx, input }) => listSaadiProvenanceForUser({ ...input, userId: ctx.user.id })),
     createVersion: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), snapshotId: z.number().int().positive(), version: saadiVersionSchema })).mutation(({ ctx, input }) => createSaadiVersion({ ...input, userId: ctx.user.id })),
     transitionVersion: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), versionId: z.number().int().positive(), decision: z.enum(["APPROVE", "ARCHIVE"]) })).mutation(({ ctx, input }) => transitionSaadiVersionForUser({ ...input, userId: ctx.user.id })),
+    feasibility: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() })).query(({ ctx, input }) => getSaadiFeasibilityForUser({ ...input, userId: ctx.user.id })),
+    saveFeasibilityInput: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), feasibility: z.object({ initialInvestment: z.number().positive(), discountRate: z.number().min(-0.99).max(10), cashFlows: z.array(z.number()).min(1).max(120), currency: z.string().regex(/^[A-Z]{3}$/) }).strict() }).strict()).mutation(({ ctx, input }) => saveSaadiFeasibilityInput({ ...input, userId: ctx.user.id })),
+    calculateFeasibility: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => calculateSaadiFeasibilityForUser({ ...input, userId: ctx.user.id })),
   }),
   companies: router({
     list: roleProcedure("companies", "read").query(({ ctx }) => getCompaniesForUser(ctx.user.id)),
