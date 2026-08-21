@@ -1991,3 +1991,9 @@
 - [x] Elaborar catálogo único completo de procedimentos, DTOs, schemas Zod, envelopes, estados, RBAC, migração transitória e versionamento — Documento em /home/ubuntu/documento-3-saadi-contrato-api-trpc-v3.2.3.md
 - [x] Executar autoauditoria formal de implementabilidade e confrontação com Documentos 1 e 2 — resultado documental PASS; recomenda-se avaliação formal independente
 - [x] Guardar checkpoint documental sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações ou configurações
+
+## Nova avaliação formal independente do Documento 3.2.3
+
+- [x] Reavaliar Documento 3.2.3 contra Documentos 1 e 2, matriz, adenda e arquitectura actual — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3.2.3.md
+- [x] Classificar problemas remanescentes e emitir decisão formal independente — NÃO APROVADO: 3 bloqueadores, 6 altos, 5 médios e 3 baixos
+- [x] Guardar parecer e checkpoint sem alterar o projecto
