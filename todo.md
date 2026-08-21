@@ -2113,3 +2113,12 @@
 - [x] Corrigir A-05: hashes canónicos, camadas de integridade e imutabilidade
 - [x] Corrigir A-06: correlação e auditoria obrigatórias em todas as operações
 - [x] Guardar versão corrigida e realizar nova avaliação independente; não iniciar Documento 4 — versão 1.1 pronta para nova avaliação
+
+## Continuação para conclusão do SAADI
+
+- [x] Avaliar independentemente o Documento 3 v1.1 corrigido contra os Documentos 1 e 2 — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3-v1.1.md; NÃO APROVADO: 1 bloqueador, 4 altos, 5 médios e 3 baixos
+- [ ] Corrigir divergências residuais e obter aprovação formal do Documento 3
+- [ ] Elaborar, avaliar e aprovar o Documento 4 sobre snapshots, proveniência e conflitos
+- [ ] Elaborar, avaliar e aprovar o Documento 5 do motor financeiro
+- [ ] Elaborar, avaliar e aprovar o Documento 6 de testes, rollback e homologação
+- [ ] Implementar e testar o SAADI por incrementos apenas após todas as aprovações
