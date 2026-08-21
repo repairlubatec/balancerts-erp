@@ -2003,3 +2003,9 @@
 - [x] Ler e confrontar integralmente o Documento 3 com os Documentos 1 e 2 aprovados — parecer em /home/ubuntu/avaliacao-formal-documento-3-exclusivamente-documentos-1-2.md
 - [x] Classificar divergências em bloqueadores, altos, médios e baixos e emitir parecer NÃO APROVADO — 3 bloqueadores, 6 altos, 7 médios e 3 baixos
 - [x] Guardar parecer e checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações
+
+## Nova avaliação formal independente — Documento 3 versão 1.1
+
+- [x] Ler integralmente o Documento 3 versão 1.1 e confrontar exclusivamente com os Documentos 1 e 2 aprovados — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3-v1.1.md
+- [x] Classificar bloqueadores, problemas altos, médios e baixos e emitir parecer formal NÃO APROVADO — 3 bloqueadores, 8 altos, 7 médios e 3 baixos
+- [x] Guardar parecer e checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações; manter erro JSX intocado
