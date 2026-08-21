@@ -2263,9 +2263,14 @@
 - [x] Expor endpoint protegido para gerar e armazenar o relatório
 - [x] Apresentar acção de geração e ligação ao relatório no painel SAADI
 - [x] Validar TypeScript e 13 testes dirigidos SAADI
-- [ ] Guardar checkpoint do sétimo marco
+- [x] Guardar checkpoint do sétimo marco
 
 ## Correcção do relatório PDF
 
 - [x] Apresentar nome e NIF reais da empresa no relatório, sem expor identificadores técnicos
 - [x] Revalidar TypeScript e 13 testes dirigidos SAADI
+
+## Qualidade do relatório SAADI
+
+- [x] Criar teste de geração de PDF válido com premissas, riscos e decisão
+- [x] Validar TypeScript e 14 testes dirigidos SAADI
