@@ -1961,3 +1961,9 @@
 - [x] Ler e confrontar integralmente a proposta 3.2.2 com os Documentos 1 e 2 e a arquitectura actual — parecer em /home/ubuntu/saadi-avaliacao-proposta-3.2.2.md
 - [x] Verificar se as correcções aos três problemas ALTOS são determinísticas e compatíveis — a proposta é mandato de revisão, não contrato final
 - [x] Produzir parecer formal e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações ou configurações — autorização de revisão aceite; Documento 3.2.2 ainda não aprovado
+
+## Documento 3.2.2 SAADI — elaboração integral autorizada
+
+- [x] Redigir o Documento 3.2.2 completo e autónomo com schemas Zod, envelopes, DTOs e contratos por procedimento — documento em /home/ubuntu/documento-3-saadi-contrato-api-trpc-v3.2.2.md
+- [x] Incorporar matriz Documento 2 → Documento 3.2.2, matriz RBAC determinística, estados, invariantes, limites, erros, idempotência e auditoria
+- [x] Autoauditar implementabilidade e guardar checkpoint documental sem alterar o projecto — PASS ao nível do contrato API; Documento 4 não iniciado
