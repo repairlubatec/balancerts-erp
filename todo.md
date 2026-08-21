@@ -2595,3 +2595,6 @@
 - [x] Mostrar titular e saldo inicial na listagem de contas do painel de controlo bancário e reconciliação
 - [x] Permitir seleccionar explicitamente a conta de Tesouraria no painel bancário antes de importar extractos ou reconciliar
 - [x] Filtrar linhas de extracto pendentes pelo cashAccountId seleccionado no painel de reconciliação
+- [ ] Pesquisar rigorosamente PGCA, IVA, AGT, banca, restauro e distribuição Windows e apresentar parecer para confirmação antes de implementar
+- [ ] D1 — Completar o catálogo versionado PGCA/IVA em estado PENDING, com fonte, vigência, âmbito, auditoria e revisão humana
+- [ ] D2 — Reforçar exportação, validação e pacote local SAF-T/AGT sem submissão real nem homologação declarada
