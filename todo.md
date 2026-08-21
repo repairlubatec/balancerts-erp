@@ -2154,3 +2154,11 @@
 - [x] Verificar coerência cruzada de entidades, estados, hashes, fórmulas, testes e fronteiras
 - [x] Classificar divergências e preparar parecer conjunto para aprovação formal — NÃO APROVADO: 1 bloqueador, 7 altos, 5 médios e 3 baixos
 - [x] Guardar o parecer sem alterar o software nem iniciar implementação — /home/ubuntu/avaliacao-conjunta-documentos-3-6-saadi.md
+
+## Correcção integral da avaliação conjunta dos Documentos 3–6
+
+- [x] Corrigir o bloqueador B-01: alinhar estados de DataSnapshot, IntegrationRun e Conflict com os Documentos 1 e 2
+- [x] Corrigir A-01 a A-07: DTOs analíticos, contexto semântico, proveniência composta, conflitos/reconciliação, fórmulas, rollback e catálogo mestre de estados
+- [x] Corrigir M-01 a M-05: compatibilidade de classificações, retenção, exemplos matemáticos, medição de desempenho e versionamento API
+- [x] Corrigir L-01 a L-03: rótulos portugueses, dicionário de enums e pacote de evidências
+- [x] Executar autoauditoria consolidada, guardar documentos corrigidos e preparar nova avaliação independente
