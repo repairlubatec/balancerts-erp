@@ -29,5 +29,13 @@ describe("Angola normative evidence", () => {
     expect(report).toContain("4511 Caixa");
     expect(report).toContain("6131 Mercado nacional");
     expect(report).toContain("Nenhuma alteração operacional foi feita nesta fase");
+    expect(existsSync("docs/normative-sources/lei-14-23-iva.pdf")).toBe(true);
+    expect(existsSync("docs/normative-sources/lei-14-23-iva-ocr.txt")).toBe(true);
+    const ivaText = readFileSync("docs/normative-sources/lei-14-23-iva-ocr.txt", "utf8");
+    expect(ivaText).toContain("14%, como taxa geral");
+    expect(ivaText).toContain("7% para o regime simplificado");
+    expect(ivaText).toContain("ARTIGO 19");
+    expect(report).toContain("4511 Caixa");
+    expect(report).toContain("manter **4511 — Caixa** como designação normativa oficial");
   });
 });

@@ -2603,3 +2603,6 @@
 - [x] Processar integralmente o PDF oficial recebido do Decreto n.º 82/01 e preservar a extracção verificável do PGCA
 - [x] Comparar a estrutura extraída do PGCA com as contas actualmente activas no BALANCERTS.ERP, sem alterar dados
 - [x] Corrigir o teste de evidência PGCA para usar a formulação exacta do parecer e voltar a executar a validação
+- [x] Processar integralmente o PDF oficial recebido da Lei n.º 14/23 e preservar artigos, anexos, vigência e evidência verificável
+- [x] Aplicar a decisão aprovada de transcrever literalmente as designações das contas do Decreto n.º 82/01, sem aliases no nome normativo
+- [x] Corrigir a asserção de literalidade 4511 para não rejeitar a menção histórica à divergência documentada no parecer
