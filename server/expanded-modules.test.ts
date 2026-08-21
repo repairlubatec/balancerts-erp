@@ -194,7 +194,10 @@ describe("expanded tenant-aware operational modules", () => {
       expect(normativeCoverage.requirements).toHaveLength(6);
       expect(normativeCoverage.requirements.find((requirement) => requirement.code === "DP71-RECEIPT")?.status).toBe("EXTERNAL_PENDING");
       const saftExport = await caller.reports.saftExport({ companyId: COMPANY_ID });
-      expect(saftExport).toMatchObject({ namespace: "urn:OECD:StandardAuditFile-Tax:AO_1.01_01", version: "1.01_01", submissionEligible: false, xml: null, contentType: "application/xml" });
+      expect(saftExport).toMatchObject({ namespace: "urn:OECD:StandardAuditFile-Tax:AO_1.01_01", version: "1.01_01", submissionEligible: false, contentType: "application/xml", externalSubmission: "NOT_CONFIGURED" });
+      expect(saftExport.xml).toContain("<AuditFile");
+      expect(saftExport.contentHash).toMatch(/^[a-f0-9]{64}$/);
+      expect(saftExport.localPackage).toMatchObject({ submissionEligible: false, externalSubmission: "NOT_CONFIGURED" });
       const audit = await db!.select({ event: auditEvents }).from(auditEvents).where(and(eq(auditEvents.companyId, COMPANY_ID), eq(auditEvents.entityId, String(paymentId))));
       expect(audit.some(({ event }) => event.action === "PAYMENT_CREATED" && event.actorUserId === USER_ID && event.afterState)).toBe(true);
     } finally {
