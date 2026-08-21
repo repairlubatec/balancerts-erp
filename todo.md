@@ -1931,3 +1931,9 @@
 - [x] Ler e confrontar integralmente o Documento 3.2 com os Documentos 1 e 2 aprovados e com o código/schema actuais — parecer em /home/ubuntu/saadi-documento3-2-parecer.md
 - [x] Classificar problemas como BLOQUEADOR, ALTO, MÉDIO, BAIXO ou INFORMATIVO e propor apenas correcções documentais
 - [x] Produzir parecer final e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações ou configurações
+
+## Documento 3.2 — versão consolidada revisada sem implementação
+
+- [x] Rever o Documento 3.2 corrigindo documentalmente todos os problemas BLOQUEADORES e ALTOS identificados no parecer anterior — Documento 3.2 Consolidado Revisado em /home/ubuntu/documento-3-saadi-contrato-api-trpc-v3.2-revisado.md
+- [x] Confrontar cada correcção com os Documentos 1 e 2 e com a arquitectura actual do BALANCERTS.ERP
+- [x] Fazer autoavaliação técnica, indicar conflitos remanescentes e guardar checkpoint sem alterar o projecto — recomendada nova avaliação formal; Documento 4 não iniciado
