@@ -2609,3 +2609,7 @@
 - [x] Cobrir no teste integrado a exposição tenant-aware das três regras IVA da Lei n.º 14/23 através do router normativo
 - [x] Executar suite global após a integração da Lei n.º 14/23 e confirmar não-regressão
 - [x] Criar extracto CSV de revisão da árvore PGCA com 763 candidatos OCR, mantendo todos fora da base até validação humana
+- [x] Rever tecnicamente D3 — contrato de API/tRPC antes da aprovação, sem alterar o projecto
+- [x] Rever tecnicamente D4 — snapshots, proveniência e conflitos antes da aprovação, sem alterar o projecto
+- [x] Rever tecnicamente D5 — motor financeiro e decisões antes da aprovação, sem alterar o projecto
+- [x] Consolidar parecer independente de pré-aprovação para D3, D4 e D5
