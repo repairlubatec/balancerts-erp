@@ -1949,3 +1949,9 @@
 - [x] Redigir o Documento 3.2.1 completo, incorporando as correcções dos 2 BLOQUEADORES e 6 problemas ALTOS — documento em /home/ubuntu/documento-3-saadi-contrato-api-trpc-v3.2.1.md
 - [x] Autoauditar a versão 3.2.1 contra os Documentos 1 e 2 e delimitar questões dos Documentos 4, 5 e 6 — recomenda-se nova avaliação formal
 - [x] Guardar checkpoint documental sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações, configurações ou arquitectura
+
+## Nova avaliação formal do Documento 3.2.1 anexado — sem implementação
+
+- [x] Ler integralmente o documento anexado e confrontar a versão 3.2.1 com os Documentos 1 e 2 e a arquitectura actual — parecer em /home/ubuntu/saadi-avaliacao-final-documento-3.2.1.md
+- [x] Classificar rigorosamente conflitos, bloqueadores, problemas altos e ressalvas — permanecem 3 problemas ALTOS; decisão NÃO APROVADO
+- [x] Produzir parecer formal independente e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações ou configurações
