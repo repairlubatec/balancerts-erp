@@ -4,6 +4,7 @@ import { appendAuditEventForUser, getDb } from "./db";
 import { companies, organizations, saadiProvenance, saadiSnapshots, saadiStudies, saadiVersions, saadiFeasibilityInputs, saadiFinancialResults, saadiScenarios } from "../drizzle/schema";
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema, type SaadiSnapshot as SaadiSnapshotContract, type SaadiSnapshotRequest, type SaadiVersion } from "../shared/saadi-contracts";
 import { calculateFeasibility } from "./saadi-financial";
+import { readSaadiAccountingSummary } from "./saadi-erp-read";
 
 const organizationAccessCondition = (userId: number) => or(
   eq(organizations.ownerUserId, userId),
@@ -113,6 +114,15 @@ export async function createSaadiSnapshot(input: {
   )).limit(1);
   if (created[0]) await appendAuditEventForUser({ organizationId: request.organizationId, companyId: request.companyId, actorUserId: input.userId, action: "SAADI_SNAPSHOT_CREATED", entityType: "saadiSnapshot", entityId: String(created[0].id), beforeState: null, afterState: JSON.stringify({ studyId: input.studyId, status: created[0].status, sourceFingerprint: created[0].sourceFingerprint }), correlationId: `saadi-snapshot:${created[0].id}` });
   return { snapshot: created[0], alreadyExists: false } as const;
+}
+
+export async function captureSaadiErpAccountingSnapshot(input: { userId: number; studyId: number; request: SaadiSnapshotRequest }) {
+  const summary = await readSaadiAccountingSummary(input.userId, input.request.companyId, input.request.periodIds[0]);
+  if (summary.organizationId !== input.request.organizationId) throw new Error("SAADI_SCOPE_MISMATCH");
+  const capturedAt = new Date().toISOString();
+  const content = { request: input.request, status: "CONCLUIDA" as const, capturedAt, provenance: [{ sourceSystem: "BALANCERTS.ERP" as const, sourceContract: "erp.accounting.read", sourceEntity: "accounting.read", organizationId: input.request.organizationId, companyId: input.request.companyId, periodIds: input.request.periodIds, extractedAt: capturedAt, contractVersion: input.request.contractVersion, transformation: "LEITURA_DIRECTA", contentHash: summary.integrityHash }], metrics: { periodos: input.request.periodIds.length, linhasBalancete: Array.isArray(summary.data.trialBalance) ? summary.data.trialBalance.length : 0 } };
+  const contentHash = hashPayload(content);
+  return createSaadiSnapshot({ userId: input.userId, studyId: input.studyId, idempotencyKey: `erp-accounting:${input.request.correlationId}`, request: input.request, snapshot: { ...content, contentHash } });
 }
 
 export function validateSaadiVersionInput(input: { version: SaadiVersion; organizationId: number; companyId: number }) {

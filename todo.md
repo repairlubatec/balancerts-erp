@@ -2209,3 +2209,12 @@
 - [x] Testar isolamento de empresa, classificação de dados e integridade do envelope
 - [x] Validar TypeScript e testes dirigidos do marco
 - [ ] Guardar checkpoint do adaptador e continuar para a captura imutável com proveniência
+
+## Segundo marco funcional — Captura imutável ERP → SAADI
+
+- [x] Criar captura contabilística a partir dos helpers ERP existentes
+- [x] Associar proveniência, contractVersion, períodos, correlação e hash de conteúdo
+- [x] Garantir idempotência por correlação e ausência de escrita no ERP
+- [x] Expor procedimento tRPC protegido para captura
+- [x] Validar TypeScript e 12 testes dirigidos SAADI
+- [ ] Guardar checkpoint da captura e continuar para comparação projectado versus realizado
