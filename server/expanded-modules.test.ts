@@ -114,11 +114,13 @@ describe("expanded tenant-aware operational modules", () => {
       const cash = await caller.treasury.createAccount({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, name: `Caixa E2E ${suffix}`, kind: "CASH" });
       cashAccountId = cash.id;
       expect((await caller.treasury.accounts({ companyId: COMPANY_ID })).some(({ account }) => account.id === cashAccountId)).toBe(true);
-      const bank = await caller.treasury.createAccount({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, name: `Banco E2E ${suffix}`, kind: "BANK", accountNumber: `AO06${suffix}` });
+      const bank = await caller.treasury.createAccount({ organizationId: ORGANIZATION_ID, companyId: COMPANY_ID, name: `Banco E2E ${suffix}`, kind: "BANK", accountNumber: `AO06${suffix}`, holderName: "Repair Lubatec", openingBalance: 125000 });
       bankAccountId = bank.id;
-      const updatedBank = await caller.treasury.updateAccount({ companyId: COMPANY_ID, cashAccountId: bankAccountId, name: `Banco E2E actualizado ${suffix}`, accountNumber: `AO07${suffix}` });
+      const updatedBank = await caller.treasury.updateAccount({ companyId: COMPANY_ID, cashAccountId: bankAccountId, name: `Banco E2E actualizado ${suffix}`, accountNumber: `AO07${suffix}`, holderName: "Repair Lubatec SA", openingBalance: 130000 });
       expect(updatedBank).toMatchObject({ id: bankAccountId });
-      expect((await caller.treasury.accounts({ companyId: COMPANY_ID })).some(({ account }) => account.id === bankAccountId && account.name.includes("actualizado") && account.accountNumber === `AO07${suffix}`)).toBe(true);
+      const savedBank = (await caller.treasury.accounts({ companyId: COMPANY_ID })).find(({ account }) => account.id === bankAccountId)?.account;
+      expect(savedBank).toMatchObject({ name: `Banco E2E actualizado ${suffix}`, accountNumber: `AO07${suffix}`, holderName: "Repair Lubatec SA" });
+      expect(Number(savedBank?.openingBalance)).toBe(130000);
       const emptyBankReconciliation = await caller.treasury.reconcile({ companyId: COMPANY_ID, cashAccountId: bankAccountId, statementDate: new Date("2026-08-18T23:00:00Z"), openingBalance: 0, closingBalance: 0 });
       expect(emptyBankReconciliation).toMatchObject({ status: "RECONCILED", systemBalance: 0, difference: 0 });
       bankReconciliationId = emptyBankReconciliation.id;
