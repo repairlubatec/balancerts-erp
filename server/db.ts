@@ -1682,7 +1682,7 @@ export async function getSaftReadinessForUserCompany(userId: number, companyId: 
   });
 }
 
-export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED"; cancellationReason?: string; correlationId?: string }) {
+export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED"; cancellationReason?: string; correlationId?: string; accounting?: { periodId: number; operation: string; documentType?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; idempotencyKey: string; lines: Array<{ pgcAccountId: number; debit: number; credit: number; currency?: string; exchangeRate?: number }> } }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertCompanyReady(db, input.userId, input.companyId);
@@ -1693,7 +1693,11 @@ export async function transitionBusinessDocument(input: { userId: number; compan
   if (input.to === "CANCELLED" && !input.cancellationReason?.trim()) throw new Error("CANCELLATION_REASON_REQUIRED");
   if (input.to === "ACCOUNTED") {
     const linkedEntry = await db.select({ id: journalEntries.id }).from(journalEntries).where(and(eq(journalEntries.sourceDocumentId, input.documentId), eq(journalEntries.companyId, input.companyId), eq(journalEntries.status, "POSTED"))).limit(1);
-    if (!linkedEntry[0]) throw new Error("DOCUMENT_REQUIRES_POSTED_ENTRY");
+    if (!linkedEntry[0] && input.accounting) {
+      await postJournalEntryWithPgcAccountsForUser({ userId: input.userId, organizationId: current.organization.id, companyId: input.companyId, periodId: input.accounting.periodId, operation: input.accounting.operation, documentType: input.accounting.documentType ?? current.document.documentType, description: `${current.document.documentType} ${current.document.documentNumber}`, sourceDocumentId: input.documentId, documentReference: current.document.documentNumber, journalCode: input.accounting.journalCode ?? "VENDAS", costCenter: input.accounting.costCenter, analyticalDimension: input.accounting.analyticalDimension, idempotencyKey: input.accounting.idempotencyKey, lines: input.accounting.lines });
+    }
+    const postedEntry = await db.select({ id: journalEntries.id }).from(journalEntries).where(and(eq(journalEntries.sourceDocumentId, input.documentId), eq(journalEntries.companyId, input.companyId), eq(journalEntries.status, "POSTED"))).limit(1);
+    if (!postedEntry[0]) throw new Error("DOCUMENT_REQUIRES_POSTED_ENTRY");
   }
   const issuedAt = input.to === "ISSUED" ? new Date() : current.document.issuedAt;
   const immutableHash = input.to === "ISSUED" ? createHash("sha256").update(JSON.stringify({ companyId: input.companyId, documentId: input.documentId, documentNumber: current.document.documentNumber, documentType: current.document.documentType, counterpartyId: current.document.counterpartyId, counterpartyType: current.document.counterpartyType, currency: current.document.currency, ivaRegime: current.document.ivaRegime, netAmount: current.document.netAmount, taxAmount: current.document.taxAmount, totalAmount: current.document.totalAmount, issuedAt: issuedAt?.toISOString() ?? null })).digest("hex") : current.document.immutableHash;
