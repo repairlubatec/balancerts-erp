@@ -2072,3 +2072,24 @@
 - [x] Remover “disposable” e todos os termos ingleses visíveis da interface, estados e mensagens de erro — nomenclatura interna e mensagem de organização traduzidas
 - [x] Rever mensagens técnicas expostas ao utilizador e substituí-las por português claro — “tenant actual” substituído por “organização actual”
 - [x] Testar a interface, a contagem de empresas e a ausência de termos ingleses antes do checkpoint — TypeScript OK, 67 testes dirigidos aprovados, pesquisa sem “disposable”, screenshots / e /empresas validados
+
+## Análise actual do SAADI
+
+- [x] Inventariar a implementação actual do SAADI no código, schema, routers e interface
+- [x] Confrontar o estado actual exclusivamente com os Documentos 1 e 2 aprovados
+- [x] Classificar lacunas, riscos, dependências e prioridades de conclusão do SAADI
+- [x] Entregar a análise sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações — /home/ubuntu/relatorio-estado-actual-saadi.md
+
+## Ordem de prioridade para conclusão do SAADI
+
+- [ ] Consolidar lacunas e dependências críticas do SAADI
+- [ ] Ordenar o trabalho por prioridade, risco, dependência e critério de conclusão
+- [ ] Definir gates documentais, aprovação e validação antes de qualquer implementação
+
+## Reinício do ciclo documental SAADI — novo Documento 3
+
+- [x] Consolidar integralmente os Documentos 1 e 2 aprovados para o novo contrato API
+- [x] Elaborar novo Documento 3 autónomo com catálogo fechado, schemas, DTOs, estados, RBAC, erros, limites e rastreabilidade — /home/ubuntu/documento-3-saadi-contrato-api-trpc-v1.0.md
+- [ ] Realizar avaliação formal independente e corrigir documentalmente as divergências
+- [ ] Aguardar aprovação formal do novo Documento 3
+- [ ] Implementar o primeiro incremento SAADI apenas depois da aprovação
