@@ -2608,3 +2608,4 @@
 - [x] Corrigir a asserção de literalidade 4511 para não rejeitar a menção histórica à divergência documentada no parecer
 - [x] Cobrir no teste integrado a exposição tenant-aware das três regras IVA da Lei n.º 14/23 através do router normativo
 - [x] Executar suite global após a integração da Lei n.º 14/23 e confirmar não-regressão
+- [x] Criar extracto CSV de revisão da árvore PGCA com 763 candidatos OCR, mantendo todos fora da base até validação humana
