@@ -2377,3 +2377,9 @@
 - [x] Apresentar a validação no painel SAADI em português
 - [x] Testar valores equilibrados, insuficientes e excedentes
 - [x] Guardar checkpoint do décimo quarto marco
+
+## Regressão global após o décimo quarto marco
+
+- [x] Executar a suite global do BALANCERTS.ERP
+- [x] Confirmar 357 testes aprovados em 358
+- [x] Confirmar que a única falha é SMTP Gmail 535 e não é causada pelo SAADI
