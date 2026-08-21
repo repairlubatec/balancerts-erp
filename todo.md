@@ -2032,3 +2032,9 @@
 - [x] Criar matriz de rastreabilidade Documento 1/2 → entidade/campo → procedimento → schema → DTO → permissão → estado → erro
 - [x] Executar revisão documental final e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações
 - [x] Apresentar a versão corrigida para aprovação e nova avaliação independente; não iniciar Documento 4
+
+## Avaliação independente — Documento 3 versão 3.4 corrigida
+
+- [x] Ler e confrontar a versão 3.4 exclusivamente com os Documentos 1 e 2 aprovados — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3-v3.4.md
+- [x] Verificar a eliminação efectiva dos problemas anteriores e classificar divergências remanescentes — NÃO APROVADO: 2 bloqueadores, 7 altos, 5 médios e 2 baixos
+- [x] Guardar o parecer independente e checkpoint sem alterar o projecto; não iniciar Documento 4
