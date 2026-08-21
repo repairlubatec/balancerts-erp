@@ -2383,3 +2383,11 @@
 - [x] Executar a suite global do BALANCERTS.ERP
 - [x] Confirmar 357 testes aprovados em 358
 - [x] Confirmar que a única falha é SMTP Gmail 535 e não é causada pelo SAADI
+
+## Décimo quinto marco funcional — Resumo de risco
+
+- [x] Calcular exposição total e risco máximo do estudo
+- [x] Mostrar contagem de riscos críticos, altos e moderados
+- [x] Apresentar o resumo junto do registo de riscos
+- [x] Testar estudo sem riscos e com múltiplos níveis de exposição
+- [x] Guardar checkpoint do décimo quinto marco
