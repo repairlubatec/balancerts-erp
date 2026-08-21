@@ -1965,7 +1965,7 @@ export async function createCostCenterForUser(input: { userId: number; companyId
   return { id, audited: true };
 }
 
-export type AccountingImportRow = { periodId: number; description: string; debitAccountId: number; creditAccountId: number; amount: number; documentReference?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; idempotencyKey: string };
+export type AccountingImportRow = { periodId: number; description: string; debitAccountId: number; creditAccountId: number; amount: number; operation?: string; documentReference?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; idempotencyKey: string };
 
 export async function importJournalEntriesForUser(input: { userId: number; companyId: number; rows: AccountingImportRow[] }) {
   if (input.rows.length === 0 || input.rows.length > 500) throw new Error("IMPORT_ROWS_LIMIT");
@@ -1976,7 +1976,7 @@ export async function importJournalEntriesForUser(input: { userId: number; compa
   }
   const published = [] as Array<{ entryId: number; idempotent: boolean }>;
   for (const row of input.rows) {
-    const result = await postJournalEntry({ companyId: input.companyId, periodId: row.periodId, description: row.description.trim(), documentReference: row.documentReference?.trim() || undefined, journalCode: row.journalCode?.trim() || "GERAL", costCenter: row.costCenter?.trim() || undefined, analyticalDimension: row.analyticalDimension?.trim() || undefined, idempotencyKey: row.idempotencyKey.trim(), createdBy: input.userId, lines: [{ accountId: row.debitAccountId, debit: row.amount, credit: 0, postable: true, validFrom: new Date(), currency: "AOA", exchangeRate: 1 }, { accountId: row.creditAccountId, debit: 0, credit: row.amount, postable: true, validFrom: new Date(), currency: "AOA", exchangeRate: 1 }] });
+    const result = await postJournalEntry({ companyId: input.companyId, periodId: row.periodId, description: row.description.trim(), documentReference: row.documentReference?.trim() || undefined, journalCode: row.journalCode?.trim() || "GERAL", costCenter: row.costCenter?.trim() || undefined, analyticalDimension: row.analyticalDimension?.trim() || undefined, idempotencyKey: row.idempotencyKey.trim(), accountingRuleOperation: row.operation?.trim() || undefined, accountingRuleDocumentType: "IMPORTACAO", createdBy: input.userId, lines: [{ accountId: row.debitAccountId, debit: row.amount, credit: 0, postable: true, validFrom: new Date(), currency: "AOA", exchangeRate: 1 }, { accountId: row.creditAccountId, debit: 0, credit: row.amount, postable: true, validFrom: new Date(), currency: "AOA", exchangeRate: 1 }] });
     published.push({ entryId: Number(result.entryId ?? result.entry?.id), idempotent: result.idempotent });
   }
   return { count: published.length, published };
