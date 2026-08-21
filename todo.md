@@ -2618,3 +2618,5 @@
 - [x] Actualizar testes e documentação de D4 após a correcção dos bloqueadores, sem executar restauro real
 - [x] Corrigir teste legado de restauro para reflectir a nova prova obrigatória de isolamento D4 e voltar a executar a suite global
 - [x] D5-02: endurecer origem Electron com HTTPS obrigatório fora de desenvolvimento e allowlist explícita de hosts
+- [x] D3 local: criar DTO semântico versionado para extractos bancários, independente do formato do banco
+- [x] D3 local: validar hash, moeda, datas, saldos e idempotência do extracto antes da persistência
