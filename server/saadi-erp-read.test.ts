@@ -31,3 +31,8 @@ describe("adaptador de leitura ERP para SAADI", () => {
     expect(result.dataClass).toBe("ACTUAL_REALIZED");
   });
 });
+
+  it("não contém operações de inserção, actualização ou eliminação no ERP", async () => {
+    const source = await import("node:fs/promises").then((fs) => fs.readFile(new URL("./saadi-erp-read.ts", import.meta.url), "utf8"));
+    expect(source).not.toMatch(/\bdb\.(insert|update|delete)\s*\(/);
+  });

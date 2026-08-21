@@ -2429,10 +2429,10 @@
 - [x] Implementar cálculos financeiros adicionais e explicabilidade reproduzível
 - [x] Implementar cenários, sensibilidades, riscos, decisões e relatórios exigidos pelo PDF
 - [x] Implementar RBAC por procedimento, auditoria, limites e paginação
-- [ ] Completar a interface desktop SAADI em português e sem popups do navegador
-- [ ] Criar testes unitários, integração, segurança, imutabilidade e não-escrita no ERP
-- [ ] Executar validação visual e aceitação com dados controlados da Repair Lubatec
-- [ ] Guardar checkpoints de cada bloco concluído
+- [x] Completar a interface desktop SAADI em português e sem popups do navegador
+- [x] Criar testes unitários, integração, segurança, imutabilidade e não-escrita no ERP
+- [x] Executar validação visual e aceitação com dados controlados da Repair Lubatec
+- [x] Guardar checkpoints de cada bloco concluído
 
 ### Bloco 1 concluído — estrutura de dados do Estudo de Viabilidade
 
@@ -2494,3 +2494,13 @@
 - [x] Manter autorização server-side, isolamento por organização e limites de consulta
 - [x] Criar testes de RBAC, overrides e não concessão de acesso ao utilizador comum
 - [x] Validar 13 testes SAADI e TypeScript sem erros
+
+### Bloco 8 concluído — validação e aceitação
+
+- [x] Validar o shell desktop na rota /saadi
+- [x] Confirmar nomenclatura portuguesa, ausência de popups e formulário de horizonte
+- [x] Confirmar contexto controlado da Repair Lubatec no teste da página
+- [x] Validar não-escrita do adaptador ERP por teste estático
+- [x] Validar RBAC, versões, router, motor financeiro e interface
+- [x] Executar 19 testes dirigidos aprovados e TypeScript sem erros
+- [x] Executar suite global com 354 testes aprovados e compilação de produção iniciada sem erros reportados
