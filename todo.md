@@ -2192,3 +2192,11 @@
 - [x] Produzir relatório SAADI — Auditoria Técnica e Plano de Integração
 - [x] Guardar checkpoint da Fase 1 antes de qualquer implementação adicional
 - [ ] Só depois da Fase 1 implementar o SAADI por tarefas completas com testes e checkpoints
+
+## Fase 2–3 do PDF — Integração SAADI–ERP
+
+- [x] Consolidar matriz executável de fontes de verdade e reutilização
+- [x] Formalizar contratos de leitura semântica ERP → SAADI
+- [x] Formalizar RBAC por capacidade, isolamento e não duplicação
+- [x] Formalizar riscos, migrações, testes, rollback e dependências de integração
+- [x] Guardar checkpoint do plano de integração antes de implementar o adaptador
