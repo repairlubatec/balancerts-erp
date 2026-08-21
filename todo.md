@@ -2620,3 +2620,4 @@
 - [x] D5-02: endurecer origem Electron com HTTPS obrigatório fora de desenvolvimento e allowlist explícita de hosts
 - [x] D3 local: criar DTO semântico versionado para extractos bancários, independente do formato do banco
 - [x] D3 local: validar hash, moeda, datas, saldos e idempotência do extracto antes da persistência
+- [x] Actualizar os dossiers D3 e D5 com os contratos locais implementados e os limites que continuam externos
