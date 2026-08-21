@@ -48,6 +48,7 @@ export async function createSaadiStudy(input: {
   companyId: number;
   studyCode: string;
   name: string;
+  investmentDomain?: "IMOBILIARIO" | "AGRICULTURA" | "INDUSTRIA" | "ENERGIA" | "HOTELARIA" | "LOGISTICA" | "OUTRO";
   baseCurrency?: string;
 }) {
   const db = await getDb();
@@ -61,6 +62,7 @@ export async function createSaadiStudy(input: {
     companyId: input.companyId,
     studyCode,
     name,
+    investmentDomain: input.investmentDomain ?? "OUTRO",
     baseCurrency: (input.baseCurrency ?? "AOA").trim().toUpperCase(),
     createdBy: input.userId,
   });
@@ -68,7 +70,7 @@ export async function createSaadiStudy(input: {
     .where(and(eq(saadiStudies.organizationId, input.organizationId), eq(saadiStudies.companyId, input.companyId), eq(saadiStudies.studyCode, studyCode)))
     .orderBy(desc(saadiStudies.id)).limit(1);
   const created = rows[0];
-  if (created) await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_STUDY_CREATED", entityType: "saadiStudy", entityId: String(created.id), beforeState: null, afterState: JSON.stringify({ studyCode, status: created.status }), correlationId: `saadi-study:${created.id}` });
+  if (created) await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_STUDY_CREATED", entityType: "saadiStudy", entityId: String(created.id), beforeState: null, afterState: JSON.stringify({ studyCode, investmentDomain: created.investmentDomain, status: created.status }), correlationId: `saadi-study:${created.id}` });
   return created;
 }
 

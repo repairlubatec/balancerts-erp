@@ -946,6 +946,7 @@ export const saadiStudies = mysqlTable("saadiStudies", {
   companyId: int("companyId").notNull(),
   studyCode: varchar("studyCode", { length: 64 }).notNull(),
   name: varchar("name", { length: 180 }).notNull(),
+  investmentDomain: mysqlEnum("investmentDomain", ["IMOBILIARIO", "AGRICULTURA", "INDUSTRIA", "ENERGIA", "HOTELARIA", "LOGISTICA", "OUTRO"]).default("OUTRO").notNull(),
   status: mysqlEnum("status", ["DRAFT", "ACTIVE", "ARCHIVED"]).default("DRAFT").notNull(),
   baseCurrency: varchar("baseCurrency", { length: 3 }).default("AOA").notNull(),
   createdBy: int("createdBy").notNull(),

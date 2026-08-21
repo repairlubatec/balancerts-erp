@@ -2228,3 +2228,12 @@
 - [x] Apresentar a comparação no painel SAADI sem transformar o desvio em lançamento ERP
 - [x] Testar comparação, limites, isolamento e não-regressão
 - [x] Guardar checkpoint do terceiro marco
+
+## Quarto marco funcional — Domínios de investimento SAADI
+
+- [x] Adicionar classificação do domínio do investimento ao estudo
+- [x] Suportar imobiliário, agricultura, indústria, energia, hotelaria, logística e outros
+- [x] Persistir o domínio no estudo sem afectar entidades operacionais do ERP
+- [x] Expor o domínio no procedimento e no formulário de criação
+- [x] Testar valores válidos, valor por defeito e isolamento
+- [ ] Guardar checkpoint do quarto marco
