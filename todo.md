@@ -2147,3 +2147,10 @@
 - [ ] Aguardar aprovação formal conjunta antes de implementar
 
 - [x] Corrigir o Documento 3 v1.2 para a versão v1.3: taxonomia canónica, estados wire, snapshots, AGT, RBAC e rastreabilidade — /home/ubuntu/documento-3-saadi-contrato-api-trpc-v1.3-corrigido.md
+
+## Avaliação conjunta dos Documentos 3–6
+
+- [x] Confrontar os Documentos 3, 4, 5 e 6 com os Documentos 1 e 2
+- [x] Verificar coerência cruzada de entidades, estados, hashes, fórmulas, testes e fronteiras
+- [x] Classificar divergências e preparar parecer conjunto para aprovação formal — NÃO APROVADO: 1 bloqueador, 7 altos, 5 médios e 3 baixos
+- [x] Guardar o parecer sem alterar o software nem iniciar implementação — /home/ubuntu/avaliacao-conjunta-documentos-3-6-saadi.md
