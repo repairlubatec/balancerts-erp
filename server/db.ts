@@ -4,7 +4,7 @@ import { and, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
   auditEvents, accountingRules, pgcAccounts, pgcVersions, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
-import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
+import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildSaftAoXml, buildTrialBalance, buildVatSummary, type JournalRow, type SaftAoAccount, type SaftAoJournalEntry, type SaftAoSourceDocument } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, validateStockMovement } from "./operations";
 import { applyReconciliationAdjustment } from "./reconciliation";
@@ -1680,6 +1680,28 @@ export async function getSaftReadinessForUserCompany(userId: number, companyId: 
     productCount: productsRows.length,
     taxRuleCount: normativeRows.length,
   });
+}
+
+export async function getSaftLocalExportForUserCompany(userId: number, companyId: number) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const companyRows = await db.select({ company: companies }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, companyId), organizationAccessCondition(userId))).limit(1);
+  const company = companyRows[0]?.company; if (!company) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const periods = await getPeriodsForUserCompany(userId, companyId);
+  const period = periods[0]?.period; if (!period) throw new Error("SAFT_PERIOD_REQUIRED");
+  const [accounts, journal, documents] = await Promise.all([getChartAccountsForUserCompany(userId, companyId), getJournalForUserCompany(userId, companyId, period.id), getDocumentsForUserCompany(userId, companyId)]);
+  const saftAccounts: SaftAoAccount[] = accounts.map(({ account }) => ({ id: account.id, code: account.code, description: account.name, parentCode: account.parentCode, postable: Boolean(account.postable), openingDebit: 0, openingCredit: 0, closingDebit: 0, closingCredit: 0 }));
+  const entryGroups = new Map<number, SaftAoJournalEntry>();
+  for (const row of journal.entries) {
+    const current = entryGroups.get(row.entryId) ?? { id: row.entryId, transactionDate: row.createdAt, description: row.description, sourceDocumentId: row.sourceDocumentId, lines: [] };
+    current.lines.push({ accountCode: row.accountCode, debit: Number(row.debit), credit: Number(row.credit), sourceDocumentId: row.sourceDocumentId });
+    entryGroups.set(row.entryId, current);
+  }
+  const saftEntries: SaftAoJournalEntry[] = Array.from(entryGroups.values());
+  const saftDocuments: SaftAoSourceDocument[] = documents.map(({ document }) => ({ id: document.id, documentNumber: document.documentNumber, documentType: document.documentType, status: document.status, issueDate: document.issuedAt ?? document.createdAt, customerName: document.customerName ?? null, customerNif: undefined, netAmount: Number(document.netAmount), taxAmount: Number(document.taxAmount), totalAmount: Number(document.totalAmount), ivaRegime: document.ivaRegime, productCode: undefined, productDescription: undefined, hash: document.immutableHash ?? undefined, hashControl: undefined }));
+  const periodStart = new Date(Date.UTC(period.year, period.month - 1, 1)); const periodEnd = new Date(Date.UTC(period.year, period.month, 0, 23, 59, 59, 999));
+  const xml = buildSaftAoXml({ companyName: company.name, nif: company.nif ?? "", companyId: String(company.id), functionalCurrency: company.functionalCurrency ?? "AOA", periodStart, periodEnd, accounts: saftAccounts, journalEntries: saftEntries, sourceDocuments: saftDocuments });
+  const contentHash = createHash("sha256").update(xml, "utf8").digest("hex");
+  return { xml, contentHash, contentType: "application/xml" as const, submissionEligible: false as const, externalSubmission: "NOT_CONFIGURED" as const, period: { year: period.year, month: period.month }, counts: { accounts: saftAccounts.length, journalEntries: saftEntries.length, documents: saftDocuments.length } };
 }
 
 export async function transitionBusinessDocument(input: { userId: number; companyId: number; documentId: number; to: "DRAFT" | "VALIDATED" | "ISSUED" | "ACCOUNTED" | "CANCELLED"; cancellationReason?: string; correlationId?: string; accounting?: { periodId: number; operation: string; documentType?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; idempotencyKey: string; lines: Array<{ pgcAccountId: number; debit: number; credit: number; currency?: string; exchangeRate?: number }> } }) {
