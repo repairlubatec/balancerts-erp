@@ -2279,3 +2279,11 @@
 
 - [x] Trocar abertura em nova janela por descarregamento directo dentro do shell
 - [x] Validar TypeScript e 14 testes dirigidos SAADI
+
+## Oitavo marco funcional — Sensibilidade financeira
+
+- [x] Implementar VPL sob variação de taxa de desconto e fluxos de caixa
+- [x] Expor procedimento SAADI com limite máximo de combinações
+- [x] Apresentar matriz de sensibilidade no painel desktop
+- [x] Validar TypeScript e 14 testes dirigidos SAADI
+- [ ] Guardar checkpoint do oitavo marco

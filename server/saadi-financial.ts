@@ -62,6 +62,16 @@ function paybackFor(input: FeasibilityInput) {
   return null;
 }
 
+export type SensitivityPoint = { rateDelta: number; cashFlowDelta: number; npv: number; decision: FeasibilityResult["decision"] };
+
+export function calculateSensitivity(input: FeasibilityInput, rateDeltas = [-0.02, 0, 0.02], cashFlowDeltas = [-0.1, 0, 0.1]): SensitivityPoint[] {
+  if (rateDeltas.length > 9 || cashFlowDeltas.length > 9) throw new Error("SAADI_SENSIBILIDADE_LIMITE");
+  return rateDeltas.flatMap((rateDelta) => cashFlowDeltas.map((cashFlowDelta) => {
+    const result = calculateFeasibility({ initialInvestment: input.initialInvestment, discountRate: input.discountRate + rateDelta, cashFlows: input.cashFlows.map((flow) => flow * (1 + cashFlowDelta)) });
+    return { rateDelta, cashFlowDelta, npv: result.npv, decision: result.decision };
+  }));
+}
+
 export function calculateFeasibility(input: FeasibilityInput): FeasibilityResult {
   ensureFinite(input.initialInvestment, "INVESTIMENTO");
   ensureFinite(input.discountRate, "TAXA");
