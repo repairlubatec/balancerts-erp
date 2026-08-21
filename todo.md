@@ -2326,3 +2326,9 @@
 - [x] Incluir capital próprio, dívida, taxa e prazo no relatório PDF
 - [x] Incluir prestação mensal e juros totais no relatório PDF
 - [x] Revalidar nome/NIF reais, TypeScript e 14 testes dirigidos SAADI
+
+## Cobertura de financiamento SAADI
+
+- [x] Testar prestação mensal, serviço total e juros totais
+- [x] Testar rejeição de dívida sem prazo
+- [x] Validar TypeScript e 16 testes dirigidos SAADI
