@@ -2052,3 +2052,16 @@
 - [x] Ler e confrontar integralmente a versão 3.5 com os Documentos 1 e 2 aprovados — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3-v3.5.md
 - [x] Verificar ponto por ponto os 2 bloqueadores e 7 problemas altos anteriores e classificar divergências remanescentes — NÃO APROVADO: 1 bloqueador, 5 altos, 5 médios e 3 baixos
 - [x] Guardar o parecer formal e checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações; não iniciar Documento 4
+
+## Eliminação física das versões do Documento 3
+
+- [x] Apagar fisicamente todas as versões, adendas, matrizes e pareceres associados ao Documento 3
+- [x] Verificar que os Documentos 1 e 2 permanecem presentes e que o projecto não foi alterado
+
+## Análise completa do BALANCERTS.ERP
+
+- [x] Inventariar arquitectura, estrutura, módulos, entidades, schema, serviços e APIs
+- [x] Auditar funcionamento, testes, erros, autenticação, RBAC, isolamento, contabilidade, fiscalidade e integrações
+- [x] Avaliar experiência desktop, cobertura funcional e lacunas por módulo
+- [x] Consolidar riscos, prioridades e estado real de implementação num relatório completo — /home/ubuntu/relatorio-auditoria-completa-balancerts-erp.md
+- [x] Guardar o relatório sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações
