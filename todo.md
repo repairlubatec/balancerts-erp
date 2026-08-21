@@ -2606,3 +2606,5 @@
 - [x] Processar integralmente o PDF oficial recebido da Lei n.º 14/23 e preservar artigos, anexos, vigência e evidência verificável
 - [x] Aplicar a decisão aprovada de transcrever literalmente as designações das contas do Decreto n.º 82/01, sem aliases no nome normativo
 - [x] Corrigir a asserção de literalidade 4511 para não rejeitar a menção histórica à divergência documentada no parecer
+- [x] Cobrir no teste integrado a exposição tenant-aware das três regras IVA da Lei n.º 14/23 através do router normativo
+- [x] Executar suite global após a integração da Lei n.º 14/23 e confirmar não-regressão

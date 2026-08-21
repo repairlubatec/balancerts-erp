@@ -189,6 +189,9 @@ describe("expanded tenant-aware operational modules", () => {
       expect((await caller.treasury.accounts({ companyId: COMPANY_ID })).some(({ account }) => account.id === cashAccountId)).toBe(true);
       const normative = await caller.normative.list({ companyId: COMPANY_ID });
       expect(normative.some(({ rule }) => rule.code === "AO-FATURAS-71-25" && rule.verificationStatus === "EXTERNAL_PENDING")).toBe(true);
+      expect(normative.some(({ rule }) => rule.code === "IVA-14-23-ART19-RATES" && rule.verificationStatus === "EXTERNALLY_VERIFIED")).toBe(true);
+      expect(normative.some(({ rule }) => rule.code === "IVA-14-23-ART21-CATIVE" && rule.verificationStatus === "EXTERNALLY_VERIFIED")).toBe(true);
+      expect(normative.some(({ rule }) => rule.code === "IVA-14-23-ANNEXES" && rule.verificationStatus === "EXTERNALLY_VERIFIED")).toBe(true);
       const normativeCoverage = await caller.normative.coverage({ companyId: COMPANY_ID });
       expect(normativeCoverage).toMatchObject({ instrument: "DP-71-25", eligibleForCertification: false });
       expect(normativeCoverage.requirements).toHaveLength(6);
