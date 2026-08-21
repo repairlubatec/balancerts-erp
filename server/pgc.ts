@@ -1,4 +1,4 @@
-import { and, desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { getDb, appendAuditEventForUser } from "./db";
 import { accountingRules, chartAccounts, companies, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcMigrationMaps, pgcSources, pgcVersions } from "../drizzle/schema";
 
@@ -141,6 +141,20 @@ export async function listPgcMigrationMapsForUser(input: { userId: number; compa
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   await assertCompanyScope(input.userId, input.companyId);
   return db.select().from(pgcMigrationMaps).where(and(eq(pgcMigrationMaps.companyId, input.companyId), eq(pgcMigrationMaps.versionId, input.versionId))).orderBy(desc(pgcMigrationMaps.id)).limit(500);
+}
+
+export async function createAccountingRuleForUser(input: { userId: number; organizationId: number; versionId: number; companyId?: number; operation: string; documentType?: string; debitAccountId: number; creditAccountId: number; ivaAccountId?: number; nature?: string; costCenterCode?: string; priority?: number; effectiveFrom: Date; effectiveTo?: Date | null; sourceId?: number; notes?: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const version = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!version[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  if (version[0].version.status === "ARCHIVED" || version[0].version.status === "SUPERSEDED") throw new Error("PGC_VERSION_NOT_EDITABLE");
+  const ids = [input.debitAccountId, input.creditAccountId, ...(input.ivaAccountId ? [input.ivaAccountId] : [])];
+  const accounts = await db.select({ id: pgcAccounts.id, organizationId: pgcAccounts.organizationId, versionId: pgcAccounts.versionId, acceptsEntries: pgcAccounts.acceptsEntries, validationStatus: pgcAccounts.validationStatus }).from(pgcAccounts).where(inArray(pgcAccounts.id, ids));
+  if (accounts.length !== new Set(ids).size || accounts.some((account) => account.organizationId !== input.organizationId || account.versionId !== input.versionId || account.acceptsEntries !== 1 || account.validationStatus !== "CONFIRMED")) throw new Error("PGC_RULE_ACCOUNTS_NOT_CONFIRMED");
+  const result = await db.insert(accountingRules).values({ organizationId: input.organizationId, companyId: input.companyId ?? null, versionId: input.versionId, operation: input.operation.trim(), documentType: input.documentType?.trim() || null, debitAccountId: input.debitAccountId, creditAccountId: input.creditAccountId, ivaAccountId: input.ivaAccountId ?? null, nature: input.nature?.trim() || null, costCenterCode: input.costCenterCode?.trim() || null, priority: input.priority ?? 100, effectiveFrom: input.effectiveFrom, effectiveTo: input.effectiveTo ?? null, sourceId: input.sourceId ?? null, active: 1, notes: input.notes?.trim() || null, createdBy: input.userId });
+  const id = Number(result[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId ?? null, actorUserId: input.userId, action: "ACCOUNTING_RULE_CREATED", entityType: "accountingRule", entityId: String(id), beforeState: null, afterState: JSON.stringify(input), correlationId: `accounting-rule:${id}` });
+  return { id, active: true };
 }
 
 export async function listAccountingRulesForUser(input: { userId: number; organizationId: number; versionId: number; companyId?: number }) {

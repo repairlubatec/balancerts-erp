@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
+  auditEvents, accountingRules, pgcAccounts, pgcVersions, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildTrialBalance, buildVatSummary, type JournalRow } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, validateStockMovement } from "./operations";
@@ -1674,7 +1674,7 @@ export async function transitionBusinessDocument(input: { userId: number; compan
   return { id: input.documentId, from: current.document.status, to: input.to };
 }
 
-export async function postJournalEntry(input: { companyId: number; periodId: number; sourceDocumentId?: number; supportFileAssetId?: number; documentReference?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; reversalOfEntryId?: number; idempotencyKey: string; description: string; createdBy: number; reviewRequired?: boolean; lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[] }) {
+export async function postJournalEntry(input: { companyId: number; periodId: number; sourceDocumentId?: number; supportFileAssetId?: number; documentReference?: string; journalCode?: string; costCenter?: string; analyticalDimension?: string; reversalOfEntryId?: number; idempotencyKey: string; description: string; createdBy: number; reviewRequired?: boolean; accountingRuleOperation?: string; accountingRuleDocumentType?: string; lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[] }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const companyContext = await db.select({ company: companies, organization: organizations }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(companies.id, input.companyId), organizationAccessCondition(input.createdBy))).limit(1);
@@ -1693,6 +1693,20 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
     const original = await db.select({ id: journalEntries.id, status: journalEntries.status }).from(journalEntries).where(and(eq(journalEntries.id, input.reversalOfEntryId), eq(journalEntries.companyId, input.companyId))).limit(1);
     if (!original[0]) throw new Error("REVERSAL_ENTRY_NOT_FOUND_OR_FORBIDDEN");
     if (original[0].status === "REVERSED") throw new Error("REVERSAL_ALREADY_EXISTS");
+  }
+  let resolvedAccountingRule: typeof accountingRules.$inferSelect | undefined;
+  if (input.accountingRuleOperation) {
+    const ruleRows = await db.select({ rule: accountingRules }).from(accountingRules).innerJoin(pgcVersions, eq(accountingRules.versionId, pgcVersions.id)).where(and(eq(accountingRules.organizationId, companyContext[0].company.organizationId), eq(accountingRules.companyId, input.companyId), eq(accountingRules.operation, input.accountingRuleOperation), input.accountingRuleDocumentType ? eq(accountingRules.documentType, input.accountingRuleDocumentType) : sql`1 = 1`, eq(accountingRules.active, 1), eq(pgcVersions.status, "ACTIVE"), lte(accountingRules.effectiveFrom, new Date()), or(isNull(accountingRules.effectiveTo), gte(accountingRules.effectiveTo, new Date())))).orderBy(accountingRules.priority).limit(1);
+    resolvedAccountingRule = ruleRows[0]?.rule;
+    if (!resolvedAccountingRule) throw new Error("ACCOUNTING_RULE_NOT_FOUND");
+    if (resolvedAccountingRule.debitAccountId === null || resolvedAccountingRule.creditAccountId === null) throw new Error("ACCOUNTING_RULE_INCOMPLETE");
+    const normativeAccounts = await db.select({ id: pgcAccounts.id, code: pgcAccounts.code }).from(pgcAccounts).where(inArray(pgcAccounts.id, [resolvedAccountingRule.debitAccountId, resolvedAccountingRule.creditAccountId]));
+    if (normativeAccounts.length !== 2) throw new Error("ACCOUNTING_RULE_NORMATIVE_ACCOUNT_NOT_FOUND");
+    const normativeCodes = new Set(normativeAccounts.map((account) => account.code));
+    const operationalAccounts = await db.select({ id: chartAccounts.id, code: chartAccounts.code }).from(chartAccounts).where(and(eq(chartAccounts.companyId, input.companyId), inArray(chartAccounts.code, Array.from(normativeCodes))));
+    if (operationalAccounts.length !== normativeCodes.size) throw new Error("ACCOUNTING_RULE_OPERATIONAL_ACCOUNT_NOT_MAPPED");
+    const selectedAccountIds = new Set(input.lines.map((line) => line.accountId));
+    if (!operationalAccounts.every((account) => selectedAccountIds.has(account.id))) throw new Error("ACCOUNTING_RULE_ACCOUNT_MISMATCH");
   }
   const accountIds = Array.from(new Set(input.lines.map((line) => line.accountId)));
   const accountRows = accountIds.length ? await db.select({ id: chartAccounts.id, companyId: chartAccounts.companyId, postable: chartAccounts.postable, validFrom: chartAccounts.validFrom, validTo: chartAccounts.validTo }).from(chartAccounts).where(and(eq(chartAccounts.companyId, input.companyId), inArray(chartAccounts.id, accountIds))) : [];
@@ -1717,7 +1731,7 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
     return { entryId, idempotent: false };
   });
   if (!result.idempotent) {
-    await appendAuditEventForUser({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: input.reversalOfEntryId ? "JOURNAL_ENTRY_REVERSED" : input.reviewRequired ? "JOURNAL_ENTRY_SUBMITTED" : "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), beforeState: input.reversalOfEntryId ? JSON.stringify({ reversalOfEntryId: input.reversalOfEntryId }) : null, afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, supportFileAssetId: input.supportFileAssetId, documentReference: input.documentReference, journalCode: input.journalCode ?? "GERAL", costCenter: input.costCenter, analyticalDimension: input.analyticalDimension, reversalOfEntryId: input.reversalOfEntryId, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
+    await appendAuditEventForUser({ organizationId: companyContext[0].organization.id, companyId: input.companyId, actorUserId: input.createdBy, action: input.reversalOfEntryId ? "JOURNAL_ENTRY_REVERSED" : input.reviewRequired ? "JOURNAL_ENTRY_SUBMITTED" : "JOURNAL_ENTRY_POSTED", entityType: "journalEntry", entityId: String(result.entryId), beforeState: input.reversalOfEntryId ? JSON.stringify({ reversalOfEntryId: input.reversalOfEntryId }) : null, afterState: JSON.stringify({ description: input.description, sourceDocumentId: input.sourceDocumentId, supportFileAssetId: input.supportFileAssetId, documentReference: input.documentReference, journalCode: input.journalCode ?? "GERAL", costCenter: input.costCenter, analyticalDimension: input.analyticalDimension, reversalOfEntryId: input.reversalOfEntryId, accountingRuleId: resolvedAccountingRule?.id ?? null, accountingRuleOperation: input.accountingRuleOperation ?? null, lineCount: input.lines.length }), correlationId: input.idempotencyKey });
   }
   return result;
 }
