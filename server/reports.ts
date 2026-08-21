@@ -193,6 +193,21 @@ export function buildSaftReadiness(input: SaftCoverageInput) {
 }
 
 
+export type SaftLocalPackageManifest = {
+  format: "SAFTAO1.01_01";
+  schemaVersion: string;
+  namespace: string;
+  generatedAt: string;
+  readiness: ReturnType<typeof buildSaftReadiness>;
+  submissionEligible: false;
+  externalSubmission: "NOT_CONFIGURED";
+  contentHash: string;
+};
+
+export function buildSaftLocalPackageManifest(readiness: ReturnType<typeof buildSaftReadiness>, contentHash: string, generatedAt = new Date()) : SaftLocalPackageManifest {
+  return { format: "SAFTAO1.01_01", schemaVersion: readiness.schemaVersion, namespace: readiness.namespace, generatedAt: generatedAt.toISOString(), readiness, submissionEligible: false, externalSubmission: "NOT_CONFIGURED", contentHash };
+}
+
 export type SaftAoAccount = { id: number; code: string; description: string; parentCode?: string | null; postable: boolean; openingDebit?: number; openingCredit?: number; closingDebit?: number; closingCredit?: number; groupingCategory?: "GR" | "GA" | "GM" | "AR" | "AA" | "AM" };
 export type SaftAoJournalLine = { accountCode: string; debit: number; credit: number; recordId?: string; sourceDocumentId?: number | null };
 export type SaftAoJournalEntry = { id: number; transactionDate: Date; description: string; sourceDocumentId?: number | null; customerId?: string | null; supplierId?: string | null; lines: SaftAoJournalLine[] };

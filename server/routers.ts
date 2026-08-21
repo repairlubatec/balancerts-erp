@@ -33,6 +33,7 @@ import { archiveFileAssetForUser, createFileAsset, createFileAssetVersion, getFi
 import { prepareTenantFile } from "./files";
 import { storageGetSignedUrl, storagePut } from "./storage";
 import { buildAgtComplianceCalendar, validateAgtFiscalRecord } from "./tax-compliance";
+import { buildSaftLocalPackageManifest } from "./reports";
 import { getBalancertsIaDiagnostics } from "./balancerts-ia/diagnostics";
 import { importAndAnalyzeBalancertsDocument } from "./balancerts-ia/import-service";
 import { generateAgtQrCodeDataUrl, validateAgtQrPayload } from "./agt-qrcode";
@@ -417,7 +418,10 @@ export const appRouter = router({
     saftReadiness: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getSaftReadinessForUserCompany(ctx.user.id, input.companyId)),
     saftExport: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive() })).query(async ({ ctx, input }) => {
       const readiness = await getSaftReadinessForUserCompany(ctx.user.id, input.companyId);
-      if (!readiness.submissionEligible) return { namespace: readiness.namespace, version: readiness.schemaVersion, submissionEligible: false as const, exportBlockedReason: readiness.exportBlockedReason, xml: null, contentType: "application/xml" as const };
+      if (!readiness.submissionEligible) {
+        const contentHash = Buffer.from(JSON.stringify({ companyId: input.companyId, readiness }), "utf8").toString("base64url");
+        return { namespace: readiness.namespace, version: readiness.schemaVersion, submissionEligible: false as const, exportBlockedReason: readiness.exportBlockedReason, xml: null, contentType: "application/xml" as const, localPackage: buildSaftLocalPackageManifest(readiness, contentHash) };
+      }
       throw new TRPCError({ code: "PRECONDITION_FAILED", message: "SAFT_EXTERNAL_VALIDATION_REQUIRED" });
     }),
     documentChain: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentAccountingChainForUserCompany(ctx.user.id, input.companyId, input.documentId)),
