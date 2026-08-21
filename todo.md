@@ -2180,3 +2180,15 @@
 - [x] Ligar todos os botões, estados de carregamento, erros, sucesso e auditoria
 - [x] Criar testes Vitest do motor financeiro, isolamento e procedimentos SAADI
 - [x] Verificar visualmente o fluxo e guardar checkpoint funcional
+
+## Execução integral da instrução estratégica do PDF SAADI
+
+- [x] Concluir auditoria técnica bloqueante do BALANCERTS.ERP sem alterar código, schema, dados ou integrações
+- [x] Mapear arquitectura, tecnologias, módulos, entidades, base de dados, serviços, APIs, autenticação e RBAC
+- [x] Identificar funcionalidades reutilizáveis e duplicações que devem ser evitadas
+- [x] Construir matriz SAADI versus ERP baseada no código actual
+- [x] Definir fonte de verdade para cada entidade e tipo de dado
+- [x] Definir pontos de integração, novas entidades, migrações, permissões e riscos
+- [x] Produzir relatório SAADI — Auditoria Técnica e Plano de Integração
+- [x] Guardar checkpoint da Fase 1 antes de qualquer implementação adicional
+- [ ] Só depois da Fase 1 implementar o SAADI por tarefas completas com testes e checkpoints
