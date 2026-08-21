@@ -1041,6 +1041,26 @@ export const saadiScenarios = mysqlTable("saadiScenarios", {
   studyScenarioNameUnique: uniqueIndex("saadi_scenarios_study_name_unique").on(table.organizationId, table.companyId, table.studyId, table.name),
 }));
 
+export const saadiVarianceReports = mysqlTable("saadiVarianceReports", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyId: int("studyId").notNull(),
+  snapshotId: int("snapshotId").notNull(),
+  metric: varchar("metric", { length: 160 }).notNull(),
+  projectedValue: varchar("projectedValue", { length: 40 }).notNull(),
+  realizedValue: varchar("realizedValue", { length: 40 }).notNull(),
+  absoluteVariance: varchar("absoluteVariance", { length: 40 }).notNull(),
+  percentageVariance: varchar("percentageVariance", { length: 40 }),
+  currency: varchar("currency", { length: 3 }).notNull().default("AOA"),
+  sourceHash: varchar("sourceHash", { length: 64 }).notNull(),
+  comparisonHash: varchar("comparisonHash", { length: 64 }).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  studySnapshotMetricUnique: uniqueIndex("saadi_variance_study_snapshot_metric_unique").on(table.studyId, table.snapshotId, table.metric),
+}));
+
 export const saadiFinancialResults = mysqlTable("saadiFinancialResults", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

@@ -2218,3 +2218,13 @@
 - [x] Expor procedimento tRPC protegido para captura
 - [x] Validar TypeScript e 12 testes dirigidos SAADI
 - [ ] Guardar checkpoint da captura e continuar para comparação projectado versus realizado
+
+## Terceiro marco funcional — Projectado versus realizado
+
+- [x] Criar persistência SAADI para comparações e desvios entre projecção e realizado
+- [x] Implementar cálculo determinístico de desvio absoluto e percentual
+- [x] Associar a comparação a uma captura ERP, versão/estudo e origem dos dados
+- [x] Expor consulta e cálculo server-side com isolamento por organização e empresa
+- [x] Apresentar a comparação no painel SAADI sem transformar o desvio em lançamento ERP
+- [x] Testar comparação, limites, isolamento e não-regressão
+- [ ] Guardar checkpoint do terceiro marco
