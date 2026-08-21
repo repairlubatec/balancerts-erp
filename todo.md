@@ -2264,3 +2264,8 @@
 - [x] Apresentar acção de geração e ligação ao relatório no painel SAADI
 - [x] Validar TypeScript e 13 testes dirigidos SAADI
 - [ ] Guardar checkpoint do sétimo marco
+
+## Correcção do relatório PDF
+
+- [x] Apresentar nome e NIF reais da empresa no relatório, sem expor identificadores técnicos
+- [x] Revalidar TypeScript e 13 testes dirigidos SAADI

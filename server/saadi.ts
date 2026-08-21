@@ -135,10 +135,11 @@ export async function generateSaadiFeasibilityReport(input: { userId: number; or
   await assertCompanyAccess(input);
   const [study] = await db.select().from(saadiStudies).where(and(eq(saadiStudies.id, input.studyId), eq(saadiStudies.organizationId, input.organizationId), eq(saadiStudies.companyId, input.companyId))).limit(1);
   if (!study) throw new Error("SAADI_STUDY_NOT_FOUND_OR_FORBIDDEN");
+  const [company] = await db.select().from(companies).where(and(eq(companies.id, input.companyId), eq(companies.organizationId, input.organizationId))).limit(1);
   const feasibility = await getSaadiFeasibilityForUser(input);
   const risks = await db.select().from(saadiRisks).where(and(eq(saadiRisks.organizationId, input.organizationId), eq(saadiRisks.companyId, input.companyId), eq(saadiRisks.studyId, input.studyId))).orderBy(desc(saadiRisks.exposure));
   const decisions = await db.select().from(saadiDecisions).where(and(eq(saadiDecisions.organizationId, input.organizationId), eq(saadiDecisions.companyId, input.companyId), eq(saadiDecisions.studyId, input.studyId))).orderBy(desc(saadiDecisions.decidedAt));
-  const result = await buildSaadiFeasibilityPdf({ companyName: String(input.companyId), studyCode: study.studyCode, studyName: study.name, investmentDomain: study.investmentDomain, currency: feasibility.input?.currency ?? study.baseCurrency, feasibility: feasibility.input && feasibility.result ? { ...feasibility.input, ...feasibility.result } : undefined, risks, decisions });
+  const result = await buildSaadiFeasibilityPdf({ companyName: company?.name ?? "Empresa autorizada", companyNif: company?.nif, studyCode: study.studyCode, studyName: study.name, investmentDomain: study.investmentDomain, currency: feasibility.input?.currency ?? study.baseCurrency, feasibility: feasibility.input && feasibility.result ? { ...feasibility.input, ...feasibility.result } : undefined, risks, decisions });
   const filename = `estudo-viabilidade-${study.studyCode}-${new Date().toISOString().slice(0, 10)}.pdf`;
   const uploaded = await storagePut(`saadi/${input.organizationId}/${input.companyId}/${filename}`, result.buffer, result.mimeType);
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_REPORT_GENERATED", entityType: "saadiStudy", entityId: String(input.studyId), beforeState: null, afterState: JSON.stringify({ filename, key: uploaded.key }), correlationId: `saadi-report:${input.studyId}` });
