@@ -400,5 +400,10 @@ export async function listSaadiScenariosForUser(input: { userId: number; organiz
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertCompanyAccess(input);
-  return db.select().from(saadiScenarios).where(and(eq(saadiScenarios.organizationId, input.organizationId), eq(saadiScenarios.companyId, input.companyId), eq(saadiScenarios.studyId, input.studyId))).orderBy(desc(saadiScenarios.createdAt));
+  const rows = await db.select().from(saadiScenarios).where(and(eq(saadiScenarios.organizationId, input.organizationId), eq(saadiScenarios.companyId, input.companyId), eq(saadiScenarios.studyId, input.studyId))).orderBy(desc(saadiScenarios.createdAt));
+  return rows.map((row) => {
+    let parsed: { npv?: number; irr?: number | null; paybackMonths?: number | null; decision?: string; financing?: { monthlyPayment?: number; totalInterest?: number; totalDebtService?: number } } = {};
+    try { parsed = row.resultJson ? JSON.parse(row.resultJson) : {}; } catch { parsed = {}; }
+    return { ...row, indicators: { npv: parsed.npv ?? null, irr: parsed.irr ?? null, paybackMonths: parsed.paybackMonths ?? null, decision: parsed.decision ?? row.decision, monthlyPayment: parsed.financing?.monthlyPayment ?? null, totalInterest: parsed.financing?.totalInterest ?? null, totalDebtService: parsed.financing?.totalDebtService ?? null } };
+  });
 }

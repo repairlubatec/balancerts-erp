@@ -2361,3 +2361,11 @@
 - [x] Apresentar progresso e instruções accionáveis no painel desktop
 - [x] Testar estados vazio, parcial e concluído sem alterar o ERP
 - [x] Guardar checkpoint do décimo segundo marco
+
+## Décimo terceiro marco funcional — Comparação detalhada de cenários
+
+- [x] Expor VPL, TIR, prazo de retorno e decisão em cada cenário
+- [x] Mostrar a composição de financiamento junto dos indicadores
+- [x] Ordenar e destacar a hipótese mais favorável sem alterar dados do ERP
+- [x] Testar DTO, isolamento e apresentação em português
+- [x] Guardar checkpoint do décimo terceiro marco
