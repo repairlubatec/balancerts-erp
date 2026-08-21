@@ -1,0 +1,36 @@
+ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1025
+41 TÍTULOS NEGOCIÁVEIS 44 OUTROS DEPÓSITOS
+411 Acções 44 | Moeda nacional
+41351 Empresas do grupo 4411 Banco .
+
+4112 Associadas 4412 Banco .
+4113 Outras empresas - .
+412 Obrigações
+P 442 Moeda estrangeira
+4121 Empresas do grupo
+st22 Associadas 4421 Banco .
+4123 Outras empresas s422 Banco .
+413 Títulos da dívida pública a - .
+4132 45 CAIXA
+451 Fundo fixo
+asi Caxa
+A
+42 DEPÓSITOS A PRAZO 8512 Cama
+421 Moeda nacional
+452 Valores para depositar
+4211 Banco
+4212 Banco 4521
+422 Moeda estrangeira
+453 Valores destinados a pagamentos específicos
+4221 Banco
+4222 Banco 4531 Salários
+43 DEPÓSITOS À ORDEM 46 .
+461 - -
+43 1 Moeda nacional o .
+4311 Banca - 47 .
+4312 Banco sm .
+432 Mocda estrangeira
+48 CONTA TRANSITÓRIA
+432 Banco -
+4322 Banço - 481 Banco .
+. RR 482 Banco

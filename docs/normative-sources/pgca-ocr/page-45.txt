@@ -1,0 +1,45 @@
+ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1021
+3-TERCEIROS 319 Clientes — saldos credores
+3 Clientes 3191 Adiantamentos
+32 Fomecelores 3192 Embalagens a devolver
+33 Empréstimos 3193 Material à consignação
+34 Estado
+35 Entidades participantes e participadas
+36 Pessoal 32 FORNECEDORES
+37 Outros valores a receber e a pagar
+38 Provisões para cobranças duvidosas 32 | Fornecedores — correntes
+39 Provisões para Ouros riscos e encargos
+3211 Grupo
+31 CLIENTES
+32111 Subsidiárias
+32 à Chentes - correntes 32112 Associadas
+3111 Grupo 3212 Não grupo
+31 11 Subsidárias 32121 Nacionais
+21 1 12 Associadas 32122 Estrangeiros
+34 1 2 Não grupo 322 Fornecedores — títulos a pagar
+31121 Nacionais 3221 Grupo
+31.1 22 Estrangeiros
+32211 Subsidiárias
+3 2 Clientes — títulos a receber 32212 Associadas
+222 Não grupo
+3121 Grupo
+32221 Nacionais
+31211 Subsidsárias 32222 Estrangeiros
+31212 Associadas
+3122 Não grupo
+328 Fornecedores — facturas em recepção e confe-
+31221 Nacionais rência
+31222 Estrangeiros
+318!
+31 3 Clientes — títulos descontados
+3131 Grupo 329 Fornecedores - saldos devedores
+31311 Subsidiánas
+291 Adiantamentos
+31312 Associadas 3292 Embalagens a devolver
+3132 Não grupo 3293 Material à consignação
+3132 | Nacionais
+31322 Estrangeiros 33 EMPRÉSTIMOS
+33 1 Empréstimos bancários
+31 8 Chentes de cobrança duvidosa 3311 Moeda nacional
+3181 Chentes — correntes 33114 Banco
+M82 Chentes — títulos

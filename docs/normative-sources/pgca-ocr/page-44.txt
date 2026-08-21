@@ -1,0 +1,35 @@
+1020 DIÁRIO DA REPÚBLICA
+24 PRODUTOS ACABADOS E INTERMÉDIOS 272 Ontros materiais
+24 1 Prodntos acabados z21 .
+Mi
+27 3 Mercadorias
+2731 .
+24 2 Produtos intermédios -
+2421 . . o
+. 28 ADIANTAMENTOS POR CONTA DE COM-
+PRAS
+24 9 Em poder de terceiros 28 ? Matérias-primas e outros materiais
+2491 2811
+25 SUB-PRODUTOS, DESPERDÍCIOS, RESÍDUOS 28 2 Mercadorias
+E REFUGOS 2821
+25 1 Sub-produtos
+2811 29 PROVISÃO PARA DEPRECIAÇÃO DE
+EXISTÊNCIAS
+25 2 Desperdícios, resíduos e refugos 291
+2521 . 29 2 Matérias-primas subsidiárias e de consumo
+2921 . .
+26 MERCADORIAS 29 3 Produtos e trabalhos em curso
+261... . 2931 .
+262 .
+. 29 4 Produtos acabados e intermédios
+2941 .
+26 9 Em poder de terceiras .
+2691 . 29 5 Sub-produtos, desperdícios, resíduos e
+. refugos
+2951
+27 MATÉRIAS-PRIMAS, MERCADORIAS E
+OUTROS MATERIAIS EM TRÂNSITO
+29 6 Mercadorias
+27 | Matérias-primas
+2961
+21

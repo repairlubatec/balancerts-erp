@@ -1,0 +1,44 @@
+ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1029
+681 24 Saldos devedores de fomece- 68.11 Outros ganhos e perdas não operacionais
+dores
+68 125 Participantes e participadas 68111 Donauvos
+68 1 26 Dívidas do Pessoal -
+68 19 Transferência para resultados não opera-
+68 129 Outros saldos a receber ema
+cionais
+68 1 3 Riscos e encargos 69 PROVEITOS E GANHOS EXTRAORDI-
+68131 Pensões NÁRIOS
+68 13 2 Processos judiciais em curso
+68 133 Acidentes de trabalho 691 Ganhos resultantes de catástrofes naturais
+68 134 Garantias dadas a chentes
+6911 ...
+68 139 Outros riscos e encargos em . ..
+. . 692 Ganhos resultantes de convulsões políticas
+“ - nári 921 ....
+682 Anulação de amortizações extraordinárias
+682 1 Imobizações corpóreas =
+6822 h sn 69 3 Ganhos resultantes de expropriações
+6931 - .
+68 3 Ganhos em imobilizações a as -
+683 | Venda de mobilizações corpórcas 69 4 Ganhos resultantes de sinistros
+68 3 2 Venda de mobilizações incorpóreas
+6941 .
+68 4 Ganhos em existências .
+6841 Sobras $9:5 Subsídios
+. . 6951. + -
+68 5 Recuperação de dívidas -
+6851 69 6 Anulação de passivos não exigíveis
+6961
+68 6 Benefícios de penalidades contratuais .
+6861
+699 Transferência para resultados extraordiná-
+rios
+687 - -
+68 8 Descontinuldade de operações 7-CUSTOS E PERDAS POR NATUREZA
+68 9 Alterações de políticas contabilísticas 71 Custo das mercadorias vendidas c das
+o maténias consumidas
+68 10 Correcções relativas a exercícios anteriores 72 Custos com o pessoal
+73 Amortizações do exercício
+68 10 1 Estimanva impostos 7á . . .
+68 10 2 Resutuição de impostos 75 Qutros custos e perdas operacionais
+76 Custos é perdas financeiros gerais

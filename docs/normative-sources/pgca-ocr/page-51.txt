@@ -1,0 +1,40 @@
+ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1027
+63 5 Subsídios a preços 63 8 Qutros proveitos e ganhos operacionais
+6151 6381 .
+. 639 Transferência para resultados operacionais
+61 7 Devoluções . .
+64 VARIAÇÃO NOS INVENTÁRIOS DE PRO-
+617 1 Mercado nactonal DUTOS ACABADOS E DE PRODUÇÃO EM
+61 7 2 Mercado estrangeiro CURSO
+61 8 Descontos e abatimentos 64 1 Produtos e trabalhos em curso
+61 8 1 Mercado nacional sais
+61 82 Mercado estrangeiro
+619 Transferência para resultados operacionais 64 2 Produtos acabados
+62 Prestações de serviço s21
+62 1 Serviços principais , .
+64 3 Produtos intermédios
+62 1 t Mercado nacional
+62 1 2 Mercado estrangeiro 6431 .
+62 2 Serviços secundários
+622 1 Mercado nacronal
+62 2 2 Mercado estrangeiro 649 Transferência para resultados operacionais
+65 TRABALHOS PARA A PRÓPRIA EMPRESA
+. 65 1 Para imobilizado
+628 Descontos e abatimentos 6511 Corpóreo
+65 12 Incorpóreo
+62 8 1 Mercado nacional 65 13 Financero
+62 8 2 Mercado estrangeiro 6514 Em curso
+652 Para encargos a repartir por exercícios
+629 Transferência para resultados operacionais Foturos
+63 Outros proveitos operacionais 6521
+63 1 Serviços suplementares . .
+6311 Aluguer de equipamento '
+659 fe
+63 1 2 Cedência de pessoal Transferência para resultados operacionais
+63 13 Cedência de encrgia
+63 F 4 Estudos, projectos e assistência técnica 66 PROVEITOS E GANHOS FINANCEIROS
+GERAIS
+63 2 Royalties 66 1 Juros
+63 3 Subsídios à exploração 66 1 ( De investamentos financesros
+63 4 Subsídios a investimento 66111 Obmgações
+- 6611 3Títulos de parucipação

@@ -39,3 +39,27 @@ A documentação oficial TiDB Backup & Restore recomenda restaurar para um novo 
 Fonte: https://docs.pingcap.com/tidb/stable/backup-and-restore-overview/
 
 Impacto: a `RESTORE_DATABASE_URL` só deve apontar para um destino isolado, vazio ou sem conflitos, com evidência de backup, versão compatível e validação posterior dos módulos. A implementação local pode preparar procedimentos e verificações, mas não pode criar ou usar um destino externo que não foi fornecido.
+
+## Verificação directa das abas oficiais — 21/08/2026
+
+A página oficial do CNNCA/MinFin em https://cnnca.minfin.gov.ao/legislacao/sector-empresarial identifica expressamente “Decreto n.º 82/01 de 16 de Novembro”, com a descrição “Aprova o Plano Geral de Contabilidade” e um ficheiro PDF correspondente.
+
+A página oficial da AGT em https://agt.minfin.gov.ao/PortalAGT/#!/iva/legislacao contém a secção “Leis” e disponibiliza, entre outros, a Lei n.º 7/19 que aprova o Código do IVA e a Lei n.º 17/19 que altera artigos da Lei n.º 7/19 e do CIVA. Nesta consulta directa, a Lei n.º 14/23 não apareceu na lista visível; portanto, não deve ser catalogada automaticamente apenas com base nesta página. A confirmação da Lei n.º 14/23 exige localizar o documento integral noutra página oficial/jurídica ou receber o PDF exacto.
+
+Conclusão operacional: as fontes oficiais confirmam o enquadramento do PGCA e a existência do CIVA, mas a activação de contas/taxas continua bloqueada até leitura do PDF integral exacto e confronto artigo a artigo.
+
+A renderização directa do CNNCA confirmou visualmente o cartão “Decreto n.º 82/01 de 16 de Novembro”, a descrição “Aprova o Plano Geral de Contabilidade” e o elemento PDF “Decreto n.º 82/01 de 16 de Novembro.pdf”. A ligação directa ainda precisa de ser extraída do HTML para descarregar e ler o documento integral.
+
+O cartão do CNNCA revelou a ligação directa do PDF oficial: https://cms.minfin.gov.ao/api/assets/portal-cnnca/70f43ca4-c46f-4e9a-b090-2216f69357f3/. A abertura desta ligação no navegador excedeu o tempo limite (HTTP 504); a leitura integral ainda não foi feita e nenhuma conta foi activada.
+
+## Evidência visual do PDF recebido
+
+O PDF recebido tem 97 páginas e corresponde ao Diário da República, I Série — n.º 52, de 16 de Novembro de 2001. As primeiras páginas mostram o Decreto n.º 82/01 do Conselho de Ministros, que aprova o Plano Geral de Contabilidade, incluindo a aplicação obrigatória às sociedades comerciais e empresas públicas abrangidas. O ficheiro está marcado como encriptado, sem extracção de texto autorizada; por isso, a leitura das contas deverá ser feita por OCR/visão página a página, preservando o PDF original sem o modificar.
+
+A verificação visual das páginas 49–50 confirma que a lista oficial apresenta a classe 4 com “45 CAIXA”, “451 Fundo fixo”, “4511 Caixa” e “4512 Caixa”; a página seguinte apresenta “61 VENDAS”, “613 Mercadorias”, “6131 Mercado nacional” e “6132 Mercado estrangeiro”. Assim, o PDF recebido não mostra literalmente “4511 Caixa Kwanza”; mostra “4511 Caixa”. A designação “Caixa Kwanza” não deve ser gravada como texto oficial desta fonte sem uma evidência adicional ou decisão documental explícita. O código 6131 como “Mercado nacional” está confirmado visualmente.
+
+A leitura visual adicional das páginas 48 a 52 confirma a sequência estrutural do plano oficial nesta zona do diploma. A página 48 encerra a classe 3 e introduz formalmente a classe 4 — Meios Monetários, com as rubricas 41 Títulos negociáveis, 42 Depósitos a prazo, 43 Depósitos à ordem, 44 Outros depósitos, 45 Caixa, 48 Conta transitória e 49 Provisões para aplicações de tesouraria. A página 49 detalha a conta 45, mostrando 451 Fundo fixo, 4511 Caixa e 4512 Caixa, além de 452 Valores para depositar e 453 Valores destinados a pagamentos específicos, com 4531 Salários.
+
+A página 50 inicia a classe 6 — Proveitos e Ganhos por Natureza, confirmando 61 Vendas, 62 Prestações de serviço, 63 Outros proveitos operacionais, 64 Variação nos inventários de produtos acabados e de produção em curso, 65 Trabalhos para a própria empresa, 66 Proveitos e ganhos financeiros gerais, 67 Proveitos e ganhos financeiros em filiais e associadas, 68 Outros proveitos não operacionais e 69 Proveitos e ganhos extraordinários. Na mesma página, a conta 61 detalha 611 Produtos acabados e intermédios, 612 Sub-produtos, desperdícios, resíduos e refugos, 613 Mercadorias e 614 Embalagens de consumo, com 6131 Mercado nacional e 6132 Mercado estrangeiro claramente visíveis.
+
+A página 51 prolonga a classe 6 com 615 Subsídios a preços, 617 Devoluções, 618 Descontos e abatimentos, 619 Transferência para resultados operacionais, 62 Prestações de serviço, 63 Outros proveitos operacionais, 64 Variação nos inventários e 65 Trabalhos para a própria empresa. A página 52 confirma o desenvolvimento da conta 66 e a passagem para 67 e 68. Estes achados bastam para validar documentalmente, com esta fonte, os códigos 4511 e 6131 e a organização oficial das classes 4 e 6, sem ainda inferir nomenclaturas adicionais não escritas no diploma.

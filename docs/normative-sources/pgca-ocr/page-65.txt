@@ -1,0 +1,47 @@
+ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1041
+Sub-produtos (conta 25 1) Imputação de gastos mdustrias fixos
+Esta rubnca destina-se a registar os bens de natureza A unputação de gastos industriais de produção fixos é
+secundária resultantes do processo produtivo é que são — baseada na capacidade normal
+abtidos simultaneamente com os produtos principais
+Por esta razão, a quantia de gustos industriais fixos
+imputada a cada unidade de produção não é aumentada
+Desperdícios, resíduos e tefugos (conta 25 2) pela baixa de produção ou astulações inacavas
+Esta rubrica destina-se e registar os bens resultantes do Em períodos de produção anormalmente alta, a quanta
+- de gastos fixos imputada a cada unidade de produção é
+processo produtivo que não respeitem as condições para dimuinuíga, a fim de que os inventánas não sejam medidos.
+serem reconhecidos como sub-produtos acima do custo
+Mercadorias (conta 26) Capacidade normal
+Esta rubrica destina-se a registar os bens adquiridos Capacidade normal é a produção que se espera que seja
+pela entidade e destinados à venda sem que sejam objecto — aungida cm média durante um número de períodos ou de
+de qualquer modificação temporadas em circunstâncias normais, tomando em conta
+a perda de capacidade resultante da manutenção planeada
+Matérias-primas, mercadorias e outros materiais em
+nânsito (conta 27) Gastos industriais de produção variáveis
+Esta rubrica destina-se a registar os bens adquindos que Os gastos industrins de produção variáveis são os
+anda não tenham sido recepcionados pela entidade, mas custos indirectos de produção que variam directamente, ou
+para Os quais já tenha sido recebida a correspondente quase directamente, com o volume de produção
+factura ou documento equivalente
+Imputação de gastos industriais de produção variáveis
+Adiantamentos por conta de compras (conta 28)
+Os gastos industnais de produção variáveis são imputa-
+Esta rubrica destina-se à registar os adiantamentos dos à cada unidade de produção na base do uso real das
+festos pela entidade relativos a compras cuja preço esteja Instalações de produção
+previamente fixado
+Imputação em casos de produção simultânea
+Provisão para depreciação de exstências (conta 29)
+A produção simultânea pode refertr-se a
+Esta rubrica destina-se a registar as diferenças relativas o
+ao custo de aquisição ou produção, resultantes da aplicação Produção consunta
+dos entérios de valorimetnia definidos para as existências, Produção da qual resulte um produta principal e um
+isto é, a diferença apurada entre o valor de custa s o sub-produto
+valor realizável líquido, quando 0 primeiro for superior ao
+segundo Quando os custos de conversão de cada produto não
+sejam separadamente idenaficáveis, a sua imputação é feita
+numa base racional e consistente
+62 Definições e situações particulares:
+A imputação pode ser baseada, por exemplo, nas vendas
+Gastas industrars de produção fixos relativas de cada produto
+o A maioria dos sub-produtos, pela sua natureza, são
+Os gastos industmais de produção fixos são os custos materialmente irrelevantes, pelo que são muitas vezes
+indirectos de produção que permaneçam relanvamente medidos pelo valor realizável líquida e este valor é
+constantes independentemente do volume de produção deduzido ao custo do produto principal

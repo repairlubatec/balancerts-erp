@@ -1,0 +1,45 @@
+1028 DIÁRIO DA REPÚBLICA
+66114 Empréstimos 667 Reposição de provisões
+667 1 Invesumentos financeiros
+66119 Outros
+66713 Subsidiárias
+66 | 2 De mora relativos a dívidas de terceiros 667 | 2 Associadas
+' 65713 Outras empresas
+66 121 Dívidas recebidas à prestações 657 E 4 Fundos
+66 122 De empréstimos a terceiros
+657 19 Outros investimentos
+66 1 5 De aplicações de tesouraria 6672 Aplicações de tesouraria
+66.1 4 Desconto de títulos 66721 Títulos negociáveis
+66722 Depósitos a prazo
+66 723 Outros depósitos
+66 2 Diferenças de câmbio favoráveis 66729 Outros mvestmentos
+662 1 Realizadas
+S6 2 2 Não realizadas 67 PROVEITOS E GANHOS FINANCEIROS
+EM FILIAIS E ASSOCIADAS
+66 3 Descontos de pronto pagamento obtidos
+6631 67 1 Rendimento de participações de capital
+671 | Subsidiánas
+67 1 2 Associadas
+66 4 Rendimentos de investimentos em imóveis
+41
+679 Transferência para resultados em filiais e
+associadas
+66 5 Rendimento de participações de capital 68 OUTROS PROVEITOS E GANHOS NÃO
+OPERACIONAIS
+665 1 Acções, quotas em outras empresas
+66 5 2 Acções. quotas incluídas nos fundos 68 1 Reposição de provisões
+66 53 Acções, quotas incluídas nos títulos
+negociáveis 68 | 1 Exastências
+66 6 Ganhos na ahenação de aplicações finan- 68 L 11 Maténas-primos subsidiárias e
+ceiras de consumo
+68112 Produtos e trabalhos em curso
+666 1 Investimentos financeiros 68 113 Produtos acabados e intermé-
+dios
+666 11 Subsidiárias 68 1 1 4 Sub-produtos, desperdícios,
+6661 2 Associadas resíduos e refugos
+666] 3 Outras empresas 68 115 Mercadonas
+66614 Imóveis
+$66 1 5 Fundos 68 1 2 Cobranças duvidosas
+666 19 Outros investimentos 68 12 t Clentes
+68 1 2 2 Chentes — títulos a receber
+66 6 2 Títulos negociáveis 68 123 Clentes — cobrança duvidosa

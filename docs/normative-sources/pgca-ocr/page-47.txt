@@ -1,0 +1,42 @@
+ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1023
+3522 Empresas do grupo — subsidiárias 363 Pessoal — adiantamentos
+35221 cisubscrição 3631
+35222 cfadiantamentos sobre lucros ” -
+35223 eflucros -
+35224 Empréstimos
+369 Pessoal — outros
+3523 Empresas do grupo — associadas 3691
+35231 c/subserição
+35232  cfsdiantementos sobre jucros 37 OUTROS VALORES A RECEBER E A PAGAR
+35233 eflucros
+35234 Empréstimos 37 1 Compras de imobilizado
+3711 Corpóreo
+3524 Outros 3712 Incorpéreo
+3713 Financeiro
+35241 eisubscrição
+35242  cfadiantamentos sobre lucros '
+35243 cilucros 372 Vendas de imobilizado
+35244 Empréstimos
+. 3721 Corpóreo
+322 Incorpáreo
+323 Financeiro
+36 PESSOAL
+373 Proveitos a facturar
+361 Pessoal — remunerações 2731 Vendas
+» 332 Prestações de serviço
+3611 Órgãos sociais 333 Juros
+36111
+É 374 Encargos a repartir por períodos futuros
+3612 Empregados
+3741 Descontos de enussão de obrigações
+36121 3742 Descantos de emissão de títulos de part
+cipação
+362 Pessoal — participação nos resultados 375 Encargos a pagar
+3621 Órgãos sociais 37514 Remunerações
+352 Juros
+36211
+37.6 Proveitos a repartir por períodos futuros
+3622 — Empeegados pos po
+3761 Prémios de emissão de obngações
+36221 3162 Prémios de erussão de títulos de partica-
+. 3763 Subsídios para investimento
