@@ -2046,3 +2046,9 @@
 - [x] Actualizar a matriz de rastreabilidade e detalhar a correcção de cada bloqueador e problema alto
 - [x] Executar autoauditoria e guardar checkpoint documental sem alterar o projecto; não iniciar Documento 4
 - [x] Apresentar a versão corrigida para nova avaliação independente
+
+## Avaliação formal independente — Documento 3 versão 3.5
+
+- [x] Ler e confrontar integralmente a versão 3.5 com os Documentos 1 e 2 aprovados — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3-v3.5.md
+- [x] Verificar ponto por ponto os 2 bloqueadores e 7 problemas altos anteriores e classificar divergências remanescentes — NÃO APROVADO: 1 bloqueador, 5 altos, 5 médios e 3 baixos
+- [x] Guardar o parecer formal e checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações; não iniciar Documento 4
