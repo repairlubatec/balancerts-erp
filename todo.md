@@ -2009,3 +2009,12 @@
 - [x] Ler integralmente o Documento 3 versão 1.1 e confrontar exclusivamente com os Documentos 1 e 2 aprovados — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3-v1.1.md
 - [x] Classificar bloqueadores, problemas altos, médios e baixos e emitir parecer formal NÃO APROVADO — 3 bloqueadores, 8 altos, 7 médios e 3 baixos
 - [x] Guardar parecer e checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações; manter erro JSX intocado
+
+## Reconstrução integral do Documento 3 — SAADI API/tRPC
+
+- [x] Consolidar os requisitos vinculativos dos Documentos 1 e 2 e os problemas das avaliações anteriores
+- [x] Redigir o Documento 3 completo com catálogo fechado, schemas, DTOs, estados, RBAC, envelopes, erros e integração semântica — /home/ubuntu/documento-3-saadi-contrato-api-trpc-reconstruido.md
+- [x] Fechar limites, retries, timeouts, idempotência, concorrência, auditoria, proveniência e versionamento
+- [x] Executar autoauditoria formal e corrigir contradições internas antes da apresentação — autoauditoria PASS documental
+- [x] Guardar o Documento 3 reconstruído em checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações
+- [ ] Apresentar o Documento 3 reconstruído para nova avaliação formal independente; não iniciar Documento 4
