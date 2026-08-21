@@ -596,6 +596,8 @@ export const cashAccounts = mysqlTable("cashAccounts", {
   branchName: varchar("branchName", { length: 160 }),
   accountNumber: varchar("accountNumber", { length: 80 }),
   iban: varchar("iban", { length: 64 }),
+  holderName: varchar("holderName", { length: 180 }),
+  openingBalance: decimal("openingBalance", { precision: 18, scale: 2 }).default("0.00").notNull(),
   accountingAccountId: int("accountingAccountId"),
   currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
   active: int("active").default(1).notNull(),

@@ -187,13 +187,13 @@ export async function createProductForUser(input: { userId: number; companyId: n
   return { id, ...input };
 }
 
-export async function updateCashAccountForUser(input: { userId: number; companyId: number; cashAccountId: number; name?: string; accountNumber?: string; bankName?: string; bankCode?: string; branchName?: string; iban?: string; accountingAccountId?: number }) {
+export async function updateCashAccountForUser(input: { userId: number; companyId: number; cashAccountId: number; name?: string; accountNumber?: string; bankName?: string; bankCode?: string; branchName?: string; iban?: string; holderName?: string; openingBalance?: number; accountingAccountId?: number }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const rows = await db.select({ account: cashAccounts, organizationId: companies.organizationId }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.id, input.cashAccountId), eq(cashAccounts.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
   if (!rows[0]) throw new Error("CASH_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
   const before = rows[0].account;
-  await db.update(cashAccounts).set({ ...(input.name === undefined ? {} : { name: input.name }), ...(input.accountNumber === undefined ? {} : { accountNumber: input.accountNumber }), ...(input.bankName === undefined ? {} : { bankName: input.bankName }), ...(input.bankCode === undefined ? {} : { bankCode: input.bankCode }), ...(input.branchName === undefined ? {} : { branchName: input.branchName }), ...(input.iban === undefined ? {} : { iban: input.iban }), ...(input.accountingAccountId === undefined ? {} : { accountingAccountId: input.accountingAccountId }) }).where(eq(cashAccounts.id, input.cashAccountId));
+  await db.update(cashAccounts).set({ ...(input.name === undefined ? {} : { name: input.name }), ...(input.accountNumber === undefined ? {} : { accountNumber: input.accountNumber }), ...(input.bankName === undefined ? {} : { bankName: input.bankName }), ...(input.bankCode === undefined ? {} : { bankCode: input.bankCode }), ...(input.branchName === undefined ? {} : { branchName: input.branchName }), ...(input.iban === undefined ? {} : { iban: input.iban }), ...(input.holderName === undefined ? {} : { holderName: input.holderName }), ...(input.openingBalance === undefined ? {} : { openingBalance: input.openingBalance.toFixed(2) }), ...(input.accountingAccountId === undefined ? {} : { accountingAccountId: input.accountingAccountId }) }).where(eq(cashAccounts.id, input.cashAccountId));
   await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CASH_ACCOUNT_UPDATED", entityType: "cashAccount", entityId: String(input.cashAccountId), beforeState: JSON.stringify(before), afterState: JSON.stringify({ ...before, ...input }), correlationId: `cash-account:${input.cashAccountId}` });
   return { id: input.cashAccountId };
 }
@@ -204,13 +204,13 @@ export async function getCashAccountsForUserCompany(userId: number, companyId: n
   return db.select({ account: cashAccounts }).from(cashAccounts).innerJoin(companies, eq(cashAccounts.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(cashAccounts.companyId, companyId), organizationAccessCondition(userId))).orderBy(cashAccounts.name);
 }
 
-export async function createCashAccountForUser(input: { userId: number; organizationId: number; companyId: number; name: string; kind: "CASH" | "BANK"; bankName?: string; bankCode?: string; branchName?: string; accountNumber?: string; iban?: string; accountingAccountId?: number; currency?: string }) {
+export async function createCashAccountForUser(input: { userId: number; organizationId: number; companyId: number; name: string; kind: "CASH" | "BANK"; bankName?: string; bankCode?: string; branchName?: string; accountNumber?: string; iban?: string; holderName?: string; openingBalance?: number; accountingAccountId?: number; currency?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
-  const result = await db.insert(cashAccounts).values({ companyId: input.companyId, name: input.name, kind: input.kind, bankName: input.bankName, bankCode: input.bankCode, branchName: input.branchName, accountNumber: input.accountNumber, iban: input.iban, accountingAccountId: input.accountingAccountId, currency: input.currency ?? "AOA" });
+  const result = await db.insert(cashAccounts).values({ companyId: input.companyId, name: input.name, kind: input.kind, bankName: input.bankName, bankCode: input.bankCode, branchName: input.branchName, accountNumber: input.accountNumber, iban: input.iban, holderName: input.holderName, openingBalance: (input.openingBalance ?? 0).toFixed(2), accountingAccountId: input.accountingAccountId, currency: input.currency ?? "AOA" });
   const id = Number(result[0].insertId);
-  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CASH_ACCOUNT_CREATED", entityType: "cashAccount", entityId: String(id), beforeState: null, afterState: JSON.stringify({ name: input.name, kind: input.kind, currency: input.currency ?? "AOA" }), correlationId: `cash-account:${id}` });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "CASH_ACCOUNT_CREATED", entityType: "cashAccount", entityId: String(id), beforeState: null, afterState: JSON.stringify({ name: input.name, kind: input.kind, currency: input.currency ?? "AOA", holderName: input.holderName ?? null, openingBalance: input.openingBalance ?? 0 }), correlationId: `cash-account:${id}` });
   return { id, ...input };
 }
 
