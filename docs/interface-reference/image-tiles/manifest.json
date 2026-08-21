@@ -1,0 +1,43 @@
+{
+  "source": "/home/ubuntu/upload/2efb0215-f0c4-4644-9982-0bdcdb32a5ed.png",
+  "pixel_width": 1632,
+  "pixel_height": 327,
+  "aspect_ratio": "544:109",
+  "aspect_ratio_decimal_width_over_height": 4.990826,
+  "orientation": "landscape",
+  "tiled": true,
+  "mode": "horizontal",
+  "overlap_fraction_requested_target": 0.12,
+  "overlap_fraction_actual_minimum": {
+    "horizontal": 0.14,
+    "vertical": 0.0
+  },
+  "reading_order": "left-to-right",
+  "tile_count": 3,
+  "tiles": [
+    {
+      "index": 1,
+      "path": "/home/ubuntu/balancerts-erp/docs/interface-reference/image-tiles/tile_001_x000000_y000000.png",
+      "x": 0,
+      "y": 0,
+      "pixel_width": 600,
+      "pixel_height": 327
+    },
+    {
+      "index": 2,
+      "path": "/home/ubuntu/balancerts-erp/docs/interface-reference/image-tiles/tile_002_x000516_y000000.png",
+      "x": 516,
+      "y": 0,
+      "pixel_width": 600,
+      "pixel_height": 327
+    },
+    {
+      "index": 3,
+      "path": "/home/ubuntu/balancerts-erp/docs/interface-reference/image-tiles/tile_003_x001032_y000000.png",
+      "x": 1032,
+      "y": 0,
+      "pixel_width": 600,
+      "pixel_height": 327
+    }
+  ]
+}

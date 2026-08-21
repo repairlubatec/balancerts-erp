@@ -1,0 +1,981 @@
+BALANCERTS.ERP — REORGANIZAÇÃO DA
+INTERFACE DE CONTABILIDADE
+OBJETIVO
+Reorganizar completamente a interface do módulo Contabilidade para eliminar a necessidade de fazer
+scroll vertical para encontrar e executar os trabalhos contabilísticos.
+
+
+A imagem atual mostra:
+
+
+     • Empresa ativa no topo;
+     • Exercício;
+     • Período;
+     • Botão "Alterar contexto";
+     • Os trabalhos contabilísticos ficam abaixo da área visível.
+
+Isso deve ser alterado.
+
+
+O contabilista deve conseguir:
+
+
+selecionar Empresa → Ano → Período → visualizar imediatamente as operações disponíveis
+
+
+sem sair da empresa e sem precisar procurar os trabalhos através de scroll.
+
+
+
+
+1. EMPRESA, ANO E PERÍODO DEVEM SER O
+CONTEXTO PRINCIPAL
+Manter no topo da página uma barra de contexto compacta.
+
+
+Estrutura:
+
+
+
+  ┌──────────────────────────────────────────────────────────────────────┐
+  │ Empresa: Repair Lubatec ▼            Ano: 2026 ▼        Período: Agosto ▼         │
+  └──────────────────────────────────────────────────────────────────────┘
+
+
+Todos os campos devem ser selecionáveis diretamente.
+
+
+Não utilizar uma página separada para mudar o exercício.
+
+
+Não obrigar o contabilista a sair da empresa.
+
+
+
+
+                                                    1
+2. SELETOR DE ANO
+Quando o utilizador clicar:
+
+
+Ano: 2026 ▼
+
+
+abrir imediatamente um menu/popover organizado:
+
+
+
+  ┌──────────────────────────┐
+  │ EXERCÍCIO                        │
+  ├──────────────────────────┤
+  │ 2026 ✓                            │
+  │ 2025                             │
+  │ 2024                             │
+  │ 2023                             │
+  │ 2022                             │
+  │ + Novo exercício                 │
+  └──────────────────────────┘
+
+
+Ao selecionar outro ano:
+
+
+não sair da empresa.
+
+
+Alterar apenas o contexto contabilístico.
+
+
+Exemplo:
+
+
+
+  Empresa: Repair Lubatec
+  Ano: 2025
+  Período: Dezembro
+
+
+A interface deve atualizar automaticamente os dados e operações daquele exercício.
+
+
+
+
+3. SELETOR DE PERÍODO
+Quando clicar:
+
+
+Período: Agosto ▼
+
+
+mostrar:
+
+
+
+  ┌──────────────────────────┐
+  │ PERÍODO — 2026                   │
+  ├──────────────────────────┤
+
+
+
+                                                 2
+  │ Janeiro                         │
+  │ Fevereiro                       │
+  │ Março                           │
+  │ Abril                           │
+  │ Maio                            │
+  │ Junho                           │
+  │ Julho                           │
+  │ Agosto ✓                         │
+  │ Setembro                        │
+  │ Outubro                         │
+  │ Novembro                        │
+  │ Dezembro                        │
+  └──────────────────────────┘
+
+
+Também permitir períodos contabilísticos configurados pelo sistema quando aplicável.
+
+
+Ao mudar o período:
+
+
+atualizar imediatamente a área de trabalho.
+
+
+
+
+4. NÃO USAR "ALTERAR CONTEXTO" COMO PASSO
+OBRIGATÓRIO
+O botão atual:
+
+
+Alterar contexto
+
+
+deve deixar de ser necessário para a operação normal.
+
+
+Ano e Período devem funcionar diretamente como seletores.
+
+
+Se o botão for mantido, deve servir apenas para:
+
+
+      • configurações avançadas;
+      • alteração excepcional;
+      • permissões;
+      • contexto adicional.
+
+Não deve ser necessário para simplesmente mudar:
+
+
+2026 → 2025
+
+
+ou:
+
+
+Agosto → Setembro.
+
+
+
+
+                                                   3
+5. ÁREA DE TRABALHO IMEDIATAMENTE VISÍVEL
+Depois da barra de contexto, mostrar imediatamente os trabalhos contabilísticos.
+
+
+Exemplo:
+
+
+
+  ┌──────────────────────────────────────────────────────────────────────┐
+  │ EMPRESA           ANO                 PERÍODO                                      │
+  │ Repair           2026 ▼               Agosto ▼                                     │
+  └──────────────────────────────────────────────────────────────────────┘
+
+  CONTABILIDADE — AGOSTO 2026
+
+
+  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+  │ Lançamentos      │ │ Documentos       │ │ Caixa/Banco       │ │ Clientes       │
+  │                  │ │                  │ │                   │ │                │
+  │ + Novo           │ │ Importar         │ │ Movimentos        │ │ Conta          │
+  └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘
+
+
+  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+  │ Fornecedores │ │ Inventário           │ │ IVA               │ │ Ativos         │
+  │                  │ │                  │ │                   │ │                │
+  │ Conta            │ │ Movimentos       │ │ Apuramento        │ │ Imobilizado    │
+  └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘
+
+
+O objetivo é que o contabilista veja imediatamente o que pode fazer.
+
+
+
+
+6. NÃO COLOCAR TODAS AS OPERAÇÕES NUMA
+LISTA VERTICAL
+Evitar:
+
+
+
+  ↓
+  Lançamentos
+
+
+  ↓
+  Documentos
+
+
+  ↓
+  Clientes
+
+
+  ↓
+  Fornecedores
+
+
+
+
+                                                   4
+  ↓
+  IVA
+
+
+  ↓
+  Relatórios
+
+
+  ↓
+  ...
+
+
+Isso obriga o utilizador a fazer scroll.
+
+
+Utilizar uma interface organizada em:
+
+
+      • cartões;
+      • grupos;
+      • abas;
+      • menus compactos;
+      • grids responsivos.
+
+
+
+
+7. ORGANIZAÇÃO POR GRUPOS
+Criar grupos funcionais.
+
+
+OPERAÇÕES
+
+  Novo lançamento
+  Lançamentos
+  Documentos
+  Importar documentos
+
+
+
+TESOURARIA
+
+  Caixa
+  Bancos
+  Reconciliação bancária
+
+
+
+TERCEIROS
+
+  Clientes
+  Fornecedores
+  Contas correntes
+
+
+
+
+                                           5
+EXISTÊNCIAS
+
+  Inventário
+  Movimentos de stock
+  Custos
+
+
+
+FISCAL
+
+  IVA
+  Apuramento
+  Declarações
+
+
+
+ATIVOS
+
+  Imobilizado
+  Depreciações
+  Movimentos
+
+
+
+FECHO
+
+  Apuramento
+  Fecho mensal
+  Fecho anual
+
+
+
+CONSULTAS
+
+  Diário
+  Razão
+  Balancete
+  Balanço
+  Demonstração de Resultados
+
+
+
+
+8. USAR ABAS PARA REDUZIR ALTURA
+Criar uma barra de navegação horizontal:
+
+
+
+  [Operações] [Tesouraria] [Terceiros] [Fiscal]
+  [Existências] [Ativos] [Fecho] [Relatórios]
+
+
+Ao clicar numa aba, mostrar apenas as funções daquele grupo.
+
+
+
+                                                6
+Exemplo:
+
+
+
+  [Operações] ← selecionado
+
+
+  ┌─────────────────┐
+  │ Novo lançamento │
+  └─────────────────┘
+
+
+  ┌─────────────────┐
+  │ Lançamentos          │
+  └─────────────────┘
+
+
+  ┌─────────────────┐
+  │ Documentos           │
+  └─────────────────┘
+
+
+  ┌─────────────────┐
+  │ Importar             │
+  └─────────────────┘
+
+
+Isso reduz drasticamente a necessidade de scroll.
+
+
+
+
+9. OPERAÇÕES MAIS IMPORTANTES SEMPRE
+VISÍVEIS
+Independentemente da aba, manter uma pequena barra de ações rápidas:
+
+
+
+  + Novo lançamento
+  Importar documento
+  Pesquisar
+  Balancete
+  Fecho
+
+
+Esses comandos devem estar sempre acessíveis.
+
+
+
+
+10. CONTEXTO VISUAL
+Sempre mostrar claramente:
+
+
+
+  Empresa:
+  Repair Lubatec
+
+
+
+
+                                                    7
+  Exercício:
+  2026
+
+  Período:
+  Agosto
+
+
+  Estado:
+  Operacional
+
+
+Mas de forma compacta.
+
+
+Não ocupar metade da página com o contexto.
+
+
+
+
+11. CONTEXTO DEVE CONTROLAR AS OPERAÇÕES
+Quando o contabilista selecionar:
+
+
+2026 + Agosto
+
+
+todos os módulos devem automaticamente utilizar:
+
+
+
+  empresa_id
+  exercicio_id
+  periodo_id
+
+
+correspondentes.
+
+
+Exemplo:
+
+
+
+  Lançamentos
+  ↓
+  Empresa = Repair Lubatec
+  Exercício = 2026
+  Período = Agosto
+
+
+Não permitir que uma operação seja gravada acidentalmente no período errado.
+
+
+
+
+12. MUDANÇA DE ANO SEM SAIR DA EMPRESA
+Exemplo:
+
+
+O utilizador está em:
+
+
+
+
+                                                8
+  Repair Lubatec
+  2026
+  Agosto
+
+
+Clica:
+
+
+2026 ▼
+
+
+seleciona:
+
+
+2025
+
+
+Resultado imediato:
+
+
+
+  Repair Lubatec
+  2025
+  Agosto
+
+
+A empresa permanece a mesma.
+
+
+Nenhum reload desnecessário da aplicação.
+
+
+Nenhum redirecionamento para outra página.
+
+
+
+
+13. MUDANÇA DE PERÍODO SEM SAIR DA
+EMPRESA
+Exemplo:
+
+
+
+  2026
+  Agosto
+
+
+clicar no período:
+
+
+
+  Setembro
+
+
+resultado:
+
+
+
+  Repair Lubatec
+  2026
+  Setembro
+
+
+
+
+                                             9
+Atualizar imediatamente:
+
+
+      • lançamentos;
+      • documentos;
+      • indicadores;
+      • operações;
+      • estado do período.
+
+
+
+
+14. PERÍODO FECHADO
+Se o utilizador selecionar um período fechado:
+
+
+
+  Empresa: Repair Lubatec
+  Ano: 2026
+  Período: Janeiro
+  Estado: FECHADO
+
+
+mostrar aviso discreto:
+
+
+🔒 Período fechado
+
+
+E bloquear operações que não podem ser executadas.
+
+
+Disponibilizar:
+
+
+Consultar
+
+
+e, para utilizadores autorizados:
+
+
+Reabrir período
+
+
+
+
+15. PERÍODO ABERTO
+Se estiver aberto:
+
+
+
+  🟢 Período aberto
+
+
+Permitir as operações autorizadas.
+
+
+
+
+                                                 10
+16. ESTADO DO EXERCÍCIO
+Também mostrar:
+
+
+
+  Exercício 2026
+  🟢 Aberto
+
+
+ou:
+
+
+
+  Exercício 2025
+  🔒 Encerrado
+
+
+As regras de bloqueio devem ser respeitadas.
+
+
+
+
+17. RESPONSIVIDADE
+A interface deve adaptar-se ao tamanho da janela.
+
+
+Desktop grande:
+
+
+
+  4 cartões por linha
+
+
+Laptop:
+
+
+
+  3 cartões por linha
+
+
+Ecrã menor:
+
+
+
+  2 cartões por linha
+
+
+Nunca criar uma interface onde o utilizador precise fazer scroll apenas para encontrar operações
+básicas.
+
+
+O scroll só deve existir quando houver conteúdo real que ultrapasse a área disponível, como:
+
+
+      • listas;
+      • tabelas;
+      • histórico;
+      • relatórios extensos.
+
+
+
+
+                                                    11
+18. NÃO REDUZIR A USABILIDADE
+Não tentar eliminar todo e qualquer scroll.
+
+
+A regra é:
+
+
+não usar scroll como mecanismo de navegação da aplicação.
+
+
+O utilizador não deve precisar:
+
+
+       "descer a página para descobrir onde está o lançamento".
+
+
+Deve clicar diretamente:
+
+
+Operações → Novo lançamento
+
+
+
+
+19. LANÇAMENTO
+Ao clicar:
+
+
+Novo lançamento
+
+
+abrir uma janela/painel de trabalho adequado.
+
+
+Mostrar no topo:
+
+
+
+  Novo lançamento
+
+
+  Empresa: Repair Lubatec
+  Exercício: 2026
+  Período: Agosto
+
+
+E depois:
+
+
+
+  Data
+  Documento
+  Descrição
+
+  Débito
+  Crédito
+  Valor
+
+  Centro de custo
+  Observação
+
+
+
+
+                                                 12
+  [Guardar] [Guardar e novo] [Cancelar]
+
+
+
+
+20. DOCUMENTOS + BALANCERTS IA
+No grupo Operações:
+
+
+
+  [Importar documento]
+
+
+Ao clicar:
+
+
+
+  Selecionar documento
+         ↓
+  Balancerts IA
+             ↓
+  OCR
+         ↓
+  Extração
+         ↓
+  Sugestões
+         ↓
+  Validação
+         ↓
+  Lançamento
+
+
+Tudo deve respeitar:
+
+
+Empresa + Exercício + Período selecionados.
+
+
+
+
+21. NAVEGAÇÃO SEM SAIR DO CONTEXTO
+Ao abrir:
+
+
+Lançamentos
+
+
+e depois voltar:
+
+
+o contexto deve continuar:
+
+
+
+
+                                              13
+  Repair Lubatec
+  2026
+  Agosto
+
+
+Ao abrir:
+
+
+Clientes
+
+
+continua:
+
+
+
+  Repair Lubatec
+  2026
+  Agosto
+
+
+Ao abrir:
+
+
+IVA
+
+
+continua:
+
+
+
+  Repair Lubatec
+  2026
+  Agosto
+
+
+
+
+22. PESQUISA GLOBAL
+Adicionar pesquisa rápida:
+
+
+
+  🔎 Pesquisar contabilidade...
+
+
+Permitir procurar:
+
+
+      • lançamento;
+      • documento;
+      • cliente;
+      • fornecedor;
+      • conta;
+      • factura;
+      • operação;
+      • relatório.
+
+
+
+
+                                 14
+23. ATALHOS
+Criar atalhos para operações frequentes.
+
+
+Exemplo:
+
+
+
+  Ctrl + N → Novo lançamento
+  Ctrl + F → Pesquisar
+  Ctrl + I → Importar documento
+
+
+Os atalhos devem respeitar permissões.
+
+
+
+
+24. DESIGN
+Manter o estilo visual atual do Balancerts.ERP:
+
+
+      • profissional;
+      • limpo;
+      • empresarial;
+      • azul/branco;
+      • espaçamento adequado;
+      • tipografia legível.
+
+Não transformar a tela em uma interface cheia de cores e elementos.
+
+
+Usar ícones discretos.
+
+
+
+
+25. RESULTADO ESPERADO
+A tela inicial da Contabilidade deve ficar conceptualmente assim:
+
+
+
+  ┌────────────────────────────────────────────────────────────────────┐
+  │ CONTABILIDADE                                                                 │
+  ├────────────────────────────────────────────────────────────────────┤
+  │ Empresa: Repair Lubatec ▼            Ano: 2026 ▼      Período: Agosto ▼   │
+  │ 🟢 Exercício aberto              🟢 Período aberto                          │
+  ├────────────────────────────────────────────────────────────────────┤
+  │ + Novo lançamento          Importar documento        Pesquisar                │
+  ├────────────────────────────────────────────────────────────────────┤
+  │ Operações │ Tesouraria │ Terceiros │ Fiscal │ Ativos │ Relatórios │
+  ├────────────────────────────────────────────────────────────────────┤
+  │                                                                               │
+  │                     OPERAÇÕES — AGOSTO 2026                               │
+
+
+
+
+                                                   15
+  │                                                                                          │
+  │    ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐                           │
+  │    │ Lançamentos│ │ Documentos │ │ Clientes                │ │ Fornecedores│             │
+  │    │ + Novo        │ │ Importar        │ │ Consultar       │ │ Consultar        │        │
+  │    └────────────┘ └────────────┘ └────────────┘ └────────────┘                           │
+  │                                                                                          │
+  │    ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐                           │
+  │    │ Caixa         │ │ Bancos          │ │ IVA             │ │ Inventário │              │
+  │    │ Movimentos │ │ Movimentos │ │ Apuramento │ │ Movimentos │                           │
+  │    └────────────┘ └────────────┘ └────────────┘ └────────────┘                           │
+  │                                                                                          │
+  └────────────────────────────────────────────────────────────────────┘
+
+
+
+REGRA FINAL
+O contabilista deve conseguir selecionar Empresa, Ano e Período diretamente no topo e,
+imediatamente depois, visualizar e executar os trabalhos contabilísticos daquele contexto.
+
+
+Não obrigar o utilizador a:
+
+
+      • sair da empresa;
+      • abrir outra página para trocar o ano;
+      • abrir outra página para trocar o período;
+      • fazer scroll para descobrir as operações;
+      • voltar repetidamente ao topo;
+      • utilizar "Alterar contexto" para operações normais.
+
+Implementar a alteração preservando todas as funcionalidades existentes.
+
+
+Antes de alterar o código, analisar a arquitetura atual de contexto financeiro, exercício, período,
+permissões e navegação para garantir que a mudança visual não quebra a lógica contabilística
+existente.
+
+
+Depois da implementação, testar:
+
+
+      1. trocar 2026 → 2025;
+      2. trocar Agosto → Setembro;
+    3. trocar empresa;
+    4. abrir lançamentos;
+    5. voltar;
+    6. abrir documentos;
+    7. voltar;
+    8. confirmar que Empresa + Ano + Período permanecem corretos;
+    9. testar período fechado;
+   10. testar exercício encerrado;
+   11. testar permissões de utilizador.
+
+A prioridade é:
+
+
+
+
+                                                    16
+CONTEXTO NO TOPO → OPERAÇÕES IMEDIATAMENTE VISÍVEIS → NAVEGAÇÃO POR ABAS → ZERO
+SCROLL PARA ENCONTRAR FUNÇÕES.
+
+
+
+
+                                       17
+

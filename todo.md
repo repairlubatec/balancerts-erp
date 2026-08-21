@@ -2580,3 +2580,4 @@
 - [x] Mostrar na Contabilidade a cobertura das AccountingRules activas por operação, versão e empresa
 - [x] Exigir operação AccountingRules por linha na importação CSV quando o PGCA estiver activo
 - [x] Publicar automaticamente documentos comerciais através da AccountingRule aplicável antes de marcar ACCOUNTED
+- [x] Implementar integralmente a nova interface operacional de Contabilidade conforme o PDF e a referência visual, sem scroll principal e com todas as operações funcionais
