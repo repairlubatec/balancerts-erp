@@ -2024,3 +2024,11 @@
 - [x] Ler e confrontar o Documento 3 reconstruído exclusivamente com os Documentos 1 e 2 aprovados — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3-reconstruido.md
 - [x] Verificar se os bloqueadores e problemas altos anteriores foram eliminados e classificar divergências remanescentes — NÃO APROVADO: 4 bloqueadores, 10 altos, 6 médios e 3 baixos
 - [x] Guardar o parecer formal e checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações; não iniciar Documento 4
+
+## Documento 3 corrigido com rastreabilidade completa
+
+- [x] Consolidar os problemas da avaliação e os requisitos exactos dos Documentos 1 e 2
+- [x] Produzir Documento 3 corrigido com schemas, DTOs, procedimentos, estados, RBAC, envelopes, erros, limites e integração completos — /home/ubuntu/documento-3-saadi-contrato-api-trpc-v3.4-corrigido.md
+- [x] Criar matriz de rastreabilidade Documento 1/2 → entidade/campo → procedimento → schema → DTO → permissão → estado → erro
+- [x] Executar revisão documental final e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações
+- [x] Apresentar a versão corrigida para aprovação e nova avaliação independente; não iniciar Documento 4
