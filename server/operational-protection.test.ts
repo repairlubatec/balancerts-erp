@@ -28,7 +28,7 @@ describe("protecção operacional de backup e restauro", () => {
   it("bloqueia produção e exige aprovação explícita para restauro", () => {
     expect(() => assertSafeRestoreTarget({ RESTORE_TARGET: "production", RESTORE_APPROVED: "true", RESTORE_DATABASE_URL: "mysql://prod" })).toThrow("RESTORE_TARGET_MUST_BE_ISOLATED");
     expect(() => assertSafeRestoreTarget({ RESTORE_TARGET: "staging", RESTORE_APPROVED: "false", RESTORE_DATABASE_URL: "mysql://staging" })).toThrow("RESTORE_APPROVAL_REQUIRED");
-    expect(assertSafeRestoreTarget({ RESTORE_TARGET: "isolated-verification", RESTORE_APPROVED: "true", RESTORE_DATABASE_URL: "mysql://isolated" })).toEqual({ target: "isolated-verification", approved: true });
+    expect(() => assertSafeRestoreTarget({ RESTORE_TARGET: "isolated-verification", RESTORE_APPROVED: "true", RESTORE_DATABASE_URL: "mysql://isolated" })).toThrow("DATABASE_URL_INCOMPLETE");
   });
 });
 

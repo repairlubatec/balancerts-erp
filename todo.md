@@ -2613,3 +2613,7 @@
 - [x] Rever tecnicamente D4 — snapshots, proveniência e conflitos antes da aprovação, sem alterar o projecto
 - [x] Rever tecnicamente D5 — motor financeiro e decisões antes da aprovação, sem alterar o projecto
 - [x] Consolidar parecer independente de pré-aprovação para D3, D4 e D5
+- [x] D4-01: reforçar a prova de destino isolado, rejeitando URL/host/base/fingerprint coincidentes com produção
+- [x] D4-02: implementar validação pós-restauro por estados, schema, integridade, dados, isolamento e módulos
+- [x] Actualizar testes e documentação de D4 após a correcção dos bloqueadores, sem executar restauro real
+- [x] Corrigir teste legado de restauro para reflectir a nova prova obrigatória de isolamento D4 e voltar a executar a suite global

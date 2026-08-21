@@ -26,3 +26,11 @@ O restauro de produção exige aprovação explícita, janela de manutenção e 
 ## Limitações actuais
 
 O ERP não executa backups automáticos dentro da aplicação e não guarda credenciais de base de dados. A periodicidade, retenção, cifragem, armazenamento externo e alertas devem ser configurados na infraestrutura de produção.
+
+## Salvaguardas implementadas após a revisão D4
+
+O verificador exige agora uma identidade do destino derivada da `RESTORE_DATABASE_URL`, utilizador de restauro restrito, `RESTORE_ISOLATION_ATTESTATION=ISOLATED`, host em `RESTORE_ALLOWED_HOSTS`, fingerprint coerente e não coincidente com `DATABASE_URL`/fingerprint de produção. O texto `RESTORE_TARGET` deixou de ser considerado prova suficiente de isolamento.
+
+Depois da restauração, o fluxo exige uma validação externa injectada por `postRestoreValidator`. Essa validação só é aceite quando devolve todos os estados `HASH_VALIDATED`, `RESTORED`, `SCHEMA_VALIDATED`, `DATA_VALIDATED`, `MODULES_VALIDATED` e `ROLLBACK_READY`, bem como as confirmações de schema compatível, dados consistentes, isolamento tenant-safe, módulos validados e rollback preparado. Sem essa validação, o processo falha com `POST_RESTORE_VALIDATION_REQUIRED` ou erro estruturado de validação incompleta.
+
+Estas salvaguardas foram testadas localmente sem contactar qualquer base de dados de restauro. A execução real continua proibida até existir destino isolado e evidência operacional independente.
