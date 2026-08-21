@@ -2391,3 +2391,11 @@
 - [x] Apresentar o resumo junto do registo de riscos
 - [x] Testar estudo sem riscos e com múltiplos níveis de exposição
 - [x] Guardar checkpoint do décimo quinto marco
+
+## Décimo sexto marco funcional — Prontidão financeira
+
+- [x] Incluir equilíbrio do financiamento na lista de prontidão
+- [x] Recalcular a percentagem de prontidão com a nova validação
+- [x] Mostrar instrução quando as fontes forem insuficientes ou excedentes
+- [x] Testar prontidão equilibrada e não equilibrada
+- [x] Guardar checkpoint do décimo sexto marco

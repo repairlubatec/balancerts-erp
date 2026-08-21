@@ -98,6 +98,7 @@ export default function Saadi() {
     const checks = [
       { key: "study", label: "Estudo criado", done: Boolean(selectedStudyId) },
       { key: "inputs", label: "Premissas financeiras guardadas", done: Boolean(feasibility.data?.input) },
+      { key: "financing", label: "Fontes de financiamento equilibradas", done: Boolean(feasibility.data?.input) && financingBalance.balanced },
       { key: "result", label: "Análise financeira calculada", done: Boolean(feasibility.data?.result) },
       { key: "snapshot", label: "Dados realizados capturados", done: Boolean(snapshots.data?.length) },
       { key: "version", label: "Versão para validação", done: Boolean(versions.data?.length) },
@@ -106,7 +107,7 @@ export default function Saadi() {
     ];
     const completed = checks.filter((check) => check.done).length;
     return { checks, completed, percentage: Math.round((completed / checks.length) * 100) };
-  }, [decisions.data, feasibility.data, risks.data, selectedStudyId, snapshots.data, versions.data]);
+  }, [decisions.data, feasibility.data, financingBalance.balanced, risks.data, selectedStudyId, snapshots.data, versions.data]);
 
   return (
     <div className="space-y-4 p-4 text-[#1d2a38]">
