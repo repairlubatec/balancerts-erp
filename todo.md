@@ -1937,3 +1937,9 @@
 - [x] Rever o Documento 3.2 corrigindo documentalmente todos os problemas BLOQUEADORES e ALTOS identificados no parecer anterior — Documento 3.2 Consolidado Revisado em /home/ubuntu/documento-3-saadi-contrato-api-trpc-v3.2-revisado.md
 - [x] Confrontar cada correcção com os Documentos 1 e 2 e com a arquitectura actual do BALANCERTS.ERP
 - [x] Fazer autoavaliação técnica, indicar conflitos remanescentes e guardar checkpoint sem alterar o projecto — recomendada nova avaliação formal; Documento 4 não iniciado
+
+## Nova avaliação formal do Documento 3.2 Revisado — sem implementação
+
+- [x] Reavaliar independentemente a versão consolidada revista contra os Documentos 1 e 2 e a arquitectura actual — parecer em /home/ubuntu/saadi-avaliacao-formal-3.2-revisado.md
+- [x] Verificar se todos os BLOQUEADORES e ALTOS foram realmente eliminados e classificar problemas remanescentes — permanecem 2 BLOQUEADORES e 6 ALTOS
+- [x] Produzir parecer formal e guardar checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações ou configurações — decisão NÃO APROVADO; Documento 4 não iniciado
