@@ -331,3 +331,30 @@ export async function listSaadiValidations(input: { userId: number; organization
   if (!db) throw new Error("Database unavailable");
   return db.select().from(saadiValidations).where(and(eq(saadiValidations.organizationId, input.organizationId), eq(saadiValidations.companyId, input.companyId), eq(saadiValidations.studyId, input.studyId))).orderBy(saadiValidations.requirementCode);
 }
+
+
+const saadiWorkflowTransitions: Record<string, string[]> = {
+  RASCUNHO: ["EM_ANALISE", "ARQUIVADO"],
+  EM_ANALISE: ["AGUARDANDO_VALIDACAO", "RASCUNHO", "ARQUIVADO"],
+  AGUARDANDO_VALIDACAO: ["VALIDADO", "EM_ANALISE", "ARQUIVADO"],
+  VALIDADO: ["CONCLUIDO", "EM_ANALISE", "ARQUIVADO"],
+  CONCLUIDO: ["ARQUIVADO"],
+  ARQUIVADO: [],
+};
+
+export async function transitionSaadiStudyWorkflow(input: { userId: number; organizationId: number; studyId: number; nextStatus: "RASCUNHO" | "EM_ANALISE" | "AGUARDANDO_VALIDACAO" | "VALIDADO" | "CONCLUIDO" | "ARQUIVADO" }) {
+  await assertStudyAccess({ userId: input.userId, organizationId: input.organizationId, studyId: input.studyId });
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const current = await db.select({ workflowStatus: saadiStudies.workflowStatus }).from(saadiStudies).where(and(eq(saadiStudies.id, input.studyId), eq(saadiStudies.organizationId, input.organizationId))).limit(1);
+  const from = current[0]?.workflowStatus ?? "RASCUNHO";
+  if (from === input.nextStatus) return { updated: false, workflowStatus: from };
+  if (!saadiWorkflowTransitions[from]?.includes(input.nextStatus)) throw new Error("SAADI_WORKFLOW_TRANSITION_INVALIDA");
+  if (input.nextStatus === "CONCLUIDO") {
+    const validations = await db.select().from(saadiValidations).where(and(eq(saadiValidations.organizationId, input.organizationId), eq(saadiValidations.studyId, input.studyId)));
+    if (validations.some((validation) => validation.status !== "VALIDADO")) throw new Error("SAADI_VALIDACOES_PENDENTES");
+  }
+  await db.update(saadiStudies).set({ workflowStatus: input.nextStatus }).where(and(eq(saadiStudies.id, input.studyId), eq(saadiStudies.organizationId, input.organizationId)));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: 0, actorUserId: input.userId, action: "SAADI_WORKFLOW_TRANSITION", entityType: "saadiStudy", entityId: String(input.studyId), beforeState: JSON.stringify({ workflowStatus: from }), afterState: JSON.stringify({ workflowStatus: input.nextStatus }), correlationId: `saadi-workflow:${input.studyId}:${from}:${input.nextStatus}` });
+  return { updated: true, workflowStatus: input.nextStatus };
+}

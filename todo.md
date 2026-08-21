@@ -2460,3 +2460,11 @@
 - [x] Expor projecções, alertas e validações com limites e isolamento por organização/empresa/estudo
 - [x] Apresentar alertas, checklist e projecções no painel desktop
 - [x] Validar TypeScript e nove testes dirigidos SAADI aprovados
+
+### Bloco 4 concluído — workflow e governação do estudo
+
+- [x] Implementar estados Rascunho, Em análise, Aguardando validação, Validado, Concluído e Arquivado
+- [x] Implementar transições determinísticas com bloqueio de conclusão quando existem validações pendentes
+- [x] Auditar transições do ciclo de vida por utilizador e estudo
+- [x] Integrar o controlo de workflow no painel desktop em português
+- [x] Validar TypeScript sem erros após a integração do workflow
