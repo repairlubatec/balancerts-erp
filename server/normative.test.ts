@@ -20,4 +20,14 @@ describe("Angola normative evidence", () => {
     expect(validateNormativeCoverage({ area: "FISCAL_DOCUMENT", evidenceCodes: ["DP-71-25", "AGT-FAT-DOC"] }).valid).toBe(true);
     expect(validateNormativeCoverage({ area: "ACCOUNTING", evidenceCodes: [] })).toMatchObject({ valid: false, missing: ["PGC-AO-82-01"] });
   });
+
+  it("keeps the official PGCA evidence and review boundary", async () => {
+    const { existsSync, readFileSync } = await import("node:fs");
+    expect(existsSync("docs/normative-sources/decreto-82-01-pgca.pdf")).toBe(true);
+    expect(existsSync("docs/normative-sources/decreto-82-01-pgca-ocr.txt")).toBe(true);
+    const report = readFileSync("docs/pgca-official-analysis-2026-08-21.md", "utf8");
+    expect(report).toContain("4511 Caixa");
+    expect(report).toContain("6131 Mercado nacional");
+    expect(report).toContain("Nenhuma alteração operacional foi feita nesta fase");
+  });
 });

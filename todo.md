@@ -2602,3 +2602,4 @@
 - [ ] Confrontar as fontes das duas abas com o catálogo actual e apresentar proposta de activação para confirmação
 - [x] Processar integralmente o PDF oficial recebido do Decreto n.º 82/01 e preservar a extracção verificável do PGCA
 - [x] Comparar a estrutura extraída do PGCA com as contas actualmente activas no BALANCERTS.ERP, sem alterar dados
+- [x] Corrigir o teste de evidência PGCA para usar a formulação exacta do parecer e voltar a executar a validação
