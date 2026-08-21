@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { presentationLabel, statusLabel, userFacingError } from "@/lib/presentationLabels";
 import { getAccountTraceRoutes, getReportTraceRoutes } from "@/lib/traceability";
-import { getActionPresentation, getQuickActions, isDisposableCompany, resolveActiveCompanyId, resolveNewAction } from "@/lib/homeActions";
+import { getActionPresentation, getQuickActions, isEmpresaDeTeste, resolveActiveCompanyId, resolveNewAction } from "@/lib/homeActions";
 import { trpc } from "@/lib/trpc";
 import { TraceabilityPanel } from "@/components/TraceabilityPanel";
 import { TreasuryReconciliationPanel } from "@/pages/TreasuryReconciliationPanel";
@@ -138,7 +138,7 @@ function Overview({ activeCompanyId }: { activeCompanyId?: number }) {
   const canReadAudit = user?.role === "admin" || user?.role === "auditor";
   const { data: auditRows } = trpc.audit.list.useQuery(activeCompanyId && canReadAudit ? { companyId: activeCompanyId } : skipToken);
   const recentEvents = (auditRows ?? []).slice(0, 3).map(({ event }) => ({ id: event.id, title: presentationLabel(event.action), meta: `${presentationLabel(event.entityType)} #${event.entityId} · ${new Date(event.createdAt).toLocaleString("pt-PT")}`, color: "bg-blue-100 text-blue-700", Icon: FileCheck2 }));
-  const portfolioCompanies = (companyRows ?? []).filter(({ company }) => !isDisposableCompany(company)).map(({ company }) => ({
+  const portfolioCompanies = (companyRows ?? []).filter(({ company }) => !isEmpresaDeTeste(company)).map(({ company }) => ({
     name: company.name,
     nif: company.nif,
     status: company.configurationStatus === "READY" ? "Em dia" : company.configurationStatus === "PENDING" ? "Configuração" : "Bloqueado",
@@ -340,7 +340,7 @@ function TaskCenterPanel({ activeCompanyId }: { activeCompanyId?: number }) {
   const fiscalTaskApi = (trpc as typeof trpc & { fiscal?: { obligations?: any } }).fiscal;
   const fiscalObligationsQuery = fiscalTaskApi?.obligations?.useQuery?.({ companyId: companyId ?? 0, year: new Date().getFullYear() }, { enabled: Boolean(companyId) });
   const fiscalObligationTasks = ((fiscalObligationsQuery?.data?.obligations ?? []) as Array<{ id: number; kind?: string; code?: string; status?: string }>).filter((obligation) => !["COMPLETED", "SUBMITTED", "PAID"].includes(obligation.status ?? "")).map((obligation) => ({ id: `fiscal-${obligation.id}`, title: `Rever obrigação ${obligation.code ?? obligation.kind ?? "fiscal"}`, origin: "Fiscalidade", company: activeCompany?.company.name ?? "—", priority: "Alta", state: statusLabel(obligation.status ?? "PENDING"), path: "/fiscalidade" }));
-  const pendingCompanies = (companyRows ?? []).filter(({ company }) => !isDisposableCompany(company) && company.configurationStatus !== "READY");
+  const pendingCompanies = (companyRows ?? []).filter(({ company }) => !isEmpresaDeTeste(company) && company.configurationStatus !== "READY");
   const documentTasks = (documents ?? []).filter(({ document }) => ["DRAFT", "VALIDATED", "ISSUED"].includes(document.status)).map(({ document }) => ({ id: `document-${document.id}`, title: `${document.documentNumber} requer transição`, origin: "Facturação", company: activeCompany?.company.name ?? "—", priority: document.status === "DRAFT" ? "Alta" : "Normal", state: statusLabel(document.status), path: `/facturacao?focus=${encodeURIComponent(document.documentNumber)}` }));
   const payrollTasks = (hrTasks ?? []).map(({ task, actors }) => ({ id: `payroll-task-${task.id}`, taskId: task.id, title: task.title, origin: "Recursos Humanos", company: activeCompany?.company.name ?? "—", priority: task.priority === "URGENT" ? "Urgente" : task.priority === "HIGH" ? "Alta" : task.priority === "LOW" ? "Baixa" : "Normal", state: task.status === "COMPLETED" ? "Concluída" : task.status === "IN_PROGRESS" ? "Em curso" : "Pendente", dueDate: task.dueDate, assigneeUserId: task.assigneeUserId, assigneeLabel: actors?.assignee?.name || actors?.assignee?.email || "Sem responsável", creatorLabel: actors?.creator?.name || actors?.creator?.email || "Criador não identificado", description: task.description ?? "", path: "/rh" }));
   const tasks: Array<{ id: string; title: string; origin: string; company: string; priority: string; state: string; path: string; description?: string; taskId?: number; dueDate?: Date | string | null; assigneeUserId?: number | null; assigneeLabel?: string; creatorLabel?: string }> = [

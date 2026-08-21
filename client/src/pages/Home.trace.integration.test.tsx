@@ -93,7 +93,7 @@ describe("Home traceability integration", () => {
     window.history.pushState({}, "", "/");
     render(<Home />);
     fireEvent.change(screen.getByRole("combobox", { name: "Filtrar empresas por estado" }), { target: { value: "BLOQUEADO" } });
-    expect(screen.getByText("Nenhuma empresa autorizada no tenant actual.")).toBeTruthy();
+    expect(screen.getByText("Nenhuma empresa autorizada na organização actual.")).toBeTruthy();
   });
 
   it("opens and submits the company creation form", async () => {

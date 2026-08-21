@@ -48,13 +48,13 @@ export function getQuickActions(query: string) {
 
 export type ActiveCompanyCandidate = { id: number; name: string; nif: string };
 
-export function isDisposableCompany(row?: Pick<ActiveCompanyCandidate, "name" | "nif">) {
-  return Boolean(row && (row.name.toLowerCase().includes("disposable") || row.nif === "999999990"));
+export function isEmpresaDeTeste(row?: Pick<ActiveCompanyCandidate, "name" | "nif">) {
+  return row?.nif === "999999990";
 }
 
 export function resolveActiveCompanyId(rows: ActiveCompanyCandidate[], currentId?: number, manuallySelected = false) {
   if (!rows.length) return undefined;
   const active = rows.find((row) => row.id === currentId);
-  if (active && (!isDisposableCompany(active) || manuallySelected)) return active.id;
-  return rows.find((row) => row.nif === "5001121871")?.id ?? rows.find((row) => !isDisposableCompany(row))?.id ?? rows[0].id;
+  if (active && (!isEmpresaDeTeste(active) || manuallySelected)) return active.id;
+  return rows.find((row) => row.nif === "5001121871")?.id ?? rows.find((row) => !isEmpresaDeTeste(row))?.id ?? rows[0].id;
 }

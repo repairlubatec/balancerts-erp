@@ -2065,3 +2065,10 @@
 - [x] Avaliar experiência desktop, cobertura funcional e lacunas por módulo
 - [x] Consolidar riscos, prioridades e estado real de implementação num relatório completo — /home/ubuntu/relatorio-auditoria-completa-balancerts-erp.md
 - [x] Guardar o relatório sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações
+
+## Correcção de empresas e tradução integral da interface
+
+- [x] Corrigir a contagem e a apresentação das empresas disponíveis para o utilizador Repair Lubatec — deduplicação server-side por memberships e apresentação de 1 empresa
+- [x] Remover “disposable” e todos os termos ingleses visíveis da interface, estados e mensagens de erro — nomenclatura interna e mensagem de organização traduzidas
+- [x] Rever mensagens técnicas expostas ao utilizador e substituí-las por português claro — “tenant actual” substituído por “organização actual”
+- [x] Testar a interface, a contagem de empresas e a ausência de termos ingleses antes do checkpoint — TypeScript OK, 67 testes dirigidos aprovados, pesquisa sem “disposable”, screenshots / e /empresas validados

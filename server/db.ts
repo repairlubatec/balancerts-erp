@@ -379,7 +379,7 @@ export async function getUserByOpenId(openId: string) {
 export async function getCompaniesForUser(userId: number) {
   const db = await getDb();
   if (!db) return [];
-  return db.select({ company: companies, organization: organizations, platform: platforms }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(platforms, eq(organizations.platformId, platforms.id)).leftJoin(organizationMemberships, eq(organizationMemberships.organizationId, organizations.id)).where(or(organizationAccessCondition(userId), and(eq(organizationMemberships.userId, userId), eq(organizationMemberships.status, "ACTIVE")))).orderBy(companies.name);
+  return db.selectDistinct({ company: companies, organization: organizations, platform: platforms }).from(companies).innerJoin(organizations, eq(companies.organizationId, organizations.id)).leftJoin(platforms, eq(organizations.platformId, platforms.id)).leftJoin(organizationMemberships, eq(organizationMemberships.organizationId, organizations.id)).where(or(organizationAccessCondition(userId), and(eq(organizationMemberships.userId, userId), eq(organizationMemberships.status, "ACTIVE")))).orderBy(companies.name);
 }
 
 export async function assertOrganizationAccessForUser(userId: number, organizationId: number) {
