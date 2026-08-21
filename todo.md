@@ -2090,6 +2090,14 @@
 
 - [x] Consolidar integralmente os Documentos 1 e 2 aprovados para o novo contrato API
 - [x] Elaborar novo Documento 3 autónomo com catálogo fechado, schemas, DTOs, estados, RBAC, erros, limites e rastreabilidade — /home/ubuntu/documento-3-saadi-contrato-api-trpc-v1.0.md
-- [ ] Realizar avaliação formal independente e corrigir documentalmente as divergências
+- [x] Realizar avaliação formal independente e corrigir documentalmente as divergências — avaliação concluída; NÃO APROVADO com 2 bloqueadores, 6 altos, 5 médios e 2 baixos
 - [ ] Aguardar aprovação formal do novo Documento 3
 - [ ] Implementar o primeiro incremento SAADI apenas depois da aprovação
+
+## Prioridades SAADI — execução passo a passo
+
+- [x] Realizar avaliação formal independente do novo Documento 3 contra os Documentos 1 e 2 — /home/ubuntu/avaliacao-formal-independente-documento-3-v1.0.md
+- [ ] Corrigir documentalmente divergências e obter aprovação formal do Documento 3
+- [ ] Elaborar e aprovar o Documento 4 sobre snapshots, proveniência e conflitos
+- [ ] Elaborar e aprovar o Documento 5 do motor financeiro e o Documento 6 de testes e rollback
+- [ ] Implementar o primeiro incremento SAADI apenas após todas as aprovações e comando formal
