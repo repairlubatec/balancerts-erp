@@ -67,3 +67,9 @@ O **Decreto n.º 82/01 e os códigos 4511 e 6131 foram confirmados documentalmen
 [2]: https://agt.minfin.gov.ao/PortalAGT/#!/iva/legislacao “AGT — Legislação IVA”
 
 [3]: https://lex.ao/docs/assembleia-nacional/2023/lei-n-o-14-23-de-28-de-dezembro/ “Lei n.º 14/23 — referência catalogada para validação documental posterior”
+
+## Evidência adicional sobre a Lei n.º 14/23
+
+Foi consultada a página jurídica Lex Angola, que identifica a Lei n.º 14/23, de 28 de Dezembro, como diploma da Assembleia Nacional publicado no Diário da República, I Série, n.º 246, de 28 de Dezembro de 2023, página 8519. A página descreve a primeira alteração ao Código do IVA, enumera os artigos alterados, indica revogações, adita os artigos 69.º-A a 69.º-D e 74.º a 78.º, e republica o Código do IVA. O conteúdo consultado também apresenta no artigo 19.º as taxas de 14% como taxa geral, 7% para o regime simplificado e determinados serviços, 5% para bens alimentares de amplo consumo e insumos agrícolas constantes dos anexos, e 1% para o regime especial da Província de Cabinda, com excepções indicadas no texto.
+
+Esta página é uma fonte jurídica secundária, não o PDF oficial fornecido pela AGT. A evidência é suficiente para actualizar a pesquisa e preparar uma matriz de artigos, mas não deve por si só activar regras fiscais de produção. O HTML capturado foi preservado em `docs/normative-sources/lei-14-23-lex-capture.html`; permanecem necessárias a validação da versão oficial, vigência aplicável e leitura dos anexos antes da activação.
