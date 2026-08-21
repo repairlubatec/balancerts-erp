@@ -442,6 +442,20 @@
       "when": 1787308266288,
       "tag": "0062_powerful_dark_beast",
       "breakpoints": true
+    },
+    {
+      "idx": 63,
+      "version": "5",
+      "when": 1787315705022,
+      "tag": "0063_lively_echo",
+      "breakpoints": true
+    },
+    {
+      "idx": 64,
+      "version": "5",
+      "when": 1787315756240,
+      "tag": "0064_salty_cable",
+      "breakpoints": true
     }
   ]
 }

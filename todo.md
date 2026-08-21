@@ -2416,3 +2416,28 @@
 - [x] Remover referências obsoletas ao erro Gmail 535 e à dependência SMTP
 - [x] Validar compilação e suite de testes sem SMTP
 - [x] Guardar checkpoint da remoção SMTP
+
+## Implementação integral do PDF — Estudo de Viabilidade no SAADI
+
+- [x] Ler e decompor integralmente o PDF em requisitos verificáveis
+- [x] Confrontar cada requisito com o SAADI actual, schema, routers, interface e testes
+- [ ] Implementar Project, ExternalCompany e CompanyLink conforme o domínio aprovado
+- [ ] Implementar IntegrationRun, estados, retries, timeouts e reconciliação
+- [ ] Implementar associação de múltiplos snapshots às versões e proveniência por métrica
+- [ ] Expandir adaptadores semânticos de leitura ERP para comercial, compras, tesouraria, stock, RH e fiscalidade
+- [ ] Implementar premissas financeiras adicionais exigidas pelo PDF
+- [ ] Implementar cálculos financeiros adicionais e explicabilidade reproduzível
+- [ ] Implementar cenários, sensibilidades, riscos, decisões e relatórios exigidos pelo PDF
+- [ ] Implementar RBAC por procedimento, auditoria, limites e paginação
+- [ ] Completar a interface desktop SAADI em português e sem popups do navegador
+- [ ] Criar testes unitários, integração, segurança, imutabilidade e não-escrita no ERP
+- [ ] Executar validação visual e aceitação com dados controlados da Repair Lubatec
+- [ ] Guardar checkpoints de cada bloco concluído
+
+### Bloco 1 concluído — estrutura de dados do Estudo de Viabilidade
+
+- [x] Criar entidades SAADI para empresa externa, documentos, históricos, investimento, financiamento, premissas, projecções, alertas e validações
+- [x] Permitir estudo independente de empresa externa sem criar empresa operacional no ERP
+- [x] Expor procedimentos tRPC protegidos para empresa externa, investimento, financiamento, premissas, históricos e checklist
+- [x] Aplicar migrações SQL não destrutivas 0063 e 0064
+- [x] Criar testes unitários de totalização e equilíbrio financeiro

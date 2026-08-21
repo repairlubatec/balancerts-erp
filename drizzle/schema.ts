@@ -943,11 +943,22 @@ export const auditEvents = mysqlTable("auditEvents", {
 export const saadiStudies = mysqlTable("saadiStudies", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),
-  companyId: int("companyId").notNull(),
+  companyId: int("companyId"),
+  entityType: mysqlEnum("entityType", ["ERP", "EXTERNA"]).default("ERP").notNull(),
+  externalCompanyId: int("externalCompanyId"),
   studyCode: varchar("studyCode", { length: 64 }).notNull(),
   name: varchar("name", { length: 180 }).notNull(),
+  studyType: varchar("studyType", { length: 100 }).default("INVESTIMENTO").notNull(),
+  description: text("description"),
+  responsibleName: varchar("responsibleName", { length: 180 }),
+  responsibleProfessionalId: varchar("responsibleProfessionalId", { length: 80 }),
+  accountingFirm: varchar("accountingFirm", { length: 180 }),
+  responsibleContact: varchar("responsibleContact", { length: 120 }),
+  responsibleEmail: varchar("responsibleEmail", { length: 320 }),
+  studyDate: timestamp("studyDate"),
   investmentDomain: mysqlEnum("investmentDomain", ["IMOBILIARIO", "AGRICULTURA", "INDUSTRIA", "ENERGIA", "HOTELARIA", "LOGISTICA", "OUTRO"]).default("OUTRO").notNull(),
   status: mysqlEnum("status", ["DRAFT", "ACTIVE", "ARCHIVED"]).default("DRAFT").notNull(),
+  workflowStatus: mysqlEnum("workflowStatus", ["RASCUNHO", "EM_ANALISE", "AGUARDANDO_VALIDACAO", "VALIDADO", "CONCLUIDO", "ARQUIVADO"]).default("RASCUNHO").notNull(),
   baseCurrency: varchar("baseCurrency", { length: 3 }).default("AOA").notNull(),
   createdBy: int("createdBy").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
@@ -1132,3 +1143,187 @@ export type SaadiStudy = typeof saadiStudies.$inferSelect;
 export type SaadiSnapshot = typeof saadiSnapshots.$inferSelect;
 export type SaadiVersion = typeof saadiVersions.$inferSelect;
 export type SaadiProvenance = typeof saadiProvenance.$inferSelect;
+
+
+/** Entidades adicionais do estudo de viabilidade do SAADI. Permanecem isoladas das entidades operacionais do ERP. */
+export const saadiExternalCompanies = mysqlTable("saadiExternalCompanies", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  studyId: int("studyId").notNull(),
+  legalName: varchar("legalName", { length: 180 }).notNull(),
+  nif: varchar("nif", { length: 32 }),
+  societyType: varchar("societyType", { length: 80 }),
+  registrationNumber: varchar("registrationNumber", { length: 80 }),
+  incorporationDate: timestamp("incorporationDate"),
+  activity: varchar("activity", { length: 180 }),
+  activityCode: varchar("activityCode", { length: 40 }),
+  sector: varchar("sector", { length: 120 }),
+  country: varchar("country", { length: 80 }).default("Angola").notNull(),
+  province: varchar("province", { length: 120 }),
+  municipality: varchar("municipality", { length: 120 }),
+  address: varchar("address", { length: 255 }),
+  phone: varchar("phone", { length: 40 }),
+  email: varchar("email", { length: 320 }),
+  website: varchar("website", { length: 255 }),
+  contactName: varchar("contactName", { length: 180 }),
+  contactPosition: varchar("contactPosition", { length: 120 }),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({ studyExternalUnique: uniqueIndex("saadi_external_company_study_unique").on(table.organizationId, table.studyId) }));
+
+export const saadiStudyDocuments = mysqlTable("saadiStudyDocuments", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  studyId: int("studyId").notNull(),
+  filename: varchar("filename", { length: 255 }).notNull(),
+  mimeType: varchar("mimeType", { length: 120 }).notNull(),
+  size: int("size").notNull(),
+  storageKey: varchar("storageKey", { length: 500 }).notNull(),
+  sha256: varchar("sha256", { length: 64 }).notNull(),
+  category: varchar("category", { length: 80 }).notNull(),
+  sourceLabel: varchar("sourceLabel", { length: 255 }),
+  extractionStatus: mysqlEnum("extractionStatus", ["NAO_INICIADA", "EXTRAIDO", "EM_REVISAO", "VALIDADO", "REJEITADO"]).default("NAO_INICIADA").notNull(),
+  extractionJson: text("extractionJson"),
+  validationNotes: text("validationNotes"),
+  validatedBy: int("validatedBy"),
+  validatedAt: timestamp("validatedAt"),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({ studyDocumentHashUnique: uniqueIndex("saadi_study_document_hash_unique").on(table.studyId, table.sha256) }));
+
+export const saadiFinancialHistoricalData = mysqlTable("saadiFinancialHistoricalData", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  studyId: int("studyId").notNull(),
+  periodYear: int("periodYear").notNull(),
+  section: mysqlEnum("section", ["DRE", "BALANCO", "FLUXO_CAIXA"]).notNull(),
+  metric: varchar("metric", { length: 120 }).notNull(),
+  value: varchar("value", { length: 40 }).notNull(),
+  currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
+  sourceDocumentId: int("sourceDocumentId"),
+  sourcePage: int("sourcePage"),
+  sourceField: varchar("sourceField", { length: 120 }),
+  dataOrigin: mysqlEnum("dataOrigin", ["ERP", "DOCUMENTO", "MANUAL", "IA"]).notNull(),
+  validationStatus: mysqlEnum("validationStatus", ["PENDENTE", "VALIDADO", "REJEITADO"]).default("PENDENTE").notNull(),
+  validatedBy: int("validatedBy"),
+  validatedAt: timestamp("validatedAt"),
+  valueHash: varchar("valueHash", { length: 64 }).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({ historicalMetricUnique: uniqueIndex("saadi_historical_metric_unique").on(table.studyId, table.periodYear, table.section, table.metric) }));
+
+export const saadiInvestmentItems = mysqlTable("saadiInvestmentItems", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  studyId: int("studyId").notNull(),
+  description: varchar("description", { length: 180 }).notNull(),
+  quantity: varchar("quantity", { length: 40 }).notNull().default("1"),
+  unitValue: varchar("unitValue", { length: 40 }).notNull(),
+  totalValue: varchar("totalValue", { length: 40 }).notNull(),
+  category: varchar("category", { length: 80 }).notNull(),
+  expectedDate: timestamp("expectedDate"),
+  sourceDocumentId: int("sourceDocumentId"),
+  currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const saadiFinancingSources = mysqlTable("saadiFinancingSources", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  studyId: int("studyId").notNull(),
+  sourceType: mysqlEnum("sourceType", ["CAPITAL_PROPRIO", "EMPRESTIMO_BANCARIO", "INVESTIDOR", "SUBSIDIO", "LEASING", "OUTRO"]).notNull(),
+  description: varchar("description", { length: 180 }).notNull(),
+  amount: varchar("amount", { length: 40 }).notNull(),
+  interestRate: varchar("interestRate", { length: 40 }).default("0").notNull(),
+  termMonths: int("termMonths").default(0).notNull(),
+  graceMonths: int("graceMonths").default(0).notNull(),
+  periodicity: varchar("periodicity", { length: 40 }).default("MENSAL").notNull(),
+  startDate: timestamp("startDate"),
+  endDate: timestamp("endDate"),
+  guarantees: text("guarantees"),
+  commissions: varchar("commissions", { length: 40 }).default("0").notNull(),
+  currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const saadiAssumptions = mysqlTable("saadiAssumptions", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  studyId: int("studyId").notNull(),
+  scenarioId: int("scenarioId"),
+  name: varchar("name", { length: 120 }).notNull(),
+  value: varchar("value", { length: 80 }).notNull(),
+  unit: varchar("unit", { length: 40 }).notNull(),
+  startYear: int("startYear").notNull(),
+  endYear: int("endYear").notNull(),
+  source: varchar("source", { length: 255 }),
+  notes: text("notes"),
+  dataOrigin: mysqlEnum("dataOrigin", ["MANUAL", "ERP", "DOCUMENTO", "IA"]).default("MANUAL").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const saadiProjections = mysqlTable("saadiProjections", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  studyId: int("studyId").notNull(),
+  scenarioId: int("scenarioId"),
+  periodYear: int("periodYear").notNull(),
+  metric: varchar("metric", { length: 120 }).notNull(),
+  value: varchar("value", { length: 40 }).notNull(),
+  currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
+  formulaVersion: varchar("formulaVersion", { length: 40 }).default("v1").notNull(),
+  sourceHash: varchar("sourceHash", { length: 64 }).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({ projectionMetricUnique: uniqueIndex("saadi_projection_metric_unique").on(table.studyId, table.scenarioId, table.periodYear, table.metric) }));
+
+export const saadiAlerts = mysqlTable("saadiAlerts", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyId: int("studyId").notNull(),
+  code: varchar("code", { length: 80 }).notNull(),
+  severity: mysqlEnum("severity", ["CRITICO", "ATENCAO", "FAVORAVEL"]).notNull(),
+  title: varchar("title", { length: 180 }).notNull(),
+  description: text("description").notNull(),
+  thresholdValue: varchar("thresholdValue", { length: 40 }),
+  actualValue: varchar("actualValue", { length: 40 }),
+  resolved: int("resolved").default(0).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const saadiValidations = mysqlTable("saadiValidations", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId").notNull(),
+  studyId: int("studyId").notNull(),
+  requirementCode: varchar("requirementCode", { length: 100 }).notNull(),
+  status: mysqlEnum("status", ["PENDENTE", "VALIDADO", "BLOQUEADO"]).notNull(),
+  message: varchar("message", { length: 500 }).notNull(),
+  checkedBy: int("checkedBy"),
+  checkedAt: timestamp("checkedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({ validationUnique: uniqueIndex("saadi_validation_requirement_unique").on(table.studyId, table.requirementCode) }));
+
+export type SaadiExternalCompany = typeof saadiExternalCompanies.$inferSelect;
+export type SaadiStudyDocument = typeof saadiStudyDocuments.$inferSelect;
+export type SaadiFinancialHistoricalData = typeof saadiFinancialHistoricalData.$inferSelect;
+export type SaadiInvestmentItem = typeof saadiInvestmentItems.$inferSelect;
+export type SaadiFinancingSource = typeof saadiFinancingSources.$inferSelect;
+export type SaadiAssumption = typeof saadiAssumptions.$inferSelect;
+export type SaadiProjection = typeof saadiProjections.$inferSelect;
+export type SaadiAlert = typeof saadiAlerts.$inferSelect;
+export type SaadiValidation = typeof saadiValidations.$inferSelect;
