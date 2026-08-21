@@ -1967,3 +1967,9 @@
 - [x] Redigir o Documento 3.2.2 completo e autónomo com schemas Zod, envelopes, DTOs e contratos por procedimento — documento em /home/ubuntu/documento-3-saadi-contrato-api-trpc-v3.2.2.md
 - [x] Incorporar matriz Documento 2 → Documento 3.2.2, matriz RBAC determinística, estados, invariantes, limites, erros, idempotência e auditoria
 - [x] Autoauditar implementabilidade e guardar checkpoint documental sem alterar o projecto — PASS ao nível do contrato API; Documento 4 não iniciado
+
+## Matriz Documento 2 → Documento 3.2.2 — validação prévia
+
+- [x] Criar matriz completa de entidades, DTOs, procedimentos, campos, estados, invariantes, permissões, isolamento e auditoria — matriz em /home/ubuntu/matriz-documento2-documento3.2.2-saadi.md
+- [x] Identificar lacunas ou correspondências incompletas sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações — lacunas actuais são implementação futura, não falhas do contrato documental
+- [x] Guardar checkpoint documental e entregar a matriz para validação prévia
