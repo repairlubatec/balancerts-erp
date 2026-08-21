@@ -2313,4 +2313,10 @@
 - [x] Apresentar composição do investimento por fonte de financiamento
 - [x] Manter financiamento analítico separado dos pagamentos e empréstimos reais do ERP
 - [x] Testar taxas, prazos e limites de financiamento
-- [ ] Guardar checkpoint do décimo marco
+- [x] Guardar checkpoint do décimo marco
+
+## Regressão global após financiamento SAADI
+
+- [x] Suite global executada: 355 testes aprovados em 356
+- [x] Confirmar que os testes SAADI e TypeScript continuam aprovados
+- [ ] Resolver credencial SMTP Gmail 535, falha externa conhecida não causada pelo SAADI
