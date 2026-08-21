@@ -1985,3 +1985,9 @@
 - [x] Reavaliar Documento 3.2.2, matriz de correspondência e adenda de estados/limites contra Documentos 1 e 2 e arquitectura actual — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3.2.2.md
 - [x] Classificar problemas remanescentes e decidir formalmente APROVADO, APROVADO COM RESSALVAS ou NÃO APROVADO — decisão NÃO APROVADO: 2 bloqueadores e 6 altos
 - [x] Produzir parecer independente e guardar checkpoint sem alterar o projecto
+
+## Documento 3.2.3 SAADI — versão consolidada e unificada
+
+- [x] Elaborar catálogo único completo de procedimentos, DTOs, schemas Zod, envelopes, estados, RBAC, migração transitória e versionamento — Documento em /home/ubuntu/documento-3-saadi-contrato-api-trpc-v3.2.3.md
+- [x] Executar autoauditoria formal de implementabilidade e confrontação com Documentos 1 e 2 — resultado documental PASS; recomenda-se avaliação formal independente
+- [x] Guardar checkpoint documental sem alterar código, schema, dados, permissões, routers, interfaces, migrações, integrações ou configurações
