@@ -2581,3 +2581,6 @@
 - [x] Exigir operação AccountingRules por linha na importação CSV quando o PGCA estiver activo
 - [x] Publicar automaticamente documentos comerciais através da AccountingRule aplicável antes de marcar ACCOUNTED
 - [x] Implementar integralmente a nova interface operacional de Contabilidade conforme o PDF e a referência visual, sem scroll principal e com todas as operações funcionais
+- [x] Reorganizar a Contabilidade para que o ecrã principal não tenha scroll vertical e cada operação abra por botão num fluxo dedicado
+- [x] Garantir que os formulários de lançamentos, importação, consultas, IVA, tesouraria e fecho são acessíveis em janelas/painéis próprios
+- [x] Validar a navegação por botões e impedir que campos operacionais fiquem escondidos abaixo da dobra
