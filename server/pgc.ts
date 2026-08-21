@@ -67,6 +67,30 @@ export async function listPgcSourcesForUser(input: { userId: number; organizatio
   return db.select().from(pgcSources).where(and(eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId))).orderBy(desc(pgcSources.id)).limit(100);
 }
 
+export async function reviewPgcSourceForUser(input: { userId: number; organizationId: number; versionId: number; sourceId: number; verificationStatus: "CONFIRMED" | "CONFLICT" | "REJECTED"; conflictNote?: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const version = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!version[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  if (!["DRAFT", "UNDER_REVIEW"].includes(version[0].version.status)) throw new Error("PGC_VERSION_NOT_REVIEWABLE");
+  const source = await db.select().from(pgcSources).where(and(eq(pgcSources.id, input.sourceId), eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId))).limit(1);
+  if (!source[0]) throw new Error("PGC_SOURCE_NOT_FOUND_OR_FORBIDDEN");
+  await db.update(pgcSources).set({ verificationStatus: input.verificationStatus, conflictNote: input.conflictNote?.trim() || null }).where(eq(pgcSources.id, input.sourceId));
+  await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_SOURCE_REVIEWED", entityType: "pgcSource", entityId: String(input.sourceId), beforeState: JSON.stringify({ verificationStatus: source[0].verificationStatus }), afterState: JSON.stringify({ verificationStatus: input.verificationStatus, conflictNote: input.conflictNote ?? null }), correlationId: `pgc-source-review:${input.sourceId}` });
+  return { sourceId: input.sourceId, verificationStatus: input.verificationStatus };
+}
+
+export async function reviewPgcAccountForUser(input: { userId: number; organizationId: number; versionId: number; accountId: number; validationStatus: "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"; notes?: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const version = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!version[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  if (version[0].version.status !== "UNDER_REVIEW") throw new Error("PGC_VERSION_NOT_REVIEWABLE");
+  const account = await db.select().from(pgcAccounts).where(and(eq(pgcAccounts.id, input.accountId), eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId))).limit(1);
+  if (!account[0]) throw new Error("PGC_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  await db.update(pgcAccounts).set({ validationStatus: input.validationStatus, notes: input.notes?.trim() || account[0].notes }).where(eq(pgcAccounts.id, input.accountId));
+  await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_ACCOUNT_REVIEWED", entityType: "pgcAccount", entityId: String(input.accountId), beforeState: JSON.stringify({ validationStatus: account[0].validationStatus }), afterState: JSON.stringify({ validationStatus: input.validationStatus, notes: input.notes ?? account[0].notes }), correlationId: `pgc-account-review:${input.accountId}` });
+  return { accountId: input.accountId, validationStatus: input.validationStatus };
+}
+
 export function validatePgcAccountDraft(account: PgcAccountDraft) {
   const segments = account.code.includes(".") ? account.code.split(".") : account.code.split("");
   if (!/^\d+(\.\d+)*$/.test(account.code) || segments.some((segment) => !/^\d+$/.test(segment)) || account.classCode !== segments[0]) throw new Error("PGC_ACCOUNT_CODE_INVALID");
