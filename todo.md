@@ -1997,3 +1997,9 @@
 - [x] Reavaliar Documento 3.2.3 contra Documentos 1 e 2, matriz, adenda e arquitectura actual — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3.2.3.md
 - [x] Classificar problemas remanescentes e emitir decisão formal independente — NÃO APROVADO: 3 bloqueadores, 6 altos, 5 médios e 3 baixos
 - [x] Guardar parecer e checkpoint sem alterar o projecto
+
+## Avaliação formal do Documento 3 — apenas contra Documentos 1 e 2
+
+- [x] Ler e confrontar integralmente o Documento 3 com os Documentos 1 e 2 aprovados — parecer em /home/ubuntu/avaliacao-formal-documento-3-exclusivamente-documentos-1-2.md
+- [x] Classificar divergências em bloqueadores, altos, médios e baixos e emitir parecer NÃO APROVADO — 3 bloqueadores, 6 altos, 7 médios e 3 baixos
+- [x] Guardar parecer e checkpoint sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações
