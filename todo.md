@@ -2038,3 +2038,11 @@
 - [x] Ler e confrontar a versão 3.4 exclusivamente com os Documentos 1 e 2 aprovados — parecer em /home/ubuntu/avaliacao-formal-independente-documento-3-v3.4.md
 - [x] Verificar a eliminação efectiva dos problemas anteriores e classificar divergências remanescentes — NÃO APROVADO: 2 bloqueadores, 7 altos, 5 médios e 2 baixos
 - [x] Guardar o parecer independente e checkpoint sem alterar o projecto; não iniciar Documento 4
+
+## Revisão corretiva do Documento 3 — bloqueadores e problemas altos
+
+- [x] Consolidar os 2 bloqueadores e 7 problemas altos da avaliação v3.4 com os requisitos dos Documentos 1 e 2
+- [x] Produzir versão integral corrigida com catálogos fechados, contexto BALANCERTS, proveniência, hashes, pré-condições e RBAC por procedimento — /home/ubuntu/documento-3-saadi-contrato-api-trpc-v3.5-corrigido.md
+- [x] Actualizar a matriz de rastreabilidade e detalhar a correcção de cada bloqueador e problema alto
+- [x] Executar autoauditoria e guardar checkpoint documental sem alterar o projecto; não iniciar Documento 4
+- [x] Apresentar a versão corrigida para nova avaliação independente
