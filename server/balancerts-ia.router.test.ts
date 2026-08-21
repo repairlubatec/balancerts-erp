@@ -51,6 +51,10 @@ describe("router Balancerts IA", () => {
     expect(review).toHaveBeenCalledWith({ userId: 52, companyId: 2, suggestionId: 4, decision: "APPROVED", reviewNote: "Confirmado pelo contabilista" });
   });
 
+  it("bloqueia a importação documental a operador sem validação", async () => {
+    await expect(appRouter.createCaller(context("operador")).ia.importAndAnalyze({ companyId: 2, filename: "factura.pdf", mimeType: "application/pdf", contentBase64: "ZGFkb3M=" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("permite a configuração apenas a um perfil com alteração", async () => {
     const update = vi.spyOn(db, "updateBalancertsIaConfigForUser").mockResolvedValue({ id: 1, organizationId: 1, companyId: 2, enabled: 1, localEnabled: 1, localBaseUrl: "http://127.0.0.1", localPort: 11434, localModel: "qwen2.5:3b", azureEnabled: 0, azureEndpoint: null, azureDeployment: null, azureSecretRef: null, openaiEnabled: 0, openaiModel: "gpt-5-mini", openaiSecretRef: null, createdAt: new Date(), updatedAt: new Date() });
     await expect(appRouter.createCaller(context("auditor")).ia.updateConfig({ companyId: 2, enabled: true, localEnabled: true, localBaseUrl: "http://127.0.0.1", localPort: 11434, localModel: "qwen2.5:3b", azureEnabled: false, openaiEnabled: false, openaiModel: "gpt-5-mini" })).rejects.toMatchObject({ code: "FORBIDDEN" });

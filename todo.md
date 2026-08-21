@@ -2523,3 +2523,13 @@
 ### Documentação de dependências externas
 
 - [x] Criar roteiro seguro para restauro isolado, validação Windows, assinatura, AGT, banca e aceitação Repair Lubatec
+
+## Fluxo de importação documental Balancerts IA
+
+- [x] Adicionar botão desktop para importar PDF, imagem, CSV ou Excel
+- [x] Guardar o ficheiro em armazenamento protegido com hash e metadados
+- [x] Executar análise local e categorização automática do documento
+- [x] Apresentar progresso, resultado, confiança e campos extraídos
+- [x] Exigir revisão humana antes de validar ou aplicar qualquer resultado
+- [x] Testar importação, análise, categorização, rejeição e validação
+- [x] Guardar checkpoint do fluxo de importação documental
