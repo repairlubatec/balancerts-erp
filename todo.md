@@ -2574,3 +2574,6 @@
 - [x] Integrar a postagem da folha salarial com contas PGCA confirmadas e AccountingRules SALARIOS/FOLHA quando existir versão activa
 - [x] Fazer estornos e depreciações passarem por operações AccountingRules explícitas quando existe PGCA activo
 - [x] Integrar tesouraria com publicação contabilística explícita por contas PGCA, aprovação e AccountingRules
+- [x] Garantir que compras, vendas, stock e relatórios não contornam o posting central PGCA; a transição contabilística exige lançamento publicado e a parametrização normativa fica no motor central
+- [ ] Parametrizar automaticamente as AccountingRules específicas de compras, vendas e stock quando esses fluxos passarem a publicar lançamentos automáticos
+- [x] Retirar o PGCA da navegação principal e manter a Contabilidade como ponto operacional único do plano de contas
