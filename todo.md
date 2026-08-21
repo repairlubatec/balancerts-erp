@@ -2553,9 +2553,9 @@
 - [x] Criar serviço server-side PGCA com isolamento por organização/empresa e auditoria
 - [x] Expor procedimentos tRPC protegidos para versões, fontes, contas, auditoria, mapas e regras contabilísticas
 - [x] Criar a interface desktop administrativa do PGCA em português
-- [ ] Executar auditoria real do plano de contas legado e apresentar resultados no painel de conformidade
+- [x] Executar auditoria real do plano de contas legado e apresentar resultados no painel de conformidade
 - [ ] Importar a estrutura normativa confirmada do Decreto n.º 82/01 e regras IVA sem inventar contas não validadas
-- [ ] Implementar aprovação/activação versionada do PGCA com bloqueios e segregação de funções
+- [x] Implementar aprovação/activação versionada do PGCA com bloqueios e segregação de funções
 - [ ] Ligar o motor de lançamentos às AccountingRules sem códigos contabilísticos hardcoded
 - [x] Criar testes Vitest do serviço PGCA, RBAC, isolamento e não-escrita do legado
 - [x] Corrigir o nome residual “Disposable” da empresa técnica para terminologia portuguesa no painel PGCA

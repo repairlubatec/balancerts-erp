@@ -61,8 +61,9 @@ export async function addPgcSourceForUser(input: { userId: number; organizationI
 }
 
 export function validatePgcAccountDraft(account: PgcAccountDraft) {
-  if (!/^\d+(\.\d+)*$/.test(account.code) || account.classCode !== account.code.split(".")[0]) throw new Error("PGC_ACCOUNT_CODE_INVALID");
-  if (account.level !== account.code.split(".").length) throw new Error("PGC_ACCOUNT_LEVEL_INVALID");
+  const segments = account.code.includes(".") ? account.code.split(".") : account.code.split("");
+  if (!/^\d+(\.\d+)*$/.test(account.code) || segments.some((segment) => !/^\d+$/.test(segment)) || account.classCode !== segments[0]) throw new Error("PGC_ACCOUNT_CODE_INVALID");
+  if (account.level !== segments.length) throw new Error("PGC_ACCOUNT_LEVEL_INVALID");
   if (account.accountType === "MOVEMENT" && !account.acceptsEntries) throw new Error("PGC_MOVEMENT_MUST_ACCEPT_ENTRIES");
   if (account.accountType !== "MOVEMENT" && account.acceptsEntries) throw new Error("PGC_GROUP_CANNOT_ACCEPT_ENTRIES");
   return true as const;

@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 import { validatePgcAccountDraft, type PgcAccountDraft } from "./pgc";
 
 const base: PgcAccountDraft = {
-  code: "4.5.1.1",
+  code: "4511",
   name: "Caixa Kwanza",
   classCode: "4",
-  parentCode: "4.5.1",
+  parentCode: "451",
   level: 4,
   accountType: "MOVEMENT",
   nature: "DEBIT",
@@ -18,6 +18,10 @@ const base: PgcAccountDraft = {
 describe("PGCA — validação estrutural de contas", () => {
   it("aceita uma conta de movimento postável com hierarquia coerente", () => {
     expect(validatePgcAccountDraft(base)).toBe(true);
+  });
+
+  it("aceita também a correspondência oficial 6131 como conta de movimento", () => {
+    expect(validatePgcAccountDraft({ ...base, code: "6131", name: "Mercadorias — mercado nacional", classCode: "6", parentCode: "613", nature: "CREDIT" })).toBe(true);
   });
 
   it("rejeita código com classe incompatível", () => {
