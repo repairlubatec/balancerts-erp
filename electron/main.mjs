@@ -1,5 +1,6 @@
 import { app, BrowserWindow, shell, session } from "electron";
 import { fileURLToPath } from "node:url";
+import { assertAllowedDesktopUrl, canOpenExternalUrl } from "./desktop-security.mjs";
 
 let desktopUrl = process.env.BALANCERTS_DESKTOP_URL;
 if (!desktopUrl) {
@@ -11,6 +12,7 @@ if (!desktopUrl) {
 }
 if (!desktopUrl && process.env.NODE_ENV === "development") desktopUrl = "http://127.0.0.1:3000";
 if (!desktopUrl) throw new Error("BALANCERTS_DESKTOP_URL não está configurada para esta distribuição desktop.");
+assertAllowedDesktopUrl(desktopUrl, process.env);
 const isDevelopment = process.env.NODE_ENV === "development";
 
 let mainWindow;
@@ -37,7 +39,7 @@ function createWindow() {
   mainWindow.on("closed", () => { mainWindow = undefined; });
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith("https://") || url.startsWith("http://")) shell.openExternal(url);
+    if (canOpenExternalUrl(url, process.env)) shell.openExternal(url);
     return { action: "deny" };
   });
 
