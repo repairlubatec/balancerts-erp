@@ -22,8 +22,8 @@ export async function validatePgcVersionForUser(input: { userId: number; organiz
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   const version = await accessibleVersion(input.userId, input.organizationId, input.versionId);
   if (version.status !== "UNDER_REVIEW") throw new Error("PGC_VERSION_INVALID_TRANSITION");
-  const accounts = await db.select().from(pgcAccounts).where(eq(pgcAccounts.versionId, input.versionId));
-  const sources = await db.select().from(pgcSources).where(eq(pgcSources.versionId, input.versionId));
+  const accounts = await db.select().from(pgcAccounts).where(and(eq(pgcAccounts.versionId, input.versionId), eq(pgcAccounts.organizationId, input.organizationId)));
+  const sources = await db.select().from(pgcSources).where(and(eq(pgcSources.versionId, input.versionId), eq(pgcSources.organizationId, input.organizationId)));
   const pendingAccounts = accounts.filter((account) => account.validationStatus !== "CONFIRMED");
   const pendingSources = sources.filter((source) => source.verificationStatus !== "CONFIRMED");
   if (accounts.length === 0) throw new Error("PGC_VERSION_WITHOUT_ACCOUNTS");
