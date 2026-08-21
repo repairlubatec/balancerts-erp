@@ -2122,3 +2122,12 @@
 - [ ] Elaborar, avaliar e aprovar o Documento 5 do motor financeiro
 - [ ] Elaborar, avaliar e aprovar o Documento 6 de testes, rollback e homologação
 - [ ] Implementar e testar o SAADI por incrementos apenas após todas as aprovações
+
+## Execução contínua do SAADI
+
+- [x] Consolidar o Documento 3 numa versão limpa com dez pares semânticos realmente definidos — /home/ubuntu/documento-3-saadi-contrato-api-trpc-v1.2-consolidado.md
+- [x] Reavaliar o Documento 3 e corrigir divergências até ficar pronto para aprovação formal — auditoria mecânica confirmou 20 schemas semânticos e 55 inputs catalogados; pronto para avaliação independente
+- [ ] Elaborar e avaliar o Documento 4
+- [ ] Elaborar e avaliar o Documento 5
+- [ ] Elaborar e avaliar o Documento 6
+- [ ] Implementar o SAADI por incrementos após os gates formais
