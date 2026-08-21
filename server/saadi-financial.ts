@@ -112,3 +112,84 @@ export function calculateFeasibility(input: FeasibilityInput): FeasibilityResult
   const decision = npv > 0 && (irr === null || irr > input.discountRate) ? "PROSSEGUIR" : npv >= 0 ? "REVER" : "REJEITAR";
   return { npv, irr, paybackMonths: paybackFor(input), roi, decision, discountedCashFlows };
 }
+
+
+export type ExtendedIndicatorsInput = {
+  initialInvestment: number;
+  discountRate: number;
+  cashFlows: number[];
+  revenue?: number[];
+  grossProfit?: number[];
+  operatingProfit?: number[];
+  ebitda?: number[];
+  netIncome?: number[];
+  fixedCosts?: number[];
+  variableCosts?: number[];
+  unitPrice?: number;
+  variableCostPerUnit?: number;
+  debtService?: number[];
+};
+
+export type ExtendedIndicatorsResult = {
+  discountedPaybackMonths: number | null;
+  breakEvenFinancial: number | null;
+  breakEvenEconomic: number | null;
+  breakEvenUnits: number | null;
+  breakEvenValue: number | null;
+  grossMargin: number | null;
+  operatingMargin: number | null;
+  ebitdaMargin: number | null;
+  netMargin: number | null;
+  dscr: number | null;
+  profitabilityIndex: number;
+};
+
+function sum(values: number[] | undefined) {
+  return (values ?? []).reduce((total, value) => total + value, 0);
+}
+
+function margin(numerator: number[] | undefined, denominator: number[] | undefined) {
+  const base = sum(denominator);
+  return base === 0 ? null : sum(numerator) / base;
+}
+
+export function calculateExtendedIndicators(input: ExtendedIndicatorsInput): ExtendedIndicatorsResult {
+  [input.initialInvestment, input.discountRate].forEach((value) => ensureFinite(value, "INDICADORES"));
+  if (input.initialInvestment <= 0 || input.discountRate <= -1) throw new Error("SAADI_INDICADORES_INVALIDOS");
+  const discountedFlows = input.cashFlows.map((flow, index) => flow / Math.pow(1 + input.discountRate, index + 1));
+  let accumulated = -input.initialInvestment;
+  let discountedPaybackMonths: number | null = null;
+  for (let index = 0; index < discountedFlows.length; index += 1) {
+    const previous = accumulated;
+    accumulated += discountedFlows[index];
+    if (accumulated >= 0) {
+      discountedPaybackMonths = discountedFlows[index] === 0 ? index + 1 : index + previous * -1 / discountedFlows[index] + 1;
+      break;
+    }
+  }
+  const presentValueInflows = discountedFlows.filter((value) => value > 0).reduce((total, value) => total + value, 0);
+  const profitabilityIndex = presentValueInflows / input.initialInvestment;
+  const revenue = sum(input.revenue) || null;
+  const totalFixedCosts = sum(input.fixedCosts);
+  const totalVariableCosts = sum(input.variableCosts);
+  const contributionMargin = input.unitPrice !== undefined && input.variableCostPerUnit !== undefined ? input.unitPrice - input.variableCostPerUnit : null;
+  const breakEvenUnits = contributionMargin !== null && contributionMargin > 0 ? totalFixedCosts / contributionMargin : null;
+  const breakEvenValue = breakEvenUnits !== null && input.unitPrice !== undefined ? breakEvenUnits * input.unitPrice : null;
+  const breakEvenFinancial = revenue !== null && revenue > 0 ? (totalFixedCosts + totalVariableCosts) / revenue : null;
+  const breakEvenEconomic = contributionMargin !== null && contributionMargin > 0 ? totalFixedCosts / contributionMargin : null;
+  const debtService = sum(input.debtService);
+  const cashAvailableForDebt = sum(input.ebitda) || sum(input.cashFlows);
+  return {
+    discountedPaybackMonths,
+    breakEvenFinancial,
+    breakEvenEconomic,
+    breakEvenUnits,
+    breakEvenValue,
+    grossMargin: margin(input.grossProfit, input.revenue),
+    operatingMargin: margin(input.operatingProfit, input.revenue),
+    ebitdaMargin: margin(input.ebitda, input.revenue),
+    netMargin: margin(input.netIncome, input.revenue),
+    dscr: debtService > 0 ? cashAvailableForDebt / debtService : null,
+    profitabilityIndex,
+  };
+}

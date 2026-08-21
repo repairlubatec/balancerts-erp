@@ -1327,3 +1327,86 @@ export type SaadiAssumption = typeof saadiAssumptions.$inferSelect;
 export type SaadiProjection = typeof saadiProjections.$inferSelect;
 export type SaadiAlert = typeof saadiAlerts.$inferSelect;
 export type SaadiValidation = typeof saadiValidations.$inferSelect;
+
+
+export const saadiProjects = mysqlTable("saadiProjects", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  externalCompanyId: int("externalCompanyId"),
+  code: varchar("code", { length: 64 }).notNull(),
+  name: varchar("name", { length: 180 }).notNull(),
+  description: text("description"),
+  status: mysqlEnum("status", ["RASCUNHO", "EM_ANALISE", "APROVADO", "ARQUIVADO"]).default("RASCUNHO").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({ projectCodeUnique: uniqueIndex("saadi_project_code_unique").on(table.organizationId, table.code) }));
+
+export const saadiCompanyLinks = mysqlTable("saadiCompanyLinks", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  externalCompanyId: int("externalCompanyId"),
+  linkType: mysqlEnum("linkType", ["ESTUDO_OPERACIONAL", "REFERENCIA_EXTERNA"]).notNull(),
+  status: mysqlEnum("status", ["PENDENTE", "AUTORIZADA", "REVOGADA"]).default("PENDENTE").notNull(),
+  authorizedBy: int("authorizedBy"),
+  authorizedAt: timestamp("authorizedAt"),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const saadiIntegrationRuns = mysqlTable("saadiIntegrationRuns", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  studyId: int("studyId").notNull(),
+  source: varchar("source", { length: 80 }).notNull(),
+  requestHash: varchar("requestHash", { length: 64 }).notNull(),
+  status: mysqlEnum("status", ["PENDENTE", "EM_PROCESSAMENTO", "CONCLUIDA", "RETRY", "FALHADA", "RECONCILIACAO_NECESSARIA"]).default("PENDENTE").notNull(),
+  attempts: int("attempts").default(0).notNull(),
+  errorCode: varchar("errorCode", { length: 80 }),
+  errorMessage: text("errorMessage"),
+  startedAt: timestamp("startedAt"),
+  finishedAt: timestamp("finishedAt"),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const saadiVersionSnapshots = mysqlTable("saadiVersionSnapshots", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  versionId: int("versionId").notNull(),
+  snapshotId: int("snapshotId").notNull(),
+  relationType: mysqlEnum("relationType", ["BASE", "SUPORTE", "RECONCILIACAO"]).default("SUPORTE").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({ versionSnapshotUnique: uniqueIndex("saadi_version_snapshot_unique").on(table.versionId, table.snapshotId) }));
+
+export const saadiMetricProvenance = mysqlTable("saadiMetricProvenance", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  companyId: int("companyId"),
+  studyId: int("studyId").notNull(),
+  versionId: int("versionId"),
+  metric: varchar("metric", { length: 160 }).notNull(),
+  periodYear: int("periodYear"),
+  value: varchar("value", { length: 80 }).notNull(),
+  currency: varchar("currency", { length: 3 }).default("AOA").notNull(),
+  authoritySource: mysqlEnum("authoritySource", ["ERP", "DOCUMENTO", "UTILIZADOR", "IA"]).notNull(),
+  dataNature: mysqlEnum("dataNature", ["REALIZADO", "PREMISSA", "PROJECCAO", "DERIVADO", "INTRODUZIDO_UTILIZADOR", "SUGESTAO_IA"]).notNull(),
+  sourceDocumentId: int("sourceDocumentId"),
+  sourcePage: int("sourcePage"),
+  sourceField: varchar("sourceField", { length: 120 }),
+  transformation: text("transformation"),
+  valueHash: varchar("valueHash", { length: 64 }).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type SaadiProject = typeof saadiProjects.$inferSelect;
+export type SaadiCompanyLink = typeof saadiCompanyLinks.$inferSelect;
+export type SaadiIntegrationRun = typeof saadiIntegrationRuns.$inferSelect;
+export type SaadiVersionSnapshot = typeof saadiVersionSnapshots.$inferSelect;
+export type SaadiMetricProvenance = typeof saadiMetricProvenance.$inferSelect;

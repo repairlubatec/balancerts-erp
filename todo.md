@@ -2422,12 +2422,12 @@
 - [x] Ler e decompor integralmente o PDF em requisitos verificáveis
 - [x] Confrontar cada requisito com o SAADI actual, schema, routers, interface e testes
 - [ ] Implementar Project, ExternalCompany e CompanyLink conforme o domínio aprovado
-- [ ] Implementar IntegrationRun, estados, retries, timeouts e reconciliação
-- [ ] Implementar associação de múltiplos snapshots às versões e proveniência por métrica
+- [x] Implementar IntegrationRun, estados, retries, timeouts e reconciliação
+- [x] Implementar associação de múltiplos snapshots às versões e proveniência por métrica
 - [ ] Expandir adaptadores semânticos de leitura ERP para comercial, compras, tesouraria, stock, RH e fiscalidade
 - [ ] Implementar premissas financeiras adicionais exigidas pelo PDF
-- [ ] Implementar cálculos financeiros adicionais e explicabilidade reproduzível
-- [ ] Implementar cenários, sensibilidades, riscos, decisões e relatórios exigidos pelo PDF
+- [x] Implementar cálculos financeiros adicionais e explicabilidade reproduzível
+- [x] Implementar cenários, sensibilidades, riscos, decisões e relatórios exigidos pelo PDF
 - [ ] Implementar RBAC por procedimento, auditoria, limites e paginação
 - [ ] Completar a interface desktop SAADI em português e sem popups do navegador
 - [ ] Criar testes unitários, integração, segurança, imutabilidade e não-escrita no ERP
@@ -2441,3 +2441,13 @@
 - [x] Expor procedimentos tRPC protegidos para empresa externa, investimento, financiamento, premissas, históricos e checklist
 - [x] Aplicar migrações SQL não destrutivas 0063 e 0064
 - [x] Criar testes unitários de totalização e equilíbrio financeiro
+
+### Bloco 2 concluído — análise complementar e documentos
+
+- [x] Acrescentar payback descontado, ponto de equilíbrio, margens, DSCR e índice de rentabilidade
+- [x] Expor indicadores complementares por procedimento tRPC determinístico
+- [x] Criar registo de documentos do estudo com chave S3, hash e estado de validação
+- [x] Criar revisão humana auditável de documentos
+- [x] Criar sugestão estruturada opcional do Balancerts IA, sem validação automática
+- [x] Integrar cartões de indicadores e documentos no painel desktop SAADI
+- [x] Testar o motor financeiro complementar com seis testes aprovados

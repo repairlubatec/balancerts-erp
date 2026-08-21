@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateFeasibility, calculateFinancing } from "./saadi-financial";
+import { calculateExtendedIndicators, calculateFeasibility, calculateFinancing } from "./saadi-financial";
 
 describe("motor financeiro SAADI", () => {
   it("calcula VPL, TIR, payback e ROI de um investimento viável", () => {
@@ -28,5 +28,15 @@ describe("motor financeiro SAADI", () => {
 
   it("exige prazo quando existe financiamento externo", () => {
     expect(() => calculateFinancing(1000, 0, 0.1, 0)).toThrow("SAADI_PRAZO_DIVIDA_OBRIGATORIO");
+  });
+
+  it("calcula payback descontado, margens, ponto de equilíbrio, DSCR e índice de rentabilidade", () => {
+    const result = calculateExtendedIndicators({ initialInvestment: 1000, discountRate: 0.1, cashFlows: [600, 700], revenue: [2000, 2500], grossProfit: [900, 1200], operatingProfit: [500, 700], ebitda: [600, 800], netIncome: [300, 450], fixedCosts: [400, 400], variableCosts: [500, 600], unitPrice: 100, variableCostPerUnit: 50, debtService: [250, 250] });
+    expect(result.discountedPaybackMonths).not.toBeNull();
+    expect(result.grossMargin).toBeCloseTo(2100 / 4500);
+    expect(result.ebitdaMargin).toBeCloseTo(1400 / 4500);
+    expect(result.dscr).toBeCloseTo(1400 / 500);
+    expect(result.breakEvenUnits).toBeCloseTo(800 / 50);
+    expect(result.profitabilityIndex).toBeGreaterThan(1);
   });
 });
