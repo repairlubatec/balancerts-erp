@@ -2,6 +2,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { calculateSaadiFeasibilityForUser, createSaadiSnapshot, createSaadiStudy, createSaadiVersion, getSaadiFeasibilityForUser, listSaadiProvenanceForUser, listSaadiScenariosForUser, listSaadiSnapshotsForUser, listSaadiStudiesForUser, listSaadiVersionsForUser, saveSaadiFeasibilityInput, saveSaadiScenario, transitionSaadiVersionForUser } from "./saadi";
 import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema } from "../shared/saadi-contracts";
+import { readSaadiAccountingSummary, readSaadiCompanyContext } from "./saadi-erp-read";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
@@ -55,6 +56,8 @@ export const appRouter = router({
   }),
   saadi: router({
     studies: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive() })).query(({ ctx, input }) => listSaadiStudiesForUser({ ...input, userId: ctx.user.id })),
+    erpCompanyContext: roleProcedure("saadi", "read").input(z.object({ companyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => readSaadiCompanyContext(ctx.user.id, input.companyId)),
+    erpAccountingSummary: roleProcedure("saadi", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() }).strict()).query(({ ctx, input }) => readSaadiAccountingSummary(ctx.user.id, input.companyId, input.periodId)),
     createStudy: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyCode: z.string().trim().min(1).max(64), name: z.string().trim().min(1).max(180), baseCurrency: z.string().trim().length(3).default("AOA") })).mutation(({ ctx, input }) => createSaadiStudy({ ...input, userId: ctx.user.id })),
     createSnapshot: roleProcedure("saadi", "create").input(z.object({ studyId: z.number().int().positive(), request: saadiSnapshotRequestSchema, snapshot: saadiSnapshotSchema, idempotencyKey: z.string().trim().min(1).max(160) })).mutation(({ ctx, input }) => createSaadiSnapshot({ ...input, userId: ctx.user.id })),
     snapshots: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive().optional() })).query(({ ctx, input }) => listSaadiSnapshotsForUser({ ...input, userId: ctx.user.id })),

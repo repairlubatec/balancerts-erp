@@ -2200,3 +2200,12 @@
 - [x] Formalizar RBAC por capacidade, isolamento e não duplicação
 - [x] Formalizar riscos, migrações, testes, rollback e dependências de integração
 - [x] Guardar checkpoint do plano de integração antes de implementar o adaptador
+
+## Primeiro marco funcional pós-Fase 1 — Adaptador de leitura ERP → SAADI
+
+- [x] Criar envelope semântico com fonte, autoridade, classificação, contexto e hash
+- [x] Reutilizar helpers ERP de empresas e relatórios contabilísticos sem duplicar tabelas operacionais
+- [x] Expor procedimentos tRPC server-side para contexto empresarial e resumo contabilístico
+- [x] Testar isolamento de empresa, classificação de dados e integridade do envelope
+- [x] Validar TypeScript e testes dirigidos do marco
+- [ ] Guardar checkpoint do adaptador e continuar para a captura imutável com proveniência
