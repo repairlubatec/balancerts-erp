@@ -1,9 +1,14 @@
 import { and, eq } from "drizzle-orm";
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { getDb } from "./db";
 import { pgcAccounts } from "../drizzle/schema";
 
-const confirmedCodes = ["4", "45", "451", "4511", "6", "61", "613", "6131"];
+const manifest = JSON.parse(readFileSync("docs/normative-sources/pgca-visually-confirmed-accounts.json", "utf8")) as {
+  source: { sha256: string; visualReviewPages: number[] };
+  accounts: Array<{ code: string; name: string; parentCode: string | null; level: number; evidencePages: number[] }>;
+};
+const confirmedCodes = manifest.accounts.map((account) => account.code);
 
 describe("PGCA visual confirmation", () => {
   it("keeps the visually confirmed batch unique, hierarchical and literal", async () => {
@@ -17,21 +22,21 @@ describe("PGCA visual confirmation", () => {
       .where(and(eq(pgcAccounts.organizationId, 1), eq(pgcAccounts.versionId, 1)));
     const byCode = new Map(accounts.map((account) => [account.code, account]));
 
+    expect(manifest.source.sha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(manifest.source.visualReviewPages).toContain(49);
+    expect(manifest.source.visualReviewPages).toContain(50);
     expect(confirmedCodes.every((code) => byCode.has(code))).toBe(true);
     expect(new Set(confirmedCodes).size).toBe(confirmedCodes.length);
 
-    for (const code of confirmedCodes) {
-      const account = byCode.get(code);
+    for (const expected of manifest.accounts) {
+      const account = byCode.get(expected.code);
       expect(account?.validationStatus).toBe("CONFIRMED");
-      if (account?.parentCode) {
-        expect(byCode.has(account.parentCode)).toBe(true);
-        expect(account.level).toBe(account.parentCode.length + 1);
-      } else {
-        expect(account?.level).toBe(1);
-      }
+      expect(account?.name).toBe(expected.name);
+      expect(account?.parentCode ?? null).toBe(expected.parentCode);
+      expect(account?.level).toBe(expected.level);
+      expect(expected.evidencePages.length).toBeGreaterThan(0);
+      expect(expected.evidencePages.every((page) => manifest.source.visualReviewPages.includes(page))).toBe(true);
+      if (account?.parentCode) expect(byCode.has(account.parentCode)).toBe(true);
     }
-
-    expect(byCode.get("4511")?.name).toBe("Caixa");
-    expect(byCode.get("6131")?.name).toBe("Mercado nacional");
   });
 });

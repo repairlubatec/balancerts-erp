@@ -1,0 +1,22 @@
+{
+  "source": {
+    "instrument": "Decreto n.º 82/01, de 16 de Novembro",
+    "title": "Aprova o Plano Geral de Contabilidade",
+    "file": "decreto-82-01-pgca.pdf",
+    "sha256": "04359cb12d48a20cc5326ca001cd0597b1904a7d99d376b1820e8be40f332c89",
+    "visualReviewPages": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58],
+    "reviewPolicy": "Só são elegíveis contas visualmente legíveis no quadro principal; linhas ambíguas do OCR e notas explicativas não são importadas."
+  },
+  "organizationId": 1,
+  "versionId": 1,
+  "accounts": [
+    { "code": "4", "name": "Meios monetários", "parentCode": null, "level": 1, "evidencePages": [48] },
+    { "code": "45", "name": "Caixa", "parentCode": "4", "level": 2, "evidencePages": [49] },
+    { "code": "451", "name": "Fundo fixo", "parentCode": "45", "level": 3, "evidencePages": [49] },
+    { "code": "4511", "name": "Caixa", "parentCode": "451", "level": 4, "evidencePages": [49] },
+    { "code": "6", "name": "Proveitos e ganhos por natureza", "parentCode": null, "level": 1, "evidencePages": [50] },
+    { "code": "61", "name": "Vendas", "parentCode": "6", "level": 2, "evidencePages": [50] },
+    { "code": "613", "name": "Mercadorias", "parentCode": "61", "level": 3, "evidencePages": [50] },
+    { "code": "6131", "name": "Mercado nacional", "parentCode": "613", "level": 4, "evidencePages": [50] }
+  ]
+}

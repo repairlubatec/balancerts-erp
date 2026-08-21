@@ -2624,3 +2624,5 @@
 - [x] Rever visualmente página a página o quadro de contas do Decreto n.º 82/01 e separar confirmações de ambiguidades OCR
 - [x] Importar apenas contas PGCA visualmente confirmadas numa versão em revisão, sem activar linhas ambíguas
 - [x] Testar hierarquia, duplicação, conta-mãe, auditoria e isolamento das contas PGCA importadas
+- [x] Criar manifesto estruturado das contas PGCA visualmente confirmadas com páginas, hierarquia, designações literais e hash da fonte
+- [x] Ligar o teste PGCA ao manifesto de confirmação visual para evitar divergência entre evidência e dados persistidos
