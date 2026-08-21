@@ -37,3 +37,9 @@ A hierarquia do diploma é apresentada sem pontos em vários trechos do quadro, 
 A fonte deve ser registada como `PGC_BASE`, com o Decreto n.º 82/01 em estado de verificação pendente. Nenhuma conta deve ser marcada `CONFIRMED` apenas com OCR. O catálogo poderá conter rascunhos com proveniência e nota de validação, mas a activação da versão permanece bloqueada enquanto existirem contas ou fontes não confirmadas. O plano legado da empresa BALANCERTS Ambiente de Testes foi auditado sem alterações: duas contas existentes ficaram `UNVALIDATED` e requerem revisão humana.
 
 > Esta nota é documentação técnica de implementação, não substitui a validação formal do contabilista responsável nem constitui parecer jurídico ou fiscal.
+
+## IVA — fonte posterior a catalogar
+
+A [Lei n.º 14/23, de 28 de Dezembro](https://lex.ao/docs/assembleia-nacional/2023/lei-n-o-14-23-de-28-de-dezembro/) altera e republica o Código do IVA, aprovado originalmente pela Lei n.º 7/19. A fonte consultada identifica, no artigo 19.º, 14% como taxa geral, 7% para o regime simplificado, 7% para hotelaria e restauração, 5% para bens alimentares de amplo consumo e insumos agrícolas constantes dos anexos aplicáveis e 1% para o regime tributário especial de Cabinda, com excepções. A lei também altera matérias de incidência, isenções, exigibilidade, valor tributável, declaração, pagamento e reembolso.
+
+Estas informações devem ser modeladas como **regras fiscais versionadas separadas das contas PGCA**. Não foi activada qualquer taxa no motor contabilístico nesta etapa: a empresa, o enquadramento, os anexos e eventuais alterações posteriores precisam de validação pelo contabilista e pela fonte institucional competente antes de afectarem facturação, compras, documentos ou lançamentos.
