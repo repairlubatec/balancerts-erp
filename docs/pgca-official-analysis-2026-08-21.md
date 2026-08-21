@@ -79,3 +79,9 @@ Esta página é uma fonte jurídica secundária, não o PDF oficial fornecido pe
 O PDF oficial recebido tem 77 páginas e a primeira página identifica o Diário da República, I Série, n.º 246, de 28 de Dezembro de 2023, com a Lei n.º 14/23 publicada na página 8519. A página 2 identifica a Assembleia Nacional e o objecto “Lei de alteração ao Código do Imposto sobre o Valor Acrescentado — Primeira Alteração/2023”.
 
 As páginas 8 e 9 confirmam visualmente o artigo 19.º: 14% como taxa geral; 7% para o regime simplificado; 7% para hotelaria e restauração, condicionada às obrigações cumulativas do n.º 2; 5% para bens alimentares de amplo consumo e insumos agrícolas constantes dos Anexos I e II; e 1% para o regime tributário especial da Província de Cabinda, com a excepção dos bens constantes do Anexo III, aos quais se aplica a taxa geral. A página 9 também confirma o artigo 21.º e a obrigação de cativação de 50% para entidades nele indicadas, incluindo o Banco Nacional de Angola, bancos comerciais, seguradoras, resseguradoras e operadoras de telecomunicações com título global unificado.
+
+## 7. Censo não destrutivo actualizado
+
+A consulta à organização `1` confirma uma única versão `PGCA-82-01`, em estado `UNDER_REVIEW`, com **8 contas persistidas**, das quais **2 confirmadas** (`4511` e `6131`). A árvore existente é `4 → 45 → 451 → 4511` e `6 → 61 → 613 → 6131`, com as designações literais verificadas no Decreto.
+
+O extracto `docs/normative-sources/decreto-82-01-pgca-review.csv` contém **763 candidatos OCR**, mas inclui cabeçalhos, números do Diário da República e linhas de duas colunas misturadas. Consequentemente, o extracto é material de triagem e não pode ser importado automaticamente. A importação integral continua bloqueada até cada linha do quadro oficial ser validada visualmente, preservando a integridade contabilística e a proveniência de página.
