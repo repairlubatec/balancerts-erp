@@ -60,6 +60,13 @@ export async function addPgcSourceForUser(input: { userId: number; organizationI
   return { id };
 }
 
+export async function listPgcSourcesForUser(input: { userId: number; organizationId: number; versionId: number }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const access = await db.select({ id: pgcVersions.id }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!access[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  return db.select().from(pgcSources).where(and(eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId))).orderBy(desc(pgcSources.id)).limit(100);
+}
+
 export function validatePgcAccountDraft(account: PgcAccountDraft) {
   const segments = account.code.includes(".") ? account.code.split(".") : account.code.split("");
   if (!/^\d+(\.\d+)*$/.test(account.code) || segments.some((segment) => !/^\d+$/.test(segment)) || account.classCode !== segments[0]) throw new Error("PGC_ACCOUNT_CODE_INVALID");
