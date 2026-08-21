@@ -1973,3 +1973,9 @@
 - [x] Criar matriz completa de entidades, DTOs, procedimentos, campos, estados, invariantes, permissões, isolamento e auditoria — matriz em /home/ubuntu/matriz-documento2-documento3.2.2-saadi.md
 - [x] Identificar lacunas ou correspondências incompletas sem alterar código, schema, dados, permissões, routers, interfaces, migrações ou integrações — lacunas actuais são implementação futura, não falhas do contrato documental
 - [x] Guardar checkpoint documental e entregar a matriz para validação prévia
+
+## Documento 3.2.2 — estados e limites para aprovação final
+
+- [x] Detalhar máquinas de estados com transições, actores, permissões, pré-condições, efeitos e auditoria — adenda em /home/ubuntu/adenda-estados-limites-documento-3.2.2-saadi.md
+- [x] Fixar limites de segurança, paginação, payload, períodos, carga, concorrência, retries, timeout e isolamento
+- [x] Produzir adenda de validação sem alterar código, schema, dados, permissões, routers, interfaces ou integrações
