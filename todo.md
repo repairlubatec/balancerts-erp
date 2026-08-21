@@ -2131,3 +2131,19 @@
 - [ ] Elaborar e avaliar o Documento 5
 - [ ] Elaborar e avaliar o Documento 6
 - [ ] Implementar o SAADI por incrementos após os gates formais
+
+## Diagnóstico do que falta no SAADI
+
+- [x] Inventariar o estado implementado e documental actual do SAADI
+- [x] Classificar lacunas por prioridade, dependência e risco
+- [x] Entregar diagnóstico e sequência de conclusão sem alterar o projecto — /home/ubuntu/relatorio-o-que-falta-saadi-v1.2.md
+
+## Avanço contínuo pelas Fases 1–4 do SAADI
+
+- [x] Avaliar formalmente o Documento 3 v1.2 e preparar aprovação — NÃO APROVADO: 1 bloqueador, 6 altos, 5 médios e 3 baixos; parecer em /home/ubuntu/avaliacao-formal-independente-documento-3-v1.2.md
+- [x] Elaborar, autoavaliar e preparar aprovação do Documento 4 — /home/ubuntu/documento-4-saadi-snapshots-proveniencia-conflitos-v1.0.md
+- [x] Elaborar, autoavaliar e preparar aprovação do Documento 5 — /home/ubuntu/documento-5-saadi-motor-financeiro-decisoes-v1.0.md
+- [x] Elaborar, autoavaliar e preparar aprovação do Documento 6 — /home/ubuntu/documento-6-saadi-testes-rollback-homologacao-v1.0.md
+- [ ] Aguardar aprovação formal conjunta antes de implementar
+
+- [x] Corrigir o Documento 3 v1.2 para a versão v1.3: taxonomia canónica, estados wire, snapshots, AGT, RBAC e rastreabilidade — /home/ubuntu/documento-3-saadi-contrato-api-trpc-v1.3-corrigido.md
