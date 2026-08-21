@@ -2594,3 +2594,4 @@
 - [x] Expor titular e saldo inicial nos contratos e formulário de criação/edição de contas bancárias
 - [x] Mostrar titular e saldo inicial na listagem de contas do painel de controlo bancário e reconciliação
 - [x] Permitir seleccionar explicitamente a conta de Tesouraria no painel bancário antes de importar extractos ou reconciliar
+- [x] Filtrar linhas de extracto pendentes pelo cashAccountId seleccionado no painel de reconciliação
