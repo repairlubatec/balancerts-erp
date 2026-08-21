@@ -2101,3 +2101,15 @@
 - [ ] Elaborar e aprovar o Documento 4 sobre snapshots, proveniência e conflitos
 - [ ] Elaborar e aprovar o Documento 5 do motor financeiro e o Documento 6 de testes e rollback
 - [ ] Implementar o primeiro incremento SAADI apenas após todas as aprovações e comando formal
+
+## Correcção documental do Documento 3 v1.0
+
+- [x] Corrigir B-01: schemas strict autónomos e contrato individual para cada procedimento
+- [x] Corrigir B-02: DTOs fechados para os dez contratos semânticos BALANCERTS e ReadContext
+- [x] Corrigir A-01: RBAC determinístico por procedimento e mapeamento transitório
+- [x] Corrigir A-02: máquinas de estados completas para todas as entidades e ligações
+- [x] Corrigir A-03: distinguir snapshots não ligados e ligados a StudyVersion — versão 1.1 torna studyVersionId obrigatório e usa ligação histórica append-only
+- [x] Corrigir A-04: proveniência por métrica/linha com classificação e autoridade
+- [x] Corrigir A-05: hashes canónicos, camadas de integridade e imutabilidade
+- [x] Corrigir A-06: correlação e auditoria obrigatórias em todas as operações
+- [x] Guardar versão corrigida e realizar nova avaliação independente; não iniciar Documento 4 — versão 1.1 pronta para nova avaliação
