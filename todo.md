@@ -2572,3 +2572,5 @@
 - [x] Criar testes de não-regressão para lançamento PGCA, isolamento por empresa e bloqueio de versão não activa
 - [x] Verificar visualmente o fluxo operacional da Contabilidade com selecção de contas PGCA
 - [x] Integrar a postagem da folha salarial com contas PGCA confirmadas e AccountingRules SALARIOS/FOLHA quando existir versão activa
+- [x] Fazer estornos e depreciações passarem por operações AccountingRules explícitas quando existe PGCA activo
+- [x] Integrar tesouraria com publicação contabilística explícita por contas PGCA, aprovação e AccountingRules

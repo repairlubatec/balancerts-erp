@@ -251,6 +251,22 @@ export async function createPaymentForUser(input: { userId: number; organization
   return { payment: { id, ...input, status: "PENDING" as const }, treasuryTransactionId, idempotent: false };
 }
 
+export async function postPaymentAccountingForUser(input: { userId: number; organizationId: number; companyId: number; paymentId: number; cashPgcAccountId: number; counterpartyPgcAccountId: number; idempotencyKey: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ payment: payments, organization: organizations }).from(payments).innerJoin(companies, eq(payments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(payments.id, input.paymentId), eq(payments.companyId, input.companyId), eq(payments.organizationId, input.organizationId), organizationAccessCondition(input.userId))).limit(1);
+  const current = rows[0];
+  if (!current) throw new Error("PAYMENT_NOT_FOUND_OR_FORBIDDEN");
+  if (current.payment.approvalStatus !== "APPROVED") throw new Error("PAYMENT_ACCOUNTING_APPROVAL_REQUIRED");
+  if (!current.payment.periodId) throw new Error("PAYMENT_FISCAL_PERIOD_REQUIRED");
+  const amount = Number(current.payment.amount);
+  if (!Number.isFinite(amount) || amount <= 0) throw new Error("PAYMENT_AMOUNT_INVALID");
+  const receipt = current.payment.direction === "RECEIPT";
+  const entry = await postJournalEntryWithPgcAccountsForUser({ userId: input.userId, organizationId: input.organizationId, companyId: input.companyId, periodId: current.payment.periodId, operation: receipt ? "RECEBIMENTO" : "PAGAMENTO", documentType: "TESOURARIA", sourceDocumentId: current.payment.documentId ?? undefined, journalCode: current.payment.method === "BANK_TRANSFER" ? "BANCOS" : "CAIXA", idempotencyKey: input.idempotencyKey, description: `${receipt ? "Recebimento" : "Pagamento"} de tesouraria #${input.paymentId}`, lines: receipt ? [{ pgcAccountId: input.cashPgcAccountId, debit: amount, credit: 0 }, { pgcAccountId: input.counterpartyPgcAccountId, debit: 0, credit: amount }] : [{ pgcAccountId: input.counterpartyPgcAccountId, debit: amount, credit: 0 }, { pgcAccountId: input.cashPgcAccountId, debit: 0, credit: amount }] });
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PAYMENT_ACCOUNTING_POSTED", entityType: "payment", entityId: String(input.paymentId), beforeState: JSON.stringify({ accounting: "PENDING" }), afterState: JSON.stringify({ accounting: "POSTED", entryId: entry.entryId ?? entry.entry?.id, pgcCashAccountId: input.cashPgcAccountId, pgcCounterpartyAccountId: input.counterpartyPgcAccountId }), correlationId: input.idempotencyKey });
+  return { paymentId: input.paymentId, entry, audited: true };
+}
+
 export async function getAgtIntegrationConfigForUserCompany(userId: number, companyId: number) {
   const db = await getDb();
   if (!db) return [];
@@ -1710,7 +1726,7 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
     if (original[0].status === "REVERSED") throw new Error("REVERSAL_ALREADY_EXISTS");
   }
   let resolvedAccountingRule: typeof accountingRules.$inferSelect | undefined;
-  if (input.accountingRuleOperation) {
+  if (activePgc[0] && input.accountingRuleOperation) {
     const ruleRows = await db.select({ rule: accountingRules }).from(accountingRules).innerJoin(pgcVersions, eq(accountingRules.versionId, pgcVersions.id)).where(and(eq(accountingRules.organizationId, companyContext[0].company.organizationId), or(eq(accountingRules.companyId, input.companyId), isNull(accountingRules.companyId)), eq(accountingRules.operation, input.accountingRuleOperation), input.accountingRuleDocumentType ? eq(accountingRules.documentType, input.accountingRuleDocumentType) : sql`1 = 1`, eq(accountingRules.active, 1), eq(pgcVersions.status, "ACTIVE"), lte(accountingRules.effectiveFrom, new Date()), or(isNull(accountingRules.effectiveTo), gte(accountingRules.effectiveTo, new Date())))).orderBy(accountingRules.priority).limit(1);
     resolvedAccountingRule = ruleRows[0]?.rule;
     if (!resolvedAccountingRule) throw new Error("ACCOUNTING_RULE_NOT_FOUND");
