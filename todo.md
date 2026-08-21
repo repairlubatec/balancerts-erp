@@ -2286,4 +2286,22 @@
 - [x] Expor procedimento SAADI com limite máximo de combinações
 - [x] Apresentar matriz de sensibilidade no painel desktop
 - [x] Validar TypeScript e 14 testes dirigidos SAADI
-- [ ] Guardar checkpoint do oitavo marco
+- [x] Guardar checkpoint do oitavo marco
+
+## Nono marco funcional — Valuation analítico
+
+- [x] Implementar cálculo de valor terminal por fluxo de caixa descontado
+- [x] Implementar valor presente dos fluxos e valor total estimado
+- [x] Expor valuation no estudo sem o confundir com saldos contabilísticos do ERP
+- [x] Apresentar valor terminal e premissas no painel e no relatório PDF
+- [x] Testar limites, taxas inválidas e resultados determinísticos
+- [x] Guardar checkpoint do nono marco
+
+## Valuation SAADI
+
+- [x] Implementar valor terminal por fluxo de caixa descontado
+- [x] Implementar valor presente dos fluxos e valor total estimado
+- [x] Expor valuation no estudo sem alterar saldos contabilísticos
+- [x] Apresentar crescimento terminal e valor estimado no painel
+- [x] Validar limites e resultados com TypeScript e 14 testes dirigidos
+- [x] Guardar checkpoint do nono marco

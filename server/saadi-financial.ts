@@ -62,6 +62,18 @@ function paybackFor(input: FeasibilityInput) {
   return null;
 }
 
+export type ValuationResult = { presentValueOfFlows: number; terminalValue: number; presentValueOfTerminal: number; estimatedValue: number; terminalGrowthRate: number };
+
+export function calculateValuation(input: FeasibilityInput, terminalGrowthRate: number): ValuationResult {
+  ensureFinite(terminalGrowthRate, "CRESCIMENTO_TERMINAL");
+  if (terminalGrowthRate < 0 || terminalGrowthRate >= input.discountRate) throw new Error("SAADI_CRESCIMENTO_TERMINAL_INVALIDO");
+  const presentValueOfFlows = input.cashFlows.reduce((total, flow, index) => total + flow / Math.pow(1 + input.discountRate, index + 1), 0);
+  const lastCashFlow = input.cashFlows[input.cashFlows.length - 1];
+  const terminalValue = lastCashFlow * (1 + terminalGrowthRate) / (input.discountRate - terminalGrowthRate);
+  const presentValueOfTerminal = terminalValue / Math.pow(1 + input.discountRate, input.cashFlows.length);
+  return { presentValueOfFlows, terminalValue, presentValueOfTerminal, estimatedValue: presentValueOfFlows + presentValueOfTerminal, terminalGrowthRate };
+}
+
 export type SensitivityPoint = { rateDelta: number; cashFlowDelta: number; npv: number; decision: FeasibilityResult["decision"] };
 
 export function calculateSensitivity(input: FeasibilityInput, rateDeltas = [-0.02, 0, 0.02], cashFlowDeltas = [-0.1, 0, 0.1]): SensitivityPoint[] {
