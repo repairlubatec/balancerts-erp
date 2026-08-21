@@ -2399,3 +2399,11 @@
 - [x] Mostrar instrução quando as fontes forem insuficientes ou excedentes
 - [x] Testar prontidão equilibrada e não equilibrada
 - [x] Guardar checkpoint do décimo sexto marco
+
+## Décimo sétimo marco funcional — Cenários financeiramente coerentes
+
+- [x] Impedir gravação de cenário com fontes insuficientes ou excedentes
+- [x] Mostrar motivo claro junto da acção de guardar cenário
+- [x] Manter cada cenário independente e sem escrever no ERP
+- [x] Testar cenários equilibrados e não equilibrados
+- [x] Guardar checkpoint do décimo sétimo marco
