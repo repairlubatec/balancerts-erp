@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, or, sql } from "drizzle-orm";
 import { appendAuditEventForUser, getDb } from "./db";
-import { companies, organizations, saadiAssumptions, saadiCompanyLinks, saadiExternalCompanies, saadiFinancialHistoricalData, saadiFinancingSources, saadiIntegrationRuns, saadiInvestmentItems, saadiMetricProvenance, saadiProjects, saadiStudies, saadiValidations, saadiVersionSnapshots } from "../drizzle/schema";
+import { companies, organizations, saadiAlerts, saadiAssumptions, saadiCompanyLinks, saadiExternalCompanies, saadiFinancialHistoricalData, saadiFinancingSources, saadiIntegrationRuns, saadiInvestmentItems, saadiMetricProvenance, saadiProjections, saadiProjects, saadiStudies, saadiValidations, saadiVersionSnapshots } from "../drizzle/schema";
 
 const organizationAccessCondition = (userId: number) => or(
   eq(organizations.ownerUserId, userId),
@@ -238,4 +238,96 @@ export async function listSaadiMetricProvenance(input: { userId: number; organiz
   const conditions = [eq(saadiMetricProvenance.organizationId, input.organizationId), eq(saadiMetricProvenance.studyId, input.studyId)];
   if (input.metric) conditions.push(eq(saadiMetricProvenance.metric, input.metric));
   return db.select().from(saadiMetricProvenance).where(and(...conditions)).orderBy(desc(saadiMetricProvenance.createdAt)).limit(Math.min(Math.max(input.limit ?? 100, 1), 200)).offset(Math.max(input.offset ?? 0, 0));
+}
+
+
+export async function createSaadiCompanyLink(input: { userId: number; organizationId: number; companyId?: number; externalCompanyId?: number; linkType: "ESTUDO_OPERACIONAL" | "REFERENCIA_EXTERNA" }) {
+  await assertOrganizationAccess(input.userId, input.organizationId);
+  if (input.companyId === undefined && input.externalCompanyId === undefined) throw new Error("SAADI_COMPANY_LINK_TARGET_REQUIRED");
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.insert(saadiCompanyLinks).values({ organizationId: input.organizationId, companyId: input.companyId ?? null, externalCompanyId: input.externalCompanyId ?? null, linkType: input.linkType, status: "PENDENTE", createdBy: input.userId });
+  return { created: true, status: "PENDENTE" as const };
+}
+
+export async function listSaadiCompanyLinks(input: { userId: number; organizationId: number; companyId?: number; externalCompanyId?: number }) {
+  await assertOrganizationAccess(input.userId, input.organizationId);
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const conditions = [eq(saadiCompanyLinks.organizationId, input.organizationId)];
+  if (input.companyId !== undefined) conditions.push(eq(saadiCompanyLinks.companyId, input.companyId));
+  if (input.externalCompanyId !== undefined) conditions.push(eq(saadiCompanyLinks.externalCompanyId, input.externalCompanyId));
+  return db.select().from(saadiCompanyLinks).where(and(...conditions)).orderBy(desc(saadiCompanyLinks.createdAt));
+}
+
+export async function authorizeSaadiCompanyLink(input: { userId: number; organizationId: number; linkId: number; status: "AUTORIZADA" | "REVOGADA" }) {
+  await assertOrganizationAccess(input.userId, input.organizationId);
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(saadiCompanyLinks).set({ status: input.status, authorizedBy: input.userId, authorizedAt: new Date() }).where(and(eq(saadiCompanyLinks.id, input.linkId), eq(saadiCompanyLinks.organizationId, input.organizationId)));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: 0, actorUserId: input.userId, action: `SAADI_COMPANY_LINK_${input.status}`, entityType: "saadiCompanyLink", entityId: String(input.linkId), beforeState: null, afterState: JSON.stringify({ status: input.status }), correlationId: `saadi-company-link:${input.linkId}:${input.status}` });
+  return { updated: true, status: input.status };
+}
+
+
+export async function createSaadiProjection(input: { userId: number; organizationId: number; companyId?: number; studyId: number; scenarioId?: number; periodYear: number; metric: string; value: number; currency?: string; formulaVersion?: string }) {
+  await assertStudyAccess({ userId: input.userId, organizationId: input.organizationId, studyId: input.studyId });
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const normalizedValue = String(input.value);
+  const sourceHash = hashValue({ studyId: input.studyId, scenarioId: input.scenarioId ?? null, periodYear: input.periodYear, metric: input.metric, value: normalizedValue, formulaVersion: input.formulaVersion ?? "v1" });
+  await db.insert(saadiProjections).values({ organizationId: input.organizationId, companyId: input.companyId ?? null, studyId: input.studyId, scenarioId: input.scenarioId ?? null, periodYear: input.periodYear, metric: input.metric.trim(), value: normalizedValue, currency: (input.currency ?? "AOA").toUpperCase(), formulaVersion: input.formulaVersion ?? "v1", sourceHash, createdBy: input.userId });
+  return { created: true, sourceHash };
+}
+
+export async function listSaadiProjections(input: { userId: number; organizationId: number; studyId: number; scenarioId?: number; metric?: string; limit?: number; offset?: number }) {
+  await assertStudyAccess({ userId: input.userId, organizationId: input.organizationId, studyId: input.studyId });
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const conditions = [eq(saadiProjections.organizationId, input.organizationId), eq(saadiProjections.studyId, input.studyId)];
+  if (input.scenarioId !== undefined) conditions.push(eq(saadiProjections.scenarioId, input.scenarioId));
+  if (input.metric) conditions.push(eq(saadiProjections.metric, input.metric));
+  return db.select().from(saadiProjections).where(and(...conditions)).orderBy(desc(saadiProjections.periodYear)).limit(Math.min(Math.max(input.limit ?? 100, 1), 500)).offset(Math.max(input.offset ?? 0, 0));
+}
+
+export async function createSaadiAlert(input: { userId: number; organizationId: number; companyId: number; studyId: number; code: string; severity: "CRITICO" | "ATENCAO" | "FAVORAVEL"; title: string; description: string; thresholdValue?: number; actualValue?: number }) {
+  await assertStudyAccess({ userId: input.userId, organizationId: input.organizationId, studyId: input.studyId });
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.insert(saadiAlerts).values({ organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, code: input.code.trim(), severity: input.severity, title: input.title.trim(), description: input.description.trim(), thresholdValue: input.thresholdValue === undefined ? undefined : String(input.thresholdValue), actualValue: input.actualValue === undefined ? undefined : String(input.actualValue), createdBy: input.userId });
+  return { created: true };
+}
+
+export async function listSaadiAlerts(input: { userId: number; organizationId: number; companyId: number; studyId: number; includeResolved?: boolean }) {
+  await assertStudyAccess({ userId: input.userId, organizationId: input.organizationId, studyId: input.studyId });
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const conditions = [eq(saadiAlerts.organizationId, input.organizationId), eq(saadiAlerts.companyId, input.companyId), eq(saadiAlerts.studyId, input.studyId)];
+  if (!input.includeResolved) conditions.push(eq(saadiAlerts.resolved, 0));
+  return db.select().from(saadiAlerts).where(and(...conditions)).orderBy(desc(saadiAlerts.createdAt));
+}
+
+export async function resolveSaadiAlert(input: { userId: number; organizationId: number; companyId: number; alertId: number }) {
+  await assertOrganizationAccess(input.userId, input.organizationId);
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(saadiAlerts).set({ resolved: 1 }).where(and(eq(saadiAlerts.id, input.alertId), eq(saadiAlerts.organizationId, input.organizationId), eq(saadiAlerts.companyId, input.companyId)));
+  return { resolved: true };
+}
+
+export async function upsertSaadiValidation(input: { userId: number; organizationId: number; companyId: number; studyId: number; requirementCode: string; status: "PENDENTE" | "VALIDADO" | "BLOQUEADO"; message: string }) {
+  await assertStudyAccess({ userId: input.userId, organizationId: input.organizationId, studyId: input.studyId });
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const existing = await db.select().from(saadiValidations).where(and(eq(saadiValidations.organizationId, input.organizationId), eq(saadiValidations.studyId, input.studyId), eq(saadiValidations.requirementCode, input.requirementCode))).limit(1);
+  if (existing[0]) await db.update(saadiValidations).set({ status: input.status, message: input.message, checkedBy: input.userId, checkedAt: new Date() }).where(eq(saadiValidations.id, existing[0].id));
+  else await db.insert(saadiValidations).values({ organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, requirementCode: input.requirementCode.trim(), status: input.status, message: input.message.trim(), checkedBy: input.userId, checkedAt: new Date() });
+  return { updated: true };
+}
+
+export async function listSaadiValidations(input: { userId: number; organizationId: number; companyId: number; studyId: number }) {
+  await assertStudyAccess({ userId: input.userId, organizationId: input.organizationId, studyId: input.studyId });
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  return db.select().from(saadiValidations).where(and(eq(saadiValidations.organizationId, input.organizationId), eq(saadiValidations.companyId, input.companyId), eq(saadiValidations.studyId, input.studyId))).orderBy(saadiValidations.requirementCode);
 }

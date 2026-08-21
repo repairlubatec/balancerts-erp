@@ -2451,3 +2451,12 @@
 - [x] Criar sugestão estruturada opcional do Balancerts IA, sem validação automática
 - [x] Integrar cartões de indicadores e documentos no painel desktop SAADI
 - [x] Testar o motor financeiro complementar com seis testes aprovados
+
+### Bloco 3 concluído — projecções, alertas e validação
+
+- [x] Criar projecções persistentes por cenário, período, métrica, fórmula e hash
+- [x] Criar alertas com severidade, limiar, valor observado e resolução
+- [x] Criar checklist persistente de validação com estados pendente, validado e bloqueado
+- [x] Expor projecções, alertas e validações com limites e isolamento por organização/empresa/estudo
+- [x] Apresentar alertas, checklist e projecções no painel desktop
+- [x] Validar TypeScript e nove testes dirigidos SAADI aprovados
