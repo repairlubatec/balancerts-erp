@@ -2305,3 +2305,12 @@
 - [x] Apresentar crescimento terminal e valor estimado no painel
 - [x] Validar limites e resultados com TypeScript e 14 testes dirigidos
 - [x] Guardar checkpoint do nono marco
+
+## Décimo marco funcional — Estrutura de financiamento
+
+- [x] Adicionar premissas de capital próprio e financiamento externo
+- [x] Calcular custo financeiro e serviço da dívida no cenário
+- [x] Apresentar composição do investimento por fonte de financiamento
+- [x] Manter financiamento analítico separado dos pagamentos e empréstimos reais do ERP
+- [x] Testar taxas, prazos e limites de financiamento
+- [ ] Guardar checkpoint do décimo marco

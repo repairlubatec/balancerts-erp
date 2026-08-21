@@ -54,6 +54,10 @@ export default function Saadi() {
   const [discountRate, setDiscountRate] = useState("0.15");
   const [terminalGrowthRate, setTerminalGrowthRate] = useState("0.03");
   const [cashFlows, setCashFlows] = useState("300000,350000,400000,450000,500000");
+  const [equityAmount, setEquityAmount] = useState("1000000");
+  const [debtAmount, setDebtAmount] = useState("0");
+  const [debtInterestRate, setDebtInterestRate] = useState("0.12");
+  const [debtTermMonths, setDebtTermMonths] = useState("60");
   const [scenarioName, setScenarioName] = useState("Cenário base");
   const saveFeasibility = trpc.saadi.saveFeasibilityInput.useMutation({ onSuccess: async () => { await feasibility.refetch(); } });
   const calculateFeasibility = trpc.saadi.calculateFeasibility.useMutation({ onSuccess: async () => { await feasibility.refetch(); } });
@@ -61,6 +65,8 @@ export default function Saadi() {
   const sensitivity = trpc.saadi.sensitivity.useQuery(sensitivityInput, { enabled: Boolean(selectedStudyId && sensitivityInput.cashFlows.length) });
   const valuationInput = useMemo(() => ({ ...sensitivityInput, terminalGrowthRate: Number(terminalGrowthRate) || 0 }), [sensitivityInput, terminalGrowthRate]);
   const valuation = trpc.saadi.valuation.useQuery(valuationInput, { enabled: Boolean(selectedStudyId && valuationInput.cashFlows.length && valuationInput.discountRate > valuationInput.terminalGrowthRate) });
+  const financingInput = useMemo(() => ({ equityAmount: Number(equityAmount) || 0, debtAmount: Number(debtAmount) || 0, annualInterestRate: Number(debtInterestRate) || 0, termMonths: Number(debtTermMonths) || 0 }), [equityAmount, debtAmount, debtInterestRate, debtTermMonths]);
+  const financing = trpc.saadi.financing.useQuery(financingInput, { enabled: Boolean(selectedStudyId) });
   const scenarios = trpc.saadi.scenarios.useQuery(activeCompanyId && organizationId && selectedStudyId ? { organizationId, companyId: activeCompanyId, studyId: selectedStudyId } : { organizationId: 0, companyId: 0, studyId: 0 }, { enabled: Boolean(activeCompanyId && organizationId && selectedStudyId) });
   const saveScenario = trpc.saadi.saveScenario.useMutation({ onSuccess: async () => { await scenarios.refetch(); } });
   const captureErpSnapshot = trpc.saadi.captureErpAccountingSnapshot.useMutation({ onSuccess: async () => { await snapshots.refetch(); } });
@@ -151,9 +157,14 @@ export default function Saadi() {
               <div><Label htmlFor="saadi-investment">Investimento inicial</Label><Input id="saadi-investment" type="number" min="0" step="0.01" value={initialInvestment} onChange={(event) => setInitialInvestment(event.target.value)} /></div>
               <div><Label htmlFor="saadi-rate">Taxa de desconto anual</Label><Input id="saadi-rate" type="number" min="-0.99" max="10" step="0.01" value={discountRate} onChange={(event) => setDiscountRate(event.target.value)} /><p className="mt-1 text-[11px] text-slate-500">Use 0,15 para 15%.</p></div>
               <div><Label htmlFor="saadi-cashflows">Fluxos de caixa anuais</Label><Input id="saadi-cashflows" value={cashFlows} onChange={(event) => setCashFlows(event.target.value)} placeholder="300000,350000,400000" /></div>
+              <div><Label htmlFor="saadi-equity">Capital próprio</Label><Input id="saadi-equity" type="number" min="0" step="0.01" value={equityAmount} onChange={(event) => setEquityAmount(event.target.value)} /></div>
+              <div><Label htmlFor="saadi-debt">Financiamento externo</Label><Input id="saadi-debt" type="number" min="0" step="0.01" value={debtAmount} onChange={(event) => setDebtAmount(event.target.value)} /></div>
+              <div><Label htmlFor="saadi-debt-rate">Taxa anual da dívida</Label><Input id="saadi-debt-rate" type="number" min="0" max="1" step="0.01" value={debtInterestRate} onChange={(event) => setDebtInterestRate(event.target.value)} /></div>
+              <div><Label htmlFor="saadi-debt-term">Prazo da dívida (meses)</Label><Input id="saadi-debt-term" type="number" min="0" max="360" value={debtTermMonths} onChange={(event) => setDebtTermMonths(event.target.value)} /></div>
             </div>
+            {financing.data && <div className="rounded border border-[#dbe5f1] bg-[#f8fafc] p-2 text-[11px] text-slate-600">Estrutura do financiamento: capital próprio <strong>{financing.data.equityAmount.toLocaleString("pt-PT", { maximumFractionDigits: 0 })}</strong> · dívida <strong>{financing.data.debtAmount.toLocaleString("pt-PT", { maximumFractionDigits: 0 })}</strong> · prestação mensal <strong>{financing.data.monthlyPayment.toLocaleString("pt-PT", { maximumFractionDigits: 0 })}</strong> · juros totais <strong>{financing.data.totalInterest.toLocaleString("pt-PT", { maximumFractionDigits: 0 })}</strong></div>}
             <div className="flex flex-wrap gap-2">
-              <Button type="button" className="bg-[#1267d6]" disabled={saveFeasibility.isPending || !activeCompanyId || !organizationId} onClick={() => { const flows = cashFlows.split(",").map((value) => Number(value.trim())); if (activeCompanyId && organizationId && selectedStudyId) saveFeasibility.mutate({ organizationId, companyId: activeCompanyId, studyId: selectedStudyId, feasibility: { initialInvestment: Number(initialInvestment), discountRate: Number(discountRate), cashFlows: flows, currency: selected?.company.functionalCurrency ?? "AOA" } }); }}>Guardar premissas</Button>
+              <Button type="button" className="bg-[#1267d6]" disabled={saveFeasibility.isPending || !activeCompanyId || !organizationId} onClick={() => { const flows = cashFlows.split(",").map((value) => Number(value.trim())); if (activeCompanyId && organizationId && selectedStudyId) saveFeasibility.mutate({ organizationId, companyId: activeCompanyId, studyId: selectedStudyId, feasibility: { initialInvestment: Number(initialInvestment), discountRate: Number(discountRate), cashFlows: flows, currency: selected?.company.functionalCurrency ?? "AOA", equityAmount: Number(equityAmount), debtAmount: Number(debtAmount), debtInterestRate: Number(debtInterestRate), debtTermMonths: Number(debtTermMonths) } }); }}>Guardar premissas</Button>
               <Button type="button" variant="outline" disabled={calculateFeasibility.isPending || !feasibility.data?.input} onClick={() => { if (activeCompanyId && organizationId && selectedStudyId) calculateFeasibility.mutate({ organizationId, companyId: activeCompanyId, studyId: selectedStudyId }); }}>Calcular viabilidade</Button>
               {saveFeasibility.error && <p role="alert" className="self-center text-xs text-rose-700">Não foi possível guardar as premissas. Verifique os valores.</p>}
               {calculateFeasibility.error && <p role="alert" className="self-center text-xs text-rose-700">Não foi possível calcular. Verifique se existem fluxos válidos.</p>}

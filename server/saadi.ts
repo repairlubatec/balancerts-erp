@@ -309,6 +309,10 @@ export type SaadiFeasibilityInput = {
   discountRate: number;
   cashFlows: number[];
   currency: string;
+  equityAmount?: number;
+  debtAmount?: number;
+  debtInterestRate?: number;
+  debtTermMonths?: number;
 };
 
 function validateFeasibilityInput(input: SaadiFeasibilityInput) {
@@ -317,6 +321,12 @@ function validateFeasibilityInput(input: SaadiFeasibilityInput) {
   if (!Array.isArray(input.cashFlows) || input.cashFlows.length < 1 || input.cashFlows.length > 120) throw new Error("SAADI_FLUXOS_INVALIDOS");
   if (input.cashFlows.some((flow) => !Number.isFinite(flow))) throw new Error("SAADI_FLUXO_INVALIDO");
   if (!/^[A-Z]{3}$/.test(input.currency)) throw new Error("SAADI_MOEDA_INVALIDA");
+  const equity = input.equityAmount ?? 0;
+  const debt = input.debtAmount ?? 0;
+  const debtRate = input.debtInterestRate ?? 0;
+  const term = input.debtTermMonths ?? 0;
+  if (![equity, debt, debtRate, term].every(Number.isFinite) || equity < 0 || debt < 0 || debtRate < 0 || debtRate > 1 || !Number.isInteger(term) || term < 0 || term > 360) throw new Error("SAADI_FINANCIAMENTO_INVALIDO");
+  if (debt > 0 && term < 1) throw new Error("SAADI_PRAZO_DIVIDA_OBRIGATORIO");
 }
 
 export async function saveSaadiFeasibilityInput(input: { userId: number; organizationId: number; companyId: number; studyId: number; feasibility: SaadiFeasibilityInput }) {
@@ -329,9 +339,9 @@ export async function saveSaadiFeasibilityInput(input: { userId: number; organiz
   const inputHash = hashPayload({ studyId: input.studyId, ...input.feasibility });
   const existing = await db.select().from(saadiFeasibilityInputs).where(and(eq(saadiFeasibilityInputs.organizationId, input.organizationId), eq(saadiFeasibilityInputs.companyId, input.companyId), eq(saadiFeasibilityInputs.studyId, input.studyId))).limit(1);
   if (existing[0]) {
-    await db.update(saadiFeasibilityInputs).set({ initialInvestment: String(input.feasibility.initialInvestment), discountRate: String(input.feasibility.discountRate), cashFlowsJson: JSON.stringify(input.feasibility.cashFlows), currency: input.feasibility.currency, inputHash, createdBy: input.userId }).where(eq(saadiFeasibilityInputs.id, existing[0].id));
+    await db.update(saadiFeasibilityInputs).set({ initialInvestment: String(input.feasibility.initialInvestment), discountRate: String(input.feasibility.discountRate), cashFlowsJson: JSON.stringify(input.feasibility.cashFlows), equityAmount: String(input.feasibility.equityAmount ?? 0), debtAmount: String(input.feasibility.debtAmount ?? 0), debtInterestRate: String(input.feasibility.debtInterestRate ?? 0), debtTermMonths: input.feasibility.debtTermMonths ?? 0, currency: input.feasibility.currency, inputHash, createdBy: input.userId }).where(eq(saadiFeasibilityInputs.id, existing[0].id));
   } else {
-    await db.insert(saadiFeasibilityInputs).values({ organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, initialInvestment: String(input.feasibility.initialInvestment), discountRate: String(input.feasibility.discountRate), cashFlowsJson: JSON.stringify(input.feasibility.cashFlows), currency: input.feasibility.currency, inputHash, createdBy: input.userId });
+    await db.insert(saadiFeasibilityInputs).values({ organizationId: input.organizationId, companyId: input.companyId, studyId: input.studyId, initialInvestment: String(input.feasibility.initialInvestment), discountRate: String(input.feasibility.discountRate), cashFlowsJson: JSON.stringify(input.feasibility.cashFlows), equityAmount: String(input.feasibility.equityAmount ?? 0), debtAmount: String(input.feasibility.debtAmount ?? 0), debtInterestRate: String(input.feasibility.debtInterestRate ?? 0), debtTermMonths: input.feasibility.debtTermMonths ?? 0, currency: input.feasibility.currency, inputHash, createdBy: input.userId });
   }
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "SAADI_FEASIBILITY_INPUT_SAVED", entityType: "saadiFeasibilityInput", entityId: String(input.studyId), beforeState: null, afterState: JSON.stringify({ inputHash }), correlationId: `saadi-feasibility-input:${input.studyId}` });
   return { inputHash, saved: true };

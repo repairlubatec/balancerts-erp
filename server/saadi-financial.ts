@@ -62,6 +62,19 @@ function paybackFor(input: FeasibilityInput) {
   return null;
 }
 
+export type FinancingResult = { debtAmount: number; equityAmount: number; monthlyPayment: number; totalDebtService: number; totalInterest: number };
+
+export function calculateFinancing(debtAmount: number, equityAmount: number, annualInterestRate: number, termMonths: number): FinancingResult {
+  [debtAmount, equityAmount, annualInterestRate, termMonths].forEach((value) => ensureFinite(value, "FINANCIAMENTO"));
+  if (debtAmount < 0 || equityAmount < 0 || annualInterestRate < 0 || annualInterestRate > 1 || !Number.isInteger(termMonths) || termMonths < 0 || termMonths > 360) throw new Error("SAADI_FINANCIAMENTO_INVALIDO");
+  if (debtAmount > 0 && termMonths < 1) throw new Error("SAADI_PRAZO_DIVIDA_OBRIGATORIO");
+  if (debtAmount === 0 || termMonths === 0) return { debtAmount, equityAmount, monthlyPayment: 0, totalDebtService: 0, totalInterest: 0 };
+  const monthlyRate = annualInterestRate / 12;
+  const monthlyPayment = monthlyRate === 0 ? debtAmount / termMonths : debtAmount * monthlyRate / (1 - Math.pow(1 + monthlyRate, -termMonths));
+  const totalDebtService = monthlyPayment * termMonths;
+  return { debtAmount, equityAmount, monthlyPayment, totalDebtService, totalInterest: totalDebtService - debtAmount };
+}
+
 export type ValuationResult = { presentValueOfFlows: number; terminalValue: number; presentValueOfTerminal: number; estimatedValue: number; terminalGrowthRate: number };
 
 export function calculateValuation(input: FeasibilityInput, terminalGrowthRate: number): ValuationResult {
