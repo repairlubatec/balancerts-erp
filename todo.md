@@ -2504,3 +2504,18 @@
 - [x] Validar RBAC, versões, router, motor financeiro e interface
 - [x] Executar 19 testes dirigidos aprovados e TypeScript sem erros
 - [x] Executar suite global com 354 testes aprovados e compilação de produção iniciada sem erros reportados
+
+## Implementação integral do PDF — Balancerts IA Document Intelligence
+
+- [x] Ler integralmente o PDF e decompor requisitos verificáveis
+- [x] Confrontar requisitos com Balancerts IA, schema, serviços, permissões e interface actuais
+- [x] Implementar ingestão segura de documentos e metadados
+- [x] Implementar extracção offline e online com escolha de fornecedor — runtime local opcional e regras locais sem rede
+- [x] Implementar classificação, campos estruturados e confiança; OCR nativo permanece dependente do componente local instalado
+- [x] Implementar sugestões sem escrita automática e revisão humana obrigatória
+- [x] Implementar auditoria, idempotência, reprocessamento e estados; processamento por regras locais funciona sem fila externa
+- [x] Implementar RBAC, isolamento multi-tenant e minimização de dados
+- [x] Integrar configuração local, diagnóstico, modo offline e custo zero na interface desktop em português
+- [x] Criar testes unitários, integração, segurança e não-escrita operacional
+- [x] Executar validação visual e aceitação controlada — painel /ia verificado e fluxo offline coberto por testes
+- [x] Guardar checkpoints de cada bloco concluído

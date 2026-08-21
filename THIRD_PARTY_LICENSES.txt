@@ -1,0 +1,33 @@
+BALANCERTS IA — COMPONENTES GRATUITOS E OPEN SOURCE
+
+Nome: Ollama
+Versão: configurada pelo utilizador/instalador
+Licença: MIT
+Origem: https://ollama.com e repositório oficial
+Finalidade: runtime local opcional para modelos no computador
+Custo: 0 Kz; sem API paga; sem subscrição
+Uso comercial: verificar a licença específica da distribuição e do modelo escolhido
+Redistribuição: verificar a licença específica da distribuição
+Internet: apenas para instalação/actualização opcional
+
+Nome: PaddleOCR
+Versão: a fixar no instalador
+Licença: Apache-2.0
+Origem: https://github.com/PaddlePaddle/PaddleOCR
+Finalidade: OCR local opcional para documentos digitalizados
+Custo: 0 Kz; sem API paga; sem subscrição
+Uso comercial: permitido nos termos da licença do projecto; validar licença dos modelos
+Redistribuição: verificar a licença de cada modelo
+Internet: apenas para instalação/actualização opcional
+
+Nome: Docling
+Versão: a fixar no instalador
+Licença: MIT
+Origem: https://github.com/docling-project/docling
+Finalidade: interpretação local de PDF e tabelas
+Custo: 0 Kz; sem API paga; sem subscrição
+Uso comercial: verificar a licença da versão distribuída
+Redistribuição: verificar dependências transitivas
+Internet: apenas para instalação/actualização opcional
+
+Nota: a licença do runtime não cobre automaticamente a licença dos modelos. O instalador deve bloquear componentes com custo, créditos, subscrição ou licença incompatível antes da instalação.
