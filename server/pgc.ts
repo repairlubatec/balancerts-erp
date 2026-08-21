@@ -1,6 +1,7 @@
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { getDb, appendAuditEventForUser } from "./db";
 import { accountingRules, chartAccounts, companies, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcMigrationMaps, pgcSources, pgcVersions } from "../drizzle/schema";
+import { angolaNormativeSources } from "./normative";
 
 export type PgcAccountDraft = {
   code: string;
@@ -58,6 +59,22 @@ export async function addPgcSourceForUser(input: { userId: number; organizationI
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_SOURCE_REGISTERED", entityType: "pgcSource", entityId: String(id), beforeState: null, afterState: JSON.stringify(input), correlationId: `pgc-source:${id}` });
   return { id };
+}
+
+export async function registerPendingNormativeSourcesForUser(input: { userId: number; organizationId: number; versionId: number }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const version = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!version[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  const existing = await db.select({ instrumentNumber: pgcSources.instrumentNumber }).from(pgcSources).where(and(eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId)));
+  const existingKeys = new Set(existing.map((row) => row.instrumentNumber).filter(Boolean));
+  const pendingSources = angolaNormativeSources.filter((source) => !existingKeys.has(source.code));
+  const createdIds: number[] = [];
+  for (const source of pendingSources) {
+    const result = await db.insert(pgcSources).values({ organizationId: input.organizationId, versionId: input.versionId, instrument: source.title, instrumentNumber: source.code, article: null, title: source.scope, sourceUrl: source.url, issuedAt: null, effectiveFrom: null, verificationStatus: "PENDING", conflictNote: null, createdBy: input.userId });
+    createdIds.push(Number(result[0].insertId));
+    await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_SOURCE_REGISTERED", entityType: "pgcSource", entityId: String(result[0].insertId), beforeState: null, afterState: JSON.stringify({ instrumentNumber: source.code, verificationStatus: "PENDING" }), correlationId: `pgc-source:${input.versionId}:${source.code}` });
+  }
+  return { versionId: input.versionId, createdIds, createdCount: createdIds.length, status: "PENDING" as const };
 }
 
 export async function listPgcSourcesForUser(input: { userId: number; organizationId: number; versionId: number }) {
