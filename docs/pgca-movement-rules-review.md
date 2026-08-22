@@ -366,3 +366,15 @@ A página 46 do PDF oficial é a página 1022 do Diário da República e confirm
 ## Validação de não-regressão
 
 Após a revisão visual primária e a actualização do dossier, foi executada a suite integral do projecto: **108 ficheiros de teste e 395 testes aprovados**. A verificação TypeScript permanece sem erros e o endpoint HTTP local responde com **200**. Estes resultados demonstram não-regressão técnica nesta etapa documental; não substituem a confirmação humana das regras de movimentação nem autorizam activação normativa.
+
+## Fonte fiscal pública localizada
+
+A página pública consultada foi `https://lex.ao/docs/assembleia-nacional/2023/lei-n-o-14-23-de-28-de-dezembro/`. A página identifica a **Lei n.º 14/23, de 28 de Dezembro**, da Assembleia Nacional, publicada no Diário da República I Série n.º 246 de 28 de Dezembro de 2023, página 8519, como lei de alteração ao Código do Imposto sobre o Valor Acrescentado. O índice da própria página contém a entrada **ARTIGO 19.º (Taxas do Imposto)**. Esta fonte será usada apenas para conferir o teor literal do artigo antes de qualquer confirmação fiscal; a fonte AGT continua fora do escopo desta fase.
+
+### Conferência visual do artigo 19.º — Lei n.º 14/23
+
+A secção **ARTIGO 19.º (Taxas do Imposto)** da fonte pública apresenta, no n.º 1: alínea a), **14%** como taxa geral para importações, transmissões de bens e prestações de serviços; alínea b), **7%** para o regime simplificado; alínea c), **7%** para prestações de serviços de hotelaria e restauração; alínea d), **5%** para importações e transmissões de bens alimentares de amplo consumo e insumos agrícolas constantes dos Anexos I e II; e alínea e), **1%** para importações e transmissões de bens sujeitas ao regime tributário especial aplicável à Província de Cabinda, com a excepção indicada no próprio artigo.
+
+O n.º 2 condiciona a taxa de 7% da alínea c) ao cumprimento cumulativo de obrigações relativas a imóveis, veículos, facturação electrónica e entrega de declarações tributárias. O n.º 3 estabelece que, nos casos de adiantamento em que o bem a adquirir não esteja determinado, se aplica a taxa geral. O n.º 4 estabelece que a taxa aplicável é a vigente no momento em que o imposto se torna exigível.
+
+Esta evidência visual é suficiente para corrigir a classificação documental da regra do artigo 19.º, mas a publicação operacional no catálogo fiscal deve conservar o artigo completo, as alíneas, condições e data de vigência; não deve reduzir o artigo a uma única taxa geral.
