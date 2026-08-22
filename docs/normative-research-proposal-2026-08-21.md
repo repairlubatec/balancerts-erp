@@ -83,3 +83,7 @@ A fonte persistida da Lei n.º 14/23 (sourceId 30001) permanece PENDING. A tenta
 Cruzamento directo dos portais oficiais — 22/08/2026
 
 A consulta ao CNNCA/MinFin confirmou a área institucional “Legislação → Sector Empresarial”, mas a vista observada apresentou “Nada Encontrado”; não foi usada como transcrição normativa. A consulta directa à AGT confirmou o portal institucional, o contacto apoio.agt@minfin.gov.ao, o endereço oficial e o acesso ao Portal AGT, mas a rota dinâmica não apresentou o texto integral da Lei n.º 14/23 na vista observada. Estas páginas permanecem evidência de proveniência institucional, não substituindo os PDFs integrais já recebidos. Nenhum conteúdo instrucional externo foi importado e nenhum registo do catálogo foi alterado nesta consulta.
+
+Consulta adicional ao MinFin — 22/08/2026
+
+A tentativa de abrir a notícia oficial do Ministério das Finanças sobre a taxa de IVA falhou por indisponibilidade do receptor do navegador; a extracção pública também não resolveu o endereço. Este resultado não foi tratado como prova normativa e não alterou a regra IVA-14-23-ART19-GERAL nem a fonte Lei n.º 14/23, que continua PENDING. A confirmação fiscal permanece limitada ao PDF recebido e à evidência já catalogada.
