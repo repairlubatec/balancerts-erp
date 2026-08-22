@@ -1,0 +1,1 @@
+ALTER TABLE `pgcEvidenceSubmissions` ADD `reviewDecision` enum('CONFIRM','KEEP_PENDING','REQUEST_NEW_EVIDENCE','REJECT');

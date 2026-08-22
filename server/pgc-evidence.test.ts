@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { validatePgcEvidenceSubmissionMetadata } from "./pgc";
+import { validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata } from "./pgc";
 
 const validInput = {
   classCode: "2",
@@ -34,5 +34,22 @@ describe("validação de submissão de evidência PGCA", () => {
   it("recusa páginas invertidas e uma submissão sem códigos", () => {
     expect(() => validatePgcEvidenceSubmissionMetadata({ ...validInput, pageFrom: 47, pageTo: 44 })).toThrow("PGC_EVIDENCE_PAGES_INVALID");
     expect(() => validatePgcEvidenceSubmissionMetadata({ ...validInput, targetCodes: [] })).toThrow("PGC_EVIDENCE_TARGET_CODES_INVALID");
+  });
+});
+
+describe("decisões da fila de revisão humana PGCA", () => {
+  it("aceita evidência apenas quando há metadados primários completos", () => {
+    expect(validatePgcEvidenceReviewDecision({ status: "UNDER_REVIEW", decision: "CONFIRM", hasPrimaryMetadata: true })).toBe("ACCEPTED");
+    expect(() => validatePgcEvidenceReviewDecision({ status: "UNDER_REVIEW", decision: "CONFIRM", hasPrimaryMetadata: false })).toThrow("PGC_EVIDENCE_PRIMARY_METADATA_REQUIRED");
+  });
+
+  it("mantém pendente ou rejeita apenas com nota explicativa", () => {
+    expect(() => validatePgcEvidenceReviewDecision({ status: "UNDER_REVIEW", decision: "KEEP_PENDING", hasPrimaryMetadata: true })).toThrow("PGC_EVIDENCE_REVIEW_NOTE_REQUIRED");
+    expect(validatePgcEvidenceReviewDecision({ status: "UNDER_REVIEW", decision: "KEEP_PENDING", reviewNote: "Página ilegível", hasPrimaryMetadata: true })).toBe("PENDING_REVIEW");
+    expect(validatePgcEvidenceReviewDecision({ status: "UNDER_REVIEW", decision: "REJECT", reviewNote: "Fonte não corresponde ao diploma", hasPrimaryMetadata: true })).toBe("REJECTED");
+  });
+
+  it("recusa qualquer decisão fora do estado em revisão", () => {
+    expect(() => validatePgcEvidenceReviewDecision({ status: "PENDING_REVIEW", decision: "CONFIRM", hasPrimaryMetadata: true })).toThrow("PGC_EVIDENCE_REVIEW_REQUIRED");
   });
 });

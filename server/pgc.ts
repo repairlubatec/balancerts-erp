@@ -300,3 +300,40 @@ export async function listAccountingRulesForUser(input: { userId: number; organi
   if (!access[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
   return db.select().from(accountingRules).where(and(eq(accountingRules.organizationId, input.organizationId), eq(accountingRules.versionId, input.versionId), ...(input.companyId ? [eq(accountingRules.companyId, input.companyId)] : []))).orderBy(accountingRules.priority).limit(500);
 }
+
+
+export type PgcEvidenceReviewDecision = "CONFIRM" | "KEEP_PENDING" | "REQUEST_NEW_EVIDENCE" | "REJECT";
+
+export function validatePgcEvidenceReviewDecision(input: { status: string; decision: PgcEvidenceReviewDecision; reviewNote?: string | null; hasPrimaryMetadata: boolean }) {
+  if (input.status !== "UNDER_REVIEW") throw new Error("PGC_EVIDENCE_REVIEW_REQUIRED");
+  if (input.decision !== "CONFIRM" && !input.reviewNote?.trim()) throw new Error("PGC_EVIDENCE_REVIEW_NOTE_REQUIRED");
+  if (input.decision === "CONFIRM" && !input.hasPrimaryMetadata) throw new Error("PGC_EVIDENCE_PRIMARY_METADATA_REQUIRED");
+  return input.decision === "CONFIRM" ? "ACCEPTED" as const : input.decision === "REJECT" ? "REJECTED" as const : "PENDING_REVIEW" as const;
+}
+
+export async function startPgcEvidenceReviewForUser(input: { userId: number; organizationId: number; companyId: number; versionId: number; submissionId: number }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const scope = await assertCompanyScope(input.userId, input.companyId);
+  if (scope.company.organizationId !== input.organizationId) throw new Error("PGC_EVIDENCE_ORGANIZATION_MISMATCH");
+  const rows = await db.select().from(pgcEvidenceSubmissions).where(and(eq(pgcEvidenceSubmissions.id, input.submissionId), eq(pgcEvidenceSubmissions.organizationId, input.organizationId), eq(pgcEvidenceSubmissions.companyId, input.companyId), eq(pgcEvidenceSubmissions.versionId, input.versionId))).limit(1);
+  const submission = rows[0];
+  if (!submission) throw new Error("PGC_EVIDENCE_SUBMISSION_NOT_FOUND_OR_FORBIDDEN");
+  if (submission.status !== "PENDING_REVIEW") throw new Error("PGC_EVIDENCE_INVALID_STATE_TRANSITION");
+  await db.update(pgcEvidenceSubmissions).set({ status: "UNDER_REVIEW" }).where(eq(pgcEvidenceSubmissions.id, input.submissionId));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PGC_EVIDENCE_REVIEW_STARTED", entityType: "pgcEvidenceSubmission", entityId: String(input.submissionId), beforeState: JSON.stringify({ status: submission.status }), afterState: JSON.stringify({ status: "UNDER_REVIEW" }), correlationId: submission.correlationId });
+  return { submissionId: input.submissionId, status: "UNDER_REVIEW" as const };
+}
+
+export async function reviewPgcEvidenceSubmissionForUser(input: { userId: number; organizationId: number; companyId: number; versionId: number; submissionId: number; decision: PgcEvidenceReviewDecision; reviewNote?: string | null }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const scope = await assertCompanyScope(input.userId, input.companyId);
+  if (scope.company.organizationId !== input.organizationId) throw new Error("PGC_EVIDENCE_ORGANIZATION_MISMATCH");
+  const rows = await db.select().from(pgcEvidenceSubmissions).where(and(eq(pgcEvidenceSubmissions.id, input.submissionId), eq(pgcEvidenceSubmissions.organizationId, input.organizationId), eq(pgcEvidenceSubmissions.companyId, input.companyId), eq(pgcEvidenceSubmissions.versionId, input.versionId))).limit(1);
+  const submission = rows[0];
+  if (!submission) throw new Error("PGC_EVIDENCE_SUBMISSION_NOT_FOUND_OR_FORBIDDEN");
+  const note = input.reviewNote?.trim() || null;
+  const nextStatus = validatePgcEvidenceReviewDecision({ status: submission.status, decision: input.decision, reviewNote: note, hasPrimaryMetadata: Boolean(submission.pageFrom && submission.pageTo && submission.sourceId) });
+  await db.update(pgcEvidenceSubmissions).set({ status: nextStatus, reviewDecision: input.decision, reviewedBy: input.userId, reviewedAt: new Date(), reviewNote: note }).where(eq(pgcEvidenceSubmissions.id, input.submissionId));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PGC_EVIDENCE_REVIEWED", entityType: "pgcEvidenceSubmission", entityId: String(input.submissionId), beforeState: JSON.stringify({ status: submission.status, reviewDecision: submission.reviewDecision }), afterState: JSON.stringify({ status: nextStatus, reviewDecision: input.decision, reviewNote: note, fileAssetId: submission.fileAssetId, targetCodes: JSON.parse(submission.targetCodes) }), correlationId: submission.correlationId });
+  return { submissionId: input.submissionId, status: nextStatus, reviewDecision: input.decision };
+}

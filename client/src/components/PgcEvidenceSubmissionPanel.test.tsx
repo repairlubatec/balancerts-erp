@@ -11,6 +11,8 @@ vi.mock("@/lib/trpc", () => ({
     pgc: {
       evidenceSubmissions: { useQuery: () => ({ data: [], isLoading: false, refetch: vi.fn() }) },
       submitEvidence: { useMutation: () => ({ mutate, isPending: false }) },
+      startEvidenceReview: { useMutation: () => ({ mutate: vi.fn(), isPending: false }) },
+      reviewEvidence: { useMutation: () => ({ mutate: vi.fn(), isPending: false }) },
     },
   },
 }));

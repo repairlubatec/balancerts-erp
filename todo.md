@@ -2762,3 +2762,10 @@
 - [x] Adicionar indicadores visuais com cores, ícones e texto para confirmação normativa e bloqueio de cada conta.
 - [x] Aplicar a semântica visual na lista principal e no detalhe seleccionado, sem depender apenas da cor.
 - [x] Testar estados, contraste, acessibilidade e não-regressão do painel.
+
+
+# Fila de revisão humana PGCA
+- [x] Implementar fila tenant-aware para revisão das evidências e contas pendentes.
+- [x] Implementar decisões Confirmar, Manter pendente, Solicitar nova evidência e Rejeitar com motivo obrigatório quando aplicável.
+- [x] Aplicar RBAC server-side, auditoria completa e bloqueio de activação de movimentos não confirmados.
+- [x] Adicionar interface, testes de transições/permissões e validação visual do fluxo.

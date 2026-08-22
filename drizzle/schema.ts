@@ -1464,6 +1464,7 @@ export const pgcEvidenceSubmissions = mysqlTable("pgcEvidenceSubmissions", {
   pageTo: int("pageTo"),
   notes: text("notes"),
   status: mysqlEnum("status", ["PENDING_REVIEW", "UNDER_REVIEW", "ACCEPTED", "REJECTED"]).default("PENDING_REVIEW").notNull(),
+  reviewDecision: mysqlEnum("reviewDecision", ["CONFIRM", "KEEP_PENDING", "REQUEST_NEW_EVIDENCE", "REJECT"]),
   submittedBy: int("submittedBy").notNull(),
   reviewedBy: int("reviewedBy"),
   reviewedAt: timestamp("reviewedAt"),

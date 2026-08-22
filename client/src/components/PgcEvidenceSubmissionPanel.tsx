@@ -12,6 +12,7 @@ import { trpc } from "@/lib/trpc";
 
 const evidenceTypeLabels = { DIPLOMA: "Diploma legal", ANEXO: "Anexo", QUADRO: "Quadro oficial", DIAGRAMA: "Diagrama de movimentos", OUTRO: "Outro documento" } as const;
 const statusLabels = { PENDING_REVIEW: "Pendente de revisão", UNDER_REVIEW: "Em revisão", ACCEPTED: "Aceite documentalmente", REJECTED: "Rejeitada" } as const;
+const decisionLabels = { CONFIRM: "Aceitar evidência", KEEP_PENDING: "Manter pendente", REQUEST_NEW_EVIDENCE: "Solicitar nova evidência", REJECT: "Rejeitar evidência" } as const;
 
 type PgcSource = { id: number; title: string; instrument: string; instrumentNumber: string | null; verificationStatus: string };
 
@@ -33,6 +34,9 @@ export function PgcEvidenceSubmissionPanel({ organizationId, companyId, versionI
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [fileInputKey, setFileInputKey] = useState(0);
   const evidenceQuery = trpc.pgc.evidenceSubmissions.useQuery(organizationId && companyId && versionId ? { organizationId, companyId, versionId } : skipToken);
+  const [selectedSubmissionId, setSelectedSubmissionId] = useState<number | null>(null);
+  const [reviewDecision, setReviewDecision] = useState<keyof typeof decisionLabels>("CONFIRM");
+  const [reviewNote, setReviewNote] = useState("");
   const submitEvidence = trpc.pgc.submitEvidence.useMutation({
     onSuccess: async () => {
       toast.success("Evidência submetida para revisão humana.");
@@ -46,9 +50,19 @@ export function PgcEvidenceSubmissionPanel({ organizationId, companyId, versionI
     },
     onError: (error) => toast.error(error.message || "A evidência não pôde ser submetida."),
   });
+  const startReview = trpc.pgc.startEvidenceReview.useMutation({
+    onSuccess: async (result) => { setSelectedSubmissionId(result.submissionId); toast.success("Evidência colocada em revisão."); await evidenceQuery.refetch(); },
+    onError: (error) => toast.error(error.message || "Não foi possível iniciar a revisão."),
+  });
+  const reviewEvidence = trpc.pgc.reviewEvidence.useMutation({
+    onSuccess: async () => { toast.success("Decisão de revisão registada em auditoria."); setReviewNote(""); setSelectedSubmissionId(null); await evidenceQuery.refetch(); },
+    onError: (error) => toast.error(error.message || "Não foi possível registar a decisão."),
+  });
 
   const confirmedSources = useMemo(() => sources.filter((source) => source.verificationStatus === "CONFIRMED"), [sources]);
   const canSubmit = Boolean(organizationId && companyId && versionId && selectedFile && targetCodesText.trim() && !submitEvidence.isPending);
+  const selectedSubmission = evidenceQuery.data?.find((submission) => submission.id === selectedSubmissionId);
+  const canReview = Boolean(organizationId && companyId && versionId && selectedSubmission && selectedSubmission.status === "UNDER_REVIEW" && !reviewEvidence.isPending);
 
   const readFileAsBase64 = (file: File) => new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -107,8 +121,9 @@ export function PgcEvidenceSubmissionPanel({ organizationId, companyId, versionI
       <div className="flex items-start gap-2 border border-amber-200 bg-amber-50 px-3 py-2 text-[11px] text-amber-900"><LockKeyhole className="mt-0.5 h-3.5 w-3.5 shrink-0" /><span><strong>Revisão humana obrigatória.</strong> A submissão guarda o ficheiro e os metadados como pendentes; não confirma contas, não publica movimentos e não activa regras contabilísticas.</span></div>
       <div className="border border-[#d7e0e8] bg-white">
         <div className="flex items-center justify-between gap-2 border-b border-[#e4e9ef] bg-[#eef3f7] px-3 py-2"><div><p className="text-xs font-semibold">Fila de evidências submetidas</p><p className="text-[10px] text-slate-500">Apenas itens deste contexto de empresa e versão.</p></div><Badge variant="outline" className="rounded-sm text-[10px]">{evidenceQuery.data?.length ?? 0} registos</Badge></div>
-        <div className="max-h-52 overflow-auto">{evidenceQuery.isLoading ? <p className="px-3 py-5 text-center text-xs text-slate-500">A carregar fila…</p> : evidenceQuery.data?.length ? evidenceQuery.data.map((submission) => <div key={submission.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-[#edf0f3] px-3 py-2 text-xs last:border-b-0"><div className="min-w-0"><p className="font-semibold text-slate-800">Classe {submission.classCode} · {submission.targetCodes.join(", ")}</p><p className="mt-0.5 truncate text-[10px] text-slate-500">{submission.file.filename} · {submission.file.sha256.slice(0, 12)}… · páginas {submission.pageFrom ?? "—"}–{submission.pageTo ?? submission.pageFrom ?? "—"}</p></div><Badge variant="outline" className={`rounded-sm text-[10px] ${submission.status === "PENDING_REVIEW" ? "border-amber-300 text-amber-700" : submission.status === "ACCEPTED" ? "border-emerald-300 text-emerald-700" : "border-slate-300 text-slate-600"}`}>{statusLabels[submission.status as keyof typeof statusLabels] ?? submission.status}</Badge></div>) : <p className="px-3 py-5 text-center text-xs text-slate-500">Ainda não existem evidências submetidas neste contexto.</p>}</div>
+        <div className="max-h-52 overflow-auto">{evidenceQuery.isLoading ? <p className="px-3 py-5 text-center text-xs text-slate-500">A carregar fila…</p> : evidenceQuery.data?.length ? evidenceQuery.data.map((submission) => <div key={submission.id} className={`flex flex-wrap items-center justify-between gap-2 border-b border-[#edf0f3] px-3 py-2 text-xs last:border-b-0 ${selectedSubmissionId === submission.id ? "bg-[#eef6ff]" : ""}`}><div className="min-w-0"><p className="font-semibold text-slate-800">Classe {submission.classCode} · {submission.targetCodes.join(", ")}</p><p className="mt-0.5 truncate text-[10px] text-slate-500">{submission.file.filename} · SHA-256 {submission.file.sha256.slice(0, 12)}… · páginas {submission.pageFrom ?? "—"}–{submission.pageTo ?? submission.pageFrom ?? "—"}</p></div><div className="flex items-center gap-2"><Badge variant="outline" className={`rounded-sm text-[10px] ${submission.status === "PENDING_REVIEW" ? "border-amber-300 text-amber-700" : submission.status === "ACCEPTED" ? "border-emerald-300 text-emerald-700" : submission.status === "UNDER_REVIEW" ? "border-blue-300 text-blue-700" : "border-slate-300 text-slate-600"}`}>{statusLabels[submission.status as keyof typeof statusLabels] ?? submission.status}</Badge>{submission.status === "PENDING_REVIEW" ? <Button type="button" variant="outline" onClick={() => { if (!organizationId || !companyId || !versionId) return; startReview.mutate({ organizationId, companyId, versionId, submissionId: submission.id }); }} disabled={startReview.isPending} className="h-7 rounded-sm px-2 text-[10px]">Iniciar revisão</Button> : submission.status === "UNDER_REVIEW" ? <Button type="button" variant="outline" onClick={() => setSelectedSubmissionId(submission.id)} className="h-7 rounded-sm border-blue-300 px-2 text-[10px] text-blue-700">Seleccionar</Button> : null}</div></div>) : <p className="px-3 py-5 text-center text-xs text-slate-500">Ainda não existem evidências submetidas neste contexto.</p>}</div>
       </div>
+      {selectedSubmission && selectedSubmission.status === "UNDER_REVIEW" ? <div className="border border-blue-200 bg-blue-50 p-3"><div className="flex flex-wrap items-center justify-between gap-2"><div><p className="text-xs font-semibold text-blue-950">Decisão humana · {selectedSubmission.file.filename}</p><p className="mt-0.5 text-[10px] text-blue-800">Os códigos permanecem pendentes até confirmação normativa independente.</p></div><Badge variant="outline" className="rounded-sm border-blue-300 text-[10px] text-blue-700">Em revisão</Badge></div><div className="mt-2 grid gap-2 md:grid-cols-[1fr_1.5fr_auto]"><Select value={reviewDecision} onValueChange={(value) => setReviewDecision(value as keyof typeof decisionLabels)}><SelectTrigger className="h-8 rounded-sm bg-white text-xs"><SelectValue /></SelectTrigger><SelectContent>{Object.entries(decisionLabels).map(([value, label]) => <SelectItem key={value} value={value}>{label}</SelectItem>)}</SelectContent></Select><Input value={reviewNote} onChange={(event) => setReviewNote(event.target.value)} maxLength={4000} placeholder={reviewDecision === "CONFIRM" ? "Nota opcional da conferência" : "Nota obrigatória para esta decisão"} className="h-8 rounded-sm bg-white text-xs" /><Button type="button" onClick={() => { if (!organizationId || !companyId || !versionId || !selectedSubmission) return; reviewEvidence.mutate({ organizationId, companyId, versionId, submissionId: selectedSubmission.id, decision: reviewDecision, reviewNote: reviewNote.trim() || null }); }} disabled={!canReview || (reviewDecision !== "CONFIRM" && !reviewNote.trim())} className="h-8 rounded-sm bg-[#1267d6] text-xs">{reviewEvidence.isPending ? "A registar…" : "Registar decisão"}</Button></div><p className="mt-2 text-[10px] text-blue-800">Aceitar evidência significa apenas que o documento foi considerado suficiente para a revisão. Não confirma automaticamente contas nem regras de movimento.</p></div> : null}
       <p className="flex items-center gap-1 text-[10px] text-slate-500"><AlertTriangle className="h-3 w-3" /> Uma evidência aceite documentalmente ainda exige confronto literal antes de qualquer confirmação normativa.</p>
     </CardContent>
   </Card>;
