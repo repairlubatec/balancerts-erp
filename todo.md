@@ -2537,7 +2537,7 @@
 ## Reconstrução rigorosa do PGCA angolano
 
 - [x] Auditar o plano de contas actual, contas usadas, hierarquia, IVA e códigos hardcoded
-- [ ] Pesquisar e registar as fontes normativas angolanas e alterações posteriores aplicáveis
+- [x] Pesquisar e registar as fontes normativas angolanas e alterações posteriores aplicáveis
 - [x] Criar catálogo PGC versionado com fontes legais, vigência, natureza e estados
 - [x] Criar mapa de migração conta antiga → conta nova com motivo e fonte
 - [x] Implementar hierarquia, contas de agrupamento, contas de movimento e contas analíticas
@@ -2595,7 +2595,7 @@
 - [x] Mostrar titular e saldo inicial na listagem de contas do painel de controlo bancário e reconciliação
 - [x] Permitir seleccionar explicitamente a conta de Tesouraria no painel bancário antes de importar extractos ou reconciliar
 - [x] Filtrar linhas de extracto pendentes pelo cashAccountId seleccionado no painel de reconciliação
-- [ ] Pesquisar rigorosamente PGCA, IVA, AGT, banca, restauro e distribuição Windows e apresentar parecer para confirmação antes de implementar
+- [x] Pesquisar rigorosamente PGCA, IVA, AGT, banca, restauro e distribuição Windows e apresentar parecer para confirmação antes de implementar
 - [ ] D1 — Completar o catálogo versionado PGCA/IVA em estado PENDING, com fonte, vigência, âmbito, auditoria e revisão humana
 - [x] D2 — Reforçar exportação, validação e pacote local SAF-T/AGT sem submissão real nem homologação declarada
 - [x] Ler a aba oficial do PGCA/Decreto n.º 82/01 e a aba oficial da Lei n.º 14/23 do IVA, preservando evidência integral
@@ -2636,7 +2636,7 @@
 - [x] Catalogar integralmente as regras IVA da Lei n.º 14/23 com artigo, regra, taxa/regime, vigência, anexos e fonte
 - [ ] Executar confirmação humana das contas e regras, separando CONFIRMED, NEEDS_REVIEW, CONFLICT e REJECTED
 - [ ] Activar apenas contas/regras CONFIRMED, com auditoria, versionamento e testes de não-regressão
-- [ ] Aplicar validação estrita do modelo angolano: fonte primária, designação literal, hierarquia comprovada e nenhuma inferência
+- [x] Aplicar validação estrita do modelo angolano: fonte primária, designação literal, hierarquia comprovada e nenhuma inferência
 - [ ] Solicitar/seleccionar explicitamente o primeiro lote PGCA/IVA antes de qualquer confirmação humana persistida
 - [x] Executar pesquisa autónoma contínua das fontes PGCA/IVA oficiais e actualizar a classificação de evidência sem depender de confirmação por lote
 - [x] Criar procedimento seguro de publicação/activação da versão PGCA apenas quando todos os registos elegíveis estiverem CONFIRMED
