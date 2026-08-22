@@ -2800,3 +2800,9 @@
 - [x] Criar gráficos compactos e acessíveis, sem dados fictícios, com estado vazio e indicação da amostra.
 - [x] Integrar o resumo acima da tabela respeitando filtros, alertas de risco e layout desktop.
 - [x] Adicionar testes das agregações, ordenação, limites e validação visual do dashboard.
+
+# Auditoria do plano de contas fornecido
+- [ ] Comparar integralmente códigos, designações, hierarquia e marcadores RESERVED_PGC_EXTENSION com o catálogo actual.
+- [ ] Identificar conflitos internos, duplicados, lacunas e divergências com a estrutura PGCA actualmente confirmada.
+- [ ] Separar contas PGCA, extensões reservadas e estrutura IVA, sem activar regras não comprovadas.
+- [ ] Implementar apenas correspondências sem conflito e produzir parecer técnico das restantes pendências.
