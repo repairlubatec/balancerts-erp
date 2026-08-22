@@ -244,3 +244,9 @@ O índice visual confirma a sequência da Classe 2: **21 — Compras**, **22 —
 ## Índice OCR — página 122, Classes 2 e 3
 
 A página 122 lista as subcontas de existências e provisões: 25.1, 25.2, 26.9, 27.1, 27.2, 27.3, 28.1, 28.2, 29.1 a 29.6. Inicia a Classe 3 e confirma, para Clientes, correntes, títulos a receber, títulos descontados, cobrança duvidosa e saldos credores, com distinção entre grupo/subsidiárias/associadas e não grupo/nacionais/estrangeiros. Para Fornecedores, lista correntes e títulos a pagar com a mesma distinção. Esta página é índice OCR e serve para orientar a revisão; não substitui a leitura dos esquemas de movimentação nem a confirmação visual da fonte primária.
+
+## Índice OCR — página 121, conta 21
+
+A página 121 identifica a **conta 21 — Compras**, com **21.1 — Matérias-primas, subsidiárias e de consumo**, **21.2 — Mercadorias**, **21.7 — Devoluções de compras**, **21.8 — Descontos e abatimentos em compras** e **21.9** para transferência/fecho conforme a continuação do índice. A mesma página contém uma nota sobre possível gralha de desdobramento no Decreto n.º 82/01, dando como exemplo a conta 18.1.2 representada com um dígito a menos. Esta nota deve ser tratada como alerta documental, não como autorização para corrigir ou inventar códigos.
+
+**Estado:** índice OCR preliminar; confirmar visualmente e contra o diploma oficial antes de consolidar a conta 21.
