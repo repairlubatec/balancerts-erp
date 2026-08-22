@@ -192,3 +192,15 @@ A página 209 identifica a **conta 35 — Entidades participantes e participadas
 A página 188 identifica a **conta 29 — Provisão para depreciação de existências**, apresentada como redução da rubrica “Existências” no activo corrente ou, excepcionalmente, no activo não corrente. A provisão é valorizada pela diferença entre o custo de aquisição/produção e o valor realizável líquido quando este é inferior. A fonte determina cálculo e registo por tipo de item individualmente. Na constituição, o esquema apresenta **29.x** contra **78.1.1.x**; na reposição/reforço, apresenta **68.1.1.x**, **29.x** e **78.1.1.x**. A conta 29.x deve manter saldo credor ou nulo, e a reposição não pode exceder o valor total da provisão originária.
 
 **Estado:** transcrição OCR preliminar; confirmar visualmente os esquemas e as subcontas antes da parametrização.
+
+## Evidência OCR — página 182, Classe 2
+
+A página 182 identifica a **conta 25 — Sub-produtos, desperdícios, resíduos e refugos**, subdividida em **25.1 — Sub-produtos** e **25.2 — Desperdícios, resíduos e refugos**. A conta é apresentada nas existências do activo corrente ou, excepcionalmente, no activo não corrente. A fonte associa-lhe a **29.5 — Provisão para depreciação de existências — Sub-produtos, desperdícios, resíduos e refugos**. Os subprodutos resultam do processo produtivo e podem ser valorizados pelo valor realizável líquido; quando surgem em produção conjunta, o valor atribuído ao subproduto é deduzido ao custo do produto principal. A movimentação remete para o esquema da conta 24.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente a remissão e as subcontas na fonte primária antes de parametrização.
+
+## Evidência OCR — página 184, Classe 2
+
+A página 184 apresenta movimentos das contas **26.1** e **26.2** para saídas de armazém sem venda, ofertas e amostras, perdas em existências e sinistros. Os esquemas indicam contrapartidas em **75.6**, **78.4.1** e **79.4**, conforme a natureza do movimento. Também apresenta a reclassificação de mercadoria para mercadorias em poder de terceiros, relacionando **26.1/26.2** e **26.9**, com posterior crédito de 26.9 por débito da conta 71 no caso de vendas ou por débito da conta 26.x no retorno ao armazém. A fonte remete ainda para a conta 21 quanto ao apuramento do custo de aquisição, transferência para armazém, saídas de armazém e apuramento do CMVMC.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente as contas 26.x e as contrapartidas antes da parametrização.
