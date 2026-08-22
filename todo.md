@@ -2663,13 +2663,13 @@
 - [ ] Validar e confirmar auditadamente PGCA Classe 6, apenas nas contas literalmente comprovadas
 - [ ] Validar e confirmar auditadamente IVA artigo 19.º, apenas na regra e evidência oficialmente comprovadas
 - [x] Gerar inventário documental das contas patrimoniais do PGCA (activo, passivo e situação líquida) com código, designação, páginas, estado e evidência
-- [ ] Catalogar separadamente as regras literais de movimentação encontradas no PDF, sem as transformar em regras automáticas antes da confirmação
+- [x] Catalogar separadamente as regras literais de movimentação encontradas no PDF, sem as transformar em regras automáticas antes da confirmação
 - [x] Testar o inventário patrimonial gerado e garantir que regras OCR preliminares permanecem pendentes até confirmação visual
 - [x] Corrigir a referência do nome do ficheiro de inventário na auditoria de cobertura PGCA
 - [x] Actualizar a auditoria de cobertura com a distribuição das contas já referenciadas por classe PGCA
-- [ ] Conferir visualmente e literalmente as regras de movimentação de imobilizado no PDF PGCA
-- [ ] Conferir visualmente e literalmente as regras de movimentação de tesouraria no PDF PGCA
-- [ ] Conferir visualmente e literalmente as regras de movimentação de capital próprio no PDF PGCA
+- [x] Conferir visualmente e literalmente as regras de movimentação de imobilizado no PDF PGCA
+- [x] Conferir visualmente e literalmente as regras de movimentação de tesouraria no PDF PGCA
+- [x] Conferir visualmente e literalmente as regras de movimentação de capital próprio no PDF PGCA
 - [x] Rever visualmente páginas adicionais dos esquemas de tesouraria, incluindo contas 42, 43, 44, 45 e 49
 - [x] Rever visualmente páginas adicionais dos esquemas da conta 52 — Acções / Quotas Próprias
 - [x] Reclassificar como elegíveis apenas as regras cuja imagem seja legível e literalmente confirmada
