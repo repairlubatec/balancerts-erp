@@ -356,3 +356,9 @@ A página 44 do PDF oficial é a página 1020 do Diário da República e confirm
 A revisão visual do PDF oficial disponibilizado pelo CNNCA, nas páginas do quadro e lista de contas, confirma códigos, designações e hierarquia. Este activo oficial tem 97 páginas e o recorte observado apresenta a lista normativa de contas; não foram localizados, nesse recorte, os diagramas completos de movimentação existentes no PDF explicativo auxiliar. Assim, uma regra de movimento transcrita exclusivamente da obra auxiliar não pode ser classificada como coincidente em duas fontes quando a fonte primária não reproduz o respectivo esquema.
 
 Consequentemente, a confirmação formal deve permanecer limitada às contas e designações cuja imagem primária seja legível e aos movimentos para os quais exista esquema primário correspondente. A ausência do diagrama primário é tratada como lacuna de evidência, não como autorização para inferência, automatização ou activação.
+
+### Registo visual adicional da fonte primária — páginas 45 e 46
+
+A página 45 do PDF oficial é a página 1021 do Diário da República e confirma a Classe 3 — Terceiros, incluindo 31 — Clientes, 32 — Fornecedores, 33 — Empréstimos, 34 — Estado, 35 — Entidades participantes e participadas, 36 — Pessoal, 37 — Outros valores a receber e a pagar, 38 — Provisões para cobranças duvidosas e 39 — Provisões para outros riscos e encargos. Confirma ainda várias subdivisões de clientes, fornecedores e empréstimos.
+
+A página 46 do PDF oficial é a página 1022 do Diário da República e confirma a continuação das contas 33, 34 e 35, incluindo 34.2 — Imposto de produção e consumo, 34.3 — Imposto de rendimento de trabalho, 34.4 — Imposto de circulação e 34.8 — Subsídios a preços. Esta separação confirma que a conta 34 pertence à Classe 3 — Estado; não deve ser confundida com as contas 41–49 da Classe 4 — Meios monetários nem com regras de IVA sem confronto da legislação fiscal aplicável.
