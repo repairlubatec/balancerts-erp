@@ -38,24 +38,40 @@
     },
     {
       "code": "2",
-      "name": "— ExisTÊNCIAS:",
+      "name": "EXISTÊNCIAS",
       "source": "PGCA Explicado (auxiliar)",
       "pages": [
         119,
         121
       ],
       "status": "NEEDS_HUMAN_CONFIRMATION",
-      "authority": "Decreto n.º 82/01"
+      "authority": "Decreto n.º 82/01",
+      "parentCode": null,
+      "level": 1,
+      "evidencePages": [44],
+      "evidence": "visual-name-hierarchy-only",
+      "sources": [
+        "PGCA Explicado (auxiliar)",
+        "Decreto n.º 82/01 — página 44, revisão visual"
+      ]
     },
     {
       "code": "3",
-      "name": "— Terceiros:",
+      "name": "TERCEIROS",
       "source": "PGCA Explicado (auxiliar)",
       "pages": [
         119
       ],
       "status": "NEEDS_HUMAN_CONFIRMATION",
-      "authority": "Decreto n.º 82/01"
+      "authority": "Decreto n.º 82/01",
+      "parentCode": null,
+      "level": 1,
+      "evidencePages": [45],
+      "evidence": "visual-name-hierarchy-only",
+      "sources": [
+        "PGCA Explicado (auxiliar)",
+        "Decreto n.º 82/01 — página 45, revisão visual"
+      ]
     },
     {
       "code": "3.1.3.1",
@@ -90,14 +106,22 @@
     },
     {
       "code": "5",
-      "name": "— CAPITAL E RESERVAS",
+      "name": "CAPITAL E RESERVAS",
       "source": "PGCA Explicado (auxiliar)",
       "pages": [
         119,
         125
       ],
       "status": "NEEDS_HUMAN_CONFIRMATION",
-      "authority": "Decreto n.º 82/01"
+      "authority": "Decreto n.º 82/01",
+      "parentCode": null,
+      "level": 1,
+      "evidencePages": [48],
+      "evidence": "visual-name-hierarchy-only",
+      "sources": [
+        "PGCA Explicado (auxiliar)",
+        "Decreto n.º 82/01 — página 48, revisão visual"
+      ]
     },
     {
       "code": "6",

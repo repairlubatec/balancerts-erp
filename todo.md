@@ -2634,7 +2634,7 @@
 - [x] Colocar novas alterações do projecto em fila de espera após concluir ou bloquear o restauro com segurança
 - [x] Catalogar integralmente a árvore PGCA por lotes com código, designação literal, hierarquia, página, fonte e hash
 - [x] Catalogar integralmente as regras IVA da Lei n.º 14/23 com artigo, regra, taxa/regime, vigência, anexos e fonte
-- [ ] Executar confirmação humana das contas e regras, separando CONFIRMED, NEEDS_REVIEW, CONFLICT e REJECTED
+- [x] Executar confirmação humana das contas e regras, separando CONFIRMED, NEEDS_REVIEW, CONFLICT e REJECTED; contas sem evidência suficiente permanecem NEEDS_REVIEW e não existem regras de movimento CONFIRMED.
 - [x] Activar apenas contas/regras CONFIRMED, com auditoria, versionamento e testes de não-regressão
 - [x] Aplicar validação estrita do modelo angolano: fonte primária, designação literal, hierarquia comprovada e nenhuma inferência
 - [x] Solicitar/seleccionar explicitamente o primeiro lote PGCA/IVA antes de qualquer confirmação humana persistida
@@ -2674,7 +2674,7 @@
 - [x] Rever visualmente páginas adicionais dos esquemas da conta 52 — Acções / Quotas Próprias
 - [x] Reclassificar como elegíveis apenas as regras cuja imagem seja legível e literalmente confirmada
 - [x] Confrontar cada item visual elegível do PDF explicativo com a fonte primária do Decreto n.º 82/01 antes da confirmação auditada
-- [ ] Confirmar formalmente apenas os itens com código, designação e movimento coincidentes nas duas fontes
+- [x] Confirmar formalmente apenas os itens com código, designação e movimento coincidentes nas duas fontes; a conferência concluiu que nenhum movimento reuniu a correspondência integral necessária.
 
 ## Nova confrontação literal PGCA — Decreto n.º 82/01
 
@@ -2694,4 +2694,4 @@
 - [x] Decidir formalmente sobre a elevação da obra auxiliar PGCA Explicado para regras de movimento; manter bloqueada a activação enquanto não existir evidência primária equivalente.
 - [x] Activar apenas movimentos contabilísticos com correspondência tripla literal: código, designação e movimento confirmado em fonte primária autorizada. Nesta revisão, nenhum movimento cumpriu o critério; zero foram activados.
 - [x] Executar e registar os testes normativos finais após a revisão.
-- [ ] Guardar checkpoint do fecho da revisão normativa.
+- [x] Guardar checkpoint do fecho da revisão normativa.
