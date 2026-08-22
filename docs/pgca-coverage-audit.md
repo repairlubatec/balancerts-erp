@@ -15,3 +15,7 @@ As transcrições deste dossier são **evidência de trabalho** baseada no PDF a
 ## Próximos blocos
 
 A revisão deve continuar pelas páginas OCR de movimentação ainda não transcritas, priorizando as contas 21–24, 27, 30, 36, 40–41, 44, 46–48 e as remissões dos esquemas de fecho. Cada bloco deve conter código, designação literal, página, sentido de débito/crédito, condições e estado de evidência. Diagramas ilegíveis devem permanecer marcados como `NEEDS_HUMAN_CONFIRMATION`.
+
+## Distribuição de referências no dossier
+
+A contagem textual actual das referências a contas por primeiro dígito é: Classe 1 — 5 referências; Classe 2 — 19; Classe 3 — 24; Classe 4 — 7; Classe 5 — 11; Classe 6 — 12; Classe 7 — 3; Classe 8 — 4. Esta métrica mede referências existentes no dossier, não o total oficial de contas nem o número de contas confirmadas. O inventário patrimonial separado continua a conter 465 contas das classes 1 a 5; regras de movimentação e subcontas ainda podem estar ausentes ou ser apenas remissões.

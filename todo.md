@@ -2666,3 +2666,4 @@
 - [ ] Catalogar separadamente as regras literais de movimentação encontradas no PDF, sem as transformar em regras automáticas antes da confirmação
 - [x] Testar o inventário patrimonial gerado e garantir que regras OCR preliminares permanecem pendentes até confirmação visual
 - [x] Corrigir a referência do nome do ficheiro de inventário na auditoria de cobertura PGCA
+- [x] Actualizar a auditoria de cobertura com a distribuição das contas já referenciadas por classe PGCA
