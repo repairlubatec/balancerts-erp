@@ -437,6 +437,10 @@ export function validatePgcBatchReviewSelection(input: { accountIds: number[]; v
   return { accountIds: uniqueIds, notes: input.notes?.trim() || null };
 }
 
+export function validatePgcBatchAccountStatuses(statuses: string[]) {
+  return statuses.every((status) => status === "NEEDS_NORMATIVE_VALIDATION");
+}
+
 export async function reviewPgcAccountsBatchForUser(input: { userId: number; organizationId: number; versionId: number; accountIds: number[]; validationStatus: "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"; notes?: string | null }) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   const validated = validatePgcBatchReviewSelection(input);
@@ -446,10 +450,9 @@ export async function reviewPgcAccountsBatchForUser(input: { userId: number; org
   const accounts = await db.select().from(pgcAccounts).where(and(eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId), inArray(pgcAccounts.id, validated.accountIds)));
   if (accounts.length !== validated.accountIds.length) throw new Error("PGC_BATCH_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
   const confirmedSources = new Set((await db.select({ id: pgcSources.id }).from(pgcSources).where(and(eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId), eq(pgcSources.verificationStatus, "CONFIRMED")))).map((source) => source.id));
-  const blocked = accounts.filter((account) => account.validationStatus === "CONFIRMED" || (input.validationStatus === "CONFIRMED" && (!account.sourceId || !confirmedSources.has(account.sourceId))));
+  const blocked = accounts.filter((account) => !validatePgcBatchAccountStatuses([account.validationStatus]) || (input.validationStatus === "CONFIRMED" && (!account.sourceId || !confirmedSources.has(account.sourceId))));
   if (blocked.length) {
-    const reason = accounts.some((account) => account.validationStatus === "CONFIRMED") ? "PGC_BATCH_ACCOUNT_ALREADY_REVIEWED" : "PGC_BATCH_PRIMARY_SOURCE_REQUIRED";
-    return { applied: [], blocked: blocked.map((account) => ({ accountId: account.id, validationStatus: input.validationStatus, status: "BLOCKED" as const, reason })), skipped: [], total: accounts.length };
+    return { applied: [], blocked: blocked.map((account) => ({ accountId: account.id, validationStatus: input.validationStatus, status: "BLOCKED" as const, reason: account.validationStatus !== "NEEDS_NORMATIVE_VALIDATION" ? "PGC_BATCH_ACCOUNT_ALREADY_REVIEWED" : "PGC_BATCH_PRIMARY_SOURCE_REQUIRED" })), skipped: [], total: accounts.length };
   }
   const applied: PgcBatchReviewResult[] = [];
   for (const account of accounts) {

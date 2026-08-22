@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildPgcMovementSimulation, validatePgcBatchReviewSelection, validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata, validatePgcMovementSimulationInput } from "./pgc";
+import { buildPgcMovementSimulation, validatePgcBatchAccountStatuses, validatePgcBatchReviewSelection, validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata, validatePgcMovementSimulationInput } from "./pgc";
 
 const validInput = {
   classCode: "2",
@@ -64,6 +64,12 @@ describe("revisão em lote de contas PGCA", () => {
     expect(validatePgcBatchReviewSelection({ accountIds: [4], validationStatus: "CONFIRMED" }).notes).toBeNull();
     expect(() => validatePgcBatchReviewSelection({ accountIds: [4], validationStatus: "INVALID" })).toThrow("PGC_ACCOUNT_REVIEW_NOTE_REQUIRED");
     expect(validatePgcBatchReviewSelection({ accountIds: [4], validationStatus: "MISSING_PARENT", notes: "Pai não localizado na fonte primária" }).notes).toBe("Pai não localizado na fonte primária");
+  });
+
+  it("bloqueia contas que já tenham decisão final", () => {
+    expect(validatePgcBatchAccountStatuses(["NEEDS_NORMATIVE_VALIDATION", "NEEDS_NORMATIVE_VALIDATION"])).toBe(true);
+    expect(validatePgcBatchAccountStatuses(["CONFIRMED"])).toBe(false);
+    expect(validatePgcBatchAccountStatuses(["INVALID", "NEEDS_NORMATIVE_VALIDATION"])).toBe(false);
   });
 
   it("recusa selecção vazia ou identificadores inválidos", () => {

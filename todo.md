@@ -2819,3 +2819,6 @@
 - [x] Garantir rejeição de conflitos, ausência de fonte primária, versão incompatível e contas já decididas.
 - [x] Criar interface desktop em português com selecção, resumo, confirmação explícita e resultados individuais.
 - [x] Adicionar testes de RBAC, isolamento, concorrência, idempotência, auditoria e não activação automática.
+
+# Endurecimento da revisão em lote
+- [x] Bloquear explicitamente contas que já tenham decisão final e garantir que só o estado pendente pode ser actualizado e auditado.
