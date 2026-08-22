@@ -2714,3 +2714,9 @@
 - [x] Ler integralmente o novo documento, distinguindo conteúdo literal do diploma de interpretações e recomendações de ERP.
 - [x] Confrontar as contas e movimentos propostos com o diploma, o catálogo visual e o dossier de evidência.
 - [x] Produzir parecer sobre itens confirmáveis, pendentes, conflituantes e eventual implementação posterior.
+
+
+# Painel visual normativo PGCA
+- [x] Criar painel desktop para exibir as 27 contas PGCA confirmadas e o estado actual das contas pendentes.
+- [x] Implementar pesquisa, filtros por estado/classe, resumo de contagens e detalhe de evidência sem activar movimentos.
+- [x] Adicionar testes do painel e validar a apresentação visual no shell existente.
