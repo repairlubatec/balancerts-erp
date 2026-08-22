@@ -2702,3 +2702,9 @@
 # Análise formal — Especificação Técnica da Contabilidade PGCA v2.2
 - [x] Analisar integralmente a especificação técnica da Contabilidade e confrontá-la com os Documentos 1 e 2 e a arquitectura actual, sem implementar alterações.
 - [x] Produzir parecer com compatibilidades, conflitos, lacunas, riscos, prioridades e decisão de implementação posterior.
+
+
+# Confirmação formal restrita — PGCA
+- [x] Formalizar o lote de contas visualmente legíveis e conferidas, com fonte, páginas, hash e estado CONFIRMED.
+- [x] Registar que não existem movimentos CONFIRMED quando faltar correspondência integral na fonte primária.
+- [x] Testar a confirmação restrita e guardar checkpoint sem activar regras não comprovadas.

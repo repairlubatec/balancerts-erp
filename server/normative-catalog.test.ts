@@ -40,6 +40,16 @@ describe("catálogo integral PGCA/IVA", () => {
     expect(catalog.summary.accountingMovementRulesConfirmed ?? 0).toBe(0);
   });
 
+  it("mantém o lote formal restrito às contas conferidas e sem movimentos confirmados", () => {
+    const manifest = JSON.parse(readFileSync("docs/normative-sources/pgca-visually-confirmed-accounts.json", "utf8"));
+    const catalog = JSON.parse(readFileSync("docs/normative-catalog-complete-review.json", "utf8"));
+    expect(manifest.accounts).toHaveLength(27);
+    expect(catalog.summary.pgcaConfirmed).toBe(manifest.accounts.length);
+    expect(catalog.summary.accountingMovementRulesConfirmed ?? 0).toBe(0);
+    expect(manifest.source.sha256).toBe(catalog.sources.pgca.sha256);
+    expect(new Set(manifest.accounts.map((account: { code: string }) => account.code)).size).toBe(27);
+  });
+
   it("não permite considerar candidato pendente como activado", () => {
     const catalog = JSON.parse(readFileSync("docs/normative-catalog-complete-review.json", "utf8"));
     const pending = catalog.pgcaAccounts.filter((a: { status: string }) => a.status !== "CONFIRMED");
