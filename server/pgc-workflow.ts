@@ -63,6 +63,8 @@ export async function activatePgcVersionForUser(input: { userId: number; organiz
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   const version = await accessibleVersion(input.userId, input.organizationId, input.versionId);
   if (version.status !== "VALIDATED") throw new Error("PGC_VERSION_MUST_BE_VALIDATED");
+  const readiness = await getPgcActivationReadinessForUser(input);
+  if (!readiness.ready) throw new Error(readiness.blockers[0] ?? "PGC_VERSION_NOT_READY");
   const active = await db.select({ id: pgcVersions.id }).from(pgcVersions).where(and(eq(pgcVersions.organizationId, input.organizationId), eq(pgcVersions.status, "ACTIVE"), sql`${pgcVersions.id} <> ${input.versionId}`)).limit(1);
   await db.update(pgcVersions).set({ status: "SUPERSEDED", effectiveTo: new Date() }).where(and(eq(pgcVersions.organizationId, input.organizationId), eq(pgcVersions.status, "ACTIVE")));
   await db.update(pgcVersions).set({ status: "ACTIVE", activatedAt: new Date(), activatedBy: input.userId }).where(eq(pgcVersions.id, input.versionId));
