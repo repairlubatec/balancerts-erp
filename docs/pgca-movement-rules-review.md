@@ -112,3 +112,15 @@ A conta é apresentada nos resultados não operacionais, conjuntamente com a con
 A visualização directa da página 238 confirma o título **CONTA 51 — CAPITAL**, a apresentação no conjunto do capital próprio e o diagrama de subscrição, redução e aumento de capital. Confirma ainda a estrutura seguinte da conta 52: **52.1 — Valor nominal**, **52.2 — Descontos** e **52.3 — Prémios**. A página 247 confirma visualmente o título **CONTA 61 — VENDAS** e as subcontas: **61.1 — Produtos acabados e intermédios**; **61.2 — Sub-produtos, desperdícios, resíduos e refugos**; **61.3 — Mercadorias**; **61.4 — Embalagens de consumo**; **61.5 — Subsídios a preços**; **61.7 — Devoluções**; **61.8 — Descontos e abatimentos**; **61.9 — Transferência para resultados operacionais**.
 
 Estas duas páginas são evidência visual da obra auxiliar fornecida, não substituem a confirmação na fonte primária do Decreto n.º 82/01.
+
+## Evidência OCR — página 234, Classe 4
+
+A página 234 identifica a **conta 45 — Caixa**, subdividida em **45.1 — Fundo fixo**, **45.2 — Valores para depositar** e **45.3 — Valores destinados a pagamentos específicos**. A fonte orienta subdividir a caixa por moeda, incluindo Kz, USD e Euro. A conta é apresentada no balanço como activo corrente, na rubrica “Disponibilidades”. A movimentação esquemática apresenta depósito e levantamento/reforço/recebimento, com contrapartidas dependentes da natureza da transacção. Para a **conta 45.1 — Fundo fixo**, o texto indica débito por contrapartida de bancos mediante cheque e vale assinado pelo responsável da caixa, ou de caixa — valores destinados a pagamentos específicos mediante vale assinado.
+
+**Estado:** transcrição OCR preliminar da fonte auxiliar; confirmar visualmente os diagramas e a designação exacta antes de parametrizar.
+
+## Evidência OCR — página 236, Classe 4
+
+A página 236 identifica a **conta 49 — Provisões para aplicações de tesouraria**, com **49.1 — Títulos negociáveis** e **49.2 — Outras aplicações de tesouraria**. A conta ajusta a valorização inicial ao preço de mercado/valor de realização, usando 49.1 para títulos negociáveis e 49.2 para outras aplicações quando se justificar redução da valorização inicial. Na constituição de provisões, o esquema apresenta débito em **49.x** e crédito em **76.5.2.x** quando o valor de mercado é inferior ao custo de aquisição. Na reposição/anulação ou reforço, apresenta **66.7.2.x** e **49.x** contra **76.5.2.x**, com a legenda a distinguir reposição/anulação de provisões e reforço. O texto indica que 49.x mantém saldo credor ou nulo e que a reposição não pode exceder a provisão originária.
+
+**Estado:** transcrição OCR preliminar; confirmar o sentido exacto dos diagramas e a numeração da subconta 49.2 no original visual.
