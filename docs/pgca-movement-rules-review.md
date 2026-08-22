@@ -554,3 +554,9 @@ Estas páginas confirmam código, designação e hierarquia das páginas auxilia
 A página 46 confirma visualmente as subcontas de 33 — Empréstimos, 34 — Estado e 35 — Entidades participantes e participadas. A página 47 confirma 36 — Pessoal e 37 — Outros valores a receber e a pagar, incluindo 37.1 Compras de imobilizado, 37.2 Vendas de imobilizado, 37.3 Proveitos a facturar, 37.4 Encargos a repartir por períodos futuros, 37.5 Encargos a pagar e 37.6 Proveitos a repartir por períodos futuros.
 
 A comparação reforça que os códigos e designações auxiliares podem ser confirmados apenas como catálogo/hierarquia; os movimentos esquemáticos continuam sem equivalente no diploma primário visualizado.
+
+## Limites operacionais após o fecho da revisão visual
+
+A revisão normativa não autoriza activar regras de movimento com base apenas na obra auxiliar. Permanecem fora do estado CONFIRMED todos os movimentos que não têm no Decreto n.º 82/01 um diagrama ou texto primário equivalente com código, designação, débito, crédito e contrapartidas identificáveis. O catálogo pode ser usado para consulta controlada de nomes e hierarquia, mas a publicação operacional continua sujeita à política `CONFIRMED_ONLY`.
+
+As pendências de restauro exigem um destino MySQL/TiDB isolado real; as pendências de distribuição Windows exigem uma máquina limpa e certificado de assinatura externo; e as integrações AGT/bancárias exigem credenciais, documentação e homologação fornecidas pelos respectivos serviços. Nenhuma destas dependências foi simulada, inventada ou usada para promover estados normativos.
