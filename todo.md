@@ -2655,9 +2655,9 @@
 - [x] Validar e corrigir o erro de parsing JSX do AccountingP1Panel, caso ainda reproduzível, sem regressão nos fluxos de Contabilidade
 - [x] Cobrir por teste a consistência entre o manifesto normativo de lotes e a selecção apresentada na interface PGCA
 - [ ] Executar confirmação prioritária do primeiro lote PGCA/IVA apenas após selecção e evidência normativa oficial válidas
-- [ ] Preparar configuração de distribuição Windows com identidade Repair Lubatec e copyright BALANCERTS.ERP
-- [ ] Documentar requisitos do certificado de assinatura Windows e validar o pacote sem certificado dentro do sandbox
-- [ ] Manter integrações AGT fora do escopo desta fase P0
+- [x] Preparar configuração de distribuição Windows com identidade Repair Lubatec e copyright BALANCERTS.ERP
+- [x] Documentar requisitos do certificado de assinatura Windows e validar o pacote sem certificado dentro do sandbox
+- [x] Manter integrações AGT fora do escopo desta fase P0
 - [x] Validar e confirmar auditadamente PGCA Classe 1, apenas nas contas literalmente comprovadas
 - [x] Validar e confirmar auditadamente PGCA Classe 4, apenas nas contas literalmente comprovadas
 - [x] Validar e confirmar auditadamente PGCA Classe 6, apenas nas contas literalmente comprovadas
