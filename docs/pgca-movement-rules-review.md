@@ -210,3 +210,9 @@ A página 184 apresenta movimentos das contas **26.1** e **26.2** para saídas d
 A página 186 apresenta a aquisição de existências ainda não recepcionadas/em trânsito e identifica a **conta 28 — Adiantamentos por conta de compras**, destinada a registar adiantamentos relativos a compras com preço previamente fixado. A estrutura começa por **28.1 — Matérias-primas e outros materiais** e **28.2 — Mercadorias**. O texto relaciona a factura e a recepção/conferência com a conta 32.8 e a conta 32.1 — Fornecedores, e indica que, após apuramento do custo de aquisição, 21.1/21.2 são creditadas por débito da conta 22 ou 26 respectiva.
 
 **Estado:** transcrição OCR preliminar; confirmar visualmente as subcontas restantes e as contas exactas do esquema antes da parametrização.
+
+## Evidência OCR — página 187, Classe 2
+
+A página 187 confirma que a **conta 28 — Adiantamentos por conta de compras** é valorizada pela quantia do adiantamento. No adiantamento com preço fixado, o esquema relaciona **45.05**, **43.x** e **28.1 ou 28.2**. A fonte distingue o caso de preço não fixado, para o qual remete para **22.5.1 — Adiantamentos**. Após a recepção e registo da compra, o adiantamento é regularizado: a compra debita 21.1/21.2 e credita 22.x — Fornecedores correntes, seguindo-se o esquema de anulação/regularização entre 28.1.x/28.2.x e 32.1.x. A página inicia a estrutura da **conta 29 — Provisão para depreciação de existências**, listando 29.2 — Matérias-primas, subsidiárias e de consumo; 29.3 — Produtos e trabalhos em curso; 29.4 — Produtos acabados e intermédios; 29.5 — Sub-produtos, desperdícios, resíduos e refugos; 29.6 — Mercadorias.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente os códigos do diagrama, incluindo 45.05, antes da parametrização.
