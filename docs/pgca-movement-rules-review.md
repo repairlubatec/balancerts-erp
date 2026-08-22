@@ -222,3 +222,9 @@ A página 187 confirma que a **conta 28 — Adiantamentos por conta de compras**
 A página 181 apresenta o reconhecimento de produção de produtos acabados/intermédios, produtos e trabalhos em curso e subprodutos no **sistema de inventário permanente**, com referência a custo de produção e custo de venda. Distingue o **sistema de inventário intermitente**, no qual a existência final é obtida por inventariação física e o custo dos produtos vendidos é apurado pelo valor global do período. O esquema intermitente relaciona contas **23, 24 ou 25** e a conta **61.x**, com anulação e inventariação do valor das existências. A **conta 24.9 — Em poder de terceiros** regista produtos acabados propriedade da entidade que se encontram em poder de terceiros e remete, com adaptações, para a conta 26.9 quanto a produtos enviados à consignação.
 
 **Estado:** transcrição OCR preliminar; confirmar visualmente os códigos do diagrama e a distinção exacta entre os dois sistemas antes da parametrização.
+
+## Evidência OCR — página 183, Classe 2
+
+A página 183 confirma a **conta 26 — Mercadorias**, destinada a bens adquiridos para venda sem modificação, sem subdivisão rígida, embora possam ser criadas subcontas por item. Associa-lhe a **29.6 — Provisão para depreciação de existências — Mercadorias**. No balanço, 26 integra existências do activo corrente ou excepcionalmente do activo não corrente. A valorização inicial é ao custo de aquisição; subsequentemente, ao menor entre custo de aquisição e valor realizável líquido. A fonte enumera danos, obsolescência, redução de preços de venda e aumento de custos estimados de venda como circunstâncias relevantes.
+
+**Estado:** transcrição documental preliminar; confirmar visualmente a página e as regras de movimentação remetidas para outros esquemas.
