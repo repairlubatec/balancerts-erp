@@ -10,6 +10,13 @@
   "organizationId": 1,
   "versionId": 1,
   "accounts": [
+    { "code": "1", "name": "Meios fixos e investimentos", "parentCode": null, "level": 1, "evidencePages": [41] },
+    { "code": "11", "name": "Imobilizações corpóreas", "parentCode": "1", "level": 2, "evidencePages": [41] },
+    { "code": "12", "name": "Imobilizações incorpóreas", "parentCode": "1", "level": 2, "evidencePages": [41] },
+    { "code": "13", "name": "Investimentos financeiros", "parentCode": "1", "level": 2, "evidencePages": [42] },
+    { "code": "14", "name": "Imobilizações em curso", "parentCode": "1", "level": 2, "evidencePages": [42] },
+    { "code": "18", "name": "Amortizações acumuladas", "parentCode": "1", "level": 2, "evidencePages": [42] },
+    { "code": "19", "name": "Provisões para investimentos financeiros", "parentCode": "1", "level": 2, "evidencePages": [42] },
     { "code": "4", "name": "Meios monetários", "parentCode": null, "level": 1, "evidencePages": [48] },
     { "code": "45", "name": "Caixa", "parentCode": "4", "level": 2, "evidencePages": [49] },
     { "code": "451", "name": "Fundo fixo", "parentCode": "45", "level": 3, "evidencePages": [49] },

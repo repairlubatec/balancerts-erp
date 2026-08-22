@@ -2658,9 +2658,9 @@
 - [ ] Preparar configuração de distribuição Windows com identidade Repair Lubatec e copyright BALANCERTS.ERP
 - [ ] Documentar requisitos do certificado de assinatura Windows e validar o pacote sem certificado dentro do sandbox
 - [ ] Manter integrações AGT fora do escopo desta fase P0
-- [ ] Validar e confirmar auditadamente PGCA Classe 1, apenas nas contas literalmente comprovadas
-- [ ] Validar e confirmar auditadamente PGCA Classe 4, apenas nas contas literalmente comprovadas
-- [ ] Validar e confirmar auditadamente PGCA Classe 6, apenas nas contas literalmente comprovadas
+- [x] Validar e confirmar auditadamente PGCA Classe 1, apenas nas contas literalmente comprovadas
+- [x] Validar e confirmar auditadamente PGCA Classe 4, apenas nas contas literalmente comprovadas
+- [x] Validar e confirmar auditadamente PGCA Classe 6, apenas nas contas literalmente comprovadas
 - [ ] Validar e confirmar auditadamente IVA artigo 19.º, apenas na regra e evidência oficialmente comprovadas
 - [x] Gerar inventário documental das contas patrimoniais do PGCA (activo, passivo e situação líquida) com código, designação, páginas, estado e evidência
 - [x] Catalogar separadamente as regras literais de movimentação encontradas no PDF, sem as transformar em regras automáticas antes da confirmação

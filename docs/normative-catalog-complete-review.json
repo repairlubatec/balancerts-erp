@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T07:55:31.738Z",
+  "generatedAt": "2026-08-22T16:26:33.112Z",
   "policy": {
     "humanConfirmationRequired": true,
     "operationalActivation": "CONFIRMED_ONLY",
@@ -18,13 +18,23 @@
   "pgcaAccounts": [
     {
       "code": "1",
-      "name": "— MEIOS FIXOS E INVESTIMENTOS:",
+      "name": "Meios fixos e investimentos",
       "source": "PGCA Explicado (auxiliar)",
       "pages": [
         119
       ],
-      "status": "NEEDS_HUMAN_CONFIRMATION",
-      "authority": "Decreto n.º 82/01"
+      "status": "CONFIRMED",
+      "authority": "Decreto n.º 82/01",
+      "parentCode": null,
+      "level": 1,
+      "evidencePages": [
+        41
+      ],
+      "evidence": "visual",
+      "sources": [
+        "PGCA Explicado (auxiliar)",
+        "Decreto n.º 82/01 — revisão visual"
+      ]
     },
     {
       "code": "2",
@@ -139,6 +149,86 @@
       ],
       "status": "NEEDS_HUMAN_CONFIRMATION",
       "authority": "Decreto n.º 82/01"
+    },
+    {
+      "code": "11",
+      "name": "Imobilizações corpóreas",
+      "parentCode": "1",
+      "level": 2,
+      "evidencePages": [
+        41
+      ],
+      "status": "CONFIRMED",
+      "authority": "Decreto n.º 82/01",
+      "evidence": "visual",
+      "source": "Decreto n.º 82/01 — revisão visual",
+      "sources": [
+        "Decreto n.º 82/01 — revisão visual"
+      ]
+    },
+    {
+      "code": "12",
+      "name": "Imobilizações incorpóreas",
+      "parentCode": "1",
+      "level": 2,
+      "evidencePages": [
+        41
+      ],
+      "status": "CONFIRMED",
+      "authority": "Decreto n.º 82/01",
+      "evidence": "visual",
+      "source": "Decreto n.º 82/01 — revisão visual",
+      "sources": [
+        "Decreto n.º 82/01 — revisão visual"
+      ]
+    },
+    {
+      "code": "13",
+      "name": "Investimentos financeiros",
+      "parentCode": "1",
+      "level": 2,
+      "evidencePages": [
+        42
+      ],
+      "status": "CONFIRMED",
+      "authority": "Decreto n.º 82/01",
+      "evidence": "visual",
+      "source": "Decreto n.º 82/01 — revisão visual",
+      "sources": [
+        "Decreto n.º 82/01 — revisão visual"
+      ]
+    },
+    {
+      "code": "14",
+      "name": "Imobilizações em curso",
+      "parentCode": "1",
+      "level": 2,
+      "evidencePages": [
+        42
+      ],
+      "status": "CONFIRMED",
+      "authority": "Decreto n.º 82/01",
+      "evidence": "visual",
+      "source": "Decreto n.º 82/01 — revisão visual",
+      "sources": [
+        "Decreto n.º 82/01 — revisão visual"
+      ]
+    },
+    {
+      "code": "18",
+      "name": "Amortizações acumuladas",
+      "parentCode": "1",
+      "level": 2,
+      "evidencePages": [
+        42
+      ],
+      "status": "CONFIRMED",
+      "authority": "Decreto n.º 82/01",
+      "evidence": "visual",
+      "source": "Decreto n.º 82/01 — revisão visual",
+      "sources": [
+        "Decreto n.º 82/01 — revisão visual"
+      ]
     },
     {
       "code": "18.1",
@@ -289,6 +379,22 @@
       ],
       "status": "NEEDS_HUMAN_CONFIRMATION",
       "authority": "Decreto n.º 82/01"
+    },
+    {
+      "code": "19",
+      "name": "Provisões para investimentos financeiros",
+      "parentCode": "1",
+      "level": 2,
+      "evidencePages": [
+        42
+      ],
+      "status": "CONFIRMED",
+      "authority": "Decreto n.º 82/01",
+      "evidence": "visual",
+      "source": "Decreto n.º 82/01 — revisão visual",
+      "sources": [
+        "Decreto n.º 82/01 — revisão visual"
+      ]
     },
     {
       "code": "19.1",
@@ -7810,9 +7916,9 @@
     }
   ],
   "summary": {
-    "pgcaTotalCandidates": 754,
-    "pgcaConfirmed": 20,
-    "pgcaNeedsHumanConfirmation": 734,
+    "pgcaTotalCandidates": 760,
+    "pgcaConfirmed": 27,
+    "pgcaNeedsHumanConfirmation": 733,
     "ivaTotalRules": 9,
     "ivaConfirmed": 1,
     "ivaNeedsHumanConfirmation": 8

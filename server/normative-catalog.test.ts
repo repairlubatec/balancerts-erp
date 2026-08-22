@@ -10,9 +10,9 @@ describe("catálogo integral PGCA/IVA", () => {
     expect(catalog.policy.operationalActivation).toBe("CONFIRMED_ONLY");
     expect(catalog.sources.pgca.sha256).toMatch(/^[a-f0-9]{64}$/);
     expect(catalog.sources.iva.sha256).toMatch(/^[a-f0-9]{64}$/);
-    expect(catalog.summary.pgcaTotalCandidates).toBe(754);
-    expect(catalog.summary.pgcaConfirmed).toBe(20);
-    expect(catalog.summary.pgcaNeedsHumanConfirmation).toBe(734);
+    expect(catalog.summary.pgcaTotalCandidates).toBe(760);
+    expect(catalog.summary.pgcaConfirmed).toBe(27);
+    expect(catalog.summary.pgcaNeedsHumanConfirmation).toBe(733);
     expect(catalog.summary.ivaTotalRules).toBe(9);
     expect(catalog.summary.ivaConfirmed).toBe(1);
     expect(catalog.summary.ivaNeedsHumanConfirmation).toBe(8);
@@ -24,7 +24,7 @@ describe("catálogo integral PGCA/IVA", () => {
     const catalog = JSON.parse(readFileSync("docs/normative-catalog-complete-review.json", "utf8"));
     const pending = catalog.pgcaAccounts.filter((a: { status: string }) => a.status !== "CONFIRMED");
     const pendingIva = catalog.ivaRules.filter((r: { status: string }) => r.status !== "CONFIRMED");
-    expect(pending.length).toBe(734);
+    expect(pending.length).toBe(733);
     expect(pendingIva.length).toBe(8);
     expect([...pending, ...pendingIva].every((item: { status: string }) => item.status === "NEEDS_HUMAN_CONFIRMATION")).toBe(true);
   });
