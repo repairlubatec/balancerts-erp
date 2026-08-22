@@ -1,0 +1,40 @@
+208 | POC—ExPLICADO
+CONTA 35 - ENTIDADES PARTICIPANTES E PARTICIPADAS
+Esta conta destina-se a registar as relações com as entidades participantes e participadas no que se refere ac!
+subscrição: ef adiantamentos sobre lucros; ef lucros; e empréstimos,
+Estrutura da conta
+A conta 35 — Entidades participantes e participadas subdivide-se em
+35.1 = Entidades participantes
+35.2.- Entidades participadas
+Associada à conta 35 — Entidades participantes e participades está a conta 38 — Provisões para cobrança duvidosa,
+mais concretamente a conta 38.3 — Provisões piparticipantes e participadas, nomeadamente na questão da reco-
+rhecimento subsequente « em relação a eventuais caldos devedores:
+38 — Provisões para cobrança duvidosa
+38.3 — Provisões piparticipantes e participadas
+A Conta 38.3 € suds eventuais sub-contos são desenvolvida mais à frente inseridos no conto 38
+Reconhecimento
+Esta conta é, em geral, apresentada no balanço, no conjunto dos activos ou passivos correntes, inserida na rubrica
+ce "Contas a receber” ou” Contas a pagar" consoarte a natureza do saido, Pode aparecer no activo ou passivo não
+corrente na rubrica "Outros activos não correntes” ou”Dutros passivos não correntes”, nomeadamente quando à
+expectativa de cobrança for num prazo superior a | ano.
+Ver Figura 3 — Reconhecimento no Balonço: Classe 3 4
+Valorimetria
+Na valorimetria inicial as" Entidades participantes e par tcjpadss são valorizadas ao custo histórico (valor nominal).
+Na valorização subsequente são valorizadas ao custo histérico ou ao valor de realização, dos dois o mais baixo.
+No caso de ser necessário proceder a um ajustamento (redução da valor do activo), o ajustamento de custo hist.
+rico para o valor realizavel liquido deverá ser reconhecido através da constituição de uma provisão para créditos de
+cobrança duvidosa a qual será ajustada cu anulada quando se alterarem ou cessarem as razões que determinaram
+a sua constituição.
+Movimentação (esquemática), alguns exemplos
+Seguidamente apresenta-se a movimentação esquemática de algumas das principais transacções que podem oco”
+rer no âmbito da conta em análise
+PARTICIPANTES
+Subscrição e realização de capital
+st o 35.1 a 2 AB ou 48x e
+1 fa & if
+(15 Subscrito capt por esco
+2) Reakzagia do espa
+A conta 25 1 será seleccionada em lunção da relação depenéneis com a entidade participants
+Caso a realização de capital possa ser efectuada em espécie, a mesma conduzirá à entrega de um carjunto de actas eiou
+passivos desde que eumpridas os preceitos legis exigidos, sendo que neste caso a contrapartida da conta $1 — Capital não
+seria apenas à comia 43x ou 45 mas um conpunto de outras contas em lunção So tipo de seth ou passo em concrete

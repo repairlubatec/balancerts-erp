@@ -1,0 +1,38 @@
+A Expucação AS contas | ps
+O custo do consumo das matérias-primas, subsidiárias e de consumo é apurado em função do seu respective
+custo da compra, escriturado na respectiva conta 22. e influenciado pelo método de custeio utiizado,
+Custo de conversão, que engloba:
++ Os custos com o pessoal directamente envolvido na produção
++ Imputação de gastos industriais fixos.
++ Depreciação e manutenção de edificios e de equipamentos de fábrica.
++ Custos de gestão e administração da fébrica
++ Imputação de gastos industriais variáveis.
++ Materkis indirectos.
+* Mo de obra indirecta
+Gastos industriais de produção variáveis e sua imputação:
++ Os gastos industriais de produção variáveis são os custas indirectos ce produção que variam directa a
+mente, ou quase directamente, com o volume de produção. E
++ Os gastos Industriais de produção variáveis são imputados a cada unidade de produção na base do <
+uso real das instalações de produção, =
+Gastos industriais de produção fixos e sua imputação:
++ Os gastos industriais de produção fixos são os custos indirectos de produção que permaneçam reta-
+tivamente constantes independentemente do volume de preclução.
+* A imputação de gastos Industriais de produção fixos é baseada na capacidade normal
+Capacidade normal:
+Capacidade normal é à produção que se espera que seja atingida em média durante um número de períodos
+ou de temporadas ern circunstâncias normais, tomando em conta a perda de capacidade resuitante da manu
+tenção planeada.
+Os outros custos podem incluir itens como sejam
+* Custos com armazenagem (apenas quando a armazenagem seja necessária ao processo de produção
+antes de uma nova fase de produção);
++ custos de empréstimos (em função do item cumprir com os requisitos para se qualificar para receber
+custos de empréstimos obxidos e a entidade optar por esse método).
++ Custos ocorridos para colocar os inventários nos seus locais actuais e na sua condição de utilização ou
+venda
+Método alternativo
+Pode ser utlizado o Método dos custos padrões desde que os resultados se aproximem dos do custo de procução,
+Caso particular da produção conjunta
+Imputação em casos de produção simultânea:
+A produção simultânea pode referirse a
++ Produção conjunta,
++ Produção da qual resulte um produto principal e um sub-produto,

@@ -1,0 +1,31 @@
+206 | Pec-txricADO
+Conta 34.2 - Imposto de produção e consumo
+Esta conta destina-se a registar as relações com o Estado no que se refere aos impostos sobre a produção é o
+consumo,
+Movimentação (esquemática) É
+Liquidação e pagamento do Imposto de Consumo (venda a pronto pagamento) :
+o 43x 00 45x = 342% = o 61x 01 62x E
+[ I 1 | E) [a7
+En
+10). Vendapresacio de serge om euiacão ds Imposto
+(lat Correspcnce 20 sorta a acusa
+(18) Gomesponde so wer do tmposto
+(16) Cosresponde 0 valor de vencrprstção de seresce
+2) Pagamento ce pone de Consumo
+No Caso da venda sera crédito, ao invés de ulizara conta 43x ou 45 deveria se ulzada 31,1
+Conta 34.3 — Imposto de rendimento de trabalho
+Esta conta, de natureza credora, destina-se a registar o imposto deduzido aos empregados devido pele rendimento
+do seu trabalho, apurado aquando do processamento de salários.
+Esta conta será seldada por contrapartida de meios monetários aquando do respective pagamento zo Estado.
+(nota explicativa à conta 34.3)
+Movimentação (esquemática)
+Paro methor esclarecimento desto conta sugerimos verificar a movimentação esquemático “Processamento sa-
+farina conto 36
+Conta 34.4 — Imposto de circulação
+Esta conta destina-se a registar as relações com o Estado no que se refere ao imposto de circulação.
+Conta 34.8 — Subsídios a preços
+Esta conta, de natureza devedora, destina-se a registar o complemento a receber do Estado, resultante do cliferen=
+cial entre © preço de vendi estabelecido pela empresa e o preço de venda no público,
+O débito deverá ser efectuado por contrapartida da conta 61.5 — Subsídios a preços
+Esta conta será saldadla por contrapartida de meios monetários aquando do respectivo recebimento do Estado
+(roto explicate à conte 348)

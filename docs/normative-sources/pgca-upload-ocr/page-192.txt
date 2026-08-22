@@ -1,0 +1,35 @@
+A EXPLICAÇÃO Às Contas | tm
+Associada à conta 31 Clientes está a conta 28 ~ Provisões para cobrança duvidosa mais concretamente a conta
+38.1 — Provisões para cientes, nomeadamente na questão da valorização subsequente,
+38 — Provisões para cobrança duvidosa
+388 | — Provisões para cientes
+A conta 38 — Provisões para clientes e suas eventuais sub-contas são desenvolvida mais à frente inseridas na
+respectiva conta,
+Reconhecimento
+Esta conta é, em geral, apresentada no balanço, no conjunta dos activas correntes, inserida na rubrica de “Contas a
+receber" Pode aparecer no activo não corrente na rubrica "Outros activos não correntes” nomeadamente quando
+a espectativa da cobrança for num prazo superior a | ano. Pode surgir também no passivo, nomeadamente no caso
+das contas de clientes com saida credor seja no passivo corrente (outros passivas correntes), seja no passivo não
+corrente (outros passivos não correntes) em fLnção da expectativa de regularização ser 2 menos ou mais de | ano,
+Ver Figura 3 — Reconhecimento no Balonço. Classe 3
+Valorimetria
+Na valorimetria inicial os clientes são valorizadas ao custo histórico, a
+A transacções em moeda estrangeira são valorizadas na moeda de relato determinada pela aplicação, & quantia E
+de moeda estrangeira, da taxa de câmbio entre a imceda estrangeira e a moeda de relate à data da transacção E
+Na valorização subsequente são valorizadas a0 custo histórico ou ao valor de reaização, dos dais o mais baixo.
+Na data de relato, as transacções em moeda estrangeira são valorizadas na moeda de relato da seguinte forma:
++ Pelo valor histórico (valorização do reconhecimento inicia) no caso de activos monetários em que o
+câmbio tenha sido previamente fixado.
++ Pelo valor histórico (valorização do reconhesmento inicial), no caso de activos não monetários aos quais
+ne data do reconhecimento inicial, tenha sido atribuído um justo valor em moeda estrangeira.
+* Pela taxa de fecho determinada pela aplicação, à quantia da moeda estrangeira, da taxa de câmbio à data
+de fecho entre = moeda estrangeira e a moeda de relato, no caso de activos monetários cujo câmbio não
+esteja previamente fixado.
+No caso de ser necessário proceder a um ajustamento (redução do valor do activo), o ajustamento da custo histó-
+tico para o valor realizável iquide deverá ser reconhecido através da constituição de uma provisão para crécitos de
+cobrança duvidesa,a qual será ajustada ou anulada quanda se alterarem ou cessarem as razões que determinaram
+à sua constituição.
+Conta 31.1 - Clientes — correntes
+Esta conta destina-se a registar os mravimentos ocorridos com clientes que estejam relacionados da actividade
+corrente da entidade, e que não sejam titulados, não se refiram a adiantamentos de clientes nem à provisões para
+cobrança duvidosa

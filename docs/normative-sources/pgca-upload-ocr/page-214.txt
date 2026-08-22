@@ -1,0 +1,35 @@
+4 EXPLICAÇÃO AS CONTAS | 23
+CONTA 36 - PESSOAL 3
+Esta conta destina-se a registar as operações relativas 20 pessoal enquanto nessa qualidade. Excluem-se as opera-
+gies em que este surja numa outra posição, por exemplo como cliente, fornecedor ete, Excluern-se também desta
+conta, as operações relativas ao pessoal quanda estas sejam consideradas coma um encargo a pagas como por
+exemplo, os subsídios de férias a liquidar na período seguinte.
+No conceito de pessoal (late senso) induem-se os empregados e os órgãos sociais
+Estrutura da conta
+A conta 36 — Pessoal subdivide-se em:
+36.1 - Pessoal — remunerações
+36.2 - Pessoal — participação nos resultados
+36.3 - Pessoal — adiantamentos
+369 - Pessoal — outros
+Associada à conta 36 — Pessoal está a conta 38 — Provisões para cobrança duvidosa, mais concretamente a conta É
+38,4 Provisões pidividas de pessoal, nomeadamente na questão da valorização subsequente. E
+38 — Provisões para cobrança duvidosa e
+384 — Provisões plelvidas do pessoal
+A conta 38.4 e suas eventuois sub-contas são desenvolidas mois à fieme inseridas no conta 38.
+Reconhecimento
+Esta conta, quando não se encontrar saldada, é apresentada no balanço, no conjunto dos activos correntes, inserida
+na rubrica de “contas a pagar”
+Ver Figura 1º 3 - Reconhecimento no bolonço classe 3
+Valorimetria
+Em geral as contas referentes a0 "Pessoal devem ser valorizadas ao custo histórico.
+Apontamento Fiscal
+No ambita dos custos com © pessoal há que atender a três situações distintas:
++ Comparticipação para o INSS que de acordo com o regime jurídico de vinculação » contribuição
+da protecção social obrigatória constitui base de incidência o vencimento base © as prestações e
+complementas remuneratórios
++ Retenções a que a entidade tenha obrigatóriamente que proceder em relação aos rendimentos
+postos à disposição do pessoal, nomeadamente IRT ¢ comparticipação para o INSS:
++ Denotar que es custos com o pessoal considerados num determinado período a título de espe:
+cialzação do exercício não são passíveis de retenções au de comparticipações para o INSS, sendo
+estas obrigações apenas no ano/perindo seguinte, no momento em que processamento de
+salários é efectuado e consequentemente a colocação à disposição dos salários

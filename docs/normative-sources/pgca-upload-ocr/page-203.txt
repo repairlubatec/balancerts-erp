@@ -1,0 +1,32 @@
+am | pec —expucane
+Conta 33.2 — Empréstimos por obrigações.
+Esta conta regista os empréstimos por obrigações.
+As obrigações são unidades de medida, de iguat valor, de cada empréstimo.
+As obrigações correspondem, portante, a uma divida da sociedade emitente para com cada um dos possuido-
+res dos títulos, Estas podem apresenta-se sob duas modalidades — convertiveis e não convertíveis — sendo as
+obrigações não convertiveis mais frequentes, isto é, as que permitem 20 seu titular à reembolse da empréstimo à
+entidade e, consequentemente, a entidade emissora fica com a obrigação da devolução do dinheiro emprestado
+As obrigações convertíveis são aquelas que se convertem em acções após um tempo predefinido é verificadas
+algumas condições, sendo que, nesse caso, a entidade não fica com a obrigação da devolução do <inheiro empres-
+tado.
+Esta conta registada, pelo valor norminal está subdividida em:
+3321 - Convertiveis
+(obrigações subscritas por terceiros que sejam convertiveis er capital)
+33.2.2 - Não comertíveis
+(obrigações subscritas por terceiros a serem reembolsados no prazo estipulado na obrige-
+ão)
+Dentro de cada sub-conta (obrigações corvertveis e não conver tives) a decomposição deve cer efectuada por
+entidade (subecritora) e identificar a emissão obrigacionista no sentido de se verificar em cada período a quanta a
+ser incluída no passivo corrente (quantia a ser reembolsada até |2 meses da data do balanço) ou no passivo não
+comente (quanta a ser reembolsada a mais de 12 meses da data do balanço).
+Conta 33.3 - Empréstimos por titulos de participação
+Esta conta destina-se a registar pelo valor nominal, os títulos de participação subscritos porterceiros,
+(nota expicativa é conta 33.3)
+Os títulos de participação são unidades de medida, de igual valor, de cada empréstimo emitido por empresas pú-
+biicas ou de capitais maioritariamente públicos,
+Os títulos de participação corresponcem, portanto, a uma divida da sociedade ernitente para com cada um dos
+possuidores dos títulos,
+Esta conta está subdivicida em entidades (subscritoras)
+Dentro de cada sub-conta (enticade) deve-se identificar a emissão dos tíulos de participação no sentido de se
+verficar em cada período a quantia a ser incluída no passivo corvente (quantia a ser reembolsada até 12 meses da
+data do balanço) ou no passivo não corrente (quantia a ser rsembolsada a mais de 12 meses da data do balanço).

@@ -1,0 +1,42 @@
+184 | PGS — EXPLICADO
+Conta 26. e 26.2 — .. identificação da mercadoria)
+As contas, 26.1, 262,e as contas 26.3 a 268 que embora omissas destinam-se ao mesmo conteúdo, Estas contas,
+não tendo contetide específica, ficam em aberto no sentido de permitir à entidade adaptá-as em função cas suas
+necessidades especificas, por exemplo, diidir por tipo (grupo) de produtos (grupo A: grupo 83...) cu dividir por
+localizações (armazém A, armazém 8.)
+Divisão em função do tipo (grupo) de produtos:
+26.1 Electrodomésticas
+262 Alimentares
+24201 Ferecíveis
+262.0101 Arroz
+262010101 Arroz marca X
+26201010101 Arroz marca X lo B.
+Divisão em função da localização:
+26.1 Loja A
+262 Loja B
+26201 Alimentares
+2620101 Pereciveis
+262019101 Amor
+262.01 010101 Arroz marca X
+Conta 26.9 - Em poder de terceiros
+Esta conta destina-se a registar a quantia das mercadorias que são propriedade da entidade e se encontrem em
+poder de terceiros
+Poderá haver várias situações que levem a que haja mercadorias em poder de terceiros, como são os casos de
+mercadorias que estejam à guarda de terceiros, ou que estejam em regime de consignação:
+Apontamento Fiscal
+No que diz respeito à entrega de bens à consignação, de acorrio com Código do Imposto do Consumo, a
+emissão da competente factura deverá verificarse nos seguintes prazos!”
+* cinco dias contados a partir da data de emissão do documento que acompanha os bens;
++ no dia em que a consignação se converta em alenação definitiva, quando esta ocoma antes de
+termo do prazo referido.
+CONTA 27 - MATÉRIAS-PRIMAS, MERCADORIAS E OUTROS MATERIAIS EM TRÂNSITO
+Esta subrica destina-se a registar os bens adquiridos que anda não tenham sido recepcionados pela entidade, mas
+para 05 quais já tenha sido recebida a corespondente factura cu documenta equivalente
+nota explicativa à conto 27)
+Estrutura da conta
+A conta 27 — Matérias-primas, mercadorias e outros materiais em trênsito subdivide-se em:
+27,1 ~ Matérias primas
+27.2 — Quiros imateriais
+273 - Mercadorias
+[2] Chamamos a atenção para o facta de poder ter havido alguna alteração entr acta da edição é adata om que este está a ser consultado
+pelo que recomendamos uma const ao código para confirmação da informação aqui prestar

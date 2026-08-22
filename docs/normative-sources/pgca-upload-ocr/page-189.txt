@@ -1,0 +1,36 @@
+188 i PGC — EXPLICADO
+CLASSE 3 “TERCEIROS
+INTRODUÇÃO
+Esta classe destina-se a registar as operações relacionadas com clientes, fornecedores, financiadores (empréstimos
+obtidos), estado, entidades participantes e participadas, pessoal, bem coma outras operações com terceiros que
+não tenham cabimento nas contas anteriores ou noutras classes especificas. Incluem-se ainda, nesta classe, os pro-
+veitos a facturar, os encargos a pagar e os proveitos e encargos a repartir por períodos futuros (para permitir o
+registo dos custos e dos proveitos nos periados a que respeitam) e as provisões (para cobranças duvidosas e para
+GA sn
+Esta classe é constituída pelas seguintes contas do |? grau que se apresentam da seguinte forma
+31 - Clientes
+32 — Fornecedores
+33 — Empréstimos
+34 ~ Estado
+35 — Entidades participantes e participadas
+36 ~ Pessoal
+37 = Outros valores a receber e a pagar
+38 — Provisões para cobranças duvidosas
+39 — Provisões para outros riscos é encargos
+Reconhecimento
+As contas da classe 3 — Terceiros, surgera na balanço tanto no activo come no passivo.
+reine
+reo)
+Total dos avos não correntes a
+csi 5
+Total dos activos correntes DP
+Total do activo a!
+Passivo não corrente: i
+roms papas | 48
+Total da pars não converte a
+psd agr
+srs de HS %
+cio vate Py
+‘otal do passive corrente a
+| AT e
+Figura 3 — Reconhecimento no Balanço: Classe 3

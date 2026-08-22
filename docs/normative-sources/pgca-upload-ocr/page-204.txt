@@ -1,0 +1,44 @@
+4 EXPLICAÇÃO ÀS CONTAS | 23
+Conta 33.42338-...
+Estas contas estão no PGC — Ista de contas sem conteúdo para cada entidade poder utlizar em função cas suas
+especificidades, por exemplo
+“Empréstimo obtida — Descobertos bancários”,
+Ur descoberto bancário é a sioção em que 6 saido de uma conto à ordem está negativo Um descoberto
+Esncéário constitu assim e para todos os efeitos, um empréstimo que é efetuado pelo banco ao detentor da
+conta à ordem
+“Empréstimo obtido — Locação financeira”,
+Uma locação fnonceiro é um acordo pela qual o locador transmite ao locorávio em troca de um pagamento
+ou série de pagamentos o direito de usar um activo por determinada tempo acordado em que é iransferido
+substancialmente tados os riscos e vantagens inerentes à posse de um acto.
+O locatário deve reconhecer a as lncações financerras como actos e passivas no belanço. O regista no pos-
+sto configura assim na prática um empréstimo obudo
+Conta 33.9 — Outros empréstimos obtidos
+Esta conta destina-se a registar os empréstimos obtidos que não se enquadrem nas contas anteriores nem sejam,
+provenientes de empréstimos obtidos de participantes ou par ticipadas que neste casa será registado na respectiva
+sub-conta da conta 35 — Entidades participantes e participadas, cu seja registado nas sub-contas de empréstimos.
+CONTA 34 - ESTADO E:
+3
+Esta conta destina-se a registar as relações com o Estado que tenham características de impostos e subsídios a
+preços
+Nesta conta registamese as operações relativas ao Estado na qualidade de entidades recolhedoras de impostos,
+Nesse sentido, excluerm-se desta conta as operações em que tis entidades surjam numa outra qualidade, como
+por exemplo quando actuem como chentes, fornecedores, ete,
+Estrutura da conta
+A cota 34 = Estado subdivide-se em
+34,1 = imposta sobre os lucros
+342 — Imposto de produção e consumo
+34.3 - Imposto de rendimento de trabalho
+344 — Imposto de circulação
+348 = Subsídios a preços
+349 — Outros impostos
+Reconhecimento
+Esta conta é, em geral, apresentada no balanço, no conjunto dos passivas correntes, inserida na rubrica de "Con-
+tas a pagar”. Pode aparecer na passivo não corrente na rubrica "Outros passivos não correntes”, nomeadamente
+quando a expectativa da pagamento for nurn prazo superiar a um ano,
+Pode surgi também no activo, nomeadamente no casa de reembalsos, seja no activo corrente (contas a receber)
+seja no activo não carrente (outros activos no correntes) em função da expectativa de regularização ser à menos
+ou à mais de um ano.
+Ver Figura 3 — Reconhecimento no Balenço: Closse 3
+Valorimetria
+Em geral as contas referentes ao Estado devem ser valorizadas pelo valor nominal No caso dos impostos sobre
+lucros a pagar são valorizados a0 custo corrente,

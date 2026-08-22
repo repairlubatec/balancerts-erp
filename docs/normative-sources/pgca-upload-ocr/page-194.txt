@@ -1,0 +1,52 @@
+4 ExPLICAÇÃO AS CONTAS | 193,
+
+Recebimento de cliente com desconto de pronto pagamento concedido
+
+e 34 2 2 43x 04 45. ca 16.3 e
+
+ft Desiscanhecimanto do salar em din
+
+{bi ier cobria
+
+(0) silos da desconto de prone pagamento conescido financas
+Conta 31.2 ~ Clientes — títulos a receber
+Esta conta destina-se a registar as letras sacadas a clientes @ por estes aceites
+Esta conta reffecie, portanto, em qualquer momenta as dividas de clientes que estejam representadas por títulos
+aínda não vencidos, quer estejam em carteira, quer tenham sido descontados,
+O valor das letras a constar no Balanço deverá dizer respeito às letras em carteira pelo que para o respectivo
+apuramento deverá ser determinada a diferença entre o saldo desta conta e a conta Clientes ~ títulos descontados.
+(nota explicativa à conta 31.2)
+
+(O desdobramento desta conta deverá ser igual ao desdobramento da conta “clientes — correntes”, E
+31 - Clientes 5
+31.2 - Clientes —titulos à receber
+
+3121-Grupo
+31.2.1.1 — Subsidiárias
+312.12 Associadas
+31.22 Não grupo
+31,221 - Nacionais
+31.222 Estrangeiros
+Conta 31.3 — Clientes-titulos descontados
+Esta conta tem natureza credora e destina-se a registar as fetras descontada.
+Na data de vencimento das letras esta conta deverá ser debitada da seguinte forma
+
++ Por contrapartida da conta Clientes — títulos a receber, caso na data de vencimento a letra não seja devol-
+vida por falta de pagamento.
+
++ Por contrapartida da conta bancária onde © desconto haja sido efectuado, caso na data de vencimento a
+letra seja cevolvida por falta de pagamento. Em simultâneo deverá ser efectuada a transferência da letra
+reflectica em Clientes — títulos a receber para a conta Clientes ~ correntes
+
+O saldo desta conta reflecte, portanto, em qualquer momento o valor das letras descontadas ainda não vencidas que
+deverá figurar nurna nota das Notas às contas dado que a responsabilidade da entidade perante o banco se mantém,
+(noia explicativa à conta 31.3)
+O desemvolumento desta conta deverá ser igual ac da conta “clientes ~ correntes”
+31 — Clientes
+31.3 — Clientes ~titulos descontados
+31.3.1 -Grupa
+31.341 = Subsidiárias
+313,12 - Associadas
+31.32 - Não grupo
+31,32.1 — Nacionais
+31,322 — Estrangeiros

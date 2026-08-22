@@ -1,0 +1,37 @@
+4, EXPLICAÇÃO ÀS CONTAS | 199
+Movimentação (esquemática)
+Para melhor esclarecimento desta conta sugerimos verificar a movimentação esquemática “Aquisição de existén-
+cias ainda não recepcionados (em trânsito)” na conta 27,
+Conta 32.9 — Fornecedores-Saldos devedores
+Esta conta destina-se a registar as entregas feitas pela empresa relativas a fornecimentos a efectuar de terceiros,
+cujo preço não esteja previamente fixado, bem com a registar o valor das embalagens recebidas dos fornecedores
+que se destinem a ser devolvidas e do valor dos bens recebidos à consignação.
+Esta conta é decompasta em
+328.1 - Fornecedores - saldos devedores — Adiantamentos
+32.9.2 — Fomecedores - saldos devedores — Embalagens a devolver
+329.3 - Fomecedores - saldos devedores — Material à consignação
+Podendo ainda serem abertas contas do 3294 ao 32.99 para situações específicas de cada entidade,
+Conta 32.9.1 - Fornecedores — Saldos devedores - Adiantamentos É
+Esta conta destina-se a registar as entregas feitas pela empresa com relação a fornecimentos a efectuar por tercei- õ
+ros, cujo preço não esteja previamente fixado.
+Aquando da recepção da factura, estas verbas deverão ser transferidas para as respectivas contas de Fornecedores.
+correntes
+(note explicativa é conta 32.9.1)
+
+Ec eee see eee een a
+MR
+Movimentação (esquemática), alguns exemplos
+Seguidamente apresenta-se a movimentação esquemática de algumas das principais transacções que podem ocor
+res no âmbito da conta em análise.
+
+Adiantamento a fornecedores cujo preço não esteja previamente fixado (reconhecimento)
+E 43x 95 45x E 329.1 =
+
+Aquando do pagamento (adiantamento) ao Fornecedor creditames a
+
++ coma 423 se pagamento for por chaque, transferência bancária ou equivalents:
+
++ coma 4530.0 pagamento a cheiro (por cabe)
+Esta conta (329.1) será vegulaizada apds à recepção da fcura e registo da compra.
+Apso regsto da compra procede-se à regularização do adartarnento de acorda cam a rnovimentação (esquemática)
+equate

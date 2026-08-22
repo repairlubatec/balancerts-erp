@@ -1,0 +1,33 @@
+mm | poc—exnicao
+© desenvolvimento desta conta atende, em primeiro, à relação com o fomacedor nomeadamente ce 0 fornecedor
+é ou não uma entidade pertencente 2a seu grupo. No caso de ser do grupo se é subsidiária ou associada e caso
+não seja do grupo atende à nacionalidade do fornecedor isto é se é nacional ou estrangeiro.
+32 - Formacedores
+32.1 - Fomecedores ~ correntes
+22.1.1 - Grupo
+32.1.1. ~ Subsidiarias
+32,1. 1.2 = Associadas
+32.1 Não grupo
+32.1.2.1 - Nacionais
+32.|.2.2 — Estrangeiros
+Conta 32.2 — Fornecedores — títulos a pagar
+Esta conta destina-se à registar as letras sacadas pelos fornecedores e aceites pela entidade.
+O saldo desta conta deverá reflectis em qualquer momento, as dividas a fornecedores não vencidas que se encon-
+trem representadas por letras ou outros tftulos de crédito.
+(nia explicativo à conta 32.2)
+O desenvolvimento desta conta deverá ser igual ao da conta “fornecedores — correntes”
+32 — Fomecedores
+322 - Fomecedores — títulos a pagar
+32.2.1 Grupo
+322.1.1 - Subsidiárias
+32.2.1.2 Associadas
+322 - Não grupo
+32221 - Nacionais
+32222 — Estrangeiros
+Conta 32.8 ~ Fornecedores — facturas em recepção e conferência
+Esta conta destina-se a reflectir as compras, relativas a material recebido, cujas facturas:
++ Não chegaram à entidade até à data
+* Embora tenham chegado à entidade, ainda não se encontrem conferidas.
+“Aquando da contabilização defintiva da factura esta conta deverá ser saldada por contrapartida da respectiva
+conta de Fomecedores - corrente.
+(nota explicativa @ conto 328)

@@ -1,0 +1,33 @@
+A EXPLICAÇÃO AS CONTAS | am
+Conta 35. | — Entidades participantes
+Esta conta está decomposta por tipo de entidade nomeadamente:
+35.1.1 - Estado
+35.1.2 - Empresas do grupo — subsidiárias
+35.1.3 — Empresas do grupo — associadas
+35.1.4 — Outros
+Dentro de cada uma das sub-contas é feita a decomposição por:
+35.|x| — cf subserição
+35.1 <2 cf adiantamentos sobre lucros
+35.103 - cf lucros
+35.1x4 — Empréstimos
+Contas 35.1.1.1,35.1,2.1,35,1,3.1,35.1,4.1 — Enticades participantes — conta subscrição E
+z
+Estas contas, de natureza devedora, destinam-se a registar, por contrapartida da conta 51 Capital, as subscrições de “
+capital efectuadas por terceiros. Estas contas serão saldadas, por contrapartida de meios monetários, aquando do
+recebimento dos valores em dívida,
+{nota explicativo às contas 35.1..1, 35.1.2, 35.4.3.4, 35.4.1)
+Contas 35.1. 1.2, 35.1.2.2, 35.1.3.2, 35.1.4.2 - Entidades participantes — conta adiantamento sobre lucros
+Estas contas, de natureza devedora, destinam-se à registar por contrapartida de meios monetários, as entregas
+efectuadas por conta de lucros futuros. Estas contas serão saldadas por contrapartida das contas Entidades parti-
+cipantes — conta/lucros, aquando da atribuição efectiva dos lucros.
+{nota explicativa às contos 35.1.1.2,35.1.2.2, 35.432 361.42)
+Contas 35.1,1.3, 35.1.2.3, 35. 1.3.3, 35.1.4.3 — Entidades parcicipantes ~ conta lucros
+Estas contas, de natureza credora, destinamese a registar, por contrapartida da conta 81 Resultados transitados, à
+atribuição de lucros decidida em Assembleia Geral de sóciosiaccionistas,
+Estas contes serão saldadas da seguinte forme:
++ Por contrapartida das contas Entidades participantes — conta adiantamentos, pela parte que haja sido
+aciantada
+* Por contrapartida de meias monetários, pela parte remanescente.
+(nota explicativo às contos 35,1,1.3,35.1,2.3 3513.3, 36.1.4.3)
+Contas 35.1.1.4, 35.1.2.4, 35.1.3.4, 35.1.4.4 — Entidades participantes — empréstimos
+Estas contas, de natureza credora, destinam-se a registar os empréstimos obtido de entidades participantes.

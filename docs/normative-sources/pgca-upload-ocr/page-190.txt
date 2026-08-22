@@ -1,0 +1,49 @@
+4 EXPLICAÇÃO ÀS CONTAS | 189
+A maioria das contas surge no corrente (activo e passivo) podendo em alguns casos surgir no passivo não corrente
+como sejam, entre outros, o caso dos empréstimos de médio e longo praza, dos impostos diferidos e das provisões
+para outros nscos € encargos, ou ainda activ não corrente excepcionaimente quando se espera que esses activos,
+por exemplo uma divida de terceiros, permaneçam ma posse da entidade por um período superior a um ano.
+Note-se que, em cada linha do Active no balanço relativa à classe 3 — Terceiros, são apresentados os valores liqui-
+dos de provisões para cobrança duvidosa.
+Embora o reconhecimento dos activos e passivos desta classe de contas não seja regra geral fc casos há em que
+© juízo profissional tem de decidir sobre o reconhecimento de um valor como sendo activo ou passivo, principal
+mente no que se refere às provisões e às contas de proveitos a facturas encargos 8 pagas €, proveitos e encargos
+a repartir por períodos futuros.
+A classe 3 — Terceiros é a classe de contas em que o efeito da base de apresentação das demonstrações financeiras
+do acréscimo mais se faz senti É esta base de apresentação que está na génese de toda a classe 3 - Terceiros, no-
+imeadamente no que se refere às dividas da entidade « das dadas à entidade, às provisões e às contas de proveitos
+à lacluras; encargos a pages, e, proveitos e encargos a repartir por períodos futuros.
+Base de apresentação das demonstrações financeiras - ACRÉSCIMO
+Excepto quanto é demonstração de fluxos de caixa, os demonstrações financeiros devem ser preparados
+na base do acréscimo. Sob este regime, os efeitos das operações e outros acontecimentos são reconhecidos
+quando ocorrem (independentemente da data em que ocorra o respectivo recebimento ou pagamento)
+sendo registados ¢ relatadas no periodo a que se referem. q
+Desta forma as Demonstrações financeiras informam os utentes não somente dos operações passadas 3
+envolvendo o pagamento é o recebimento de dinheiro, mas também das obrigações a pagar no futuro e de
+recursos que representem dinheiro a receber no futuro.
+A base do oxréstiino pressupõe ainda a utilização do conceito de balanceamento entre custos e proveitos
+De acordo com este conceito, as despesas são reconhecidas no demonstração de sesultados na base do
+‘elecionemento directo entre os custos incorridos é os ganhos que lhe estão associados Contudo, este con
+ceito não permite o reconhecimento de itens no Balanço que não sousfaçam os critérios de definição de
+activas e passives.
+Valorimetria
+Para os Terceiros, em geral, devem ser utilizados os seguintes critérios de valorimetria.
+* As contas a receber são valorizadas ao custo histérico ou ao valor de realização, dos dois o mais baixo;
+* As contas a pagar são, regra geral, valorizadas aa custo histórico, Em condições excepcionais as contas a
+pagar são valorizadas ao valor de fiquidação:
++ As transacções em moeda estrangeira devem ser valorizadas na moeda de relato,
+Valorimetria específica para as Contas a receber
+As contas a receber são valorizadas ao custo histórico ou ao valor de realização, dos dois o mais baixo.
+O custo histórico é 6 valor de registo inicial eventualmente corrigido para reflectir as seguintes situações
++ Os juros vencidos, relativos a dívidas que não tenham sido recebidas na data de pagamento.
++ Diferenças de câmbio não realizadas determinadas pela aplicação da taxa de câmbio à data de fecho as
+cquantias em moeda estrangeira em divida na data de relato.
+O valor realizável liquida é o vator pelo qual através de uma análise comercial, se espera que as divides possam
+ser recebidas. Na determinação deste valor deverão ser tidos em conta os valores que se espera que venham a
+ocorrer com:
+* Eventuais descontos e créditos que tenham de ser concedidos para conseguir cobrar as dividas,
+* Custos de esforço de cobrança.
+O ajustamento do custo histórico para © valor realizavel líquido quando este for inferior ao primeiro deverá ser
+reconhecido através da constiução de uma provisão para créditos de cobrança duvidosa, a qual será ajustada ou
+anulada quando se alterarem ou cessarem as razões que determinaram a sua constituição,
+{cf Políticas contebilsticas n®7 - Valorimetri, ponto 2.6)

@@ -1,0 +1,34 @@
+186 | pec pxricaDO
+Reconhecimento
+Esta conta é apresentada no balanço, ne conjunto dos actives correntes, inserida na rubrica de “Existências”. Em
+situações excepcionais pode aparecer no activo não corrente.
+Ver Figura 2 — Reconhecimento no Balanço: Closse 2
+Valorimetria
+Esta conta é valorizada pela quantia do adiantamento.
+Movimentação (esquemática), alguns exemplos :
+Seguidamente apresenta-se a movimentação esquemática de algumas das principais transacções que podem ocor
+rer no êmbito da conta em análise
+Adiantamento por conta de compras (com preço fixado)
+2 45.05 43. E 28.1 ou 28.2.
+Lembramas que o registo fito é para um adiantamento por canta de compras cujo preço esteja previamente fixado Caso
+o preço não esteja ficado a conta a utilizar seia a 225.1 ~Adiartarnentos
+Esta conta (28) será regularizada após a recepção e regista da compra, O registo da compra pressupõe o débsio da com
+tê 21.1 ou 21.2 nomeadamente para matérias-primas, subsichárias © consumo ou para mercadarias por crédito da conta
+22x - Fornecedores — correntes. Apés o registo ca Compra pracede-se à regulanzação do aciantamerto ce acordo com
+a morimentação (esquemática) seguinte
+Anulação / Regularização do adiantamento após recepção da factura
+à 28,1.x,0028.2.x : E 321% é
+Lo]
+CONTA 29 - PROVISÃO PARA DEPRECIAÇÃO DE EXISTÊNCIAS
+Esta rubrica destina-se a registar as diferenças refativas ao custo de aquisição ou produção, resultantes da aplicação
+dos eritérios de valorimetria definidos para as existências, isto é, a chlerença apurada entre o valor de custo e o
+valor realizáve! liquido, quando o primeira for superiar ao segundo.
+(rata explicativa à conto 29)
+Estrutura da conta
+A conta 29 — Provisão para depreciação de existências subdide- ce em
+29.1 -
+29.2 — Matérias-primas subsidiárias e de consumo
+29.3 - Produtos e trabalhos em curso
+28.4 — Produtos acabados e intermédios
+29.5 — Sub-produtes, desperdícios, resíduos e refugos
+29.6 -- Mercadorias

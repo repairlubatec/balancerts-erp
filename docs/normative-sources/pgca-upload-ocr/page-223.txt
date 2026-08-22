@@ -1,0 +1,34 @@
+am | poc-ExpicaDo
+CONTA 38 - PROVISÕES PARA COBRANÇAS DUVIDOSAS
+Esta conta, de natureza credora, destina-se a registar as perdas previsíveis associadas a riscos de cobrança das dia
+das de Terceiros, por forma a que estas sejam apresentadas pelo seu valor realizável líquido se este for inferior ao
+seu valor de registo inicial (corrigido, eventualmente, pelo efeito das diferenças de câmbio).
+As provisões são criadas por contrapartida das correspondentes contas de custos e são corrigidas ou anuladas
+quando, respectivamente, se reduzam ou cessem os motivos que as originaram,
+(Nata explicativo à conta 28)
+A conta 38 — Provisões para cobranças duvidosas subdivide-se em:
+38.1 — Provisões para clientes
+382 — Provisões para saldos devedores de fornecedores,
+383 — Provisões p/ participantes e participadas
+28.4 — Provisões pi dividas do pessoal
+389 — Provisões para outras saídos a receber
+Reconhecimento
+Esta conta é, para efeitos de apresentação no balanço, inserida no activo corrente ou nãa comente reduzindo o
+valor da rubrica contas a receber ou outros activos não correntes respectivamente. Caso a expectativa de cobran-
+ça seja inferior a um ano será considerada corrente, caso seja superior a um ano, será considerada não corrente.
+Ver Figura 3 — Reconhecimento no Bolanço' Classe 3
+Valorimetria
+O valor reconhecido como uma provisão para cobranças duvidosas deve ser a melhor estimativa do valara reduzir
+ao activo associadas a riscos de cobrança das dividas de Terceiros.
+A data de cada balanço, as provisões devem ser revistas de forma a estar reflectida a melhor estimativa Se se veri-
+ficar que à melhor estimativa do valor a reduzir ao activo naquela data é inferior ao valor registado, então deve ser
+feita uma reposição da provisão, no todo ou parte. Se a methor estimativa for superiar ao valor registado, então o
+valor registado deve ser reforçado.
+Apontamento Fiscal
+A este propósito sugerimos a consulta da apontamento fiscal constante na conta 78,|— Provisões do
+exercia.
+Movimentação (esquemática), alguns exemplos
+Seguidamente apresenta-se a movimentação esquemática de algumas das principais transacções que podem ocor
+rer no âmbito da conta em análise,
+Constituição da provisão para cobranças duvidosas
+a 38x : 2 Tat dx E

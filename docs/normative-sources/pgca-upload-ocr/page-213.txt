@@ -1,0 +1,32 @@
+ma | ®GG ~ EXPLICADD
+Conta 35.2 - Entidades participadas
+Esta conta está decomposta por tipo de entidade nomeadamente:
+35.2.1 — Estado
+3522 ~ Empresas do grupo - subsidiárias.
+35.2.3 — Empresas do grupo — associadas
+3524 - Outros
+Dentro de cada uma das sub-contas é feita a decompesição por:
+35241 of subscrição
+35.22 - ef adiantamentos sobre lucros.
+38243 ~ of lucros
+35.2x4 — Empréstimos
+Contas 35.2.1.1,35.22.1,35.2.3.1.35.2.4.1 ~ Entidades participadas — conta subscrição
+Estas contas, de natureza credora destinam-se a registar por contrapartida de Investimentos Financeiras, as subscri-
+ções de capital efectuadas em outras empresas. Estas contas serão saldadas, por contrapartida de meios monetá-
+rios, aquando do pagamento dos valores em divide.
+(note explicatiea às contas 35.21.t,35.2.2.1, 35.231, 3524.1)
+Contas 35.2.1.2, 35.2.2.2, 35.2.3.2, 35.242 — Entidades participadas — conta adiantamento sobre lucros
+Estas contas, de natureza credora, destinam-se a registar por contrapartida de meios monetários, as entregas rece-
+bidas por conta de lucros futuros, Estas contas serão saleadas, por contrapartida das contas Entidades participadas
+— conta lucros, aquando da atribuição efectiva dos lucros.
+{nota expicatho às contas 35.2 1.2, 35.222, 35.2.3.2, 5.24.2}
+Contas 35.2,1.3,35.2.2.3, 35,2.3.3, 35.2.4.3 - Entidades participadas — conta/lucros
+Estas contas, de natureza devedora, destinam-se a registar por contrapartida de proveitos fnanceiros, a atibuição
+de lucros decidida em Assembleia Geral de sócos/accionistas das participadas.
+Estas contas serão saladas da seguinte forma
+* For contrapartida das contas Entidades participadas — conta adiantamentos, pela parte que haja sido re-
+cebida adiantadamente
++ Por contrapartida de meios monetários, aquando do recebimento da parte remanescente:
+(nota explicativa às contos 35.2.1.3, 35.2.2.3, 38.2.33,3524.3)
+Contas 35.2.1.4,35.2.2.4,35.2.3.4,35.2.4.4 — Entidades participadas — Empréstimos
+Estas contas, de natureza credora, destinam-se a registar, os empréstimos obtidos das entidades participadas,

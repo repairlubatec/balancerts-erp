@@ -1,0 +1,37 @@
+20 | PGC— Expucapo
+Anulação / Regularização do adiantamento após recepção da factura
+5 32.9.1 e 324 © tona e
+1 TI
+. .
+e i= o :
+91 Recepção ea Sacre
+(1)  Ressanmação do atanamento
+Em caso de não chegar 2 haver fornecimento, é consequentemente existia deito à devolução do adiantamento efectuado,
+a conta de adantamentos será creditada por contapartida de uma conta de meios menecárias (43. ou 45:
+Conta 32.9.2 ~ Fornecedores - Saldos devedores — Embalagens a devolver
+Esta conta, de natureza devedora, regista 0 valor das embalagens enviadas pelos fornecedores poe virem à acondi
+cionar as bens comprados mas que se destinam a ser devolvidas ao fomecedor Esta conta será saldada cia seguinte
+forma
++ Por contrapartida da respectna conta de fornecedores — correntes, na data da devolução ao fornece-
+dor
+* Por contrapartida da respectiva conta de compras, caso as embalagens não sejam devolvidas ao fornece-
+dor dentro dos prezos acordados.
+(rota explicota à conta 329.2)
+Conta 32.9.3 - Fornecedores ~ Saldos devedores — Material à consignação
+Esta conta, de natureza devedora, é criada por contrapartida da respectiva conta de Fornecedores — comentes
+e regista o valor dos bens recebidos à consignação dos fornecedores. Esta conta será saldada da seguinte forma:
++ Por contrapartida da respectiva conta de compras, na data em que os bens tenham sido vendidos a clien
+tes deixando, portanto, ce estar à consignação,
++ For contrapartida da respectiva conta de fornecedores — corventes, em caso de devolução dos bens ao
+fornecedor por não terem sido vendidos,
+(roto explicativo à conto 32.9.3)
+CONTA 33 - EMPRÉSTIMOS :
+Esta rubrica destina-se a registar as empréstimos obtidos, sejam eles de instituições de crédito ou de outras entida-
+des, bem como a obienção de empréstimos por emissão de obrigações ou de títulos de participação, Exeluem-se
+os empréstimos abtidas provenientes de empresas participantes ou particpadas.
+Estrutura da conta
+A conta 33 — Empréstimos subdivide-se em
+33.1 — Empréstimos bancários
+33.2 — Empréstimos por cbrigações
+333 — Empréstimos por títulos de participação
+339 — Outros empréstimos obtidos

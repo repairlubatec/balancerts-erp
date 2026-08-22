@@ -1,0 +1,33 @@
+im | pee — exPLcaDo
+Conta 31.8 — Clientes de cobrança duvidosa
+Esta conta, conforme o próprio nome indica, destina-se & registar os dlientes cujos saldos tenham uma cobrabilida-
+de duvidosa Quando cessarem as razões que determinaram a transferência dos saldos para esta conta, o respec-
+tivo lançamento deverá ser revertido.
+(noto explicava à conto 31.8)
+O desenvolvimento desta conta atende à situação de ser um chente titulado ou não:
+31 -Clentes
+31,8 Clientes de cobrança duvidosa
+
+318.1 - Clientes — correntes
+
+3182 - Cientes — títulos
+Conta 31.9 ~ Clientes — Saldos credores
+Esta conta destina-se a registar as entregas feitas à empresa relativas à fornecimentos a efectuar a terceiros, cujo
+preço não esteja previamente fixada, bem com a registar o valor das embalagens enviadas aos clientes que se
+destinem a ser devolvidas e do valor dos bens enviados à consignação,
+Esta conta é decomposta em
+
+31.9.1 — Clientes — Saldos credores — Adiantamentos
+
+31,9,2 — Clientes — Saldos credores — Embalagens a devolver
+
+31.9.3 - Clientes ~ Saldos credores — Material à consignação
+Podendo ainda serem abertas contas do 31,24 20 31.9.9 para siluações específicas de cada entidade.
+Conta 31.9.1 Clientes ~ Saldos credores — Adiantamentos
+Esta conta regista as entregas feitas à empresa relativas a fornecimentos a efectuar a terceiros, cujo preço não es-
+teja previamente fixado, Aquando da emissão da factura, estas verbas serão transferidas para as respectivas contas
+na rúbrica Clientes — correntes,
+(nota explicativo à conta 31.9.1)
+Movimentação (esquemática), alguns exemplos
+Seguidamente apresenta-se a movimentação esquemática de algumas das principais transacções que podem ocor-
+rer-no âmbito da conta em análise.

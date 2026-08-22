@@ -1,0 +1,37 @@
+ms | PGC —EXPLICADO
+CONTA 39 - PROVISÕES PARA OUTROS RISCOS E ENCARGOS
+Esta conta, de natureza credora, destina-se a registar as perdas previsíveis associadas a riscos de natureza específica
+e provável (contingências).
+As provisões são criadas por contrapartida das correspondentes contas de custos e são corrigidas ou anuladas
+quando, respectivamente, se reduzam ou cessem os riscos previstos
+(noto explicativo à conta 39)
+A conta 39 Provisões para outros riscos e encargos subdivide-se em:
+39.1 - Provisões para pensões
+39.2 - Provisões para processos judiciais em curso
+39,3 — Provisões para acidentes de trabalho.
+394 — Provisões para garantias dadas a clientes
+39.9 — Provisões para gutros riscos e encargos
+Reconhecimento
+Esta conta é normalmente apresentada no balanço, no conjunto dos passivos não correntes, sendo inserida na ru-
+brica de “Provisões para pensões” a provisão para pensões e na rubrica “Provisões para outros riscos e encargos”
+as restantes provisões para outros riscos e encargos.
+Ver Figura 3 — Reconhecimento no Balanço Classe 3
+Valorimetria
+© valor reconhecido como uma provisão deve ser à melhor estimativa do dispêndio exigido para liquidar a cbr
+gação presente à data do balanço, ou seja; a quantia que uma entidade racionalmente pagaria para liquidar a obri-
+“gação ou para à transferir para uma terceira parte nesse momento,
+: CER TS
+BORE ERG eek Be RARO SEIS UE URU SAE Pa UNS ia SUR
+aa ee re ete eset eer ae treet oem
+A data de cada balanço, as provisões devem ser revistas de forma a estar reflectida a melhor estimativa Se se ve-
+rificar que a melhor estimativa do dispêndio futuro naquela data é inferior ao valor registado, então deve ser feta
+uma reposição da provisão, no todo ou parte, Se a melhor estimativa for superior so valor registado, então o valor
+registado deve ser reforçado,
+(Uma provisão é uma perda contingente, Se a provisão cumprir com os critérios de reconhecimento de passivo
+dave ser reconhecida, contudo se tal não acontecer trata-se de um passivo contingente que apenas será divulgado
+nas notas às contas se tiver materialidade.
+à ER EO
+Pere i Ma e eee NR a DD a
+eS Cc hee ace es
+ee
+RR ia

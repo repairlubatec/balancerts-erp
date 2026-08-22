@@ -1,0 +1,40 @@
+26 | Paco EXPLICADO
+Conta 36.3 - Pessoal — adiantamentos
+Esta conta, de natureza devedora, destina-se a registar e controlar os vales de empregadas relativos à adiantamen-
+tos efectuados a empregados por conta de remunerações futuras.
+Esta conta registará a débito, por contrapartida de meios monetários, os adiantamentos efectuados e será saldada
+por contrapartida da conta Pessoal — Remunerações após 0 registo do respectivo processamento de salários
+(nota explicativo às contas 28.3)
+Esta conta não tem no PGC - lista de contas qualquer decomposição, no entanto sugerimos que tal como nas
+restantes contas de pessoal seja decomposta por:
+363.1 — Órgãos sociais
+36.3.2 ~ Empregados
+Conta 36.9 — Pessoal ~ outros
+Esta conta destina-se a registar as relações com o“Pessoal” que não se enquadrem; no âmbito das contas anteriores.
+CONTA 37 - OUTROS VALORES A RECEBER E À PAGAR
+Esta rubrica destina-se a registar os movimentos referentes a valores a receber e a pagar não enquadradas nas
+contas anteriormente apresentadas nesta classe.
+Estrutura da conta
+A conta 37 — Outros valores a receber e @ pagar subdivide-se em:
+371 - Compras de imobilizado
+37.2 — Vendas de imobilizado
+37.3 — Proveitos a facturar
+374 — Encargos a repartir por períodos futuros
+375 — Encargos a pagar
+37.6 ~ Proveitos a repartir por períodos futuros
+37.7 — Contas transitórias
+379 — Outros valores a receber e a pagar
+Associada à conta 37 — Quiros valores a receber e a pagar está a conta 38 — Provisões para cobrança duvidosa,
+mais concretamente a conta 38.9 — Provisões para outros saldos a receber nomeadamente na questão da valori.
+zação subsequente,
+38 — Provisões para cobrança duvidosa
+38.9 — Provisões para outros saldos a receber
+A conta 38,9 e suas eventuais sub-contas são desenvolvidas no contexto da conta 38 — Provisões para cobrança
+duvidosa,
+Reconhecimento
+Esta conta é, em geral, apresentada no balança, no conjunto dos activos ou passivos correntes, inserida nas cubricas
+do activo:"Contas a receber"; "Qutros activos correntes” ou nas rubricas do passivo:“Contas a pagar” ou "Outros
+passivos conentes "consoante a natureza do saldo, Pode aparecer no activo ou passivo não corrente nas rubricas
+'Qutros actives não correntes” ou “Outros passivos não correntes”, nomeadamente quando a expectativa da
+cobrança for num prazo superior à { ano.
+Ver Figura 3 — Reconhecimento no Balança: Classe 3

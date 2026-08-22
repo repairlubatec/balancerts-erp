@@ -1,0 +1,32 @@
+te | PGC ExpucaDO
+CONTA 26 - MERCADORIAS
+Esta rubrica destina-se a registar os bens adquiridos pela entidade e destinados à venda sem que sejam objecto de
+qualquer modificação.
+(nota explicath & conta 26)
+Estrutura da conta
+A conta 26 — Mercadorias não tem qualquer subdivisão rígida podendo no entanto crianse sub-contas para melhor
+identificação do item
+Associada a esta conta Mertadorias está a conta 29.6 ~ Provisão para depreciação de existências — Mercadorias
+nomeadamente na questão do reconhecimento subsequente.
+29 - Provisão para depreciação de existências
+29.6 — Mercadorias
+A conta 29.6 e suas eventuais sub-contas são desenvolvida mais à fiente inseridas no conto 2º.
+Reconhecimento
+Esta conta é apresentada no balanço, no conjunto dos activos correntes, inserida na rubrica de “Existências”, Em,
+situações excepcionais pode aparecer no activo não corrente,
+Ver Figura 2 = Reconhecimento no Balanço: Classe 2
+Valorimetria
+Na valarimesris inicial as mercadorias devem ser valorizadas ao custo (de aquisição).
+Na velorimetria subsequente as mercadorias devem ser valorizadas ao custo (de aquisição) ou valor realizávei
+liquido, dos dois o mais baixo.
+Este facto acontece, normalmente, quando:
++ As existências estiverem danificadas.
++ As existências se tornarem total ou parcialmente obsoletas.
++ Os preços de venda tiverem diminuído para um valor abaixo do custo.
++ Os custos estimados para fazer a venda tiverem aumentado tomando o custo total estimado superior ao
+seu esperado valor de realização.
+O valor realizável líquido é, em casos específicas, equivalente ao:
++ Preço de contrato, no caso de quantidades de existências detidas para satistazer vendas firmes em contra-
+tos de prestação de serviços, nos quais © preço de venda acondado seja superior ao custo
++ Preços gerais de venda, para as restantes existências nos casos em que o respectivo custo for superior ao
+seu esperado valor de realização.

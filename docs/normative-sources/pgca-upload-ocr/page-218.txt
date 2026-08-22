@@ -1,0 +1,24 @@
+4. ExeUICAÇÃO AS Contas | am
+
+Valorimetria
+Porque se trata de uma conta que engíoba um conjunto diferenciado de sub-contas a valorização embora seja ao
+custo, tem características específicas consoante a sub-conta (ver em cada sub-conta as características específicas
+referente à valorimetria).
+Movimentação (esquemática), alguns exemplos
+
+Devido às característicos desta conta, as movimentações esquematicas encontram-se nas sub-contas respectivas.
+Conta 37.1 Compras de imobilizado
+Esta conta, de natureza credora. destina-se à registar as dividas para com terceiros resultantes de compras de
+imobilizado.
+Esta conta registard a crédito, por contrapartida das respectivas contas de imobilizado, os valores em divida e será
+saldada por conérapartida de meios monetários aquando do pagamento.
+(hota explicativa às contas 37.1)
+Compra de imobilizado (a crédito)
+
+> 3.x cu 45x E EAS Hoc ou 12x os Max
+Le tiros
+
+Conta 37.2 —Vendas de imobilizado
+Esta conta, de natureza devedora, destina-se a registar as dívidas de terceiros resultantes de vendas de imobilizado.
+Estas contas registarão a débito, por contrapartida das contas de resultados respectivas, os valores facturados e
+serão saldadas par contrapartida de meios monetários aquando do recebimento.

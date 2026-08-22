@@ -124,3 +124,21 @@ A página 234 identifica a **conta 45 — Caixa**, subdividida em **45.1 — Fun
 A página 236 identifica a **conta 49 — Provisões para aplicações de tesouraria**, com **49.1 — Títulos negociáveis** e **49.2 — Outras aplicações de tesouraria**. A conta ajusta a valorização inicial ao preço de mercado/valor de realização, usando 49.1 para títulos negociáveis e 49.2 para outras aplicações quando se justificar redução da valorização inicial. Na constituição de provisões, o esquema apresenta débito em **49.x** e crédito em **76.5.2.x** quando o valor de mercado é inferior ao custo de aquisição. Na reposição/anulação ou reforço, apresenta **66.7.2.x** e **49.x** contra **76.5.2.x**, com a legenda a distinguir reposição/anulação de provisões e reforço. O texto indica que 49.x mantém saldo credor ou nulo e que a reposição não pode exceder a provisão originária.
 
 **Estado:** transcrição OCR preliminar; confirmar o sentido exacto dos diagramas e a numeração da subconta 49.2 no original visual.
+
+## Evidência OCR — página 193, Classe 3
+
+A página 193 identifica a estrutura da **conta 31 — Clientes**: **31.1 — Clientes — correntes**; grupo com subsidiárias e associadas; não grupo com **31.1.2.1 — Nacionais** e **31.1.2.2 — Estrangeiros** conforme a leitura OCR. Na venda a crédito, a conta 31 é debitada pelas facturas, por crédito das contas de vendas **61.1 a 61.4**, e também por notas de débito, por crédito da conta de proveitos correspondente. É creditada por notas de crédito, por débito das contas **61.7 — Devoluções** e **61.8 — Descontos e abatimentos**, e no recebimento por débito em **43.x** quando cheque/transferência ou equivalente, ou **45.x** quando caixa. Para prestações de serviços, a conta de proveitos deve ser ajustada às subcontas da conta 62. A página remete ainda para a conta 34.2 quanto ao imposto de consumo.
+
+**Estado:** transcrição OCR preliminar; a hierarquia e os códigos devem ser confirmados visualmente e contra a fonte primária antes de confirmação normativa.
+
+## Evidência OCR — página 198, Classe 3
+
+A página 198 trata a **conta 32 — Fornecedores** como passivo monetário e apresenta o esquema “Compra a crédito (com descontos e devoluções) e pagamento”. O diagrama relaciona **32.x**, **21.x** e **43.x ou 45.x**, com a legenda de factura/nota de débito do fornecedor, descontos/devoluções e pagamento. O texto indica que a conta a creditar é **43.x** quando o pagamento é por cheque, transferência bancária ou equivalente, e **45.x** quando é em dinheiro/caixa. A conta 32 é creditada por facturas e notas de débito relacionadas com compras e debitada por notas de crédito do fornecedor, incluindo descontos, abatimentos e devoluções. A página identifica **32.1 — Fornecedores — correntes**.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente o diagrama e os códigos exactos antes de confirmação ou posting automático.
+
+## Evidência OCR — página 205, Classe 3
+
+A página 205 apresenta “Reconhecimento do pagamento imposto (qualquer imposto)”, com débito em **34.x** e crédito em **43.x ou 45.x**, e indica que as subcontas da conta 34 possuem movimentos específicos. Para subsídios a preços, o esquema relaciona **34.8.x**, **81.x** e **43.x ou 48.x** conforme a legenda de atribuição e recebimento do subsídio. A **conta 34.1 — Imposto sobre os lucros** regista relações com o Estado: a débito, pagamentos por conta e retenções efectuadas por terceiros; a crédito, a estimativa do imposto a pagar, por contrapartida das contas **87 — Imposto sobre lucros** e **81 — Resultados transitados**. A fonte sugere subdivisão por exercício e lista imposto provisório, retenções, rendimentos de capitais, imposto industrial estimado, colecta, tributações autónomas, apuramento, recuperar, pagar e regularizações.
+
+**Estado:** transcrição OCR preliminar de obra auxiliar; confirmar visualmente e não usar esta passagem para activar regras fiscais sem a fonte fiscal oficial correspondente.

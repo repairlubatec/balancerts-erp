@@ -1,0 +1,45 @@
+16 | PGC — exericaDo
+
+CONTA 32 - FORNECEDORES
+Esta rubrica destina-se a registar os movimentos com os vendedores de existências (mercadorias, matérias primas,
+etc.) e de serviços agindo nessa qualidade, ainda que estes sejam entidades como sócios, pessoal, Estado e outros
+entes públicos, et
+Estrutura da conta
+A conta 32 - Fomecedores subdivide-se em:
+
+32.1, - Fomecedores — correntes
+
+32.2 - Fomecedores - tfulos a pagar
+
+32.8 - Fornecedores ~ facturas em recepção e conferência
+
+32.9 — Fornecedores — saldos devedores
+Associada à conta 32 - Fornecedores está a conta 38 — Provisões para cobrança duvidosa, mais concretamente à
+conta 38.2 ~ Provisões para saldos devedores de fornecedores, nomeadamente na questão da valorização subse-
+quente
+
+38 — Previsões para cobrança duvidosa
+
+382 - Provisões para saldos devedores de fornecedores
+
+A conta 38.2 e suas eventuais sub-copias são desenvolvida mats à flente inseridas na corta 28
+Reconhecimento
+Esta conta é, em geral apresentada no balanço, no conjunto dos passivos correntes, Inserida na rubrica de “Contas
+apagar” Pode aparecer no passivo não corrente na rubrica" Outros passivos não correntes”, nomeadamente quan-
+do a expectativa da pagamento for rum prazo superior a | ano. Pode surgir também no activo, nomeadamente no
+caso das contas de fornecedores com saldo devedor seja no activo corrente (contas a receber), seja no passivo não
+corrente (outros activos não correntes) em função da expectativa de regularização ser a menos ou mais de | ano.
+
+Ver Figura 3 — Reconhecimento no Balanço: Classe 2
+Valorimetria
+Na valorimetria inicial os fornecedores são, regra geral, valorizadas ao custo histórico.
+As transacções em moeda estrangeira são valorizadas na moeda de relato determinada pela aplicação, à quantia
+de moeda estrangeira, da taxa de câmbio entre a moeda estrangeira e a moeda de relate à data da transacção.
+Na valorização subsequente os fornecedores sto, regra geral valorizadas ao custo histórico, Em condições excep-
+clonais os fornecedores são valorizadas ao valor de Iquisação.
+Na data de relata as transacções em moeda estrangeira são valorizadas na moeda de relate da seguinte forma
+
++ Pelo valor histórico (valorização do reconhecimento inicial), no caso de passivos monetários em que o
+câmbio terha sido previamente fixado.
++ Pelo valor histórico (valorização do reconhecimento inicial) no caso de passives não monetários aos quais,
+na data do reconhecimento inicial tenha sido atribuido um justo valor em moeda estrangera,

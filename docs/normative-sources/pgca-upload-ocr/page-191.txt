@@ -1,0 +1,56 @@
+mo | PGC —EXPLICADO
+Valorimetria específica para as Contas a pagar
+As contas a pagar são, regra geral, valorizadas ao custo histórico. Em condições excepcionais as contas a pagar
+são valorizadas ao valor de liquidação,
+O custo histórico é o valor de registo inicial eventualmente corrigido para reflectir as seguintes situações
+
++ Os juros vencidos, relativos a dívidas que não tenham sido pagas na data de vencimento.
+
+* Diferenças de câmbio não realizadas determinadas pela aplicação da taxa de câmbio à taxa de fecho às
+quantias em moeda estrangeira em divida na data de relato.
+
+Sempre que, em condições excepcionais 0 valor de liquidação for inferior ao custo histórico, como por exemplo
+na caso de ter havido uma redução ou um perdão de divida, a valor nominal é recuzido, de forma directa, para o
+seu valor de realização através de uma das seguintes formas:
+
++ Transformação em subsídio não reembolsável, a tratar de acordo com os critérios definidos para a reco-
+nhecimento de tais subsídios, se o perdão de divida for concedido mediante determinadas condições que
+© tornem assemelhável 3 um subsídio
+
+* Criação de um proveito extraordinário na Demonstração de resultados, se caí resultar um passivo não
+exigível
+
+(ef Folticos contabilsticas nº.7 - Volorimetria, ponto 2.7)
+
+Valorimetria específica para as Transacções em moeda estrangeira
+
+As transacções em moeda estrangeira devem ser valorizadas na monda de relato,
+
+No memento do reconhecimento inicia as transacções em moeda estrangeira são valorizadas na moeda de relate
+determinada pela aplicação, à quantia de moeda estrangeira, da taxa de câmbio entre a moeda estrangeira e à
+moeda de relato à data da transacção.
+
+Na data de relato, as transacções em moeda estrangeira são valorizadas na moeda de relato da seguinte forma
+
++ Pelo valor histórico (valorização do reconhecimento inicial. no caso de actives monetários em que o
+câmbio tenha sido previamente fixado.
+
++ Pelo valor histórico (valorização do reconhecimento inicial). no caso de activos não menetários aos quais,
+na data do reconhecimento mícia, tenha sido atribuído um justo valor em moeda estrangeira.
+
++ Pela taxa de fecho determinada pela aplicação, à quantia da mode estrangeira, da taxa de câmbio à data
+de fecho entre a moeda estrangeira é a moeda de relato, no caso de artivos monetários cujo câmbio não
+esteja previamente fixado,
+
+ef Políticas comabitsncas n° 7 - Volorimenia, ponto 2.4)
+CONTA 31 - CLIENTES
+Esta rubrica destina-se a registar as movimentos com os compradores de existências (mercadorias. produtos aca-
+bados, etc e de serviços agindo nessa qualidade, ainda que estes sejam entidades como sécios, pessoal, Estado «
+outros entes públicos, etc.
+Estrutura da conta
+A conta 31 — Clentes subdivide-se em;
+31.1 = Clientes ~ correntes
+31,2- Clientes — títulos 2 receber
+31,3 - Clientes — títulos descontados
+31.8 - Clientes de cobrança duvidosa
+31.9 — Clientes — saldos credores.

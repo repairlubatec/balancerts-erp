@@ -1,0 +1,37 @@
+noe | PEC ExPuICADO
+Movimentação (esquemática), alguns exemplos É
+Seguidamente apresenta-se a movimentação esquemática de algurnas das principais transacções que podem ocor-
+rerno âmbito da conta em análise.
+Reconhecimento do pagamento imposto (qualquer imposto)
+2 43x cu Ax : É 34x E
+Gi Piganerao coimas
+Nas diversas sub-contas dz conta 34 serão apresentados movimentos esquemáticos específicos com cada uma
+das sub-contas.,
+Subsídios a preços
+3 EE cs 34.8x E Bx 00 4B.x
+0 a)
+AU) Asbusão co sosoia
+49) Recebimema do súbito
+Conta 34.1 — Imposto sobre os lucros
+Esta conta destina-se a registar as relações com o Estado no que se refere a imposto sabre as lucros,
+A débito deverão ser registados os pagamentos por conta efeciuados e as eventuais retenções efectuadas por
+terceiros aquando da rolocação de rendimentos à disposição da entidade.
+A crédito deverd ser registada a estimativa de imposto a pagar relativa ao exercicio, por contrapartida da conta
+87 Imposto sobre lucros e da conta 81 — Resultados transitados,
+Quando se entender conveniente esta conta poderá ser subdividida por exercícios.
+(nota explicativa à conta 34.1)
+Para além da subdiisão por exercícios mencionada ra nota explicativa sugere-se pera efeitos de controlo e exi.
+denciação dos aspectos relacionados com esta tipologia de imposto a seguinte subdlvisão:
+34.1 — impesto sobre os lucros
+34.1.1 — Ano 201x
+34.1,1.1 — Imposto provisório
+34.1.1.2 - Retenções efectuadas por terceiros
+341.42 | - Rendimentos de Capitais
+34.113 — Imposto Industrial estimado
+34,1,1.3.1 — Imposto Industrial estimado ~ Colecta
+34.1,1.32 - Imposto Industrial estimado — Tributações Autónomas
+34.1, 14 — imposto Industrial — Apuramento
+34.15 — Imposto Industrial - Recuperar
+34.1.6 — Imposto Industrial ~ Pagar
+34.1,1.7 — Imposto Industrial - Regularizações
+2412
