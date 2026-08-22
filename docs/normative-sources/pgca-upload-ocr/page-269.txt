@@ -1,0 +1,37 @@
+xa | pec—exucao
+Conta 68.1 — Reposição de provisões
+Esta conta destina-se a registar de forma global, no final do período contabilítico, à variação negativa da estimativa.
+das riscos, em cada espécie de provisão (de natureza financeira), entre dois períodes contabilisticos consecutivos.
+{nota explicativo à contr 68,1)
+Esta conta está subdividida em:
+68.1.1 — Existências
+68.1.2 — Cobranças Duvidosas
+68.1.3 — Riscos e encargos
+Conta 68.1.1 - Reposição de provisões — Existências
+Esta conta destina-se a registar a variação negativa da estimativa da redução do valor realizável líquido das existên-
+cias, alve em períado contabilistico anterior de uma provisão para depreciação de existências.
+Esta conta é creditada por contrapartida da conta 29 — Provisões para depreciação de existências.
+Esta conta está subdividida em função do tipo de existência:
+68,1, — Existências
+68.1.1.) = Matérias-primas subsidiárias e de consumo
+681,12 ~ Produtos e trabalhos em curso
+68 1,| 3 ~ Produtos acabados e intermédios
+68,1. 4— Sub-produtos, desperdícios, resíduos e refugos
+681.15 - Mercadorias
+= | Paro maior esclarecimento sobre a movimentação desta conto, sugerimos que verifique a movimentação esque
+é mótico na conta 29, normendamente o movimentação referente à reposição ! reforço dos provisões.
+Conta 68.1.2 — Reposição de provisões-Cobranças Duvidosas
+Esta conta destina-se a registar a variação negativa da estimativa da redução do valor de realização dos valores a
+receber avo em período contabilstico anterior de uma provisão para cobranças duvidosas,
+Esta conta é creditada por contrapartida da conta 38 — Provisões para cobranças duvidosas.
+Esta conta está subdividida em função da tipo de devedor:
+68.1.2 — Cobranças Duvidosas
+684.21 — Clientes
+6B.1.2.2 — Clientes — títulos a receber
+68.1.2.3 — Clientes — cobrança duvidosa
+68,124 — Saldos devedores de fornecedores
+68,125 — Participantes e participadas
+68.1.2.6 - Divides do pessoal
+681.29 — Outros saldos a receber
+Para maior esclarecimento sobre a movimentação desta conta, sugerimos que verifique a movimentação esque-
+© | mútico na conta 38, nomeadamente a mevimentação referente à reposição f reforço das provisões,

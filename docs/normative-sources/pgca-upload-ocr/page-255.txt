@@ -1,0 +1,36 @@
+ast | poco exruicana
+Esta conta está subdividida em função do tipo de merzade (nacional ou estrangeiro)
+62.1.1 — Mercado nacional
+62.1,2 — Mercado estrangeiro
+As sub-contas Mercado Nacional e Mercado Estrangeiro deverão ser desenvolvidas por natureza de serviços prestados, 4
+(nota explicativa à conta 62.1)
+Conta 62.2 ~ Serviços secundários
+Esta conta destina-se a registar as prestações de serviço que façam parte da actividade da entidade e que não
+sejam consideradas actividades principais,
+Esta conta está subdividica em função do tipo de mercado (nacional ou estrangeiro):
+62.2.| - Mercado nacional
+62.2.2 — Mercado estrangeiro
+As sub-contas Mercado Nacional e Mercado Estrangeiro deverão ser deserivolvides por natureza de serviços prestados,
+(nota explicativo à conta 62,2)
+Conta 62.8 - Descontos « abatimentos
+Esta conta destina-se a registar os descontos e abatimentos em prestações de serviço que revistam a forma de
+descontos comerciais
+Esta conta está subdividida em função do tipo de mercado (nacional ou estrangeiro):
+628.1 — Mercado nacional
+62.82 — Mercado estrangeiro
+Para um maior controlo, as sub-contas Mercado Nacional e Mercado Estrangeiro poderão ser desenvolvidas por
+natureza de serviços prestados.
+(nora explicativa à conta 62.8)
+Conta 62.9 — Transferência para resultados operacionais
+Esta conta destina-se a receber os saldos das sub-contas da conta 62, sendo:
+Debitada por contrapartida do crédito da sub-conta com saldo devedor (conta 62.8);
+Creditada por contrapartida do débito das sub-contas com saído credor (contas 62.1 e 622)
+Após as operações acima mencionadas o saldo da conta 62.9 deve ser transferido para a conta 82.2 — Resultados
+operacionais — Prestações de serviço, conforme se pode visualizar no esquema seguinte.
+> 62.8 cs 629 se 624 E
+— —_— D+ —
+e 62.2 c | b 6.12 e
+[> da Po
+Os saldos des contas 62 | e 62.2 (caldos credores) e 62 8 (saldo devedor) são transferidos para a 62.9 que posteriormente
+transfere o seu soldo para a 822
+Fora complemento destes Fexos ver também a movimentação esquemáico de conta 82

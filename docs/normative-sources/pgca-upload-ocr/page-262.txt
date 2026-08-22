@@ -1,0 +1,50 @@
+4. EXPLICAÇÃO ÀS CONTAS | 261
+Conta 65.9 — Transferência para resultados operacionais
+Esta conta destina-se a receber 95 saldos das sub-contas ca conta 65 (contas 65.1 e 65.2), sendo creditada por
+contrapartida do débito dessas sub-contas.
+Após as operações acima mencionadas, o saldo da conta 65.9 deve ser transferido para a conta 82.5 — Resultados
+eperacionais - Trabalhos para a própria empresa, conforme se pode visualizar no esquema seguinte
+o 825 co 65.9 co 6541 < ‘
+Pero —— aaa
+o 65.2 e
+od e,
+— DT
+
+Os saldos das contas 65.1 e 652 ( saldos credores) são transferidos para a 65.9 que posteriormente transfere o seu saido
+
+paraa 825,
+
+Foro complemento destes fluxos ver também a movimentacio esquemática da canta 82.
+CONTA 66 - PROVEITOS E GANHOS FINANCEIROS GERAIS
+Esta rubrica cestina-se a registar os proveitos e ganhos financeiros gerais que devam ser reconhecidos no período.
+Estrutura da conta
+A conta 66 ~ Proveitos e ganhos financeiros gerais subdivide-se em
+
+66.1 Juros
+
+66.2 — Diferenças de câmbio favoráveis uy
+
+663 — Descontos de pronto pagamentos obtidos 4
+
+õ
+
+664 — Rendimentos de investimentos em imóveis
+
+665 — Rendimento de participações de capital
+
+66.6 — Ganhos na alienação de aplicações financeiras
+
+667 — Reposição de provisões
+
+669 — Transferência para resultados financeiros
+Reconhecimento
+Esta conta é apresentada na demonstração dos resultados por natureza e na demonstração dos resultados por
+funções na rubrica "Resultados financeiros”. Desta rubrica faz ainda parte a conta 76 sendo que o valor desta ru-
+brica nas demonstrações e o resultado da soma do saldo devedor da conta 76 — Custos e perdas financeiros gerais
+dedumido do saldo credor da conta 66 — Proveitos e ganhos financeiros gerais,
+
+= Ver Figura 6 ~ Reconhecimento na Demonstração des resultados por funções: Classe é
+; Ver Esgura 7 — Reconhecimento na Dermonstração des resultados por natureza: Classe 6
+
+Valorimetria
+Esta conta é valorizada pelo custo (valor nominal) dos "Proveites e ganhos financeiros gerais”

@@ -1,0 +1,44 @@
+a | PGC — ExPLICADO
+Movimentação E
+Referente aos movimentos a realizar durante o periodo/exercício.
+As sub-contas da conta 66 são creditadas por dénito de diversas contas em função da natureza da sub-conta.
+As contas a debitar em função da natureza da sub-conta poderão ser, entre outras:
+
+* Contas 43/45 (Depósitos à ordem e caixa) — se recebida no momenta do proveito, por exemplo no caso
+dos juros e dos rendimentos em imóveis;
+
++ Uma conta da classe 3 — Terceiros, se q recebimento não for a pronto ou se se destinar a regularizar uma ;
+conta de terceiros, como por exemplo, nas diferenças de câmbio favoréveis ou no pronto pagamento
+obtido;
+
+* Contas 19 e /ou 49 (provisões para investimentos financeiros e provisões para aplicações de tesouraria),
+no caso das reposições das provisões;
+
+* Conta 373 (Proveitos à facturar), no caso dos proveitos a reconhecer no próprio exercício para os quais
+ainda não tenha sido emitida a respectiva documentação vinculativa, por forma a dar cumprimento as
+princípio da especialização dos exercícios.
+
+* Conta 37.6 (Proveitos a repartir por períodos futuros), no caso dos proveitos cuja documentação vincula-
+tiva teriha sido registada no ano anterior e cujo proveito deva ser reconhecido neste exercício, por forma
+a dar cumprimento ao princípio da especialização dos exercícios,
+
+| Pora melhor esciarecimento sobre a movimentação destos contas, sugerimos verificar a movimentação (esque-
+: mática) de algumas comas conforme sugestão nas sub-contas 66.3, 66.5, 66.6 e 66,7
+Referente aos movimentos a realizar no fecho de contas.
+| Yer esquema na sub-conto 66.9
+Conta 66.1 —Juros
+Esta conta destina-se a registar os juros resultantes do uso, por terceiros. de dinheiro ou seus equivalentes, quer
+resultem de investimentos ou aplicações financeiras da entidade ou de atraso no recebimento de quantias devidas
+por terceiros.
+(nota explicativa à conta 66.1)
+Esta conta de juros está subdividida em:
+66.4.1 — De investimentos financeiros
+66.44.41 — Obrigações
+66.1.1,2 —Títulos de participação
+66.113 — Empréstinos
+66.1.1.9 - Outros
+66.1.2 — De mora relativos a dividas de terceiros
+66.1.2.1 — Dívidas recebidas 2 prestações
+66.122 — De empréstimos a terceiros
+66.1 4 — Desconto de títulos
+66.1.5 — De aplicações de tesouraria

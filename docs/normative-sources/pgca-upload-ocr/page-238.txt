@@ -1,37 +1,32 @@
-4. EXPLICAÇÃO ÀS CONTAS | 237
-A conta St — Capital não tem, na lista de contas do PGC, qualquer divisão para melhor se adaptar ás particularida-
+4 EXPLICAÇÃO ÀS CONTAS | 237
+A conta 5! — Capital não tem, na lista de contas do PGC, qualquer divisão para melhor se adaptar és par ticularica-
 des de cada entidade, No entanto deverá ser aberta uma sub-conta para cada emissão de capital
-Esta conta é apresentado no balanço, no conjunto do Capital próprio, inserida na rubrica de “Capital”.
+Esta conta € apresentada no bolanço, no conjemnto do Capitol próprio, inserida na rubrica de “Capital”
 Movimentação (esquemática), alguns exemplos
-Seguidamente apresenta-se a movimentação esquemática de algumas das principais transacções que podem ocor
+Seguidamente apresenta-se a movimentação esquemática de algumas das principais transacções que podem ocor-
 rer no âmbito da conta em análise,
 Subscrição do capital
-E EE É E Six e
-“Ll TT
-H
+a 38.1 E a SLx E
 A sub-conta da conta 35 a utilizar estará dependente da natureza da relação existente com a entidade participante, nomea-
-demente 35.1,1 Estado, 35.1.2 Empresas do grupo - subsidiárias, 35 1.3 Empresas do grupo - associadas e 35.1 4 Outros,
+damente 35.1, | Estado, 25.1.2 Empresas do grupo » subsidiárias, 35.1.3 Empresas do grupo - associadas ¢ 35.1.4 Outros,
 Redução ou aumento de capital :
-5 35.1.x ou 81x es six ER 35.1x.1 e
-|
-[E | (O)
-toy Recição de copies sa
-63 Aumento de cect! É
-3
-No caso do aumento de capital, este poderá acvir de várias stuagbes nomeadamente: da entrada de dinheiro; entrada de
-outros activos; transformação de reservas em capital ou corversão de passivos em capital
-A cobertura de prejuizos acumulados (crédito da conta 81), a saída de um séciofaccionista (erédito da conta 35). assim
-como a recução de capital em excesso (crédito da comia 35} poderão ser exemglificativos de siluações que provoquem
-uma redução ao capital (débito da coma 51).
-CONTA 52 - ACÇÕES / QUOTAS PRÓPRIAS oe
++ 35.1 x ou Bix = 5x e» 35.151 E
+i E ll] ty |
+fa) Redução de sani! É
+68% mento de ceotal É
+No caso do aumento de capital, este poderá advir de várias situações nomeadamente: da entrada de dinheiro; entrada de
+outros activos transformação de reservas em capital; ou conversão ee passivos em capital
+A cobertura de prejuízos acumulados (crédito da conta 81). a saida de um sócio/accionista (crédito da conta 35), assim
+como a redução de capital em excesso (crédio da conta 35) poderão ser exemplifcatvas de siuações que provocuem
+uma redução ao capital (débito da conta 51).
+CONTA 52 - ACÇÕES / QUOTAS PRÓPRIAS 2
 Esta conta destina-se a registar os movimentos com a aquisição e venda de instrumentos de capital próprio (acções
-€ Ou quotas) dz própria entidade.
+© ou quotas) da própria entidade
 Estrutura da conta
-A conta 52 - Acções ! Quotas Próprias subdivide-se em:
-52.4 Valor neminal
+A cemta 52 - Acções / Quotas Próprias subdivide-se ery
+52.1 Valor nominal
 522 - Descontos
 52.3 - Prémios
-Esta conta é apresentada no balance, no conjunto do Capital Próprio, inserida na nubrica de “Capital”
-EAE RR A ao O SA E a ein A! aS
-Res
-RE e ca
+Esta conta é apresentada no balanço, no conjunto do Capital Próprio inserido na rubrica de "Capital.
+FE ed CP eee
+Poa ST a as PR CRS accel cies AN du BARE ia O ech AT

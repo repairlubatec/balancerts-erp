@@ -1,46 +1,42 @@
-238 | PGC — EXPLICADO
+as | PGC ExmicaDO
 
-Conta 52.1 — Acções / Quotas próprias — valor nominal
-Esta conta destina-se a registar o valor nominal das acções ou quotas próprias adquiridas pela empresa
-(nota explicatwa à conta 52.1)
-Conta 52.2 - Acções / Quotas próprias — descontos :
-Esta conta destina-se a registar a diferença quando positiva entre o valor nominal das acções ou quotas próprias
-adquiridas pela empresa é o respectivo custe de aquisição.
+Conta 52.1 - Acções / Quotas próprias ~ valor nominal
+Esta conta destina-se à registar o valor nominal das acções ou quotas próprias adquiridas pela empresa
+(nov explicativa à conta 52.1)
+Conta 52.2 - Acções / Quotas próprias — descontos 5
+Esta conta destina-se a registar a diferença quando positiva entre © valar nominal das acções ou quotas próprias
+adquiridas pela empresa é 0 respectivo custo de aquisição.
 De forma a manter os descontos correspondentes às acções ou quotas próprias em carteira, esta conta deverá
-ser regularizada por contrapartida de reservas quando se proceder à venda das acções ou das quotas próprias,
-(pata explicativa à conta 52.2)
-Conta 52.3 — Acções / Quotas próprias — prémios
+ser regularizada por contrapartida de reservas quando se proceder à venda das acções ou das quotas próprias.
+(nota explicativa à conta 52.2)
+Conta 52.3 - Acções / Quotas próprias — prémios
 Esta conta destina-se a registar a diferença, quando negativa, entre o valor nominal das acções ou quotas próprias
-adquiridas pela empresa e o respectivo custo de aquisição
-De forma a manter os prémios correspondentes às acções ou quotas próprias em carteira, esta conta deverá ser
+adquiridas pela empresa e o respectivo custo de aquisição.
+De forma a manter os prémios correspondentes às acções ou quotas próprias em carteira, asta conta deverá ser
 regularizada por contrapartida de reservas quando se proceder à venda das acções ou das quotas próprias.
-(nota explicativa à conto 52.3)
-Movimentação (esquemática), alguns exemplos :
-Seguidamente apresenta-se a movimentação esquemática de algumas das principais transacções que podem ocor
-rer no âmbito da conta em análise.
+(nota explicaties à conta 52.3)
+Movimentação (esquemática), alguns exemplos
+Seguidamente apresenta-se & movimentação esquemática de algumas das principais transacções que padem ocor
+rerno âmbito da conta em análise.
 Aquisição de acções/quotas próprias (a prémio)
 
-o 521. .s 523. E 4 43x 0 45x :
+2 521. coe 523, es 43x 00 45x E
 
-iy o ©
+ty e 9
 
-(6 Valor nominal
+Wir noennst
 
-(©) Valor do prémio
+fo) Valor €5 prémio
 
-td Viter page
-Na aquisição de aceSes/quotas próprias existe prémio quando o valor pago pelas acções é superior ao seu valor
-nominal,
-Aquisição de acções/quotas próprias (a desconto)
+Meer pigo
+Na aquisição de acqSesiquotas próprias existe prémic quando o valor pago pelas acções é superior ao seu valor
+nominal
+Aquisição de acçõestquotas próprias (a desconto)
 
-o 52.1. 52.2. E 43x 0u 45x “
+2 Bal. 522. E 43x ou d5x €
 
-ca e is
+E [o “7
 
-(Valor nora
-
-(b) Veer do cescenta
-
-2) Veer page
-Na aquisição de acções/quotas próprias denomina-se descanta quando o valor pago pelas acções é inferior ao
-seu valor nominal,
+(ts Veer do cescenia
+Na aquisição de acções/quotas próprias denomina-se desconto quando o valor pago pelas acções é inferior ao
+seu valor nominal

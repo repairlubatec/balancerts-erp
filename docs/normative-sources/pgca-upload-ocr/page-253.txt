@@ -1,0 +1,47 @@
+ae | rac —exeucavo
+Quando surja uma incerteza acerca da cobrabilidade de uma quantia já incluída no rédito, a quantia ineabravel, ou
+a quantia a respeito da qual a recuperação tenha deixado de ser provável, é recorhecida coma um custo, © não
+como um ajustamento da quantia do rédito originalmente reconhecido,
+O rédito proveniente da prestação de serviços deve ser reconhecido quando estiverem satisfeitas todas as seguin-
+tes condições:
+* Condições gerais para o seu reconhecimento como proveito.
++ A faso de acabamento da transacção à data de balenço possa ser fiavelmente medida.
+* Os custos ocorridos ou a ocorrer referentes à transacção possam ser flavelmente
+Fase de acabamento da transacção:
+O reconhecimento do rédito com base na fase de acabamento é reconhecido nos períodos contabilisticos
+em que o service é prestado. Neste método, aplicam-se com as necessárias adaptações as disposições
+reletivas à contratos plurienais constantes das notas explicativas relativas a existências,
+Métodos para a determinação da fase de acabamento da transacção:
+Fara a determinação da fase de acabamento da transacção, deve ser usado © método mais fiável para
+medir os serviços executados Dependendo da natureza da transacção as métodas padem incluir
++ Levantamentos do trabalho executado.
++ Serviços executados até à data como uma percentagem do total dos serviços a serem prestados.
+* A proporção que os custos incorridos até à data tenham com os custos totais estimados da transação.
+Para este efeito somente os custos que reflictam trabalho executado até à data devem ser considera
+dos para determinação dos custos incorridos até à data e somente os custas que reflictam trabalho
+executado ou à executar devern ser incluídos nos custos totais estimados da transacção. Nem sempre
+os pagamentos progressivos e os adiantamentos recebidos de clientes reflectern os serviços executa-
+dos
+Elementos facilitadores da determinação de estimativas fiáveis:
+Normalmente, a empresa está em condições de fazer estimativas fiáveis se tiver acorcado com os parcei-
+ros da transação o seguinte:
++ Os direitos que cada uma das partes está obrigada a cumprir quanto ao serviço a ser prestado e rece
+bido pelas partes.
+* A retribuição a ser dada.
++ Amaneira e os termos da liquidação.
+Tratamento quando o desfecho da transacção não pode ser fiavelmente estimado:
+Quando o desfecho da transacção não puder ser flavelmente estimado nenhum lucro deve ser reconhe-
+cido mas devem ser usados os seguintes critérios:
++ Se se espera que os custos incorridas possam ser recuperades, o rédito deve ser reconhecido nessa
+mecida
++ Se se espera que os custos incorridos não possam vir a ser recuperados, ¢ rédito não deve ser reco.
+nhecido mas os custos incorridos devem ser reconhecidos como um custo.
+Situações particulares
+Honorários de Instalação:
+Os honorários de instalação são reconhecicos como rédito da seguinte forma:
++ Na data do reconhecimento da venda dos bens, se forem inerentes a essa venda.
++ De acordo com a fase de acabamento, se não forem inerentes à venda.
+Honorários de desenvolvimento de software a pedido do cliente:
+Os honorários de desenvolvimento de software a pedido do cliente são reconhecidos como rédito com referência
+à fase de acabamento do desenvolvimento (incluindo conclusão dos serviços proporcionados par assistência de
+serviços pás entrega)

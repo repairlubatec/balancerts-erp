@@ -1,29 +1,29 @@
-m | poc—ExpucaDo
+ma | PGC EXPLICADO
 CLASSE 6 - PROVEITOS E GANHOS POR NATUREZA
 INTRODUÇÃO
-Esta classe incluí os Proveitos e Ganhos respeitantes ao exercício.
-Os proveitos em sentido restrito são também conhecidos por Rédito.
+Esta classe inclui os Proveitos e Ganhos respeitantes ao exercício
+Os proveitos em sentido restrito cão também conhecidos par Rédito
 Esta classe é constituída pelas seguintes contas do 1° grau que se apresentam da seguinte forma:
 61 —Vendas
-62- Prestação de serviço
+62 — Prestação de serviço
 63 — Outros proveitos operacionais
-64 — Variação nos inventários de produtos acabados e de produção em curso
-65 — Trabalhos para a própria empresa
+64 —Variação nos inventários de produtos acabados e de produção em curso
+65 —Trabalhos para a própria empresa
 66 — Proveitos e ganhos financeiros gerais
-67 - Proveitos e ganhos financeiros em filiais e associadas
-68 — Outros proveitos e ganhos não operacionais
+67 - Proveitos é ganhos financeiros em filiais e associadas
+68 ~ Outros proveitos e ganhos não operacionais
 69 — Proveitos e ganhos extraordinários
 Reconhecimento
-As contas da classe 6 — Proveitos e ganhos por natureza, surgem de forma explícita ao longo da demonstração
+As contas da classe 6 — Proveitos e ganhes por natureza, surgem de forma explícita ao longo da demonstração
 dos resultados por natureza e no caso da demonstração dos resultados por funções surgem de forma implícita
-englobado nas diversas funções.
-As contas 6) a 65 tem linhas (rubricas) próprias na demonstração de resultados por natureza, enquanto as restan-
-tes contas surgem em termos líquidos (proveitos menos custos) englobadas nas contas de resultados apropriadas
-Assim a conta!
-* Qsaldo da conta 65 é deduzido do saldo da conta 76 e o valor líquido registado em resultados financeiras;
-* O saldo da conta 67 é deduzido do saldo da conta 77 e o valor líquido registado em resultados de filiais
-e associadas;
-«O saldo da conta 68 é deduzido do saldo da conta 78 e o valor liquide registado em resultados não ope-
-racionais;
-+ O saldo da conta 69 é deduzido do saldo da conta 79 e o valor líquido registado em resultados extraor-
+englobado nas diversas funções,
+As Contas 6 à 65 tem linhas (rubricas) próprias na demonstração de resultados por natureza, enquanto as restan-
+tes contas surgem em termos líquidos (proveitos menos custos) englobadas nas contas de resultados apropriadas.
+Assim a conta;
+* O saldo da conta 66 é deduzido do saldo da conta 76 e o valor Iquido registado em resultados financeiros,
+* O saldo da conta 67 é deduzido do saldo da conta 77 ¢ o valor líquido registado em resultados de filiais
+é associadas;
+* O saldo da conta 68 é deduzido do saldo da conta 78 e o valor lquido registado em resultados não ope-
+racionais
+* O saldo da conta 69 é deduzido do saldo da conta 79 é o valor líquido registado em resuitados extraor.
 dinários.

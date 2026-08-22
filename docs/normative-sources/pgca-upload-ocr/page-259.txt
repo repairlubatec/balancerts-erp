@@ -1,0 +1,55 @@
+me | PoC EXPLICADO
+CONTA 64 -VARIAÇÃO NOS INVENTÁRIOS DE PRODUTOS ACABADOS a
+E DE PRODUÇÃO EM CURSO N
+Esta conta destina-se a registar:
+
++ A crédito, a compensação dos custos incorridos ¢ registados, por natureza, nas respectivas contas de
+custos, que se relacionem com custos necessários à produção de bens e que devam, por essa razão, ser
+transferidos para existências.
+
+* A débito, os custos da produção vendida,
+
+O efeito líquido dos movimentos referidos dé, obviamente, a variação ocorrida nos produtos acabados € na pro-
+dução em curso
+
+Caso a entidade não disponha de meios para determinar separadamente os custos que devem ser compensados
+e 0 custo da produção vendida, a variação ocorrida nos produtos acabados e na produção em curso poderá ser
+determinada pelo diferencia! entre as existências iniciais e finais, devenda, neste caso, ser;
+
++ Debitada, pelo valor das existências iniciais de produtos acabados e da produção em curso,
+
++ Creditada, pelo valor das existências finais de produtos acabados e da produção em curso.
+
+Esta conta terá, naturalmente, saldo credor se o saldo final de produtos acabados e da produção em curso for
+maior que o saldo inicial e saldo devedor na situação inversa.
+(nota explicativa à conta 64)
+Estrutura da conta
+A conta 64 —Variação nos inventários de produtos acabados e de produção em curso subdlvide-se em
+
+64.1 — Produtos ¢ trabalhos em curso
+
+642 - Produtos acabados
+
+643 — Produtos intermédios
+
+649 —Transferéncia para resultados operacionais
+Reconhecimento
+Esta conta é apresentada nas demonstrações dos resultados por natureza e por funções na rubrica “Outros pro-
+veitos operacionais” no caso da conta ter saldo credor, ou "Outros custos e perdas operacionais! no caso da conta
+ter saido devedor
+
+Ver Figura 6 — Reconhecimento na Demonstração des resultados por funções: Classe 6
+
+Ver Figura 7 — Reconhecimento no Demonstração dos resultados por natureza: Classe 6
+Valorimetria
+Esta conta é valorizada pelo custo da produção ou pelo valor das existências finais de produtos acabados e da
+produção em curso (a crédito) e pelo custo dos produtos vendidos ou valor das existências iniciais de produtos
+acabados e da produção em curso (a débito).
+Movimentação É
+Referente aos movimentos a realizar durante o periodofexercicio.
+Relativamente às movimentações esquerndticas das contas 64 a 64.3. remeiemos para a movimentação esque-
+mática "Reconhecimento de produção acabados ¢ intermédios / Produtos ¢ trabalhos em curso / Sub-produtes,
+desperdícios, resíduos e refugos” constante da conta 24 — Produtos acabados « intermédios.
+Referente aos movimentos a realizar no fecho de contas
+
+2 Ver esquema na sub-conta 649.

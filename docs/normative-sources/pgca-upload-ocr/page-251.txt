@@ -1,0 +1,38 @@
+280 | PGC — ExpLiCaDO
+Conta 61.5
+Relativarnente às movimentações esquemáticas da conta 61.5, remetermos para a movimentação esquemática
+“Subsídios a preços” constantes da conta 34 — Estado.
+Referente aos movimentos a realizar no fecho de contas.
+TO ver esquema na sub-conta 61,9
+Contas 61.1 a 61.4 - Produtos acabados é intermédios, Sub-produtos, desperdícios, residuos e refugos,
+Mercadorias e Embalagens de consumo
+Esta rubrica dlestina-se a registar os proveitos (réditos) do exercício com as vendas dos diversos tipos de bens,
+Estas contas estão subdivididas em função do tipo de mercado (nacional ou estrangeiro)
+6.x. — Mercado nacional
+61,42 — Mercado estrangeiro
+Para meior controlo, as sub.contas Mercado Nacional e Mercado Estrangeiro poderão ser desenvolvidas por na-
+tureza de bens vendidos.
+Conta 61.5 ~ Subsídios a preços
+Esta conta destina-se a registar os subsídios a receber do Estado destinados à complementar os preços de venda
+de bens que tenham sido por ele fixados,
+{nota explicativa & conta 61.5)
+Conta 61.7 — Devoluções
+Esta conta destina-se a registar as devoluções de cientes relativas a bens que anteriormente lhe tenham sido
+vendidos.
+Esta conta está subdividida em função do tipo de mercado (nacional ou estrangeiro):
+61.7.1 ~ Mercado nacional
+61.7.2 - Mercado estrangeiro
+Para um maior controlo, as sub-contas Mercado Nacional e Mercado Estrangeiro poderão ser desenvolvidas por .
+natureza de bens devolvidos
+(nota explicativo à conto 6.7)
+Conta 61.8 ~ Descontos ¢ abatimentos
+Esta conta destina-se a registar os descontos e abatimentos em vendas que revistam a forma de descontos co-
+merciais
+Esta conta está subdividida em função do tipo de mercado (nacional ou estrangeiro);
+61.8.1 = Mercado nacional
+61 82 = Mercado estrangeiro
+(nota explicativa à conta 61.8)
+Conta 61.9 —Transferência para resultados operacionais
+Esta conta destina-se a receber os saldos das sub-contas da conta 61, sendo.
+Detitada por contrapartida do crédito das sub-contas com saido devedor (contas 617 © 61.8),
+Creditada por contrapartida do débito das sub-contas com saldo credor (contas 61.1 a 61.5)

@@ -1,36 +1,38 @@
-236 | PGC EXPLICADO
+ms | PGC— EXPLICADO
 CLASSE 5 - CAPITAL E RESERVAS
 INTRODUÇÃO
-Esta classe destina-se a registar as operações referentes ao capital próprio da entidade, com excepção dos resulta-
-dos do exercício © dos resultados transitados que são registados na classe &,
+Esta classe destina-se a register às operações referentes ao capital próprio da entidade, com excepção dos resulta-
+dos do exercício e dos resultados transitados que são registados na classe 8,
 Esta classe é constituída pelas seguintes contas do 1.º grau:
-51 - Capital
-52 — Acções / Quotas Próprias
+51 — Capital
+52 - Acções / Quotas Próprias
 53 - Prémios de Emissão
 54 — Prestações Suplementares
 55 — Reservas Legais
 56 — Reservas de Reavaliações
-57 - Reservas com Fins Especiais
+57 ~ Reservas com Fins Especiais
 58 — Reservas Livres
 Reconhecimento
-As contas da classe 5 — Capital e reservas, surgem no balanço ne "Capital próprio e passivo” mais concretamente
-na componente do balanço = Capital próprio - nas rubricas "Capital" e "Reservas",
-Balanço era xxhochooce Valores expressos em
+As cantas da classe 5 — Capital e reservas, surgem no balanço no “Capital práprio e passiva” mais concretamente
+na componente do balanço ~ Capital próprio - nas rubricas "Capital" e “Reservas”
+Balanço em xexhoxboooe Valores expressas am
+Breracios
 Designação Notas
-CAPITAL PRÓPRIO E PASSIVO |
+EE
+CAPITAL PRÓPRIO E PASSIVO
 Capital próprio
-Capital 12
-Reservas 13
-Total do capital próprio |
-Figura 5 — Reconhecimento no Balanço: Classe 5
+Capital 2
+Reservas E
+Total do capital próprio
+Figura 5 - Reconhecimento no Balanço: Classe 5
 Valorimetria
-Os itens que compõem as rubricas de “Capital” e de "Reservas", em geral, devem ser valorizados a0 custo (valor
+Os itens que compõem as rubricas de “Capital” e de “Reservas”, em geral, devem ser valorizados ao custo (valor
 nominal) do reconhecimento inicial
 CONTA 5! - CAPITAL
-Esta conta destina-se a registar
-+ O capital nominal subscrito das empresas sob a forma de sociedade.
-* O capital inicial e as dotações de capital das empresas públicas
-+ O capital inicial o adquirido e ainda as operações de natureza financeira cam o respectivo proprietário no
-caso de comerciantes em nome individual,
-* O capital das cooperativas
-(nota explicativa O conta 51)
+Esta conta destina-se a registar:
+* O capital nominal subscrito das empresas sob a forma de sociedade
++ © capital inicial © as dotações de capital das empresas públicas.
+* © capital inicial, o adquirido e ainda as operações de natureza financeira com o respectivo proprietário no
+caso de comerciantes em nome individual
+* O capital cas cooperativas.
+(nota explicativa à conta 51)

@@ -1,0 +1,44 @@
++ EXPLICAÇÃO às CONTAS | 259
+Contas 64.1 a 64.3 — (Produtos e trabalhos em curso, Produtos acabados ¢ Produtos intermédios)
+Esta conta, destina-se a registar:
+Se em Inventário permanente:
++ A crédito o custo da produção
++ A débito o custo dos produtos vendidos.
+Se em inventário intermitente:
++ A crédito o valor das existências finais de produtos acabados é da produção em curso
++ A débito o valor das existências iniciais de produtos acabados e da produção em curse
+Contas 64.4 a 64.8 — (Livre)
+Esta conta, destina-se a registar outros itens que não os contemplados anteriormente, por exemplo, sub-produtos.
+Conta 64.9 — Transferência para resultados operacionais
+Esta conta destina-se a receber os saldos das sub-contas da conta 64 Como estas sub-contas têm a particularidade
+de poder ter saldo devedor ou saldo credor, a conta 649 será:
+Diebitada por conirapartida do crédito das sub-contas com saldo devedor;
+Creditada por contrapartida do débito das sub contas com saldo credor
+Após as operações acima mencionadas, o saldo da comia 649 deve ser transferido para a conta 82.4 — Resultados
+operacionais —Variação nos inventários de produtos acabados e de produtos em vias de fabrico!” conforme se
+pode visualizar no esquema seguinte.
+o 82.4 ia o 64.9 < o 64.1 e
+» 2
+Bos
+E
+7
+Bs 64.2 ©
+e ey
+E) o
+o 643 © Eq
+Fj o
+E
+«3 Lançamento de transferência se 0 saldo for condor
+ty. Lançamento de ransferência se o saldo dr devedor
+É (Os saldos das contas 54. 2 64.3 ( saldos devedores cu credores) são transferidos para a 64.9 que posteriormente transfere
+o seu saldo (credor ou devedor) para a 824.
+Para complementa destes fluxos ver também a movimentação esquemática da conta 82.
+CONTA 65 - TRABALHOS PARA A PRÓPRIA EMPRESA
+Esta conta destina-se a compensar os custos incorridos e registados, por natureza, nas respectivas contas de custos
+relativos a trabalhos que a entidade tenha realizado para si mesma, sob a sua adrninistração directa, aplicando meios
+próprios ou adquiridos para o efeito,
+Estes trabalhos podem destinarse ao seu imobilizado ou podem referirse a situações que, pela sua natureza,
+devatri ser repartidos por vários exercícios (caso em que serão registados por débito da 374 Encargos a repartir
+por exercícios futuras)
+(nota explicativa à conta 65)
+TI] © PCC utiliza indierentemente e como equivalentes a expressão “produtos em vas de fabrico” “produtos em curso

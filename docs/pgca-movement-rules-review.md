@@ -36,3 +36,27 @@ A secção “Constituição ou reforço de depósito a prazo” apresenta débi
 A mesma página identifica **43 — Depósitos à ordem** como meios de pagamento em contas à vista, normalmente com saldo devedor e classificada no activo corrente; saldo credor é descrito como passivo corrente quando os meios utilizados excedem os disponíveis. A movimentação esquemática indica levantamento/pagamento e depósito/recebimento, com contrapartidas dependentes da natureza da transacção.
 
 **Estado:** OCR preliminar da fonte auxiliar fornecida; confirmar visualmente cada esquema antes de converter em regra contabilística activa.
+
+## Evidência OCR — páginas 238 e 239, Classe 5
+
+A página 238 identifica a **conta 51 — Capital** como parte do capital próprio. Regista que deve ser aberta uma subconta por emissão de capital. Na subscrição do capital, o esquema apresenta débito em **38.1** e crédito em **51.x**. Para redução ou aumento de capital, o texto descreve o aumento por entrada de dinheiro, outros activos, transformação de reservas em capital ou conversão de passivos em capital. A cobertura de prejuízos acumulados é indicada por crédito da conta 81; saída de sócio/accionista e redução de capital em excesso são descritas como situações que provocam débito na conta 51.
+
+A página 239 identifica as subcontas **52.1 — Acções / Quotas próprias — valor nominal**, **52.2 — Acções / Quotas próprias — descontos** e **52.3 — Acções / Quotas próprias — prémios**. Na aquisição a prémio, o esquema apresenta débito em **52.1**, débito em **52.3** e crédito em **43.x ou 45.x**. Na aquisição a desconto, apresenta débito em **52.1**, crédito em **52.2** e crédito em **43.x ou 45.x**. O texto explica que prémio corresponde a valor pago superior ao nominal e desconto a valor pago inferior ao nominal.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente os esquemas e preservar a designação exacta do diploma/fonte oficial antes de activar qualquer regra.
+
+## Evidência OCR — páginas 241 e 242, Classe 5
+
+A página 241 identifica a **conta 54 — Prestações suplementares** e indica que deve ser aberta uma subconta por cada prestação suplementar existente. Na deliberação, o esquema relaciona 35.1.x e 54.x; no recebimento/realização, apresenta **43.x ou 45.2.x** contra **35.1.x**. A página identifica também a **conta 55 — Reservas legais**, destinada a reservas constituídas por imposição legal.
+
+A página 242 apresenta a “Constituição da reserva legal”, com débito em **81.x** e crédito em **55.x**. Para a **conta 56 — Reservas de reavaliação**, lista **56.1 — Legais**, **56.1.1 — Decreto-Lei n.º**, **56.1.2 — Decreto-Lei n.º**, **56.2 — Autónomas**, **56.2.1 — Avaliação** e **56.2.2 — Realização**. O esquema de avaliação/realização relaciona **58.x**, **56.x** e **11.x ou 12.x**; a distribuição exacta dos débitos/créditos deve ser confirmada visualmente no diagrama original.
+
+**Estado:** transcrição OCR preliminar; os códigos genéricos com `x` e os movimentos de reservas permanecem pendentes de confirmação visual literal.
+
+## Evidência OCR — página 244, Classe 5
+
+A página 244 apresenta a movimentação da **conta 57 — Reservas com fins especiais**: a conta é creditada, entre outras situações, por contrapartida da **conta 81.2 — Resultados transitados / Aplicação de resultados**, no âmbito da aplicação do resultado; e é debitada, entre outras situações, por contrapartida da **conta 51 — Capital**, no âmbito de eventual aumento de capital.
+
+Para a **conta 58 — Reservas livres**, o texto indica crédito por contrapartida da **conta 81.12 — Resultados transitados / Aplicação de resultados**, no âmbito da aplicação do resultado, ou da **conta 56 — Reservas de reavaliação** no âmbito da realização destas. Indica débito por contrapartida da **conta 51 — Capital**, no âmbito de eventual aumento de capital, ou da **conta 81 — Resultados transitados**, no âmbito da cobertura de prejuízos.
+
+**Estado:** OCR preliminar; a leitura visual e a normalização de referências como `81.2`/`81.12` são obrigatórias antes de confirmação ou parametrização automática.

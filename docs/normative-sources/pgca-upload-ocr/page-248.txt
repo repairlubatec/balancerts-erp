@@ -1,0 +1,41 @@
+4 EXPLICAÇÃO ÀS CONTAS | 7
+Reconhecimento
+Esta conta é apresentada nas demonstrações de resultados por natureza e por funções na rubrica “Vendas”,
+Ver Figura 6 — Reconhecimento na Demonstração dos resuliados por funções: Classe 6
+Ver figura 7 — Reconhecimento na Demonstração dos resultados por natureza: Classe é
+Valorimetria
+O rédito deve ser medido pelo justo valor da retribuição recebida ou a receber, acordada entre a empresa e o
+comprador ou utente do activo, tendo em atenção a quantia de quaisquer descontos comerciais ¢ de abatimentos
+de volume concedidos pela entidade
+Quando surja uma incerteza acerca da cobrabilidade de uma quantia já incluída no rédito, à quantia incobrável, ou
+a quantia a respeito da qual a recuperação tenha deixado de ser provável, é reconhecida como um gasto, e não
+como um ajustamento da quantia do rédito originalmente reconhecido
+Situações particulares:
+infiuxos com recebimento diferido:
+Quando um influxo de dinheiro ou equivalentes de dinheiro for diferido, o justo valor da retribuição pode ser
+menor do que à quantia nominal do dinheiro recebido ou a receber Nestes casos, quando o influxo constitua uma
+transacção de financiamento, o justo valor da retribuição deve ser determinado, descontando todos os recebimen
+tos futuros, utlizando uma taxa de juro imputada. Esta taxa é a mais claramente determinável de:
++ Taxa de um instrumento similar de um emitente com uma classificação de crédito similar
+* Taxa de juro que desconte a quantia nominal do instrumento para o preço de venda corrente, a dinheiro,
+dos bens ou serviços
+A diferença entre o justo valor é a quantia nominal da retribuição é reconhecida como récito de juros.
+Influxos resultantes de troca de bens:
+Quando os bens sejam vendidos ou os serviços sejam prestados em troca de bens ou serviços dissernelhantes, à É
+troca é vista como uma transacção que gera réditos, O rédito é medido da seguinte forma: E
++ Pelo justo valor dos bens ou serviços recebidos ajustados pela quantia transferida de qualquer dinheiro ou ©
+seus equivalentes, ou quando este não possa ser medido com fiabilidade
++ Pelo justo valor dos bens entregues ajustados pela quantia transferida de qualquer dinheiro
+Influxos resultantes de transacção Unica mas com componentes separadamente identificáveis:
+Quando numa transacção única existam componentes separadamente identificáveis, estas devern ser analisadas em
+separado para efeitos de reconhecimento do rédito. Por exemplo, quando o preço de venda de um produto inclua
+uma quantia identificável de serviços subsequentes, essa quentia deve ser diferica e reconhecida como um rédite
+durante o período em que © serviço seja desempenhado.
+Influxos resultantes de transacções com forma separada mas com uma substância económica única:
+Quando em transacções com forma separada exista uma substância única, estas devem ser analisadas em conjunto
+para efeitos de reconhecimento do rédito: Por exemplo, se ao vender determinado bem se entrar num acordo se-
+parado para o recomprar numa data pesteriar, negando assim os efeitos substantivos das transacções, estas devem,
+par conseguinte, ser tratadas conjuntamente.
+Avaliação da transferência de riscos e recompensas da propriedade para o comprador:
+Esta avaliação exige um exame das circunstâncias da operação. Na maior parte dos casos, esta transferência coin-
+cide com à trarsferência do documento legal ou da passagem ce posse para o comprador

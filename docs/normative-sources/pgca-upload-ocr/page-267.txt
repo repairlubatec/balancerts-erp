@@ -1,0 +1,34 @@
+26 | PGC — ExPLICADO
+Movimentação ae
+Referente aos movimentos a realizar durante o periodo/exercicio,
+As sub-contas da conta 67 são creditadas por débito de diversas contas em função das diversas situações possíveis,
+Refarente aos movimentos a realizar no fecho de contas.
+2° * ver esquema no sub-conta 67.9
+Conta 67.1 - Rendimentos de participação de capital
+Esta conta destina-se a registar os dividendos e lucros recebidos de empresas subsidiárias e associadas,
+(nota explicativo à conta 67.1)
+Esta conta está subdividida em
+67.1.1 - Subsidiárias
+67.1.2 — Associadas
+
+Para indior esclarecimento sobre a movimentação desta conta, sugerimos que verifique a movimentação esque-
+
+imútica da conta 35.2 — Lucros avibuitos e seu recebimento.
+Conta 67.9 — Transferência para resultados financeiros
+Esta conta destina-se a receber os saldos da sub-conta da conta 67 (conta 67.1), sendo creditada por contrapartida
+do débito dessa sub-conta.
+Após as operações acima mencionadas, o saldo da conta 67.9 deve ser transferido para a conta 84 | — Resultados
+financeiros em fihiais © associadas — Proveitos e ganhos financeiros em filiais é associadas, conforme se pode visua-
+lizar no esquema seguinte
+
+ai 84.1 E e 67.9 e o 67.1 €
+
+O saldo da conta 67.1( saldo credor) é transferido para a 67.9 que posteriormente transfere o seu saldo para a 84,
+
+Pora complemento destes jluxos ver também a movimentação esquemática da conta 84,
+CONTA 68 - OUTROS PROVEITOS E GANHOS NÃO OPERACIONAIS :
+Esta conta destina-se a registar os factos ou acontecimentos de natureza corrente que tenham carácier não recom
+rente ou não frequente.
+Sempre que os factos ou acontecimentos em causa envolvem custos e proveitos, esta rubrica registard ambos se
+o efeito líquido de tais acontecimentos e factos for de natureza credora.
+(nota explicativo & conta 68)

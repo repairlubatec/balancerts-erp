@@ -1,0 +1,34 @@
+4 EXPLICAÇÃO AS contas | ass
+CONTA 63 - OUTROS PROVEITOS OPERACIONAIS et
+Esta rubrica destina-se a registar os proveitos operacionais do exercício que não se enquadrem nas contas anteriores,
+Estrutura da conta
+A conta 63 ~ Outros proveitos operacionais subdivide-se em: i
+63.1 — Serviços Suplementares
+632 - Royoltes
+63.3 - Subsídios à exploração
+634 — Subsídios a investimento
+€38 — Outros proveitos e ganhos operacionais
+€3.9 — Transferência para resultados operacionais
+Reconhecimento
+Esta conta é apresentada nas demonstrações dos resultados por natureza e por funções na rubrica "Outros pro-
+veitos operacionais”.
+cs Ver Figura 6 — Reconhecimento na Demansiração dos resultados por finções: Classe 6
+Ver Figura 7 — Reconhecimento na Demonstração dos resultados por natureza: Classe &
+Valorimetria
+Esta conta é valorizada pelo custo (valor nominal) dos “Outros proveitos operacionais”
+Movimentação SF
+Referente aos movimentos a realizar durante o periodo/exercicio. E
+%
+As sub-contas da conta 63, com excepção da conta 63.9, que tem um movimento particular, são creditadas por a
+débito de diversas contas em função da natureza da sub-conta.
+Contas 63.1 e 632 são creditadas por débito de
+* Caixa / depósitos à ondem (conta 43x / 45.x), se OS proveitos forem recebidos a pronto;
++ Pela respectiva conta de terceiros, por exemplo conta 31 — Clientes, se a facturação dos serviços prestados
+ou dos royalties for a crédito; ou
+* Pela conta 373 — Proveitos a facturar, no caso da especialização do exercício,
+* É Conta 63.3 — {para melhor esclarecimento sobre a movimentação desta conta, sugenmos @ consulta da movi-
+mentação (esquemática) da conta 34 — Estado / Subsídios a preços).
+Conta 63,4 — (para melhor esclarecimento sobre a movimentação desta conta, sugerimos a consulta da mevi-
+mentação (esquesnática) da conta 37.6 — Proveitos a repartir por periodos futures).
+Referente aos movimentos a realizar no fecho de contas
+ver esquema no sub-conta 63.9.

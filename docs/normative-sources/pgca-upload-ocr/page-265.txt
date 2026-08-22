@@ -1,0 +1,38 @@
+2 | Poc—boucao
+«5, Para moior esclarecimento sobre o movimentação desta conta, sugerimos verificar a imavimentação esquemático
+| a conta 35.2
+Conta 66.6 — Ganhos na alienação de aplicações financeiras
+Esta conta destina-se a registar os ganhos provenientes da alienação de aplicações financeiras, sendo as respectivas
+sub-contas creditadas pelo produto da venda e amortizações respectivas (no caso de investimentos em imóveis)
+e debitadas pelos custos correspondentes.
+{nota explicativa à conta 66,6)
+Esta conta está subdividida ern:
+666,| ~ Investimentos financeiros
+666.11 = Subsidiárias
+6666, |.2 — Associadas
+664,13 Outras empresas
+66.6. | 4 — Imóveis
+66.6,1.9 — Qutros investimentos Fundos
+66.6.2 —Titulos negociáveis
+| Para maior escorecimenta sobre o movimentação desta cor, sugerimos verificar o movimentação esquemático
+conta 44,
+Conta 66.7 - Reposição de provisões
+Esta conta destina-se 3 registar de forma global, no final do periodo contabilítico, a variação negativa da estimativa
+dos riscos, em cada espécie de provisão, entre dois períodos cortabilisticos censecutivos, que seja de natureza
+financeira (nota explicativa à conto 66.7)
+Esta conta está subdivide em
+667.1 = Investimentos financeiros
+Cuja conta de provisões acumuladas é a 19 Provisões para investimentos financeiros
+667.1.1 — Subsidiárias
+66.7.1.2 — Associadas
+667,13 — Outras empresas
+667.1.4 — Fundos
+667.19 — Outros investimentos
+66.72 — Aplicações de tesouraria
+Cuja conta de provisões acumuladas é a 49 Provisões para aplicações de tesouraria
+66721 Títulos negociáveis
+867.22 - Depésitos a prazo.
+667.2.3 — Qutros depósitos
+667.29 — Outros investimentos
+Para maior esclarecimento sobre o movimentação desta conta, sugerimos verificar a movimentação esquemático
+à conta 13,

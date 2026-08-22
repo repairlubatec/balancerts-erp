@@ -1,0 +1,35 @@
+4 EXPLICAÇÃO AS CONTAS | 265
+Conta 66.9 — Transferência para resultados financeiros
+Esta conta destina-se a receber os saldos das sub-contas da conta 46 (contas 66 | a 66.7), sendo creditada por
+contrapartida do débito dessas sub-contas
+Após às operações acima mencionadas o saldo da conta 669 deve ser transferido para a conta 83.1 — Resultados
+financeiros — Proveitos e ganhos financeiros gerais, conforme se pode visualizar no esquema seguinte.
+o 83.1 coe 669 cs» EM <
+— D+ —— D+]
+° $6.2 <
+——___.
+o 66.3 <
+—_——__—
+ai 66.4 É
+——— D+
+E $6.5 cid
+E 66.6 =
+e 66.7 hd
+(Os saldos das contas 66.1 a 657 ( saldos credores) são transferidos para a 669 que posteriormente transfere o seu saldo
+para a 534
+É Bora complemento destes fios ver também o movimentação esquemdtca da conta 83
+CONTA 67 - PROVEITOS E GANHOS FINANCEIROS EM FILIAIS E ASSOCIADAS à õ
+Esta rubrica destina-se a registar os rendimentos de participações de capital em filiais e associadas
+Estrutura da conta
+A conta 67 — Proveitos e ganhos financeiros em fais © associadas subdivide-se em
+67.1 — Rendimento de participações de capital
+87.9 Transferência para resultados em filais é associadas
+EM eee ane renter en ere emus
+srr ld rs s-='
+Reconhecimento
+Esta conta é apresentada na demonstração de resultados por netureza e na demonstração de resultados por fun-
+ções na rubrica "Resultados de filais e associadas” Desta rubrica faz ainda parte @ conta 77, sendo que o valor des-
+te rubrica nas demonstrações é 0 resultado da soma do saldo credor da conta 67 — Proveitos e ganhos financeiros
+em filais e associadas deduzido do saldo devedor da conta 77 — Custos e perdas financeiros em filiais e associadas.
+Ver Figura 6 — Reconhecimento ne Demonstração dos resultados por funções: Classe 6
+Ver Figura 7 - Reconhecimento no Demonstração dos resultados por natureza: Classe 6

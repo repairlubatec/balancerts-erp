@@ -1,0 +1,38 @@
++ EXPLICAÇÃO ÀS CONTAS | 281
+Após as operações acima mencionadas, o saldo da conta 6 19, que será em principio credor, deve ser transferido
+para a conta 82.1 — Resultados operacionais — Vendas, conforme se pode visualizar no esquema seguinte,
+a 67 ¢ 5 619 EE D 6 dd
+e EP a
+5 618 ¢ e 642 ©
+i ind O
+id 82 c > 613 =
+o TT —_—-_- To
+E 614 e
+—
+o 61.5 de
+.—— 5
+Os saldos das contas 61.1 à 61.8 ( saldos credores 61.1 a 61.5 & saldos devedores 61.7 € 61.8) são transferidos para a 619
+que posteriormente transfere a seu saldo para a 82.1
+| Pora complemento destes fos, ves tormibém a mearenagao esquema da conto 821
+CONTA 62 - PRESTAÇÕES DE SERVIÇO A
+Esta conta destina-se a registar o rédito proveniente das prestações de servicos.
+A prestação de serviços envolve tipicamente o desempenho por uma entidade de uma tarefa contratualmente
+acordada durante um período de tempo igualmente acordado que pode ser prestada dentro de um período único
+ou durante mais do que um períocio
+(nota explicativa & conta 62)
+Estrutura da conta 4
+3
+A conta 62 — Prestações de serviço subdiide-se em:
+62.1 = Serviços principais
+622 - Serviços secundários
+62.8 Descontos é abatimentos
+629 — Transferência para resultados operacionais
+Reconhecimento
+Esta conta é apresentada nas demonstrações dos resultados por natureza e por funções na rubrica “Prestação de
+serviços”.
+Ver Figura 6 — Reconhecimento na Demonstração dos resultados por funções: Classe 6
+* Ver Figura 7 — Reconhecimento na Demonstração dos resultados por natureza: Classe 6
+Valorimetria
+O sédito (proveito) deve ser medido pelo justo valor da retribuição recebida ou a receber acordada entre à empresa
+e o comprador do serviço, tendo em atenção a quantia de quaisquer descontos comerciais e de abatimentos de
+volume concedidos pela entidace,

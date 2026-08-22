@@ -1,0 +1,38 @@
+ase | rae — exucado
+Conta 63.1 — Serviços Suplementares
+Esta conta, cestina-se a registar proveitos inerentes ao valor acrescentado, de actividades que não sejam próprias
+da actividade da entidade.
+(nota explicativa à conta 63.1)
+Esta conta está subdividida em função do tipo de serviço associado, podendo ser criadas sub-contas para outros
+serviços suplementares em função da especificidade de cade entidade: .
+63.1 - Serviços Suplementares
+631,1 — Aluguer de equipamento
+631.2 — Cedência de Pessoal
+83.1.3 - Cedência de energia
+63.14 = Estudos, projectos e assistência técnica
+Conta 63.2 — Royalties
+Esta conta, destina-se a registar os proveitos denvados do uso, por terceiros, de imobilizados da entidade como por
+exemplo, patentes, marcas, copyrights e sofiware de computadores
+(nota explicativa à conta 632)
+dna a Ri RE ee ada o a
+RAPES Car e e as a ee Oe ae
+Contas 63.3 e 63.4 — Subsídios (Em geral)
+Entende-se por subsídios os alias na forma de transferência de recursos para uma entidade em troca do cum-
+primento passado ou futuro de certas condições relacionadas com as actividades operacionais dessa entidade. Os
+subsídios podem revestir a forma de empréstimos a fundo perdido isto é, empréstimos em que o emprestacor se
+compromete a renunciar ao seu reembolso sob certas condições prescritas Os subsídios do Governo são alguiras
+vezes denominados por outras nomes, como dotações, subvenções ou prérrios,
+Os subsídios só devem ser reconhecidos após existir segurança de que:
++ A empresa cumprirá as condições a ela associadas, e
+* Os subsídios serão efectivamente recebidos.
++ Comtuco, o recebimento do subsídio, por si só. não prova que de farto as condições da subsídio foram ou
+irão ser cumpridas
++ O rédio proveniente de subsídios deve ser reconhecido durante os períodos necessários para os balan-
+cear com os custos relacionados que se pretende que eles compensem, numa base sisternática
+Por esta razão, o rédito proveniente de subsídios deve ser reconhecido pela sua totalidade, no exercicio em que se
+tome recebível no caso dos subsicios
+* Se destinarem a investimentos em activos não amortizáveis
+*  Revestirem a forma de uma doação de um activo não amortizável
+*+ Se destinarem a compensar custos ou perdas incorridos em períodos contabilisticos anteriores.
++ Se destinarem à dar imediato apoia financeiro à empresa sem qualquer custos actuais ou futuros relacio-
+nados,

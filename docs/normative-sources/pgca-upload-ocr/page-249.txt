@@ -1,0 +1,63 @@
+28 | PGC — EXPLICADO
+Tratamento quando existe incerteza sobre se as benefícios económicos associados cem a transacção irão fluir
+para a entidade.
+A certeza sobre se os benefícios económicos associados com à transacção irão fluir para a entidade, muitas vezes
+só ocorre depois da retribuição ser recebida ou de uma incerteza ser removida. Por exemplo, pode ser incerto
+que uma autoridade governamental estrangeira conceda permissão para remeter a retribuição de uma venda num
+país estrangeiro,
+Neste caso o rédito só deve ser reconherido quando a permissão seja concedida, isto €, quando a incerteza é
+retirada,
+Exemplo de situações em que a entidade retém os riscos significativos e as recompensas da propriedade
+e em que o rédito não deve ser reconhecido:
+
++ Quando a entidade retenha uma obrigação por execução não satisfatória, não coberta por cláusulas nor
+mais de garantia.
+
+* Quando o recebimento do rédito de uma dada venda esteja dependente da obtenção de rádio, pelo
+comprados pela sua venda dos bens
+
++ Quando es bens expedidos estejam sujeitos à instalação © esta seja uma parte significativa do contrato
+que ainda não tenha sido concluído.
+
++ Quando o comprador tenha 9 direito de rescindir a compra por uma razão especificada no contrato de
+venda e a entidade não esteja segura acerca cla probabilidade da devolução
+
+Exemplo de situações em que a entidade retém somente um risco de propriedade insignificante:
+
++ Retenção do documento legal dos bens unicamente para proteger a cobrabllidade da quantia devida. Nes-
+te caso se a entidade tiver transfendo os riscos e recompensas significativos da propriedade, a transacção
+é uma venda é o rédito deve ser reconhecido.
+
+* Venda a retalho quando for oferecido um reembolso se o cliente não ficar satisfeito. Neste caso o rédito
+deve ser reconhecido desde que o vendedor possa estimar com fiabilidade (com base em experiência
+anterior é outros factores relevantes) as devoluções futuras e reconheça um passivo correspondente
+
+Tratamento quando os custos não podem ser fiavelmente medidos:
+
+Os custos, incluindo garantias e outros custos, a serem incorndos após a expedição dos bens podem normalmente
+ser medidos com fiabilidade quando as outras condições para o reconhecimento do rédito tenham sido satisfeitas
+Porém, quando tal não acontecer a rédito não pode ser reconhecido pelo que qualquer retribuição já recebida
+pela venda das bens deve ser seconhecida como um passivo
+
+Vendas do tipo “facture mas não faça a expedição”:
+
+Nas vendas do tipo “facture mas não faça a expedição” por norma a entrega é retardada a pedido do comprador
+mas este fica com o titulo de posse e aceita a facturação. Nestas condições, o réclito é reconhecido desde que:
+
+* Seja provável que a entrega venha a ser feita
+
++ Osbens em poder do vendedor estejam identificadas e prontos para entrega ao comprador ne momento
+em que 2 venda é reconhecida,
+
+* O comprador acuse especificamente a recepção das instrucções de entrega diferida.
+
+Sejam aplicadas as condições usuais de pagamento.
+
+Venda de bens sujeitos a instalação e inspecção;
+
+Nas vendas de bens sujeitos a instalação, o rédito é reconhecido imediatamente após aceitação da entrega por
+parte do comprador quando:
+
+* O processo de instalação seja simples por natureza e caiba por isso 20 comprador fazê-ia,
+
+* A inspecção seja efectuada apenas para confirmar a natureza é qualidade dos bens.

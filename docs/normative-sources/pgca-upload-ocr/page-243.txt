@@ -1,48 +1,48 @@
-22 | PGC — EXPLICADO
+22 | pac — EXPLICADO
 Esta conta é subdividida em:
-Conta 562. | — Reservas de Reavaliação — autónomas — avatiação
-Conta 56.2.2 — Reservas de Reavaliação — autónomas — realização
-Conta 56.2.1 - Reservas de Reavaliação — autónomas — avaliação
+Conta 56.2.| — Reservas de Reavaliação — autónomas ~ avaliação
+Conta 56.2.2 - Reservas de Reavaliação — autónomas — realização
+Conta 562.1 — Reservas de Reavaliação — autónomas ~ avaliação
 Esta conta destina-se a registar os ajustamentos monetários resultantes de avaliações feitas por perito indepen-
-dente, bem como as corecções subsequentes baseadas em revisões posteriores da avaliação, Salvo quanto às
-comvecções já referidas, o saldo desta conta mantém-se inalterável até que a conta Reservas de Reavaliação — auté-
-nomas ~ realização (conta 56.2.2) atinja o mesma valor, devendo, quando tal acontecer, proceder-se ao respectivo
-balanceamento/anulação.
+dente, bem como as correcções subsequentes baseadas em revisões posteriores da avaliação. Salvo quanto às
+correcções já referidas. o saido cesta conta mantém-se inalterável até que a conta Reservas de Reavaliação — auté-
+normas = realização (conta 56.2.2) atinja o mesmo valor, devendo, quando tal aconteces: proceder-se ao respectivo
+balanceamento anulação.
 Estas reservas não podem pois ser utilizadas para aumentar capital, para cobrir prejuízos ou para distribuição aos
 sócios e accionistas.
-(nota explicativa & conta 56.2.1)
+(nota explicativa à conta 56,2.1)
 Conta 56.2.2 — Reservas de Reavaliação — autónomas — realização
-Feta conta destina-se a registar a realização efectiva dos ajustamentos monetários resultantes de avaliações feitas por
-perto independente (incluindo as correcções subsequentes baseadas em revisões posteriores da avaliação) conta-
-bilizadas na conta Reservas de Resvaliação — autónomas - avaliação (conta 562.1) que ocorram em resultado de:
+Esta conta destina-se a registar a realização efectiva dos ajustamentos monetários resultantes de avaliações feitas por
+perito independente (incluindo as correcções subsequentes baseadas em revisões posteriores da avaliação) conta-
+biizacas na conta Reservas de Reavaliação — autónomas - avaliação (conta 562.) que oconam em resultado de:
 * Venda dos bens.
-+ Amortização do ajustamento monetário incluído nas amortizações dos bens já efectuadas.
-Esta conta, de natureza devedora, deve ser;
-+ Criada por contrapartida da corra 58 Reservas livres.
-* Corrigida em função das correcções subsequentes da avaliação.
+* Amortização do ajustamento monetário incluído nas amortizações dos bens já efectuadas,
+Esta conta, de natureza devedora, deve ser
++ Criada por contrapartida da conta 58 Reservas livres.
++ Corrigida em função das correcgGes subsequentes da avaliação.
 + Anulada por contrapartida da conta Reservas de Reavaliação — autónomas — avaliação (conta 562.1)
-quando atinja o mesmo valor desta x
-(nota explicativa à conta 56.2.2)
-CONTA 57 - RESERVAS COM FINS ESPECIAIS ¥
-Esta conta destina-se a registar reservas afectas a um determinado fim específico.
-(nota explicativa à conto 57)
-Esta conta é apresentada no balança, no conjunto do Capital Próprio, inserida na rubrica de" Reservas”,
-Exemplo de uma reserva para fim especial;
+quando atinja o mesmo valor desta, 4
+{nota explicanvo à conto 56.2.2)
+CONTA 57 - RESERVAS COM FINS ESPECIAIS
+Esta conta destina-se a registar reservas afectas a um determinado fim específico,
+(nota explicativa à conta 57)
+Esta conta é apresentada no balanço, no conjunto do Capital Próprio, inserida na rubrica de “Reservas”.
+* Exemplo de uma reserva para fim especial:
 Como regra geral, devem ser reconhecidas na demonstração de resultados no período em que surjam
-E as diferenças de câmbio provenientes de:
+as diferenças de câmbio provenientes de:
 
 * Pagamento de elementos monetários,
 
-* Relato de elementos monetários a taxas diferentes das usadas:
++ Relato de elementos monetários a taxes diferentes das usadas:
 > No momento do reconhecimento inicial, ou
-> Na data de relato do período anterior. i
+» Na data de relato do período anterior.
 
-As cliferencas de câmbio provenientes das situações atrás referidas podem, como regra alternativa, ser
+As diferengas de câmbis provenientes das situações atrás referidas podem, como regra altevaativa, ser
 reconhecidas da seguinte forma:
 
-* Come reservas especiais a serem reconhecidas nes resultados apenas no período em que o
++ Como reservas especiais a serem reconhecidas nos resultados apenas no período em que o
 investimento financeiro na empresa estrangeira seja vendido, se resultarem de activos ou passi-
-ves monetários: Recebíveis ou pagáveis de/a empresas estrangeiras nas quais a entidade tenha
-um investimento financeiro,
+vas monetários: Recebiveis ou pagáveis de/a empresas estrangeiras nas quais a entidade tenha
+um investimento financeiro.
 
-(ponto 5.4 — políticas contabilísticas — Diferenças de câmbio desfavoráveis)
+{panto 34 — políticas contabilisticas — Diferenças de câmbio desfavoráveis)

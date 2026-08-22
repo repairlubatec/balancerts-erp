@@ -1,0 +1,65 @@
+4 EXPLICAÇÃO AS CONTAS | 267
+
+Estrutura da conta
+A conta 68 — Outros proveitos e ganhos não operacionais subdivide-se em
+
+68.1 Reposição de provisões
+
+68.2 — Anulações de amortizações extraordinária
+
+68.3 — Ganhos em Imobilizações
+
+68.4 ~ Ganhos em existência
+
+é85 — Recuperação de dívidas
+
+68.6 — Benefícios de penalidades contratuais
+
+688 — Descontinuidade de operações
+
+68.9 — Alterações de politicas contabilisticas
+
+68.10 — Correcções relativas a exercicios anteriores
+
+68.11 Outros ganhos e perdas não operacionais
+
+68,19 Transferência para resultados não operacionais
+Reconhecimento
+Esta conta é apresentada na demonstração de resultados por natureza e na demonstração de resultados por iun-
+ções na rubrica “Resultados não operacionais”. Desta rubrica faz anda parte 2 conta 78, sendo que o valor desta
+rubrica nas demonstrações « © resultado da soma do saldo credor da conta 68 - Outros Proveitos e ganhos não
+operacionais abatido do saldo devedor da conta 78 — Outros custos e perdas não operacionais.
+
+Yer Figura 6 ~ Reconhecimento no Demonstração dos resuitados por funções: Classe 6
+
+- Ver Figura 7 — Reconhecimento no Demonstiação dos resultados por natureza: Classe é
+Valorimetria
+Esta conta é valorizada pelo custo (valor nominal) dos "Outros proveitos é ganhos não operacionais”
+Movimentação í
+Referente aos movimentos a realizar durante o período/exercício, pa
+As sub-contas da conta 68 são creditadas por débito de diversas contas em função da natureza da sub-conta. <
+3
+
+As contas à debitar em função da natureza da sub-conta poderão ser, entre outras:
+
+* Contas 43/45 (Depósitos à ordem e caixa) — se recebido no momento do proveito, por exemplo no caso
+da recuperação de dividas ou de beneficios de penalidades contratuais,
+
++ Uma conta da classe 3 — Terceiros se, por exemplo, o recebimento das situações descritas anteriormente
+de recuperação de dividas ou de benefícios de penalidades contratuais não forem recebidas imediatamen-
+te;
+
++ Uima conta de existências, por exemplo no caso de recuperação de ganhos em existências;
+
+* Conta 18 (AmortizagSes acumuladas), no caso da anulação das amortizações extraordinárias;
+
+* Contas 29, 38 é 39 (Provisões para depreciação de existências, cobranças duvidosas ¢ para outros riscos
+© encargos), no caso das reposições das provisões;
+
+* Conta 37.2 (Vendas de imobilizado), no caso dos ganhos em imobilizações.
+
+Pora melhor esclarecimente sobre o movimentação destas contos, sugerimos verificar o movimentação (esque-
+mótico) de algumas contas conforme sugestão nas sub-contas 681.1, 66.1.2, 66.1.3, 68.2 e 68.3,
+
+Referente aos movimentos a realizar no fecho de contas.
+Ver esquema na sub-conta 68.19

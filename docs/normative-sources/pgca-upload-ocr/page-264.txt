@@ -1,0 +1,44 @@
+& EXPLICAÇÃO ÀS CONTAS | 263
+
+Conta 66.2 ~ Diferenças de câmbio favoráveis
+Esta rubrica destina-se a registar os proveitos e ganhos, no exercício, com diferenças de câmbio favoráveis,
+e ce ud
+Esta conta de Diferenças de câmbio favoráveis está subdividida em:
+
+662.1 — Realizadas
+
+€622— Não realizadas
+Conta 66.2.1 — Proveitos e ganhos financeiros — diferenças de câmbio favoráveis — realizadas
+Esta conta destina-se a registar as diferenças de câmbio favoráveis realizadas relacionadas com as actividades ope-
+racionais ca entidade € com o financiamento de activos que não sejam de imputar a imobilizado ou a existências.
+São consideradas ciferenças de câmbio realizadas aquelas que resultem do diferencial entre o valor de registo da
+divida na cata do reconhecimento inicial da transacção e o valor pelo qual a dívida tenha sido paga ou recebida
+(nota explicativa à conte 662.1)
+Conta 66.2.2 — Proveitos e ganhos financeiros — diferenças de câmbio favoráveis-não realizadas.
+Esta conta destina-se a registar as diferenças de câmbio favoráveis não realizadas relacionadas com as actividades
+operacionais da empresa e com o financiamento de activos que não sejam de imputar a imobilizado ou a existên-
+cias é que não devam ser diferidas por se considerar que é pouco provável à reversibilidade do câmbio
+São consideradas diferenças de câmbio não realizadas aquelas que resultem do diferencial entre o valor de registo
+da divida na data do reconhecimento inicial da transacção e o valor que resulta da actualização dessa dívida para ©
+câmbis em vigor no final do período, quando esta ainda não tenha sido paga ou recebicia até essa data.
+(noto explicativo 3 conta 662.3)
+Conta 66.3 - Descontos de pronto pagamentos obtidos E
+Esta rubrica destina-se a registar os descontos desta natureza, quer constem da factura, quer sejam atribuídos pos- e
+teriormente. (nota explicativa à conta 66.3)
+
++: Para maior esclarecimento sobre a movimentação desta conta, sugerimos verificar a movimentação esquemática
+"Pogarnento go fornecedor com desconto de pronto pagamento obtido referente “ à conta 32.1
+
+Conta 66.4 — Rendimentos de investimentos em imóveis
+Esta conta destina-se a registar os rendimentos de investimentos em imóveis, como por exemplo, rendas.
+Conta — 66.5 — Rendimento de participações de capital
+Esta conta destina-se a registar os dividendos € lucros recebidos de empresas nas quais exista uma participação de
+capital e que não sejam subsidiárias nem associadas.
+(nota explicativa à conte 64.5)
+Esta conta está subdividida em:
+
+565,1 — Acções, quotas em outras empresas
+
+$65.2 — Acções, quotas incluídas nos fundos
+
+665.3 - Acções, quotas incluídas nos títulos negociáveis
