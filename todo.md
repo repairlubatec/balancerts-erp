@@ -2645,3 +2645,5 @@
 - [x] Expor leitura de prontidão da versão PGCA com contagens, bloqueadores, autorização contabilística e teste unitário
 - [x] Exigir fonte normativa primária confirmada no procedimento de confirmação visual PGCA e rejeitar evidência órfã
 - [x] Cobrir a rejeição de confirmação visual sem fonte confirmada com teste Vitest
+- [ ] Bloquear visualmente a confirmação de contas PGCA enquanto a fonte primária da versão não estiver CONFIRMED
+- [ ] Mostrar orientação em português para confirmar primeiro a fonte normativa
