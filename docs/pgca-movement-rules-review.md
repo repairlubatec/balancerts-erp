@@ -160,3 +160,11 @@ A página 215 apresenta o esquema “Processamento e pagamento dos salários”,
 A página 218 explica que a **conta 37 — Outros valores a receber e a pagar** reúne subcontas diferenciadas e que as movimentações esquemáticas se encontram nas subcontas respectivas. A **conta 37.1 — Compras de imobilizado** é de natureza credora, regista a crédito as dívidas a terceiros resultantes de compras de imobilizado por contrapartida das contas de imobilizado e é saldada por meios monetários aquando do pagamento. O esquema de compra de imobilizado a crédito relaciona terceiros, meios monetários e contas de imobilizado. A **conta 37.2 — Vendas de imobilizado** é de natureza devedora, regista a débito as dívidas de terceiros resultantes de vendas de imobilizado por contrapartida das contas de resultados respectivas e é saldada aquando do recebimento.
 
 **Estado:** transcrição OCR preliminar; confirmar visualmente cada subconta e o esquema exacto antes de parametrizar.
+
+## Confirmação visual — páginas 205 e 232
+
+A página 205 confirma visualmente o esquema de pagamento de imposto: débito em **34.x** e crédito em **43.x ou 45.x**. Confirma também o esquema de subsídios a preços, com débito em **61.5.x**, crédito em **34.8.x** e recebimento em **43.x ou 45.x**, além da estrutura detalhada da conta 34.1 — Imposto sobre os lucros.
+
+A página 232 confirma visualmente a constituição/reforço de depósito a prazo, com débito em **42.x** e crédito em **43.x ou 45.x**, e o encerramento/levantamento com débito em 42.x e crédito em 43.x ou 45.x. Confirma ainda a identificação da **CONTA 43 — DEPÓSITOS À ORDEM** e a regra geral de movimentação por contrapartidas dependentes da natureza da transacção.
+
+Estas confirmações referem-se à obra auxiliar anexada e não equivalem ainda à confirmação na fonte primária do Decreto n.º 82/01.
