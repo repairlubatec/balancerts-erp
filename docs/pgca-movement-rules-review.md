@@ -310,3 +310,23 @@ A fonte primária apresenta ruído OCR e alguns códigos truncados ou deslocados
 O manifesto da fonte primária do Decreto n.º 82/01 (`pgca-visually-confirmed-accounts.json`) contém 20 contas já visualmente confirmadas, com hash `04359cb12d48a20cc5326ca001cd0597b1904a7d99d376b1820e8be40f332c89` e páginas primárias 40 a 58. Essas contas incluem a árvore confirmada de Meios monetários/45 — Caixa e Vendas/61, incluindo 4511, 4531, 6111, 6112, 6121, 6122, 6131, 6141 e 6142.
 
 As páginas 233, 239 e 240 do ficheiro explicativo são evidência de apoio, mas não substituem as páginas primárias do Decreto. Portanto, os esquemas legíveis de 44–45, 51–53 e os movimentos auxiliares da conta 52 não serão marcados como confirmados apenas com base no PDF explicativo. Permanecem elegíveis para uma futura revisão quando existir página primária legível correspondente; os 20 itens já constantes do manifesto conservam a confirmação existente.
+
+### Registo visual adicional da fonte primária — páginas 40 e 49
+
+A página 40 do PDF oficial é a página 1016 do Diário da República e abre a secção “Quadro e Lista de Contas”, confirmando que o quadro começa no diploma oficial e que as classes 0, 2 e 9 têm regras de utilização próprias antes da lista patrimonial.
+
+A página 49 do PDF oficial é a página 1025 do Diário da República e apresenta literalmente a árvore das contas 41 — Títulos negociáveis, 42 — Depósitos a prazo, 43 — Depósitos à ordem, 44 — Outros depósitos, 45 — Caixa, 48 — Conta transitória, incluindo 45.1 — Fundo fixo, 45.1.1 — Caixa, 45.1.2 — Caixa e 45.3 — Valores destinados a pagamentos específicos / 45.3.1 — Salários. Esta página confirma designações e hierarquia, mas não contém os esquemas completos de movimentação; por isso não basta, isoladamente, para confirmar regras de posting.
+
+### Registo visual adicional da fonte primária — páginas 50 e 51
+
+A página 50 do PDF oficial é a página 1026 do Diário da República e confirma literalmente a árvore: 49 — Provisões para aplicações de tesouraria; 5 — Capital e reservas; 51 — Capital; 52 — Acções/quotas próprias; 53 — Prémios de emissão; 54 — Prestações suplementares; 55 — Reservas legais; 56 — Reservas de reavaliação; 57 — Reservas com fins especiais; 58 — Reservas livres; e 6 — Proveitos e ganhos por natureza. Confirma ainda 61 — Vendas e as subcontas 61.1 a 61.4, incluindo 61.3.1 — Mercado nacional e 61.4.1/61.4.2.
+
+A página 51 do PDF oficial é a página 1027 do Diário da República e confirma a continuação de 61.5 — Subsídios a preços, 61.7 — Devoluções, 61.8 — Descontos e abatimentos e 61.9 — Transferência para resultados operacionais; confirma também 62 — Prestações de serviço, 63 — Outros proveitos operacionais, 64 — Variação nos inventários, 65 — Trabalhos para a própria empresa e 66 — Proveitos e ganhos financeiros gerais. Estas páginas são confirmação visual de código/designação/hierarquia; não apresentam, por si, os diagramas completos de movimento.
+
+### Registo visual adicional da fonte primária — páginas 52 e 53
+
+A página 52 do PDF oficial é a página 1028 do Diário da República e confirma subcontas de 66 — Proveitos e ganhos financeiros gerais, incluindo 66.1.1.4 — Empréstimos, 66.1.1.9 — Outros, 66.1.2 — De mora relativas a dívidas de terceiros, 66.1.5 — De aplicações de tesouraria, 66.2 — Diferenças de câmbio favoráveis, 66.3 — Descontos de pronto pagamento obtidos, 66.4 — Rendimentos de investimentos em imóveis, 66.5 — Rendimento de participações de capital e 66.6 — Ganhos na alienação de aplicações financeiras. Confirma também 67 — Proveitos e ganhos financeiros em filiais e associadas e o início de 68 — Outros proveitos e ganhos não operacionais.
+
+A página 53 do PDF oficial é a página 1029 do Diário da República e confirma a continuação de 68, incluindo 68.1.3 — Riscos e encargos, 68.2 — Anulação de amortizações extraordinárias, 68.3 — Ganhos em imobilizações, 68.4 — Ganhos em existências, 68.5 — Recuperação de dívidas, 68.6 — Benefícios de penalidades contratuais, 68.8 — Descontinuidade de operações, 68.9 — Alterações de políticas contabilísticas, 68.10 — Correcções relativas a exercícios anteriores, 68.11 — Outros ganhos e perdas não operacionais e 68.19 — Transferência para resultados não operacionais. A mesma página inicia a Classe 7 — Custos e perdas por natureza.
+
+Estas confirmações continuam limitadas a código/designação/hierarquia. Não foram usadas para activar regras de lançamento, por não conterem os esquemas completos de movimentação.
