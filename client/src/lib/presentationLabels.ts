@@ -98,6 +98,8 @@ const labels: Record<string, string> = {
   "File asset registered": "Ficheiro registado",
   "File asset metadata updated": "Metadados do ficheiro actualizados",
   "File asset metadata Atualizado": "Metadados do ficheiro actualizados",
+  "File asset": "Ficheiro",
+  fileAsset: "Ficheiro",
 };
 
 export function presentationLabel(value: string | null | undefined): string {
