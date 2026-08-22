@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { skipToken } from "@tanstack/react-query";
+import { normativeErrorLabel } from "@/lib/normativeErrors";
 
 const statusLabel: Record<string, string> = { DRAFT: "Rascunho", UNDER_REVIEW: "Em revisão", VALIDATED: "Validada", ACTIVE: "Activa", SUPERSEDED: "Substituída", ARCHIVED: "Arquivada", NEEDS_NORMATIVE_VALIDATION: "Validação normativa pendente", CONFIRMED: "Confirmada", PENDING: "Pendente", RUNNING: "Em execução", COMPLETED: "Concluída", FAILED: "Falhou", REVIEWED: "Revisto", APPROVED: "Aprovado", APPLIED: "Aplicado", REJECTED: "Rejeitada", CONFLICT: "Conflito", INVALID: "Inválida", DUPLICATE: "Duplicada", MISSING_PARENT: "Conta-pai em falta" };
 const accountTypeLabel: Record<string, string> = { CLASS: "Classe", GROUP: "Grupo", MOVEMENT: "Movimento", ANALYTICAL: "Analítica" };
@@ -39,8 +40,8 @@ export default function Pgca() {
   const readinessQuery = trpc.pgc.activationReadiness.useQuery(organizationId && resolvedVersionId ? { organizationId, versionId: resolvedVersionId } : skipToken);
   const sourcesQuery = trpc.pgc.sources.useQuery(organizationId && resolvedVersionId ? { organizationId, versionId: resolvedVersionId } : skipToken);
   const primarySourceConfirmed = Boolean(sourcesQuery.data?.some((source) => source.verificationStatus === "CONFIRMED"));
-  const reviewSource = trpc.pgc.reviewSource.useMutation({ onSuccess: async () => { toast.success("Fonte revista."); await sourcesQuery.refetch(); }, onError: (error) => toast.error(error.message) });
-  const reviewAccount = trpc.pgc.reviewAccount.useMutation({ onSuccess: async () => { toast.success("Conta revista."); await accountsQuery.refetch(); }, onError: (error) => toast.error(error.message) });
+  const reviewSource = trpc.pgc.reviewSource.useMutation({ onSuccess: async () => { toast.success("Fonte revista."); await sourcesQuery.refetch(); }, onError: (error) => toast.error(normativeErrorLabel(error.message)) });
+  const reviewAccount = trpc.pgc.reviewAccount.useMutation({ onSuccess: async () => { toast.success("Conta revista."); await accountsQuery.refetch(); }, onError: (error) => toast.error(normativeErrorLabel(error.message)) });
   const utils = trpc.useUtils();
   const createVersion = trpc.pgc.createVersion.useMutation({ onSuccess: async () => { toast.success("Versão PGCA criada em rascunho."); await utils.pgc.versions.invalidate(); }, onError: (error) => toast.error(error.message) });
   const submitForReview = trpc.pgc.submitForReview.useMutation({ onSuccess: async () => { toast.success("Versão enviada para revisão."); await utils.pgc.versions.invalidate(); }, onError: (error) => toast.error(error.message) });
