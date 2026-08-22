@@ -2675,3 +2675,9 @@
 - [x] Reclassificar como elegíveis apenas as regras cuja imagem seja legível e literalmente confirmada
 - [x] Confrontar cada item visual elegível do PDF explicativo com a fonte primária do Decreto n.º 82/01 antes da confirmação auditada
 - [ ] Confirmar formalmente apenas os itens com código, designação e movimento coincidentes nas duas fontes
+
+## Nova confrontação literal PGCA — Decreto n.º 82/01
+
+- [x] Confrontar código, designação e movimento de cada item elegível com o diploma oficial e activar apenas correspondências integrais auditadas
+- [x] Registar explicitamente como NEEDS_REVIEW qualquer item sem movimento primário legível, sem alterar o seu estado para CONFIRMED
+- [x] Validar contagem, organização, fonte, hash, auditoria e não-regressão antes da activação

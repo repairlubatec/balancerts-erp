@@ -386,3 +386,51 @@ Após a revisão visual das páginas 41–54 do Decreto n.º 82/01 e a comparaç
 ### Situação de prontidão operacional da versão PGCA
 
 A consulta de leitura da organização 1 mostra a versão **PGCA-82-01** em estado `UNDER_REVIEW`, com 27 contas persistidas e confirmadas. Não há contas pendentes dentro do subconjunto importado, mas isso não equivale à confirmação integral do catálogo documental de 760 candidatos. A versão também não possui regras contabilísticas publicadas; por isso, permanece correctamente não publicável e não deve ser activada no motor de lançamentos.
+
+### Confronto visual adicional — páginas 41 e 49 do Decreto n.º 82/01
+
+A página 41 apresenta a árvore da Classe 1 e as designações das contas 11 a 14, 18 e 19, incluindo subcontas de imobilizações corpóreas e incorpóreas. A página 49 apresenta a árvore da Classe 4, incluindo 41 — Títulos negociáveis, 42 — Depósitos a prazo, 43 — Depósitos à ordem, 44 — Outros depósitos, 45 — Caixa e 48 — Conta transitória, com códigos e designações visíveis.
+
+Estas duas páginas são quadros/listas de contas: não apresentam os diagramas de débitos e créditos do PDF explicativo. Assim, confirmam código e designação em vários níveis, mas não permitem confirmar isoladamente o requisito de movimento coincidente para activação de regras.
+
+### Confronto visual adicional — páginas 50 e 51 do Decreto n.º 82/01
+
+A página 50 confirma literalmente a estrutura de 49 — Provisões para aplicações de tesouraria, 51 — Capital, 52 — Acções/quotas próprias, 53 — Prémios de emissão, 54 — Prestações suplementares, 55 — Reservas legais, 56 — Reservas de reavaliação, 57 — Reservas com fins especiais e 58 — Reservas livres. A mesma página inicia a Classe 6 e confirma as designações 61 — Vendas, 62 — Prestações de serviço, 63 — Outros proveitos operacionais, 64 — Variação nos inventários de produtos acabados e de produção em curso, 65 — Trabalhos para a própria empresa, 66 — Proveitos e ganhos financeiros gerais, 67 — Proveitos e ganhos financeiros em filiais e associadas, 68 — Outros proveitos não operacionais e 69 — Proveitos e ganhos extraordinários.
+
+A página 51 confirma subcontas e designações de 61.5, 61.7, 61.8, 61.9, 62.1, 62.2, 62.8, 62.9, 63.1 a 63.4, 63.9, 64.1 a 64.9, 65.1, 65.2, 65.9 e 66.1. Tal como nas páginas anteriores, o conteúdo é um quadro de contas; não contém o diagrama de débito/crédito necessário para validar a componente movimento.
+
+### Confronto visual adicional — páginas 52 e 53 do Decreto n.º 82/01
+
+A página 52 confirma subcontas da conta 66 — Proveitos e ganhos financeiros gerais, incluindo empréstimos, diferenças de câmbio, descontos de pronto pagamento, rendimentos de investimentos em imóveis, rendimentos de participações de capital, ganhos na alienação de aplicações financeiras e respectivas subdivisões. Confirma também 67 — Proveitos e ganhos financeiros em filiais e associadas e o início da conta 68 — Outros proveitos e ganhos não operacionais.
+
+A página 53 confirma a continuação de 68, incluindo 68.1 — Reposição de provisões, 68.2 — Anulação de amortizações extraordinárias, 68.3 — Ganhos em imobilizações, 68.4 — Ganhos em existências, 68.5 — Recuperação de dívidas, 68.6 — Benefícios de penalidades contratuais, 68.8 — Descontinuidade de operações, 68.9 — Alterações de políticas contabilísticas, 68.10 — Correcções relativas a exercícios anteriores e 68.11 — Outros ganhos e perdas não operacionais. Inicia ainda a Classe 7 — Custos e perdas por natureza.
+
+As páginas confirmam códigos e designações, mas não fornecem débitos, créditos ou contrapartidas dos esquemas do PDF auxiliar. Nenhum novo movimento reúne, por isso, a coincidência tripla necessária para activação.
+
+### Confronto visual adicional — páginas 54 e 55 do Decreto n.º 82/01
+
+A página 54 inicia a Classe 7 — Custos e perdas por natureza e confirma a continuação das contas 71 — Custo das existências vendidas, 72 — Custos com o pessoal e 73 — Amortizações do exercício, com subcontas e designações visíveis. A página 55 confirma a continuação da Classe 7 com 75 — Outros custos e perdas operacionais e 76 — Custos e perdas financeiros gerais, incluindo subcontas de fornecimentos, serviços, impostos, juros e diferenças de câmbio.
+
+Este recorte fecha a fronteira documental das Classes 6 e 7. As páginas do diploma continuam a apresentar a lista oficial de contas e não os diagramas de movimentos do PDF auxiliar. Nenhum item das regras auxiliares pode ser activado nesta base sem uma fonte oficial que demonstre também o débito, o crédito e as contrapartidas.
+
+### Confronto visual adicional — páginas 56 e 57 do Decreto n.º 82/01
+
+A página 56 confirma subcontas de 76 — Custos e perdas financeiros gerais, incluindo descontos, amortizações de investimentos, provisões e perdas na alienação de aplicações financeiras, e inicia 77 — Custos e perdas financeiros em filiais e associadas e 78 — Outros custos e perdas não operacionais. A página 57 confirma 78.3 — Perdas em imobilizações, incluindo 78.3.1 — Venda de imobilizações corpóreas, 78.3.2 — Venda de imobilizações incorpóreas e 78.3.3 — Abates, bem como a conta 79 — Custos e perdas extraordinários e a conta 81 — Resultados transitados.
+
+As páginas 56–57 continuam a ser quadros de contas. Embora confirmem códigos relevantes para os esquemas auxiliares de alienação e abate, não apresentam os lançamentos de débito/crédito. A correspondência tripla código–designação–movimento continua não demonstrada pela fonte primária neste recorte.
+
+### Fecho do recorte oficial — página 58 do Decreto n.º 82/01
+
+A página 58 confirma a continuação das contas 82 a 89 e inicia as notas explicativas. A própria nota introdutória declara que as notas se destinam a auxiliar a interpretação e aplicação das disposições do Plano e que, na generalidade dos casos, não incluem regras de movimentação das contas. Esta declaração reforça a separação metodológica adoptada: a lista oficial confirma códigos e designações, mas não substitui os esquemas de movimento da fonte auxiliar.
+
+### Resultado da verificação persistente — activação de movimentos
+
+A consulta de leitura à versão PGCA 1 da organização 1 devolveu zero registos em `accountingRules` (`activeAccountingRules = 0`). As 27 contas confirmadas têm código, designação, hierarquia e estado `CONFIRMED`, mas não existe neste momento uma regra contabilística persistente com débito, crédito, contrapartidas, fonte e evidência de movimento que possa ser activada.
+
+Conclusão operacional: nesta execução não foi activado qualquer movimento. O resultado é conforme à política `CONFIRMED_ONLY`: a fonte primária confirmou quadros de contas e designações, mas não forneceu diagramas de movimento equivalentes ao PDF auxiliar. Todos os candidatos a movimento permanecem `NEEDS_REVIEW`/não publicados até existir evidência oficial integral.
+
+### Validação de integridade e decisão de activação — execução actual
+
+A versão PGCA 1 da organização 1 contém 27 contas e as 27 estão `CONFIRMED`; todas referenciam a fonte primária 1. A versão mantém o estado `UNDER_REVIEW`. A fonte persistida é o Decreto n.º 82/01, com verificação `CONFIRMED` e publicação pública registada. O hash SHA-256 do PDF oficial local (`04359cb12d48a20cc5326ca001cd0597b1904a7d99d376b1820e8be40f332c89`) coincide com o hash do manifesto visual.
+
+A tabela `accountingRules` não contém qualquer regra para a versão PGCA 1. Consequentemente, não há movimento contabilístico com evidência tripla e não existe item conforme que possa ser activado nesta execução. A decisão é manter todos os movimentos não publicados e em revisão, sem alterar contas, regras ou permissões.
