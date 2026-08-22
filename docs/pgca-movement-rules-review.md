@@ -142,3 +142,21 @@ A página 198 trata a **conta 32 — Fornecedores** como passivo monetário e ap
 A página 205 apresenta “Reconhecimento do pagamento imposto (qualquer imposto)”, com débito em **34.x** e crédito em **43.x ou 45.x**, e indica que as subcontas da conta 34 possuem movimentos específicos. Para subsídios a preços, o esquema relaciona **34.8.x**, **81.x** e **43.x ou 48.x** conforme a legenda de atribuição e recebimento do subsídio. A **conta 34.1 — Imposto sobre os lucros** regista relações com o Estado: a débito, pagamentos por conta e retenções efectuadas por terceiros; a crédito, a estimativa do imposto a pagar, por contrapartida das contas **87 — Imposto sobre lucros** e **81 — Resultados transitados**. A fonte sugere subdivisão por exercício e lista imposto provisório, retenções, rendimentos de capitais, imposto industrial estimado, colecta, tributações autónomas, apuramento, recuperar, pagar e regularizações.
 
 **Estado:** transcrição OCR preliminar de obra auxiliar; confirmar visualmente e não usar esta passagem para activar regras fiscais sem a fonte fiscal oficial correspondente.
+
+## Evidência OCR — página 202, Classe 3
+
+A página 202 identifica a **conta 33 — Empréstimos** como passivo corrente ou não corrente consoante o prazo de pagamento. Os empréstimos são valorizados pelo valor nominal. O esquema “Empréstimo obtido e respectivo reembolso” representa a recepção de meios monetários com registo do passivo e, posteriormente, o reembolso com saída de meios monetários e anulação do passivo. A fonte alerta que podem existir juros, remetendo para a conta **76.1.1 — Juros — De empréstimos**. A **conta 33.1 — Empréstimos bancários** inclui empréstimos de instituições de crédito e subdivide-se em **33.1.1 — Moeda nacional** e **33.1.2 — Moeda estrangeira**, com decomposição por empréstimo para separar a parcela corrente e não corrente.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente o esquema e as referências antes de usar em posting.
+
+## Evidência OCR — página 215, Classe 3
+
+A página 215 apresenta o esquema “Processamento e pagamento dos salários”, relacionando a conta **36.1.x — Pessoal**, **34.3.x**, **37.1.x**, **72.2** e meios monetários, com legendas relativas a remuneração bruta, retenções, encargos, entrega de retenções e pagamento. A mesma página apresenta encargos com remuneração por conta da entidade patronal e especialização de custos com pessoal: a conta **72.x** é debitada pelas remunerações e encargos a pagar em períodos futuros, e a conta **37.5.x** é posteriormente debitada no período seguinte aquando do processamento das remunerações.
+
+**Estado:** OCR preliminar com diagrama parcialmente reconhecido; exige revisão visual da página e das subcontas exactas antes de parametrização salarial.
+
+## Evidência OCR — página 218, Classe 3
+
+A página 218 explica que a **conta 37 — Outros valores a receber e a pagar** reúne subcontas diferenciadas e que as movimentações esquemáticas se encontram nas subcontas respectivas. A **conta 37.1 — Compras de imobilizado** é de natureza credora, regista a crédito as dívidas a terceiros resultantes de compras de imobilizado por contrapartida das contas de imobilizado e é saldada por meios monetários aquando do pagamento. O esquema de compra de imobilizado a crédito relaciona terceiros, meios monetários e contas de imobilizado. A **conta 37.2 — Vendas de imobilizado** é de natureza devedora, regista a débito as dívidas de terceiros resultantes de vendas de imobilizado por contrapartida das contas de resultados respectivas e é saldada aquando do recebimento.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente cada subconta e o esquema exacto antes de parametrizar.
