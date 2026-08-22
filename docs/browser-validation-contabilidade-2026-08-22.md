@@ -7,3 +7,7 @@ A rota abriu no navegador autenticado do utilizador e renderizou o shell desktop
 A validação foi de leitura apenas. Não foi submetida nenhuma operação nem alterado qualquer dado.
 
 **Observação técnica:** a página carregou com HTTP 200 e a compilação TypeScript/testes dirigidos continuam aprovados. O erro JSX encontrado nos logs tem timestamp anterior e não reapareceu durante esta abertura; permanece registado como histórico até limpeza/reinício formal dos logs.
+
+## Reinício limpo e validação posterior
+
+Após reinício do servidor, a aplicação respondeu novamente com **HTTP 200**, o TypeScript terminou sem erros e os dois testes documentais dirigidos passaram. O erro de parsing JSX antigo não reapareceu no arranque limpo. O `request.aborted` registado anteriormente foi transitório e não impediu a recuperação do serviço.

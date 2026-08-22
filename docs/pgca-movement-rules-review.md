@@ -250,3 +250,39 @@ A página 122 lista as subcontas de existências e provisões: 25.1, 25.2, 26.9,
 A página 121 identifica a **conta 21 — Compras**, com **21.1 — Matérias-primas, subsidiárias e de consumo**, **21.2 — Mercadorias**, **21.7 — Devoluções de compras**, **21.8 — Descontos e abatimentos em compras** e **21.9** para transferência/fecho conforme a continuação do índice. A mesma página contém uma nota sobre possível gralha de desdobramento no Decreto n.º 82/01, dando como exemplo a conta 18.1.2 representada com um dígito a menos. Esta nota deve ser tratada como alerta documental, não como autorização para corrigir ou inventar códigos.
 
 **Estado:** índice OCR preliminar; confirmar visualmente e contra o diploma oficial antes de consolidar a conta 21.
+
+## Conferência visual — página 136, conta 11
+
+A leitura visual confirma o título **CONTA 11 — IMOBILIZAÇÕES CORPÓREAS**. A página apresenta os critérios de reconhecimento como activos, a permanência/controlabilidade superior a um ano, a não destinação à venda normal, a condição específica para taras e vasilhame, as formas de obtenção, sobressalentes principais, aquisições conjuntas e melhoramentos. O OCR contém erros de reconhecimento, mas a transcrição de trabalho foi confrontada com a imagem e permanece marcada como evidência de revisão, não como regra activa.
+
+## Conferência visual — página 231, tesouraria
+
+A imagem confirma o cabeçalho **CONTA 42, 43 E 44 — DEPÓSITOS, A PRAZO, À ORDEM E OUTROS**. A página descreve meios de pagamento mantidos em instituições de crédito, valorização inicial ao custo/valor nominal, depósitos em moeda nacional e estrangeira, e a associação das contas 42, 43 e 44 com a conta 49 — Provisões para aplicações de tesouraria. Também apresenta o tratamento inicial e à data de fecho para moeda estrangeira. Os esquemas gráficos inferiores estão parcialmente degradados na cópia visual, pelo que as contrapartidas exactas dessas zonas continuam pendentes de conferência noutra evidência legível.
+
+## Conferência visual — página 237, capital próprio
+
+A imagem confirma o título **CLASSE 5 — CAPITAL E RESERVAS** e enumera as contas de primeiro grau: **51 — Capital**, **52 — Acções / Quotas Próprias**, **53 — Prémios de Emissão**, **54 — Prestações Suplementares**, **55 — Reservas Legais**, **56 — Reservas de Reavaliações**, **57 — Reservas com Fins Especiais** e **58 — Reservas Livres**. A página estabelece o reconhecimento no balanço em Capital próprio e passivo, e a valorização inicial, em geral, ao custo/valor nominal. Confirma também o início da **CONTA 51 — CAPITAL** e as origens de capital descritas. As regras de débito/crédito das subcontas continuam a ser conferidas nas páginas seguintes.
+
+## Evidência OCR confrontada — página 238, contas 51 e 52
+
+A página descreve que a conta 51 — Capital não tem divisão adicional obrigatória na lista de contas, devendo ser aberta uma subconta por emissão de capital. Regista exemplos de subscrição, aumento e redução de capital. O aumento pode resultar de entrada de dinheiro, entrada de outros activos, transformação de reservas em capital ou conversão de passivos em capital. A cobertura de prejuízos acumulados, saída de sócio/accionista e redução de capital em excesso são indicadas como situações de redução.
+
+A **conta 52 — Acções / Quotas Próprias** destina-se aos movimentos de aquisição e venda de instrumentos de capital próprio da própria entidade e subdivide-se em **52.1 — Valor nominal**, **52.2 — Descontos** e **52.3 — Prémios**, sendo apresentada no balanço no conjunto do Capital próprio, na rubrica Capital. A imagem da página 237 confirmou o título e a estrutura da classe; esta transcrição continua pendente de confirmação formal do esquema gráfico e da fonte primária.
+
+## Conferência visual — página 238, contas 51 e 52
+
+A imagem confirma literalmente a secção de **Movimentação (esquemática), alguns exemplos**. No esquema de subscrição do capital aparece a utilização de uma subconta da conta 35 conforme a relação com a entidade participante, com referência a 35.1.1, 35.1.2, 35.1.3 e 35.1.4, em contrapartida de 51.x. Os esquemas seguintes distinguem **(a) Redução de capital** e **(b) Aumento de capital**, com 51.x e as contas de origem/contrapartida indicadas na imagem. A página confirma ainda, de forma visual, o cabeçalho **CONTA 52 — ACÇÕES / QUOTAS PRÓPRIAS**, a finalidade e as subcontas 52.1 Valor nominal, 52.2 Descontos e 52.3 Prémios.
+
+O diagrama inferior da conta 52 está degradado na cópia, pelo que não foi transcrito nem convertido em regra automática.
+
+## Conferência visual — página 143, conta 12
+
+A imagem confirma o título **CONTA 12 — IMOBILIZAÇÃO INCORPÓREAS** e os critérios de reconhecimento de activos não monetários sem substância física. Confirma também as formas de obtenção, a referência a locação financeira, e a estrutura: **12.1 — Trespasses**, **12.2 — Despesas de investigação e desenvolvimento**, **12.3 — Propriedade industrial e outros direitos e contratos**, **12.4 — Despesas de constituição** e **12.9 — Outras imobilizações incorpóreas**. A página associa a conta 18.2 — Imobilizações incorpóreas e respectivas amortizações acumuladas. O conteúdo fica registado como evidência visual de revisão; as contrapartidas dos esquemas de movimentação serão conferidas nas páginas próprias.
+
+## Conferência visual — página 149, conta 13
+
+A imagem confirma o título **CONTA 13 — INVESTIMENTOS FINANCEIROS**. A página descreve participações de capital, obrigações, títulos de participação, empréstimos a empresas do grupo, associadas e outras, incluindo diamantes, ouro, depósitos bancários e activos adstritos a fundos. Confirma os critérios gerais de reconhecimento e a estrutura: **13.1 — Empresas subsidiárias**, **13.2 — Empresas associadas**, **13.3 — Outras empresas**, **13.4 — Investimentos em imóveis**, **13.5 — Fundos** e **13.9 — Outros investimentos financeiros**. Também remete para 18.3 — Amortizações acumuladas, 19 — Provisões para investimentos financeiros e 14.9 — Adiantamentos por conta de investimentos financeiros. As contrapartidas de movimentação ficam pendentes das páginas de esquemas próprias.
+
+## Conferência visual — página 156, conta 14
+
+A imagem confirma o título **CONTA 14 — IMOBILIZAÇÕES EM CURSO**. A página estabelece que a conta regista quantias relativas a imobilizações corpóreas e incorpóreas, bem como investimentos financeiros em desenvolvimento, incluindo adiantamentos por conta desses investimentos. Confirma a estrutura: **14.1 — Obra em curso**, **14.2 — Obra em curso**, **14.7 — Adiantamentos por conta de imobilizado corpóreo**, **14.8 — Adiantamentos por conta de imobilizado incorpóreo** e **14.9 — Adiantamentos por conta de investimentos financeiros**. A valorização distingue investimentos financeiros e imobilizado corpóreo/incorpóreo, incluindo custo de aquisição e custo de produção. As contrapartidas esquemáticas completas ficam pendentes das páginas seguintes.

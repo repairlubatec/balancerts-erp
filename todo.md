@@ -2667,3 +2667,6 @@
 - [x] Testar o inventário patrimonial gerado e garantir que regras OCR preliminares permanecem pendentes até confirmação visual
 - [x] Corrigir a referência do nome do ficheiro de inventário na auditoria de cobertura PGCA
 - [x] Actualizar a auditoria de cobertura com a distribuição das contas já referenciadas por classe PGCA
+- [ ] Conferir visualmente e literalmente as regras de movimentação de imobilizado no PDF PGCA
+- [ ] Conferir visualmente e literalmente as regras de movimentação de tesouraria no PDF PGCA
+- [ ] Conferir visualmente e literalmente as regras de movimentação de capital próprio no PDF PGCA
