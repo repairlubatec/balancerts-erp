@@ -93,6 +93,11 @@ const labels: Record<string, string> = {
   BALANCERTS_IA_SUGGESTION_REJECTED: "Sugestão Balancerts IA rejeitada",
   balancertsIaSuggestion: "Sugestão Balancerts IA",
   router: "Roteador interno",
+  FILE_ASSET_REGISTERED: "Ficheiro registado",
+  FILE_ASSET_METADATA_UPDATED: "Metadados do ficheiro actualizados",
+  "File asset registered": "Ficheiro registado",
+  "File asset metadata updated": "Metadados do ficheiro actualizados",
+  "File asset metadata Atualizado": "Metadados do ficheiro actualizados",
 };
 
 export function presentationLabel(value: string | null | undefined): string {
