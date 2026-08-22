@@ -2637,7 +2637,7 @@
 - [ ] Executar confirmação humana das contas e regras, separando CONFIRMED, NEEDS_REVIEW, CONFLICT e REJECTED
 - [ ] Activar apenas contas/regras CONFIRMED, com auditoria, versionamento e testes de não-regressão
 - [x] Aplicar validação estrita do modelo angolano: fonte primária, designação literal, hierarquia comprovada e nenhuma inferência
-- [ ] Solicitar/seleccionar explicitamente o primeiro lote PGCA/IVA antes de qualquer confirmação humana persistida
+- [x] Solicitar/seleccionar explicitamente o primeiro lote PGCA/IVA antes de qualquer confirmação humana persistida
 - [x] Executar pesquisa autónoma contínua das fontes PGCA/IVA oficiais e actualizar a classificação de evidência sem depender de confirmação por lote
 - [x] Criar procedimento seguro de publicação/activação da versão PGCA apenas quando todos os registos elegíveis estiverem CONFIRMED
 - [x] Expor a publicação PGCA no router com autorização contabilística e auditoria
@@ -2653,3 +2653,4 @@
 - [x] Traduzir falhas de autorização/ambiente na revisão de fontes normativas para mensagens operacionais em português
 - [x] Corrigir a chave React duplicada 3420001 detectada no fluxo de Contabilidade e validar a renderização sem avisos
 - [x] Validar e corrigir o erro de parsing JSX do AccountingP1Panel, caso ainda reproduzível, sem regressão nos fluxos de Contabilidade
+- [x] Cobrir por teste a consistência entre o manifesto normativo de lotes e a selecção apresentada na interface PGCA
