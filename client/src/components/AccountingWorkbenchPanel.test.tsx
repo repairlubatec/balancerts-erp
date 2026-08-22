@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import React from "react";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AccountingWorkbenchPanel } from "./AccountingWorkbenchPanel";
 
@@ -13,7 +13,7 @@ vi.mock("@/lib/trpc", () => ({
   trpc: {
     pgc: {
       versions: { useQuery: () => ({ data: [{ id: 7, status: "ACTIVE", code: "PGCA-82-01", name: "Plano Geral de Contabilidade" }] }) },
-      accounts: { useQuery: () => ({ data: fixtureAccounts, isLoading: false }) },
+      accounts: { useQuery: (input?: { search?: string }) => ({ data: input?.search ? fixtureAccounts.filter((account) => `${account.code} ${account.name}`.toLowerCase().includes(input.search!.toLowerCase())) : fixtureAccounts, isLoading: false }) },
       accountingRules: { useQuery: () => ({ data: [] }) },
     },
   },
@@ -29,6 +29,27 @@ describe("protótipo do motor contabilístico", () => {
     expect(screen.getAllByText("Devedora").length).toBeGreaterThan(0);
     expect(screen.getByText("Saldo devedor")).toBeTruthy();
     expect(screen.getByText("Balanço")).toBeTruthy();
+  });
+
+  it("pesquisa contas por código ou nome", () => {
+    render(<AccountingWorkbenchPanel company={{ id: 10, organizationId: 1 }} periodId={3} />);
+    const table = screen.getByRole("table");
+
+    fireEvent.change(screen.getByRole("textbox", { name: "Pesquisar contas por código ou nome" }), { target: { value: "Caixa" } });
+    expect(within(table).getByText("4511")).toBeTruthy();
+    expect(within(table).queryByText("6131")).toBeNull();
+    expect(screen.getByText("1 de 1 contas visíveis")).toBeTruthy();
+  });
+
+  it("filtra contas pendentes sem alterar a regra de posting", () => {
+    render(<AccountingWorkbenchPanel company={{ id: 10, organizationId: 1 }} periodId={3} />);
+    const table = screen.getByRole("table");
+
+    fireEvent.change(screen.getByRole("combobox", { name: "Filtrar contas por estado" }), { target: { value: "PENDING" } });
+    expect(within(table).getByText("6131")).toBeTruthy();
+    expect(within(table).queryByText("4511")).toBeNull();
+    fireEvent.click(within(table).getByText("6131"));
+    expect(screen.getByText(/Não utilizar em posting automático/)).toBeTruthy();
   });
 
   it("mantém uma conta pendente fora do posting automático quando seleccionada", () => {

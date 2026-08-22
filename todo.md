@@ -2732,3 +2732,9 @@
 - [x] Desenhar protótipo desktop do motor contabilístico baseado no documento PGCA analisado.
 - [x] Destacar natureza de conta, comportamento do saldo, lançabilidade e estado normativo sem inventar regras.
 - [x] Adicionar testes e validação visual do protótipo sem activar posting automático não confirmado.
+
+
+# Pesquisa e filtros do motor contabilístico
+- [x] Adicionar pesquisa por código ou nome no painel do motor contabilístico.
+- [x] Adicionar filtros combináveis por classe, natureza, tipo, estado normativo e lançabilidade.
+- [x] Adicionar contagem de resultados, limpeza de filtros, testes e validação visual.
