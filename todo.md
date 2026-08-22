@@ -2654,7 +2654,7 @@
 - [x] Corrigir a chave React duplicada 3420001 detectada no fluxo de Contabilidade e validar a renderização sem avisos
 - [x] Validar e corrigir o erro de parsing JSX do AccountingP1Panel, caso ainda reproduzível, sem regressão nos fluxos de Contabilidade
 - [x] Cobrir por teste a consistência entre o manifesto normativo de lotes e a selecção apresentada na interface PGCA
-- [ ] Executar confirmação prioritária do primeiro lote PGCA/IVA apenas após selecção e evidência normativa oficial válidas
+- [x] Executar confirmação prioritária do primeiro lote PGCA/IVA apenas após selecção e evidência normativa oficial válidas
 - [x] Preparar configuração de distribuição Windows com identidade Repair Lubatec e copyright BALANCERTS.ERP
 - [x] Documentar requisitos do certificado de assinatura Windows e validar o pacote sem certificado dentro do sandbox
 - [x] Manter integrações AGT fora do escopo desta fase P0
