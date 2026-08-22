@@ -28,6 +28,18 @@ describe("catálogo integral PGCA/IVA", () => {
     expect(catalog.ivaRules.every((r: { status: string }) => ["CONFIRMED", "NEEDS_HUMAN_CONFIRMATION"].includes(r.status))).toBe(true);
   });
 
+  it("regista evidência primária de classes sem promover movimentos auxiliares", () => {
+    const catalog = JSON.parse(readFileSync("docs/normative-catalog-complete-review.json", "utf8"));
+    for (const [code, page] of [["2", 44], ["3", 45], ["5", 48]] as const) {
+      const account = catalog.pgcaAccounts.find((item: { code: string }) => item.code === code);
+      expect(account).toBeDefined();
+      expect(account.evidencePages).toContain(page);
+      expect(account.evidence).toBe("visual-name-hierarchy-only");
+      expect(account.status).toBe("NEEDS_HUMAN_CONFIRMATION");
+    }
+    expect(catalog.summary.accountingMovementRulesConfirmed ?? 0).toBe(0);
+  });
+
   it("não permite considerar candidato pendente como activado", () => {
     const catalog = JSON.parse(readFileSync("docs/normative-catalog-complete-review.json", "utf8"));
     const pending = catalog.pgcaAccounts.filter((a: { status: string }) => a.status !== "CONFIRMED");

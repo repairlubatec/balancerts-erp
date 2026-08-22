@@ -2695,3 +2695,5 @@
 - [x] Activar apenas movimentos contabilísticos com correspondência tripla literal: código, designação e movimento confirmado em fonte primária autorizada. Nesta revisão, nenhum movimento cumpriu o critério; zero foram activados.
 - [x] Executar e registar os testes normativos finais após a revisão.
 - [x] Guardar checkpoint do fecho da revisão normativa.
+
+- [x] Adicionar teste de regressão para evidência visual primária das Classes 2, 3 e 5, garantindo que a confirmação de nomes/hierarquia não activa movimentos sem prova primária.
