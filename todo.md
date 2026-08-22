@@ -2596,7 +2596,7 @@
 - [x] Permitir seleccionar explicitamente a conta de Tesouraria no painel bancário antes de importar extractos ou reconciliar
 - [x] Filtrar linhas de extracto pendentes pelo cashAccountId seleccionado no painel de reconciliação
 - [x] Pesquisar rigorosamente PGCA, IVA, AGT, banca, restauro e distribuição Windows e apresentar parecer para confirmação antes de implementar
-- [ ] D1 — Completar o catálogo versionado PGCA/IVA em estado PENDING, com fonte, vigência, âmbito, auditoria e revisão humana
+- [x] D1 — Completar o catálogo versionado PGCA/IVA em estado PENDING, com fonte, vigência, âmbito, auditoria e revisão humana
 - [x] D2 — Reforçar exportação, validação e pacote local SAF-T/AGT sem submissão real nem homologação declarada
 - [x] Ler a aba oficial do PGCA/Decreto n.º 82/01 e a aba oficial da Lei n.º 14/23 do IVA, preservando evidência integral
 - [x] Confrontar as fontes das duas abas com o catálogo actual e apresentar proposta de activação para confirmação
