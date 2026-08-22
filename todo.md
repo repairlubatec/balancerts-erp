@@ -2632,3 +2632,7 @@
 - [x] Preparar a validação final de backup, hash, manifesto e destino isolado para restauro
 - [ ] Executar restauro não destrutivo apenas se o destino isolado real estiver disponível e validado
 - [x] Colocar novas alterações do projecto em fila de espera após concluir ou bloquear o restauro com segurança
+- [x] Catalogar integralmente a árvore PGCA por lotes com código, designação literal, hierarquia, página, fonte e hash
+- [x] Catalogar integralmente as regras IVA da Lei n.º 14/23 com artigo, regra, taxa/regime, vigência, anexos e fonte
+- [ ] Executar confirmação humana das contas e regras, separando CONFIRMED, NEEDS_REVIEW, CONFLICT e REJECTED
+- [ ] Activar apenas contas/regras CONFIRMED, com auditoria, versionamento e testes de não-regressão
