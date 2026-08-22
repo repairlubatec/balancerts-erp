@@ -135,11 +135,19 @@ export async function addPgcAccountDraftForUser(input: { userId: number; organiz
   return { id, validationStatus: "NEEDS_NORMATIVE_VALIDATION" as const };
 }
 
+export function validateVisualPgcEvidence(input: { sourceId?: number | null; evidencePages: number[]; sourceSha256: string }) {
+  if (!input.sourceId || !Number.isInteger(input.sourceId) || input.sourceId < 1) throw new Error("PGC_VISUAL_SOURCE_REQUIRED");
+  if (!/^[a-f0-9]{64}$/.test(input.sourceSha256) || input.evidencePages.length === 0) throw new Error("PGC_VISUAL_EVIDENCE_INVALID");
+  return true as const;
+}
+
 export async function addPgcAccountVisualConfirmedForUser(input: { userId: number; organizationId: number; versionId: number; account: PgcAccountDraft; evidencePages: number[]; sourceSha256: string }) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   const version = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), eq(pgcVersions.status, "UNDER_REVIEW"), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
   if (!version[0]) throw new Error("PGC_VERSION_NOT_REVIEWABLE_OR_FORBIDDEN");
-  if (!/^[a-f0-9]{64}$/.test(input.sourceSha256) || input.evidencePages.length === 0) throw new Error("PGC_VISUAL_EVIDENCE_INVALID");
+  validateVisualPgcEvidence({ sourceId: input.account.sourceId, evidencePages: input.evidencePages, sourceSha256: input.sourceSha256 });
+  const source = await db.select().from(pgcSources).where(and(eq(pgcSources.id, input.account.sourceId!), eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId))).limit(1);
+  if (!source[0] || source[0].verificationStatus !== "CONFIRMED") throw new Error("PGC_VISUAL_SOURCE_NOT_CONFIRMED");
   const account = input.account;
   validatePgcAccountDraft(account);
   const parent = account.parentCode ? await db.select({ id: pgcAccounts.id }).from(pgcAccounts).where(and(eq(pgcAccounts.versionId, input.versionId), eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.code, account.parentCode))).limit(1) : [];

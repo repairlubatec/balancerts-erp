@@ -2,6 +2,7 @@ import { and, eq } from "drizzle-orm";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { getDb } from "./db";
+import { validateVisualPgcEvidence } from "./pgc";
 import { pgcAccounts } from "../drizzle/schema";
 
 const manifest = JSON.parse(readFileSync("docs/normative-sources/pgca-visually-confirmed-accounts.json", "utf8")) as {
@@ -11,6 +12,13 @@ const manifest = JSON.parse(readFileSync("docs/normative-sources/pgca-visually-c
 const confirmedCodes = manifest.accounts.map((account) => account.code);
 
 describe("PGCA visual confirmation", () => {
+  it("rejects visual evidence without a primary source", () => {
+    expect(() => validateVisualPgcEvidence({ sourceId: null, evidencePages: [49], sourceSha256: "a".repeat(64) })).toThrow("PGC_VISUAL_SOURCE_REQUIRED");
+  });
+
+  it("rejects malformed evidence", () => {
+    expect(() => validateVisualPgcEvidence({ sourceId: 1, evidencePages: [], sourceSha256: "invalid" })).toThrow("PGC_VISUAL_EVIDENCE_INVALID");
+  });
   it("keeps the visually confirmed batch unique, hierarchical and literal", async () => {
     const db = await getDb();
     expect(db).toBeTruthy();

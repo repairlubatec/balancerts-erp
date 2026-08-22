@@ -2643,3 +2643,5 @@
 - [x] Expor a publicação PGCA no router com autorização contabilística e auditoria
 - [ ] Cobrir publicação PGCA, bloqueio por registos pendentes e isolamento por organização com testes Vitest
 - [x] Expor leitura de prontidão da versão PGCA com contagens, bloqueadores, autorização contabilística e teste unitário
+- [x] Exigir fonte normativa primária confirmada no procedimento de confirmação visual PGCA e rejeitar evidência órfã
+- [x] Cobrir a rejeição de confirmação visual sem fonte confirmada com teste Vitest
