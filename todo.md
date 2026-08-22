@@ -2681,3 +2681,9 @@
 - [x] Confrontar código, designação e movimento de cada item elegível com o diploma oficial e activar apenas correspondências integrais auditadas
 - [x] Registar explicitamente como NEEDS_REVIEW qualquer item sem movimento primário legível, sem alterar o seu estado para CONFIRMED
 - [x] Validar contagem, organização, fonte, hash, auditoria e não-regressão antes da activação
+
+## Conferência visual tripla — confirmação normativa, activação e fonte primária
+
+- [x] Conferir visualmente cada regra contabilística candidata contra a confirmação normativa persistente e a fonte primária
+- [x] Activar somente regras com código, designação, débito, crédito, contrapartidas, página, fonte e hash integralmente coincidentes
+- [x] Registar como não elegíveis as regras sem correspondência primária de movimento e validar não-regressão

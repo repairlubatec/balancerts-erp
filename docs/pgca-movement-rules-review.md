@@ -434,3 +434,27 @@ Conclusão operacional: nesta execução não foi activado qualquer movimento. O
 A versão PGCA 1 da organização 1 contém 27 contas e as 27 estão `CONFIRMED`; todas referenciam a fonte primária 1. A versão mantém o estado `UNDER_REVIEW`. A fonte persistida é o Decreto n.º 82/01, com verificação `CONFIRMED` e publicação pública registada. O hash SHA-256 do PDF oficial local (`04359cb12d48a20cc5326ca001cd0597b1904a7d99d376b1820e8be40f332c89`) coincide com o hash do manifesto visual.
 
 A tabela `accountingRules` não contém qualquer regra para a versão PGCA 1. Consequentemente, não há movimento contabilístico com evidência tripla e não existe item conforme que possa ser activado nesta execução. A decisão é manter todos os movimentos não publicados e em revisão, sem alterar contas, regras ou permissões.
+
+### Conferência visual literal — esquema auxiliar da conta 11 versus fonte primária
+
+A página 140 do PDF auxiliar mostra movimentos esquemáticos de aquisição, transferência de imobilizado em curso e venda/desreconhecimento, com débitos e créditos em 11.x, 14.x, 18.1.x, 43.x, 45.x, 37.1.1, 37.2.1, 78.3.1 e 68.3.1. A página 41 do Decreto n.º 82/01 confirma visualmente a existência e as designações de 11 — Imobilizações corpóreas, 14 — Imobilizações em curso e 18 — Amortizações acumuladas, mas não apresenta os esquemas de débito/crédito nem as subcontas de movimento equivalentes.
+
+Resultado literal: há coincidência parcial de códigos e designações, mas não coincidência integral do movimento. A regra de aquisição, transferência e venda/desreconhecimento não é activável com esta fonte primária isolada.
+
+### Conferência visual literal — tesouraria auxiliar versus fonte primária
+
+A página 232 do PDF auxiliar mostra a constituição e o levantamento de depósitos a prazo, com movimentos entre 42.x e 43.x/45.x, e apresenta um esquema genérico de levantamento/pagamento e depósito/recebimento para 43.x. A página 49 do Decreto n.º 82/01 confirma visualmente 42 — Depósitos a prazo, 42.1/42.2, 43 — Depósitos à ordem, 44 — Outros depósitos e 45 — Caixa, incluindo parte das subcontas.
+
+Resultado literal: os códigos e designações principais coincidem, mas a fonte primária não demonstra os débitos, créditos, natureza da contrapartida, moeda ou condição operacional dos esquemas auxiliares. As regras de tesouraria não são activáveis com correspondência integral.
+
+### Conferência visual literal — conta 52 auxiliar versus fonte primária
+
+A página 239 do PDF auxiliar apresenta movimentos de aquisição de acções/quotas próprias a prémio e a desconto, com débito em 52.1, débito/crédito em 52.3 ou 52.2 e crédito em 43.x ou 45.x. A página 50 do Decreto n.º 82/01 confirma visualmente 51 — Capital, 52 — Acções/quotas próprias, 52.1 — Valor nominal, 52.2 — Descontos, 52.3 — Prémios, 54 — Prestações suplementares, 55 — Reservas legais, 56 — Reservas de reavaliação, 57 — Reservas com fins especiais e 58 — Reservas livres.
+
+Resultado literal: códigos e designações principais coincidem, mas a fonte primária não demonstra os lançamentos de aquisição, nem a natureza do prémio/desconto ou as contrapartidas 43.x/45.x. As regras da conta 52 não são activáveis com conformidade integral.
+
+### Conferência visual literal — conta 61 auxiliar versus fonte primária
+
+A página 247 do PDF auxiliar confirma visualmente a estrutura explicativa da conta 61 — Vendas, incluindo 61.1 a 61.5, 61.7, 61.8 e 61.9, mas a página apresentada contém critérios e estrutura, não um diagrama completo de lançamento para activação. A página 50 do Decreto n.º 82/01 confirma 61 — Vendas, 61.1 — Produtos acabados e intermédios, 61.2 — Sub-produtos, desperdícios, resíduos e refugos, 61.3 — Mercadorias, 61.4 — Embalagens de consumo e subcontas de mercado nacional/estrangeiro.
+
+Resultado literal: a hierarquia e as designações principais são compatíveis. Não existe, contudo, prova primária equivalente do movimento de venda, devolução, desconto, recebimento ou transferência para resultados. Nenhuma regra da conta 61 é activável apenas com esta coincidência estrutural.
