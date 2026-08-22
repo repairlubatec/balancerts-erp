@@ -234,3 +234,9 @@ A página 183 confirma a **conta 26 — Mercadorias**, destinada a bens adquirid
 A página 185 explica que as contas **26.1**, **26.2** e 26.3 a 26.8 podem ser adaptadas por tipo de produto ou localização, apresentando exemplos hierárquicos de electrodomésticos, alimentares, perecíveis e arroz. A **conta 26.9 — Em poder de terceiros** regista mercadorias da entidade sob guarda de terceiros ou em consignação. A página inclui uma nota fiscal sobre emissão de factura de bens à consignação, que deverá ser validada separadamente na fonte fiscal vigente. Inicia ainda a **conta 27 — Matérias-primas, mercadorias e outros materiais em trânsito**, destinada a bens adquiridos ainda não recepcionados cuja factura já foi recebida, subdividida em **27.1 — Matérias-primas**, **27.2 — Outros materiais** e **27.3 — Mercadorias**. A própria fonte recomenda confirmação da edição e do Código do Imposto do Consumo devido ao risco de alteração normativa.
 
 **Estado:** transcrição OCR preliminar; a nota fiscal e a estrutura da conta 27 requerem confirmação visual e normativa independente.
+
+## Índice visual — página 15 do PDF auxiliar
+
+O índice visual confirma a sequência da Classe 2: **21 — Compras**, **22 — Matérias-primas, subsidiárias e de consumo**, **23 — Produtos e trabalhos em curso**, **24 — Produtos acabados e intermédios**, **25 — Sub-produtos, desperdícios, resíduos e refugos**, **26 — Mercadorias**, **27 — Matérias-primas, mercadorias e outros materiais em trânsito**, **28 — Adiantamentos por conta de compras** e **29 — Provisão para depreciação de existências**. A sequência é seguida pela Classe 3 — Terceiros, iniciada por Clientes, Fornecedores, Empréstimos, Estado, Entidades participantes e participadas e Pessoal.
+
+**Estado:** confirmação visual do índice; as movimentações de 21 a 24 ainda necessitam de leitura das páginas próprias e os itens permanecem pendentes de confirmação normativa.
