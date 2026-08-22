@@ -33,3 +33,27 @@ export function auditExcelFilename(companyId?: number) {
   const date = new Date().toISOString().slice(0, 10);
   return `auditoria-${companyId ?? "empresa"}-${date}.xlsx`;
 }
+
+
+function csvCell(value: unknown) {
+  return `"${String(value ?? "").replace(/"/g, '""')}"`;
+}
+
+export function buildAuditCsv(events: AuditExportEvent[]) {
+  const header = ["Data", "Acção", "Entidade", "Utilizador", "Correlação", "Estado anterior", "Estado posterior"];
+  const rows = events.map((event) => [
+    new Date(event.createdAt).toLocaleString("pt-PT"),
+    presentationLabel(event.action),
+    `${presentationLabel(event.entityType)} #${String(event.entityId)}`,
+    `#${event.actorUserId}`,
+    presentationLabel(event.correlationId ?? ""),
+    event.beforeState ?? "Sem estado anterior",
+    event.afterState ?? "Sem estado posterior",
+  ]);
+  return `\uFEFF${[header, ...rows].map((row) => row.map(csvCell).join(";")).join("\r\n")}\r\n`;
+}
+
+export function auditCsvFilename(companyId?: number) {
+  const date = new Date().toISOString().slice(0, 10);
+  return `auditoria-${companyId ?? "empresa"}-${date}.csv`;
+}

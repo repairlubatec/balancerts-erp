@@ -2782,3 +2782,9 @@
 - [x] Garantir que o painel é somente de leitura, sem edição ou eliminação de eventos append-only.
 - [x] Construir interface desktop em português com resumo, filtros, paginação e detalhe antes/depois.
 - [x] Adicionar testes de isolamento, RBAC, filtros, paginação, integridade e validação visual do painel.
+
+# Exportação dos logs de auditoria PGCA
+- [x] Implementar exportação CSV da vista filtrada, com BOM UTF-8, escape de campos e estados anterior/posterior.
+- [x] Implementar exportação PDF profissional com identificação da empresa, filtros, data de emissão e paginação.
+- [x] Integrar botões de exportação no painel de logs sem permitir alteração dos eventos.
+- [x] Adicionar testes de conteúdo, filtros, escape, PDF, permissões e validação visual antes do checkpoint.

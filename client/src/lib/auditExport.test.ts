@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import * as XLSX from "xlsx";
-import { auditExcelFilename, buildAuditXlsx } from "./auditExport";
+import { auditCsvFilename, auditExcelFilename, buildAuditCsv, buildAuditXlsx } from "./auditExport";
 
 describe("exportação Excel da auditoria", () => {
   it("preserva rastreabilidade e cabeçalhos em português", () => {
@@ -13,5 +13,20 @@ describe("exportação Excel da auditoria", () => {
 
   it("gera nome por empresa e data", () => {
     expect(auditExcelFilename(4)).toMatch(/^auditoria-4-\d{4}-\d{2}-\d{2}\.xlsx$/);
+  });
+});
+
+
+describe("exportação CSV dos logs de auditoria", () => {
+  it("gera BOM, cabeçalhos em português e escapa aspas/linhas", () => {
+    const csv = buildAuditCsv([{ id: 2, createdAt: "2026-08-20T10:00:00.000Z", action: "PGC_EVIDENCE_REVIEW_DECIDED", entityType: "pgcEvidenceSubmission", entityId: 9, actorUserId: 8, correlationId: "corr;2", beforeState: "{\"status\":\"PENDING\"}", afterState: "Decisão: \"CONFIRM\"\nRevisto" }]);
+    expect(csv.charCodeAt(0)).toBe(0xfeff);
+    expect(csv).toContain('"Data";"Acção";"Entidade";"Utilizador";"Correlação";"Estado anterior";"Estado posterior"');
+    expect(csv).toContain('"corr;2"');
+    expect(csv).toContain('"Decisão: ""CONFIRM""\nRevisto"');
+  });
+
+  it("gera nome CSV por empresa e data", () => {
+    expect(auditCsvFilename(4)).toMatch(/^auditoria-4-\d{4}-\d{2}-\d{2}\.csv$/);
   });
 });
