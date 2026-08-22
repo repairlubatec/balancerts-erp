@@ -2636,3 +2636,9 @@
 - [x] Catalogar integralmente as regras IVA da Lei n.º 14/23 com artigo, regra, taxa/regime, vigência, anexos e fonte
 - [ ] Executar confirmação humana das contas e regras, separando CONFIRMED, NEEDS_REVIEW, CONFLICT e REJECTED
 - [ ] Activar apenas contas/regras CONFIRMED, com auditoria, versionamento e testes de não-regressão
+- [ ] Aplicar validação estrita do modelo angolano: fonte primária, designação literal, hierarquia comprovada e nenhuma inferência
+- [ ] Solicitar/seleccionar explicitamente o primeiro lote PGCA/IVA antes de qualquer confirmação humana persistida
+- [x] Executar pesquisa autónoma contínua das fontes PGCA/IVA oficiais e actualizar a classificação de evidência sem depender de confirmação por lote
+- [ ] Criar procedimento seguro de publicação/activação da versão PGCA apenas quando todos os registos elegíveis estiverem CONFIRMED
+- [ ] Expor a publicação PGCA no router com autorização contabilística e auditoria
+- [ ] Cobrir publicação PGCA, bloqueio por registos pendentes e isolamento por organização com testes Vitest
