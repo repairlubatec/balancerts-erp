@@ -275,3 +275,13 @@ describe("prioridades P0 de Contabilidade e Tesouraria", () => {
     expect(approve).toHaveBeenCalledWith({ companyId: 41, paymentId: 5, executionReference: "comprovativo-5", userId: 8 });
   });
 });
+
+describe("PGCA activation readiness permissions", () => {
+  it("blocks Operador and rejects an inaccessible organization before readiness data is returned", async () => {
+    const operator = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operator.pgc.activationReadiness({ organizationId: 1, versionId: 1 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.pgc.activationReadiness({ organizationId: 999999, versionId: 1 })).rejects.toThrow();
+    await expect(accountant.pgc.activateVersion({ organizationId: 1, versionId: 1 })).rejects.toThrow("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  });
+});

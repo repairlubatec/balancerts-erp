@@ -2641,9 +2641,10 @@
 - [x] Executar pesquisa autónoma contínua das fontes PGCA/IVA oficiais e actualizar a classificação de evidência sem depender de confirmação por lote
 - [x] Criar procedimento seguro de publicação/activação da versão PGCA apenas quando todos os registos elegíveis estiverem CONFIRMED
 - [x] Expor a publicação PGCA no router com autorização contabilística e auditoria
-- [ ] Cobrir publicação PGCA, bloqueio por registos pendentes e isolamento por organização com testes Vitest
+- [x] Cobrir publicação PGCA, bloqueio por registos pendentes e isolamento por organização com testes Vitest
 - [x] Expor leitura de prontidão da versão PGCA com contagens, bloqueadores, autorização contabilística e teste unitário
 - [x] Exigir fonte normativa primária confirmada no procedimento de confirmação visual PGCA e rejeitar evidência órfã
 - [x] Cobrir a rejeição de confirmação visual sem fonte confirmada com teste Vitest
-- [ ] Bloquear visualmente a confirmação de contas PGCA enquanto a fonte primária da versão não estiver CONFIRMED
-- [ ] Mostrar orientação em português para confirmar primeiro a fonte normativa
+- [x] Bloquear visualmente a confirmação de contas PGCA enquanto a fonte primária da versão não estiver CONFIRMED
+- [x] Mostrar orientação em português para confirmar primeiro a fonte normativa
+- [x] Corrigir a expectativa do teste de activação PGCA para o erro real de versão inacessível
