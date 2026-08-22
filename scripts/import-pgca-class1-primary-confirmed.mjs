@@ -25,3 +25,5 @@ for (const account of accounts) {
   });
   console.log(JSON.stringify(result));
 }
+
+process.exit(0);
