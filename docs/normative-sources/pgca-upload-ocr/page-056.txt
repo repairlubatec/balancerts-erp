@@ -1,0 +1,41 @@
+INTRODUÇÃO
+
+O PGC identifica um conjunto de demonstrações financeiras obrigatórias podendo cada entidade acrescentar
+outros elementos informativos caso considere que esses elementos methoram a informação dada pelo conjunto
+das demonstrações financeiras
+
+Um conjunto completo de demonstrações financeiras (obrigatório) é formado por quatro documentos:
+* Balanço
++ Demonstração de Resultados
++ Demonstração de Fluxos de Caixa (temporariamente suspenso, no entanto é recomendada a sua preparação
+sempre que a empresa já disponha de meios que the permitam preparar tal demonstração!!!)
+
+* Notas às Contas
+
+De notar que:
+> Cada entidade pode optar por apresentar a demonstração de resultados por natureza ou por funções sen-
+do que é recomendado que a Demonsiração de Resultados por Funções seja apresentada em substituição
+da Demonstração de Resultados por Natureza para as empresas industriais que tenham contabilidade
+analítical,
+> Cada entidade pode optar por apresentar a demonstração de fluxos de caixa pelo método directo ou
+método indirecto.
+
+Além destes documentos obrigatórios podem ser apresentados outros como sendo a Demonstração das altera-
+ções do capital próprio sendo neste caso recomendado que estes documentos facultativos sejam incorporados
+dentro do modelo de Notas às Contas.
+
+Modelos de
+Demonstrações Financeiras
+(obrigatórios)
+Balanço Demonstração Notas Demonstração
+ç dos resultados às contas de fluxos de caixa
+Por natureza Por funções Método Método
+directo indirecto
+
+Um conjunto completo de demonstrações financeiras está estruturado de forma a proporcionar informação acer
+ca da posição financeira, desempenho e alterações na posição financeira de uma entidade de forma a ser útil a
+um conjunto vasto de utentes na tomada de decisões económicas.
+
+[I] A este propósito ver o ponto 4. — suspensões temporárias da introdução ao decreto nº 82/01, de 16 de Novembro.
+[2] Contabilidade analítica também chamada de contabilidade de gestão e no caso concreto da parte da contabilidade analítica que trata do
+custo de produção é chamada também de contabilidade de custos.

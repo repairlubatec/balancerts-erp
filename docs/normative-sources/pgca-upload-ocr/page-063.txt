@@ -1,0 +1,55 @@
+62
+
+PGC — EXPLICADO
+
+DEMONSTRAÇÃO DE FLUXOS DE CAIXA (DFC)
+
+A Demonstração de Fluxos de Caixa é uma demonstração contabilística destinada a evidenciar como foi gerado e
+utilizado o dinheiro no período em análise.
+
+Fluxos de caixa são entradas (recebimentos, influxos) e saídas (pagamentos, exfluxos) de caixa e seus equivalentes.
+Sendo que:
+Caixa
+Compreende o dinheiro em caixa e em depósitos à ordem, líquido de descobertos bancários desde
+que estes sejam usados como forma de financiamento das actividades operacionais.
+
+Equivalentes de caixa
+Equivalentes de caixa são investimentos a curto prazo com as seguintes características:
+Alto grau de liquidez.
+Sujeitos a um risco insignificante de alterações de valor
+Prontamente convertíveis para quantias conhecidas de dinheiro.
+
+As principais característica da DFC são:
+Contributo de três actividades (operacional, de investimento e de financiamento) para a variação de caixa e
+seus equivalentes;
+Em cada uma das actividades, os fluxos de caixa extraordinários são segregados.
+
+Preparada na "base de caixa” ao contrário da restantes Demonstrações Financeiras que são preparadas na
+base do acréscimo.
+
+Obrigatoriedade de apresentação de comparativos do período anterior;
+Referenciação cruzada com as divulgações efectuadas nas respectivas Notas às Contas:
+
+Por forma a evidenciar como foi gerado e utilizado o dinheiro no período em análise a Demonstração de fluxos
+de caixa mostra, por actividades:
+
+* As fontes de caixa e equivalentes de caixa a que a empresa teve acesso durante um determinado período
+de tempo, e
+
+* O destino que foi dado a tais fontes.
+
+Assim, a Demonstração de Fluxos de caixa tem as seguintes componentes:
+* Fluxos resultantes das actividades operacionais
+* Fiuxos resultantes das actividades de investimentos
+
+* Fluxos resultantes das actividades de financiamento
+
+Fluxos das actividades operacionais:
+Os fluxos das actividades operacionais são os fluxos liquidos resultantes destas actividades. Estes fluxos são:
++ Um indicador da capacidade da entidade em gerar meios de pagamento suficientes, sem ter que recorrer
+a capitais alheios, para:
+> Manter a capacidade operacional.
+> Reembolsar empréstimos.
+> Pagar dividendos.
+> E fazer investimentos de substituição.
++ Úteis, juntamente com outras informações, para planear os futuros fluxos de caixa operacionais.

@@ -1,0 +1,61 @@
+1. O PGC | ESTRUTURA | POLÍTICAS CONTABILÍSTICAS
+
+Consistência
+
+A apresentação e classificação de itens nas demonstrações financeiras devern ser mantidas de um período para
+outro, o menos que:
+
++ Uma alteração significativa nas operações da entidade ou uma revisão da apresentação das demonstrações
+financeiras demonstre que uma alteração irá resultar numa mais adequada apresentação dos acontecimentos
+e transacções.
+
+* A alteração seja imposta pela entrada em vigor de novas políticas contabilísticas.
+
+Este princípio confere a necessidade de haver uniformidade nos critérios de reconhecimento utilizados, nas bases
+de valorimetria, na divulgação efectuada e nas demonstrações financeiras de um período para o outro.
+
+Nesta sequência, qualquer alteração, seja na apresentação e/ou classificação de itens nas demonstrações financei-
+ras, em relação ao período anterior que se tenha de efectuar com vista a dar uma mais adequada classificação e
+apresentação deve ser divulgada nas notas às contas de forma a que o utente das demonstrações financeiras possa
+avaliar os seus efeitos e assim possa comparar a informação dos períodos.
+
+No caso da alteração decorrer de uma alteração de uma política, como regra geral, deve ser aplicada retrospec-
+tivamente, isto é, a nova política é aplicada aos acontecimentos e transacções em causa como se tivesse estado
+sempre em uso. Os efeitos desta alteração devem ser reconhecidos nos resultados transitados. Caso a quantia do
+ajustamento a efectuar em Resultados transitados não possa ser razoaveimente estimada, admite-se excepcional-
+mente que tal ajustamento seja registado nos Resultados do exercício, devendo ser feita a divulgação apropriada
+nas Notas às contas.
+
+Materialidade
+
+A informação é considerada material se o sua omissão puder influenciar a decisão económica dos utentes baseada
+nas demonstrações financeiras. A materialidade depende do tamanho e da natureza de cada item avaliados nas
+circunstâncias particulares da sua omissão.
+
+Uma divulgação, mesmo que prevista neste plano, não necessita de ser efectuada se a informação daí resultante for
+imaterial
+
+Este princípio contabilistico tem uma relação directa com a característica qualitativa da relevância. Com efeito a
+relevância da informação é afectada pela sua natureza e materialidade. A materialidade depende da dimensão do
+item ou do erro julgado nas circunstâncias particulares da sua omissão ou distorção. Assim a materialidade pro-
+porciona um patamar ou ponto de corte a partir do qual uma inexatidão ou omissão pode influenciar as decisões
+dos utentes.
+
+No que respeita à aplicação deste conceito à demonstração financeira “Notas às contas”, e apenas para efeitos
+exclusivos desta demonstração, optou-se por definir um critério que sirva de orientação e simplifique o processo
+de elaboração das Notas. Assim, convencionou-se que para efeitos de preparação das Notas às contas não é obri-
+gatória a elaboração das notas para as rubricas que apresentem valores inferiores a:
+
+* 10% do total do Activo, no caso de rubricas de Balanço.
+
++ 5% do total dos Proveitos operacionais, para rubricas da Demonstração de resultados.
+As divulgações dos critérios valorimétricos correspondentes a tais rubricas podem igualmente ser omitidas.
+
+Não compensação de saldos
+
+Não devem ser efectuadas compensações de saldos entre activos e passivos.
+
+A apresentação de rubricas, no Balanço pelo seu valor líquido de amortizações e provisões não é considerada uma
+compensação de saldos.
+
+a7

@@ -1,0 +1,48 @@
+2. DEMONSTRAÇÕES FINANCEIRAS | 5
+
+À posição financeira — Através do Balanço, acompanhadas de notas explicativas no modelo de Notas às Contas
+
+O Balanço (posição financeira) dá-nos informação sobre:
+* Os recursos económicos controlados e a capacidade de modificar esses recursos, informação essa que é
+util para a:
+> Predição da capacidade da entidade em gerar caixa e equivalentes de caixa no futuro.
++ A estrutura Financeira, informação essa que é útil para a:
+> Predição de futuras necessidades de empréstimos.
+> Predição de como os lucros futuros € fluxos de caixa serão distribuídos entre os que têm interesses na
+entidade,
+» Predizer o sucesso que a entidade terá como a obtenção de fundos adicionais.
+* A liquidez e solvência, informação essa que é útil para a:
+> Predição da capacidade da entidade de satisfazer os seus compromissos financeiros à medida que se
+vencem.
+
+Ao desempenho — Através da Demonstração de Resultados e da Demonstração de Alterações nos Capitais
+Próprios nomeadamente ao nível do resultado integral?) acompanhadas de notas explicativas no modelo de Notas
+às Contas.
+
+A demonstração de resultados (desempenho) dá-nos informação útil para predizer:
+* A capacidade da entidade em gerar fluxos de caixa a partir dos recursos básicos existentes.
+
++ As alterações potenciais nos recursos económicos que seja provável que ela controle no futuro.
+
+Às alterações na posição financeira — Através da Demonstração de Fluxos de Caixa, acompanhadas de notas
+explicativas no modelo de Notas às Contas.
+
+A demonstração de fluxos de caixa (alterações na posição financeira) dá-nos informação útil para:
+* Avaliar as suas capacidades de investimento, financiamento e operacionais durante um período,
+
+* Determinar a capacidade de uma entidade de gerar dinheiro e equivalentes e as necessidades de utilização
+desses fluxos, no futuro.
+
+DEMONSTRAÇÕES FINANCEIRAS
+
+BALANÇO
+
+O Balanço é uma demonstração contabilística destinada a evidenciar, quantitativamente e qualitativamente, numa
+determinada data, a posição patrimonial e financeira de uma entidade.
+
+As principais características
+* Separação entre Activo, Passivo e Capital Próprio;
+* Organização do Activo em não corrente e corrente, por grau crescente de disponibilidade (liquidez):
+* Organização do Passivo em não corrente e corrente, por grau crescente de exigibilidade;
+
+[3] Resultado integral também conhecido por resultado global, extensivo, comprehenswe income ou ainda outros nomes equivalentes.

@@ -1,0 +1,34 @@
+22 | PGC — EXPLICADO
+CONTA 44 - OUTROS DEPÓSITOS
+Esta conta destina-se a registar os meios de pagamento existentes em depósitos que não sejam classificados como
+a ordem ou a prazo, Neste âmbito encontram-se os depósitos que apresentem características específicas que por
+vezes impõem alguma limitação ao seu uso, como sejam, por exemplo os cepósitos com aviso prévio.
+Movimentação (esquemática), alguns exemplos
+Com as devidas adaptações sugerimos a consulto és movimentações esqueméticas constuntes das contas 42 e 43
+CONTA 45 - CAIXA
+Esta conta agrega os meios de pagamento, tais como notas de banco, moedas metálicas ce curso legal, cheques e
+vales postais, nacionais ou estrangeiros
+(nota explicatwer à conta 45)
+Não deve, consequentemente, fazer parte do seu saido, itens que não os especificados no âmbito desta conta.
+Entre outros itens que não devem fazer parte deste saldo, estão por exemplo, os chamados vales de caixa.
+» Ter em atenção que os chamados “vales de caixa” pocem configurar várias situações, podendo ir desde
+uma verdadeira caixa até uma conta a receber passando por um adiantamento ao pessoal.
+Nesse sentida os “vales de caixa" poderão estar registades nas contas: 45 Caixa, 36,3 Pessoal-açiania-
+mentos, ou 37 Ouaras valores à receber,
+Conta 45 Caixa: Quando alguém devidamente autorizado retira dinheiro da caixa (entencida
+como caixa principal) para despesas por conta da entidade, na verdade estamos em presença
+da constituição de uma nova caixa, pelo que o vale de caixa mais não é do que um documento
+de abertura de uma caixa secundária, podendo, neste caso, proceder-se à transferência para
+uma sub-conta específica de caixa, por exemplo 45.x Caixa — Vendedor X,
+Conta 36.3 Pessoal — adiantamentos: Quando um elemento do “pessoal” da entidade {ia-
+cluindo as órgãos sociais), devidamente autorizado, retira dinheiro da caixa para ser devolvido
+aquando do recebimento das suas remunerações, em substância estamos perante um emprés-
+lime da entidade ao pessoal empréstimo este que se não for materialmente relevante e conf
+gurar o que Usualmente se chama um adiantarmento a0 pessoal os vulgarmente designados de
+“vales de caixa” deverá ser objecto de registo a débito na conta 36 Pessoal mais concretamente
+na conta 36.3 x Adiantamentos, por crédito da conta 45 Caixa.
+Conta 37 Outros valores a receber: Quando alguém covidamente autorizado, que não o
+pessoal da entidade, retire dinheira da caixa para ser devolvido em momento posterior não
+se deve continuar a considerar que esse montante retirado continua à fazer parte do saldo de
+caixa, peio que devemos creditar a conta “45 Caixa” por débito da conta "37 Outros valores a
+receber”, mars concretamente uma sub-conta da"37.? Outros valores a receber”

@@ -1,0 +1,36 @@
+236 | PGC EXPLICADO
+CLASSE 5 - CAPITAL E RESERVAS
+INTRODUÇÃO
+Esta classe destina-se a registar as operações referentes ao capital próprio da entidade, com excepção dos resulta-
+dos do exercício © dos resultados transitados que são registados na classe &,
+Esta classe é constituída pelas seguintes contas do 1.º grau:
+51 - Capital
+52 — Acções / Quotas Próprias
+53 - Prémios de Emissão
+54 — Prestações Suplementares
+55 — Reservas Legais
+56 — Reservas de Reavaliações
+57 - Reservas com Fins Especiais
+58 — Reservas Livres
+Reconhecimento
+As contas da classe 5 — Capital e reservas, surgem no balanço ne "Capital próprio e passivo” mais concretamente
+na componente do balanço = Capital próprio - nas rubricas "Capital" e "Reservas",
+Balanço era xxhochooce Valores expressos em
+Designação Notas
+CAPITAL PRÓPRIO E PASSIVO |
+Capital próprio
+Capital 12
+Reservas 13
+Total do capital próprio |
+Figura 5 — Reconhecimento no Balanço: Classe 5
+Valorimetria
+Os itens que compõem as rubricas de “Capital” e de "Reservas", em geral, devem ser valorizados a0 custo (valor
+nominal) do reconhecimento inicial
+CONTA 5! - CAPITAL
+Esta conta destina-se a registar
++ O capital nominal subscrito das empresas sob a forma de sociedade.
+* O capital inicial e as dotações de capital das empresas públicas
++ O capital inicial o adquirido e ainda as operações de natureza financeira cam o respectivo proprietário no
+caso de comerciantes em nome individual,
+* O capital das cooperativas
+(nota explicativa O conta 51)

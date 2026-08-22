@@ -1,0 +1,37 @@
+74
+
+PGC — EXPLICADO
+
+2.2.5. Critérios de reconhecimento e bases de valorimetria específicas:
+
+Indicar os critérios de reconhecimento e as bases de valorimetrias específicas usadas para:
+
+Imobilizações corpóreas:
+Indicar:
+
+* Base de medição usada para determinar a quantia bruta registada.
+* Critérios de reconhecimento:
+> Valor partir do qual os bens são capitalizados.
+» Usados para encargos com melhoramentos.
+> Usados para encargos com reparação e manutenção.
+* Métodos de depreciação usados.
+* Vida útil, por categoria e taxas de depreciação usadas.
+
+* Em caso de reavaliação:
+> Base de reavaliação (incluindo a indicação se esteve envolvido um perito avaliador independente),
+
+>» Data de entrada em vigor da reavaliação.
+> Natureza dos índices usados para determinar o custo de reposição.
+
+Comentário
+
+Esta nota é uma neta de inf mos de reconhecim
+
+não © valorização p:
+
+recurso "Imobiliza
+
+ções corpóreas.
+
+Assim esta nota poderá ter ur texto do tipo:
+

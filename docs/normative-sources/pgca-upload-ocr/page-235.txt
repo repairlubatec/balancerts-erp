@@ -1,0 +1,38 @@
+34 | PGC — EXPLICADO
+Esta conta será creditada apenas quando:
++ Fornecessário diminuir o valor do fundo fixo: ou
++ Oresponsável pela caixa mudar
+Nessa data, deverá ser:
+* Cancelado o vale anteriormente emitido.
++ Ermitido novo vale que deverá ser assinado pelo responsável pela caixa a partir dessa data.
+A contrapartida do crédito será um débito na mesma conta tendo por base o novo vale,
+Os pagamentos efectuados mediante à utilização dos meios monetários desta caixa deverão ser registados a débi-
+to nas respectivas contas de custos e a crédito numa das seguintes contas
++ Bancos, se for passado um cheque à ordem do responsável pela caixa para reposição do valor do fundo
+fixo.
+* Caixa valores destinados a pagamentos específicos, se forem entregues 20 responsável pela caixa valores
+em dinheiro para repor o valor do fundo fixo.
+Os valores em caixa, compostos por meios monetários e documentos de despesa devem, em qualquer momento,
+totalizar 6 valor do fundo fixa. No final de cada mês o fundo fixo deverá ser composto exclusivamente por meios
+monetários.
+(ponto 8.2 — situações particulares / note explicativa à conta 45.1)
+Conta 45.2 Valores para depositar
+Esta conta destina-se a reflectir os meios monetários compostos por dinheiro ou cheques que resultem de recebi.
+mentas de Terceiros e para os quais ainda não tenha sido efectuado q correspondente depósito bancário
+(note explicativa à conta 45.2)
+Conta 45.3 —Valores destinados a pagamentos específicos
+Esta conta destina-se a registar 05 meios monetários levartados do banco com o objectivo de fazer face a paga-
+mentos de montante significativo através de caixa que, em condições normais, seriam pagos directamente através
+do banco.
+(nota explicativa à conta 45.3)
+CONTA 48 - CONTA TRANSITÓRIA
+Esta conta destina-se a registar os meios monetários que já não se encontram em depósitos à ordem por ter sido
+solicitada, a uma instituição financeira, à sua transferência para uma terceira entidade mas relativamente 205 quais
+ainda não foi obtida confirmação da efectivação da operação.
+{nota explicativo à conta 48)
+CONTA 49 - PROVISÕES PARA APLICAÇÕES DE TESOURARIA
+Esta conta destina-se a registar a diferença entre © custo de aquisição e o preço de mercado das aplicações de
+tesouraria, quando este for inferior aquele,
+A provisão é constituída por contrapartida da correspondente conta de custos e é corrigida ou anulada na medida
+em que se reduzirem ou deixarem de existir as situações que justificaram a constituição.
+{note explicethva à conta 49)

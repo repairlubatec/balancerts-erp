@@ -1,0 +1,44 @@
+mo | Poe = ExruicADe
+Reparações e manutenção
+Os dispêndios em manutenção e reparação que tiverem sido feitos para repor os benefícios económicas futuros
+de activo cujas perdas, na data do registo inicial, já haviam sido consideradas, devem ser capitalizados desde que a
+quantia registada:
++ Não exceda a quantia recuperável do active:
++ Possa ser recuperada do uso futuro do activo.
+(ponto 3.2 dos notas explicativos)
+Locação financeira
+De acordo com o ponto 4.2 das disposições transitórias inclui-se ainda nesta conta a contabilização das locações
+financeiras (no que respeita a imobilizações corpóreas) sempre que uma entidade entenda que as suas demonsira-
+ções financeiras devem reflectir a contabilização de locações de acordo cam as normas do IASB, podendo fazê-lo
+desde que:
+* Siga as correspondentes disposições, quer para 9 registo, quer para a divulgação dos factos e aconteci-
+mentos;
++ Divulgue nas Notas às contas que tais disposições foram seguidas
+Estrutura da conta
+A conta || impbiizações corpóreas subdivide-se em:
+ELI Terrenos e recursos naturais
+11.2 — Edifcios e outras construções
+113 - Equipamento básico
+11.4 ~ Equipamento de carga e transporte
+115 — Equipamento administrative
+16 —Taras e vasilhame
+11.9 — Outras imobilizaçães corpóreas
+Associada à conta | imobilizações corpéreas está a conta 18.1 — Amortizações acumulacas-imobiizações corpe-
+reas nomeadamente na questão da valorização subsequente.
+[8-- Amortizações acumuladas
+8.1 — imobilizações corpórcas!
+18.1.1 Terrenos e recursos naturais
+1842 - Edificios e outras construções
+18.1.3 - Equipamento básico
+18.1.4 — Equipamento de carga e transporte
+18.1.5 — Equipamento administrativo
+18,1,6 —Taras e vasihame
+18.1.9 — Outras imobilizações corpóreas
+A conta 181 e a5 suas sub-contos são desenvolvidas no dmbito da conta 18,
+Reconhecimento
+Esta conta é apresentada no balanço. no conjunto dos activos não comentes, na rubrica "Imobilizações corpóreas”.
+Poderá também surgir nos activos correntes, na rubrica “outros activos correntes”, no caso de imobilizações cor
+póreas retiradas do uso e detidas para alienação quando haja à intenção e a perspectiva de venda num período
+inferior a umano.
+[2] Por gra, Decreto 82/01 que aprova 0 PGC o desdobramento da coma 18,1 aparece com um cito a menos por exemplo a conta
+18,52 - Edf é outs construções aparece apenas 18.2.

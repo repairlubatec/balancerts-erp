@@ -1,0 +1,59 @@
+50
+
+PGC — EXPLICADO
+
+* Estes possam ser quantificados com fiabilidade.
+
+* Face ao critério da prudência, os proveitos só devem ser reconhecidos quando satisfizerem uma condição adicio-
+nal: tenham um grau suficiente de certeza.
+
+Critério para reconhecimento de Custos
+
+Os custos devem ser reconhecidos na demonstração de resultados quando:
+
+* Tenha surgido uma diminuição dos beneficios económicos futuros relacionados com uma diminuição num activo
+ou com um aumento do passivo, e
+
++ Estes possam ser quantificados com fiabilidade.
+
+Quando se espera que surjam benefícios económicos durante alguns períodos contabilísticos e o proveito ou ganho
+
+associado só possa ser determinado de uma forma geral ou indirectamente, o critério de balanceamento determina
+que os custos sejam reconhecidos na base de procedimentos sistemáticos e racionais de imputação.
+
+Um custo é imediatamente reconhecido quando a despesa não produza beneficios económicos futuros ou estes não
+se qualifiquem ou deixem de qualificar-se para reconhecimento no balanço como um activo.
+
+Critérios para reconhecimento de Erros, Alterações de Estimativas
+e de Políticas Contabilísticas
+
+Os critérios para reconhecimento de erros, alterações de estimativas e de políticas contabilisticas devem ser ana-
+lisados de forma individualizada.
+
+Os critérios que se seguem são válidos para os erros, alterações de estimativas e de políticas contabilísticas, quer
+sejam de natureza devedora seja credora.
+
+Critérios para reconhecimento de Erros
+
+A correcção de erros na preparação de Demonstrações financeiras de um ou mais períodos anteriores que sejam
+descobertos no período corrente deve ser reconhecida nos resultados líquidos do período corrente, excepto se reuni-
+rem as características para serem considerados erros fundamentais. À correcção de erros fundamentais deverá ser
+reconhecida nos resultados transitados de exercícios anteriores.
+
+Critérios para reconhecimento de Alterações de estimativas contabilísticas
+
+Porque o processo de estimativa envolve juízos fundamentais baseados na última informação disponível, esta tem de
+ser revista se ocorrerem alterações respeitantes às circunstâncias nas quais a estimativa se baseou, ou em resultado
+de novas informações, de mais experiência ou de desenvolvimentos subsequentes. Dada a sua natureza, a revisão
+de uma estimativa contabilística não reúne as condições para que possa ser considerada, nem como um erro fun-
+damental, nem como uma rubrica extraordinária.
+
+Por esta razão, os efeitos das alterações das estimativas contabilisticas são reconhecidos na Demonstração de resul
+tados do período corrente, na mesma rubrica usada anteriormente para reconhecer a própria estimativa.
+
+Critérios para reconhecimento de Alterações de políticas contabilisticas
+
+Face aos princípios contabilísticos da consistência e da comparabilidade dos saldos, as alterações de políticas con-
+tabilísticas só devem ser efectuadas nos seguintes casos:
+
+* Se for exigida por disposições contabilísticas emitidas por órgão competente para o efeito,

@@ -1,0 +1,39 @@
+CLASSE | - MEIOS FIXOS E INVESTIMENTOS
+INTRODUÇÃO .
+Esta classe inclui os bens detidos com continuidade ou permanência e que não se destinem a ser vendidos ou
+transformados no decurso normal das operações da entidade, quer sejam sua propriedade, quer estejam em re-
+gime de locação financeira!!
+Compreende os investimentos financeiros, os imobilizados corpóreos e incorpóreos prontos para uso efou em
+curso,
+Esta classe é constituída pelas seguintes contas do 1º grau que se apresentam da seguinte forma
+1 | = Imobilizações corpóreas
+12 - Imobilizações incorpóreas
+13 — Investimentos financeiros
+14 - Imobilizações em curso
+18 —Amortizações acumuladas
+19 — Provisões para investimentos financeiros
+Reconhecimento
+As contas da classe | — Meios fixos é investimentos, surgem geralmente no balanço no activa não corrente,
+Haverá lugar ao reconhecimento no activo corrente quando se espera que esses activos permaneçam na posse da
+entidade por um período até um ano como poderá ser o caso de:
++ Activos corpóreos ¢ incorpóreos retirados do uso ¢ detidos para alienação (quando haja a intenção e a
+perspectiva de venda num período inferior a | ano);
++ Investimentos financeiros coma por exemplo empréstimos e depósitos (quando se esperar que se con-
+vertam em caixa ou equivalentes de caixa num período inferior a | ano).
+Balanco em podbedbosor Valores expressos em ..
+Dx | Dom
+ACTIVO
+Activos não correntes:
+Imobiizações corpóreas 4
+Imabilizações inconpóreas 5
+Investimentas em subsidies e associadas 6
+Outros activos financeiros 7
+Outros activos não correntes > ;
+Total dos activos não correntes [o
+Activos correntes
+"eal each cats ee
+Total do activo
+Figura | — Reconhecimento no Balanço: Classe |
+[1] Os bens em regime de locação financeira estão excluídos temporariamente de ser contabilizados como imobilizado corpóreo pocendo
+no antanto as entidades osrarem por essa contabilização de acondo com ss normas internacianars de contabilidade da IASE (ver ponto 42
+das disposições transitórias do decreto nº 82/01 de 16 ce Novembro)

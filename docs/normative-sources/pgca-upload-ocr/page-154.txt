@@ -1,0 +1,24 @@
+A ExpUCAÇÃO AS CONTAS É ass
+
+Conta 13.1 — Empresas subsidiárias
+Esta rubrica destina-se a registar as transacções, com empresas pertencentes 20 grupo, que não resultem das aeti-
+vidades operacionais exercidas pele entidade.
+(note explicativo à conta 13.1)
+Esta conta é subdividida em função do tipo de operação realizada com a empresa subsidiária nomeadarmente:
+
++ Aquisição de partes de capital,
+
+* Aquisição de obrigações e títulos de participação:
+
+* Empréstimos concedidos;
+Conta 13.2 - Empresas associadas
+Esta rubrica destina-se a registar as transacções, com empresas associadas, que não resultem das actividades ope.
+racionais exercidas pela entidade,
+(rota explicativa à conta 13.2)
+Esta conta é subdividida em função do tipo de operação realizada com a empresa associada nomeadamente
+
+* Aquisigio de partes de capital
+
+* Aquisição de obrigações e títulos de participação;
+
++ Empréstimos concedidos;

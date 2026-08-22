@@ -1,0 +1,55 @@
+58
+
+PGC — EXPLICADO
+
+* Obrigatoriedade de apresentação de comparativos do período anterior:
+* Actives apresentados pelo valor líquido das correspondentes amortizações e provisões;
+*  Referenciação cruzada com as divulgações efectuadas nas respectivas Notas às Contas:
+
+O balanço é constituído pelas seguintes classes:
+
+Activo:
+Recursos (bens e direitos) controlados por uma entidade como resultado de acontecimentos passados e dos
+quais se espera que fluam para a entidadell benefícios económicos futuros, Estes recursos podem dividir-se
+em duas categorias principais:
+Activos não correntes:
+são os activos que se espera que permaneçam na posse da entidade por um período superior a um
+ano.
+Activos correntes:
+são os que se espera que permaneçam na posse da entidade por um período até um ano.
+
+Passivo;
+Obrigações presentes da entidade provenientes de acontecimentos passados, do pagamento dos quais se
+espera que resultem exfluxos de recursos da empresa incorporando benefícios económicos. Estas obrigações
+podem divicir-se em duas categorias principais:
+Passivos não correntes:
+são os passivos que se espera que venham a ser pagos pela entidade num período superior a um
+ano.
+Passivos correntes:
+são os passivos que se espera que venham a ser liquidados pela entidade num período até um ano.
+
+Capital próprio:
+
+Interesse residual no Activo depois de deduzido o Passivo.
+
+A estrutura do Balanço deve obedecer ao modelo que se apresenta.
+Na sua elaboração dever-se-à atender:
+
+a) Na identificação da entidade, incluir não só o nome da entidade que relata, mas também a sigla identificadora
+da forma jurídica que tal entidade tem.
+
+b) Deve ser preparado em referência ao último dia do último mês do período a que diz respeito, regra geral o
+Balanço é elaborado com referência a 31 de Dezembro podendo ser, sempre que tal se justifique, e excep-
+cionalmente, referir-se a um período com término diferente de 31 de Dezembro.
+
+c) | A moeda de relato a usar é a moeda oficial do país, que no momento presente é o Kwanza (Kz), sendo que
+a unidade de grandeza não deverá ser inferior à unidade de milhar. Nada obsta a que a entidade elabore, em
+simultâneo, Demonstrações financeiras usando outra moeda de relato, como por exemplo Dólares America-
+nos (USD) e neste caso a respectiva grandeza fica ao critério da entidade que relata
+
+Ter em atenção que não são permitidas quaisquer alterações à disposição, nomenclatura das rubricas constantes
+das componentes do Balanço definidas neste plano, Para além disso as respectivas rubricas que não apresentem
+qualquer valor no período a que se refere o relato, poderão ser omitidas desde que os saldos ou quantias do pe-
+ríodo precedente, apresentadas para efeitos comparativos, se apresentem igualmente sem valor.
+
+[4] No texto original, está escrito”. entidade de benefícios.” e optou-se por retirar o “de” pois trata-se seguramente de uma gralha

@@ -1,0 +1,103 @@
+1. O PGC | ESTRUTURA | POLÍTICAS CONTABILISTICAS |
+
+trações financeiras da entidade.
+
+1
+
+Se a alteração resultar numa apresentação mais apropriada de acontecimentos ou transacções nas demons-
+
+Como regra geral, uma alteração numa política contabilística deve ser aplicado retrospectivamente, isto é, a nova
+política é aplicada aos acontecimentos e transacções em causa como se tivesse estado sempre em uso. Os efeitos
+desta alteração devem ser reconhecidos nos resultados transitados.
+
+Caso a quantia do ajustamento a efectuar em Resultados transitados não puder ser razoavelmente estimada,
+admite-se excepcionalmente que tal ajustamento seja registado nos Resultados do exercício, devendo ser feita a
+
+divulgação apropriada nas Notas às contas.
+
+VALORIMETRIA
+
+Entende-se por valorimetria o processo de determinação da quantia pela qual as operações e outros acontecimen-
+tos devem ser reconhecidas e inscritas no balanço e na demonstração de resultados.
+
+Custo histórico
+
+O PGC identifica um conjunto de quatro bases de valorimetria globais:
+
+Valor original de entrada no património de uma transacção ou acontecimento.
+
+Activos
+
+São registados pela quantia de dinheiro ou seus equivalen-
+tes, paga ou a pagar para os adquirir. no momento da sua
+aquisição
+
+Passivos
+
+São registados pela quantia dos produtos recebidos em
+troca da obrigação ou, em algumas circunstâncias (ex: im-
+postos sobre os lucros), pelas quantias em dinheiro que se
+espera que sejam pagas para satisfazer o passivo no decur-
+
+so normal dos negócios,
+
+Custo corrente
+
+Valor actualizado de aquisição de
+
+activos ou liquidação de passivos.
+
+Activos
+
+São registados pela quantia de dinheiro e seus equivalen-
+tes, que teria de ser paga se o mesmo fosse correntemente
+adquirido.
+
+Passivos
+
+São registados pela quantia não descontada de dinheiro e
+seus equivalentes que seria necessária para liquidar corren-
+temente a operação.
+
+Valor realizável (de liquidação)
+
+Valor de realização dos activo:
+
+s e de liquidação dos passivos.
+
+Activos
+
+São registados pela quantia de dinheiro e seus equivalen-
+tes que possa ser correntemente obtida ao vender o activo
+numa alienação ordenada.
+
+Passivos
+
+São registados pelos seus valores de liquidação isto é,
+quantias não descontadas de dinheiro e equivalentes que
+se espera sejam pagas para satisfazer os passivos no decur-
+so normal dos negócios.
+
+Valor presente (actual)
+
+Valor descontado dos
+
+futuros fluxos de caixa.
+
+Activos
+
+São registados pelo valor presente descontado dos futuros
+influxos líquidos de caixa que se espera que o elemento
+gere no decurso normal dos negócios.
+
+Passivos
+
+São registados pelo valor presente descontado dos futuros
+exfluxos líquidos, de caixa que se espera que sejam ne-
+cessários para liquidar os passivos no decurso normal dos
+negócios.
+
+Estas bases de valorimetria globais devem ser usadas em graus diferentes e em variadas combinações para efectuar
+as valorimetrias específicas de activos e passivos.
+
+51

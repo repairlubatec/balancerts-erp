@@ -1,0 +1,59 @@
+56
+
+PGC — EXPLICADO
+
+Utentes da informação financeira
+
+Embora o PGC se destine primordialmente a estruturar informação para os utentes externos essa informação é
+também útil para utentes internos nomeadamente ao nível do controle e da tomada de decisão.
+
+Em geral, os utentes externos querem informação que lhes permita avaliar a empresa em relação às particularida-
+des que lhes interessam em função da sua posição em relação à empresa. Essas necessidades informativas são dife-
+rentes de utente para utente e o PGC identifica os seguintes utentes e algumas das suas necessidades específicas:
+
+Investidores
+* Avaliar o retorno do investimento.
+* Auxiliar na tomada de decisão sobre comprar, deter ou vender.
+
++ Determinar a capacidade da empresa de pagar dividendos.
+
+Empregados
+* Avaliar a capacidade da entidade de proporcionar emprego, remuneração e benefícios de reforma.
+
+Financiadores
+
++ Determinar a capacidade da entidade em solver, dentro do prazo, os compromissos com eles assumidos:
+os empréstimos e juros.
+
+Fornecedores e outros credores
++ Determinar se as quantias que lhes são devidas serão pagas dentro do prazo.
+
+* Avaliar a capacidade da entidade em operar de forma continuada, caso estejam dependentes da entida-
+de
+Clientes
+
+* Avaliar a capacidade da entidade em operar de forma continuada, caso hajam assumido compromissos de
+longo prazo com a entidade ou dela estejam dependentes.
+
+Governo e seus departamentos
+* Avaliar a capacidade de alocação de recursos.
++ Regulamentar a actividade das entidades.
+* Estabelecer políticas de tributação.
+* Servir de base ao apuramento do Rendimento Nacional e de Estatísticas semelhantes.
+
+Público
+* Ajudar a avaliar a utilidade da entidade em diversos níveis como por exemplo a capacidade de emprego e
+de desenvolvimento de negócios como cliente.
+
+Os utentes internos utilizam a informação aos diversos níveis da gestão para efeitos de planeamento, tomada de
+decisão e controlo.
+
+Objectivos das Demonstrações Financeiras
+
+Embora as demonstrações financeiras tenham como objectivo dar informação de forma a satisfazer as necessida-
+des informativas dos diversos utentes elas não proporcionam toda a informação de que estes possam necessitar
+para tornarem as suas decisões uma vez que retratam apenas os efeitos financeiros de acontecimentos passados e
+não proporcionam necessariamente informação não financeira,
+
+A informação financeira preparada de acordo com as demonstrações financeiras obrigatórias proporcionam in-
+formação quanto:

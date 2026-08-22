@@ -1,0 +1,34 @@
+A. EXPLICAÇÃO ÀS CONTAS | 23
+Estrutura da conta
+A conta 45 — Caixa subdivide-se er
+45.1 — Fundo fixo
+45.2 Valores para depositar
+45.3 —Valores destinados a pagamentos específicos
+A entidade deve, à semelhança do que está contemplado no PGC relativamente as contas de depósitos, subdividir a coma
+caixa em função das diferentes moedas em que ocorrem os pagamentos e recebimentos (Kz, USD, Euro, ete}
+Reconhecimento
+Esta conta é apresentada no balanço, no conjunto dos activos correntes, inserida na rubrica de “Disponibilidades",
+Ver Figura 4 — Reconhecimento no Balanço: Classe 4
+Valorimetria
+A moeda estrangeira é valorizada na moeda de relato determinada pela splicação, à quantia de moeda estrangeira
+da taxa de câmbio entre à moeda estrangeira e a moeda de relato à data da transacção.
+Na data de relato, a moeda estrangeira é valorizada na moeda de relato pela taxa de fecho determinada pela aph-
+cação, à quantia da moeda estrangeira, da taxa de câmbio à data de fecho entre 2 moeda estrangeira e a moeda
+de refato, no caso de aciivos monetários cujo câmbio não esteja previamente fixado -
+Movimentação (esquemática), alguns exemplos o
+Seguidamente apreserita-se a movimentação esquemática de algumas cias principais transacções que padem eco
+rer no âmbito da conta em análise
+45x Se ae &
+Lº mo 4]
+ip Depónio é seganento
+toi Reforço /vecebimarse
+No âmbito da conta 45 — Caixa quer o débito quer 0 crédito poderão ser efectuados por contrapartida de diversas contas,
+em função da natureza da transacção
+Conta 45.1 — Fundo fixo
+Esta conta destina-se a reflectir os meios de pagamento destinados a fazer face a compras a dinheiro de pequeno
+montante,
+Esta conta deverá ser debitada por contrapartida de:
+* Bancos, tendo por base um cheque passado à ordem do responsável peia caixa e um vale assinado por
+este, confirmando a recepção e a responsabilização pelo valor que lhe foi entregue: ou
+* Caixa - valores destinados a pagamentos específicos, tendo per base um vale assinado pelo responsável da
+caixa, confirmando a recepção e a responsabilização pelo valor que Ihe foi entregue.

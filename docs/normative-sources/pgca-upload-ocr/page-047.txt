@@ -1,0 +1,63 @@
+46
+
+| pac — exruicadO
+
+Plenitude
+
+Para que a informação financeira tenha o atributo da fiabilidade tem ainda de ser completa, ou seja, não ter omis-
+sões que influenciem as decisões dos utentes. Essas omissões têm de ser balizadas dentro dos limites do princípio
+contabilístico da materialidade e do custo associado à informação. Uma omissão pode fazer com que a informação
+seja falsa ou enganadora e por conseguinte não fiável e deficiente em termos da sua relevância. (adaptado da estrutura
+
+conceptuat do IASB}
+Para o efeito, entende-se por materialidade o montante a partir do qual uma omissão ou inexactidão de uma infor
+mação quantitativa influencia as decisões económicas dos utentes tomadas na base das demonstrações financeiras.
+
+BASES DE APRESENTAÇÃO DAS DEMONSTRAÇÕES FINANCEIRAS
+
+As bases de apresentação das demonstrações financeiras consignadas no PGC são:
+* Continuidade
+
+*— Acréscimo
+
+Continuidade
+
+As Demonstrações financeiras devem ser preparadas na base da continuidade, a menos que a gerência tenha inten-
+ções de liquidar a entidade ou cessar a sua actividade, ou não tenha outra alternativa realista que não seja fazê-lo,
+Caso existam incertezas quanto à continuidade da entidade ou das suas operações, tal facto deve ser divulgado nas-
+Demonstrações financeiras com indicação das razões que estão na origem das incertezas.
+
+Caso exista intenção ou necessidade de liquidar a entidade ou de cessar as suas operações, as Demonstrações
+financeiras não devem ser preparadas na base da continuidade, devendo ser divulgado tal facto, a base usada e as
+razões pelas quais a entidade não se considera em continuidade.
+
+Com efeito, as demonstrações financeiras são normalmente preparadas no pressuposto de que uma entidade é
+uma entidade em continuidade e de que continuará a operar no futuro previsível. Não havendo uma definição
+exacta do que se deve entender por futuro previsível (ou seja o período temporal que se deva considerar para
+efeitos desta base de apresentação) aceita-se geralmente que este seja de | ano.
+
+Acréscimo
+
+Excepto quanto à demonstração de fluxos de caixa, as demonstrações financeiras dever ser preparadas na base
+do acréscimo. Sob este regime, os efeitos das operações e outros acontecimentos são reconhecidos quando ocorrem
+(independentemente da data em que ocorra o respectivo recebimento ou pagamento) sendo registados e relatadas
+no período a que se referem.
+
+Desta forma as Demonstrações financeiras informam os utentes não somente das operações passados envolvendo
+o pagamento e o recebimento de dinheiro, mas também das obrigações a pagar no futuro e de recursos que re-
+presentam dinheiro a receber no futuro.
+
+A base do acréscimo pressupõe ainda a utilização do conceito de balanceamento entre custos e proveitos. De
+acordo com este conceito as despesas são reconhecidas na demonstração de resultados na base do relacionamento
+directo entre os custos incorridos e os ganhos que lhe estão associados. Contudo, este conceito não permite o reco-
+nhecimento de itens no Balanço que não satisfaçam os critérios de definição de activos e passivos.
+
+Esta base de apresentação é em alguma literatura também denominada como “regime de periodização económica”.
+
+PRINCÍPIOS CONTABILÍSTICOS
+
+Os princípios contabilísticos consignados no PGC são:
+* Consistência
++  Materialidade
++ Nao compensação de saldos
+* Comparabilidade

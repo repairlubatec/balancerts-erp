@@ -1,0 +1,53 @@
+60
+
+| pac — ExrLicaDO
+
+DEMONSTRAÇÃO DE RESULTADOS
+
+A Demonstração de resultados é uma demonstração contabilística destinada a evidenciar a composição do resul-
+tado formado num determinado período de operações de uma entidade.
+
+As principais características:
+As rubricas são apresentadas atendendo a sua natureza (Demonstração de Resultados por Natureza) ou a
+apresentar uma classificação das rubricas de acordo com a sua função (Demonstração de Resultados por
+Funções);
+Obrigatoriedade de apresentação de comparativos do período anterior;
+Referenciação cruzada com as divulgações efectuadas nas respectivas Notas às Contas;
+Apresentação do imposto sobre o rendimento separado entre actividades correntes e extraordinárias.
+
+A Demonstração de resultados é constituída pelas seguintes classes:
+
+Proveitos:
+Aumentos dos benefícios económicos, durante o período, na forma de influxos ou melhorias de activos ou
+diminuições de passivos que resultem em aumento dos capitais próprios, que não sejam os relacionados com
+as contribuições dos participantes no Capital Próprio.
+
+Custos:
+
+Diminuição nos benefícios económicos, durante o período, na forma de exfluxos ou perdas de valor de activos
+ou no aumento de passivos que resulte em diminuição dos capitais próprios, que não sejam os relacionados
+com as distribuições aos participantes no Capital Próprio.
+
+A estrutura da Demonstração de resultados deve obedecer a um dos dois modelos permitidos neste plano ou seja:
+* Modelo de Demonstração de Resultados (por natureza)
+* Modelo de Demonstração de Resultados (por funções)
+
+Na sua elaboração dever-se-a atender:
+
+a) Na identificação da entidade, incluir não só o nome da entidade que relata, mas também a sigla identificadora
+da forma jurídica que tal entidade tem.
+
+b) Deve ser preparado em referência ao último dia do ultime mês do período a que diz respeito, regra geral a
+Demonstração de Resultados é elaborada para um período de |2 meses com término a 31 de Dezembro,
+podendo sempre que tal se justifique, e excepcionalmente, referir-se a um período com término diferente de
+31 de Dezembro, podendo, também excepcionalmente, abranger um período inferior a 12 meses.
+
+c) Amoeda de relato a usar é a moeda oficial do país, que no momento presente é o Kwanza (Kz:), sendo que
+a unidade de grandeza não deverá ser inferior à unidade de milhar Nada obsta a que a entidade elabore, em
+simultâneo, Demonstrações financeiras usando outra moeda de relato, como por exemplo Dólares America-
+nos (USD) e neste caso a respectiva grandeza fica ao critério da entidade que relata.
+
+Ter em atenção que não são permitidas quaisquer alterações à disposição, nomenclatura das rubricas constantes
+das componentes da Demonstração de Resultados definidas neste plano. Para além disso as respectivas rubricas
+que não apresentem qualquer valor no período a que se refere o relato, poderão ser omitidas desde que os saldos
+ou quantias do período precedente, apresentadas para efeitos comparativos, se apresentem igualmente sem valor.

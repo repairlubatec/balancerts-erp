@@ -1,0 +1,61 @@
+1. O PGC | ESTRUTURA | POLÍTICAS CONTABILÍSTICAS
+
+Critério geral
+
+Reconhecimento é o processo de incorporar no Balanço e na Demonstração de Resultados um elemento que satis-
+faça a definição de uma classe e as condições para o seu reconhecimento.
+
+Um elemento que satisfaça a definição de uma classe deve ser reconhecido se forem satisfeitas as seguintes con-
+dições:
+
+* For provável que qualquer benefício económico futuro, associado com o elemento, flua para, ou da, empresa:
+
+* Seu custo ou valor poder ser quantificado com fiabilidade.
+
+À inter-relação entre as Classes significa que um elemento que satisfaça a definição e critérios para o reconhecimen-
+to de uma dada classe automaticamente requer o reconhecimento de uma outra classe.
+
+: Exemplo
+O reconhecimento de um activo requer o reconhecimento de um outro elemento, por exemplo um
+: rendimento (proveito) ou um passivo.
+
+O critério geral define as condições para que um elemento das demonstrações financeiras Balanço e Demonstra-
+ção de Resultados possa ser reconhecido como tal.
+
+Critérios para reconhecimento de Activos:
+
+Um activo deve ser reconhecido no Balanço quando:
+
+* For provável que os benefícios económicos futuros fluam para a entidade
+
+* O activo tenha um custo ou um valor que possa ser quantificado com fiabilidade.
+
++ A determinação de existência de benefícios económicos futuros deve ser feita atendendo ao grau de certeza dos
+benefícios, na base da evidência disponível no momento do reconhecimento inicial do activo.
+
+* À existência de suficiente certeza e que os beneficios fiuirGo para a entidade necessita a segurança de que
+esta:
+— Receberá as recompensas ligadas ao activo, e
+
+— Assumird os riscos inerentes.
+
+Um dispêndio que tenha sido incorrido e não possa ser reconhecido como um activo, por ser improvável que dele
+fluam benefícios económicos futuros, deve ser reconhecido como um custo na demonstração de resultados.
+
+Critério para reconhecimento de Passivos
+
+Um passivo deve ser reconhecido no Balanço quando:
+
+* For provável que da liquidação de uma obrigação presente resulte um exfluxo de recursos incorporando bene-
+ficios económicos; e
+
+* A quantia pela qual a liquidação tenha lugar possa ser quantificada com fiabilidade.
+
+Critério para reconhecimento de Proveitos
+
+Os proveitos devem ser reconhecidos na Demonstração de Resultados quando: ,
+
+* Tenha surgido um aumento de benefícios económicos futuros relacionados com o aumento de um activo ou com
+uma diminuição de um passivo; e
+
+49

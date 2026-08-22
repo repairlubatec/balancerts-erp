@@ -1,0 +1,96 @@
+3, QUADRO E LISTA DE CONTAS 123
+
+76.5.1.4 Fundos 78.2 Amortizações extraordinárias
+
+78.2.1 Imobilizações Corpóreas
+
+76.8.1.9 Outros investimentos 78.2.2 Imobilizações Incorpéreas
+
+76.5.2 Aplicações de tesouraria
+
+76.5.2.1 Títulos negociáveis 78.3 Perdas em imobilizações
+76.5.2.2 Depósitos a prazo 78.3.1 Venda de imobilizações corpóreas
+76.5.2.3 Outros depósitos 78.3.2 Venda de imobilizações incorpóreas
+
+78.3.3 Abates
+
+76.5.2.9 Outros
+76.6 Perdas na alienação de aplicações financeiras
+
+76.6.1 Investimentos financeiros 78.4 Perdas em existências
+76.6.1.1 Subsidiárias 78.4.1 Quebras
+76.6.1.2 Associadas a cremes
+
+76.6.1.3 Outras empresas ao a
+76.6.1.2 Fundos'* P 78.5 Dívidas incobráveis
+
+78.6 Multas e penalidades contratuais
+
+78.6.1 Fiscais
+78.6.2 Não fiscais
+78.6.3 Penalidades contratuais
+
+76.6.1.9 Outros investimentos
+76.6.2 Aplicações de títulos negociáveis
+
+76.7 Serviços bancários
+76.7.1
+
+78.7 Custos de reestruturação
+
+78.8 Descontinuidade de operações
+
+76.9 Transferência para resultados financeiros 78.9 Alterações de políticas contabilisticas
+
+78.10 Correcções relativas a exercícios anteriores
+77. CUSTOS E PERDAS FINANCEIROS EM FILIAIS E ASSOCIADAS: 78.10.1 E
+
+imativa impostos
+
+78.11 Outros custos e perdas não operacionais
+
+78.11.1 Donativos
+78.11.2 Reembolso de subsídios à exploração
+78.11.3 Reembolso de subsídios a investimentos
+
+77.9 Transferência para resultados financeiros
+
+78. OUTROS CUSTOS E PERDAS NÃO OPERACIONAIS: E . 5 ae
+78.19 Transferência para resultados não operacionais
+
+78.1 Provisões do exercício
+
+78.1.1 Existências 79 CUSTOS E PERDAS EXTRAORDINÁRIAS:
+78.1.1.1 Matérias-primas subsidiárias e de
+consumo 79.1 Perdas resultantes de catástrofes naturais
+78.1.1,2 Produtos e trabalhos em curso 79.11
+78.1.1.3 Produtos acabados e intermédios os
+78.1.1.4 Sub-produtos, desperdícios, resí- 79.2 Perdas resultantes de convulsões políticas
+duos e refugos
+78.1.1.5 Mercadorias 79.2.1
+78.1.2 Cobranças Duvidosas 79.3 Perdas resultantes de expropriações
+78.1.2.1 Clientes 7931
+78.1.2.2 Clientes — títulos a receber te
+78.1.2.3 Clientes — cobrança duvidosa 79.4 Perdas resultantes de sinistros
+78.1.2.4 Saldos devedores de fornecedores
+
+78.1,2.5 Participantes e participadas 79-541
+
+78.1.2.6 Dívidas do pessoal
+
+78.1.2.9 Outros saldos a teceber 79.9 Transferência para resultados extraordinários
+78.1.3 Riscos e encargos
+
+78.1.3.1 Pensões
+
+78.1.3.2 Processos judiciais em curso
+
+78.1.3.3 Acidentes de trabalho
+
+78.1.3.4 Garantias dadas a clientes
+
+78.1.3.9 Outros riscos e encargos
+
+(4) Na Lista de contas oficial esta conta surge com à código 76.6.1.2,
+rtata-se seguramente de uma gralha. Poder-se-ia considerar o código
+76.6.1.4

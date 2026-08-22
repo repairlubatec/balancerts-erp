@@ -1,0 +1,56 @@
+2. DEMONSTRAÇÕES FINANCEIRAS |
+
+Fluxos das actividades de investimento:
+Os fluxos das actividades de investimento são os fluxos líquidos resultantes destas actividades. Estes fluxos repre-
+sentam a extensão dos dispêndios feitos para obtenção de recursos que tenham em vista gerar no futuro:
+
+* Resultados, e
+
+* Fluxos de caixa.
+
+Fluxos das actividades de financiamento:
+Os fluxos das actividades de financiamento são os fluxos líquidos resultantes destas actividades. Estes fluxos:
+
++ Permitem estimar as necessidades de meios de pagamento e de novas entradas de capital
+
+* Proporcionam informação sobre a capacidade dos financiadores serem reembolsados.
+
+Fluxos de caixa das actividades operacionais
+Os modelos de DFC distinguem-se pela forma de apurar e relatar os fluxos de caixas da actividades operacionais
+que podem ser pelo método directo ou pelo método indirecto.
+
+No método directo
+
++ Osfluxos de caixa são apurados através do relato, pela quantia bruta, das principais classes de recebimen-
+
+tos e das principais classes de pagamentos.
+
+A informação sobre a quantia bruta das principais classes de recebimentos e das principais classes de
+
+pagamentos pode ser obtida através de uma das seguintes formas:
+
+> Directamente a partir dos registos contabilísticos da entidade se estes estiverem preparados para dar
+tal informação.
+
+> Pelo ajustamento do valor das rubricas da Demonstração de resultados através da variação dos saldos
+iniciais e finais de balanço que lhes correspondem.
+
+No método indirecto
++ Osfluxos de caixa são relatados partindo do resultado líquido e evidenciando os ajustamentos necessários
+para excluir deste, os efeitos de:
+> Operações de natureza que não seja caixa.
+> Diferimentos ou acréscimos que não tenham um fluxo de caixa associado.
+>» Rubricas de réditos que estejam associados com actividades de investimento ou financiamento.
+
+> Rubricas de custos ou perdas que estejam associados com actividades de investimento ou financia-
+mento.
+
+Exemplos de fluxos de caixa das actividades operacionais:
++ Recebimentos (de caixa) provenientes da venda de bens e da prestação de serviços.
+
++ Recebimentos (de caixa) provenientes de royalties, comissões e outros réditos não relacionados com as
+actividades de investimento ou financiamento.
+
+* Pagamentos (de caixa) a fornecedores de bens e serviços.
+
+63

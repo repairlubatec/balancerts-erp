@@ -1,0 +1,38 @@
+154 | PGC — ExPLICADO
+Conta 13.3 - Outras empresas
+Esta rubrica destina-se a registar as transacções, com outras empresas, que não resuitem das actividades operacio.
+nais exercidas pela entidade.
+(rota explicativo à coma 13.3)
+Esta conta é subdividida ern função do tipo de operação realizada com empresas que não subsiciarias e associada.
+nomeadamente:
+* Aquisição de partes de capital;
+* Aquisição de obrigações e titulos de participação;
++ Empréstimos concedidos;
+Conta 13.4 — Investimentos em imóveis
+Esta rubrica destina-se à registar os imóveis adquiridos que não se destinem à serem usados pela entidade ou nas
+operações por ela realizadas.
+O conceito de imóveis pode revestir a forma, quer de terrenos, quer de edifícios
+(note expicato à conto 13.4)
+Esta conta será suboinidida de forma a melhor identificar cada investimento em imóveis, Poderá ser subdividida
+por exemple:
+134.1 Terrenos e recursos naturais
+[341.1 = (Terreno em concreto)
+13,42 - Edifícios e outras construções
+1349 — Outros investimentos em imóveis
+Conta 13.5 — Fundos
+Esta rubrica destina-se a registar os bens detidos pela entidade com a objectivo de fazer face a compromissos
+prolongados, cujos rendimentos lhe estejam adstritos, como por exempla fundos de pensões.
+(rota explcatia à conta 13.5)
+Esta conta será subdividida em junção do tipo de aquisições que componham a fund.
+Conta 13.9 - Outros investimentos financeiros
+Esta rubrica destina-se a registar 08 investimentos financeiros não enquadráveis nas contas 13,1 a 138 De notar
+que as contas 13.6 a 13,6 estão na lista de contas sem conteúdo específica, para poderem ser utilizadas pelas en
+tidades em função das suas especificidades,
+Esta conta será subdividida de forma a melhor identificar o tipo de activo que a compõe:
+139.1 — Diamantes
+13.9.2 - Ouro
+138.3 — Depósitos bancários
+No caso específico da conta:
+13.9.3 - Depósitos bancários
+Esta rubrica destina-se a registar os depósitos bancários em instituições de crédito que não possam classificar-se
+como meios monetários.

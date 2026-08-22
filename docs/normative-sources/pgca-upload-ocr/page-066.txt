@@ -1,0 +1,61 @@
+2. DEMONSTRAÇÕES FINANCEIRAS 65
+
+Casos particulares a ter em atenção
+
+Movimentos entre elementos que constituam caixa e seus equivalentes:
+Estes movimentos por norma fazem parte da gestão de caixa da entidade e não parte das suas actividades opera-
+cionais, de investimento ou de financiamento pelo que devem ser excluídos do âmbito de fluxos de caixa.
+
+Descobertos bancários:
+
+Normalmente os descobertos bancários são considerados uma actividade de financiamento.
+
+Contudo, os descobertos bancários devem ser incluídos nas actividades operacionais quando os descobertos ban-
+cários fazem parte da gestão de caixa da entidade o que acontece normalmente quando estes:
+
+* São pagáveis à ordem
++ Têm um saldo que flutua muitas vezes de positivo a negativo.
+
+Recebimentos e pagamentos em moeda estrangeira:
+
+Os recebimentos e pagamentos em moeda estrangeira devem ser relatados na moeda de relato aplicando à
+quantia em moeda estrangeira a taxa de câmbio usada na data em que tais recebimentos e pagamentos foram
+efectuados.
+
+Diferenças de câmbio não realizadas:
+As diferenças de câmbio não realizadas não são fluxos de caixa pelo que devem ser excluídas das actividades ope-
+racionais, de investimento ou de financiamento.
+
+Contudo, caso as diferenças de câmbio não realizadas digam respeito a caixa e equivalentes de caixa, estas dife-
+renças devem ser evidenciadas em linha separada de forma a conciliar os saldos iniciais e finais de caixa e seus
+equivalentes com os fluxos de caixa apurados.
+
+Dividendos e juros:
+Os fluxos de caixa associados a tais rubricas devem ser classificados:
+
+* Em separado.
++ De forma consistente de período para período.
+
+* Nas actividades operacionais, de investimento (por serem retornos de investimento no caso de dividendos
+ejuros recebidos) e de financiamento (porque são custos de obtenção de recursos financeiros no caso de
+juros e dividendos pagos), consoante o apropriado.
+
+Os dividendos pagos podem ser classificados nas actividades operacionais de forma a habilitar os utentes a deter
+minar a capacidade da entidade de pagar dividendos a partir destas actividades.
+
+Rubricas extraordinárias:
+Os fluxos de caixa associados a tais rubricas devem ser:
+
+*— Classificados nas actividades operacionais, de investimento e de financiamento, consoante o apropriado.
+
+* Evidenciados em linha separada.
+
+Impostos sobre os lucros:
+Os fluxos de caixa provenientes de impostos sobre os lucros devem ser:
+* Evidenciados em linha separada.
+* Classificados nas actividades operacionais, a menos que possam ser especificamente identificados com as
+actividades de financiamento ou de investimento.
+
+Na prática, tal identificação torna-se dificil porque enquanto que a estimativa de imposto pode ser prontamente
+identificável com a actividade associada, os respectivos fluxos de caixa são muitas vezes de identificação imprati-
+cável porque os fluxos podem surgir num período diferente daquele em que a estimativa de imposto foi apurada.

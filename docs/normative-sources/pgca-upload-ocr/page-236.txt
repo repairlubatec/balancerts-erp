@@ -1,0 +1,31 @@
+4. EXPLICAÇÃO ÀS CONTAS | as
+Estrutura da conta
+A conta 49 — Provisões para aplicações de tesouraria subdivide-se em:
+49.1 —Titulos negociáveis
+48,2 — Outras aplicações de tesouraria
+A canita 49 destina-se fundamentalmente a ajustar para o preço de mercado (valor de realização) a valorização
+inicial dos títulos negociáveis, sendo a conta a utilizar para o efeito a sub-conta 49.1, No entanto. no que se refere a
+outras aplicações de tesouraria que não os títulos negociáveis poderão existir algumas situações em que se tenha
+de proceder também a um ajustamento (redução) da valorização inicial, nomeadamente para os depósitos ou
+cutras situações particulares de cada entidade, sendo neste caso utilizada a conta 492.
+Apontamento Fiscal
+A este propósito sugerimos a consulta do apomamento fiscal constante na conta 76.5 - Provisões para
+aplicações financeiras.
+Movimentação (esquemática), alguns exemplos
+Seguidamente apresenta-se a movimentação esquemática de algumas das principais transacções que podem ocor-
+rer no âmbito da conta em análise,
+Constituição de provisões para aplicações de tesouraria &
+E
+a 49x c o 765.2x e
+A constituição de uma provisão acontece quando no momento de relato se verifica que o valor de mercado é inferior ao
+custo de aquisição. sendo o registo apropriado aquele que acima se apresenta
+Em momentos de relato posteriores (subsequentes), será calculado novo valor para a provisão relative a aplicações ce te-
+seuraria. Se esse valor for superior aa registado na conta 4x haverá lugar à um reforço (aumento) da provisão e se inferior,
+será registada uma reposição (redução) da mesma, de acorda com a movimentação abaixo apresentada
+Acorma 49.x— Provisões para aplicações de tesouraria terá em cada momento um salda credor ou nulo, sendo que o valor
+cla reposição/anulação no máximo poderá assumir o valor total da provisão que lhe deu origem.
+Reposição/anulação ou reforço de provisões
+! 66.7.2x e 8 49x à 76.5.2.x E
+oI o)
+fa Regosicio ! anulação de provisões
+tp Reforço de promsbes

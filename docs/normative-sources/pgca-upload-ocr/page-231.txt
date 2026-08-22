@@ -1,0 +1,44 @@
+mo | PGC — EXPLICADO
+41.2.) — Empresas do grupo
+41.22 Associadas
+41.23 — Outras empresas
+Conta 41.3 = Titulos da divida pública
+Esta conta destina-se a registar os movimentos ccorrides cem Títulos de divida pública, inseridos no âmbito dos
+títulos negociáveis.
+Esta conta não tem desenvolvimento rigido ma lista de contas do PGC estando as sub-contas em aberto para
+melhor identificação do título em concrero.
+41 —Titulos negociáveis
+41.3 -Titulos da dívida pública
+AR mas
+CONTA 42, 43 E 44 DEPÓSITOS,A PRAZO, À ORDEM E OUTROS
+Estas contas destinam-se a registar os meios de pagamento existentes em contas nas instituições de crédito sejam
+a prazo, à ordem cu qualquer outra tipologia
+Tratam-se de activos monetários valorizados inicialmente ao custo (valor nominal) é que, salve siluações especiais
+mantém a sua valorização subsequentemente.
+O desenvolvimento destas contas atende, em primeiro, à moeda do depósito — moeda nacional ou moeda estran-
+ggira — e em segundo ao banco em concrete, sendo que dentro deste dever-se-d atender ao depósro específico.
+Associada às contas 42, 43 e 44 —depdsitos a prazo, à ordem ¢ outros, poderá, em situações particulares, estar
+associada a conta 49.2 — Provisões para aplicações de tesouraria — Outras aplicações de tesouraria, nomeadamente
+na questão da valorização (mensuração) subsequente.
+49 — Provisões para aplicações de tesourana
+49.2 — Outras aplicações de tesouraria
+ER a ma
+Fado Pan ads Deca
+PR ee
+Os depósitos em moeda estrangeira devem atender às particulandades de registo de activos em moeda estran-
+geira nomeadamente:
+
+* No momento do reconhecimento inicial, a aquisição de moeda estrangeira é valorizada na moeda de
+relato determinada pela aplicação, à quantia de moeda estrangeira, da taxa de câmbio entre a moeda
+estrangeira e a moeda de relato à data da transacção.
+
++ Na data de relato, à moeda estrangeira é valorizada na moeda de relato pela taxa de fecho determinada
+pela aplicação, à quantia da moeda estrangeira, da taxa de câmbio à data de fecho entre a moeda estran-
+geira e a moeda de relato, no caso de activos monetários cujo câmbio não esteja previamente fixado.
+
+CONTA 42 - DEPÓSITOS A PRAZO
+Esta conta destina-se a registar os meios de pagamento existentes em contas a prazo nas instituições de crédito.
+(note explicativa à conta 42)
+or Um o en cee nga canes Bea aes
+PO LCS ae Spl EE eho AC eS Be RD Ca a Gy Sie
+Rs

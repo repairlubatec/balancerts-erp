@@ -1,0 +1,56 @@
+44
+
+PGC — EXPLICADO
+
+POLÍTICAS CONTABILÍSTICAS
+
+O objectivo principal das demonstrações financeiras, mais do que servir de base ao exercício da planificação
+da gestão e do controlo da actividade empresarial, é o de dar a conhecer aos utentes da informação financeira
+(stakeholders) um conjunto de informação que lhes permite tomar decisões informadas sobre a entidade
+
+Os utentes da informação financeira são variados referenciando-se normaimente:
+* Investidores,
+* Empregados;
+* Financiadores;
+* Fornecedores;
+* Clientes
+* Governo e seus departamentos e:
+
+* Público em geral,
+
+Assim, para conseguir os seus objectivos, o PGC tem um conjunto de políticas contabilisticas que são os princípios,
+bases, convenções, regras e práticas adoptadas por uma entidade na preparação e apresentação das Demonstra-
+ções financeiras.
+
+As políticas contabilísticas estão estruturadas em:
+* Características qualitativas da informação financeira;
+* Bases de apresentação das demonstrações financeiras;
+* Princípios contabilisticos;
+* Critérios para reconhecimento;
+
+* Valorimetria.
+
+CARACTERÍSTICAS QUALITATIVAS DA INFORMAÇÃO FINANCEIRA
+
+As características qualitativas devem ser entendidas como os atributos que tornam a informação, prestada pelas
+demonstrações financeiras, útil aos utentes.
+
+As características qualitativas consignadas no PGC são:
+* Relevância
+* Fiabilidade
+
+Relevância
+
+A informação é relevante quando se torna necessária para a tomada de decisões por parte dos utentes.
+
+A relevância influencia as decisões económicas dos utentes ao ajudá-los a avaliar os acontecimentos passados,
+presentes ou futuros ou confirmar, ou corrigir as suas avaliações passadas.
+
+As funções preditivas (avaliar/prever os acontecimentos futuros) e confirmatórias (avaliar/constatar os aconteci-
+mentos passados) da informação estão inter-relacionadas.
+
+A informação acerca da posição financeira (Balanço) e do desempenho (Demonstração de Resultados) passado,
+é frequentemente usada como a base para predizer a posição financeira, o desempenho futuro e outros assuntos
+em que os utentes estejam directamente interessados. A capacidade de fazer predições (futuro) a partir das de-
+monstrações financeiras (passado) é porém melhorada pela maneira como é apresentada a informação sobre as
+transacções e acontecimentos passados.

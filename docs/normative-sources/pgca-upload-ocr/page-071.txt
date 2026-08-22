@@ -1,0 +1,52 @@
+7 PGC — EXPLICADO
+
+Estes cinco blocos de notas apresentam-se da seguinte forma:
+
+Introdução:
+| — Actividade.
+2 — Bases de preparação das demonstrações financeiras e derrogações.
+
+3 — Alterações nas políticas contabilísticas.
+
+Notas ao balanço:
+4 — Imobilizado corpóreo.
+5 — Imobilizado incorpóreo.
+6 — Investimentos em filiais e associadas.
+7 — Outros activos financeiros.
+8 — Existências.
+9 — Outros activos não correntes e contas a receber.
+10 — Disponibilidades.
+| | — Outros activos correntes.
+12 — Capital,
+13 ~ Reservas.
+14 — Resultados transitados.
+15 — Empréstimos de médio e longo prazos e respectiva parte corrente.
+16 — Impostos diferidos.
+17 — Provisões para pensões.
+18 — Provisões para outros riscos e encargos.
+19 — Outros passivos não correntes.
+20 — Contas a pagar.
+21 — Outros passivos correntes.
+
+Notas à demonstração de resultados:
+22 —Vendas.
+23 — Prestações de serviço.
+24 — Outros proveitos operacionais.
+25 —Variações nos produtos acabados e produtos em vias de fabrico.
+26 — Trabalhos para a própria empresa.
+27 — Custo das mercadorias vendidas e das matérias consumidas.
+28 — Custos com o pessoal.
+29 — Amortizações.
+30 — Outros custos e perdas operacionais.
+31 — Resultados financeiros.
+32 — Resultados de filiais e associadas.
+33 — Resultados não operacionais.
+34 — Resultados extraordinários.
+
+35 - Imposto sobre o rendimento.
+
+Outras notas relacionadas com a posição financeira e os resultados das operações:
+36 — Responsabilidades assumidas e não reflectidas no passivo,
+37 — Contingências.
+
+38 — Acontecimentos ocorridos após a data de Balanço.

@@ -1,0 +1,64 @@
+|. O PGC | ESTRUTURA | POLÍTICAS CONTABILISTICAS
+
+Fiabilidade
+
+À informação é fiável na medida em que não enferme de erros materiais e de preconceitos, devendo para tal:
+* Representar fidedignamente os resultados e a posição financeira da entidade;
++  Reflectir a substância económica das operações e outros acontecimentos e não meramente a sua forma legal:
+
+* Ser neutra, isto é, não influenciar uma tomada de decisão ou o exercício de um juízo a fim de atingir um resultado
+ou efeito pré-determinado;
+
++ Ser prudente, isto é, resultor do uso de um determinado grau de precaução no exercício des juízos necessários
+para fazer estimativas requeridas em condições de incerteza e os activos e proveitos não serem sobreavaliados
+eos passivos e custos não serem subavaliados;
+
++ Ser completa em todos os aspectos materiais. Para o efeito, entende-se por materialidade o montante a partir
+do qual uma omissão ou inexactidão de uma informação quantitativa influencia as decisões económicas das
+utentes tomadas na base das demonstrações financeiras.
+
+Para se atingir a característica qualitativa da fiabilidade há que atender então, a alguns atributos ao que poderiamos
+chamar sub-características, sendo elas:
+
+* Representação fidedigna
+* Substância sobre a forma
++ Neutralidade
+
+* Prudência
+
+* Plenitude
+
+Representação fidedigna
+
+Para a informação possuir o atributo da característica qualitativa da fiabilidade, deve representar fidedignamente
+as transacções e outros acontecimentos que ela ou pretende representar ou possa razoavelmente esperar-se que
+represente. Assim, por exemplo, o balanço deve representar fidedignamente as transacções e outros acontecimen-
+tos de que resultem activos, passivos e capital próprio da entidade na data do relato que satisfaçam os critérios de
+reconhecimento. (adaptado da estrutura conceptual do IASB)
+
+Substância sobre a forma
+
+Para que a informação represente fidedignamente as transacções e outros acontecimentos que tenha por fim
+representar, e assim contribuir para o atributo da fiabilidade, é necessário que eles sejam contabilizados e apresen-
+tados de acordo com a sua substância e realidade económica e não meramente com a sua forma legal. A substância
+das transacções ou de outros acontecimentos nem sempre é consistente com a que é mostrada pela sua forma
+legal ou idealizada. (adaprodo da estrutura conceptual do 1ASB)
+
+Neutralidade
+
+Para que seja fiável, a informação contida nas demonstrações financeiras tem de ser neutra, isto é, livre de precon-
+ceitos. As demonstrações financeiras não são neutras se, por via da selecção ou da apresentação da informação,
+elas influenciarem a tomada de uma decisão ou um juízo de valor a fim de atingir um resultado ou um efeito pre-
+determinado. (adaprado da estrutura conceptual do IASB)
+
+Prudência
+
+Na preparação das demonstrações financeiras é necessário fazer estimativas em função da melhor informação
+disponível, Essas estimativas tais como: a cobrabilidade duvidosa de dívidas a receber; a vida Util provável e o valor
+residual de imobilizados, entre outros são feitos em ambiente de incerteza. Tais incertezas são reconhecidas através
+da divulgação da sua natureza e extensão e pela aplicação de prudência na preparação das demonstrações finan-
+ceiras. A prudência é a inclusão de um grau de precaução no exercício dos juízos necessários ao fazer as estimativas
+necessárias em condições de incerteza, de forma que os activos ou os proveitos não sejam sobreavaliados e os
+passivos ou os custos não sejam subavaliados. (adaptado da estrutura conceptual do 1ASB)
+
+45

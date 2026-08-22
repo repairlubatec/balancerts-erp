@@ -1,7 +1,7 @@
 appId: ao.balancerts.erp
 electronVersion: 37.10.3
 productName: BALANCERTS.ERP
-copyright: "Copyright © 2026 BALANCERTS"
+copyright: "Copyright © 2026 Repair Lubatec"
 artifactName: "BALANCERTS.ERP-${version}-${os}-${arch}.${ext}"
 
 directories:
@@ -22,6 +22,7 @@ files:
 asar: true
 compression: maximum
 npmRebuild: false
+# A assinatura só é activada quando CSC_LINK e CSC_KEY_PASSWORD forem fornecidos.
 forceCodeSigning: false
 
 win:

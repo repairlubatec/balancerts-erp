@@ -1,0 +1,53 @@
+A fim de orientar o processo de reconhecimento das operações e outros acontecimentos, simplificar o controlo
+dos registos efectuados e facilitar a consulta de saldos e quantias para efeitos de preparação das componentes
+das Demonstrações financeiras, optou-se pela sistematização e codificação das rubricas a usar na elaboração dos
+registos contabilísticos.
+
+Com vista à harmonização, devem ser adaptados os quadros e listas de contas constante deste Plano e res-
+peitadas as disposições gerais a seu respeito,
+
+Esta Lista de contas tem 9 classes, sendo qu eas classes zero e nove, são uso facultativo,
+
+Classe 0 - Contas de Ordem
+
+Esta classe é de uso facultativo.
+
+Contudo, sugere-se o seu uso para controlo de situações de direitos e responsabilidades da entidade para com
+terceiros e de terceiros para com a entidade, que de momento não afectam o seu património mas que no futuro
+o podem afectar, e que facilitem a respectiva divulgação nas Notas às Contas.
+
+Classes | a 8 - Contabilidade Geral
+
+Estas classes são de uso obrigatório sempre que existam factos ou acontecimentos que pela sua natureza devam
+nelas ser registados.
+
+As classes são:
+Classe | — Meios fixos e investimentos
+Classe 2 — Existências
+Classe 3 — Terceiros
+Classe 4 — Meios monetários
+Classe 5 — Capital e reservas
+Classe 6 — Proveitos e ganhos por natureza
+Classe 7 — Custos e perdas por natureza
+Classe 8 — Resultados
+
+Como regra geral não devem ser efectuadas alterações na disposição, nomenclatura e códigos de contas das
+rubricas constantes de cada uma das classes, sob pena de tais alterações poderem vir a pôr em causa os objectivos
+com que foram criadas.
+
+Contudo, a título excepcional, são permitidas alterações desde que daí não venha a resultar qualquer prejuízo para
+a elaboração das demonstrações financeiras nos termos definidos neste Plano.
+
+Podem ser efectuados desenvolvimentos de sub-rubricas de acordo com o que se considerar mais apropriado
+face à realidade da entidade.
+
+As linhas em branco constantes destas classes podem ser substituídas pela nomenclatura considerada apropriada
+nas circunstâncias.
+
+Classe 9 — Contabilidade Analítica
+Esta classe é de uso facultativo o qual dependerá da necessidade sentida pela empresa e da ponderação do
+
+binómio custo/benefício.
+
+Contudo, recomenda-se o seu uso para empresas industriais onde o apuramento dos custos de produção se torne
+moroso e difícil de executar por outra via.

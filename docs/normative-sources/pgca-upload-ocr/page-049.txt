@@ -1,0 +1,61 @@
+48
+
+PGC — EXPLICADO
+
+Podem ser efectuadas compensações de saldos entre itens de custos e proveitos apenas se os ganhos, perdas e
+despesas relacionadas resultantes de uma mesma operação ou de uma operação similar não for material ou ainda
+nos seguintes casos:
+
+* Ganhos e perdas no vendo de activos não correntes os quais são relatados pela diferença entre o proveito da
+venda e o valor contabilístico do activo e respectivas despesas de venda.
+
+* Despesas recuperadas através de um contrato com uma terceira entidade (ex: sub-arrendamento), as quais são
+relatadas pelo valor líquido dos proveitos obtidos.
+
+Comparabilidade
+
+De forma que a informação possa ser útil aos utentes estes deverão ficar habilitados a:
+a) efectuar análises comparativas para identificar tendências no posição financeira da entidade e no resultado das
+suas operações:
+* Por esta razão, para todos os valores contidos nos Demonstrações financeiras, devem ser apresentados os
+correspondentes valores comparativos do período precedente.
+* Informação qualitativa do período precedente deve igualmente ser divulgada sempre que for considerada
+relevante para a compreensão das Demonstrações financeiras do período corrente.
+
+* Quando a apresentação ou classificação de um item nas demonstrações financeiras forem alteradas, deve-
+ro ser divulgadas a razão para a alteração e @ naturezo das alterações que deveriam ser efectuadas na
+informação do período precedente para que as informações fossem comparáveis.
+
+b) efectuar comparações entre entidades:
+
+* Por esta razão devem ser divulgadas as políticas contabilísticas usadas no preparação das demonstrações
+financeiras.
+
+Este princípio contabilístico tem duas vertentes que poderíamos chamar de:
+* Comparabilidade temporal.
+
++ Comparabilidade interentidades.
+
+Com efeito, os utentes têm de ser capazes de comparar as demonstrações financeiras de uma entidade ao longo
+do tempo a fim de identificar tendências na sua posição financeira (Balanço) e no seu desempenho (Demonstra-
+ção de Resultados) — Comparabilidade temporal, bem como também ser capazes de comparar as demonstrações
+financeiras de diferentes entidades a fim de avaliar de forma relativa a sua posição financeira, o seu desempenho e
+as alterações na posição financeira — Comparabilidade interentidades.
+
+Face ao princípio contabilístico da comparabilidade, as alterações de políticas contabilísticas só devem ser efectua-
+das nos seguintes casos:
+
+* Se for exigida por disposições contabilísticas emitidas por órgão competente para o efeito.
+
+* Se a alteração resultar numa apresentação mais apropriada de acontecimentos ou transacções nas de-
+monstrações financeiras da entidade.
+
+CRITÉRIOS PARA RECONHECIMENTO DAS CLASSES DAS DEMONSTRAÇÕES FINANCEIRAS
+
+Este normativo, inserido nas políticas contabilisticas identifica um conjunto de critérios para o reconhecimento das
+classes das demonstrações financeiros, a saber:
+
+* Critério geral;
+* Critérios para reconhecimento de Activos, Passivos, Proveitos e Custos;
+
+* Critérios para o reconhecimento e erros, alterações de estimativa e de políticas contabilisticas.

@@ -1,0 +1,58 @@
+64
+
+| PGC — EXPLICADO
+
+Pagamentos (de caixa) a empregados ou por conta destes.
+
+Recebimentos (de caixa) e Pagamentos (de caixa) de uma empresa seguradora relativos a prémios e re-
+clamações, anuidades e outros movimentos derivados de apólices de seguros.
+
+Pagamentos (de caixa) ou restituições de impostos, a menos que possam ser especificamente identificados
+com as actividades de financiamento e de investimento.
+
+Recebimentos (de caixa) e Pagamentos (de caixa) de contratos detidos para fins negociais ou comerciais
+Fluxos de caixa provenientes da compra e venda de títulos negociáveis.
+
+Fluxos de caixa das actividades de investimento
+
+Os fluxos de caixa das actividades de investimento devem relatar separadamente as principais classes dos rece-
+bimentos brutos (de caixa) e as principais classes dos pagamentos brutos (de caixa), excepto se puderem ser
+
+relatados numa base líquida.
+
+Exemplos de fluxos de caixa das actividades de investimento:
+
+Pagamentos (de caixa) para aquisição de activos fixos tangíveis?) (incluindo os auto-construídos), intang/-
+veistêl (incluindo custos de desenvolvimento capitalizados).
+Recebimentos (de caixa) por vendas de activos fixos tangíveis e intangíveis.
+Pagamentos (de caixa) para aquisição de investimentos financeiros que não sejam:
+(1) detidos para fins de negociação ou comercialização ou
+(ii) equivalentes de caixa.
+Recebimentos (de caixa) de vendas de investimentos financeiros que não sejam:
+(i) detidos para fins de negociação ou comercialização ou
+(ii) equivalentes de caixa.
+Adiantamentos de caixa e empréstimos feitos a outras partes.
+Recebimentos (de caixa) provenientes de reembolso de adiantamentos e de empréstimos feitos a outras
+partes.
+
+Fluxos de caixa das actividades de financiamento
+
+Os fluxos de caixa das actividades de financiamento devem relatar separadamente as principais classes dos re-
+cebimentos brutos (de caixa) e as principais classes dos pagamentos brutos (de caixa), excepto se puderem ser
+relatados numa base líquida.
+
+Exemplos de fluxos de caixa das actividades de financiamento:
+
+Entradas de caixa provenientes da emissão de acções ou de outros instrumentos de capital próprio.
+Pagamentos (de caixa) a detentores para adquirir ou remir as acções da empresa.
+
+Entradas de caixa vindas da emissão de certificados de dívida, empréstimos pedidos, livranças, obrigações
+e outros empréstimos pedidos a curto ou longo prazo.
+
+Reembolsos (de caixa) de quantias de empréstimos pedidos.
+
+Pagamentos de caixa por um locatário para a redução de uma dívida por saldar relacionada com uma
+locação financeira.
+
+[5] Activos fixos tangíveis é uma expressão equivalente a imobilizado corpóreo.
+[6] Activos intengíveis é uma expressão equivalente a imobilizado incorpóreo.

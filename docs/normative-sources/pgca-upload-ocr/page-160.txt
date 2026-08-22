@@ -1,0 +1,38 @@
+4 ExpuiCAÇÃO AS CONTAS | is
+CONTA 18 - AMORTIZAÇÕES ACUMULADAS
+Registam-se nesta conta as amortizações acumuladas referentes aos activos sujeitos a depreciação nomeadamente
+imobilizades corpóreos, imobilzados incorpóreos, - investimentos financeiros em imóveis.
+Estrutura da conta
+A conta |8 - Amortizações acumuladas subdivide-se em:
+18.1 Imobilizações corpéreas
+18.2 ~ Imobilizações incorpéreas
+[83 - Investimentas financeiros em imóveis
+Reconhecimento co
+Esta conta é apresentada no balanço, no conjunto dos activos não correntes, inserida e a reduzir as quantias das
+respectivas cortas a que respeita, seja imobilizado corpóreo, imobilizado incorpéreo ou investimertes financeiro
+em imóveis
+Ver Figura | ~ Recenhecimento no Balanço: Classe |
+Valorimetria
+A depreciação (amortização) de um activo é a imputação da sua quantia depreciável durante 2 sua vida Ut
+As amortizações podem ter as seguintes vertemes:
++ Amortizações sistemáticas
++ Amortizações extraordinárias
+Amortizações sistemáticas baseadas na vida til dos bens, destinadas a reflectir a perda dos benefícios económicos
+decorrentes do uso, da inactividade ou da passagem do tempo. Estas amortizações são calculadas apenas para bens
+depreciáveis e tendo em atenção:
+* Aquantia depreciâvel do bem,
+* Avida útil esperada do bem,
+* O método mais adequado para reflectir o modelo pelo qual os benefícios económicos deste ber sejam
+consumidos
+Amortizações extraordinárias destinadas a reduzir o valor dos bens para o seu valor recuperáve! quando haja
+diminuição de valor na quantia pela qual os bens se encontram registados, Estas amortizações devem ser revertidas
+se cessarem os motivos que a originaram.
+Do referido importa reter cinco conceitos de forma a poder calcular a depreciação do active:
+*  Quantia depreciável;
+* Valor residual:
++ Vida util
++ Método de depreciação;
++ Vator recuperdvel.
+Quantia depreciável
+A quantia depreciável de um active depreciável é o seu custo (histórico ou outro que o substitua) deduzido do va-
+lor residual estimado do activo, ex seja, é a quantia que irá serár de base ao cálculo da depreciação (amortização)

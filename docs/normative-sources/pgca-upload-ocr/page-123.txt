@@ -1,0 +1,101 @@
+122 PGC — EXPLICADO
+
+32.8 Fornecedores — facturas em recepção e conferência 35. ENTIDADES PARTICIPANTES E PARTICIPADAS:
+31.8.1.
+
+35.1 Entidades participantes
+
+35.1.1 Estado
+35.1.1,1 c/subscrição
+
+32.9 Fornecedores - saldos devedores
+
+32.9.1 Adiantamentos
+32,9.2 Embalagens a devolver
+32.9.3 Material à consignação
+
+35.1.2 Empresas do grupo — subsidiárias
+35.1.2.1 cisubscrição
+35.1.2.2 cfadiantamentos sobre lucros
+33.1 Empréstimos bancários 35.1.2.3 cllucro.
+
+33.1.1 Moeda nacional 351.24 Empréstimos
+33.1.1.1 Banco
+
+33. EMpPRESTIMOS:
+
+35.1.3 Empresas do grupo — associadas
+
+35.1.3,1 cisubscrição
+c/adiantamentos sobre lucros
+cflucros
+
+33.1.2 Moeda estrangeira
+33,1,2,1 Banco
+
+= . Empréstimos
+33.2 Empréstimos por obrigações 3514 Qua DU
+33.2.1 Convertiveis 35.1,4.1 c/subscrição
+332.1.) Entidade 35.1.4.2 cladiantamentos sobre lucros
+35.1.4,3 cilucros
+
+33.22 Não convertíveis “eee saa
+33.2.2.1 Entidade __
+
+Emptéstimos
+
+35.2 Entidades participadas
+35.2.1 Estado
+35.2.1.1 c/subscrição
+35.2,1.2 cladiantamentos sobre lucros
+
+35.2.1.3 c/lucros
+35.2.1.4 Empréstimos
+
+33.3 Empréstimos por títulos de participação
+33.3.1 Entidade
+
+33.9 Outros empréstimos obtidos
+
+33.9.1 Entidade. 35.2.2 Empresas do grupo — subsidiárias
+
+we . 35.2.2.1 cfsubscrição
+
+35.2.2.2 c/adiantamentos sobre lucros
+35.2,2.3 cflucros
+
+34. ESTADO: 35.2.24 Emp
+34.1 Imposto sobre os lucros 35.2.3. Empresas do grupo — associadas
+35.2.3.1 cisubscrição
+
+34.1.1
+
+35.2.3.2 cfadiancamentos sobre lucros
+34.2 Imposto de produção e consumo 35.2.3.3 cflucros
+
+3421 35.2.3.4 Empréstimos
+~ 35.2.4 Outros
+34.3 Imposto de rendimento de trabalho 35.2.4.1 clsubscrição
+35.2.4.2 cfadiantamentos sobre lucros
+
+34,31
+
+35.2.4.3 cflucros
+34.4 Imposto de circulação 35.2.4.4 Empré
+34.4.1 .
+
+imos
+
+34.8 Subsídios a preços 36. Pessoa:
+
+348.1 36.1 Pessoal - remunerações
+
+36.1.1 Órgãos sociais
+
+34.9 Outros impostos
+36.111.
+
+34.9.1
+
+36.1.2 Empregados
+36.121.

@@ -2654,3 +2654,14 @@
 - [x] Corrigir a chave React duplicada 3420001 detectada no fluxo de Contabilidade e validar a renderização sem avisos
 - [x] Validar e corrigir o erro de parsing JSX do AccountingP1Panel, caso ainda reproduzível, sem regressão nos fluxos de Contabilidade
 - [x] Cobrir por teste a consistência entre o manifesto normativo de lotes e a selecção apresentada na interface PGCA
+- [ ] Executar confirmação prioritária do primeiro lote PGCA/IVA apenas após selecção e evidência normativa oficial válidas
+- [ ] Preparar configuração de distribuição Windows com identidade Repair Lubatec e copyright BALANCERTS.ERP
+- [ ] Documentar requisitos do certificado de assinatura Windows e validar o pacote sem certificado dentro do sandbox
+- [ ] Manter integrações AGT fora do escopo desta fase P0
+- [ ] Validar e confirmar auditadamente PGCA Classe 1, apenas nas contas literalmente comprovadas
+- [ ] Validar e confirmar auditadamente PGCA Classe 4, apenas nas contas literalmente comprovadas
+- [ ] Validar e confirmar auditadamente PGCA Classe 6, apenas nas contas literalmente comprovadas
+- [ ] Validar e confirmar auditadamente IVA artigo 19.º, apenas na regra e evidência oficialmente comprovadas
+- [x] Gerar inventário documental das contas patrimoniais do PGCA (activo, passivo e situação líquida) com código, designação, páginas, estado e evidência
+- [ ] Catalogar separadamente as regras literais de movimentação encontradas no PDF, sem as transformar em regras automáticas antes da confirmação
+- [x] Testar o inventário patrimonial gerado e garantir que regras OCR preliminares permanecem pendentes até confirmação visual

@@ -1,0 +1,4764 @@
+{
+  "generatedAt": "2026-08-22T13:37:51.896Z",
+  "policy": "Inventário para revisão humana; não confirma nem activa contas ou regras.",
+  "source": {
+    "file": "docs/normative-sources/decreto-82-01-pgca.pdf",
+    "sha256": "04359cb12d48a20cc5326ca001cd0597b1904a7d99d376b1820e8be40f332c89"
+  },
+  "sourceProvidedByUser": "PGCA_Explicado_compressed.pdf",
+  "classes": {
+    "1": {
+      "classCode": "1",
+      "total": 184,
+      "confirmed": 0,
+      "accounts": [
+        {
+          "code": "1",
+          "name": "— MEIOS FIXOS E INVESTIMENTOS:",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            119
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.1",
+          "name": "Imobilizações corpóreas!!",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.1.1",
+          "name": "Terrenos e recursos narurais",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.1.2",
+          "name": "Edifícios e outras construções",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.1.4",
+          "name": "Equipamento de carga e transporte",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.1.5",
+          "name": "Equipamento administrativo",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.1.6",
+          "name": "Taras e vasilhame",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.2",
+          "name": "Imobilizações incorpóreas",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.2.2",
+          "name": "Despesas de investigação e desenvolvimento",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.2.3",
+          "name": "Propriedade industrial e outros direitos e",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.2.4",
+          "name": "Despesas de constituição",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.2.9",
+          "name": "Outras imobilizaçõe",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.3",
+          "name": "Investimentos financeiros em imóveis",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.3.1",
+          "name": "Terrenos e recursos naturais",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.3.2",
+          "name": "Edifícios e outras construções",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "18.19",
+          "name": "Outras imobilizações corpóreas",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.1",
+          "name": "Empresas subsidiárias",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.1.1",
+          "name": "Partes de capital",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.1.2",
+          "name": "Obrigações e títulos de participação",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.2",
+          "name": "Empresas associadas",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.2.1",
+          "name": "Parces de capital",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.2.3",
+          "name": "Empréstimos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.3",
+          "name": "Outras empresas",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.3.1",
+          "name": "Partes de capital",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.3.2",
+          "name": "Obrigações e títulos de participação",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.4",
+          "name": "Fundos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.4.1",
+          "name": "Partes de capital",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.9",
+          "name": "Outros investimentos financeiros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.9.1",
+          "name": "Diamantes",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.9.2",
+          "name": "Ouro",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.9.3",
+          "name": "Depósitos bancários",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "19.22",
+          "name": "Obrigações e títulos de participação",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "101",
+          "name": "78 101 Estimativa impostos BitAno.",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "102",
+          "name": "102 Movimentos, ocorridos durante o exercício, nas oucual | (o) (b) | nuições te)",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "103",
+          "name": "9. Outros activos não correntes e contas a receber: 103 Restrições existentes",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "108",
+          "name": "108 UTENTES E ASNECESSIDADES DE Utente Utilidade da Informação",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "111",
+          "name": "fcontas 35 111,35 121 35134, 35141) lucros",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "112",
+          "name": "Comfivca o predio urbano em nome de Teodoro dos Santos arugo 112º e do arngo 113º ambos da Les Consntucional,",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "113",
+          "name": "Comfivca o predio urbano em nome de Teodoro dos Santos arugo 112º e do arngo 113º ambos da Les Consntucional,",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "114",
+          "name": "114] Relativos a edifícios industrias 21 P",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "115",
+          "name": "666] 3 Outras empresas 68 115 Mercadonas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "117",
+          "name": "na previsão da aludida les, foram automaticamente (no 4527, q folhas 150 do tivro B-S e 1367, a folhas 117",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "121",
+          "name": "66 121 Dívidas recebidas à prestações 657 E 4 Fundos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "122",
+          "name": "122 Outras construções 124 Despesas de canstituição",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "123",
+          "name": "123 Prestações suplementares ro",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "124",
+          "name": "122 Outras construções 124 Despesas de canstituição",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "125",
+          "name": "68 125 Participantes e participadas 68111 Donauvos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "129",
+          "name": "68 129 Outros saldos a receber ema",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "131",
+          "name": "O rédita das comissões de publicidade deve ser 131 Conteúdo das rubricas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "132",
+          "name": "132 Empresas associadas 1491...",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "133",
+          "name": "133 Outras empresas 18.1 mobilizações corpóreas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "134",
+          "name": "134 Investimentos em imóveis 18 6 Taras e vasilhame",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "135",
+          "name": "135 Equipamento adminsstratiwvo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "139",
+          "name": "68 139 Outros riscos e encargos em . ..",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "141",
+          "name": "141 Obra em curso",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "142",
+          "name": "1t 142 Relativos a edifícios admunistrativos e im ve",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "147",
+          "name": "147 Adiantamentos par conta de imobilizado",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "149",
+          "name": "1313 Empréstimos 149 Adiantamentos por conta de investimentos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "150",
+          "name": "150, hi a pp há tmheiro dt das nd St 9 alienação de aplicações financeiras, sendo as respectivas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "151",
+          "name": "12 Imobihzações incorpóreas 151 - .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "152",
+          "name": "152 Definções",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "153",
+          "name": "153 Condições de financiamento Provisões",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "161",
+          "name": "Esta conta destina-se a concentrar, no fim do exercício, 161 Conteúdo das rubricas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "162",
+          "name": "162 Definições",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "171",
+          "name": "171 Definição de já se ter tido em consideração quelquer recupe-",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "173",
+          "name": "A determinação da existência de contingências faz-se a 173 Situações paruculares",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "181",
+          "name": "181 Definção",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "182",
+          "name": "1351 . . ... 182 1 Trespasses",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "183",
+          "name": "º o 183 Investimentos financeiros em Imóveis",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "191",
+          "name": "A reserva legal foy constrtuída ao abrigo do arhgo 191 * do Código alterados",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "192",
+          "name": "192 Reconhecimento e divulgação Transferências de recursos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "193",
+          "name": "193 Situações parniculares: Influência significativa",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "199",
+          "name": "199 Qutros investimentos financeiros 22.1 Matérias-primas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1000",
+          "name": "1000 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1001",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1001",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1002",
+          "name": "1002 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1003",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1003",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1004",
+          "name": "1004 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1005",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1005",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1006",
+          "name": "1006 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1007",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1007",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1008",
+          "name": "1008 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1009",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1009",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1010",
+          "name": "1010 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1011",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1011",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1012",
+          "name": "1012 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1013",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1013",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1014",
+          "name": "1014 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1015",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1015",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1016",
+          "name": "1016 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1017",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1017",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1018",
+          "name": "1018 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1019",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1019",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1020",
+          "name": "1020 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1021",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1021",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1022",
+          "name": "1022 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1023",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1023",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1024",
+          "name": "1024 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1025",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1025",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1026",
+          "name": "1026 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1027",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1027",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1028",
+          "name": "1028 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1029",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1029",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1030",
+          "name": "1030 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1031",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1031",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1032",
+          "name": "1032 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1033",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1033",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1034",
+          "name": "1034 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1035",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1035",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1036",
+          "name": "1036 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1037",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1037",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1038",
+          "name": "1038 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1039",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1039",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1040",
+          "name": "1040 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1041",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1041",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1042",
+          "name": "1042 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1043",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1043",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1044",
+          "name": "1044 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1045",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1045",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1046",
+          "name": "1046 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1047",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1047",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1048",
+          "name": "1048 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1049",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1049",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1050",
+          "name": "1050 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1051",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1051",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1052",
+          "name": "1052 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1053",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1053",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1054",
+          "name": "1054 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1055",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1055",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1056",
+          "name": "1056 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1057",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1057",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1058",
+          "name": "1058 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1059",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1059",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1060",
+          "name": "1060 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1061",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1061",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1062",
+          "name": "1062 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1063",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1063",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1064",
+          "name": "1064 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1065",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1065",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1066",
+          "name": "1066 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1067",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1067",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1068",
+          "name": "1068 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1069",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1069",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1070",
+          "name": "1070 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1071",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1071",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1072",
+          "name": "1072 DIÁRIO DA REPÚBLICA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1073",
+          "name": "ISÉRIE — N.º 52 — DE 16 DE NOVEMBRO DE 2001 1073",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1123",
+          "name": "1123 Instalações",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1131",
+          "name": "1131 Matenal ndustmal 12.9 Outras imobilizações incorpóreas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1132",
+          "name": "1132 Ferramentas industnas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1161",
+          "name": "17 - . 1161 . .. «",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1221",
+          "name": "1221 .. -",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1231",
+          "name": "tivos é comerciais 1231",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1241",
+          "name": ".. 1241 a",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1268",
+          "name": "Matnz Predial do 2 * Bairro Fiscal sob o nº 1268 e deserta",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1281",
+          "name": "materiais em trânsito 1281) tazi)",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1291",
+          "name": "11 3.3 Melhoramentos em equipamentos básicos 1291 -",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1306",
+          "name": "1306 — End Telcg «Imprensa» AI\" céne Kz 10 700,00] da Imprensa Nacional — U E E",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1311",
+          "name": "1311 Partes de capital o . e",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1312",
+          "name": "1312 Otmgações e títulos de participação",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1313",
+          "name": "1313 Empréstimos 149 Adiantamentos por conta de investimentos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1321",
+          "name": "1321 Partes de capital Morro",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1322",
+          "name": "1322 Obmgações e títulos de participação , ore",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1323",
+          "name": "1323 Empréstimos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1332",
+          "name": "1332 Obrigações e títulos de participação o E o a o nn",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1333",
+          "name": "1333 Empréstimos 18.3 Equipamento básico",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1351",
+          "name": "1351 . . ... 182 1 Trespasses",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1367",
+          "name": "na previsão da aludida les, foram automaticamente (no 4527, q folhas 150 do tivro B-S e 1367, a folhas 117",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1481",
+          "name": "1481 e re",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1491",
+          "name": "132 Empresas associadas 1491...",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1822",
+          "name": ". .. - 1822 Despesas de investigação e desen-",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1823",
+          "name": "1823 Propriedade industrial e outros direi-",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1829",
+          "name": "13.92 Ouro 1829 Outras mobilizações ncorpóreas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1911",
+          "name": "corpóreo 1911 Partes de capital",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1912",
+          "name": "1912 Obngações e títulos de parmeipação",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1913",
+          "name": "71 . 1913 Empréstumos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1921",
+          "name": "1921 Partes de capital 217 =. ua . «",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1922",
+          "name": "1922 Obngações e títulos de participação . ea .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1923",
+          "name": "1923 Empréstimos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1932",
+          "name": "1932 Obngações é títulos de participação o",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1933",
+          "name": "1933 Empréstimos 219",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1941",
+          "name": "1941 Partes de capital",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1991",
+          "name": "1991 Diamantes",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "1992",
+          "name": "1992 Ouro 221.1 . Cam a",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        }
+      ]
+    },
+    "2": {
+      "classCode": "2",
+      "total": 51,
+      "confirmed": 0,
+      "accounts": [
+        {
+          "code": "2",
+          "name": "— ExisTÊNCIAS:",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            119,
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "21.1",
+          "name": "Matérias-primas, subsidiárias e de consumo",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "21.2",
+          "name": "Mercadorias",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "21.7",
+          "name": "Devoluções de compras",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "22.1",
+          "name": "Matérias-primas",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "22.2",
+          "name": "Matérias subsidiárias",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "22.3",
+          "name": "Materiais diversos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "22.4",
+          "name": "Embalagens de consumo",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "22.5",
+          "name": "Outros materiais",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "24.1",
+          "name": "Produtos acabados",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "24.2",
+          "name": "Produtos intermédios",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "24.9",
+          "name": "Em poder de terceiros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            121
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "200",
+          "name": "Preço deste número — Kz: 200,00",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "201",
+          "name": "201 Definições Empresas que, directa ou indirectamente (através de um",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "202",
+          "name": "202 Condições de financiamento",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "203",
+          "name": "203 Suuações particulares",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "211",
+          "name": "s211 69 Proveitos e ganhos extraordinários",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "212",
+          "name": "75 212 Blecincidade preda",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "213",
+          "name": "213 Relato dos fluxos de cana das actividades de Pagamentos de catxa por um locatário para a redução de",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "214",
+          "name": "comissões e outros réditos não relacionados cam 214 Relato dos fluxos de corsa das acnvidades de",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "217",
+          "name": "19 2 Empresas associadas 217 Devoluções de compras",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "218",
+          "name": "218t .. . .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "219",
+          "name": "1933 Empréstimos 219",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "221",
+          "name": "221 Criténos de reconhecimento é bases de valonme-",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "222",
+          "name": "We ua 222 Matérias subsédiá",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "223",
+          "name": "22 Matérias-primas, subsidiárias e de 223 Materiais diversos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "225",
+          "name": "29 Provisão para depreciação de exis- 225 Outros materiais",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "231",
+          "name": "23 Produtos e trabalhos em curso 231 den .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "232",
+          "name": "2121 232... cs .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "241",
+          "name": "27 Maténias-primas, mercadonas e outros 241 e",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "261",
+          "name": "261... . 2931 .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "262",
+          "name": "262 .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "272",
+          "name": "24 PRODUTOS ACABADOS E INTERMÉDIOS 272 Ontros materiais",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "291",
+          "name": "25 2 Desperdícios, resíduos e refugos 291",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2000",
+          "name": "Luanda, aos 10 de Agosto de 2000 preparação e apresentação das Demonstrações financeiras",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2001",
+          "name": "Mr Sexta-feira, 16 de Novembro de 2001 ISérie — N.º 52",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2002",
+          "name": "exercício económico com início em 1 de Janeiro de 2002 A International Federation of Accountants (IFAC), que",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2121",
+          "name": "2121 232... cs .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2197",
+          "name": "Maténas-primas, mercadorias e (No | 2197] quo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2421",
+          "name": "2421 . . o",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2491",
+          "name": "2491 2811",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2521",
+          "name": "2521 . 29 2 Matérias-primas subsidiárias e de consumo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2691",
+          "name": "2691 . 29 5 Sub-produtos, desperdícios, resíduos e",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2731",
+          "name": "2731 .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2811",
+          "name": "2491 2811",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2821",
+          "name": "E REFUGOS 2821",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2921",
+          "name": "2921 . .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2931",
+          "name": "nº 2931, à favor de Mafalda Antunes que tambem usa Mafalda Decreto n.º 82/01",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2941",
+          "name": "2941 .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2951",
+          "name": "2951",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "2961",
+          "name": "2961",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        }
+      ]
+    },
+    "3": {
+      "classCode": "3",
+      "total": 154,
+      "confirmed": 0,
+      "accounts": [
+        {
+          "code": "3",
+          "name": "— Terceiros:",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            119
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3.1.3.1",
+          "name": "cfsubscrição",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "32.8",
+          "name": "Fornecedores - facturas em recepção e conferência",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "32.9",
+          "name": "Fornecedores - saldos devedores",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "32.9.1",
+          "name": "Adiantamentos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "32.93",
+          "name": "Material à consignação",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "33.1",
+          "name": "Empréstimos bancários",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "33.1.1",
+          "name": "Moeda nacional",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "33.1.2",
+          "name": "Moeda estrangeira",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "33.2.2",
+          "name": "Não convertíveis",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "33.9",
+          "name": "Outros empréstimos obtidos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "33.21",
+          "name": "Converdveis",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "33.121",
+          "name": "Banco",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "33.221",
+          "name": "Entidade",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "34.1",
+          "name": "Imposto sobre os lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "34.3",
+          "name": "Imposto de rendimento de trabalho",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "34.8",
+          "name": "Subsídios a preços",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1",
+          "name": "Entidades participantes",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.1",
+          "name": "Estado",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.1.1",
+          "name": "cisubscrição",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.1.2",
+          "name": "cfadiantamentos sobre lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.1.3",
+          "name": "cílucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.1.4",
+          "name": "Empréstimos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.2",
+          "name": "Empresas do grupo — subsidiárias",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.2.1",
+          "name": "c/subscrição",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.2.2",
+          "name": "c/adiantamentos sobre lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.2.3",
+          "name": "c/lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.3.2",
+          "name": "cladiantamentos sobre lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.3.3",
+          "name": "c/lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.3.4",
+          "name": "Empréstimos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.4.1",
+          "name": "cfsubscrição",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.4.2",
+          "name": "c/adiantamentos sobre lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.4.3",
+          "name": "cilucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.4.4",
+          "name": "Empréstimos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.1.24",
+          "name": "Empréstimos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2",
+          "name": "Entidades participadas",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.1",
+          "name": "Estado",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.1.1",
+          "name": "clsubscrição",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.1.2",
+          "name": "cladiantamentos sobre lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.1.3",
+          "name": "cflucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.1.4",
+          "name": "Empréstimos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.2.1",
+          "name": "cfsubscrição",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.2.3",
+          "name": "cflucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.3.1",
+          "name": "cisubscrição",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.3.2",
+          "name": "cladiantamentos sobre lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.3.3",
+          "name": "c/lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.3.4",
+          "name": "Empréstimos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.4.2",
+          "name": "cfadiantamentos sobre lucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.4.3",
+          "name": "cflucros",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "35.2.24",
+          "name": "Empréstimos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "36.1",
+          "name": "Pessoal - remunerações",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "36.1.1",
+          "name": "Órgãos sociais",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "36.1.2",
+          "name": "Empregados",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "38.2.4.1",
+          "name": "clsubscrição",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            123
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "312",
+          "name": "312 Moeda estrangeira 349 Gutros impostos.",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "318",
+          "name": "318!",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "319",
+          "name": "3-TERCEIROS 319 Clientes — saldos credores",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "322",
+          "name": "34 1 2 Não grupo 322 Fornecedores — títulos a pagar",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "323",
+          "name": "323 Financeiro",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "328",
+          "name": "Despacha conjunto nº 328/01 —",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "329",
+          "name": "Despacho conjunto n * 329/01 Face à crescente globalização da economia mundial e",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "330",
+          "name": "2º — Proceda a Conservatória competente à inscrição Despacho conjunta n.º 330/01",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "331",
+          "name": "Despacha conjunto o * 331/01 Nos termos das dispasições combinadas da alínea f) do",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "332",
+          "name": "332 Empréstimos por obrigações",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "333",
+          "name": "Despacho conjunto nº 333/01 integrante",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "334",
+          "name": "Despacho conjunto nº 334/01 Públicas, que",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "336",
+          "name": "Despacho conjunto n* 336/01 aplicável a entidade: que exerçam actividade para a qual",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "339",
+          "name": "339 Outros empréstimos obtidos 35122 c/adrantamentos sobre lucros",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "342",
+          "name": "342 Imposto de produção e consumo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "343",
+          "name": "343 Impasto de rendimento de trabalho 35143 cilucros",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "344",
+          "name": "344 1 to de circulação",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "349",
+          "name": "312 Moeda estrangeira 349 Gutros impostos.",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "352",
+          "name": "mos asa 352 Entidades participadas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "361",
+          "name": "361 Pessoal — remunerações 2731 Vendas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "362",
+          "name": "362 Pessoal — participação nos resultados 375 Encargos a pagar",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "363",
+          "name": "3522 Empresas do grupo — subsidiárias 363 Pessoal — adiantamentos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "369",
+          "name": "369 Pessoal — outros",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "372",
+          "name": "35243 cilucros 372 Vendas de imobilizado",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "373",
+          "name": "373 Proveitos a facturar",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "374",
+          "name": "É 374 Encargos a repartir por períodos futuros",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "375",
+          "name": "362 Pessoal — participação nos resultados 375 Encargos a pagar",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "377",
+          "name": "377 Contas transitórias",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "379",
+          "name": "379 Outros valores a receber c a pagar - ENCARGOS",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "381",
+          "name": "381 .. 35214 Empréstimos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "382",
+          "name": "382 Provisões para saldos devedores de fornece 7 MEIOS MONETÁRIOS",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "383",
+          "name": "383 Provisões p/participantes e participadas “6 .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "384",
+          "name": "3764 Diferenças de câmbio favoráveis rever- 384 Provisões p/dívidas do pessoal",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "389",
+          "name": "389 Provisões para ontros saldos a receber",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "391",
+          "name": "3291 no . 391 Provisões para pensões",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "392",
+          "name": "DOSAS 392 Provisões para processos judiciais em curso",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "393",
+          "name": "393 Provisões para acidentes de trabalho",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "394",
+          "name": "3812 Cliente — títulos a receber 394 Provisões para garanti a clientes",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "399",
+          "name": "38121 Grupo 399 Provisões para outros riscos e encargos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3111",
+          "name": "3111 Grupo 3212 Não grupo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3121",
+          "name": "3121 Grupo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3122",
+          "name": "3122 Não grupo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3131",
+          "name": "3131 Grupo 329 Fornecedores - saldos devedores",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3132",
+          "name": "3132 Não grupo 3293 Material à consignação",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3162",
+          "name": "36221 3162 Prémios de erussão de títulos de partica-",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3181",
+          "name": "3181 Chentes — correntes 33114 Banco",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3191",
+          "name": "3 Clientes 3191 Adiantamentos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3192",
+          "name": "32 Fomecelores 3192 Embalagens a devolver",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3193",
+          "name": "33 Empréstimos 3193 Material à consignação",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3211",
+          "name": "3211 Grupo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3212",
+          "name": "3111 Grupo 3212 Não grupo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3221",
+          "name": "31121 Nacionais 3221 Grupo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3291",
+          "name": "3291 no . 391 Provisões para pensões",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3292",
+          "name": "31312 Associadas 3292 Embalagens a devolver",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3293",
+          "name": "3132 Não grupo 3293 Material à consignação",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3311",
+          "name": "31 8 Chentes de cobrança duvidosa 3311 Moeda nacional",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3321",
+          "name": "3321 Convertíveis PADAS",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3322",
+          "name": "3322 Não convertíveis 3541 Estado",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3331",
+          "name": "3331 Entidade",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3391",
+          "name": "3391 Entidade 35124 Emprésumos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3411",
+          "name": "3411 35133 cflucros",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3421",
+          "name": "3421",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3441",
+          "name": "3441 -",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3491",
+          "name": ". 3491 - .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3512",
+          "name": ". 3512 Empresas do grupo — subsidiárias",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3513",
+          "name": "34 ESTADO 3513 Empresas do grupo — associadas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3514",
+          "name": "3514 Outros",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3521",
+          "name": "- 3521 Estado",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3522",
+          "name": "3522 Empresas do grupo — subsidiárias 363 Pessoal — adiantamentos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3523",
+          "name": "3523 Empresas do grupo — associadas 3691",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3524",
+          "name": "3524 Outros 3712 Incorpéreo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3541",
+          "name": "3322 Não convertíveis 3541 Estado",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3611",
+          "name": "3611 Órgãos sociais 333 Juros",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3612",
+          "name": "3612 Empregados",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3621",
+          "name": "3621 Órgãos sociais 37514 Remunerações",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3622",
+          "name": "3622 — Empeegados pos po",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3631",
+          "name": "35221 cisubscrição 3631",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3691",
+          "name": "3523 Empresas do grupo — associadas 3691",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3711",
+          "name": "3711 Corpóreo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3712",
+          "name": "3524 Outros 3712 Incorpéreo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3713",
+          "name": "3713 Financeiro",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3721",
+          "name": ". 3721 Corpóreo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3741",
+          "name": "3741 Descontos de enussão de obrigações",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3742",
+          "name": "36121 3742 Descantos de emissão de títulos de part",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3761",
+          "name": "3761 Prémios de emissão de obngações",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3763",
+          "name": ". 3763 Subsídios para investimento",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3764",
+          "name": "3764 Diferenças de câmbio favoráveis rever- 384 Provisões p/dívidas do pessoal",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3771",
+          "name": "3771 Transacções entre a sede c as dependên-",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3811",
+          "name": "3811 Chentes — correntes",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3812",
+          "name": "3812 Cliente — títulos a receber 394 Provisões para garanti a clientes",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3813",
+          "name": "3813 Clientes — cobrança duvidosa",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3831",
+          "name": "3831 Participantes 48 Conta transitória",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3832",
+          "name": "3832 Participadas 49 Provisões para aplicações de tesouraria",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3841",
+          "name": "E - 3841",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3851",
+          "name": "Finanças do 2º Barro Fiscal sob o nº 3851 e descrito na",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3891",
+          "name": "eras da empresa 3891 Vendas imobilizado",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3911",
+          "name": ". . 3911 . .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3921",
+          "name": "38 1 Provisões para clientes 3921 .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3931",
+          "name": "38112 Não grupo 3931 .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "3991",
+          "name": "3991",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        }
+      ]
+    },
+    "4": {
+      "classCode": "4",
+      "total": 66,
+      "confirmed": 7,
+      "accounts": [
+        {
+          "code": "4",
+          "name": "Meios monetários",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            119,
+            125
+          ],
+          "status": "CONFIRMED",
+          "authority": "Decreto n.º 82/01",
+          "parentCode": null,
+          "level": 1,
+          "evidencePages": [
+            48
+          ],
+          "evidence": "visual",
+          "sources": [
+            "PGCA Explicado (auxiliar)",
+            "Decreto n.º 82/01 — revisão visual"
+          ]
+        },
+        {
+          "code": "41.1",
+          "name": "Acções a",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "41.1.1",
+          "name": "Empresas do grupo 45241",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "41.1.2",
+          "name": "Associadas",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "41.2.1",
+          "name": "Empresas do grupo",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "41.2.2",
+          "name": "Associadas",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "41.3",
+          "name": "Títulos da dívida pública",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "41.23",
+          "name": "Qutras empresas",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "42.1",
+          "name": "Moeda nacional",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "42.2",
+          "name": "Moeda estrangeira 48. CONTA TRANSITÓRIA",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "42.12",
+          "name": "Banco.",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "43.1",
+          "name": "Moeda nacional 49.1 Títulos negociáveis",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "43.1.2",
+          "name": "Banco 49.1.2 Obrigações",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "43.2",
+          "name": "Moeda estrangeira",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "43.11",
+          "name": "Banco 49.1.) Acções",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "44.1",
+          "name": "Moeda nacional",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "44.2",
+          "name": "Moeda estrangeira",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "44.12",
+          "name": "Banco",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "45",
+          "name": "Caixa",
+          "parentCode": "4",
+          "level": 2,
+          "evidencePages": [
+            49
+          ],
+          "status": "CONFIRMED",
+          "authority": "Decreto n.º 82/01",
+          "evidence": "visual",
+          "source": "Decreto n.º 82/01 — revisão visual",
+          "sources": [
+            "Decreto n.º 82/01 — revisão visual"
+          ]
+        },
+        {
+          "code": "45.1",
+          "name": "Fundo fixo",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "45.2",
+          "name": "Valores para depositar",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "45.3",
+          "name": "Valores destinados a pagamentos específicos",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "411",
+          "name": "411 Acções 44 | Moeda nacional",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "412",
+          "name": "412 Obrigações",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "413",
+          "name": "413 Títulos da dívida pública a - .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "421",
+          "name": "421 Moeda nacional",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "422",
+          "name": "4123 Outras empresas s422 Banco .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "432",
+          "name": "432 Mocda estrangeira",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "437",
+          "name": "SUMÁRIO Despacho conjunto à * 437/01",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "442",
+          "name": "P 442 Moeda estrangeira",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "451",
+          "name": "Fundo fixo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "CONFIRMED",
+          "authority": "Decreto n.º 82/01",
+          "parentCode": "45",
+          "level": 3,
+          "evidencePages": [
+            49
+          ],
+          "evidence": "visual",
+          "sources": [
+            "Decreto n.º 82/01 OCR",
+            "Decreto n.º 82/01 — revisão visual"
+          ]
+        },
+        {
+          "code": "452",
+          "name": "452 Valores para depositar",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "453",
+          "name": "Valores destinados a pagamentos específicos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "CONFIRMED",
+          "authority": "Decreto n.º 82/01",
+          "parentCode": "45",
+          "level": 3,
+          "evidencePages": [
+            49
+          ],
+          "evidence": "visual",
+          "sources": [
+            "Decreto n.º 82/01 OCR",
+            "Decreto n.º 82/01 — revisão visual"
+          ]
+        },
+        {
+          "code": "461",
+          "name": "461 - -",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "472",
+          "name": "472 Reconhecimento ou divulgação gadas se do escalonamento do seu desfecho resultar remota",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "481",
+          "name": "4322 Banço - 481 Banco .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "482",
+          "name": ". RR 482 Banco",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "492",
+          "name": "492 Outras aplicações de tesouraria 5621 Avaltação",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4112",
+          "name": "4112 Associadas 4412 Banco .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4113",
+          "name": "4113 Outras empresas - .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4121",
+          "name": "4121 Empresas do grupo",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4123",
+          "name": "4123 Outras empresas s422 Banco .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4132",
+          "name": "4132 45 CAIXA",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4211",
+          "name": "4211 Banco",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4212",
+          "name": "4212 Banco 4521",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4221",
+          "name": "4221 Banco",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4222",
+          "name": "4222 Banco 4531 Salários",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4271",
+          "name": "MBL 4271 Órgãos sociais",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4311",
+          "name": "4311 Banca - 47 .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4312",
+          "name": "4312 Banco sm .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4322",
+          "name": "4322 Banço - 481 Banco .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4347",
+          "name": "un das divs. id cer Caixa é seus equivalentes no início do periodo | 4347",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4411",
+          "name": "41351 Empresas do grupo 4411 Banco .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4412",
+          "name": "4112 Associadas 4412 Banco .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4421",
+          "name": "st22 Associadas 4421 Banco .",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4511",
+          "name": "Caixa",
+          "parentCode": "451",
+          "level": 4,
+          "evidencePages": [
+            49
+          ],
+          "status": "CONFIRMED",
+          "authority": "Decreto n.º 82/01",
+          "evidence": "visual",
+          "source": "Decreto n.º 82/01 — revisão visual",
+          "sources": [
+            "Decreto n.º 82/01 — revisão visual"
+          ]
+        },
+        {
+          "code": "4512",
+          "name": "Caixa",
+          "parentCode": "451",
+          "level": 4,
+          "evidencePages": [
+            49
+          ],
+          "status": "CONFIRMED",
+          "authority": "Decreto n.º 82/01",
+          "evidence": "visual",
+          "source": "Decreto n.º 82/01 — revisão visual",
+          "sources": [
+            "Decreto n.º 82/01 — revisão visual"
+          ]
+        },
+        {
+          "code": "4521",
+          "name": "4212 Banco 4521",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4527",
+          "name": "na previsão da aludida les, foram automaticamente (no 4527, q folhas 150 do tivro B-S e 1367, a folhas 117",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4531",
+          "name": "Salários",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "CONFIRMED",
+          "authority": "Decreto n.º 82/01",
+          "parentCode": "453",
+          "level": 4,
+          "evidencePages": [
+            49
+          ],
+          "evidence": "visual",
+          "sources": [
+            "Decreto n.º 82/01 OCR",
+            "Decreto n.º 82/01 — revisão visual"
+          ]
+        },
+        {
+          "code": "4826",
+          "name": "b “ 4826 a folhas 121 do hvro B-18, onde se acha",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4861",
+          "name": "o nº 4861, em nome de Francisco Jorge Esperança Júmor,",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4911",
+          "name": "4911 Acções 5612 Decreto-Lei nº",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4912",
+          "name": "4912 Obngações",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4913",
+          "name": "4913 Títulos da dívida pública",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "4921",
+          "name": "4921",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        }
+      ]
+    },
+    "5": {
+      "classCode": "5",
+      "total": 10,
+      "confirmed": 0,
+      "accounts": [
+        {
+          "code": "5",
+          "name": "— CAPITAL E RESERVAS",
+          "source": "PGCA Explicado (auxiliar)",
+          "pages": [
+            119,
+            125
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "506",
+          "name": "relativa a anuncio e sesnaruras do «Diário da Ano | da República 1\" 6 2º sénes é do Kz 27,506 parma",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "521",
+          "name": "521 Valor nominal associadas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "522",
+          "name": "522 Descontos",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "523",
+          "name": "523 Prémios",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "562",
+          "name": "562 Autónomas",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "5611",
+          "name": "5611 Decreto-Lei nº",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "5612",
+          "name": "4911 Acções 5612 Decreto-Lei nº",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "5621",
+          "name": "492 Outras aplicações de tesouraria 5621 Avaltação",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        },
+        {
+          "code": "5622",
+          "name": "ser regulanzada por contrapartida de reservas quando se (conta 5622)",
+          "source": "Decreto n.º 82/01 OCR",
+          "pages": [
+            0
+          ],
+          "status": "NEEDS_HUMAN_CONFIRMATION",
+          "authority": "Decreto n.º 82/01"
+        }
+      ]
+    }
+  },
+  "movementRules": {
+    "status": "PENDING_HUMAN_CONFIRMATION",
+    "reason": "O PDF anexado é uma obra explicativa digitalizada; as regras só podem ser transcritas literalmente após revisão visual das páginas dos esquemas de movimentação.",
+    "sourceFile": "PGCA_Explicado_compressed.pdf",
+    "sourceType": "obra auxiliar fornecida pelo utilizador",
+    "entries": []
+  }
+}

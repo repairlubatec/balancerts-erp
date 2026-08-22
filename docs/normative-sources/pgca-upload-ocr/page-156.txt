@@ -1,0 +1,37 @@
+4 EXPLICAÇÃO ÀS CONTAS | 185
+CONTA 14 - IMOBILIZAÇÕES EM CURSO
+Esta conta regista as quantias referentes às imobilizações corpóreas e incorpéreas bem como aos investimemos
+financeiros que estejam em desenvolvimento ou construção, Inclui ainda os adiantamentos feitos por conta de tais
+investimentos cujo preço esteja previamente fixado.
+Estrutura da conta
+A conta |4 mobilizações em curso subdivide-se em:
+14.1 — Obra em curso
+[42 Obra em curso
+147 — Adiantamentos por conta de imobilizado corpéreo E:
+14.8 — Adiamamentos por conta de imobilizado incorpóreo ~
+14.9 —Adiantamentos por conta de investimentos financeiros
+Reconhecimento
+Esta conta é apresentada no balança, no conjunto dos activos não correntes, inseridas nas respectivas contas a gue
+respeitam, seja imobilizado corpóreo, imobilizado incorpóreo, investimentos em subsidiárias e associadas ou outros
+activos financeiros.
+Ver Figura 1 — Reconhecimento no Balanço: Classe
+Vatorimetria
+Relativamente à valorimetria das imoblizações em curso estas dependem da tipelogia de imobilizado em causa,
+pelo que lembramos o seguinte:
+Investimentos financeiros
+Os investimentos financeiros devem ser valorizados pela quantia do reconhecimento inicial, liquida das correspon-
+denies provisões ou amortizações destinadas a garantir que o custo são excede o valor de realização,
+Embora não muito usual pode haver necessidade de O imobilizado ainda em curso ter de ajustar a quantia regista-
+da para o seu valor de realização e consequentemente necessitar de uma amortização extraordinário ou de uma
+provisão,
+Valorimetria inicial do imobilizado corpóreo e incorpóreo
+Na valorimetria incial as imobilizações corpóreas devem ser valorizadas ag custo.
+© custe, no reconhecimento inicial, pade ter as seguintes vertentes:
+* Custo de aquisição, para os bens adquiridos ao exterior Sendo que o custo de aquisição englobar
+» O preço de compra
+> Os gastos suportados directa au indirectamente para colocarem o bem em condições de utilização
++ Custo de produção, para os bens de produção própria O custo de produção engloba
+> Os custos de materiais e serviços utilizados
+3 Os custos com o pessoal envolvido na produção do bem
++ A depreciação dos activos fixos tangíveis que foram usados na produção do bem.
++ Os gastos gerais de produção relacionados com a produção do bern, que não sejam custos administrativos,

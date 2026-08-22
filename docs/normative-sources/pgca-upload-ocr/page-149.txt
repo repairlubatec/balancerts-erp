@@ -1,0 +1,41 @@
+ue | ac EspuicaDo
+CONTA 13 - INVESTIMENTOS FINANCEIROS E
+Esta conta destina-se à evidenciar as participações de capital, obrigações e títulos de participação © empréstimos
+concedidos em subsidiárias, associadas e noutras empresas bem como Investimentos em iméveis. Inclui ainda ou-
+tros investimentos financeiros, tais como diamantes, ouro, depósitos bancários e os activos adstritos a fundos.
+Devem ser reconhecidos como investimentos financeiros os activos que:
++ Satisfacam as condições para o seu reconhecimento como activos;
++ Tenham uma natureza de realizével a mécio e longo prazos;
+* Sejam detidos por um período superior a um ano;
++ Tenham come objectivo aumentar a riqueza através de uma des seguintes formas:
+> Distribuição, mediante o recebimento de juros, royalties, dividendos e rendas;
+» Valorização de capital, ou outros benefícios tais como os resultantes de transacções comerciais.
+(cf Políticos contabilisticas nº 6 - Critérios para reconhecimento, ponto 2.3)
+Estrutura da conta
+A coma |3 Investimentos Financeiros subdivide-se en
+13.1 — Empresas subsidiárias
+13.2 = Empresas associadas.
+13.3 — Outras empresas
+13.4 — Investimentos em imóveis
+13.5 ~ Fundos
+13.9 — Outros investimentos financeiros
+Associada a esta conta está a conta 18.3 — Amortizações acumuladas — Investimentos financeiros em imdveis e a
+conta 19 — Provisões para investimentos financeiros, nomeadamente na questão da valorização subsequente
+18 — Amartizações acumuladas
+18,3 Investimentos financeiros em imóveis
+19 — Provisões para investimentos financeiros
+19,1 — Empresas subsidiárias
+19,2 = Empresas associadas
+19,3 ~ Outras empresas
+19.4 - Fundos
+19.5 — Outros investimentos financeiros
+“| As contas 18.3, 19 e as suas sub-contas são desenvolvidos mais à frente inseridas nas contas 18 e 19,
+Reconhecimento
+Esta conta é apresentada no balanço, no conjunto dos activos não correntes, nas rubricas “Investimentos em sub-
+sidiárias e associadas” e “Qutras activos financeiros”.
+Poderá também surgir nos activos correntes, na rubrica “outros activos correntes”, no caso de investimentos finan-
+ceiros para alienação quando haja 2 intenção e a perspectiva de venda num período inferior a um ane.
+Da rubrica "Investimentos em cubsididrias e associadas” que engloba as contas |3.1 e 13.2, fazem ainda parte as
+contas:
++ 149 —Adiantamentos por conta de investimentos financeiros (a parte referente a investimentos em sub
+sidiárias e associacas);

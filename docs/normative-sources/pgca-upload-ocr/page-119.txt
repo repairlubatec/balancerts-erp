@@ -1,0 +1,145 @@
+PGC — EXPLICADO
+
+LISTA DE CONTAS
+
+1 — MEIOS FIXOS E INVESTIMENTOS:
+
+11. Imobilizações corpóreas
+12. Imobilizações incorpóreas
+13
+14, Imobilizações em curso
+15. cum
+16.
+17.
+18. Amortizações acumuladas
+
+19. Provisões para investimentos financeiros
+
+Investimentos financeiros
+
+2 — ExistÊncias:
+
+21. Compras
+
+22. Matérias-primas, subsidiárias e de consumo
+
+23. Produtos e trabalhos em curso
+
+24. Produtos acabados e intermédios
+
+25. Sub-produtos, desperdícios, resíduos e refugos
+
+26. Mercadorias
+
+27. Matérias-primas, mercadorias e outros materiais
+em trânsito
+
+28. Adiantamentos por conta de compras
+
+29, Provisão para depreciação de existências
+
+3 — TERCEIROS:
+
+31, Clientes
+
+32. Fornecedores
+
+33. Empréstimos
+
+34. Estado
+
+35. Entidades participantes e participadas
+36. Pessoal
+
+37. Outros valores a receber e a pagar
+
+38. Provisões para cobranças duvidosas
+
+39. Provisões para outros riscos e encargos
+
+4 — MEIOS MONETÁRIOS:
+
+41. Títulos negociáveis
+42. Depósitos a prazo
+43. Depósitos à ordém
+44. Outros depósitos
+45. Caixa
+
+46.
+47.
+
+48. Conta transitéria
+
+49. Provisões para aplicações de tesouraria
+
+5 — CAPITAL E RESERVAS
+
+51. Capital
+
+52. Acções/quotas próprias
+53. Prémios de emissão
+
+54. Prestações suplementares
+55. Reservas legais
+
+56. Reservas de reavaliação
+57. Reservas com fins especiais
+58. Reservas livres
+
+SO. cereerereereneerensaremses
+
+6 — PROVEITOS E GANHOS POR NATUREZA:
+
+61. Vendas
+
+62. Prestações de serviços
+
+63. Outros proveitos operacionais
+
+64. Variação nos inventários de produtos acabados e de
+produção em curso
+
+65. Trabalhos para a própria empresa
+
+66. Proveitos e ganhos financeiros gerais
+
+67. Proveitos e ganhos financeiros em filiais e associadas
+
+68. Outros proveitos não operacionais
+
+69. Proveitos e ganhos extraordinários
+
+7 — CusTOS E PERDAS POR NATUREZA:
+
+71. Custo das mercadorias vendidas e das matérias consumidas
+72. Custos com o pessoal
+
+73. Amortizações do exercício
+
+7á.
+
+75. Outros custos e perdas operacionais
+
+76. Custos e perdas financeiros gerais
+77. Custos e perdas financeiros em filiais e associadas
+78. Outros custos e perdas não operacionais
+
+79. Custos e perdas extraordinárias
+
+8 — RESULTADOS:
+
+81. Resultados transitados
+
+82. Resultados operacionais
+
+83. Resultados financeiros.
+
+84. Resultados em filiais e associadas
+85. Resultados não operacionais
+
+86. Resultados extraordinários
+
+87. Imposto sobre os lucros
+
+88. Resultado líquido do exercício
+89. Dividendos antecipados
