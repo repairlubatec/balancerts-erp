@@ -2750,3 +2750,15 @@
 - [x] Adicionar tooltip informativo no detalhe de contas de natureza mista.
 - [x] Explicar regras de movimentação apenas quando houver evidência confirmada; caso contrário mostrar pendência explícita.
 - [x] Testar acessibilidade, conteúdo e não-invenção das regras antes do checkpoint.
+
+
+# Indicadores visuais de confirmação e bloqueio
+- [x] Adicionar indicadores visuais com cores, ícones e texto para confirmação normativa e bloqueio de cada conta.
+- [x] Aplicar a semântica visual na lista principal e no detalhe seleccionado, sem depender apenas da cor.
+- [x] Testar estados, contraste, acessibilidade e não-regressão do painel.
+
+
+# Indicadores visuais de confirmação e bloqueio
+- [x] Adicionar indicadores visuais com cores, ícones e texto para confirmação normativa e bloqueio de cada conta.
+- [x] Aplicar a semântica visual na lista principal e no detalhe seleccionado, sem depender apenas da cor.
+- [x] Testar estados, contraste, acessibilidade e não-regressão do painel.

@@ -39,6 +39,16 @@ describe("protótipo do motor contabilístico", () => {
     expect(screen.getByText("Balanço")).toBeTruthy();
   });
 
+  it("mostra indicadores distintos de confirmação e bloqueio", () => {
+    render(<AccountingWorkbenchPanel company={{ id: 10, organizationId: 1 }} periodId={3} />);
+    const table = screen.getByRole("table");
+
+    expect(within(table).getByLabelText("Conta confirmada")).toBeTruthy();
+    expect(within(table).getAllByLabelText("Conta pendente").length).toBe(2);
+    expect(within(table).getAllByLabelText("Conta bloqueada para posting").length).toBe(2);
+    expect(screen.getByLabelText("Legenda dos estados das contas")).toBeTruthy();
+  });
+
   it("pesquisa contas por código ou nome", () => {
     render(<AccountingWorkbenchPanel company={{ id: 10, organizationId: 1 }} periodId={3} />);
     const table = screen.getByRole("table");
