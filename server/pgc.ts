@@ -1,6 +1,7 @@
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
-import { getDb, appendAuditEventForUser } from "./db";
-import { accountingRules, chartAccounts, companies, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcMigrationMaps, pgcSources, pgcVersions } from "../drizzle/schema";
+import { getDb, appendAuditEventForUser, createFileAsset } from "./db";
+import { accountingRules, chartAccounts, companies, fileAssets, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions } from "../drizzle/schema";
+import { randomUUID } from "node:crypto";
 import { angolaNormativeSources } from "./normative";
 
 export type PgcAccountDraft = {
@@ -75,6 +76,67 @@ export async function registerPendingNormativeSourcesForUser(input: { userId: nu
     await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_SOURCE_REGISTERED", entityType: "pgcSource", entityId: String(result[0].insertId), beforeState: null, afterState: JSON.stringify({ instrumentNumber: source.code, verificationStatus: "PENDING" }), correlationId: `pgc-source:${input.versionId}:${source.code}` });
   }
   return { versionId: input.versionId, createdIds, createdCount: createdIds.length, status: "PENDING" as const };
+}
+
+export function validatePgcEvidenceSubmissionMetadata(input: { classCode: string; targetCodes: string[]; size: number; sha256: string; mimeType: string; filename: string; pageFrom?: number | null; pageTo?: number | null }) {
+  if (!/^[1-9]$/.test(input.classCode)) throw new Error("PGC_EVIDENCE_CLASS_INVALID");
+  const codes = Array.from(new Set(input.targetCodes.map((code) => code.trim()).filter(Boolean)));
+  if (codes.length === 0 || codes.length > 100 || codes.some((code) => code.length > 32)) throw new Error("PGC_EVIDENCE_TARGET_CODES_INVALID");
+  if (input.size < 1 || input.size > 25 * 1024 * 1024) throw new Error("PGC_EVIDENCE_FILE_SIZE_INVALID");
+  if (!/^[a-f0-9]{64}$/.test(input.sha256)) throw new Error("PGC_EVIDENCE_HASH_INVALID");
+  const normalizedMime = input.mimeType.trim().toLowerCase();
+  if (!["application/pdf", "image/png", "image/jpeg", "image/webp"].includes(normalizedMime)) throw new Error("PGC_EVIDENCE_MIME_INVALID");
+  const safeFilename = input.filename.trim().split("/").join("").split(String.fromCharCode(92)).join("").replace(/\u0000/g, "");
+  if (!safeFilename || safeFilename.length > 255) throw new Error("PGC_EVIDENCE_FILENAME_INVALID");
+  if ((input.pageFrom != null && (!Number.isInteger(input.pageFrom) || input.pageFrom < 1 || input.pageFrom > 20000)) || (input.pageTo != null && (!Number.isInteger(input.pageTo) || input.pageTo < 1 || input.pageTo > 20000)) || (input.pageFrom != null && input.pageTo != null && input.pageTo < input.pageFrom)) throw new Error("PGC_EVIDENCE_PAGES_INVALID");
+  return { codes, normalizedMime, safeFilename };
+}
+
+export async function submitPgcEvidenceForUser(input: {
+  userId: number;
+  organizationId: number;
+  companyId: number;
+  versionId: number;
+  sourceId?: number | null;
+  classCode: string;
+  targetCodes: string[];
+  evidenceType: "DIPLOMA" | "ANEXO" | "QUADRO" | "DIAGRAMA" | "OUTRO";
+  pageFrom?: number | null;
+  pageTo?: number | null;
+  notes?: string | null;
+  filename: string;
+  mimeType: string;
+  size: number;
+  sha256: string;
+  storageKey: string;
+}) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const scope = await assertCompanyScope(input.userId, input.companyId);
+  if (scope.company.organizationId !== input.organizationId) throw new Error("PGC_EVIDENCE_ORGANIZATION_MISMATCH");
+  const validated = validatePgcEvidenceSubmissionMetadata(input);
+  const { codes, normalizedMime, safeFilename } = validated;
+  const versionRows = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE')`)).limit(1);
+  if (!versionRows[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  if (input.sourceId != null) {
+    const source = await db.select({ id: pgcSources.id }).from(pgcSources).where(and(eq(pgcSources.id, input.sourceId), eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId))).limit(1);
+    if (!source[0]) throw new Error("PGC_EVIDENCE_SOURCE_NOT_FOUND_OR_FORBIDDEN");
+  }
+  const file = await createFileAsset({ userId: input.userId, organizationId: input.organizationId, companyId: input.companyId, storageKey: input.storageKey, filename: safeFilename, mimeType: input.mimeType, size: input.size, sha256: input.sha256, category: "CONTABILISTICO", description: `Evidência primária PGCA — Classe ${input.classCode}`, reference: `pgc-evidence:${input.versionId}:${input.classCode}` });
+  const correlationId = `pgc-evidence:${randomUUID()}`;
+  const result = await db.insert(pgcEvidenceSubmissions).values({ organizationId: input.organizationId, companyId: input.companyId, versionId: input.versionId, sourceId: input.sourceId ?? null, fileAssetId: file.id, classCode: input.classCode, targetCodes: JSON.stringify(codes), evidenceType: input.evidenceType, pageFrom: input.pageFrom ?? null, pageTo: input.pageTo ?? null, notes: input.notes?.trim().slice(0, 4000) || null, status: "PENDING_REVIEW", submittedBy: input.userId, reviewedBy: null, reviewedAt: null, reviewNote: null, correlationId });
+  const id = Number(result[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PGC_EVIDENCE_SUBMITTED", entityType: "pgcEvidenceSubmission", entityId: String(id), beforeState: null, afterState: JSON.stringify({ classCode: input.classCode, targetCodes: codes, evidenceType: input.evidenceType, pageFrom: input.pageFrom ?? null, pageTo: input.pageTo ?? null, fileAssetId: file.id, sha256: input.sha256, status: "PENDING_REVIEW" }), correlationId });
+  return { id, fileId: file.id, status: "PENDING_REVIEW" as const, sha256: input.sha256, correlationId };
+}
+
+export async function listPgcEvidenceSubmissionsForUser(input: { userId: number; organizationId: number; companyId: number; versionId: number; status?: "PENDING_REVIEW" | "UNDER_REVIEW" | "ACCEPTED" | "REJECTED" }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const scope = await assertCompanyScope(input.userId, input.companyId);
+  if (scope.company.organizationId !== input.organizationId) throw new Error("PGC_EVIDENCE_ORGANIZATION_MISMATCH");
+  const conditions = [eq(pgcEvidenceSubmissions.organizationId, input.organizationId), eq(pgcEvidenceSubmissions.companyId, input.companyId), eq(pgcEvidenceSubmissions.versionId, input.versionId)];
+  if (input.status) conditions.push(eq(pgcEvidenceSubmissions.status, input.status));
+  const rows = await db.select({ submission: pgcEvidenceSubmissions, file: fileAssets }).from(pgcEvidenceSubmissions).innerJoin(fileAssets, eq(pgcEvidenceSubmissions.fileAssetId, fileAssets.id)).where(and(...conditions)).orderBy(desc(pgcEvidenceSubmissions.id)).limit(100);
+  return rows.map(({ submission, file }) => ({ ...submission, targetCodes: JSON.parse(submission.targetCodes) as string[], file: { id: file.id, filename: file.filename, mimeType: file.mimeType, size: file.size, sha256: file.sha256, storageKey: file.storageKey } }));
 }
 
 export async function listPgcSourcesForUser(input: { userId: number; organizationId: number; versionId: number }) {

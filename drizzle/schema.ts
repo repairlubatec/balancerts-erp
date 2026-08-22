@@ -1450,6 +1450,28 @@ export const pgcSources = mysqlTable("pgcSources", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const pgcEvidenceSubmissions = mysqlTable("pgcEvidenceSubmissions", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  companyId: int("companyId").notNull().references(() => companies.id),
+  versionId: int("versionId").notNull().references(() => pgcVersions.id),
+  sourceId: int("sourceId").references(() => pgcSources.id),
+  fileAssetId: int("fileAssetId").notNull().references(() => fileAssets.id),
+  classCode: varchar("classCode", { length: 4 }).notNull(),
+  targetCodes: text("targetCodes").notNull(),
+  evidenceType: mysqlEnum("evidenceType", ["DIPLOMA", "ANEXO", "QUADRO", "DIAGRAMA", "OUTRO"]).default("OUTRO").notNull(),
+  pageFrom: int("pageFrom"),
+  pageTo: int("pageTo"),
+  notes: text("notes"),
+  status: mysqlEnum("status", ["PENDING_REVIEW", "UNDER_REVIEW", "ACCEPTED", "REJECTED"]).default("PENDING_REVIEW").notNull(),
+  submittedBy: int("submittedBy").notNull(),
+  reviewedBy: int("reviewedBy"),
+  reviewedAt: timestamp("reviewedAt"),
+  reviewNote: text("reviewNote"),
+  correlationId: varchar("correlationId", { length: 128 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
 export const pgcAccounts = mysqlTable("pgcAccounts", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull().references(() => organizations.id),

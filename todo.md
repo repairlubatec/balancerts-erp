@@ -2720,3 +2720,9 @@
 - [x] Criar painel desktop para exibir as 27 contas PGCA confirmadas e o estado actual das contas pendentes.
 - [x] Implementar pesquisa, filtros por estado/classe, resumo de contagens e detalhe de evidência sem activar movimentos.
 - [x] Adicionar testes do painel e validar a apresentação visual no shell existente.
+
+
+# Submissão de evidências primárias PGCA
+- [x] Implementar upload seguro de evidências primárias para classes e contas pendentes, com metadados, hash e estado de revisão.
+- [x] Integrar formulário e fila de evidências no painel PGCA sem confirmação ou activação automática.
+- [x] Adicionar validações, auditoria, testes de permissões e verificação visual do fluxo de submissão.
