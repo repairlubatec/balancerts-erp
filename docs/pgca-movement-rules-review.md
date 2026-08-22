@@ -362,3 +362,7 @@ Consequentemente, a confirmação formal deve permanecer limitada às contas e d
 A página 45 do PDF oficial é a página 1021 do Diário da República e confirma a Classe 3 — Terceiros, incluindo 31 — Clientes, 32 — Fornecedores, 33 — Empréstimos, 34 — Estado, 35 — Entidades participantes e participadas, 36 — Pessoal, 37 — Outros valores a receber e a pagar, 38 — Provisões para cobranças duvidosas e 39 — Provisões para outros riscos e encargos. Confirma ainda várias subdivisões de clientes, fornecedores e empréstimos.
 
 A página 46 do PDF oficial é a página 1022 do Diário da República e confirma a continuação das contas 33, 34 e 35, incluindo 34.2 — Imposto de produção e consumo, 34.3 — Imposto de rendimento de trabalho, 34.4 — Imposto de circulação e 34.8 — Subsídios a preços. Esta separação confirma que a conta 34 pertence à Classe 3 — Estado; não deve ser confundida com as contas 41–49 da Classe 4 — Meios monetários nem com regras de IVA sem confronto da legislação fiscal aplicável.
+
+## Validação de não-regressão
+
+Após a revisão visual primária e a actualização do dossier, foi executada a suite integral do projecto: **108 ficheiros de teste e 395 testes aprovados**. A verificação TypeScript permanece sem erros e o endpoint HTTP local responde com **200**. Estes resultados demonstram não-regressão técnica nesta etapa documental; não substituem a confirmação humana das regras de movimentação nem autorizam activação normativa.
