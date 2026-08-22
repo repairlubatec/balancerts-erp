@@ -1,0 +1,1196 @@
+
+===== PÁGINA 1 =====
+Suplemento
+de consulta
+
+PLANO GERAL
+DE
+CONTABILIDADE
+
+EXPLICADO
+
+Este livro inclui ainda:
+
+* Módulo de Introdução à Contabilidade
+
+* Gráficos esquemáticos de movimentação entre contas
+
++ Termos e Expressões
+
+* Tabelas das Taxas Anuais de Reintegrações e Amortizações
+* Tabela de Lucros Mínimos
+
+a
+(ATF Edições Técnicas
+
+
+===== PÁGINA 2 =====
+Os nossos Autores
+
+Rui M. P. de Almeida
+
+E
+[7
+
+rdenador
+
+Sabino José Miranda PA 4
+(E)
+
+É Ana Nogueira
+
+Co-autora
+
+José Luís da Silva
+
+Pedro M. Pinheiro
+
+Conheça-os um pouco melhor no
+interior do livro,
+
+Contabilistas e Fiscalist
+Profissionais, Professores e Formadore:
+os nossos Autores.
+
+
+===== PÁGINA 3 =====
+PLANO GERAL
+DE
+CONTABILIDADE
+ANGOLANO
+
+EXPLICADO
+
+CQAtr Edições Técnicas
+
+===== PÁGINA 4 =====
+Rui M.P. de Almeida Sabino josé Miranda
+Coordenador Contabilidade Coordenador Fiscalidade
+
+Ana Nogueira » José Luís da Silva » Pedro M. Pinheiro
+Co-autores
+
+PLANO GERAL
+DE
+CONTABILIDADE
+
+ANGOLANO
+EXPLICADO
+
+Qatr Edições Técnicas
+
+===== PÁGINA 5 =====
+Ficha Técnica
+
+Titulo
+Plano Geral de Contabiicade Angolano — Explicado
+
+Autores
+
+Rui MP de Almeida
+Sabino losé Miranda
+Ana Nogueira
+
+José Luis da Silva
+Pedro M. Pinheiro
+
+Editor
+ATE — Edições Técnicas
+atfedicôesflgmail com
+
+Composição Gráfica
+ATE — Gorete Araíjo e Silvia Garcia
+
+ISBN: 978-989-96412-9-7
+Depósito Legal: 371959/14
+
+Impressão e Acabamento
+GC. Gráfica de Coimbra Lda.
+
+Local da Publicação:
+Cacém
+
+Fevereiro de 2014
+
+Jesdos ox direitos reservades ce acerço com a lei em vigor
+Nenhurna parte desta clbra pode ser reprodurda por quaiquer processo,
+inelundo fotocópia cu gravação sem autorização práxia » escrita do editor
+Os transgressenas são passíveis da procedimento judicial
+
+===== PÁGINA 6 =====
+NOTA DOS AUTORES
+
+Este livro foi elaborado com o intuito de ser uma ferramenta de apoio à actividade diária dos técnicos e dos estu-
+dantes. Na sua elaboração os autores tiveram a preocupação de tornar o seu manuseamento e a sua leitura de fácil
+acesse, procurando sistematizar a informação através de uma abordagem conta a conta, utilizando uma linguagem
+clara e precisa sem descurar o facto de esta ter de primar pela compreensibilidade quer de especialistas quer do
+público em geral.
+
+A abordagem explicativa conta a conta acima mencionada foi complementada com a inclusão de comentários às
+contas é apontamentos fiscais sempre que tal se justifique, assim como com a inclusão de um conjunto de mowi-
+mentações esquemáticas que pretendem ilustrar o âmbito de aplicação de caca uma das contas que integram o
+Plano Geral de Contabilidade (PGC).
+
+Fica assim à disposição dos Interessados um documento que resultou de uma aturada análise técnica e de uma
+análise das necessidades do público-alvo nunca esquecendo o enquadramento com a realidade,
+
+Na sua elaboração, contamos com um conjunto alargado de pessoas e instituições que connosco colaboraram e
+para as quais gostaríamos de deixar o nosso muito obrigado.
+
+Individualmente gostarfamos também de deixar 6 nosso agradecimento a algumas pessoas que muito contribuíram
+para que este livro se tornasse realidade, nomeadamente:
+
+Fábio de Albuquerque
+Porfírio Bentinho
+
+Rui Aleixo
+
+Rita Nunes
+
+A todos, muito obrigado!
+Os autores
+
+===== PÁGINA 7 =====
+
+===== PÁGINA 8 =====
+Aos meus filhos Joaquim, Miguele Tiago e à minha companheira Gorete.
+
+Rui M, P. de Almeida
+
+Dedico á inha família, minha esposa Catarina, à Juliana Miranda nossa filha, à ou-
+tra Juliana, minha Mãe e ao meu PaiJosé Miranda já em memória, que sempre estive-
+
+ram ao imeu lado, com apoio maultiforme, encorajamento e solidariadade os momentos mais dificeis.
+
+Sabino José Miranda
+
+Aminba filha Raquel, e nos meus sobrinhos, Renato e Gabriel.
+
+José Luís da Silva
+
+Dedico este livro sos meus preciosos filhos, Carolina Inês e João Carlos, etes sim, a mi
+nora ratio po o eme ronco Ani, sf fiel
+ração e de motivação para ludo o que faço na minha vida. Agradeço à minha fmília, em especial à
+minha Mãe já em memória e ao meu Marido pelo apoio incondicional e dedicação que me
+dá, em lodos os projectos que me proponho colaborar
+
+Ana Nogueira
+
+Aos meus Pais ea Ana.
+Pedro M. Pinheiro
+
+vii
+
+===== PÁGINA 9 =====
+Rui M.P Almeida
+Coordenador Contabilidade
+
+Deuter em Ciências empresariais com especialização em Contabilidade pela
+Universidade Autónoma de Madrid, Pós graduado em Auditoria contabilística
+pela Universidade Autónoma de Lisboa e licenciado em ContablidadeiCon-
+trole financeiro pelo ISCAL - Instituto Superior de Contabilidade e Adminis-
+tração de Lisboa
+
+Técnico Oficial de Contas e formador na área de Contabilidade e autor de
+vários livros e artigos técnicos e científicos, entre outros. co-autor dos lures
+“SNICRF de Cabo verde Explicado”, "SNC Explicado”, SNC - Casos Práticos é
+Exercídos Resolvidos”, "O SINC e as Microentidades "Harmonização Conta-
+bitstica Internacional" e “Prestação de contas”
+
+Professor Coordenador do Instituto Superior de Contabilidade é Adiministra-
+o de Lisboa (ISCAL) na área ce contabilidade coorderando várias unidade:
+curriculares de contabilidade financeira e em PSE, lecionando também em vá
+rios outros mestrados e douteramentos e Pró-Presidente para a investigação.
+É ainca investigador de Contabilidade na Universidade da Extremadura (Espa-
+nha) = foi membro da Comissão de Normalização Cornabilstica tendo sido
+co-legisador do SNC (Sistema de normal: tica)
+
+contabil
+
+Sabino José Miranda
+Coordenador Fiscalidade
+
+Licenciado em Gestão pela Universidade Agostinho Neto ( Luanda 2004);
+Obteve o Ensmo Médio Especializado de Finanças ( Gotha — Alema
+nha. 1952-1986):
+
+Mestrando do Curso de Direção Fnar
+versidade Politécnica de MadridtEspanh
+Técnica Reverificador do Departamento de Prevenção e Fiscalização Tributã-
+ria da Direcção Niacionial de Impostos (Luanda, 2004-2012);
+Coordenador da Unidade Central de Fiscalização da Direcção
+impostos (na fase de instalação, 2012-201 47;
+
+Sócio fundador da Associação dos Economistas, Técnicos e Profissionais de
+Contabilidade do Planaho Central "AETPC“( Husrabo, 1996);
+
+Está inscrito como Técnico de Contas ne MINFINL
+
+u num Curso de Actualização Profissional para Peritos Contabilistas
+desenhado e preparado com base nas métérias técnicas constantes do pla-
+no curricular de formação da IFAC-Interrational Federation of Accountants
+ministrado. pela Ordem dos Contabilistas « Peritos Contabilistas de Angola
+numa parceria com a Ordem dos Revisores Oficiais de Contas de Portugal
+
+à € Auditoria de Empresas na Uni.
+
+nal de
+
+
+===== PÁGINA 10 =====
+Ana Nogueira
+Co-autora
+
+Gerente e Técnica de Contas da CCBMM é AFRICONTA,
+Licenciada em Contabilidade com especialização em
+Fiscalidade « Mestranda em Controlo de gestão e des
+Negócios pelo instituto Superior de Contabilidade e Ad
+ministração de Lisboa (ISCAL),
+
+Formadora nas áreas de Contabildade e Fiscalidade em
+diversas entidades, Autora de lies técnicos e científicos.
+
+José Luís Miguel da Silva
+Co-autor
+
+Docente no Instituto Superior de Contobidade é Adri
+nstiação de Eshoa (ISCAL), em cursos de Licenciatu-
+ras na área da contabilidade financeira e em cursos de
+Tnestrados nas unidades curriculares de Normas Inter
+nacionais de Contabilidade, Regente da Unidade Curi
+<ular de Projecto em Simulação Empresarial nos cursos
+de Licenciatura. Doutorando em Gestão com especia-
+lização em Contabilidade, Mestre em Contabilidade e
+Autoria Autor de diversos tivos, artigos técnicos e
+científicos. Formador é Técnico Oficial de Contas,
+
+Pedro Pinheiro
+Co-autor
+
+Docente no instituto Superior de Contabilidade e Adon-
+istação de Lisboo (ISCAL) na área da Coratilidade
+Doutorando em Gestão pela Universidade Lusíada
+Mestre em Gestão — Especialização em Finanças pela
+Universidade de Évora e Licenciado em Contabilidade
+— Ramo de Controlo Financeiro pelo ISCAL
+
+Técnico Oficial de Contas, autor de diversos artigos téc.
+
+nicos e científicos e co-autor dos livros" SNC Explicador,
+“SNE e as Microentidades” e“SNÇ e as Microentidades
+— Casos Práticos e Exercícios Resoividos”. Formador
+em matérias relativas 20 Relato Empresarial e Normas
+Internacionais de Contabilidade, Desde 2012 Subdiretor
+do hestrado em Contabilidade e é Sulicivetor do Cur.
+so de Contabilidade = Administração no |SCAL.
+
+
+===== PÁGINA 11 =====
+
+===== PÁGINA 12 =====
+INTRODUÇÃO
+
+O fivro “Plano Geral de Contabilidade Angolano — Explicado” é o resultado de uma contínua pesquisa e análise
+à realidade contabilística e de retato financeiro decarvente da aplicação do Plano Geral de Contabilidade (PGC).
+
+A complexidade e abrangência do referido normativo conduziram a uma estruturação do livro consistente com
+as necessidades dos leitores e simultaneamente pensada no sentido de ultrapassar o conceito tradicional de livro
+e enquadra-lo como uma ferramentas de trabalho quer no contexto profissional, quer no contexto académico.
+
+Deste desígnio decorre o objectivo específico deste livro, sendo que este passa por desenvolver um amplo con-
+junto de informação que auxlie os estudantes, professores, contabilistas, perítos contabiísticos, auditores, gestores
+e público em geral, na imerpretação e resolução de questão no âmbito do Plano Geral de Contabilidade.
+
+Nesse sentido, o livro, encerra em si uma abordagem multidisciplinar assente numa metodologia de análise conta à
+conta, não sem antes ser apresentada e detalhada a estrutura lógica e ce conceitos que preside ao Plano Geral de
+Contabilidade enquanto sistema de normalização comtabilística
+
+Após este ponto introdutório e livro incide na apresentação e explicação relativa a cada uma das classes de contas,
+partindo posteriormente para a explicação individual cas contas, estando estruturada de forma a permitir um em-
+tendimento prático do âmbito de cada conta, sendo que para cada uma delas são analisados aspectos relacionados
+com reconhecimento, valorização inicial e subsequente e divulgação.
+
+Outro aspecto relevante consiste na correspondência entre as contas e a sua apresentação no contexto das De-
+monstrações Financeiras, especificamente no Balanço e na Demonstração dos Resultados, sem descurar; quando
+tal se mostre relevante, os aspectos que cercam a divulgação dos seus impactos no Anexo.
+
+Além dos aspectos mencionados foi criada uma estrutura de movimentações esquemáticas ilustradas com a repre-
+sentação em razão (Ts), que permite evidenciar os fluxos que podem ocorrer em cada uma das contas, ou seja,
+uma exemplificação esquemática das principais transacções que poderão existir no âmbito de cada conta.
+
+Sempre que cansiderámos conveniente, existem também notas, comentários, sugestões, explicações e pequenos
+exemplos relativos às contas em análise, assim como comentários fiscais que permitem alertar para os eventuais
+impactos em termos de matéria fiscal
+
+Para cada tipologia de elementos mencionados no parágrafo anterior foi utilizada uma sinalética própria que per-
+mite ao leitor uma procura e consulta menos morosa e mais eficiente. À sinalética utilizada é a que seguidamente
+se apresenta:
+
+&
+
+E,
+
+Apontamentos Chamadas Esquemas de
+Fiscais detenção  Comentírios Consultas Definições movimentações
+
+Exemplos Explicações
+Após a abordagem de todas as contas, o livro inclui ainda um conjunto de termos e definições que extravasam as
+constantes no documento oficial publicado e que incluem também definições adaptadas de documentos normali-
+zadores da International Accounting Standords Board (IASB) e que permitiram 20 leitor esclarecer dúvidas termino-
+lógicas que possam decorrer da leitura da presente obra.
+
+Na parte final do livro foram incluídos um conjunto de anexos directamente relacionados com as matérias sobre
+as quais versa a presente obra e que servem como complemento ao mesmo.
+
+Esperamos que este livro vá ao encontro das expectativas e necessidades dos leitores e utilizadores, sendo certo
+que foi pensado & desenvolvido coma tal objectivo.
+
+===== PÁGINA 13 =====
+
+===== PÁGINA 14 =====
+ÍNDICE
+
+NOTA DOS AUTORES. .....
+INTRODUÇÃO ...
+
+0. INTRODUÇÃO À CONTABILIDADE
+
+Conceito e objectivos da contabilidade
+
+Utilizadores da informação contabilística...
+
+Caracteristicas qualitativas da informação financeira... .iiiisice cisnes ciraceiniiteceenterterenanoo 20
+Bases de apresentação das demonstrações financeiras .....cccresesro seen ierecescireae eee 20
+Património... 2
+Factos patrimoniais
+
+Elementos das demonstrações financeiras .
+
+Recenhecimento des elementos nas demonstrações financeiras ....
+Demonstrações financeiras. .
+
+Classificação contabilística
+
+Contasouesamusssces
+
+1.0 PGC:ESTRUTURA E POLÍTICAS CONTABILÍSTICAS .
+
+O PG.C.COMO PARTE INTEGRANTE DA HARMONIZAÇÃO CONTABILÍSTICA INTERNACIONAL .. 37
+Harmonização Contabilística Internacional... ....ceseeeseecerererissasauieneees ciais 38
+O papel do IASB na harmonização contabilística internacional Ear ao noeas secura neresaea 38
+O Processo de elaboração de uma norma, 39
+
+ESTRUTURA E ORGANIZAÇÃO DO PGC 43
+
+POLÍTICAS CONTABILÍSTICAS. . 4
+Caracrerísticas qualitativas da informação financeira. .....iciccicesesoceereerice ceara rarerisiceaeao “44
+
+Relevância... esmero qarçrennarcoÃ
+Fabiidade. 45
+Bases de apresentação das demonstrações financeiras . 46
+Continuidade . 46
+Acréscimo 46
+Princípios contabilísticos. “46
+Consistência, “4
+Haterialidade. “7
+Não compensação de saldos “2
+Comparabiidade, saenmssoramento e 48
+Critérios para reconhecimento das classes das demonstrações financeiras. o
+Critério geral... j 49
+Critérios para reconhecimento de Actos. 49
+Critéria para reconhecimento de Passivos as
+Critério para reconhecimento de Proveitos «9
+Critério para reconhecimento de Custos cosa nO
+Critórios para reconhecimento de Eiros, Alterações de Esimalivas é ce Políticas Contabilticas....... cre SO
+
+Valorimetria
+
+2. DEMONSTRAÇÕES FINANCEIRAS
+
+INTRODUÇÃO ..
+DEMONSTRAÇÕES FINANCEIRAS,
+Balanço...
+
+Demonstração de resultados .....
+
+
+===== PÁGINA 15 =====
+Demonstração de fluxos de caixa (DEC)...
+
+Fluxos de caixa das actividades de investimento .
+Fluxos de caixa das actividades de financiamento .....
+Cases particulares a ter em atenção es
+Base de relato...
+
+Notas às contas. ..
+
+Modelo de Notas às contas...
+Introdução...
+Notas 26 balanço
+
+Notas à demonstração de resultados .. esse 2
+Cas rotas reaconadas com a posião financeira eos reitades as operações «08
+Notas à demonstração de fluxos de caixa ...... sl
+
+3. QUADRO E LISTA DE CONTAS... ..cececsccerrrernacansrerecrneenacenceneras scossrrenenonllE
+Classe O — Contas de Ordem nz
+Classes | a 8 — Contabilidade Geral 17
+Classe 9 — Contabilidade Analítica nz
+
+LISTA DE CONTAS ... uiiisiserereesisseeeer eee cinsacesiereeeienirranos cer
+
+4. EXPLICAÇÃO ÀS CONTAS........ccceeesicererrero " 131
+
+CLASSE | - MEIOS FIXOS E INVESTIMENTOS... 133
+Introdução... 33
+Reconhecimento. . 133
+
+AS 17 Locações Ei
+
+CONTA | | - IMOBILIZAÇÕES CORPÓREAS..
+CONTA |2- IMOBILIZAÇÃO INCORPÓREAS
+CONTA 13 - INVESTIMENTOS FINANCEIROS
+CONTA |4- IMOBILIZAÇÕES EM CURSO .
+
+135
+142
+148
+155
+
+CONTA |8 -AMORTIZAÇÕES ACUMULADAS... 159
+CONTA |9 = PROVISÕES PARA INVESTIMENTOS FINANCEIROS . 163
+CLASSE 2 - EXISTÊNCIAS .... «65
+Introdução mei . . 165
+Reconhecimento. » 165
+Valorimetria (existências em geral) «166
+
+CONTA 21 - COMPRAS... 169
+
+CONTA 22 — MATÉRIAS-PRIMAS SUBSIDIÁRIAS E DE consumo. 17
+CONTA 23 - PRODUTOS ETRABALHOS EM CURSO... RIA)
+CONTA 24 - PRODUTOS ACABADOS E INTERMÉDIOS. . 18
+
+CONTA 25 - SUB-PRODUTOS, DESPERDÍCIOS, RESÍDUOS E REFUGOS.... 181
+
+CONTA 26 - MERCADORIAS . eeeeeeeraetere 182
+CONTA 27 - MATÉRIAS.PRIMAS, MERCADORIAS E OUTROS MATERIAIS EM TRANSITO 184
+CONTA 28 - ADIANTAMENTOS POR CONTA DE COMPRAS... 185
+CONTA 29 - PROVISÃO PARA DEPRECIAÇÃO DE EXISTÊNCIAS «186
+CLASSE 3 TERCEIROS. «188
+Inrodução. «188
+Reconhecimento. 188
+Valorimetria 189
+CONTA 31 - CLIENTES ....... «180
+CONTA 32 - FORNECEDORES... «196
+CONTA 33 — EMPRÉSTIMOS ..... 200
+CONTA 34- ESTADO. 203
+CONTA 35 - ENTIDADES PARTICIPANTES E PARTICIPADAS 208
+CONTA 36 - PESSOAL . 283
+
+
+===== PÁGINA 16 =====
+CONTA 37 - OUTROS VALORES A RECEBER EA PAGAR
+CONTA 38 - PROVISÕES PARA COBRANÇAS DUVIDOSAS.....
+CONTA 39 — PROVISÕES PARA OUTROS RISCOS E ENCARGOS .
+CLASSE 4 - MEIOS MONETÁRIOS
+Introdução...
+Reconhecimento.
+Valorimetria aca
+CONTA 41 TÍTULOS NEGOCIÁVEIS am
+CONTA 42,43 E 44 - DEPÓSITOS,A PRAZO,À ORDEM E OUTROS .
+CONTA 42 — DEPÓSITOS A PRAZO... n
+CONTA 43 - DEPÓSITOS À ORDEM............iiii isso
+CONTA 44 - OUTROS DEPÓSITOS
+CONTA 45- CAIXA...
+CONTA 48 - CONTA TRANSITÓRIA...
+CONTA 49 — PROVISÕES PARA APLICAÇÕES DE TESOURARIA.
+CLASSE 5 — CAPITAL E RESERVAS
+introdução...
+Reconhecimento.
+valcrimetria
+CONTA 5 - CAPITAL... a
+CONTA 52 “ACÇÕES / QuoTAs PRÓPRIAS seas
+CONTA 53 — PRÉMIOS DE EMISSÃO. ......
+CONTA 54 — PRESTAÇÕES SUPLEMENTARES .
+CONTA 55 — RESERVAS LEGAIS. .
+CONTA 56 - RESERVAS DE REAVALIAÇÃO
+CONTA 57 - RESERVAS COM FINS ESPECIAIS,
+CONTA 58 — RESERVAS LIVRES .
+CLASSE 6 - PROVEITOS E GANHOS POR NATUREZA
+Introdução
+Reconhecimento su
+Critério para reconhecimento de proveitos: .
+CONTA 61 -VENDAS. .
+CONTA 62 - PRESTAÇÕES DE SERVIÇO . na .
+CONTA 63 — OUTROS PROVEITOS OPERACIONAIS... «+... cererercerereos
+CONTA 64 — -VARIAÇÃO NOS INVENTÁRIOS DE PRODUTOS ACABADOS E DE PRODUÇÃO EM CURSO
+CONTA 65 - TRABALHOS PARA A PRÓPRIA EMPRESA Po
+CONTA 66 — PROVEITOS E GANHOS FINANCEIROS GERAIS ...... cc...
+CONTA 67 — PROVEITOS E GANHOS FINANCEIROS EM FILIAIS E ASSOCIADAS
+CONTA 68 — OUTROS PROVEITOS E GANHOS NÃO OPERACIONAIS .
+CONTA 69 - PROVEITOS E GANHOS EXTRAORDINÁRIOS.
+CLASSE 7 - CUSTOS E PERDAS POR NATUREZA...
+Introdução
+
+Reconhecimento, eee
+
+Critério para reconhecimento de custos
+CONTA 71 — CUSTO DAS MERCADORIAS VENDIDAS E DAS MATÉRIAS CONSUMIDAS.
+CONTA 72 CUSTOS COM O PESSOAL. .
+CONTA 73 - AMORTIZAÇÕES DO EXERCÍCIO.
+CONTA 75 - OUTROS CUSTOS E PERDAS OPERACIONAIS
+CONTA 76 — CUSTOS E PERDAS FINANCEIROS GERAIS ...........
+CONTA 77 — CUSTOS E PERDAS FINANCEIROS EM FAIS EASSOCIADAS .
+CONTA 78 - OUTROS CUSTOS E PERDAS NÃO OPERACIONAIS ...
+CONTA 79 — CUSTOS E PERDAS EXTRAORDINÁRIAS
+
+
+===== PÁGINA 17 =====
+CLASSE 8 - RESULTADOS. .
+Introdução.
+Reconhecimento, .
+CONTA 81 - RESULTADOS TRANSITADOS. ....cieecresicoseneesceraeeesririaeetoa E
+CONTA 82 - RESULTADOS OPERACIONAIS... ...iisiesttsesesisieriereos neta spamaro asso 14.306:
+
+CONTA 83 — RESULTADOS FINANCEIROS . é -.308
+CONTA 84 — RESULTADOS FINANCEIROS EM FILIAIS E ASSOCIADAS . 309
+CONTA 85 - RESULTADOS NÃO OPERACIONAIS... 310
+CONTA 86 - RESULTADOS EXTRAORDINÁRIOS . 3H
+CONTA 87 — IMPOSTOS SOBRE OS LUCROS... 3n
+CONTA 88 — RESULTADOS LÍQUIDOS DO EXERCÍCIO. 313
+CONTA 89 - DIVIDENDOS ANTECIPADOS 3as
+5.ANEXOS........ eee eeceseremmeces semente 37
+TERMOSIEXPRESSÕES .... A
+TABELAS DAS TAXAS ANUAIS DE REINTEGRAÇÕES EAMORTIZAÇÕES.............ooo «337
+TABELA DE LUCROS MÍNIMOS. eee 353
+LOCAÇÕES - NORMA INTERNACIONAL DE CONTABILIDADE 17 3n
+
+xa
+
+===== PÁGINA 18 =====
+0.
+
+INTRODUÇÃO
+Ã
+CONTABILIDADE
+
+===== PÁGINA 19 =====
+
+===== PÁGINA 20 =====
+Neste capítulo pretende-se de uma forma simples. explicar os conceitos gerais aplicáveis à contabilidade, Assim, a
+melhor forma de iniciar esta viagem peles conceitos fundamentais da contabilidade passa pela definição, objectivos
+da contabilidade e a importância que a informação financeira (relato financeiro) assume nas entidades (empresas)
+
+CONCEITO E OBJECTIVOS DA CONTABILIDADE
+
+Definir o conceito de contabilidade é sem dúvida uma tarefa dificil pois apresentar uma definição clara e ao mesmo
+tempo capaz de encerrar em si as diversas vertentes que esta abrange pode conduzir a inexactidões ou aborda-
+gens demasiado redutoras, pelo que iremos apresentar algumas definições comumente aceites como explicativas
+daquilo que deve ser entendido por contabilidade e seus objectivos.
+
+A American Accounting Association (AMA) defendeu que à formulação dos objectivos da contabilidade deveria ser
+efectuada em função das necessidades dos utilizadores da informação contabilística e que esta noção deveria pre-
+valecer sobre o estabelecimento dos princípios por parte dos seus preparadores, como à base para a construção
+da teoria da contabilidade.
+
+Num documento intitulado de A Statement of Basic Accounting Theory a mesma entidade definiu “contabilidade”
+como sendo o processo de identificação, medida e comunicação de informação financeira, cujo objectivo passa por
+fornecer informação passada, presente e futura aos seus utlizadores e que esta seja útil para tomada de decisões,
+
+Para O International Accounting Standard Roora (IASB), o objectivo da contabilidade passa por proporcionar informa-
+ção acerca da posição financeira, do desempenho e de fluxos de caixa de uma empresa que seja útil a uma larga
+faixa de utentes na sua tomada de decisões económicas.
+
+Para o Financial Accounting Standard Board (FASB)O objectivo da informação financeira é proporcionar informação
+(fil para a tomada de clecisões nas empresas e, mais concretamente, por parte dos financiadores e investidores
+
+Como também referido pela American Accounting Association, essencialmente à contabilidade é um sistema de
+informação, com uma linguagem própria, indispensável para a tomada de decisão, é um elo de ligação entre a or-
+ganização, o sistema de informação e os utilizadores dessa informação.
+
+Assirn, a contabilidade deve ser vista como um sistema de informação capaz de medir e reportar a realidade
+económica-financeira-patrimonial das enticades (empresas), face:
+
+* aos recursos à disposição da entidade:
+* — asobrigações contraídas;
+
++ os meios utilizados para a obtenção desses recursos;
++ os direitos assumidos,
+
++ e 05 meios obtidos na transmissão dos bens produzidos e serviços prestados.
+
+Neste sentido, pode-se dizer que a contabilidade é um sistema de informação que se debruça sobre o impacto
+das transacções no património da entidade, atribuindo-lhe valor monetário (valorização/mensuração), registando.
+os (reconhecimento) e divulgando essa informação (relato) sob a forma de demonstrações financeiras, de modo
+à que seja útil para a tomada de decisão.
+
+Assim, à questão que se coloca em primeiro lugar prende-se com saber quem são os utilizadores da informação
+financeira.
+
+
+===== PÁGINA 21 =====
+2
+
+PGC — EXPLICADO
+
+UTILIZADORES DA INFORMAÇÃO CONTABILÍSTICA
+
+Quando é efectuada a referência aos utilizadores ca informação financeira, inclui-se neste grupo todos os agentes
+que directa ou indirectamente possam ter interesse na informação divulgada pela empresa.
+
+Assim, podemos dividir os utilizadores da informação financeira em dois grandes grupos: os utilizadores internos e
+os uilizadores externos. Seguidamente apresentam-se exemplos ce cada uma das tipologias de utilizadores men-
+<ionadas, sendo esta divisão baseada na relação entre estes utilizadores e a empresa
+
+Utilizadores externos à entidade:
++ Investidores (actuais « potenciais);
+* Financiadores (instituições de crédito etc)
+* Fomececores e outros credores
+* Clientes
++ Govemo e seus departamentos
+* Empregados
+
++ Púbiico em geral.
+
+Utilizadores internos da entidade:
+
++ Gestão (aos diversos níveis):
+
+Abordada a questão acerca de quem são os utilizadores da informação financeira, vamos agora centrar a nossa
+atenção na informação propriamente dita e nas características que esta deve possuir para atingir a tal utilidade no
+contexto da tomada de decisão.
+
+CARACTERÍSTICAS QUALITATIVAS DA INFORMAÇÃO FINANCEIRA
+
+As características qualitativas da informação financeira devem ser entendidas come os atributos que tormam a in-
+formação divulgada pelas empresas títil aos utentes dessa mesma informação. No âmbito do PGC, as características
+qualitativas consignadas são duas: a relevância € a fiabilidade.
+
+Nl caso da fiabilidade, e por forma a este desígnio ser atingido, há que atender a alguns atributos a que poderia-
+mos chamar subeceracteríticas, sendo elas as seguintes: a representação fidedigna a substância sobre a forma, a
+neutralidade, a prudência e a plenitude
+
+| Para maior desenvolvimento ver Características qualitativos da informação financeira (Capítulo 1).
+
+BASES DE APRESENTAÇÃO DAS DEMONSTRAÇÕES FINANCEIRAS
+
+Ainda no âmbito da informação financeira, e após termos evidenciados os atributos que esta deve possuir, vamos
+analisar quais os pressupostos que estão na base do processo de preparação da informação financeira, sendo estes
+deneminados de bases de apresentação das Demonstrações Financeiras.
+
+Ass bases de apresentação das demonstrações financeiras consignadas no PGC são: a continuidade e o acréscimo,
+
+Por continuidade deve ser entendida a ideia subjacente de que as Demonstrações Financeiras devem ser prepa-
+radas na base da continuidade, à menos que à gerência / administração tenha intenções de liquidar 2 entidade ou
+cessar à sua actividacie, ou não tenha outra alternativa realista que não seja fazê-lo. Caso existam incertezas quanto
+à continuidade ca entidade ou das suas operações, tal facto deve ser divulgado nas Demonstrações financeiras com
+indicação das razões que estão na origem das incertezas.
+
+===== PÁGINA 22 =====
+O. introdução à Comtabiligado | 21
+
+Com efeito, as demonstrações financeiras são normalmente preparadas no pressuposto de que uma entidade é
+uma entidade em continuidade e de que continuará a operar no futuro previsível. Não havendo uma definição
+exacta do que se deve entender por futuro previsível (ou seja o período temporal que se deva considerar para
+efeitos desta base de apresentação) aceita-se geralmente que este seja de um ano.
+
+Relativamente ao conceito de acréscimo devemos entende na perspectiva de que segundo este regime os efei-
+tos das operações e outros acontecimentos são reconhecidos quando ocorrem (independertemente da data em
+que ocorra o respectivo recebimento ou pagamento) sendo registadas e relatadas no período a que se referem,
+
+Esta base de apresentação é também denominada como “regime de periodização económica”.
+
+Terminada a análise acerca da informação financeira, centramos agora à atenção nos elementos sobre os quais a
+informação recai, ou seja, o património de uma empresa.
+
+&º. Para maior desenvolvimento ver Bases de apresentação das Demonstrações Financeiras (Capitulo 1)
+
+PATRIMÓNIO
+
+No desenvolvimento da sua actividade quaiquer entidade necessita possuir um conjunto de bens e direitos (ele-
+mentos patrimoniais activos) e assumir um conjunto de obrigações (elementos patrimoniais passivos), denominan-
+de-se estes elementos como patriménio,
+
+INeste contexto consideram-se exemplos de elementos patrimoniais activos os seguintes:
+* Dinheiro
++ - Mercadorias
+* - Edífios
++ - Máquinas
+*- Dividas a receber
+* etc,
+
+Relativamente aos elementos patrimoniais passivos podemes ter como exemplos os seguintes:
++ - Empréstimos bancários
+*  - Dívidas ão estado
++ - Dívidas aos fornecedores
+. -ete
+
+A diferença existente entre os elementos patrimoniais activos e os elementos patrimoniais passivos é denominada
+de património líquido ou situação líquida, podendo tal conceito ser evidenciado através da seguinte expressão:
+
+SITUAÇÃO LÍQUIDA = ELEMENTOS PATRIMONIAIS ACTIVOS — ELEMENTOS PATRIMONIAIS PASSIVOS
+Ao conjunto dos elementos patrimoniais activos é atribuída a denominação de activo, sendo que ao conjunto dos
+elementos patrimoniais passivos é atribuída a denominação de passivo. À adopção desta terminologia conduz ao
+
+que denominámos anteriormente por situação líquida ou património liquido passar-se-á a denominar de capital
+próprio,
+
+Os conceitos acima mencionados conduzem a um dos elementos centrais da contabilidade que se consubstancia
+na equação fundamental da contabilidade, sendo esta a seguinte:
+
+ACTIVO = CAPITAL PRÓPRIO + PASSIVO
+
+===== PÁGINA 23 =====
+”
+
+PGC — EXPLICADO
+
+FACTOS PATRIMONIAIS
+
+Podemos então considerar que todos os acontecimentos ou transacções que alterem à composição efou o valor
+do patriménio de uma empresa designam-se genericamente por factos patrimoniais.
+
+Estes factos podem ser divididos em duas tipologias distintas denominadas de factos patrimoniais permutativos e
+
+factos patrimoniais modificativos.
+
+Os factos patrimoniais permutativos são considerados aqueles que alteram a composição do património (elemen-
+xos patrimoniais activos e/ou passivos) mas não tem impacto no seu valor (situação liquida).
+
+Os factos patrimoniais modificativos são considerados aqueles que alteram a composição do patrimério (elemen-
+tos patrimoniais activos e/ou passivos) bem como o seu valor (situação liquida/capital próprio).
+
+Os factos patrimoniais (permutativos e rmodificativos) implicam sempre a alteração da composição e/ou valor de
+pelo menos uma das massas patrimoniais (activo, passivo e capital próprio) e consequentemente da equação iun-
+damental da contabilidade, não invalidando nunca tal facto a manutenção da igualdade entre os dois membros ca
+equação fundamertal da contabilidade,
+
+ELEMENTOS DAS DEMONSTRAÇÕES FINANCEIRAS
+
+Na abordagem a efectuar aos cliferentes elementos das demonstrações financeiras vamos subcividilos em duas
+categorias: elementos da posição financeira e elementos do desempenho de uma empresa.
+
+ELEMENTOS DA POSIÇÃO FINANCEIRA
+
+Iremos agora abordar o que deve ser entendido como elementos da posição financeira (acivo, passivo e capital
+próprio) de uma empresa, sendo que são estes os responsáveis por expressar a situação patrimonial de uma em-
+presa numa determinada data.
+
+ACTIVO
+
+Começármos per definir activo como o conjunto elementos patrimoniais activos, ou seja o conjunto dos bens e
+dos direitos, no entanto podemos definir este conceito de uma forma mais precisa tendo por base as suas carac-
+terísticas intrínsecas.
+
+Assim, um activo deve ser entendido como sendo um recurso controlado pela entidade como resultado de acon-
+tecimentos passados e do qual se espera que fluam pars à entidade benefícios económicos futuros,
+
++ Recurso controlado pela entidade: no sentido da entidade poder dispor dos proveitos que resultam do
+elemento ou do contributo deste para os resultados da entidade.
+
++ Resultado de acontecimentos passados: Os activos resultam de operações passadas ou de outros acon-
+tecimentos passados. A expectativa de transacções a realizar ou de compromissos futuros a confirmar, não
+<onfigura um activo.
+
+* Fluir benefícios económicos futuros: o potencial de comtribui, directa ou indirectamente, para o fluxo de
+
+caixa e equivalentes de caixa para a entidade.
+
+A título exemplificativo podemos referir os seguintes elementos patrimoniais: vizturas, mobiliário, dívidas a receber
+e dinheiro como senda exemplos de activos de uma empresa,
+
+===== PÁGINA 24 =====
+0. Introdução à Contabilidade
+
+PASSIVO
+
+Relativamente à definição de passivo vtilizámos anteriormente a ideia de este ser o conjunto de elementos patri-
+moniais passivos, ou seja o conjunto das obrigações de uma empresa, no entanto podemos também definir este
+conceito de uma forma mais precisa tendo por base as suas principais características intrínsecas.
+
+Neste contexto, um passivo deve ser entendido como sendo uma obrigação presente da entidade, proveniente de
+acontecimentos passados, sendo que da sua liquidação se espera que resulte um exfluxo de recursos cla entidade
+incorporando benefícios económicos.
+
+* Obrigação presente: corresponde ao dever cu responsabilidade para agir ou executar ce certa maneira,
+sendo que uma obrigação surge somente quando o activo é entregue ou à entidade entra num acordo
+irrevogável para adquirir o activo.
+
+«Resultado de acontecimentos passados: Os passivos resultam de operações passadas ou de outros acon-
+tecimentos passados.
+
+*  Resulte num exiluxo de recursos: a liquidação de uma obrigação presente conduz a empresa à um exflu-
+x de recursos par forma a incorporar benefícios económicos.
+
+A titulo exemplificativo podemos referir dividas a pagar a fornecedores, dividas a pagar ao pessoal e empréstimos
+obridos come sendo exemplos de passivos de uma empresa.
+
+CAPITAL PRÓPRIO
+
+Este conceito foi apresentado como a diferença entre o activo e o passivo de uma empresa, sendo que o mesmo
+pode ser definido como o interesse residual dos activos depois de deduzidos os passivo. Em suma, seria o que
+restaria dos elementos activos de uma empresa caso esta liquidasse tados os seus elementos passivos Face ao
+exposto podemos concluir que O capital próprio pode ser positivo, negativo ou nulo, conforme se demonstra
+
+seguidamente
+
+se, ACTIVO < PASSIVO então CAPITAL PRÓPRIO negativo
+se, ACTIVO > PASSIVO então CAPITAL PRÓPRIO positivo
+
+se, ACTIVO = PASSIVO então CAPITAL PRÓPRIO nulo
+
+O capital próprio de uma entidade é composto pelo capital inicial e pelo capital adquirido, sendo este último todo
+aquele que foi gerado no decurso cas actividades de uma empresa
+
+A titulo exemplificativo podermos referir o capital social, o resultado líquido do exeretcio e os resultados transitados
+como sendo exemplos de elementos que compõem o capital próprio de uma empresa.
+
+ELEMENTOS DO DESEMPENHO
+
+Em relação aos elementos do desempenho (custos e proveitos) de uma empresa, estes permitem avaliar o de-
+sempenho económico da mesma através de indicadores de resultados, Estes elementos devem ser entendidos de
+acordo com as características que seguidamente apresentamos.
+
+»
+
+===== PÁGINA 25 =====
+u
+
+PGC — EXPLICADO
+
+CUSTOS
+
+Este elemento do desempenho pode ser definido como sendo uma diminuição nos benefícios económicos duran-
+te 0 exereítio na forma de exfltnxos ou diminuições de activos eu na incorrência ce passivos que resultem em di-
+minuições no capital próprio, que não sejam as relacionadas com distribuições aos participantes no capital préprio.
+
+O conceito de custo pode ainda ser subdividido em deis sub-conceitos denominados de custos e de perdas, Assim,
+custos são os que resultam do decurso das actividades ordinárias ou correntes da enticade, sendo destes exemplos
+o custo das vendas, os salários, as amortizações cu 25 provisões entre outros.
+
+Por perdas devem ser entendidos outros itens que satisfaçam a ciefnição de custos e que pocem, ou não, surgir
+no decurso das actividades correntes da entidade, sendo destes exemplos os provenientes da alienação de activos
+não correntes, os resultantes de sinistros, entre outros.
+
+PROVEITOS
+
+O conceito de proveitos pode ser definido como sendo aumentos dos benefícios económicos durante o exercício
+na forma de influxos ou aumentos de activos cu diminuições de passivos que resultem em aumentos no capital
+próprio, que não sejam os relacionados com as contribuições des participantes no capital préprio.
+
+À semelhança do conceito de custo, também c conceito de proveito pode ser subdivido em dois outros conceitos:
+ráditos e ganhos.
+
+Por rédito devemos entender os proveitos que provêm do decurso das actividades correntes (ou ordinárias) de
+uma empresa, sendo exemplos as vendas, as prestações de serviços, os juros obtidos, os dividendos ou as rendas
+obtidas.
+
+Em relação aos ganhos, estes devem ser entendidos como sendo outros itens que satisfaçam a definição de pro-
+veito e padem, ou não, provir do decurso das actividades correntes (ou ordinárias) de uma entidade, São exemplo
+de ganhos os decorrentes da alienação de activos não correntes entre outros.
+
+Para maior desenvolrmento ver "Demonstrações Financeiras” (Copitulo 2),
+
+RECONHECIMENTO DOS ELEMENTOS NAS DEMONSTRAÇÕES FINANCEIRAS
+
+A principal questão que se coleca relativamente aos elementos da posição financeira e do desempenho, prende-se
+com o facto de nem todos serem passíveis de ser reconhecidos nas demonstrações financeiras
+
+Na abordagem a este aspecto começamos por clarificar o que deve ser entendido como reconhecimento,
+
+Assim, o reconhecimento é o processo pele qual um elemento é incorporado numa demonstração financeira, seja
+o Balanço ou a Demonstração dos Resultados. Para o reconhecimento de um elemento este deve cumprir os dois
+requisitos seguintes:
+
++ Ossu conceito:
+
+* (Os Critérios de reconhecimento,
+
+Na que concerne zo conceito, o tema foi abordado no ponto anterior; pelo que vamos centrar a abordagem
+naquilo que são os critérios de reconhecimento específicos para cada tipologia de elementos patrimoniais. Neste
+contexto é possível identificar dois critérios genéricos para o reconhecimento de um elemento:
+
++ Ser provável que qualquer benefício económico futuro associado com o Rem flua para ou da empresa;
++ O item terum custo ou um valor que possa ser valorizado com fiabilidade.
+
+===== PÁGINA 26 =====
+O. Introdução é Contabilidade |
+
+Aplicando estes critérios gerais de reconhecimento a cada um dos elementos das demonstrações financeiras ante-
+normente mencionados, chegamos aos critérios de reconhecimento específicos de cada elemento,
+
+No caso do activo temos que os benefícios devem fluir para a empresa, no caso do passivo ternos que é necessário
+que a saída de recursos incorporando benefícios futuras resulte na liquidação de uma obrigação presente. No que
+respeita aos custos e proveitos estes devem conduzir à uma redução do capital próprio é 2 um aumento do capital
+próprio respectivamente
+
+Face ao exposto podemos concluir que des critérios genéricos de reconhecimento acima referidos apenas o
+primeiro varia de elemento para elemento, sendo que o segundo é transversal a todos e está relacionado com a
+necessidade de existir uma valorização fiável do elemento em causa.
+
+Para maior desenvolvimento ver Critérios paro reconhecimento (Copitulo 1).
+
+DEMONSTRAÇÕES FINANCEIRAS
+
+Cenforme foi mencionacio inicialmente, a contabilidade tem como objectivo central proporcionar informação útil
+no contexto da tomada de decisão por parte dos utilizadores dessa mesma informação. Coloca-se então a questão
+acerca de coma deve essa informação ser relatada, ou seja qual a forma de a apresentar
+
+As demonstrações financeiras são a resposta para a questão acima referida, sendo este o veiculo utilizado para o
+relato da informação por parte de uma empresa, Um conjunto completo de demonstrações financeiras (obrigato-
+rias) é formado por quatro documentos: Balanço, Demonstração de Resultados, Demonstração de Fluxos de Caixa
+(temporariamente suspensa, no entanto é recomendada a sua preparação sempre que a empresa já Cisponha de
+meios que lhe permitam preparar tal demonstração) é Notas às Contas.
+
+Na sequência do exposto anteriormente vamos centrar a análise em duas das quatro demonstrações financeiras
+obrigatórias: o Balanço e à Demonstração de Resultados
+
+BALANÇO
+
+A demonstração financeira” Balanço" integra os activos, passivos e o capital próprio de uma empresa. Habitualmen
+te se refere que esta demonstração proporciona informação acerca cia posição financeira, derivando deste facto à
+denominação de elementos da posição financeira atribuída ao activo, ao passivo e ao capital próprio.
+
+O Balanço apresenta uma disposição vertical, encontrando-se dividido em duas partes, a parte superior na qual se
+inclui o activo e a parte inferior na qual se inclui o capital próprio e o passivo, Outra característica desta demonstra-
+ção financeira decorre directamente da equação fundamental ca contabilidade e que consiste na obrigatoriedade
+de existir uma igualdade entre o total da parte superior e o total da parte inferior ou seja:
+
+TOTAL DO ACTIVO = TOTAL DO CAPITAL PRÓPRIO + TOTAL DO PASSIVO
+
+Esta demonstração deve conter o nome da entidade que relata, a data do balanço, a moeda de relato e o nível de
+arredondamento (x milhares de Iawanzas)
+
+Analisando cada uma das classes que compõem o balanço temos que a parte superior, onde se apresenta o activo
+é ordenada por ordem crescente de liquidez, ou seja em primeiro lugar são apresentados os elementos menos
+líquidos do activo e em último lugar os elementos mais líquidos.
+
+Ainda relativamente à apresentação do activo este encontra-se dividido em activo corrente e activo não corrente
+sendo o primeiro aquele que se espera que permaneça na posse da entidade por um período até um ano. Por ac-
+tivo não corrente entende-se todo aquele que se espera que permaneçam na posse ca entidade por um período
+superior a um ano
+
+B
+
+===== PÁGINA 27 =====
+2
+
+PGC — EXPLICADO
+
+A parte Inferior do balanço destina-se a apresentar o capital próprio € o passivo de uma empresa. N caso do ca-
+pital próprio este encontra-se apresentado por ordem cronológica de formação, enquanto que no caso do passivo
+este encontra-se apresentado por ordem decrescente de exigiblidade ou seja do menos exigível (temporalmente)
+para o mais exigível
+
+No que respeita à apresentação dos passivos estes são classificados em passivos correntes e passivos não corren-
+tes. Os passivos correntes são aqueles que se espera que venham a ser liquidados pela entidade num período até
+um ano. Por passivo não corrente entende-se todo aquele que se espera que venham a ser pagos pela entidade
+num período superior a um ano
+
+Para maior desenvolvimento ver Demonstrações Financeiros — Balanço (Coprtulo 2)
+
+DEMONSTRAÇÃO DE RESULTADOS
+
+A demonstração de resultados é composta pelos custos e pelos proveitos de uma entidade, sendo que habitual.
+mente se refere que esta demonstração proporciona informação acerca do desempenho, derivando deste facto à
+denominação de elementos do desempenho atribuída aos custos e aos proveitos.
+
+Quanda é referido que esta demonstração financeira proporciona informação acerca do desempenho tal decorre
+do facto de ser considerado que o resultado líquido é uma medida do desernpenho económico de uma entidade.
+Face ao exposto compreende-se que na demonsiração de resultados aos proveitos sejam deduzidos os custos por
+forma a calcular o resultado líquido do exercício, sendo que:
+
+se, PROVEITOS < CUSTOS então RESULTADO LÍQUIDO negativo (prejuizoj
+se, PROVEITOS > CUSTOS então RESULTADO LÍQUIDO positivo (lucro)
+se, PROVEITOS = CUSTOS então RESULTADO LÍQUIDO nulo
+
+| Parg maior desenvolvimento ver Demonstrações Finonceiras — Demonstração de Resultados (Capitulo 2).
+
+A relação entre as duas demonstrações financeiras referidas é efectuada at-avés da rúbrica resultado liquido do
+exercício que após apurado através da demonstração de resultados é depois parte integrante do capital próprio e
+como tal integrando deste modo o balanço.
+
+CLASSIFICAÇÃO CONTABILÍSTICA
+
+A classificação des bens e direitos (activo) e das obrigações (passivo) de uma entidade em categorias apropriadas
+é necessária para a civulgação de informações contabilísticas que possam ser compreendidas e analisadas por to-
+dos os utilizadores das demonstrações financeiras nos seus processos de tomada de decisão Assim a necessidade
+de classificação, pode concluir-se que é um facilitador do processo de comunicação de informação por parte da
+empresa aos seus utilizadores, ou seja no intuito de tornar a informação compreensível,
+
+A base da contabilidade é a classificação (reconhecimento/contabilização). Neste sentido, o registo das transacções
+(factos patrimoniais) no memento em que ocorrem, pressupõe à existência de instrumentos adequados, ou seja é
+necessária a existência duma série de divisões (as contas), em que o âmbito de cada uma seja definido e entencivel
+pelos utilizadores.
+
+===== PÁGINA 28 =====
+0. Introdução à Contabilidade n
+
+CONTA
+
+Na terminologia contabilística é utilizada a expressão "conta" como conjunto de elementos patrimoniais com ca-
+racterísticas homogéneas, expressos em unidades monetárias.
+
+As contas apresentam duas características principais e que decorrem da definição mencionada: a homogeneidade
+é a integralidade.
+
+* Homogeneidade - cada conta deve conter elementos com características semelhantes e em conformidade
+com aquilo que a conta expressa
+
+* Integralidade - todos os elementos que apresentam características comuns devem fazer parte da mesma
+conta
+
+No que se refere às partes constitutivas de uma conta estas Incluem:
++ Otítulo da conta - é a expressão porque se designa a conta,
+
+* O valor (quantia) - representa a qualidade, expressa em unidades monetárias contida na conta no mo-
+mento em que se analisa.
+
+A fim de orientar o processo de reconhecimento das operações e outros acontecimentos, simplificar o comtrole
+dos registos efectuado se facilitar a consulta de saldos e quantias para efeitos de preparação ds componentes das
+Demonstrações financeiras, foi criada uma lista codificada (código/designação) de contas passíveis de serem usadas
+na elaboração cos registos contabilíticos.
+
+Na lista de contas, estas encontram-se agrupadas em oito classes:
+
+Classe | - Meios fixos e investimentos.
+Classe 2 - Existências
+
+Classe 3 - Terceiros
+
+Classe 4 - Meios Monetários
+
+Classe 5 - Capital e Reservas
+
+Classe 6 - Proveitos e Ganhos por Natureza
+Classe 7 - Custos e Perdas por Natureza
+Classe 8 - Resultados
+
+Para maior desenvolvimento ver capitulo 3 — Quado e Lista de contos
+REPRESENTAÇÃO GRÁFICA DAS CONTAS
+As contas podem ser representadas por aquilo que vulgarmente se denomina ce T esquemático ou razão, contor-
+
+me seguidamente se exemplifica:
+
+Debro (D; Título Créeito (0)
+
+
+===== PÁGINA 29 =====
+mw | poc—exricaDO
+
+À diferença existente entre o total inscrito do lado do débito e o total inscrito do lado do crédito dá-se o nome
+de saldo da conta, podendo este assumir trés estado: devedor, credor e nulo,
+
+se DÉBITO > CRÉDITO => SALDO DEVEDOR
+se DÉBITO < CRÉDITO => SALDO CREDOR
+
+if se DÉBITO = CRÉDITO => SALDO NULO
+
+MOVIMENTAÇÃO DAS CONTAS
+
+A movimentação das contas difere consoante estejamos a falar de uma conta representativa de activos, passivos,
+capital próprio, custos ou proveitos Seguidamente iremos apresentar as regras de movimentação das contas para
+<ada tipologia de elementos
+
+Movimentação das Contas de Activo
+
+As contas de activo debitam-se pelo saldo inicial e pelos aumentos e creditam-se pelas diminuições.
+
+EE Contas de Activo [Ee]
+Saldo inicial Diminuições
+e
+
+Aumentos
+
+As contas de activo encontram-se inseridas ne classe |- Meios fixos e investimentos, na classe 2 — Existêndias, na dasse
+3 «Terceiros (parte) e na classe 4 — Meios Monetários
+
+Movimentação das Contas de Passivo
+
+As contas de passivo creditam-se pelo saldo incial e pelos aumentos e debitam-se pelas diminuições.
+
+Desito Dj Contas de Passivo Crgnno 15
+Diminuições Saldo inicial
+e
+
+Aumentos
+
+As contos de passiva encontram-se inseridos no classe 3 - Terceiros (porte)
+
+Movimentação das Contas de Capital Próprio
+
+As contas de capital próprio creditam-se pelo salelo inicial e pelos aumentos e debitam-se pelas diminuições.
+
+E Contas de Capital Próprio EO
+Diminuições Saldo inicial
+e
+
+Aumentos
+
+As contas de capital próprio encontram-se inseridas na classe 5 — Capital e Reservas e classe 8 — Assultados.
+
+===== PÁGINA 30 =====
+O. Introdução à Contabilidade
+
+Movimentação das Contas de Custos
+
+As contas de custos debitam-se pelos aumentos e creditam-se peles diminuições.
+
+EE Contas de Custos E
+Aumentos Diminuições
+
+As contas de custos encontram-se inseridas no classe 7 - Custos e Perdas por Natureza
+Movimentação das Contas de Proveitos
+As contas de Proveitos creditan-se pelos aumentos e debitam-se pelas diminuições.
+
+Demeeço; Contas de Proveitos [ES
+Diminuições Aumentos
+
+As contas de proveitos encontram-se inseridas na classe é - Proveitos e Ganhos por Natureza.
+
+LANÇAMENTO CONTABILÍSTICO
+
+Quando nos referimos a um lançamento contabilístico este consiste no registo de um facto patrimenial tendo em
+atenção os princípios da digrafla enunciados por Luca Paccioli!l Segundo 6 método digráfico (partidas dobradas)
+a cada registo a débito numa conta deve corresponcler pelo menos um registo a crédito numa outra conta e vice-
+-versa, de modo a que para cada lançamento ao somatório dos valores inscritos a débito na(s) conta(s) seja igual
+ao somatório dos valores inscritos a crédito na(s) conta(s) utilizadas para efectuar o lançamento.
+
+A técnica da partida dobrada, tem por pressuposto a evidência de que todo o facto patrimonial acorrido na ent-
+dade se traduz por um fluxo de valores entre dois ou mais elementos do património.
+
+É este registo que permite controlar exactamente de onde vem um determinado elemento patrimonial e para
+onde vai, o que significa que o elemento nunca é ganho ou perdido, é sempre transferido de algum lugar (uma
+conta de origem) para outro lado (a conta de destino).
+
+Para além do exposto deve ser tido em atenção que um lançamento deve conter a data em que é efectuado, à
+conta ou contas a cebitar e creditar uma descrição (histórico) do facto patrimonial e o valor do mesmo,
+
+Exposto o conceito e as suas componentes, olhamos agora para o processo conducente ao lançamento conta-
+bilísiico e que consiste em primeiramente analisar o facto patrimonial (documento), seguidamente identificar o
+impacto do facto nos elemerrios patrimoniais e consequentemente quais as cortas afectadas pelo respectivo facto
+e por último aplicar as regras de movimentação das contas.
+
+Os lançamentos podem ser classificados de acordo com o número de contas movimentadas, sendo a classificação
+usualmente utilizada a seguinte:
+
+Lançamentos simples
+
+[º fórmula (um cébito = um crédito)
+Lançamentos complexos
+
+2 fórmula (um débito = vários créditos
+
+3 fórmula (vários débitos = um crédito)
+
+4º fórmula (vários débitos = vários créditos)
+
+“1
+
+LiLuca Paccioli (frade italno) publicou em 1494 o livro “Summa de arithmetca, geometria proportioni et proportionalita " onde uma
+das sessões do liwo é publicado à métocio de contabilidade que os mercadores usavam na altura e que é hoje conhecido por metodo cas
+partidas cobrades. Erobora à método não tenha sido inventado por ele teve no entanto o mérito de ser o primeito a publicar e a explca-lo
+
+sendo por considerado o “Pai da Contabilidade”.
+
+2”

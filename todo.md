@@ -2626,3 +2626,6 @@
 - [x] Testar hierarquia, duplicação, conta-mãe, auditoria e isolamento das contas PGCA importadas
 - [x] Criar manifesto estruturado das contas PGCA visualmente confirmadas com páginas, hierarquia, designações literais e hash da fonte
 - [x] Ligar o teste PGCA ao manifesto de confirmação visual para evitar divergência entre evidência e dados persistidos
+- [x] Analisar integralmente o PDF auxiliar PGCA Explicado recebido e preservar a sua proveniência
+- [x] Confrontar códigos e designações do guia auxiliar com o Decreto n.º 82/01, sem substituir a fonte oficial
+- [x] Seleccionar e importar apenas um lote adicional inequivocamente confirmado, se existir

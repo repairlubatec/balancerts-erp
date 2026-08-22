@@ -14,9 +14,21 @@
     { "code": "45", "name": "Caixa", "parentCode": "4", "level": 2, "evidencePages": [49] },
     { "code": "451", "name": "Fundo fixo", "parentCode": "45", "level": 3, "evidencePages": [49] },
     { "code": "4511", "name": "Caixa", "parentCode": "451", "level": 4, "evidencePages": [49] },
+    { "code": "4512", "name": "Caixa", "parentCode": "451", "level": 4, "evidencePages": [49] },
+    { "code": "453", "name": "Valores destinados a pagamentos específicos", "parentCode": "45", "level": 3, "evidencePages": [49] },
+    { "code": "4531", "name": "Salários", "parentCode": "453", "level": 4, "evidencePages": [49] },
     { "code": "6", "name": "Proveitos e ganhos por natureza", "parentCode": null, "level": 1, "evidencePages": [50] },
     { "code": "61", "name": "Vendas", "parentCode": "6", "level": 2, "evidencePages": [50] },
+    { "code": "611", "name": "Produtos acabados e intermédios", "parentCode": "61", "level": 3, "evidencePages": [50] },
+    { "code": "6111", "name": "Mercado nacional", "parentCode": "611", "level": 4, "evidencePages": [50] },
+    { "code": "6112", "name": "Mercado estrangeiro", "parentCode": "611", "level": 4, "evidencePages": [50] },
+    { "code": "612", "name": "Sub-produtos, desperdícios, resíduos e refugos", "parentCode": "61", "level": 3, "evidencePages": [50] },
+    { "code": "6121", "name": "Mercado nacional", "parentCode": "612", "level": 4, "evidencePages": [50] },
+    { "code": "6122", "name": "Mercado estrangeiro", "parentCode": "612", "level": 4, "evidencePages": [50] },
     { "code": "613", "name": "Mercadorias", "parentCode": "61", "level": 3, "evidencePages": [50] },
-    { "code": "6131", "name": "Mercado nacional", "parentCode": "613", "level": 4, "evidencePages": [50] }
+    { "code": "6131", "name": "Mercado nacional", "parentCode": "613", "level": 4, "evidencePages": [50] },
+    { "code": "614", "name": "Embalagens de consumo", "parentCode": "61", "level": 3, "evidencePages": [50] },
+    { "code": "6141", "name": "Mercado nacional", "parentCode": "614", "level": 4, "evidencePages": [50] },
+    { "code": "6142", "name": "Mercado estrangeiro", "parentCode": "614", "level": 4, "evidencePages": [50] }
   ]
 }
