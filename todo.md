@@ -2794,3 +2794,9 @@
 - [x] Expor filtros e resumo de alertas sem alterar o histórico append-only.
 - [x] Integrar destaque visual acessível por nível de risco no painel e no detalhe do evento.
 - [x] Adicionar testes de classificação, isolamento, RBAC, filtros e validação visual.
+
+# Dashboard de actividade da auditoria PGCA
+- [x] Agregar sobre os eventos realmente carregados as acções mais frequentes e os utilizadores mais activos.
+- [x] Criar gráficos compactos e acessíveis, sem dados fictícios, com estado vazio e indicação da amostra.
+- [x] Integrar o resumo acima da tabela respeitando filtros, alertas de risco e layout desktop.
+- [x] Adicionar testes das agregações, ordenação, limites e validação visual do dashboard.
