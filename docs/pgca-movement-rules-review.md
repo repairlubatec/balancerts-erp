@@ -240,3 +240,7 @@ A página 185 explica que as contas **26.1**, **26.2** e 26.3 a 26.8 podem ser a
 O índice visual confirma a sequência da Classe 2: **21 — Compras**, **22 — Matérias-primas, subsidiárias e de consumo**, **23 — Produtos e trabalhos em curso**, **24 — Produtos acabados e intermédios**, **25 — Sub-produtos, desperdícios, resíduos e refugos**, **26 — Mercadorias**, **27 — Matérias-primas, mercadorias e outros materiais em trânsito**, **28 — Adiantamentos por conta de compras** e **29 — Provisão para depreciação de existências**. A sequência é seguida pela Classe 3 — Terceiros, iniciada por Clientes, Fornecedores, Empréstimos, Estado, Entidades participantes e participadas e Pessoal.
 
 **Estado:** confirmação visual do índice; as movimentações de 21 a 24 ainda necessitam de leitura das páginas próprias e os itens permanecem pendentes de confirmação normativa.
+
+## Índice OCR — página 122, Classes 2 e 3
+
+A página 122 lista as subcontas de existências e provisões: 25.1, 25.2, 26.9, 27.1, 27.2, 27.3, 28.1, 28.2, 29.1 a 29.6. Inicia a Classe 3 e confirma, para Clientes, correntes, títulos a receber, títulos descontados, cobrança duvidosa e saldos credores, com distinção entre grupo/subsidiárias/associadas e não grupo/nacionais/estrangeiros. Para Fornecedores, lista correntes e títulos a pagar com a mesma distinção. Esta página é índice OCR e serve para orientar a revisão; não substitui a leitura dos esquemas de movimentação nem a confirmação visual da fonte primária.
