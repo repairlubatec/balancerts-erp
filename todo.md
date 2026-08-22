@@ -2661,7 +2661,7 @@
 - [x] Validar e confirmar auditadamente PGCA Classe 1, apenas nas contas literalmente comprovadas
 - [x] Validar e confirmar auditadamente PGCA Classe 4, apenas nas contas literalmente comprovadas
 - [x] Validar e confirmar auditadamente PGCA Classe 6, apenas nas contas literalmente comprovadas
-- [ ] Validar e confirmar auditadamente IVA artigo 19.º, apenas na regra e evidência oficialmente comprovadas
+- [x] Validar e confirmar auditadamente IVA artigo 19.º, apenas na regra e evidência oficialmente comprovadas
 - [x] Gerar inventário documental das contas patrimoniais do PGCA (activo, passivo e situação líquida) com código, designação, páginas, estado e evidência
 - [x] Catalogar separadamente as regras literais de movimentação encontradas no PDF, sem as transformar em regras automáticas antes da confirmação
 - [x] Testar o inventário patrimonial gerado e garantir que regras OCR preliminares permanecem pendentes até confirmação visual
