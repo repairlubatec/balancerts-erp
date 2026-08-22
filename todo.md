@@ -2738,3 +2738,9 @@
 - [x] Adicionar pesquisa por código ou nome no painel do motor contabilístico.
 - [x] Adicionar filtros combináveis por classe, natureza, tipo, estado normativo e lançabilidade.
 - [x] Adicionar contagem de resultados, limpeza de filtros, testes e validação visual.
+
+
+# Exportação CSV do motor contabilístico
+- [x] Implementar exportação CSV da vista actual filtrada de contas PGCA e respectivas naturezas.
+- [x] Incluir estado normativo, comportamento do saldo, tipo, lançabilidade, classe e apresentação com codificação compatível com Excel.
+- [x] Adicionar testes de conteúdo, escape CSV, filtros aplicados e download no painel.
