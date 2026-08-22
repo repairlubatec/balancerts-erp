@@ -336,3 +336,23 @@ Estas confirmações continuam limitadas a código/designação/hierarquia. Não
 A página 48 do PDF oficial é a página 1024 do Diário da República e confirma a transição para a Classe 4 — Meios monetários, listando 41 — Títulos negociáveis, 42 — Depósitos a prazo, 43 — Depósitos à ordem, 44 — Outros depósitos, 45 — Caixa, 48 — Conta transitória e 49 — Provisões para aplicações de tesouraria. A página também contém contas da Classe 3, que não devem ser reclassificadas por proximidade física.
 
 A página 54 do PDF oficial é a página 1030 do Diário da República e inicia a Classe 7 — Custos e perdas por natureza, confirmando que o recorte de páginas 50–53 encerra a lista visível da Classe 6. Não foram inferidos movimentos da Classe 6 a partir desta página.
+
+### Registo visual adicional da fonte primária — páginas 41 e 42
+
+A página 41 do PDF oficial é a página 1017 do Diário da República e confirma a Classe 1 — Meios fixos e investimentos, com 11 — Imobilizações corpóreas, 12 — Imobilizações incorpóreas, 13 — Investimentos financeiros, 14 — Imobilizações em curso, 18 — Amortizações acumuladas e 19 — Provisões para investimentos financeiros. Confirma ainda, entre outras, as rubricas 11.1 — Terrenos e recursos naturais, 11.2 — Edifícios e outras construções, 11.3 — Equipamento básico, 11.4 — Equipamento de carga e transporte, 11.5 — Equipamento administrativo, 11.6 — Taras e vasilhame, 12.1 — Trespasses e 12.2 — Despesas de investigação e desenvolvimento.
+
+A página 42 do PDF oficial é a página 1018 do Diário da República e confirma a continuação da Classe 1: 13 — Investimentos financeiros, 14 — Imobilizações em curso, 14.7/14.8 — Adiantamentos por conta de imobilizado corpóreo/incorpóreo, 14.9 — Adiantamentos por conta de investimentos financeiros, 18 — Amortizações acumuladas e 19 — Provisões para investimentos financeiros. Confirma também os desdobramentos visíveis de empresas subsidiárias, associadas, outras empresas, fundos e investimentos em imóveis.
+
+A grafia da rubrica 11.6 foi mantida como leitura visual de trabalho e deve ser revalidada na imagem original em caso de dúvida tipográfica; não foi criada qualquer regra automática a partir destas páginas.
+
+### Registo visual adicional da fonte primária — páginas 43 e 44
+
+A página 43 do PDF oficial é a página 1019 do Diário da República e confirma a transição para a Classe 2 — Existências, com 21 — Compras, 22 — Matérias-primas, subsidiárias e de consumo, 23 — Produtos e trabalhos em curso, 24 — Produtos acabados e intermédios, 25 — Sub-produtos, desperdícios, resíduos e refugos, 26 — Mercadorias, 27 — Matérias-primas, mercadorias e outros materiais em trânsito, 28 — Adiantamentos por conta de compras e 29 — Provisão para depreciação de existências.
+
+A página 44 do PDF oficial é a página 1020 do Diário da República e confirma literalmente 24 — Produtos acabados e intermédios, 25 — Sub-produtos, desperdícios, resíduos e refugos, 26 — Mercadorias, 27 — Matérias-primas, mercadorias e outros materiais em trânsito, 28 — Adiantamentos por conta de compras, 28.1 — Matérias-primas e outros materiais, 28.2 — Mercadorias, e 29 — Provisão para depreciação de existências, incluindo 29.2 a 29.6. Esta evidência primária apoia a catalogação da conta 28, mas não confirma por si só as regras de movimento.
+
+## Limitação da confrontação primária
+
+A revisão visual do PDF oficial disponibilizado pelo CNNCA, nas páginas do quadro e lista de contas, confirma códigos, designações e hierarquia. Este activo oficial tem 97 páginas e o recorte observado apresenta a lista normativa de contas; não foram localizados, nesse recorte, os diagramas completos de movimentação existentes no PDF explicativo auxiliar. Assim, uma regra de movimento transcrita exclusivamente da obra auxiliar não pode ser classificada como coincidente em duas fontes quando a fonte primária não reproduz o respectivo esquema.
+
+Consequentemente, a confirmação formal deve permanecer limitada às contas e designações cuja imagem primária seja legível e aos movimentos para os quais exista esquema primário correspondente. A ausência do diagrama primário é tratada como lacuna de evidência, não como autorização para inferência, automatização ou activação.
