@@ -382,3 +382,7 @@ Esta evidência visual é suficiente para corrigir a classificação documental 
 ### Resultado da regra de coincidência tripla
 
 Após a revisão visual das páginas 41–54 do Decreto n.º 82/01 e a comparação com o PDF auxiliar, **não foi identificado nesta etapa nenhum item que reúna simultaneamente código, designação e movimento coincidentes nas duas fontes**. O Decreto disponibilizado confirma a lista/quadro de contas e designações; os diagramas detalhados de movimentação permanecem apenas na fonte auxiliar. Por consequência, o item 2677 do TODO continua pendente e não é permitida confirmação formal de movimentos por equivalência parcial.
+
+### Situação de prontidão operacional da versão PGCA
+
+A consulta de leitura da organização 1 mostra a versão **PGCA-82-01** em estado `UNDER_REVIEW`, com 27 contas persistidas e confirmadas. Não há contas pendentes dentro do subconjunto importado, mas isso não equivale à confirmação integral do catálogo documental de 760 candidatos. A versão também não possui regras contabilísticas publicadas; por isso, permanece correctamente não publicável e não deve ser activada no motor de lançamentos.
