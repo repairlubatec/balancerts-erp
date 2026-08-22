@@ -2812,3 +2812,10 @@
 - [x] Reavaliar os alegados duplicados distinguindo código repetido no mesmo nível de relação pai-filho legítima.
 - [x] Rever a conta 18 e as contas 43 por cadeia hierárquica, mantendo a análise de IVA separada.
 - [x] Corrigir o parecer documental e decidir a activação apenas depois da nova reconciliação comprovada.
+
+# Revisão em lote de contas PGCA
+- [x] Definir selecção em lote, pré-condições de confirmação e limite de segurança por operação.
+- [x] Implementar procedimento server-side tenant-aware para validar e aplicar decisões conta a conta.
+- [x] Garantir rejeição de conflitos, ausência de fonte primária, versão incompatível e contas já decididas.
+- [x] Criar interface desktop em português com selecção, resumo, confirmação explícita e resultados individuais.
+- [x] Adicionar testes de RBAC, isolamento, concorrência, idempotência, auditoria e não activação automática.

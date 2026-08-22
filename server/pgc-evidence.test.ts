@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildPgcMovementSimulation, validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata, validatePgcMovementSimulationInput } from "./pgc";
+import { buildPgcMovementSimulation, validatePgcBatchReviewSelection, validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata, validatePgcMovementSimulationInput } from "./pgc";
 
 const validInput = {
   classCode: "2",
@@ -51,6 +51,24 @@ describe("decisões da fila de revisão humana PGCA", () => {
 
   it("recusa qualquer decisão fora do estado em revisão", () => {
     expect(() => validatePgcEvidenceReviewDecision({ status: "PENDING_REVIEW", decision: "CONFIRM", hasPrimaryMetadata: true })).toThrow("PGC_EVIDENCE_REVIEW_REQUIRED");
+  });
+});
+
+describe("revisão em lote de contas PGCA", () => {
+  it("deduplica selecção válida e limita o lote a 100 contas", () => {
+    expect(validatePgcBatchReviewSelection({ accountIds: [4, 4, 7], validationStatus: "CONFIRMED" })).toEqual({ accountIds: [4, 7], notes: null });
+    expect(() => validatePgcBatchReviewSelection({ accountIds: Array.from({ length: 101 }, (_, index) => index + 1), validationStatus: "CONFIRMED" })).toThrow("PGC_BATCH_ACCOUNT_SELECTION_INVALID");
+  });
+
+  it("exige nota para decisões negativas e aceita confirmação sem nota", () => {
+    expect(validatePgcBatchReviewSelection({ accountIds: [4], validationStatus: "CONFIRMED" }).notes).toBeNull();
+    expect(() => validatePgcBatchReviewSelection({ accountIds: [4], validationStatus: "INVALID" })).toThrow("PGC_ACCOUNT_REVIEW_NOTE_REQUIRED");
+    expect(validatePgcBatchReviewSelection({ accountIds: [4], validationStatus: "MISSING_PARENT", notes: "Pai não localizado na fonte primária" }).notes).toBe("Pai não localizado na fonte primária");
+  });
+
+  it("recusa selecção vazia ou identificadores inválidos", () => {
+    expect(() => validatePgcBatchReviewSelection({ accountIds: [], validationStatus: "CONFIRMED" })).toThrow("PGC_BATCH_ACCOUNT_SELECTION_INVALID");
+    expect(() => validatePgcBatchReviewSelection({ accountIds: [0], validationStatus: "CONFIRMED" })).toThrow("PGC_BATCH_ACCOUNT_SELECTION_INVALID");
   });
 });
 

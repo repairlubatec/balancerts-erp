@@ -421,3 +421,42 @@ export async function simulatePgcMovementForUser(input: PgcMovementSimulationInp
   const period = await db.select({ status: fiscalPeriods.status }).from(fiscalPeriods).where(and(eq(fiscalPeriods.companyId, input.companyId), eq(fiscalPeriods.year, input.transactionDate.getUTCFullYear()), eq(fiscalPeriods.month, input.transactionDate.getUTCMonth() + 1))).limit(1);
   return buildPgcMovementSimulation({ debitAccount: resolvedDebit, creditAccount: resolvedCredit, rule, versionStatus: version.status, periodStatus: period[0]?.status ?? null, input });
 }
+
+
+export type PgcBatchReviewResult = {
+  accountId: number;
+  validationStatus: "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT";
+  status: "APPLIED" | "SKIPPED" | "BLOCKED";
+  reason?: string;
+};
+
+export function validatePgcBatchReviewSelection(input: { accountIds: number[]; validationStatus: "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"; notes?: string | null }) {
+  const uniqueIds = Array.from(new Set(input.accountIds));
+  if (uniqueIds.length === 0 || uniqueIds.length > 100 || uniqueIds.some((id) => !Number.isInteger(id) || id < 1)) throw new Error("PGC_BATCH_ACCOUNT_SELECTION_INVALID");
+  if (input.validationStatus !== "CONFIRMED" && !input.notes?.trim()) throw new Error("PGC_ACCOUNT_REVIEW_NOTE_REQUIRED");
+  return { accountIds: uniqueIds, notes: input.notes?.trim() || null };
+}
+
+export async function reviewPgcAccountsBatchForUser(input: { userId: number; organizationId: number; versionId: number; accountIds: number[]; validationStatus: "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"; notes?: string | null }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const validated = validatePgcBatchReviewSelection(input);
+  const versionRows = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!versionRows[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  if (versionRows[0].version.status !== "UNDER_REVIEW") throw new Error("PGC_VERSION_NOT_REVIEWABLE");
+  const accounts = await db.select().from(pgcAccounts).where(and(eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId), inArray(pgcAccounts.id, validated.accountIds)));
+  if (accounts.length !== validated.accountIds.length) throw new Error("PGC_BATCH_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  const confirmedSources = new Set((await db.select({ id: pgcSources.id }).from(pgcSources).where(and(eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId), eq(pgcSources.verificationStatus, "CONFIRMED")))).map((source) => source.id));
+  const blocked = accounts.filter((account) => account.validationStatus === "CONFIRMED" || (input.validationStatus === "CONFIRMED" && (!account.sourceId || !confirmedSources.has(account.sourceId))));
+  if (blocked.length) {
+    const reason = accounts.some((account) => account.validationStatus === "CONFIRMED") ? "PGC_BATCH_ACCOUNT_ALREADY_REVIEWED" : "PGC_BATCH_PRIMARY_SOURCE_REQUIRED";
+    return { applied: [], blocked: blocked.map((account) => ({ accountId: account.id, validationStatus: input.validationStatus, status: "BLOCKED" as const, reason })), skipped: [], total: accounts.length };
+  }
+  const applied: PgcBatchReviewResult[] = [];
+  for (const account of accounts) {
+    const nextNotes = validated.notes || account.notes;
+    await db.update(pgcAccounts).set({ validationStatus: input.validationStatus, notes: nextNotes }).where(and(eq(pgcAccounts.id, account.id), eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId), eq(pgcAccounts.validationStatus, "NEEDS_NORMATIVE_VALIDATION")));
+    await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_ACCOUNT_REVIEWED_BATCH", entityType: "pgcAccount", entityId: String(account.id), beforeState: JSON.stringify({ validationStatus: account.validationStatus }), afterState: JSON.stringify({ validationStatus: input.validationStatus, notes: nextNotes, batchSize: accounts.length }), correlationId: `pgc-account-batch-review:${input.versionId}:${account.id}` });
+    applied.push({ accountId: account.id, validationStatus: input.validationStatus, status: "APPLIED" });
+  }
+  return { applied, blocked: [], skipped: [], total: accounts.length };
+}
