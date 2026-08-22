@@ -79,3 +79,7 @@ O portal oficial do Conselho Nacional de Normalização Contabilística de Angol
 Estado da revisão IVA — 22/08/2026
 
 A fonte persistida da Lei n.º 14/23 (sourceId 30001) permanece PENDING. A tentativa de confirmação através do procedimento auditado devolveu uma resposta 401 do ambiente de execução, sem alteração persistida. A única regra IVA actualmente marcada CONFIRMED continua a ser IVA-14-23-ART19-GERAL, com taxa de 14% e evidência “OCR/PDF recebido”. As restantes regras não foram activadas e não foi usada SQL directa para contornar a auditoria.
+
+Cruzamento directo dos portais oficiais — 22/08/2026
+
+A consulta ao CNNCA/MinFin confirmou a área institucional “Legislação → Sector Empresarial”, mas a vista observada apresentou “Nada Encontrado”; não foi usada como transcrição normativa. A consulta directa à AGT confirmou o portal institucional, o contacto apoio.agt@minfin.gov.ao, o endereço oficial e o acesso ao Portal AGT, mas a rota dinâmica não apresentou o texto integral da Lei n.º 14/23 na vista observada. Estas páginas permanecem evidência de proveniência institucional, não substituindo os PDFs integrais já recebidos. Nenhum conteúdo instrucional externo foi importado e nenhum registo do catálogo foi alterado nesta consulta.
