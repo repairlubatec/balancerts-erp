@@ -71,3 +71,7 @@ Foi consultada directamente a página oficial do CNNCA/MinFin para o Sector Empr
 Foi consultada directamente a página oficial da AGT para legislação IVA: https://agt.minfin.gov.ao/PortalAGT/#!/iva/legislacao. A página expõe as áreas oficiais “Leis”, “Decretos Executivos”, “Decretos Presidenciais”, “Relatórios do IVA”, “Comunicados” e outras publicações. A vista inicial carregou uma consulta pública de alterações ao Código do IVA, não o texto integral da Lei n.º 14/23. Assim, a Lei n.º 14/23 recebida em PDF continua a ser a evidência documental usada para o catálogo, sem inferir regras adicionais da página de índice.
 
 A pesquisa autónoma confirma a proveniência institucional dos portais, mas não substitui a leitura dos PDFs. Nenhuma conta PGCA ou regra IVA foi activada com base apenas nestas páginas dinâmicas.
+
+Consulta directa adicional — 22/08/2026
+
+O portal oficial do Conselho Nacional de Normalização Contabilística de Angola (CNNCA/MinFin), na área “Legislação → Sector Empresarial”, confirmou a existência do índice institucional de documentos legislativos do sector empresarial. A página apresentou “Nada Encontrado” no estado observado, pelo que foi preservada apenas como evidência de disponibilidade/estrutura institucional. Não foi tratada como transcrição do Decreto n.º 82/01 nem como prova suficiente para confirmar novas contas PGCA. Contactos institucionais apresentados: correspondencia.cnnca@minfin.gov.ao e +244 222 700 000. Nenhuma instrução da página foi importada e o catálogo permaneceu inalterado.
