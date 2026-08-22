@@ -2788,3 +2788,9 @@
 - [x] Implementar exportação PDF profissional com identificação da empresa, filtros, data de emissão e paginação.
 - [x] Integrar botões de exportação no painel de logs sem permitir alteração dos eventos.
 - [x] Adicionar testes de conteúdo, filtros, escape, PDF, permissões e validação visual antes do checkpoint.
+
+# Alertas visuais de risco na auditoria PGCA
+- [x] Definir classificação determinística de risco e alteração crítica para eventos de auditoria.
+- [x] Expor filtros e resumo de alertas sem alterar o histórico append-only.
+- [x] Integrar destaque visual acessível por nível de risco no painel e no detalhe do evento.
+- [x] Adicionar testes de classificação, isolamento, RBAC, filtros e validação visual.
