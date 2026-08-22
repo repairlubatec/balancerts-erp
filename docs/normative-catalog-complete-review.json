@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T16:26:33.112Z",
+  "generatedAt": "2026-08-22T16:36:51.856Z",
   "policy": {
     "humanConfirmationRequired": true,
     "operationalActivation": "CONFIRMED_ONLY",
@@ -7831,18 +7831,51 @@
       "regime": "GERAL",
       "rate": 0.14,
       "status": "CONFIRMED",
-      "evidence": "OCR/PDF recebido",
-      "source": "Lei n.º 14/23"
+      "evidence": "Conferência visual literal do artigo 19.º — alínea a)",
+      "source": "Lei n.º 14/23",
+      "rateTiers": [
+        {
+          "regime": "GERAL",
+          "rate": 0.14,
+          "scope": "importações, transmissões de bens e prestações de serviços"
+        },
+        {
+          "regime": "SIMPLIFICADO",
+          "rate": 0.07,
+          "scope": "regime simplificado"
+        },
+        {
+          "regime": "HOTELARIA_RESTAURACAO",
+          "rate": 0.07,
+          "scope": "prestações de serviços de hotelaria e restauração"
+        },
+        {
+          "regime": "BENS_ALIMENTARES_INSUMOS_AGRICOLAS",
+          "rate": 0.05,
+          "scope": "importações e transmissões de bens alimentares de amplo consumo e insumos agrícolas constantes dos Anexos I e II"
+        },
+        {
+          "regime": "CABINDA_ESPECIAL",
+          "rate": 0.01,
+          "scope": "importações e transmissões de bens sujeitas ao regime tributário especial aplicável à Província de Cabinda, com a excepção prevista na alínea e)"
+        }
+      ],
+      "conditions": [
+        "A taxa de 7% da alínea c) depende do cumprimento cumulativo das obrigações do n.º 2.",
+        "Nos adiantamentos em que o bem a adquirir não esteja determinado aplica-se a taxa geral.",
+        "A taxa aplicável é a vigente no momento em que o imposto se torna exigível."
+      ]
     },
     {
       "id": "IVA-14-23-ART19-REDUZIDA",
       "article": "19.º",
       "type": "TAX_RATE",
-      "regime": "REDUZIDA",
-      "rate": null,
-      "status": "NEEDS_HUMAN_CONFIRMATION",
-      "evidenceExcerpt": ".º 1º\n(Taxas do imposto)\n\n1. As taxas do imposto são as seguintes:\n\na) 14%, como taxa geral, para as importações, transmissões de bens e prestações de serviços;\n\nb) 7% para o regime simplificado;\n\n17 Alterado pelo artigo 1.º da Lei n.º 14/23, de 28 de Dezembro — De Alteração ao Código do Imposto sobre o Valor\nAcrescentado.\n\n18 Revogado pelo artigo 2.º da Lei n.º 17/19, de 13 de Agosto — Lei que Altera a Lei que aprova o Código do Imposto\nsobre o Valor Acrescentado.\n\n1º Alterado pelo artigo 1.º da Lei n.º 14/23, de 28 de Dezembro — De Alteração ao Código do Imposto sobre o Valor\nAcrescentado.\nDIÁRIO DA REPÚBLICA DE 28 DE DEZEMBRO DE 2023 ISÉRIE, N.º 246 | 8562\nc) 7% para as prestações de serviços de hotelaria e restauração;\nd) 5% para as importações e transmissões de bens alimentares de amplo consumo e\ninsumos agrícolas constantes do Anexo | e Anexo Il do presente Código;\ne) 1%, para as importações e transmissões de bens sujeitas ao regime tributário espe-\ncial aplicável à Província de Cabinda, com excepção dos bens constantes do Anexo II\nao presente Código, aos quais aplica-se a taxa geral.\n\n2. A taxa referida na alínea c) do número anterior, apenas é aplicada pelos prestadores dos\nreferidos serviços que cumpram cumulativamente as seguintes obrigações:\n\na) Efectuem a inscrição de todos os imóveis que sejam de sua propriedade ou por si\nutilzados para o desenvolvimento da actividade;\n\nb) Efectuem a inscrição de todos os veículos motorizados que sejam de sua proprie-\ndade ou por si utilizados para o desenvolvimento da actividade;\n\nc) Efectuem a emissão de Facturas por via de s",
-      "source": "Lei n.º 14/23"
+      "regime": "SIMPLIFICADO",
+      "rate": 0.07,
+      "status": "CONFIRMED",
+      "evidence": "Conferência visual literal do artigo 19.º — alínea b)",
+      "source": "Lei n.º 14/23",
+      "evidenceExcerpt": ".º 1º\n(Taxas do imposto)\n\n1. As taxas do imposto são as seguintes:\n\na) 14%, como taxa geral, para as importações, transmissões de bens e prestações de serviços;\n\nb) 7% para o regime simplificado;\n\n17 Alterado pelo artigo 1.º da Lei n.º 14/23, de 28 de Dezembro — De Alteração ao Código do Imposto sobre o Valor\nAcrescentado.\n\n18 Revogado pelo artigo 2.º da Lei n.º 17/19, de 13 de Agosto — Lei que Altera a Lei que aprova o Código do Imposto\nsobre o Valor Acrescentado.\n\n1º Alterado pelo artigo 1.º da Lei n.º 14/23, de 28 de Dezembro — De Alteração ao Código do Imposto sobre o Valor\nAcrescentado.\nDIÁRIO DA REPÚBLICA DE 28 DE DEZEMBRO DE 2023 ISÉRIE, N.º 246 | 8562\nc) 7% para as prestações de serviços de hotelaria e restauração;\nd) 5% para as importações e transmissões de bens alimentares de amplo consumo e\ninsumos agrícolas constantes do Anexo | e Anexo Il do presente Código;\ne) 1%, para as importações e transmissões de bens sujeitas ao regime tributário espe-\ncial aplicável à Província de Cabinda, com excepção dos bens constantes do Anexo II\nao presente Código, aos quais aplica-se a taxa geral.\n\n2. A taxa referida na alínea c) do número anterior, apenas é aplicada pelos prestadores dos\nreferidos serviços que cumpram cumulativamente as seguintes obrigações:\n\na) Efectuem a inscrição de todos os imóveis que sejam de sua propriedade ou por si\nutilzados para o desenvolvimento da actividade;\n\nb) Efectuem a inscrição de todos os veículos motorizados que sejam de sua proprie-\ndade ou por si utilizados para o desenvolvimento da actividade;\n\nc) Efectuem a emissão de Facturas por via de s"
     },
     {
       "id": "IVA-14-23-ART21-CAPTIVAÇÃO",
@@ -7920,7 +7953,7 @@
     "pgcaConfirmed": 27,
     "pgcaNeedsHumanConfirmation": 733,
     "ivaTotalRules": 9,
-    "ivaConfirmed": 1,
-    "ivaNeedsHumanConfirmation": 8
+    "ivaConfirmed": 2,
+    "ivaNeedsHumanConfirmation": 7
   }
 }

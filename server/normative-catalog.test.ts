@@ -14,8 +14,8 @@ describe("catálogo integral PGCA/IVA", () => {
     expect(catalog.summary.pgcaConfirmed).toBe(27);
     expect(catalog.summary.pgcaNeedsHumanConfirmation).toBe(733);
     expect(catalog.summary.ivaTotalRules).toBe(9);
-    expect(catalog.summary.ivaConfirmed).toBe(1);
-    expect(catalog.summary.ivaNeedsHumanConfirmation).toBe(8);
+    expect(catalog.summary.ivaConfirmed).toBe(2);
+    expect(catalog.summary.ivaNeedsHumanConfirmation).toBe(7);
     expect(catalog.pgcaAccounts.every((a: { status: string }) => ["CONFIRMED", "NEEDS_HUMAN_CONFIRMATION"].includes(a.status))).toBe(true);
     expect(catalog.ivaRules.every((r: { status: string }) => ["CONFIRMED", "NEEDS_HUMAN_CONFIRMATION"].includes(r.status))).toBe(true);
   });
@@ -25,7 +25,7 @@ describe("catálogo integral PGCA/IVA", () => {
     const pending = catalog.pgcaAccounts.filter((a: { status: string }) => a.status !== "CONFIRMED");
     const pendingIva = catalog.ivaRules.filter((r: { status: string }) => r.status !== "CONFIRMED");
     expect(pending.length).toBe(733);
-    expect(pendingIva.length).toBe(8);
+    expect(pendingIva.length).toBe(7);
     expect([...pending, ...pendingIva].every((item: { status: string }) => item.status === "NEEDS_HUMAN_CONFIRMATION")).toBe(true);
   });
 });
