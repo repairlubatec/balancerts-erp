@@ -285,3 +285,13 @@ describe("PGCA activation readiness permissions", () => {
     await expect(accountant.pgc.activateVersion({ organizationId: 1, versionId: 1 })).rejects.toThrow("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
   });
 });
+
+
+  it("permite ao Auditor consultar logs PGCA paginados e bloqueia o Operador", async () => {
+    const logs = vi.spyOn(db, "getPgcAuditLogsForUser").mockResolvedValue({ page: 1, pageSize: 25, hasMore: false, items: [] });
+    const auditor = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(auditor.audit.pgcLogs({ organizationId: 7, companyId: 41, page: 1, pageSize: 25 })).resolves.toMatchObject({ items: [], hasMore: false });
+    expect(logs).toHaveBeenCalledWith(expect.objectContaining({ userId: 8, organizationId: 7, companyId: 41, page: 1, pageSize: 25 }));
+    const operador = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operador.audit.pgcLogs({ organizationId: 7, companyId: 41 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });

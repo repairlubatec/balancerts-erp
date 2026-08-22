@@ -2323,3 +2323,22 @@ export async function getFinancialDashboardForUserCompany(input: { userId: numbe
     reconciliation: { debit: journal.totals.debit, credit: journal.totals.credit, balanced: Math.abs(journal.totals.debit - journal.totals.credit) <= 0.005 },
   };
 }
+
+
+export async function getPgcAuditLogsForUser(input: { userId: number; organizationId: number; companyId?: number | null; actorUserId?: number; entityType?: string; action?: string; from?: Date; to?: Date; page?: number; pageSize?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId ?? null });
+  const page = Math.max(1, input.page ?? 1);
+  const pageSize = Math.min(100, Math.max(10, input.pageSize ?? 50));
+  const filters = [eq(auditEvents.organizationId, input.organizationId)];
+  if (input.companyId) filters.push(eq(auditEvents.companyId, input.companyId));
+  if (input.actorUserId) filters.push(eq(auditEvents.actorUserId, input.actorUserId));
+  if (input.entityType) filters.push(eq(auditEvents.entityType, input.entityType));
+  if (input.action) filters.push(eq(auditEvents.action, input.action));
+  if (input.from) filters.push(gte(auditEvents.createdAt, input.from));
+  if (input.to) filters.push(lte(auditEvents.createdAt, input.to));
+  const rows = await db.select({ event: auditEvents, actor: { id: users.id, name: users.name, email: users.email }, companyName: companies.name }).from(auditEvents).leftJoin(users, eq(auditEvents.actorUserId, users.id)).leftJoin(companies, eq(auditEvents.companyId, companies.id)).where(and(...filters)).orderBy(desc(auditEvents.id)).limit(pageSize + 1).offset((page - 1) * pageSize);
+  const hasMore = rows.length > pageSize;
+  return { page, pageSize, hasMore, items: rows.slice(0, pageSize).map((row) => ({ ...row.event, actor: row.actor, companyName: row.companyName ?? null })) };
+}

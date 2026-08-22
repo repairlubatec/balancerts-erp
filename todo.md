@@ -2776,3 +2776,9 @@
 - [x] Expor procedimento tRPC tenant-aware para simulação com resultado determinístico, avisos e bloqueios.
 - [x] Integrar interface desktop portuguesa com entrada de operação, débito/crédito, valor e resultado por nível.
 - [x] Adicionar testes unitários, de RBAC, isolamento, não-escrita e validação visual do simulador.
+
+# Painel de logs de auditoria PGCA
+- [x] Expor consulta de auditoria tenant-aware com filtros seguros por empresa, actor, entidade, acção e intervalo temporal.
+- [x] Garantir que o painel é somente de leitura, sem edição ou eliminação de eventos append-only.
+- [x] Construir interface desktop em português com resumo, filtros, paginação e detalhe antes/depois.
+- [x] Adicionar testes de isolamento, RBAC, filtros, paginação, integridade e validação visual do painel.
