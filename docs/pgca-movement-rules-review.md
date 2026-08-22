@@ -330,3 +330,9 @@ A página 52 do PDF oficial é a página 1028 do Diário da República e confirm
 A página 53 do PDF oficial é a página 1029 do Diário da República e confirma a continuação de 68, incluindo 68.1.3 — Riscos e encargos, 68.2 — Anulação de amortizações extraordinárias, 68.3 — Ganhos em imobilizações, 68.4 — Ganhos em existências, 68.5 — Recuperação de dívidas, 68.6 — Benefícios de penalidades contratuais, 68.8 — Descontinuidade de operações, 68.9 — Alterações de políticas contabilísticas, 68.10 — Correcções relativas a exercícios anteriores, 68.11 — Outros ganhos e perdas não operacionais e 68.19 — Transferência para resultados não operacionais. A mesma página inicia a Classe 7 — Custos e perdas por natureza.
 
 Estas confirmações continuam limitadas a código/designação/hierarquia. Não foram usadas para activar regras de lançamento, por não conterem os esquemas completos de movimentação.
+
+### Registo visual adicional da fonte primária — páginas 48 e 54
+
+A página 48 do PDF oficial é a página 1024 do Diário da República e confirma a transição para a Classe 4 — Meios monetários, listando 41 — Títulos negociáveis, 42 — Depósitos a prazo, 43 — Depósitos à ordem, 44 — Outros depósitos, 45 — Caixa, 48 — Conta transitória e 49 — Provisões para aplicações de tesouraria. A página também contém contas da Classe 3, que não devem ser reclassificadas por proximidade física.
+
+A página 54 do PDF oficial é a página 1030 do Diário da República e inicia a Classe 7 — Custos e perdas por natureza, confirmando que o recorte de páginas 50–53 encerra a lista visível da Classe 6. Não foram inferidos movimentos da Classe 6 a partir desta página.
