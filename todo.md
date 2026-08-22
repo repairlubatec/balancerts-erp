@@ -2744,3 +2744,9 @@
 - [x] Implementar exportação CSV da vista actual filtrada de contas PGCA e respectivas naturezas.
 - [x] Incluir estado normativo, comportamento do saldo, tipo, lançabilidade, classe e apresentação com codificação compatível com Excel.
 - [x] Adicionar testes de conteúdo, escape CSV, filtros aplicados e download no painel.
+
+
+# Tooltips de regras para contas mistas
+- [x] Adicionar tooltip informativo no detalhe de contas de natureza mista.
+- [x] Explicar regras de movimentação apenas quando houver evidência confirmada; caso contrário mostrar pendência explícita.
+- [x] Testar acessibilidade, conteúdo e não-invenção das regras antes do checkpoint.
