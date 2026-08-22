@@ -2697,3 +2697,8 @@
 - [x] Guardar checkpoint do fecho da revisão normativa.
 
 - [x] Adicionar teste de regressão para evidência visual primária das Classes 2, 3 e 5, garantindo que a confirmação de nomes/hierarquia não activa movimentos sem prova primária.
+
+
+# Análise formal — Especificação Técnica da Contabilidade PGCA v2.2
+- [x] Analisar integralmente a especificação técnica da Contabilidade e confrontá-la com os Documentos 1 e 2 e a arquitectura actual, sem implementar alterações.
+- [x] Produzir parecer com compatibilidades, conflitos, lacunas, riscos, prioridades e decisão de implementação posterior.
