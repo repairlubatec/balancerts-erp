@@ -34,3 +34,11 @@ O verificador exige agora uma identidade do destino derivada da `RESTORE_DATABAS
 Depois da restauração, o fluxo exige uma validação externa injectada por `postRestoreValidator`. Essa validação só é aceite quando devolve todos os estados `HASH_VALIDATED`, `RESTORED`, `SCHEMA_VALIDATED`, `DATA_VALIDATED`, `MODULES_VALIDATED` e `ROLLBACK_READY`, bem como as confirmações de schema compatível, dados consistentes, isolamento tenant-safe, módulos validados e rollback preparado. Sem essa validação, o processo falha com `POST_RESTORE_VALIDATION_REQUIRED` ou erro estruturado de validação incompleta.
 
 Estas salvaguardas foram testadas localmente sem contactar qualquer base de dados de restauro. A execução real continua proibida até existir destino isolado e evidência operacional independente.
+
+## Estado da execução — 2026-08-22
+
+A pré-validação do restauro foi executada sem contacto com a produção. O ambiente actual não possui `RESTORE_DATABASE_URL`, `RESTORE_ALLOWED_HOSTS` nem `RESTORE_ISOLATION_ATTESTATION=ISOLATED`; também não foi localizado um pacote de backup `*.sql.gz`/`*.backup` acompanhado de manifesto SHA-256 no projecto.
+
+Por consequência, o restauro real **não foi executado** e foi correctamente bloqueado pelo D4-01. Não foi criada URL fictícia, não foi usada a base de produção e não foram alterados dados. Para executar futuramente, será necessário disponibilizar uma base MySQL/TiDB isolada, utilizador exclusivo de restauro sem privilégios de produção, allowlist do host, fingerprint verificável, atestação `ISOLATED`, pacote completo e manifesto correspondente. A validação pós-restauro deverá cumprir todos os estados D4-02 antes de qualquer utilização operacional.
+
+Após este bloqueio seguro, o desenvolvimento funcional fica em **fila de espera**, sem novas alterações de código, schema, dados ou integrações até instrução posterior do utilizador.

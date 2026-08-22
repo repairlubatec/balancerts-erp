@@ -2629,3 +2629,6 @@
 - [x] Analisar integralmente o PDF auxiliar PGCA Explicado recebido e preservar a sua proveniência
 - [x] Confrontar códigos e designações do guia auxiliar com o Decreto n.º 82/01, sem substituir a fonte oficial
 - [x] Seleccionar e importar apenas um lote adicional inequivocamente confirmado, se existir
+- [x] Preparar a validação final de backup, hash, manifesto e destino isolado para restauro
+- [ ] Executar restauro não destrutivo apenas se o destino isolado real estiver disponível e validado
+- [x] Colocar novas alterações do projecto em fila de espera após concluir ou bloquear o restauro com segurança
