@@ -2687,3 +2687,11 @@
 - [x] Conferir visualmente cada regra contabilística candidata contra a confirmação normativa persistente e a fonte primária
 - [x] Activar somente regras com código, designação, débito, crédito, contrapartidas, página, fonte e hash integralmente coincidentes
 - [x] Registar como não elegíveis as regras sem correspondência primária de movimento e validar não-regressão
+
+
+# Revisão normativa PGCA — fecho da conferência visual
+- [x] Consolidar a revisão visual das páginas auxiliares 218, 223, 234 e 236 e das páginas primárias 44–47 no dossier normativo.
+- [x] Decidir formalmente sobre a elevação da obra auxiliar PGCA Explicado para regras de movimento; manter bloqueada a activação enquanto não existir evidência primária equivalente.
+- [x] Activar apenas movimentos contabilísticos com correspondência tripla literal: código, designação e movimento confirmado em fonte primária autorizada. Nesta revisão, nenhum movimento cumpriu o critério; zero foram activados.
+- [x] Executar e registar os testes normativos finais após a revisão.
+- [ ] Guardar checkpoint do fecho da revisão normativa.

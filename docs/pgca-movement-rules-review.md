@@ -458,3 +458,99 @@ Resultado literal: códigos e designações principais coincidem, mas a fonte pr
 A página 247 do PDF auxiliar confirma visualmente a estrutura explicativa da conta 61 — Vendas, incluindo 61.1 a 61.5, 61.7, 61.8 e 61.9, mas a página apresentada contém critérios e estrutura, não um diagrama completo de lançamento para activação. A página 50 do Decreto n.º 82/01 confirma 61 — Vendas, 61.1 — Produtos acabados e intermédios, 61.2 — Sub-produtos, desperdícios, resíduos e refugos, 61.3 — Mercadorias, 61.4 — Embalagens de consumo e subcontas de mercado nacional/estrangeiro.
 
 Resultado literal: a hierarquia e as designações principais são compatíveis. Não existe, contudo, prova primária equivalente do movimento de venda, devolução, desconto, recebimento ou transferência para resultados. Nenhuma regra da conta 61 é activável apenas com esta coincidência estrutural.
+
+### Revisão visual abrangente — páginas auxiliares 226 e 230
+
+A página auxiliar 226 mostra os esquemas da conta 39 — Provisões para outros riscos e encargos, com 39.x, 78.1.3.x e 68.1.3.x. A página pertence à Classe 3 e não deve ser utilizada para activar regras das Classes 4, 5 ou 6. Além disso, o Decreto primário consultado apenas confirma a árvore de contas, sem diagrama equivalente.
+
+A página auxiliar 230 mostra a venda de aplicações de tesouraria com perda ou ganho: 41.x, 76.6.2.x/66.6.2.x e 43.x/45.x, além das designações 41 — Títulos negociáveis, 41.1 — Acções e 41.2 — Obrigações. A fonte primária confirma as designações correspondentes na página 49, mas não demonstra os lançamentos, resultado de venda ou contrapartidas. Estes movimentos permanecem não elegíveis para activação.
+
+### Revisão visual abrangente — páginas auxiliares 238 e 241
+
+A página auxiliar 238 mostra a subscrição do capital e a redução/aumento de capital, com 35.1.x, 51.x, 81.x e movimentos de entrada de dinheiro, outros activos, reservas ou conversão de passivos. A página 241 mostra deliberação e realização de prestações suplementares, com 35.1.x, 54.x e 43.x/45.x, e descreve a conta 55 — Reservas legais.
+
+A fonte primária do Decreto confirma as contas 51, 54 e 55 na página 50, mas não demonstra estes lançamentos, as condições de redução/aumento, nem as contrapartidas auxiliares. Os movimentos permanecem sem conformidade tripla para activação.
+
+### Revisão visual abrangente — páginas auxiliares 242 e 244
+
+A página auxiliar 242 mostra a constituição da reserva legal, 81.x.2 a 55.x, e a reserva de reavaliação com 58.x, 56.x e 11.x/12.x, incluindo avaliação e realização. A página 244 mostra os movimentos genéricos de 57 — Reservas com fins especiais e 58 — Reservas livres, com construção/reforço e anulação/utilização, usando contrapartidas indicativas de 81.1.2, 51, 56 e 81.
+
+A fonte primária confirma os códigos 55, 56, 57 e 58 na página 50, mas não contém os diagramas equivalentes nem confirma a numeração auxiliar específica 81.x.2/81.1.2 ou as contrapartidas. Nenhuma regra de reservas é activável.
+
+### Revisão visual abrangente — página auxiliar 250
+
+A página auxiliar 250 apresenta critérios de reconhecimento de rédito para devolução limitada, consignação, intermediários, entrega condicionada a pagamento, vendas a prestações e assinaturas. Na secção de movimentação, remete expressamente as contas 61.1 a 61.4, 61.7 e 61.8 para o esquema “Venda (com descontos e devoluções) e recebimento” da conta 31.1 — Clientes-correntes.
+
+Resultado visual: a fonte auxiliar não fornece neste ponto um lançamento autónomo; remete para outra conta. Sem a conferência visual primária da conta 31.1 e sem equivalente primário no Decreto, não existe regra autónoma elegível para activação.
+
+### Revisão visual abrangente — páginas auxiliares 254 e 256
+
+A página auxiliar 254 apresenta critérios de reconhecimento de serviços e confirma visualmente que as contas 62.1 a 62.8 remetem para o esquema da conta 31.1 — Clientes-correntes, com adaptações; o fecho remete para 62.9. Não há diagrama autónomo nesta página.
+
+A página auxiliar 256 confirma visualmente a estrutura de 63 — Outros proveitos operacionais, com 63.1, 63.2, 63.3, 63.4, 63.8 e 63.9. Indica contrapartidas gerais 43.x/45.x, Classe 3 e 37.3 para 63.1/63.2, e remete 63.3 para a conta 34 e 63.4 para a conta 37.6. São referências condicionais e remissões, não uma regra única de lançamento. Sem diagrama primário equivalente e sem contexto completo das contas de contrapartida, permanecem não activáveis.
+
+### Revisão visual abrangente — páginas auxiliares 263 e 267
+
+A página auxiliar 263 confirma visualmente a conta 66 — Proveitos e ganhos financeiros gerais e a sua estrutura, mas apresenta contrapartidas dependentes da natureza da operação: 43/45, Classe 3, 19/49, 37.3 e 37.6, remetendo ainda para esquemas de subcontas 66.3, 66.5, 66.6 e 66.7. Não é uma regra única e não tem equivalente primário de movimento.
+
+A página auxiliar 267 confirma visualmente 67.1 — Rendimentos de participação de capital, 67.1.1 — Subsidiárias, 67.1.2 — Associadas e 67.9 — Transferência para resultados financeiros. O diagrama visível relaciona 84.1, 67.9 e 67.1, enquanto a entrada de dividendos remete para 35.2. A fonte primária consultada confirma a árvore das contas de resultados, mas não apresenta estes lançamentos ou remissões completas. Não são activáveis.
+
+### Revisão visual abrangente — página auxiliar 268
+
+A página auxiliar 268 confirma visualmente a estrutura da conta 68: 68.1 reposição de provisões, 68.2 anulações de amortizações extraordinárias, 68.3 ganhos em imobilizações, 68.4 ganhos em existências, 68.5 recuperação de dívidas, 68.6 benefícios de penalidades contratuais, 68.8 descontinuidade de operações, 68.9 alterações de políticas contabilísticas, 68.10 correcções relativas a exercícios anteriores, 68.11 outros ganhos e perdas não operacionais e 68.19 transferência para resultados não operacionais. As contrapartidas variam entre 43/45, Classe 3, existências, 18, 29/38/39 e 37.2, com remissão para subcontas específicas.
+
+A fonte primária confirma a árvore da conta 68 na Classe 6, mas não os esquemas de movimento nem as condições das contrapartidas. A conta 68 permanece não activável sem fonte primária equivalente.
+
+### Revisão visual abrangente — páginas auxiliares 182 e 184
+
+A página auxiliar 182 confirma visualmente a conta 25 — Sub-produtos, desperdícios, resíduos e refugos, com 25.1, 25.2 e referência à 29.5. A movimentação remete expressamente para a conta 24, não apresentando regra autónoma.
+
+A página auxiliar 184 mostra visualmente as saídas de armazém sem venda, com 26.1/26.2 contra 75.6 para ofertas/amostras, 78.4.1 para perdas/quebras e 79.4 para sinistros; mostra ainda a reclassificação 26.1/26.2 para 26.9.x e o retorno/venda posterior. A fonte primária confirma a estrutura das existências, mas não os diagramas, contas de resultado ou condições de retorno. Estes movimentos não são activáveis.
+
+### Revisão visual abrangente — páginas auxiliares 186 e 188
+
+A página auxiliar 186 mostra a aquisição de existências ainda não recepcionadas: 32.8 para a factura, 27.x para existências em trânsito e 21.1/21.2 após recepção e apuramento, com regularização contra 32.1 e remissão para 22/26. Confirma também a conta 28 — Adiantamentos por conta de compras, com 28.1 e 28.2.
+
+A página auxiliar 188 mostra a constituição de provisão de existências, 29.x contra 78.1.1.x, e reposição/reforço com 68.1.1.x, 29.x e 78.1.1.x. A fonte primária confirma a árvore das contas de existências e provisões, mas não os movimentos, condições de recepção, apuramento ou limites da provisão. Nenhuma regra é activável.
+
+### Revisão visual abrangente — páginas auxiliares 193 e 198
+
+A página auxiliar 193 confirma visualmente a conta 31 — Clientes, com 31.1, grupo/subsidiárias/associadas e nacionais/estrangeiros, e o esquema de venda a crédito, notas de crédito e recebimento: 61.x para 31.1, notas de crédito para 61.7/61.8 e recebimento por 43.x/45.x. A página remete ainda o imposto de consumo para 34.2.
+
+A página auxiliar 198 confirma visualmente a compra a crédito e pagamento: 21.x contra 32.x e pagamento por 43.x/45.x; mostra ainda o desconto financeiro com 32.1, 43.x/45.x e 66.3. A fonte primária confirma a árvore de terceiros e contas de resultados, mas não os diagramas nem as condições de desconto, devolução e pagamento. As regras permanecem não activáveis.
+
+### Revisão visual abrangente — páginas auxiliares 202 e 205
+
+A página auxiliar 202 mostra o empréstimo obtido e o reembolso, com entrada por 43.x e crédito em 33.x, seguido da saída e anulação do passivo; remete os juros para 76.1.1 e separa 33.1.1 moeda nacional e 33.1.2 moeda estrangeira.
+
+A página auxiliar 205 mostra pagamento de imposto, 34.x contra 43.x/45.x, e subsídios a preços, 61.5.x contra 34.8.x e recebimento por 43.x/45.x. A conta 34.1 inclui subdivisões fiscais e contrapartidas de 87 e 81. A fonte primária PGCA não substitui a fonte fiscal vigente nem apresenta estes diagramas; por isso, estas regras não são activáveis nesta revisão PGCA.
+
+### Revisão visual abrangente — páginas auxiliares 209 e 215
+
+A página auxiliar 209 mostra a conta 35 — Entidades participantes e participadas, com 35.1, 35.2, 38.3 e subscrição/realização de capital, relacionando 51, 35.1.x.1 e 43.x/45.x; entradas em espécie podem envolver outras contas conforme os activos/passivos.
+
+A página auxiliar 215 mostra processamento e pagamento de salários, relacionando 43.x/45.x, 34.3, 34.9, 36.1.x, 72.1/72.2; inclui entrega de retenções, contribuições, remuneração líquida, encargos patronais e especialização 37.5.1 contra 72.1/72.2. A fonte primária PGCA confirma as contas, mas não apresenta estes esquemas nem as regras laborais/fiscais necessárias. Nenhuma regra salarial ou de participadas é activável.
+
+### Revisão visual abrangente — páginas auxiliares 218 e 223
+
+A página auxiliar 218 mostra a conta 37.1 — Compras de imobilizado, com compra a crédito 43.x/45.x, 37.1.x e 11.x/12.x/14.x; mostra também a conta 37.2 — Vendas de imobilizado, cuja continuação do esquema fica em página posterior. A fonte primária confirma a conta 37 e a estrutura geral, mas não os lançamentos completos.
+
+A página auxiliar 223 mostra a conta 38 — Provisões para cobranças duvidosas, com 38.1, 38.2, 38.3, 38.4 e 38.9, e a constituição 38.x contra 78.1.2.x. A fonte primária confirma a classe e designação, mas não o diagrama, subcontas de custo ou critérios de revisão da provisão. Não há regra integralmente activável.
+
+### Revisão visual abrangente — páginas auxiliares 234 e 236
+
+A página auxiliar 234 confirma visualmente 45 — Caixa e as subcontas 45.1 — Fundo fixo, 45.2 — Valores para depositar e 45.3 — Valores destinados a pagamentos específicos. Mostra um esquema geral de pagamento/recebimento e condições de débito da 45.1 contra bancos ou valores destinados a pagamentos específicos.
+
+A página auxiliar 236 confirma visualmente 49 — Provisões para aplicações de tesouraria, 49.1 — Títulos negociáveis e 49.2 — Outras aplicações de tesouraria. Apresenta constituição 49.x contra 76.5.2.x e reposição/anulação/reforço com 66.7.2.x, 49.x e 76.5.2.x. A fonte primária confirma a estrutura das contas, mas não estes movimentos, critérios de mercado ou limites da provisão. Nenhuma regra é activável.
+
+### Revisão da fonte primária — páginas 44 e 45 do Decreto n.º 82/01
+
+A página 44 confirma visualmente as contas 24, 25, 26, 27, 28 e 29, incluindo 28.1/28.2 e as provisões 29.1 a 29.6. A página 45 confirma a Classe 3 e as contas 31 — Clientes, 32 — Fornecedores, 33 — Empréstimos, 34 — Estado, 35 — Entidades participantes e participadas, 36 — Pessoal, 37 — Outros valores a receber e a pagar, 38 — Provisões para cobranças duvidosas e 39 — Provisões para outros riscos e encargos, com várias subcontas.
+
+Estas páginas confirmam código, designação e hierarquia das páginas auxiliares 182–223, mas são listas de contas, sem os diagramas de movimento. A revisão visual primária não converte nenhum dos esquemas auxiliares em regra activável.
+
+### Revisão da fonte primária — páginas 46 e 47 do Decreto n.º 82/01
+
+A página 46 confirma visualmente as subcontas de 33 — Empréstimos, 34 — Estado e 35 — Entidades participantes e participadas. A página 47 confirma 36 — Pessoal e 37 — Outros valores a receber e a pagar, incluindo 37.1 Compras de imobilizado, 37.2 Vendas de imobilizado, 37.3 Proveitos a facturar, 37.4 Encargos a repartir por períodos futuros, 37.5 Encargos a pagar e 37.6 Proveitos a repartir por períodos futuros.
+
+A comparação reforça que os códigos e designações auxiliares podem ser confirmados apenas como catálogo/hierarquia; os movimentos esquemáticos continuam sem equivalente no diploma primário visualizado.
