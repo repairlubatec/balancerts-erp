@@ -2673,3 +2673,5 @@
 - [ ] Rever visualmente páginas adicionais dos esquemas de tesouraria, incluindo contas 42, 43, 44, 45 e 49
 - [ ] Rever visualmente páginas adicionais dos esquemas da conta 52 — Acções / Quotas Próprias
 - [ ] Reclassificar como elegíveis apenas as regras cuja imagem seja legível e literalmente confirmada
+- [ ] Confrontar cada item visual elegível do PDF explicativo com a fonte primária do Decreto n.º 82/01 antes da confirmação auditada
+- [ ] Confirmar formalmente apenas os itens com código, designação e movimento coincidentes nas duas fontes
