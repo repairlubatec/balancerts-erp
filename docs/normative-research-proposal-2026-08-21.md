@@ -75,3 +75,7 @@ A pesquisa autónoma confirma a proveniência institucional dos portais, mas nã
 Consulta directa adicional — 22/08/2026
 
 O portal oficial do Conselho Nacional de Normalização Contabilística de Angola (CNNCA/MinFin), na área “Legislação → Sector Empresarial”, confirmou a existência do índice institucional de documentos legislativos do sector empresarial. A página apresentou “Nada Encontrado” no estado observado, pelo que foi preservada apenas como evidência de disponibilidade/estrutura institucional. Não foi tratada como transcrição do Decreto n.º 82/01 nem como prova suficiente para confirmar novas contas PGCA. Contactos institucionais apresentados: correspondencia.cnnca@minfin.gov.ao e +244 222 700 000. Nenhuma instrução da página foi importada e o catálogo permaneceu inalterado.
+
+Estado da revisão IVA — 22/08/2026
+
+A fonte persistida da Lei n.º 14/23 (sourceId 30001) permanece PENDING. A tentativa de confirmação através do procedimento auditado devolveu uma resposta 401 do ambiente de execução, sem alteração persistida. A única regra IVA actualmente marcada CONFIRMED continua a ser IVA-14-23-ART19-GERAL, com taxa de 14% e evidência “OCR/PDF recebido”. As restantes regras não foram activadas e não foi usada SQL directa para contornar a auditoria.

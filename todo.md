@@ -2649,3 +2649,4 @@
 - [x] Mostrar orientação em português para confirmar primeiro a fonte normativa
 - [x] Corrigir a expectativa do teste de activação PGCA para o erro real de versão inacessível
 - [x] Confirmar a fonte primária Decreto n.º 82/01 através do procedimento auditado, usando a evidência oficial já revista
+- [ ] Confirmar a fonte primária da Lei n.º 14/23 através do procedimento auditado, limitada à evidência já comprovada do artigo 19.º
