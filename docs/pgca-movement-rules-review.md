@@ -378,3 +378,7 @@ A secção **ARTIGO 19.º (Taxas do Imposto)** da fonte pública apresenta, no n
 O n.º 2 condiciona a taxa de 7% da alínea c) ao cumprimento cumulativo de obrigações relativas a imóveis, veículos, facturação electrónica e entrega de declarações tributárias. O n.º 3 estabelece que, nos casos de adiantamento em que o bem a adquirir não esteja determinado, se aplica a taxa geral. O n.º 4 estabelece que a taxa aplicável é a vigente no momento em que o imposto se torna exigível.
 
 Esta evidência visual é suficiente para corrigir a classificação documental da regra do artigo 19.º, mas a publicação operacional no catálogo fiscal deve conservar o artigo completo, as alíneas, condições e data de vigência; não deve reduzir o artigo a uma única taxa geral.
+
+### Resultado da regra de coincidência tripla
+
+Após a revisão visual das páginas 41–54 do Decreto n.º 82/01 e a comparação com o PDF auxiliar, **não foi identificado nesta etapa nenhum item que reúna simultaneamente código, designação e movimento coincidentes nas duas fontes**. O Decreto disponibilizado confirma a lista/quadro de contas e designações; os diagramas detalhados de movimentação permanecem apenas na fonte auxiliar. Por consequência, o item 2677 do TODO continua pendente e não é permitida confirmação formal de movimentos por equivalência parcial.
