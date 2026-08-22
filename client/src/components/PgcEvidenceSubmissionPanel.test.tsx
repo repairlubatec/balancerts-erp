@@ -8,6 +8,7 @@ const mutate = vi.fn();
 
 vi.mock("@/lib/trpc", () => ({
   trpc: {
+    files: { downloadUrl: { useQuery: () => ({ data: undefined, isLoading: false }) } },
     pgc: {
       evidenceSubmissions: { useQuery: () => ({ data: [], isLoading: false, refetch: vi.fn() }) },
       submitEvidence: { useMutation: () => ({ mutate, isPending: false }) },
