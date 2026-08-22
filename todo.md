@@ -2802,7 +2802,13 @@
 - [x] Adicionar testes das agregações, ordenação, limites e validação visual do dashboard.
 
 # Auditoria do plano de contas fornecido
-- [ ] Comparar integralmente códigos, designações, hierarquia e marcadores RESERVED_PGC_EXTENSION com o catálogo actual.
-- [ ] Identificar conflitos internos, duplicados, lacunas e divergências com a estrutura PGCA actualmente confirmada.
-- [ ] Separar contas PGCA, extensões reservadas e estrutura IVA, sem activar regras não comprovadas.
-- [ ] Implementar apenas correspondências sem conflito e produzir parecer técnico das restantes pendências.
+- [x] Comparar integralmente códigos, designações, hierarquia e marcadores RESERVED_PGC_EXTENSION com o catálogo actual.
+- [x] Identificar conflitos internos, duplicados, lacunas e divergências com a estrutura PGCA actualmente confirmada.
+- [x] Separar contas PGCA, extensões reservadas e estrutura IVA, sem activar regras não comprovadas.
+- [x] Implementar apenas correspondências sem conflito e produzir parecer técnico das restantes pendências; não foram encontrados itens seguros para activação em massa.
+
+# Reavaliação hierárquica do plano fornecido
+- [x] Corrigir o comparador para reconhecer Classe → Conta → Subconta → Subconta analítica → Conta movimentável.
+- [x] Reavaliar os alegados duplicados distinguindo código repetido no mesmo nível de relação pai-filho legítima.
+- [x] Rever a conta 18 e as contas 43 por cadeia hierárquica, mantendo a análise de IVA separada.
+- [x] Corrigir o parecer documental e decidir a activação apenas depois da nova reconciliação comprovada.

@@ -1,79 +1,84 @@
-# Avaliação do plano de contas fornecido
+# Reavaliação do plano de contas fornecido
 
 **Projecto:** BALANCERTS.ERP  
 **Documento analisado:** `pasted_content_3.txt`, 1 300 linhas  
-**Data da avaliação:** 23 de Agosto de 2026  
-**Resultado:** **NÃO APROVADO PARA IMPORTAÇÃO OU ACTIVAÇÃO AUTOMÁTICA**
+**Data:** 23 de Agosto de 2026  
+**Estado:** **REAVALIAÇÃO CORRIGIDA — NÃO ACTIVAR EM MASSA NESTA FASE**
 
 > Este parecer é uma análise técnica de conformidade para o software. A validação fiscal definitiva deve ser confirmada por contabilista certificado ou consultor fiscal angolano antes de qualquer utilização declarativa.
 
-## 1. Conclusão executiva
+## 1. Correcção da análise anterior
 
-O documento pode ser utilizado como **proposta de reconciliação e material de trabalho**, mas não pode substituir directamente o catálogo normativo actual. Foram encontrados conflitos impeditivos: códigos repetidos com designações diferentes, diferenças de representação que não são resolvidas apenas pela remoção dos pontos, correspondências incompatíveis com o catálogo actual e uma divergência de autoridade normativa para o IVA.
+A análise anterior classificou incorrectamente níveis de uma mesma árvore como duplicações. Essa conclusão não é válida para o modelo do PGCA. Códigos como `43`, `43.1`, `43.1.1` e `43.1.1.001` podem representar níveis sucessivos de uma cadeia Classe → Conta → Subconta → Conta analítica/movimentável → Extensão analítica.
 
-Por esse motivo, **não foram alteradas contas, designações, estados de confirmação, regras de movimentação, dados de empresas, schema ou permissões**. Também não foram activadas as 733 contas pendentes. Esta decisão preserva a política `CONFIRMED_ONLY` e evita contaminar o histórico contabilístico.
+O comparador foi corrigido para reconhecer o nível pelo número de segmentos e para aceitar relações pai-filho. Depois da correcção, o documento apresenta 723 entradas, 713 códigos distintos e apenas um pai estrutural em falta (`37.9` para `37.9.1`), não os 25 pais inicialmente reportados. O bloco `43` é uma hierarquia coerente: `43 — Depósitos à ordem` → `43.1 — Moeda nacional` → `43.1.1`/`43.1.2 — Banco`; as designações `Banco X` e `Banco Y` aparecem posteriormente em secções explicitamente identificadas como exemplos de parametrização empresarial, não como segunda definição normativa.
 
-## 2. Estado actual confrontado
+## 2. Estado actual do BALANCERTS.ERP
 
-| Elemento | Estado no BALANCERTS.ERP |
+| Elemento | Estado |
 |---|---:|
-| Contas no catálogo normativo | 760 |
-| Contas confirmadas por evidência primária e revisão humana | 27 |
-| Contas pendentes de confirmação | 733 |
-| Regras de movimentação contabilística activas | 0 |
+| Contas catalogadas | 760 |
+| Confirmadas com evidência primária e revisão humana | 27 |
+| Pendentes de confirmação | 733 |
+| Regras de movimentação confirmadas e activas | 0 |
 | Política de activação | `CONFIRMED_ONLY` |
 
-A comparação foi feita contra `docs/normative-catalog-complete-review.json`, que identifica o Decreto n.º 82/01 como fonte PGCA e a Lei n.º 14/23 como fonte fiscal de IVA no catálogo actual.
+As 733 contas pendentes não são necessariamente contas erradas. São candidatos provenientes de extracção, material auxiliar ou estrutura ainda não submetida a confirmação visual integral. Portanto, o estado `PENDING` não deve ser substituído automaticamente pelo conteúdo do ficheiro fornecido.
 
-## 3. Bloqueadores encontrados
+## 3. Resultado da reconciliação hierárquica
 
-| Classificação | Localização no documento fornecido | Constatação | Risco | Decisão |
-|---|---|---|---|---|
-| **BLOQUEADOR** | Linhas 512, 984 e 1 001 | O código `43.1.1` aparece três vezes: `Banco`, `Banco X` e `Banco X`. | Não existe chave normativa única; uma importação pode substituir ou duplicar contas e afectar lançamentos. | Não importar. |
-| **BLOQUEADOR** | Linhas 509–513 e 978–986 | `43`, `43.1` e `43.1.2` reaparecem em blocos diferentes, com `Banco`, `Banco X` e `Banco Y`. | A hierarquia e a finalidade da conta ficam ambíguas. | Não importar. |
-| **BLOQUEADOR** | Linhas 163–177 | `18.1`, `18.2` e `18.3` são reutilizados para níveis hierárquicos diferentes: por exemplo, `18.1` é apresentado como `Imobilizações corpóreas` e também como `Terrenos e recursos naturais`. | O mesmo código não pode representar simultaneamente conta-pai e conta de outra natureza. | Não importar. |
-| **BLOQUEADOR** | Secções de IVA, linhas 6, 34 e 343 | O documento trata o Decreto Presidencial n.º 180/19 como base específica do IVA, enquanto o catálogo actual está associado à Lei n.º 14/23, que alterou o Código do IVA e inclui o artigo 19.º vigente no dossier do projecto. | Activar estrutura ou taxas com fonte desactualizada pode produzir parametrização fiscal incorrecta. | Não activar IVA; exige versão normativa reconciliada. |
+| Verificação | Resultado | Interpretação |
+|---|---:|---|
+| Entradas reconhecidas no documento | 723 | Estrutura analisável, incluindo contas e exemplos documentais. |
+| Códigos distintos | 713 | A diferença corresponde a repetições exactas ou exemplos reutilizados. |
+| Relações pai-filho legítimas | Presentes | `43 → 43.1 → 43.1.1 → 43.1.1.001` é compatível com a hierarquia descrita no próprio documento. |
+| Pais ausentes | 1 | `37.9.1` aparece sem `37.9`; deve ser completado ou justificado antes da importação. |
+| Colisões exactas com designações diferentes | 5 códigos | `18.1`, `18.2`, `18.3`, `43.1.1` e `43.1.2`; os três primeiros são colisões dentro da secção normativa da conta 18; os dois últimos são uma definição normativa e exemplos empresariais em secções diferentes. |
 
-## 4. Problemas altos
+### 3.1 Conta 18
 
-### 4.1 Representação dos códigos
+Na secção da conta 18, o documento repete efectivamente os códigos `18.1`, `18.2` e `18.3` com designações diferentes no mesmo ramo textual. Por exemplo, `18.1` aparece como `Imobilizações corpóreas` e como `Terrenos e recursos naturais`; `18.2` aparece como `Edifícios e outras construções` e como `Imobilizações incorpóreas`; `18.3` aparece como `Equipamento básico` e como `Investimentos financeiros em imóveis`.
 
-O documento usa códigos com pontos, como `11.1.1`, enquanto o catálogo actual contém códigos compactos, como `111`. A remoção dos pontos pode ser usada apenas como técnica preliminar de comparação, nunca como prova de equivalência. Depois da normalização, o documento possui 706 códigos distintos e o catálogo possui 670 códigos distintos; a diferença não é uma simples conversão de formato.
+Isto pode ser erro de transcrição, omissão de um nível (`18.1.1`, por exemplo), mistura de extractos ou reorganização que precisa de prova visual. Não deve ser corrigido por inferência. A própria extracção OCR do Decreto n.º 82/01 no projecto contém ruído nesta zona, e o catálogo actual mantém estes descendentes como `NEEDS_HUMAN_CONFIRMATION`.
 
-Foram também encontradas designações incompatíveis após normalização. Exemplos incluem `11.1 → 111`, `11.2 → 112`, `11.3 → 113`, `12.1 → 121`, `19.1 → 191`, `21.1 → 211` e `31.2 → 312`. Em vários casos, o catálogo actual contém texto OCR contaminado, pelo que a correspondência textual automática não é autoridade suficiente.
+**Classificação:** conflito localizado **ALTO** para a secção 18; não bloqueia a utilização do resto da árvore como material de reconciliação, mas bloqueia a activação automática desses códigos.
 
-**Decisão:** não substituir designações nem promover contas por correspondência de código normalizado.
+### 3.2 Conta 43
 
-### 4.2 Extensões reservadas
+A leitura corrigida confirma que `43 → 43.1 → 43.1.1/43.1.2` é uma hierarquia válida no documento. O texto também declara que os nomes específicos dos bancos devem ser parametrizados pela empresa mantendo o código-pai normativo. O exemplo posterior `Banco X`, `Banco Y` e as extensões `43.1.1.001`/`43.1.1.002` não deve ser confundido com nova definição do plano normativo.
 
-O marcador `RESERVED_PGC_EXTENSION` é compatível com o princípio de não invenção somente enquanto estado **não movimentável**, pendente de parametrização autorizada e de evidência adequada. Não pode ser convertido em designação concreta, regra de débito/crédito ou conta operacional apenas porque aparece no documento.
+**Classificação:** sem conflito hierárquico; a parametrização empresarial deve continuar separada do nome normativo e sujeita a ACL, auditoria e confirmação da empresa.
 
-**Decisão:** preservar como extensão reservada e não activar.
+## 4. IVA e fonte normativa
 
-### 4.3 IVA não é apenas um subplano contabilístico
+O documento fornecido exige correctamente um motor fiscal separado, cadastro por código fiscal, imposto, regime, taxa, base, conta contabilística, vigência, fonte e versão, e determina que alterações fiscais não reescrevam históricos. Esta parte é arquitecturalmente compatível com o BALANCERTS.ERP.
 
-O documento exige, nas linhas 1 155–1 171, um cadastro fiscal com código fiscal, imposto, regime, taxa, base, conta contabilística, vigência, fonte e versão. Essa exigência é coerente com a separação entre motor fiscal e motor contabilístico, mas o próprio documento não fornece uma tabela completa e validada que ligue cada operação, regime e taxa a contas de IVA vigentes.
+Permanece, contudo, uma questão de fonte que impede a activação automática de regras IVA: o documento menciona o Decreto Presidencial n.º 180/19 como referência, enquanto o catálogo normativo actual utiliza a Lei n.º 14/23 para o Código do IVA e para o artigo 19.º. O dossier oficial do projecto apresenta no artigo 19.º as taxas de 14%, 7%, 5% e 1%, com condições específicas para alguns regimes. Uma taxa ou ligação conta-fiscal não deve ser activada apenas a partir do nome `34.5 — IVA`.
 
-O OCR do dossier oficial do projecto identifica a Lei n.º 14/23, de 28 de Dezembro, como lei de alteração ao Código do IVA e reproduz no artigo 19.º as taxas de 14%, 7%, 5% e 1%, com condições específicas para algumas taxas. Assim, a simples presença de `34.5 — IVA` não autoriza a criação de subcontas, taxas ou regras automáticas.
+**Classificação:** **ALTO** para regras fiscais; não é uma rejeição da estrutura da conta 34.5, mas exige uma matriz de vigência e prevalência normativa que explique a relação entre diplomas, alterações e regras actualmente aplicáveis.
 
-**Decisão:** manter a estrutura IVA em revisão humana; não activar taxas ou movimentos com base exclusiva no documento fornecido.
+## 5. Extensões e contas movimentáveis
 
-## 5. O que é compatível e pode ser aproveitado
+`RESERVED_PGC_EXTENSION` pode ser mantido como marcador de estrutura reservada. Não pode ser transformado em conta movimentável, designação concreta ou regra de débito/crédito sem evidência primária e confirmação humana.
 
-A política de não invenção, a criação de pendência `ACCOUNT_NOT_CONFIGURED`, o estado `RESERVED_PGC_EXTENSION`, a proibição de contas genéricas artificiais, a preservação de lançamentos históricos, a versionação normativa, a vigência, a proveniência e a exigência de auditoria estão alinhadas com a arquitectura actual do BALANCERTS.ERP.
+A distinção entre conta sintética e conta movimentável descrita no documento é compatível com o simulador e com o motor contabilístico existente. Uma conta com filhos movimentáveis não deve receber lançamentos apenas por estar presente na árvore; a decisão deve depender da configuração normativa confirmada.
 
-Também é compatível a regra de que os módulos operacionais enviam a operação ao Motor Contabilístico e não escrevem directamente nas tabelas contabilísticas. Contudo, essa compatibilidade arquitectural não valida automaticamente os códigos e designações do anexo.
+## 6. Decisão de implementação
 
-## 6. O que não foi implementado
+A correcção desta análise **não autoriza a importação cega das 713 linhas distintas nem a substituição das 733 contas pendentes**. Existem conflitos localizados na conta 18, um pai estrutural a justificar (`37.9`) e uma reconciliação de fonte IVA ainda necessária.
 
-Não foram importadas nem activadas as 733 contas pendentes. Não foram alterados o catálogo actual, as 27 confirmações existentes, as contas de IVA, as regras de movimentação, o schema, a base de dados, as permissões, os routers, as interfaces ou os lançamentos históricos. Não foi criado qualquer lançamento arbitrário ou conta genérica para contornar as divergências.
+Não foram alterados dados normativos, estados, contas, regras de movimentação, schema, permissões, routers, interfaces ou históricos. Não foi criado qualquer lançamento. As 27 contas já confirmadas e as 733 pendentes permanecem exactamente sob a política `CONFIRMED_ONLY`.
 
-## 7. Próxima correcção necessária
+O que pode ser aproveitado sem conflito é o **modelo de árvore e os exemplos hierárquicos**, especialmente `43 → 43.1 → 43.1.1 → 43.1.1.001`, desde que os exemplos empresariais não sejam gravados como designações normativas. A conta 18 e o IVA devem permanecer na fila de reconciliação e confirmação humana.
 
-Antes de uma nova importação, o documento deve ser corrigido para conter uma linha única por código, o formato canónico de código definido pelo catálogo, a designação literal confirmada na fonte primária, o código-pai inequívoco, o estado de movimentabilidade, as páginas da fonte, o hash da fonte, a versão normativa, a vigência e, para IVA, o regime, a taxa, a base, a conta associada e o artigo legal aplicável.
+## 7. Acções necessárias antes da implementação
 
-Depois disso, cada lote deverá passar pela fila de revisão humana. Apenas contas confirmadas visualmente e sem conflitos poderão ser promovidas a `CONFIRMED`; as regras de movimentação permanecerão bloqueadas até existir prova primária integral de natureza, débitos, créditos e contrapartidas.
+O documento deve ser normalizado por contexto: conta normativa, exemplo de parametrização empresarial e extensão analítica devem ser tipos distintos. A secção 18 deve ser confrontada página a página com a fonte primária para determinar se os códigos incompletos são erros de transcrição ou níveis efectivamente previstos. O código `37.9` deve ser localizado ou justificado. Para IVA, deve ser criada uma matriz de regra, taxa, regime, artigo, vigência, fonte e prioridade entre diplomas.
+
+Depois da correcção, os itens podem entrar na fila de revisão humana. Só contas com código, designação, nível, pai, página, fonte, hash e evidência visual inequívocos poderão ser promovidas a `CONFIRMED`; regras de movimentação continuam a exigir prova integral de débitos, créditos e contrapartidas.
 
 ## Parecer final
 
-**NÃO APROVADO para importação directa, substituição do catálogo ou activação de contas e regras.** O documento é aproveitável como proposta de reconciliação, mas contém conflitos de códigos e designações e uma divergência de referência normativa do IVA. A implementação segura, neste momento, consiste em preservar o estado actual e encaminhar os itens para correcção documental e confirmação humana.
+**APROVADO COM RESSALVAS para reconciliação estrutural e preparação em rascunho. NÃO APROVADO para activação normativa ou fiscal em massa.**
+
+A observação do utilizador está correcta: `43`, `43.1`, `43.1.1` e extensões filhas não são, por si só, duplicações. A análise anterior foi corrigida. Permanecem apenas os conflitos localizados da secção 18, a justificação de `37.9` e a necessidade de reconciliar a autoridade/vigência das regras de IVA com a Lei n.º 14/23 antes de qualquer activação.
