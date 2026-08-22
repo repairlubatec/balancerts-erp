@@ -2670,3 +2670,6 @@
 - [ ] Conferir visualmente e literalmente as regras de movimentação de imobilizado no PDF PGCA
 - [ ] Conferir visualmente e literalmente as regras de movimentação de tesouraria no PDF PGCA
 - [ ] Conferir visualmente e literalmente as regras de movimentação de capital próprio no PDF PGCA
+- [ ] Rever visualmente páginas adicionais dos esquemas de tesouraria, incluindo contas 42, 43, 44, 45 e 49
+- [ ] Rever visualmente páginas adicionais dos esquemas da conta 52 — Acções / Quotas Próprias
+- [ ] Reclassificar como elegíveis apenas as regras cuja imagem seja legível e literalmente confirmada
