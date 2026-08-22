@@ -60,3 +60,55 @@ A página 244 apresenta a movimentação da **conta 57 — Reservas com fins esp
 Para a **conta 58 — Reservas livres**, o texto indica crédito por contrapartida da **conta 81.12 — Resultados transitados / Aplicação de resultados**, no âmbito da aplicação do resultado, ou da **conta 56 — Reservas de reavaliação** no âmbito da realização destas. Indica débito por contrapartida da **conta 51 — Capital**, no âmbito de eventual aumento de capital, ou da **conta 81 — Resultados transitados**, no âmbito da cobertura de prejuízos.
 
 **Estado:** OCR preliminar; a leitura visual e a normalização de referências como `81.2`/`81.12` são obrigatórias antes de confirmação ou parametrização automática.
+
+## Evidência OCR — página 250, Classe 6
+
+A página 250 apresenta critérios de reconhecimento de rédito em situações de devolução limitada, consignação, vendas a intermediários, entrega condicionada ao pagamento final, vendas a prestações e assinaturas. Na secção “Movimentação”, referencia as contas **61.1 a 61.4, 61.7 e 61.8** e remete expressamente para o esquema “Venda (com descontos e devoluções) e recebimento” da conta **31.1 — Clientes-correntes**. Esta remissão deve ser preservada: não é correcto inventar um esquema autónomo quando a própria fonte remete para outra conta.
+
+**Estado:** regra de reconhecimento e remissão documental identificadas; os lançamentos concretos devem ser conferidos visualmente nas páginas do esquema da conta 31.1 antes de parametrização.
+
+## Evidência OCR — página 247, Classe 6
+
+A página 247 define a **conta 61 — Vendas** como destinada a registar o rédito proveniente da venda de bens. A estrutura apresentada é: **61.1 — Produtos acabados e intermédios**; **61.2 — Sub-produtos, desperdícios, resíduos e refugos**; **61.3 — Mercadorias**; **61.4 — Embalagens de consumo**; **61.5 — Subsídios a preços**; **61.7 — Devoluções**; **61.8 — Descontos e abatimentos**; e **61.9 — Transferência para resultados operacionais**. A mesma página indica que os proveitos devem ser reconhecidos quando exista aumento de benefícios económicos futuros relacionado com aumento de activo ou diminuição de passivo e quando seja possível quantificação fiável, com grau suficiente de certeza.
+
+**Estado:** transcrição OCR preliminar; confirmar acentos, numeração e esquema de contrapartidas no original visual.
+
+## Evidência OCR — página 254, Classe 6
+
+A página 254 trata do reconhecimento de rédito de serviços, incluindo honorários de serviços incluídos no preço dos bens, comissões de publicidade, bilhetes de admissão, propinas de ensino e quotas de iniciação/entrada/associativismo. Na secção “Movimentação”, referencia as contas **62.1 a 62.8** e remete para o esquema “Venda (com descontos e devoluções) e recebimento” da conta **31.1 — Clientes — correntes**, com as adaptações necessárias. Para o fecho de contas, remete para a subconta **62.9**. A **conta 62.1 — Serviços principais** é descrita como destinada às prestações de serviço executadas a título principal no âmbito da actividade da entidade.
+
+**Estado:** transcrição preliminar e remissão documental identificadas; não criar uma regra de posting autónoma enquanto o esquema da conta 31.1 não estiver visualmente confirmado.
+
+## Evidência OCR — página 256, Classe 6
+
+A página 256 identifica a **conta 63 — Outros proveitos operacionais**, subdividida em **63.1 — Serviços suplementares**, **63.2 — Royalties**, **63.3 — Subsídios à exploração**, **63.4 — Subsídios a investimento**, **63.8 — Outros proveitos e ganhos operacionais** e **63.9 — Transferência para resultados operacionais**. As subcontas, excepto 63.9, são creditadas por débito de diversas contas conforme a natureza da operação. Para 63.1 e 63.2, o texto indica como contrapartidas caixa/depósitos à ordem (**43.x / 45.x**) quando recebidos a pronto, a conta de terceiros **31 — Clientes** quando facturados a crédito, ou **37.3 — Proveitos a facturar** no âmbito da especialização do exercício. Para 63.3 e 63.4, a fonte remete para as movimentações das contas 34 e 37.6, respectivamente.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente as subcontas e referências antes de qualquer parametrização.
+
+## Evidência OCR — página 263, Classe 6
+
+A página 263 estabelece que as subcontas da **conta 66 — Proveitos e ganhos financeiros gerais** são creditadas por débito de diversas contas conforme a natureza da subconta. As contrapartidas possíveis incluem **43/45 — Depósitos à ordem e caixa** quando o proveito é recebido no momento; uma conta da **Classe 3 — Terceiros** quando o recebimento não é a pronto ou regulariza uma conta de terceiros; as contas **19** e/ou **49** para reposições de provisões; **37.3 — Proveitos a facturar** para proveitos do próprio exercício ainda sem documentação vinculativa; e **37.6 — Proveitos a repartir por períodos futuros** quando a documentação foi registada no ano anterior e o proveito é reconhecido no exercício corrente. A página 263 identifica ainda a **conta 66.1 — Juros** e subcontas de investimentos financeiros, juros de mora, desconto de títulos e aplicações de tesouraria.
+
+**Estado:** transcrição OCR preliminar da obra auxiliar; confirmar a numeração e o sentido dos esquemas na página visual antes da utilização operacional.
+
+## Evidência OCR — página 267, Classe 6
+
+A página 267 indica que as subcontas da **conta 67 — Proveitos e ganhos financeiros em filiais e associadas** são creditadas por débito de diversas contas conforme a situação. A **conta 67.1 — Rendimentos de participação de capital** regista dividendos e lucros recebidos de empresas subsidiárias e associadas e subdivide-se em **67.1.1 — Subsidiárias** e **67.1.2 — Associadas**. A fonte remete a movimentação para a conta **35.2 — Lucros atribuídos e seu recebimento**. A **conta 67.9 — Transferência para resultados financeiros** recebe o saldo de 67.1 por débito de 67.1 e transfere-o posteriormente para **84.1 — Resultados financeiros em filiais e associadas — Proveitos e ganhos financeiros em filiais e associadas**.
+
+A mesma página inicia a **conta 68 — Outros proveitos e ganhos não operacionais**, destinada a factos ou acontecimentos de natureza corrente com carácter não recorrente ou não frequente. Quando envolvem custos e proveitos, a rubrica regista ambos se o efeito líquido for credor.
+
+**Estado:** transcrição OCR preliminar; requer confirmação visual dos esquemas e numeração antes da parametrização.
+
+## Evidência OCR — página 268, Classe 6
+
+A página 268 estrutura a **conta 68 — Outros proveitos e ganhos não operacionais** em: **68.1 — Reposição de provisões**; **68.2 — Anulações de amortizações extraordinárias**; **68.3 — Ganhos em imobilizações**; **68.4 — Ganhos em existências**; **68.5 — Recuperação de dívidas**; **68.6 — Benefícios de penalidades contratuais**; **68.8 — Descontinuidade de operações**; **68.9 — Alterações de políticas contabilísticas**; **68.10 — Correcções relativas a exercícios anteriores**; **68.11 — Outros ganhos e perdas não operacionais**; e **68.19 — Transferência para resultados não operacionais**.
+
+A conta é apresentada nos resultados não operacionais, conjuntamente com a conta 78, sendo a rubrica o saldo credor da conta 68 abatido do saldo devedor da conta 78. As subcontas de 68 são creditadas por débito de diversas contas conforme a natureza: **43/45** para recebimento imediato; uma conta da Classe 3 quando o recebimento é diferido; uma conta de existências para ganhos em existências; **18** para anulação de amortizações extraordinárias; **29, 38 e 39** para reposição de provisões; e **37.2 — Vendas de imobilizado** para ganhos em imobilizações. O fecho remete para a subconta **68.19**.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente os esquemas e a grafia oficial antes de qualquer uso operacional.
+
+## Confirmação visual — páginas 238 e 247
+
+A visualização directa da página 238 confirma o título **CONTA 51 — CAPITAL**, a apresentação no conjunto do capital próprio e o diagrama de subscrição, redução e aumento de capital. Confirma ainda a estrutura seguinte da conta 52: **52.1 — Valor nominal**, **52.2 — Descontos** e **52.3 — Prémios**. A página 247 confirma visualmente o título **CONTA 61 — VENDAS** e as subcontas: **61.1 — Produtos acabados e intermédios**; **61.2 — Sub-produtos, desperdícios, resíduos e refugos**; **61.3 — Mercadorias**; **61.4 — Embalagens de consumo**; **61.5 — Subsídios a preços**; **61.7 — Devoluções**; **61.8 — Descontos e abatimentos**; **61.9 — Transferência para resultados operacionais**.
+
+Estas duas páginas são evidência visual da obra auxiliar fornecida, não substituem a confirmação na fonte primária do Decreto n.º 82/01.
