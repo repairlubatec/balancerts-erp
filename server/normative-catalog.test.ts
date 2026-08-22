@@ -16,6 +16,14 @@ describe("catálogo integral PGCA/IVA", () => {
     expect(catalog.summary.ivaTotalRules).toBe(9);
     expect(catalog.summary.ivaConfirmed).toBe(2);
     expect(catalog.summary.ivaNeedsHumanConfirmation).toBe(7);
+    const article19 = catalog.ivaRules.find((r: { id: string }) => r.id === "IVA-14-23-ART19-GERAL");
+    expect(article19.rateTiers).toEqual(expect.arrayContaining([
+      expect.objectContaining({ regime: "GERAL", rate: 0.14 }),
+      expect.objectContaining({ regime: "SIMPLIFICADO", rate: 0.07 }),
+      expect.objectContaining({ regime: "HOTELARIA_RESTAURACAO", rate: 0.07 }),
+      expect.objectContaining({ regime: "BENS_ALIMENTARES_INSUMOS_AGRICOLAS", rate: 0.05 }),
+      expect.objectContaining({ regime: "CABINDA_ESPECIAL", rate: 0.01 }),
+    ]));
     expect(catalog.pgcaAccounts.every((a: { status: string }) => ["CONFIRMED", "NEEDS_HUMAN_CONFIRMATION"].includes(a.status))).toBe(true);
     expect(catalog.ivaRules.every((r: { status: string }) => ["CONFIRMED", "NEEDS_HUMAN_CONFIRMATION"].includes(r.status))).toBe(true);
   });
