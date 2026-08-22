@@ -2708,3 +2708,9 @@
 - [x] Formalizar o lote de contas visualmente legíveis e conferidas, com fonte, páginas, hash e estado CONFIRMED.
 - [x] Registar que não existem movimentos CONFIRMED quando faltar correspondência integral na fonte primária.
 - [x] Testar a confirmação restrita e guardar checkpoint sem activar regras não comprovadas.
+
+
+# Análise do novo documento PGCA
+- [x] Ler integralmente o novo documento, distinguindo conteúdo literal do diploma de interpretações e recomendações de ERP.
+- [x] Confrontar as contas e movimentos propostos com o diploma, o catálogo visual e o dossier de evidência.
+- [x] Produzir parecer sobre itens confirmáveis, pendentes, conflituantes e eventual implementação posterior.
