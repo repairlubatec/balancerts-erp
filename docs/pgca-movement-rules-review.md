@@ -204,3 +204,9 @@ A página 182 identifica a **conta 25 — Sub-produtos, desperdícios, resíduos
 A página 184 apresenta movimentos das contas **26.1** e **26.2** para saídas de armazém sem venda, ofertas e amostras, perdas em existências e sinistros. Os esquemas indicam contrapartidas em **75.6**, **78.4.1** e **79.4**, conforme a natureza do movimento. Também apresenta a reclassificação de mercadoria para mercadorias em poder de terceiros, relacionando **26.1/26.2** e **26.9**, com posterior crédito de 26.9 por débito da conta 71 no caso de vendas ou por débito da conta 26.x no retorno ao armazém. A fonte remete ainda para a conta 21 quanto ao apuramento do custo de aquisição, transferência para armazém, saídas de armazém e apuramento do CMVMC.
 
 **Estado:** transcrição OCR preliminar; confirmar visualmente as contas 26.x e as contrapartidas antes da parametrização.
+
+## Evidência OCR — página 186, Classe 2
+
+A página 186 apresenta a aquisição de existências ainda não recepcionadas/em trânsito e identifica a **conta 28 — Adiantamentos por conta de compras**, destinada a registar adiantamentos relativos a compras com preço previamente fixado. A estrutura começa por **28.1 — Matérias-primas e outros materiais** e **28.2 — Mercadorias**. O texto relaciona a factura e a recepção/conferência com a conta 32.8 e a conta 32.1 — Fornecedores, e indica que, após apuramento do custo de aquisição, 21.1/21.2 são creditadas por débito da conta 22 ou 26 respectiva.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente as subcontas restantes e as contas exactas do esquema antes da parametrização.
