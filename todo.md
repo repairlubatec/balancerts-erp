@@ -2726,3 +2726,9 @@
 - [x] Implementar upload seguro de evidências primárias para classes e contas pendentes, com metadados, hash e estado de revisão.
 - [x] Integrar formulário e fila de evidências no painel PGCA sem confirmação ou activação automática.
 - [x] Adicionar validações, auditoria, testes de permissões e verificação visual do fluxo de submissão.
+
+
+# Protótipo do motor contabilístico PGCA
+- [x] Desenhar protótipo desktop do motor contabilístico baseado no documento PGCA analisado.
+- [x] Destacar natureza de conta, comportamento do saldo, lançabilidade e estado normativo sem inventar regras.
+- [x] Adicionar testes e validação visual do protótipo sem activar posting automático não confirmado.
