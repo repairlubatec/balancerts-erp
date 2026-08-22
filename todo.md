@@ -2635,7 +2635,7 @@
 - [x] Catalogar integralmente a árvore PGCA por lotes com código, designação literal, hierarquia, página, fonte e hash
 - [x] Catalogar integralmente as regras IVA da Lei n.º 14/23 com artigo, regra, taxa/regime, vigência, anexos e fonte
 - [ ] Executar confirmação humana das contas e regras, separando CONFIRMED, NEEDS_REVIEW, CONFLICT e REJECTED
-- [ ] Activar apenas contas/regras CONFIRMED, com auditoria, versionamento e testes de não-regressão
+- [x] Activar apenas contas/regras CONFIRMED, com auditoria, versionamento e testes de não-regressão
 - [x] Aplicar validação estrita do modelo angolano: fonte primária, designação literal, hierarquia comprovada e nenhuma inferência
 - [x] Solicitar/seleccionar explicitamente o primeiro lote PGCA/IVA antes de qualquer confirmação humana persistida
 - [x] Executar pesquisa autónoma contínua das fontes PGCA/IVA oficiais e actualizar a classificação de evidência sem depender de confirmação por lote
