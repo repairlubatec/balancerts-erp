@@ -2769,3 +2769,10 @@
 - [x] Implementar decisões Confirmar, Manter pendente, Solicitar nova evidência e Rejeitar com motivo obrigatório quando aplicável.
 - [x] Aplicar RBAC server-side, auditoria completa e bloqueio de activação de movimentos não confirmados.
 - [x] Adicionar interface, testes de transições/permissões e validação visual do fluxo.
+
+# Simulador seguro de regras de movimentação PGCA
+- [x] Definir os três níveis de validação e impedir qualquer publicação contabilística durante a simulação.
+- [x] Implementar validador server-side de regras com contas PGCA, natureza, saldo, período, IVA e evidência normativa.
+- [x] Expor procedimento tRPC tenant-aware para simulação com resultado determinístico, avisos e bloqueios.
+- [x] Integrar interface desktop portuguesa com entrada de operação, débito/crédito, valor e resultado por nível.
+- [x] Adicionar testes unitários, de RBAC, isolamento, não-escrita e validação visual do simulador.

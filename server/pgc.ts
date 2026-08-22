@@ -1,6 +1,6 @@
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { getDb, appendAuditEventForUser, createFileAsset } from "./db";
-import { accountingRules, chartAccounts, companies, fileAssets, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions } from "../drizzle/schema";
+import { accountingRules, chartAccounts, companies, fileAssets, fiscalPeriods, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions } from "../drizzle/schema";
 import { randomUUID } from "node:crypto";
 import { angolaNormativeSources } from "./normative";
 
@@ -336,4 +336,88 @@ export async function reviewPgcEvidenceSubmissionForUser(input: { userId: number
   await db.update(pgcEvidenceSubmissions).set({ status: nextStatus, reviewDecision: input.decision, reviewedBy: input.userId, reviewedAt: new Date(), reviewNote: note }).where(eq(pgcEvidenceSubmissions.id, input.submissionId));
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: input.userId, action: "PGC_EVIDENCE_REVIEWED", entityType: "pgcEvidenceSubmission", entityId: String(input.submissionId), beforeState: JSON.stringify({ status: submission.status, reviewDecision: submission.reviewDecision }), afterState: JSON.stringify({ status: nextStatus, reviewDecision: input.decision, reviewNote: note, fileAssetId: submission.fileAssetId, targetCodes: JSON.parse(submission.targetCodes) }), correlationId: submission.correlationId });
   return { submissionId: input.submissionId, status: nextStatus, reviewDecision: input.decision };
+}
+
+
+export type PgcSimulationLevelStatus = "PASS" | "BLOCKED";
+export type PgcSimulationLevel = {
+  code: "STRUCTURAL" | "NORMATIVE" | "OPERATIONAL";
+  label: string;
+  status: PgcSimulationLevelStatus;
+  checks: Array<{ code: string; label: string; status: PgcSimulationLevelStatus; detail: string }>;
+};
+
+export type PgcMovementSimulationInput = {
+  userId: number;
+  organizationId: number;
+  companyId: number;
+  versionId: number;
+  debitAccountId: number;
+  creditAccountId: number;
+  amount: number;
+  operation: string;
+  documentType?: string | null;
+  transactionDate: Date;
+  ivaRate?: number | null;
+  ivaAmount?: number | null;
+};
+
+export function validatePgcMovementSimulationInput(input: Omit<PgcMovementSimulationInput, "userId" | "organizationId" | "companyId" | "versionId" | "debitAccountId" | "creditAccountId"> & { debitAccountId: number; creditAccountId: number }) {
+  if (!Number.isInteger(input.debitAccountId) || input.debitAccountId < 1 || !Number.isInteger(input.creditAccountId) || input.creditAccountId < 1) throw new Error("PGC_SIMULATION_ACCOUNTS_INVALID");
+  if (input.debitAccountId === input.creditAccountId) throw new Error("PGC_SIMULATION_ACCOUNTS_MUST_DIFFER");
+  if (!Number.isFinite(input.amount) || input.amount <= 0 || Math.round(input.amount * 100) !== input.amount * 100) throw new Error("PGC_SIMULATION_AMOUNT_INVALID");
+  if (!input.operation.trim() || input.operation.trim().length > 80) throw new Error("PGC_SIMULATION_OPERATION_INVALID");
+  if (Number.isNaN(input.transactionDate.getTime())) throw new Error("PGC_SIMULATION_DATE_INVALID");
+  if (input.ivaRate != null && (!Number.isFinite(input.ivaRate) || input.ivaRate < 0 || input.ivaRate > 100)) throw new Error("PGC_SIMULATION_IVA_RATE_INVALID");
+  if (input.ivaAmount != null && (!Number.isFinite(input.ivaAmount) || input.ivaAmount < 0 || Math.round(input.ivaAmount * 100) !== input.ivaAmount * 100)) throw new Error("PGC_SIMULATION_IVA_AMOUNT_INVALID");
+  return true as const;
+}
+
+export function buildPgcMovementSimulation(ctx: { debitAccount: { id: number; code: string; name: string; nature: string; validationStatus: string; acceptsEntries: number; active: number }; creditAccount: { id: number; code: string; name: string; nature: string; validationStatus: string; acceptsEntries: number; active: number }; rule: { id: number; operation: string; documentType: string | null; priority: number } | null; versionStatus: string; periodStatus: string | null; input: PgcMovementSimulationInput }) {
+  const structuralChecks = [
+    { code: "AMOUNT_POSITIVE", label: "Valor positivo e com duas casas decimais", status: "PASS" as const, detail: `${ctx.input.amount.toFixed(2)} Kz` },
+    { code: "DOUBLE_ENTRY", label: "Partida dobrada definida", status: "PASS" as const, detail: `${ctx.debitAccount.code} a débito e ${ctx.creditAccount.code} a crédito` },
+    { code: "OPERATION_IDENTIFIED", label: "Operação identificada", status: "PASS" as const, detail: ctx.input.operation.trim() },
+  ];
+  const debitCompatible = ctx.debitAccount.nature === "DEBIT" || ctx.debitAccount.nature === "MIXED";
+  const creditCompatible = ctx.creditAccount.nature === "CREDIT" || ctx.creditAccount.nature === "MIXED";
+  const normativeChecks = [
+    { code: "VERSION_ACTIVE", label: "Versão PGCA activa", status: ctx.versionStatus === "ACTIVE" ? "PASS" as const : "BLOCKED" as const, detail: ctx.versionStatus === "ACTIVE" ? "Versão activa" : `Versão em estado ${ctx.versionStatus}` },
+    { code: "DEBIT_CONFIRMED", label: "Conta a débito confirmada e lançável", status: ctx.debitAccount.validationStatus === "CONFIRMED" && ctx.debitAccount.acceptsEntries === 1 && ctx.debitAccount.active === 1 ? "PASS" as const : "BLOCKED" as const, detail: `${ctx.debitAccount.code} — ${ctx.debitAccount.name}` },
+    { code: "CREDIT_CONFIRMED", label: "Conta a crédito confirmada e lançável", status: ctx.creditAccount.validationStatus === "CONFIRMED" && ctx.creditAccount.acceptsEntries === 1 && ctx.creditAccount.active === 1 ? "PASS" as const : "BLOCKED" as const, detail: `${ctx.creditAccount.code} — ${ctx.creditAccount.name}` },
+    { code: "NATURE_COMPATIBLE", label: "Natureza das contas compatível", status: debitCompatible && creditCompatible ? "PASS" as const : "BLOCKED" as const, detail: `Débito ${ctx.debitAccount.nature}; crédito ${ctx.creditAccount.nature}` },
+    { code: "ACCOUNTING_RULE", label: "Regra contabilística confirmada encontrada", status: ctx.rule ? "PASS" as const : "BLOCKED" as const, detail: ctx.rule ? `Regra #${ctx.rule.id}, prioridade ${ctx.rule.priority}` : "Nenhuma regra activa corresponde à operação e às contas" },
+  ];
+  const operationalChecks = [
+    { code: "PERIOD_OPEN", label: "Período fiscal aberto", status: ctx.periodStatus === "OPEN" || ctx.periodStatus === "REOPENED" ? "PASS" as const : "BLOCKED" as const, detail: ctx.periodStatus ? `Período ${ctx.periodStatus}` : "Período fiscal não encontrado" },
+    { code: "NO_POSTING", label: "Simulação sem publicação", status: "PASS" as const, detail: "Nenhum lançamento foi criado, alterado ou publicado" },
+  ];
+  return {
+    simulationOnly: true as const,
+    canPost: false as const,
+    levels: [
+      { code: "STRUCTURAL" as const, label: "Nível 1 — Estrutural", status: structuralChecks.every((check) => check.status === "PASS") ? "PASS" as const : "BLOCKED" as const, checks: structuralChecks },
+      { code: "NORMATIVE" as const, label: "Nível 2 — Normativo PGCA", status: normativeChecks.every((check) => check.status === "PASS") ? "PASS" as const : "BLOCKED" as const, checks: normativeChecks },
+      { code: "OPERATIONAL" as const, label: "Nível 3 — Operacional", status: operationalChecks.every((check) => check.status === "PASS") ? "PASS" as const : "BLOCKED" as const, checks: operationalChecks },
+    ] satisfies PgcSimulationLevel[],
+    summary: structuralChecks.every((check) => check.status === "PASS") && normativeChecks.every((check) => check.status === "PASS") && operationalChecks.every((check) => check.status === "PASS") ? "SIMULAÇÃO VÁLIDA — pronta para revisão, não para publicação" : "SIMULAÇÃO BLOQUEADA — corrigir os pontos indicados antes de qualquer revisão",
+    plannedMovement: { debit: ctx.debitAccount.code, credit: ctx.creditAccount.code, amount: ctx.input.amount, ivaRate: ctx.input.ivaRate ?? null, ivaAmount: ctx.input.ivaAmount ?? null, operation: ctx.input.operation.trim(), documentType: ctx.input.documentType?.trim() || null, transactionDate: ctx.input.transactionDate },
+  };
+}
+
+export async function simulatePgcMovementForUser(input: PgcMovementSimulationInput) {
+  validatePgcMovementSimulationInput(input);
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const scope = await assertCompanyScope(input.userId, input.companyId);
+  if (scope.company.organizationId !== input.organizationId) throw new Error("PGC_SIMULATION_ORGANIZATION_MISMATCH");
+  const versionRows = await db.select().from(pgcVersions).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId))).limit(1);
+  const version = versionRows[0]; if (!version) throw new Error("PGC_SIMULATION_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  const accountRows = await db.select({ id: pgcAccounts.id, code: pgcAccounts.code, name: pgcAccounts.name, nature: pgcAccounts.nature, validationStatus: pgcAccounts.validationStatus, acceptsEntries: pgcAccounts.acceptsEntries, active: pgcAccounts.active }).from(pgcAccounts).where(and(eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId), inArray(pgcAccounts.id, [input.debitAccountId, input.creditAccountId])));
+  const debitAccount = accountRows.find((account) => account.id === input.debitAccountId); const creditAccount = accountRows.find((account) => account.id === input.creditAccountId);
+  const fallbackAccount = (id: number) => ({ id, code: `ID-${id}`, name: "Conta não encontrada", nature: "NOT_APPLICABLE", validationStatus: "NOT_CONFIRMED", acceptsEntries: 0, active: 0 });
+  const resolvedDebit = debitAccount ?? fallbackAccount(input.debitAccountId); const resolvedCredit = creditAccount ?? fallbackAccount(input.creditAccountId);
+  const ruleRows = await db.select({ id: accountingRules.id, operation: accountingRules.operation, documentType: accountingRules.documentType, priority: accountingRules.priority }).from(accountingRules).where(and(eq(accountingRules.organizationId, input.organizationId), eq(accountingRules.versionId, input.versionId), eq(accountingRules.active, 1), eq(accountingRules.operation, input.operation.trim()), sql`(${accountingRules.companyId} IS NULL OR ${accountingRules.companyId} = ${input.companyId})`, eq(accountingRules.debitAccountId, input.debitAccountId), eq(accountingRules.creditAccountId, input.creditAccountId), sql`(${accountingRules.effectiveFrom} <= ${input.transactionDate})`, sql`(${accountingRules.effectiveTo} IS NULL OR ${accountingRules.effectiveTo} >= ${input.transactionDate})`)).orderBy(accountingRules.priority).limit(20);
+  const rule = ruleRows.find((candidate) => !candidate.documentType || candidate.documentType === (input.documentType?.trim() || null)) ?? null;
+  const period = await db.select({ status: fiscalPeriods.status }).from(fiscalPeriods).where(and(eq(fiscalPeriods.companyId, input.companyId), eq(fiscalPeriods.year, input.transactionDate.getUTCFullYear()), eq(fiscalPeriods.month, input.transactionDate.getUTCMonth() + 1))).limit(1);
+  return buildPgcMovementSimulation({ debitAccount: resolvedDebit, creditAccount: resolvedCredit, rule, versionStatus: version.status, periodStatus: period[0]?.status ?? null, input });
 }

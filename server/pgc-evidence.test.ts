@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata } from "./pgc";
+import { buildPgcMovementSimulation, validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata, validatePgcMovementSimulationInput } from "./pgc";
 
 const validInput = {
   classCode: "2",
@@ -51,5 +51,30 @@ describe("decisões da fila de revisão humana PGCA", () => {
 
   it("recusa qualquer decisão fora do estado em revisão", () => {
     expect(() => validatePgcEvidenceReviewDecision({ status: "PENDING_REVIEW", decision: "CONFIRM", hasPrimaryMetadata: true })).toThrow("PGC_EVIDENCE_REVIEW_REQUIRED");
+  });
+});
+
+describe("simulador seguro de regras de movimentação PGCA", () => {
+  const input = { debitAccountId: 1, creditAccountId: 2, amount: 1000, operation: "COMPRA", transactionDate: new Date("2026-08-22T00:00:00.000Z"), ivaRate: 14, ivaAmount: 140 };
+  const account = (id: number, nature: string, validationStatus = "CONFIRMED") => ({ id, code: id === 1 ? "32" : "41", name: id === 1 ? "Mercadorias" : "Fornecedores", nature, validationStatus, acceptsEntries: 1, active: 1 });
+
+  it("valida os três níveis e mantém canPost sempre falso", () => {
+    const result = buildPgcMovementSimulation({ debitAccount: account(1, "DEBIT"), creditAccount: account(2, "CREDIT"), rule: { id: 7, operation: "COMPRA", documentType: null, priority: 10 }, versionStatus: "ACTIVE", periodStatus: "OPEN", input: { ...input, userId: 1, organizationId: 1, companyId: 1, versionId: 1 } });
+    expect(result.simulationOnly).toBe(true);
+    expect(result.canPost).toBe(false);
+    expect(result.levels.map((level) => level.status)).toEqual(["PASS", "PASS", "PASS"]);
+  });
+
+  it("bloqueia normativamente contas pendentes sem impedir a visualização da simulação", () => {
+    const result = buildPgcMovementSimulation({ debitAccount: account(1, "DEBIT", "NEEDS_NORMATIVE_VALIDATION"), creditAccount: account(2, "CREDIT"), rule: null, versionStatus: "ACTIVE", periodStatus: "OPEN", input: { ...input, userId: 1, organizationId: 1, companyId: 1, versionId: 1 } });
+    expect(result.levels[1].status).toBe("BLOCKED");
+    expect(result.canPost).toBe(false);
+    expect(result.levels[1].checks.some((check) => check.code === "DEBIT_CONFIRMED" && check.status === "BLOCKED")).toBe(true);
+  });
+
+  it("recusa contas iguais, valor inválido e taxa IVA fora do intervalo", () => {
+    expect(() => validatePgcMovementSimulationInput({ ...input, creditAccountId: 1 })).toThrow("PGC_SIMULATION_ACCOUNTS_MUST_DIFFER");
+    expect(() => validatePgcMovementSimulationInput({ ...input, amount: 0 })).toThrow("PGC_SIMULATION_AMOUNT_INVALID");
+    expect(() => validatePgcMovementSimulationInput({ ...input, ivaRate: 101 })).toThrow("PGC_SIMULATION_IVA_RATE_INVALID");
   });
 });
