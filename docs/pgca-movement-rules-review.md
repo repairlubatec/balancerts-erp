@@ -180,3 +180,9 @@ A página 223 identifica a **conta 38 — Provisões para cobranças duvidosas**
 A página 226 apresenta a **conta 39 — Provisões para outros riscos e encargos**. O esquema indica constituição com **39.x** contra **78.1.3.x**, e reposição/reforço envolvendo **68.1.3.x**, **39.x** e **78.1.3.x**. O texto determina saldo credor ou nulo e limita a reposição ao valor total da provisão originária. A estrutura inclui **39.1 — Provisões para pensões**, **39.2 — Provisões para processos judiciais em curso**, **39.3 — Provisões para acidentes de trabalho**, **39.4 — Provisões para garantias dadas a clientes** e **39.9 — Provisões para outros riscos e encargos**.
 
 **Estado:** transcrição OCR preliminar; confirmar visualmente o sentido dos diagramas e o código 78.1.3.x antes de activar regras.
+
+## Evidência OCR — página 209, Classe 3
+
+A página 209 identifica a **conta 35 — Entidades participantes e participadas**, destinada a registar relações de subscrição, adiantamentos sobre lucros, lucros e empréstimos. A estrutura apresentada é **35.1 — Entidades participantes** e **35.2 — Entidades participadas**, associada à conta **38.3 — Provisões para participantes e participadas**. A conta 35 pode surgir no activo ou passivo corrente conforme a natureza do saldo e no activo/passivo não corrente quando a cobrança exceda um ano. O esquema de subscrição e realização de capital relaciona 35.1, 51 e 43.x ou 45.x, admitindo entradas em espécie com contrapartidas adicionais de activos/passivos segundo a operação concreta.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente o esquema e as subcontas exactas antes da parametrização.
