@@ -168,3 +168,15 @@ A página 205 confirma visualmente o esquema de pagamento de imposto: débito em
 A página 232 confirma visualmente a constituição/reforço de depósito a prazo, com débito em **42.x** e crédito em **43.x ou 45.x**, e o encerramento/levantamento com débito em 42.x e crédito em 43.x ou 45.x. Confirma ainda a identificação da **CONTA 43 — DEPÓSITOS À ORDEM** e a regra geral de movimentação por contrapartidas dependentes da natureza da transacção.
 
 Estas confirmações referem-se à obra auxiliar anexada e não equivalem ainda à confirmação na fonte primária do Decreto n.º 82/01.
+
+## Evidência OCR — página 223, Classe 3
+
+A página 223 identifica a **conta 38 — Provisões para cobranças duvidosas** como de natureza credora, destinada a reflectir perdas previsíveis de cobrança e a apresentar os créditos pelo valor realizável líquido quando inferior ao valor inicial. As provisões são criadas por contrapartida das contas de custos e corrigidas/anuladas quando diminuem ou cessam os motivos. A estrutura indicada inclui **38.1 — Provisões para clientes**, **38.2 — Provisões para saldos devedores de fornecedores**, **38.3 — Provisões para participantes e participadas**, **38.4 — Provisões p/ dívidas do pessoal** e **38.9 — Provisões para outras contas a receber**. Para o balanço, reduz a rubrica de contas a receber ou outros activos, corrente ou não corrente conforme a expectativa de cobrança. O esquema inicia a constituição da provisão com a conta 38.x e a respectiva conta de custos.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente o diagrama e os códigos antes da parametrização.
+
+## Evidência OCR — página 226, Classe 3
+
+A página 226 apresenta a **conta 39 — Provisões para outros riscos e encargos**. O esquema indica constituição com **39.x** contra **78.1.3.x**, e reposição/reforço envolvendo **68.1.3.x**, **39.x** e **78.1.3.x**. O texto determina saldo credor ou nulo e limita a reposição ao valor total da provisão originária. A estrutura inclui **39.1 — Provisões para pensões**, **39.2 — Provisões para processos judiciais em curso**, **39.3 — Provisões para acidentes de trabalho**, **39.4 — Provisões para garantias dadas a clientes** e **39.9 — Provisões para outros riscos e encargos**.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente o sentido dos diagramas e o código 78.1.3.x antes de activar regras.
