@@ -10,9 +10,9 @@ describe("Angola normative evidence", () => {
     expect(normativeEvidence("UNKNOWN")).toBeUndefined();
   });
 
-  it("registers D1 sources as pending until human confirmation", () => {
+  it("mantém fontes não confirmadas pendentes e regista a Lei n.º 14/23 confirmada", () => {
     expect(normativeEvidence("PGC-AO-82-01")).toMatchObject({ verificationStatus: "PENDING", url: "https://cnnca.minfin.gov.ao/legislacao/sector-empresarial" });
-    expect(normativeEvidence("LAW-14-23")).toMatchObject({ verificationStatus: "PENDING" });
+    expect(normativeEvidence("LAW-14-23")).toMatchObject({ verificationStatus: "CONFIRMED", url: "https://lex.ao/docs/assembleia-nacional/2023/lei-n-o-14-23-de-28-de-dezembro/" });
     expect(normativeEvidence("AGT-IVA-SAF-T-2025")).toMatchObject({ verificationStatus: "PENDING" });
   });
 
