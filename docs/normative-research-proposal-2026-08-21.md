@@ -87,3 +87,9 @@ A consulta ao CNNCA/MinFin confirmou a área institucional “Legislação → S
 Consulta adicional ao MinFin — 22/08/2026
 
 A tentativa de abrir a notícia oficial do Ministério das Finanças sobre a taxa de IVA falhou por indisponibilidade do receptor do navegador; a extracção pública também não resolveu o endereço. Este resultado não foi tratado como prova normativa e não alterou a regra IVA-14-23-ART19-GERAL nem a fonte Lei n.º 14/23, que continua PENDING. A confirmação fiscal permanece limitada ao PDF recebido e à evidência já catalogada.
+
+Consulta AGT retomada — 22/08/2026
+
+URL oficial consultado: https://agt.minfin.gov.ao/PortalAGT/#!/iva/imposto-sobre-o-valor-acrescentado/o-iva
+
+A página pública “O IVA” apresentou as secções “Regimes do IVA”, “Incidências”, “Isenções”, “Taxas”, “Obrigações Declarativas”, “Obrigação de Pagamento” e “Penalidades”, além dos dados institucionais da AGT. Na vista consultada não foi apresentado o texto integral da Lei n.º 14/23 nem um ficheiro normativo integral. A página foi usada somente para cruzamento de proveniência institucional; não alterou o catálogo, a taxa confirmada ou o estado PENDING da fonte fiscal.
