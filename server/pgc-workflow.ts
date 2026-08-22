@@ -1,6 +1,6 @@
 import { and, eq, sql } from "drizzle-orm";
 import { getDb, appendAuditEventForUser } from "./db";
-import { pgcAccounts, pgcSources, pgcVersions, organizations } from "../drizzle/schema";
+import { accountingRules, pgcAccounts, pgcSources, pgcVersions, organizations } from "../drizzle/schema";
 
 async function accessibleVersion(userId: number, organizationId: number, versionId: number) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
@@ -32,6 +32,31 @@ export async function validatePgcVersionForUser(input: { userId: number; organiz
   await db.update(pgcVersions).set({ status: "VALIDATED" }).where(eq(pgcVersions.id, input.versionId));
   await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_VERSION_VALIDATED", entityType: "pgcVersion", entityId: String(input.versionId), beforeState: JSON.stringify({ status: version.status }), afterState: JSON.stringify({ status: "VALIDATED", accountCount: accounts.length, sourceCount: sources.length }), correlationId: `pgc-version:${input.versionId}` });
   return { versionId: input.versionId, status: "VALIDATED" as const, accountCount: accounts.length, sourceCount: sources.length };
+}
+
+export function getPgcReadinessBlockers(input: { status: string; accountCount: number; confirmedAccountCount: number; sourceCount: number; confirmedSourceCount: number; accountingRuleCount: number }) {
+  const blockers: string[] = [];
+  if (input.status !== "VALIDATED") blockers.push("PGC_VERSION_MUST_BE_VALIDATED");
+  if (input.accountCount === 0) blockers.push("PGC_VERSION_WITHOUT_ACCOUNTS");
+  if (input.confirmedAccountCount !== input.accountCount) blockers.push("PGC_VERSION_HAS_UNVALIDATED_ACCOUNTS");
+  if (input.sourceCount === 0) blockers.push("PGC_VERSION_WITHOUT_SOURCES");
+  if (input.confirmedSourceCount !== input.sourceCount) blockers.push("PGC_VERSION_HAS_UNCONFIRMED_SOURCES");
+  if (input.accountingRuleCount === 0) blockers.push("PGC_VERSION_WITHOUT_ACCOUNTING_RULES");
+  return blockers;
+}
+
+export async function getPgcActivationReadinessForUser(input: { userId: number; organizationId: number; versionId: number }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const version = await accessibleVersion(input.userId, input.organizationId, input.versionId);
+  const [accounts, sources, rules] = await Promise.all([
+    db.select().from(pgcAccounts).where(and(eq(pgcAccounts.versionId, input.versionId), eq(pgcAccounts.organizationId, input.organizationId))),
+    db.select().from(pgcSources).where(and(eq(pgcSources.versionId, input.versionId), eq(pgcSources.organizationId, input.organizationId))),
+    db.select().from(accountingRules).where(and(eq(accountingRules.versionId, input.versionId), eq(accountingRules.organizationId, input.organizationId), eq(accountingRules.active, 1))),
+  ]);
+  const confirmedAccounts = accounts.filter((account) => account.validationStatus === "CONFIRMED");
+  const confirmedSources = sources.filter((source) => source.verificationStatus === "CONFIRMED");
+  const blockers = getPgcReadinessBlockers({ status: version.status, accountCount: accounts.length, confirmedAccountCount: confirmedAccounts.length, sourceCount: sources.length, confirmedSourceCount: confirmedSources.length, accountingRuleCount: rules.length });
+  return { versionId: input.versionId, status: version.status, accountCount: accounts.length, confirmedAccountCount: confirmedAccounts.length, sourceCount: sources.length, confirmedSourceCount: confirmedSources.length, accountingRuleCount: rules.length, ready: blockers.length === 0, blockers };
 }
 
 export async function activatePgcVersionForUser(input: { userId: number; organizationId: number; versionId: number }) {

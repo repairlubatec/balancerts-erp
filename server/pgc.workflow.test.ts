@@ -1,0 +1,16 @@
+import { describe, expect, it } from "vitest";
+import { getPgcReadinessBlockers } from "./pgc-workflow";
+
+describe("PGCA activation readiness", () => {
+  it("blocks an under-review partial version without accounting rules", () => {
+    expect(getPgcReadinessBlockers({ status: "UNDER_REVIEW", accountCount: 20, confirmedAccountCount: 20, sourceCount: 1, confirmedSourceCount: 1, accountingRuleCount: 0 })).toEqual(["PGC_VERSION_MUST_BE_VALIDATED", "PGC_VERSION_WITHOUT_ACCOUNTING_RULES"]);
+  });
+
+  it("blocks unconfirmed accounts and sources", () => {
+    expect(getPgcReadinessBlockers({ status: "VALIDATED", accountCount: 20, confirmedAccountCount: 19, sourceCount: 2, confirmedSourceCount: 1, accountingRuleCount: 3 })).toEqual(["PGC_VERSION_HAS_UNVALIDATED_ACCOUNTS", "PGC_VERSION_HAS_UNCONFIRMED_SOURCES"]);
+  });
+
+  it("reports ready only when all activation prerequisites exist", () => {
+    expect(getPgcReadinessBlockers({ status: "VALIDATED", accountCount: 20, confirmedAccountCount: 20, sourceCount: 1, confirmedSourceCount: 1, accountingRuleCount: 4 })).toEqual([]);
+  });
+});
