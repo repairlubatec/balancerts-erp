@@ -186,3 +186,9 @@ A página 226 apresenta a **conta 39 — Provisões para outros riscos e encargo
 A página 209 identifica a **conta 35 — Entidades participantes e participadas**, destinada a registar relações de subscrição, adiantamentos sobre lucros, lucros e empréstimos. A estrutura apresentada é **35.1 — Entidades participantes** e **35.2 — Entidades participadas**, associada à conta **38.3 — Provisões para participantes e participadas**. A conta 35 pode surgir no activo ou passivo corrente conforme a natureza do saldo e no activo/passivo não corrente quando a cobrança exceda um ano. O esquema de subscrição e realização de capital relaciona 35.1, 51 e 43.x ou 45.x, admitindo entradas em espécie com contrapartidas adicionais de activos/passivos segundo a operação concreta.
 
 **Estado:** transcrição OCR preliminar; confirmar visualmente o esquema e as subcontas exactas antes da parametrização.
+
+## Evidência OCR — página 188, Classe 2
+
+A página 188 identifica a **conta 29 — Provisão para depreciação de existências**, apresentada como redução da rubrica “Existências” no activo corrente ou, excepcionalmente, no activo não corrente. A provisão é valorizada pela diferença entre o custo de aquisição/produção e o valor realizável líquido quando este é inferior. A fonte determina cálculo e registo por tipo de item individualmente. Na constituição, o esquema apresenta **29.x** contra **78.1.1.x**; na reposição/reforço, apresenta **68.1.1.x**, **29.x** e **78.1.1.x**. A conta 29.x deve manter saldo credor ou nulo, e a reposição não pode exceder o valor total da provisão originária.
+
+**Estado:** transcrição OCR preliminar; confirmar visualmente os esquemas e as subcontas antes da parametrização.
