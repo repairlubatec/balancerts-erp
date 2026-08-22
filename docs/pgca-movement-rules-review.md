@@ -228,3 +228,9 @@ A página 181 apresenta o reconhecimento de produção de produtos acabados/inte
 A página 183 confirma a **conta 26 — Mercadorias**, destinada a bens adquiridos para venda sem modificação, sem subdivisão rígida, embora possam ser criadas subcontas por item. Associa-lhe a **29.6 — Provisão para depreciação de existências — Mercadorias**. No balanço, 26 integra existências do activo corrente ou excepcionalmente do activo não corrente. A valorização inicial é ao custo de aquisição; subsequentemente, ao menor entre custo de aquisição e valor realizável líquido. A fonte enumera danos, obsolescência, redução de preços de venda e aumento de custos estimados de venda como circunstâncias relevantes.
 
 **Estado:** transcrição documental preliminar; confirmar visualmente a página e as regras de movimentação remetidas para outros esquemas.
+
+## Evidência OCR — página 185, Classe 2
+
+A página 185 explica que as contas **26.1**, **26.2** e 26.3 a 26.8 podem ser adaptadas por tipo de produto ou localização, apresentando exemplos hierárquicos de electrodomésticos, alimentares, perecíveis e arroz. A **conta 26.9 — Em poder de terceiros** regista mercadorias da entidade sob guarda de terceiros ou em consignação. A página inclui uma nota fiscal sobre emissão de factura de bens à consignação, que deverá ser validada separadamente na fonte fiscal vigente. Inicia ainda a **conta 27 — Matérias-primas, mercadorias e outros materiais em trânsito**, destinada a bens adquiridos ainda não recepcionados cuja factura já foi recebida, subdividida em **27.1 — Matérias-primas**, **27.2 — Outros materiais** e **27.3 — Mercadorias**. A própria fonte recomenda confirmação da edição e do Código do Imposto do Consumo devido ao risco de alteração normativa.
+
+**Estado:** transcrição OCR preliminar; a nota fiscal e a estrutura da conta 27 requerem confirmação visual e normativa independente.
