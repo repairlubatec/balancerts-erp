@@ -3043,3 +3043,7 @@
 
 # Regressão da fila externa na vista inicial
 - [x] Testar que a vista inicial apresenta apenas prontidão fiscal e não “Integrações AGT”.
+
+# Simulador PGCA com operações canónicas
+- [x] Substituir a operação livre do simulador por selecção do catálogo canónico.
+- [x] Testar que o simulador envia apenas operações suportadas e mantém o modo seguro.
