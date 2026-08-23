@@ -2847,3 +2847,9 @@
 - [x] Integrar tooltips por rato e teclado nos gráficos, sem depender apenas da cor.
 - [x] Mostrar o período filtrado e o denominador da percentagem no detalhe estatístico.
 - [x] Adicionar testes de percentagens, arredondamento, estados vazios e validação visual.
+
+# Acção rápida para alertas de alto risco
+- [x] Adicionar botão de detalhes junto aos alertas críticos e de alto risco.
+- [x] Abrir modal somente de leitura com actor, acção, entidade, risco, correlação, período e estados anterior/posterior.
+- [x] Garantir foco, escape, etiquetas acessíveis e preservação do filtro actual.
+- [x] Adicionar testes de abertura, conteúdo, fecho e validação visual.
