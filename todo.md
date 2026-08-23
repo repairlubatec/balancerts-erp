@@ -2841,3 +2841,9 @@
 - [x] Aplicar o intervalo à consulta de logs, métricas, gráficos e exportações.
 - [x] Integrar filtros rápidos, limpar intervalo e indicação do período activo no painel.
 - [x] Adicionar testes de limites, datas inclusivas, UTC, estados vazios e validação visual.
+
+# Tooltips estatísticos do dashboard de auditoria
+- [x] Calcular contagem, percentagem exacta e posição de cada acção e utilizador na amostra filtrada.
+- [x] Integrar tooltips por rato e teclado nos gráficos, sem depender apenas da cor.
+- [x] Mostrar o período filtrado e o denominador da percentagem no detalhe estatístico.
+- [x] Adicionar testes de percentagens, arredondamento, estados vazios e validação visual.
