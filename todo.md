@@ -2999,3 +2999,12 @@
 
 # Mapa de integração PGCA por módulo
 - [x] Documentar a cobertura interna já existente por fluxo e os bloqueios que permanecem externos.
+
+# Preparação do destino isolado de restauro
+- [ ] Disponibilizar RESTORE_DATABASE_URL de uma base MySQL/TiDB isolada, com utilizador restrito.
+- [ ] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino.
+- [ ] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro.
+- [ ] Validar o destino sem contactar ou alterar a base de produção.
+
+# Continuação sem restauro externo
+- [x] Seleccionar e concluir a próxima melhoria interna disponível, mantendo o destino MySQL/TiDB isolado pendente.
