@@ -2359,6 +2359,15 @@ const pgcHighRiskActions = new Set(["PGC_VERSION_ACTIVATED", "ACCOUNTING_RULE_CR
 function isPgcHighRiskEvent(event: { action: string; beforeState?: string | null; afterState?: string | null }) {
   return pgcHighRiskActions.has(event.action) || Boolean(event.beforeState && event.afterState && event.beforeState !== event.afterState);
 }
+export async function getPgcDashboardAlertEventsForUser(input: { userId: number; organizationId: number; companyId: number; auditEventIds: number[]; status: "ALL" | "OPEN" | "REVIEWED" | "RESOLVED" }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId });
+  const eventIds = Array.from(new Set(input.auditEventIds)).slice(0, 100);
+  if (!eventIds.length) return [];
+  const rows = await db.select({ event: auditEvents, actor: { id: users.id, name: users.name, email: users.email }, companyName: companies.name, reviewState: auditEventReviewStates }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).leftJoin(users, eq(auditEvents.actorUserId, users.id)).leftJoin(companies, eq(auditEvents.companyId, companies.id)).leftJoin(auditEventReviewStates, eq(auditEvents.id, auditEventReviewStates.auditEventId)).where(and(eq(auditEvents.organizationId, input.organizationId), eq(auditEvents.companyId, input.companyId), inArray(auditEvents.id, eventIds), organizationAccessCondition(input.userId))).orderBy(desc(auditEvents.id));
+  return rows.map(({ event, actor, companyName, reviewState }) => ({ ...event, actor, companyName: companyName ?? null, reviewStatus: reviewState?.status ?? "OPEN" as AuditReviewStatus, reviewUpdatedBy: reviewState?.updatedBy ?? null, reviewUpdatedAt: reviewState?.updatedAt ?? null })).filter((event) => isPgcHighRiskEvent(event) && (input.status === "ALL" || event.reviewStatus === input.status));
+}
 
 async function getPgcReviewableEventForUser(input: { userId: number; organizationId: number; companyId?: number | null; auditEventId: number }) {
   const db = await getDb();

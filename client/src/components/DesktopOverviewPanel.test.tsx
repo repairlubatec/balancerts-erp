@@ -12,6 +12,10 @@ const baseProps = {
   onQueryChange: vi.fn(),
   statusFilter: "TODOS" as const,
   onStatusFilterChange: vi.fn(),
+  onAlertFilterChange: vi.fn(),
+  onExportAlertsCsv: vi.fn(),
+  onExportAlertsPdf: vi.fn(),
+  alertsExportPdfPending: false,
   onOpenCompanies: vi.fn(),
   onOpenCompany: vi.fn(),
   onOpenAudit: vi.fn(),
@@ -54,5 +58,22 @@ describe("filtro de alertas do dashboard principal", () => {
     render(<DesktopOverviewPanel {...baseProps} alerts={[{ id: 42, title: "Alerta para abrir", meta: "Regra #42", status: "REVIEWED", risk: "HIGH" }]} alertFilter="ALL" onAlertFilterChange={vi.fn()} onOpenAlert={onOpenAlert} />);
     fireEvent.click(screen.getByRole("button", { name: "Ver detalhe" }));
     expect(onOpenAlert).toHaveBeenCalledWith(42);
+  });
+
+  it("dispara os callbacks de exportação CSV e PDF do dashboard", () => {
+    const onExportCsv = vi.fn();
+    const onExportPdf = vi.fn();
+    render(<DesktopOverviewPanel {...baseProps} alerts={[{ id: 1, title: "Alerta", meta: "M", status: "OPEN", risk: "HIGH" }]} alertFilter="ALL" onExportAlertsCsv={onExportCsv} onExportAlertsPdf={onExportPdf} onOpenAlert={vi.fn()} />);
+    fireEvent.click(screen.getByRole("button", { name: "Exportar alertas filtrados para CSV" }));
+    expect(onExportCsv).toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "Exportar alertas filtrados para PDF" }));
+    expect(onExportPdf).toHaveBeenCalled();
+  });
+
+  it("desactiva o botão PDF durante a geração do ficheiro", () => {
+    render(<DesktopOverviewPanel {...baseProps} alerts={[{ id: 1, title: "Alerta", meta: "M", status: "OPEN", risk: "HIGH" }]} alertFilter="ALL" alertsExportPdfPending={true} onOpenAlert={vi.fn()} />);
+    const pdfButton = screen.getByRole("button", { name: "Exportar alertas filtrados para PDF" });
+    expect(pdfButton.hasAttribute("disabled")).toBeTruthy();
+    expect(screen.getByText("A criar PDF…")).toBeTruthy();
   });
 });

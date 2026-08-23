@@ -64,3 +64,8 @@ export function auditEventCsvFilename(eventId: number, companyId?: number) {
 export function auditReviewHistoryCsvFilename(eventId: number, companyId?: number) {
   return `historico-auditoria-alerta-${companyId ?? "empresa"}-evento-${eventId}.csv`;
 }
+
+export function dashboardAlertsCsvFilename(companyId: number | undefined, status: "ALL" | "OPEN" | "REVIEWED" | "RESOLVED") {
+  const statusLabel = status === "ALL" ? "todos" : status.toLowerCase();
+  return `alertas-alto-risco-${companyId ?? "empresa"}-${statusLabel}.csv`;
+}

@@ -22,6 +22,7 @@ import { filterDashboardAlerts, type DashboardAlertFilter } from "@/lib/dashboar
 import { classifyAuditRisk } from "@/lib/auditRisk";
 import { getSelectedTaskCount, getVisibleTaskSelectionState, toggleVisibleTaskSelection } from "@/lib/taskSelection";
 import { buildTasksCsv, taskExportFilename } from "@/lib/taskExport";
+import { buildAuditCsv, dashboardAlertsCsvFilename } from "@/lib/auditExport";
 import { buildTaskNotificationsCsv, taskNotificationsExportFilename } from "@/lib/taskNotificationExport";
 import { buildTasksXlsx, taskExcelFilename } from "@/lib/taskExcelExport";
 import { describeBulkTaskChange, getBulkTaskPriorityLabel } from "@/lib/taskBulkActions";
@@ -138,7 +139,11 @@ function Overview({ activeCompanyId }: { activeCompanyId?: number }) {
   const auditApi = (trpc as typeof trpc & { audit?: { pgcLogs?: typeof trpc.audit.pgcLogs } }).audit;
   const pgcLogsQuery = auditApi?.pgcLogs?.useQuery;
   const { data: alertLogPage } = pgcLogsQuery ? pgcLogsQuery(auditOrganizationId && resolvedCompanyId && canReadAudit ? { organizationId: auditOrganizationId, companyId: resolvedCompanyId, page: 1, pageSize: 100 } : skipToken) : { data: undefined };
-  const dashboardAlerts = filterDashboardAlerts(alertLogPage?.items ?? [], "ALL").map((event) => ({ id: event.id, title: presentationLabel(event.action), meta: `${presentationLabel(event.entityType)} #${event.entityId} · ${new Date(event.createdAt).toLocaleString("pt-PT")}`, status: (event.reviewStatus ?? "OPEN") as "OPEN" | "REVIEWED" | "RESOLVED", risk: classifyAuditRisk(event).level as "HIGH" | "CRITICAL" }));
+  const dashboardAlertEvents = filterDashboardAlerts(alertLogPage?.items ?? [], alertFilter);
+  const dashboardAlerts = dashboardAlertEvents.map((event) => ({ id: event.id, title: presentationLabel(event.action), meta: `${presentationLabel(event.entityType)} #${event.entityId} · ${new Date(event.createdAt).toLocaleString("pt-PT")}`, status: (event.reviewStatus ?? "OPEN") as "OPEN" | "REVIEWED" | "RESOLVED", risk: classifyAuditRisk(event).level as "HIGH" | "CRITICAL" }));
+  const exportDashboardAlertsPdf = trpc.audit.exportPgcAlertsPdf.useMutation({ onSuccess: (data) => { const bytes = Uint8Array.from(atob(data.dataBase64), (character) => character.charCodeAt(0)); const url = URL.createObjectURL(new Blob([bytes], { type: data.mimeType })); const anchor = document.createElement("a"); anchor.href = url; anchor.download = data.filename; anchor.click(); URL.revokeObjectURL(url); toast.success(`PDF de alertas descarregado com sucesso (${data.eventCount} eventos).`); }, onError: (error) => toast.error(error.message || "Não foi possível criar o PDF dos alertas.") });
+  const downloadDashboardAlertsCsv = () => { if (!dashboardAlertEvents.length) { toast.error("Não existem alertas filtrados para exportar."); return; } const url = URL.createObjectURL(new Blob([buildAuditCsv(dashboardAlertEvents)], { type: "text/csv;charset=utf-8" })); const anchor = document.createElement("a"); anchor.href = url; anchor.download = dashboardAlertsCsvFilename(resolvedCompanyId, alertFilter); anchor.click(); URL.revokeObjectURL(url); toast.success(`CSV de alertas descarregado com sucesso (${dashboardAlertEvents.length} eventos).`); };
+  const downloadDashboardAlertsPdf = () => { if (!auditOrganizationId || !resolvedCompanyId || !dashboardAlertEvents.length) { toast.error("Não existem alertas filtrados e autorizados para exportar."); return; } exportDashboardAlertsPdf.mutate({ organizationId: auditOrganizationId, companyId: resolvedCompanyId, auditEventIds: dashboardAlertEvents.map((event) => event.id), status: alertFilter }); };
   const recentEvents = (auditRows ?? []).slice(0, 3).map(({ event }) => ({ id: event.id, title: presentationLabel(event.action), meta: `${presentationLabel(event.entityType)} #${event.entityId} · ${new Date(event.createdAt).toLocaleString("pt-PT")}`, color: "bg-blue-100 text-blue-700", Icon: FileCheck2 }));
   const portfolioCompanies = (companyRows ?? []).filter(({ company }) => !isEmpresaDeTeste(company)).map(({ company }) => ({
     name: company.name,
@@ -188,6 +193,9 @@ function Overview({ activeCompanyId }: { activeCompanyId?: number }) {
     alerts={dashboardAlerts}
     alertFilter={alertFilter}
     onAlertFilterChange={setAlertFilter}
+    onExportAlertsCsv={downloadDashboardAlertsCsv}
+    onExportAlertsPdf={downloadDashboardAlertsPdf}
+    alertsExportPdfPending={exportDashboardAlertsPdf.isPending}
     onOpenAlert={() => setLocation("/auditoria")}
     actions={desktopActions}
     query={query}

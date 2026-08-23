@@ -330,6 +330,15 @@ describe("PGCA activation readiness permissions", () => {
     await expect(operador.audit.pgcReviewHistory({ organizationId: 7, companyId: 41, auditEventId: 27 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
+  it("permite ao Auditor exportar a lista filtrada de alertas em PDF e bloqueia o Operador", async () => {
+    const alerts = vi.spyOn(db, "getPgcDashboardAlertEventsForUser").mockResolvedValue([{ id: 27, createdAt: new Date("2026-08-23T10:00:00Z"), organizationId: 7, companyId: 41, action: "PGC_ACCOUNT_REVIEWED", entityType: "pgcAccount", entityId: "99", actorUserId: 8, correlationId: "corr-27", beforeState: "PENDENTE", afterState: "CONFIRMADA", actor: { id: 8, name: "Auditor", email: "auditor@example.com" }, companyName: "Repair Lubatec", reviewStatus: "RESOLVED" }] as never);
+    const auditor = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(auditor.audit.exportPgcAlertsPdf({ organizationId: 7, companyId: 41, auditEventIds: [27], status: "RESOLVED" })).resolves.toMatchObject({ filename: expect.stringMatching(/^alertas-alto-risco-resolved-41-\d{4}-\d{2}-\d{2}\.pdf$/), eventCount: 1, mimeType: "application/pdf" });
+    expect(alerts).toHaveBeenCalledWith({ userId: 8, organizationId: 7, companyId: 41, auditEventIds: [27], status: "RESOLVED" });
+    const operador = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operador.audit.exportPgcAlertsPdf({ organizationId: 7, companyId: 41, auditEventIds: [27], status: "RESOLVED" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("permite ao Contabilista marcar alertas como revistos ou resolvidos e bloqueia alterações do Auditor", async () => {
     const state = vi.spyOn(db, "getPgcAuditReviewStateForUser").mockResolvedValue({ auditEventId: 27, organizationId: 7, companyId: 41, status: "OPEN", updatedBy: null, updatedAt: null });
     const update = vi.spyOn(db, "updatePgcAuditReviewStatusForUser").mockResolvedValue({ auditEventId: 27, organizationId: 7, companyId: 41, status: "REVIEWED", updatedBy: 8, updatedAt: new Date("2026-08-23T10:00:00Z"), idempotent: false });

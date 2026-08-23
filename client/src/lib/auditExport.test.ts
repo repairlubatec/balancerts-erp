@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import * as XLSX from "xlsx";
-import { auditCsvFilename, auditEventCsvFilename, auditReviewHistoryCsvFilename, auditExcelFilename, buildAuditCsv, buildAuditXlsx } from "./auditExport";
+import { auditCsvFilename, auditEventCsvFilename, auditReviewHistoryCsvFilename, auditExcelFilename, buildAuditCsv, buildAuditXlsx, dashboardAlertsCsvFilename } from "./auditExport";
 
 describe("exportação Excel da auditoria", () => {
   it("preserva rastreabilidade e cabeçalhos em português", () => {
@@ -36,6 +36,11 @@ describe("exportação CSV dos logs de auditoria", () => {
 
   it("gera nome específico para o histórico de estados do alerta", () => {
     expect(auditReviewHistoryCsvFilename(27, 4)).toBe("historico-auditoria-alerta-4-evento-27.csv");
+  });
+
+  it("gera nome por estado para a lista filtrada do dashboard", () => {
+    expect(dashboardAlertsCsvFilename(4, "RESOLVED")).toBe("alertas-alto-risco-4-resolved.csv");
+    expect(dashboardAlertsCsvFilename(undefined, "ALL")).toBe("alertas-alto-risco-empresa-todos.csv");
   });
 
   it("preserva a sequência das transições no CSV do histórico", () => {

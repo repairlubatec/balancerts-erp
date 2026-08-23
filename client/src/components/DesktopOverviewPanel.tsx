@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowDownRight, ArrowUpRight, CheckCircle2, ChevronRight, Command, Filter, Info, MoreHorizontal, Plus, Search } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, CheckCircle2, ChevronRight, Command, Download, Filter, Info, MoreHorizontal, Plus, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -30,6 +30,9 @@ type DesktopOverviewPanelProps = {
   alerts: AlertRow[];
   alertFilter: DashboardAlertFilter;
   onAlertFilterChange: (filter: DashboardAlertFilter) => void;
+  onExportAlertsCsv: () => void;
+  onExportAlertsPdf: () => void;
+  alertsExportPdfPending: boolean;
   onOpenAlert: (alertId: number) => void;
   actions: ActionRow[];
   query: string;
@@ -66,6 +69,9 @@ export function DesktopOverviewPanel({
   alerts,
   alertFilter,
   onAlertFilterChange,
+  onExportAlertsCsv,
+  onExportAlertsPdf,
+  alertsExportPdfPending,
   onOpenAlert,
   actions,
   query,
@@ -109,7 +115,7 @@ export function DesktopOverviewPanel({
       </div>
 
       <div className="border border-[#aeb8c4] bg-white">
-        <div className="flex min-w-0 flex-wrap items-center gap-2 border-b border-[#cbd3dc] bg-[#eef1f4] px-2 py-1.5"><div className="min-w-0 flex-1"><span className="text-xs font-semibold text-[#1d2a38]">Alertas de alto risco</span><span className="ml-2 text-[10px] text-[#6b7785]">{visibleAlerts.length} visíveis</span></div><select aria-label="Filtrar alertas por estado" value={alertFilter} onChange={(event) => onAlertFilterChange(event.target.value as DashboardAlertFilter)} className="ml-auto h-7 shrink-0 rounded-sm border border-[#bfc9d4] bg-white px-2 text-[11px]"><option value="ALL">Todos os estados</option><option value="OPEN">Em aberto</option><option value="REVIEWED">Revistos</option><option value="RESOLVED">Resolvidos</option></select></div>
+        <div className="flex min-w-0 flex-wrap items-center gap-2 border-b border-[#cbd3dc] bg-[#eef1f4] px-2 py-1.5"><div className="min-w-0 flex-1"><span className="text-xs font-semibold text-[#1d2a38]">Alertas de alto risco</span><span className="ml-2 text-[10px] text-[#6b7785]">{visibleAlerts.length} visíveis</span></div><div className="ml-auto flex shrink-0 flex-wrap items-center justify-end gap-1"><select aria-label="Filtrar alertas por estado" value={alertFilter} onChange={(event) => onAlertFilterChange(event.target.value as DashboardAlertFilter)} className="h-7 rounded-sm border border-[#bfc9d4] bg-white px-2 text-[11px]"><option value="ALL">Todos os estados</option><option value="OPEN">Em aberto</option><option value="REVIEWED">Revistos</option><option value="RESOLVED">Resolvidos</option></select><Button type="button" variant="outline" onClick={onExportAlertsCsv} disabled={!visibleAlerts.length} className="h-7 rounded-sm bg-white px-2 text-[10px]" aria-label="Exportar alertas filtrados para CSV"><Download className="mr-1 h-3 w-3" /> CSV</Button><Button type="button" variant="outline" onClick={onExportAlertsPdf} disabled={!visibleAlerts.length || alertsExportPdfPending} className="h-7 rounded-sm bg-white px-2 text-[10px]" aria-label="Exportar alertas filtrados para PDF"><Download className="mr-1 h-3 w-3" />{alertsExportPdfPending ? "A criar PDF…" : "PDF"}</Button></div></div>
         <div className="divide-y divide-[#e0e5ea]">{visibleAlerts.length === 0 ? <div className="px-3 py-4 text-[11px] text-[#6b7785]">Não existem alertas de alto risco para o filtro seleccionado.</div> : visibleAlerts.map((alert) => <div key={alert.id} className={cn("flex items-center gap-2 px-3 py-2 text-[11px]", alert.status === "RESOLVED" ? "bg-emerald-50/70" : "bg-white")}><span className="shrink-0" aria-label={alert.status === "RESOLVED" ? "Alerta resolvido" : "Alerta de alto risco"} title={alert.status === "RESOLVED" ? "Alerta resolvido" : "Alerta de alto risco"}>{alert.status === "RESOLVED" ? <CheckCircle2 className="h-4 w-4 text-emerald-600" aria-hidden="true" /> : <span className={cn("block h-2 w-2 rounded-full", alert.risk === "CRITICAL" ? "bg-[#d85c5c]" : "bg-[#e4a438")} aria-hidden="true" />}</span><div className="min-w-0"><p className={cn("truncate font-medium", alert.status === "RESOLVED" ? "text-emerald-950" : "text-[#1d2a38]" )}>{alert.title}</p><p className="truncate text-[10px] text-[#7b8794]">{alert.meta}</p></div><span aria-label={`Estado: ${alert.status === "RESOLVED" ? "Resolvido" : alert.status === "REVIEWED" ? "Revisto" : "Em aberto"}`} className={cn("ml-auto shrink-0 border px-1.5 py-0.5 text-[10px] font-semibold", alert.status === "RESOLVED" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : alert.status === "REVIEWED" ? "border-blue-200 bg-blue-50 text-blue-700" : "border-amber-200 bg-amber-50 text-amber-700")}>{alert.status === "RESOLVED" ? "Resolvido" : alert.status === "REVIEWED" ? "Revisto" : "Em aberto"}</span><Button type="button" variant="ghost" size="sm" onClick={() => onOpenAlert(alert.id)} className="h-6 rounded-sm px-2 text-[10px] text-[#1d568f]">Ver detalhe</Button></div>)}</div>
       </div>
 

@@ -3097,3 +3097,10 @@
 - [x] Adicionar botão de exportação no modal e validar o nome e conteúdo do ficheiro.
 - [x] Criar testes de conteúdo, autorização e escopo da exportação.
 - [x] Validar visualmente, actualizar o TODO e guardar checkpoint.
+
+# Melhorias de exportação e navegação de alertas
+- [x] Mostrar toast de sucesso após o download efectivo de um CSV.
+- [x] Permitir exportar no dashboard a lista actual de alertas filtrados em CSV ou PDF.
+- [x] Adicionar paginação ao histórico de alterações de estado no modal.
+- [x] Criar testes para feedback de download, exportação filtrada, RBAC e paginação.
+- [x] Validar visualmente, actualizar o TODO e guardar checkpoint.
