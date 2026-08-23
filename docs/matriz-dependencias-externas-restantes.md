@@ -21,3 +21,12 @@ A sequência recomendada é primeiro disponibilizar o destino isolado de restaur
 Nenhuma pendência externa deve ser marcada como concluída com base apenas em configuração local, mock, URL de exemplo ou teste unitário. O ERP deve permanecer operacional em modo local e seguro enquanto cada dependência aguarda a sua evidência externa correspondente.
 
 > O cadastro da chave pública AGT foi tratado em paralelo e não é repetido nesta matriz.
+
+
+## Preflight local acrescentado
+
+Foi acrescentado `pnpm external:preflight`, implementado em `scripts/external-preflight.mjs`. O comando apenas lê variáveis de ambiente já existentes e devolve JSON sem valores de segredos, sem abrir conexões e sem contactar AGT, bancos ou a base de produção.
+
+O preflight pode declarar apenas estados de preparação local: `PRONTO_PARA_EMPACOTAMENTO` quando existe `BALANCERTS_DESKTOP_URL`, ou `PRONTO_PARA_VALIDACAO_ISOLADA` quando todos os campos de destino, aprovação, fingerprint, allowlist e atestado estão preenchidos. Estes estados não substituem a validação física num Windows limpo, a assinatura efectiva, o restauro real, a homologação AGT, os testes bancários ou a aceitação da Repair Lubatec.
+
+A saída do preflight não inclui `RESTORE_DATABASE_URL`, passwords, certificados, fingerprints ou outros valores sensíveis. Os testes Vitest cobrem o bloqueio seguro, a ausência de exposição de segredos e a manutenção explícita das dependências externas.

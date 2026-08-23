@@ -3185,3 +3185,9 @@
 - [x] Adicionar CTA “Nova exportação” ao estado vazio do histórico IVA
 - [x] Testar modal de confirmação de limpeza do simulador PDF e os refinamentos IVA
 - [x] Executar TypeScript, testes direccionados, suite completa e verificação visual desktop/mobile dos refinamentos IVA
+
+
+# Preparação local das pendências externas
+- [x] Criar preflight local seguro para restauro, empacotamento, assinatura, AGT, banca e aceitação, sem contacto externo nem exposição de segredos
+- [x] Cobrir o preflight com testes Vitest de bloqueio seguro, não exposição de segredos e estados externos pendentes
+- [x] Documentar a distinção entre preparação local e evidência externa na matriz operacional
