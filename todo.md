@@ -3051,3 +3051,7 @@
 # Remoção de dados demonstrativos residuais
 - [x] Retirar a lista estática demoCompanies da metadata da rota Empresas.
 - [x] Garantir estado vazio ou dados persistidos reais, sem empresas fictícias na interface.
+
+# Remoção de linhas demonstrativas residuais
+- [x] Retirar linhas estáticas demonstrativas dos módulos comerciais, tesouraria, relatórios, stock e imobilizado.
+- [x] Garantir que o fallback modular apresenta estado vazio quando não há dados persistidos.
