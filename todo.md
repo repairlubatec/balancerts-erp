@@ -2853,3 +2853,8 @@
 - [x] Abrir modal somente de leitura com actor, acção, entidade, risco, correlação, período e estados anterior/posterior.
 - [x] Garantir foco, escape, etiquetas acessíveis e preservação do filtro actual.
 - [x] Adicionar testes de abertura, conteúdo, fecho e validação visual.
+
+# Auditoria jurídico-fiscal do IVA — fontes adicionais
+- [x] Incluir o Decreto Executivo n.º 134/19, de 10 de Junho, na matriz de fontes obrigatórias do IVA.
+- [ ] Conferir no PDF oficial o objecto, artigos aplicáveis, vigência, alterações e relação hierárquica do Decreto Executivo n.º 134/19.
+- [ ] Confrontar as regras do Decreto Executivo n.º 134/19 com a implementação actual antes de qualquer activação.
