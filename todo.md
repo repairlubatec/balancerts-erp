@@ -2964,11 +2964,15 @@
 - [x] Documentar os bloqueios que permanecem até homologação e credenciais oficiais AGT.
 
 # Continuação interna após cadastro AGT tratado em paralelo
-- [ ] Não repetir a geração ou o cadastro da chave pública AGT nesta linha de trabalho.
-- [ ] Seleccionar e executar o próximo incremento interno prioritário de contabilidade, fiscalidade, auditoria ou validação.
+- [x] Não repetir a geração ou o cadastro da chave pública AGT nesta linha de trabalho.
+- [x] Seleccionar e executar o próximo incremento interno prioritário de contabilidade, fiscalidade, auditoria ou validação.
 
 # Cobertura operacional das AccountingRules
 - [x] Definir o catálogo de operações que exigem AccountingRule activa.
 - [x] Calcular lacunas de cobertura por versão, empresa e operação sem criar regras automaticamente.
 - [x] Expor os bloqueios de cobertura para impedir publicação sem regra aplicável.
 - [x] Adicionar testes de cobertura completa, parcial e vazia.
+
+# Dependências externas restantes — sem repetir chave AGT
+- [x] Consolidar num documento operativo os bloqueios de restauro, Windows, AGT homologação, banca e aceitação.
+- [x] Indicar para cada bloqueio o dado ou ambiente exacto necessário e a protecção contra activação prematura.
