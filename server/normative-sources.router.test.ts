@@ -60,6 +60,13 @@ describe("fontes normativas IVA", () => {
     expect(activate).toHaveBeenCalledWith({ userId: 8, organizationId: 3, ruleId: 9 });
   });
 
+  it("expõe apenas prontidão local AGT e nunca autoriza submissão externa", async () => {
+    const readiness = vi.spyOn(db, "getAgtReadinessForUserCompany").mockResolvedValue({ companyId: 3, localReady: false, externalSubmissionAllowed: false, homologationStatus: "NOT_AVAILABLE", establishmentCount: 0, seriesCount: 0, activeSignatureKey: false, blockers: ["AGT_CONFIGURACAO_EM_FALTA"] });
+    const caller = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(caller.normative.agtReadiness({ companyId: 3 })).resolves.toMatchObject({ localReady: false, externalSubmissionAllowed: false, blockers: ["AGT_CONFIGURACAO_EM_FALTA"] });
+    expect(readiness).toHaveBeenCalledWith(8, 3);
+  });
+
   it("aceita relações com filtro de fonte e limite contratual", async () => {
     const list = vi.spyOn(db, "listNormativeSourceRelationsForUser").mockResolvedValue([]);
     const caller = appRouter.createCaller(contextWithRole("auditor"));

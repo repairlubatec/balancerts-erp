@@ -2945,3 +2945,15 @@
 - [x] Restringir includePending aos administradores no servidor, independentemente do cliente.
 - [x] Testar que leitores não recebem regras pendentes mesmo solicitando includePending.
 - [x] Guardar checkpoint do endurecimento de RBAC IVA.
+
+# Cadastro AGT — chave pública do BALANCERTS.ERP
+- [x] Gerar par de chaves RSA dedicado ao produto e validar formato PEM.
+- [x] Guardar a chave privada fora do projecto, com permissões restritas e sem a anexar ao Portal.
+- [x] Entregar a chave pública e a versão da chave para preenchimento no Portal AGT.
+
+# Guardas locais de prontidão AGT
+- [x] Criar avaliação server-side de prontidão AGT com configuração, estabelecimento, séries e chave activa.
+- [x] Garantir que a avaliação nunca permite submissão externa quando a homologação não estiver activa.
+- [x] Integrar o estado bloqueado/pronto na área fiscal sem expor referências privadas.
+- [x] Adicionar testes para configuração ausente, chave pendente e estado pronto local.
+- [x] Guardar checkpoint da guarda local AGT.

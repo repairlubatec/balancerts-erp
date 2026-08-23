@@ -2445,3 +2445,30 @@ export async function activateIvaAccountMappingForUser(input: { userId: number; 
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: undefined, actorUserId: input.userId, action: "IVA_ACCOUNT_MAPPING_ACTIVATED", entityType: "ivaAccountMapping", entityId: String(input.mappingId), beforeState: JSON.stringify({ verificationStatus: row.verificationStatus, accountCode: row.accountCode }), afterState: JSON.stringify({ verificationStatus: "ACTIVE" }), correlationId: `iva-account-activation:${input.mappingId}` });
   return { id: input.mappingId, verificationStatus: "ACTIVE", activated: true } as const;
 }
+
+export async function getAgtReadinessForUserCompany(userId: number, companyId: number) {
+  const [configs, establishments, series, keys] = await Promise.all([
+    getAgtIntegrationConfigForUserCompany(userId, companyId),
+    getAgtEstablishmentsForUserCompany(userId, companyId),
+    getAgtSeriesForUserCompany(userId, companyId),
+    getAgtSignatureKeysForUserCompany(userId, companyId),
+  ]);
+  const config = configs[0]?.config;
+  const activeKey = keys.find(({ key }) => key.status === "ACTIVE")?.key;
+  const blockers: string[] = [];
+  if (!config) blockers.push("AGT_CONFIGURACAO_EM_FALTA");
+  if (config && config.homologationStatus !== "INTERNAL_READY") blockers.push("AGT_CONFIGURACAO_NAO_PRONTA");
+  if (!establishments.length) blockers.push("AGT_ESTABELECIMENTO_EM_FALTA");
+  if (!series.length) blockers.push("AGT_SERIE_EM_FALTA");
+  if (!activeKey) blockers.push("AGT_CHAVE_ASSINATURA_NAO_ACTIVA");
+  return {
+    companyId,
+    localReady: blockers.length === 0,
+    externalSubmissionAllowed: false,
+    homologationStatus: config?.homologationStatus ?? "NOT_AVAILABLE",
+    establishmentCount: establishments.length,
+    seriesCount: series.length,
+    activeSignatureKey: Boolean(activeKey),
+    blockers,
+  };
+}
