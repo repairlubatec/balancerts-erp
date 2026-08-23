@@ -3033,3 +3033,6 @@
 # Vista operacional sem dependências externas activas
 - [x] Retirar referências AGT da vista operacional activa sem remover o módulo nem os bloqueios server-side.
 - [x] Testar a vista inicial e manter a indicação genérica de prontidão fiscal.
+
+# Fila interna sem dependências externas
+- [x] Documentar a fila activa de desenvolvimento enquanto AGT, restauro, assinatura, banca e aceitação permanecem em espera.
