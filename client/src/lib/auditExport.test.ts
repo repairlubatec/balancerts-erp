@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import * as XLSX from "xlsx";
-import { auditCsvFilename, auditEventCsvFilename, auditExcelFilename, buildAuditCsv, buildAuditXlsx } from "./auditExport";
+import { auditCsvFilename, auditEventCsvFilename, auditReviewHistoryCsvFilename, auditExcelFilename, buildAuditCsv, buildAuditXlsx } from "./auditExport";
 
 describe("exportação Excel da auditoria", () => {
   it("preserva rastreabilidade e cabeçalhos em português", () => {
@@ -32,5 +32,19 @@ describe("exportação CSV dos logs de auditoria", () => {
 
   it("gera nome CSV específico para o evento seleccionado", () => {
     expect(auditEventCsvFilename(27, 4)).toBe("auditoria-alerta-4-evento-27.csv");
+  });
+
+  it("gera nome específico para o histórico de estados do alerta", () => {
+    expect(auditReviewHistoryCsvFilename(27, 4)).toBe("historico-auditoria-alerta-4-evento-27.csv");
+  });
+
+  it("preserva a sequência das transições no CSV do histórico", () => {
+    const csv = buildAuditCsv([
+      { id: 101, createdAt: "2026-08-23T10:00:00.000Z", action: "AUDIT_ALERT_REVIEWED", entityType: "auditEvent", entityId: "27", actorUserId: 8, correlationId: "audit-alert-status:27:REVIEWED", beforeState: "OPEN", afterState: "REVIEWED" },
+      { id: 102, createdAt: "2026-08-23T10:01:00.000Z", action: "AUDIT_ALERT_RESOLVED", entityType: "auditEvent", entityId: "27", actorUserId: 8, correlationId: "audit-alert-status:27:RESOLVED", beforeState: "REVIEWED", afterState: "RESOLVED" },
+    ]);
+    expect(csv.indexOf("OPEN")).toBeLessThan(csv.indexOf("RESOLVED"));
+    expect(csv).toContain("audit-alert-status:27:REVIEWED");
+    expect(csv).toContain("audit-alert-status:27:RESOLVED");
   });
 });

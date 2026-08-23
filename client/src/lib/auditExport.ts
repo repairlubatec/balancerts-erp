@@ -60,3 +60,7 @@ export function auditCsvFilename(companyId?: number) {
 export function auditEventCsvFilename(eventId: number, companyId?: number) {
   return `auditoria-alerta-${companyId ?? "empresa"}-evento-${eventId}.csv`;
 }
+
+export function auditReviewHistoryCsvFilename(eventId: number, companyId?: number) {
+  return `historico-auditoria-alerta-${companyId ?? "empresa"}-evento-${eventId}.csv`;
+}

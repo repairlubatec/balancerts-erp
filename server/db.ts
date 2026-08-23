@@ -2374,6 +2374,12 @@ export async function getPgcAuditReviewStateForUser(input: { userId: number; org
   const { reviewState } = await getPgcReviewableEventForUser(input);
   return { auditEventId: input.auditEventId, organizationId: input.organizationId, companyId: input.companyId ?? null, status: reviewState?.status ?? "OPEN" as AuditReviewStatus, updatedBy: reviewState?.updatedBy ?? null, updatedAt: reviewState?.updatedAt ?? null };
 }
+export async function getPgcAuditReviewHistoryForUser(input: { userId: number; organizationId: number; companyId?: number | null; auditEventId: number; limit?: number }) {
+  const { db, event } = await getPgcReviewableEventForUser(input);
+  const limit = Math.min(Math.max(input.limit ?? 100, 1), 100);
+  const rows = await db.select({ event: auditEvents, actor: { id: users.id, name: users.name, email: users.email } }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).leftJoin(users, eq(auditEvents.actorUserId, users.id)).where(and(eq(auditEvents.organizationId, input.organizationId), input.companyId == null ? isNull(auditEvents.companyId) : eq(auditEvents.companyId, input.companyId), eq(auditEvents.entityType, "auditEvent"), eq(auditEvents.entityId, String(event.id)), inArray(auditEvents.action, ["AUDIT_ALERT_REVIEWED", "AUDIT_ALERT_RESOLVED"]), organizationAccessCondition(input.userId))).orderBy(auditEvents.id).limit(limit);
+  return rows.map(({ event: historyEvent, actor }) => ({ ...historyEvent, actor, companyName: null, reviewStatus: historyEvent.afterState ?? "OPEN" }));
+}
 
 export async function updatePgcAuditReviewStatusForUser(input: { userId: number; organizationId: number; companyId?: number | null; auditEventId: number; status: "REVIEWED" | "RESOLVED" }) {
   const { db, event, reviewState } = await getPgcReviewableEventForUser(input);

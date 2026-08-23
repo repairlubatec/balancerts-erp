@@ -321,6 +321,15 @@ describe("PGCA activation readiness permissions", () => {
     await expect(operador.audit.pgcNotes({ organizationId: 7, companyId: 41, auditEventId: 27 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
+  it("permite ao Auditor exportar o histórico de estados do alerta e bloqueia o Operador", async () => {
+    const history = vi.spyOn(db, "getPgcAuditReviewHistoryForUser").mockResolvedValue([{ id: 101, createdAt: new Date("2026-08-23T10:00:00Z"), organizationId: 7, companyId: 41, action: "AUDIT_ALERT_REVIEWED", entityType: "auditEvent", entityId: "27", actorUserId: 8, correlationId: "audit-alert-status:27:REVIEWED", beforeState: "OPEN", afterState: "REVIEWED", actor: { id: 8, name: "Auditor", email: "auditor@example.com" }, companyName: null, reviewStatus: "REVIEWED" }] as never);
+    const auditor = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(auditor.audit.pgcReviewHistory({ organizationId: 7, companyId: 41, auditEventId: 27, limit: 100 })).resolves.toMatchObject([{ id: 101, action: "AUDIT_ALERT_REVIEWED", beforeState: "OPEN", afterState: "REVIEWED" }]);
+    expect(history).toHaveBeenCalledWith({ userId: 8, organizationId: 7, companyId: 41, auditEventId: 27, limit: 100 });
+    const operador = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operador.audit.pgcReviewHistory({ organizationId: 7, companyId: 41, auditEventId: 27 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("permite ao Contabilista marcar alertas como revistos ou resolvidos e bloqueia alterações do Auditor", async () => {
     const state = vi.spyOn(db, "getPgcAuditReviewStateForUser").mockResolvedValue({ auditEventId: 27, organizationId: 7, companyId: 41, status: "OPEN", updatedBy: null, updatedAt: null });
     const update = vi.spyOn(db, "updatePgcAuditReviewStatusForUser").mockResolvedValue({ auditEventId: 27, organizationId: 7, companyId: 41, status: "REVIEWED", updatedBy: 8, updatedAt: new Date("2026-08-23T10:00:00Z"), idempotent: false });

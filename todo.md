@@ -3090,3 +3090,10 @@
 - [x] Garantir que o indicador inclui texto acessível e não depende apenas da cor.
 - [x] Adicionar teste do indicador visual e validar a apresentação no dashboard.
 - [x] Actualizar o TODO e guardar checkpoint.
+
+# Exportação do histórico de estados dos alertas
+- [x] Consultar o histórico auditado de alterações de estado do alerta seleccionado.
+- [x] Exportar o histórico em CSV com ordem, autor, data, estados e correlação, respeitando RBAC e isolamento.
+- [x] Adicionar botão de exportação no modal e validar o nome e conteúdo do ficheiro.
+- [x] Criar testes de conteúdo, autorização e escopo da exportação.
+- [x] Validar visualmente, actualizar o TODO e guardar checkpoint.
