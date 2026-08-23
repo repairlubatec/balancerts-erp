@@ -3055,3 +3055,7 @@
 # Remoção de linhas demonstrativas residuais
 - [x] Retirar linhas estáticas demonstrativas dos módulos comerciais, tesouraria, relatórios, stock e imobilizado.
 - [x] Garantir que o fallback modular apresenta estado vazio quando não há dados persistidos.
+
+# Organização real no módulo Empresas
+- [x] Remover “BALANCERTS Group” hardcoded da tabela de empresas.
+- [x] Apresentar a organização derivada do organizationId persistido, sem inventar nomes.
