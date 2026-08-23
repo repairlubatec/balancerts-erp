@@ -2375,3 +2375,53 @@ export async function listIvaAccountMappingsForUser(input: { userId: number; org
   const rows = await db.select({ mapping: ivaAccountMappings }).from(ivaAccountMappings).innerJoin(organizations, eq(ivaAccountMappings.organizationId, organizations.id)).where(and(eq(ivaAccountMappings.organizationId, input.organizationId), organizationAccessCondition(input.userId), ...(input.accountCode ? [eq(ivaAccountMappings.accountCode, input.accountCode)] : []), lte(ivaAccountMappings.effectiveFrom, asOf), or(isNull(ivaAccountMappings.effectiveTo), gte(ivaAccountMappings.effectiveTo, asOf)), ...(input.includePending ? [] : [eq(ivaAccountMappings.verificationStatus, "ACTIVE")]))).orderBy(desc(ivaAccountMappings.effectiveFrom), desc(ivaAccountMappings.id)).limit(limit);
   return rows.map(({ mapping }) => mapping);
 }
+
+export async function reviewIvaNormativeRuleForUser(input: { userId: number; organizationId: number; ruleId: number; decision: "HUMAN_APPROVED" | "REJECTED"; note?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ rule: ivaNormativeRules }).from(ivaNormativeRules).innerJoin(organizations, eq(ivaNormativeRules.organizationId, organizations.id)).where(and(eq(ivaNormativeRules.id, input.ruleId), eq(ivaNormativeRules.organizationId, input.organizationId), organizationAccessCondition(input.userId))).limit(1);
+  const row = rows[0]?.rule;
+  if (!row) throw new Error("IVA_RULE_NOT_FOUND_OR_FORBIDDEN");
+  if (!["PENDING", "HUMAN_APPROVED"].includes(row.verificationStatus)) throw new Error("IVA_RULE_IMMUTABLE_OR_ALREADY_REJECTED");
+  if (input.decision === "REJECTED" && !input.note?.trim()) throw new Error("IVA_REJECTION_NOTE_REQUIRED");
+  await db.update(ivaNormativeRules).set({ verificationStatus: input.decision }).where(and(eq(ivaNormativeRules.id, input.ruleId), eq(ivaNormativeRules.organizationId, input.organizationId), eq(ivaNormativeRules.verificationStatus, row.verificationStatus)));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: undefined, actorUserId: input.userId, action: `IVA_RULE_${input.decision}`, entityType: "ivaNormativeRule", entityId: String(input.ruleId), beforeState: JSON.stringify({ verificationStatus: row.verificationStatus, code: row.code }), afterState: JSON.stringify({ verificationStatus: input.decision, note: input.note?.trim() || null }), correlationId: `iva-rule-review:${input.ruleId}:${input.decision}` });
+  return { id: input.ruleId, verificationStatus: input.decision, activated: false } as const;
+}
+
+export async function reviewIvaAccountMappingForUser(input: { userId: number; organizationId: number; mappingId: number; decision: "HUMAN_APPROVED" | "REJECTED"; note?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ mapping: ivaAccountMappings }).from(ivaAccountMappings).innerJoin(organizations, eq(ivaAccountMappings.organizationId, organizations.id)).where(and(eq(ivaAccountMappings.id, input.mappingId), eq(ivaAccountMappings.organizationId, input.organizationId), organizationAccessCondition(input.userId))).limit(1);
+  const row = rows[0]?.mapping;
+  if (!row) throw new Error("IVA_ACCOUNT_MAPPING_NOT_FOUND_OR_FORBIDDEN");
+  if (!["PENDING", "HUMAN_APPROVED"].includes(row.verificationStatus)) throw new Error("IVA_ACCOUNT_MAPPING_IMMUTABLE_OR_ALREADY_REJECTED");
+  if (input.decision === "REJECTED" && !input.note?.trim()) throw new Error("IVA_REJECTION_NOTE_REQUIRED");
+  await db.update(ivaAccountMappings).set({ verificationStatus: input.decision }).where(and(eq(ivaAccountMappings.id, input.mappingId), eq(ivaAccountMappings.organizationId, input.organizationId), eq(ivaAccountMappings.verificationStatus, row.verificationStatus)));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: undefined, actorUserId: input.userId, action: `IVA_ACCOUNT_MAPPING_${input.decision}`, entityType: "ivaAccountMapping", entityId: String(input.mappingId), beforeState: JSON.stringify({ verificationStatus: row.verificationStatus, accountCode: row.accountCode }), afterState: JSON.stringify({ verificationStatus: input.decision, note: input.note?.trim() || null }), correlationId: `iva-account-review:${input.mappingId}:${input.decision}` });
+  return { id: input.mappingId, verificationStatus: input.decision, activated: false } as const;
+}
+
+export async function activateIvaNormativeRuleForUser(input: { userId: number; organizationId: number; ruleId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ rule: ivaNormativeRules }).from(ivaNormativeRules).innerJoin(organizations, eq(ivaNormativeRules.organizationId, organizations.id)).where(and(eq(ivaNormativeRules.id, input.ruleId), eq(ivaNormativeRules.organizationId, input.organizationId), organizationAccessCondition(input.userId))).limit(1);
+  const row = rows[0]?.rule;
+  if (!row) throw new Error("IVA_RULE_NOT_FOUND_OR_FORBIDDEN");
+  if (row.verificationStatus !== "HUMAN_APPROVED") throw new Error("IVA_RULE_HUMAN_APPROVAL_REQUIRED");
+  await db.update(ivaNormativeRules).set({ verificationStatus: "ACTIVE" }).where(and(eq(ivaNormativeRules.id, input.ruleId), eq(ivaNormativeRules.organizationId, input.organizationId), eq(ivaNormativeRules.verificationStatus, "HUMAN_APPROVED")));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: undefined, actorUserId: input.userId, action: "IVA_RULE_ACTIVATED", entityType: "ivaNormativeRule", entityId: String(input.ruleId), beforeState: JSON.stringify({ verificationStatus: row.verificationStatus, code: row.code }), afterState: JSON.stringify({ verificationStatus: "ACTIVE" }), correlationId: `iva-rule-activation:${input.ruleId}` });
+  return { id: input.ruleId, verificationStatus: "ACTIVE", activated: true } as const;
+}
+
+export async function activateIvaAccountMappingForUser(input: { userId: number; organizationId: number; mappingId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db.select({ mapping: ivaAccountMappings }).from(ivaAccountMappings).innerJoin(organizations, eq(ivaAccountMappings.organizationId, organizations.id)).where(and(eq(ivaAccountMappings.id, input.mappingId), eq(ivaAccountMappings.organizationId, input.organizationId), organizationAccessCondition(input.userId))).limit(1);
+  const row = rows[0]?.mapping;
+  if (!row) throw new Error("IVA_ACCOUNT_MAPPING_NOT_FOUND_OR_FORBIDDEN");
+  if (row.verificationStatus !== "HUMAN_APPROVED") throw new Error("IVA_ACCOUNT_HUMAN_APPROVAL_REQUIRED");
+  await db.update(ivaAccountMappings).set({ verificationStatus: "ACTIVE" }).where(and(eq(ivaAccountMappings.id, input.mappingId), eq(ivaAccountMappings.organizationId, input.organizationId), eq(ivaAccountMappings.verificationStatus, "HUMAN_APPROVED")));
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: undefined, actorUserId: input.userId, action: "IVA_ACCOUNT_MAPPING_ACTIVATED", entityType: "ivaAccountMapping", entityId: String(input.mappingId), beforeState: JSON.stringify({ verificationStatus: row.verificationStatus, accountCode: row.accountCode }), afterState: JSON.stringify({ verificationStatus: "ACTIVE" }), correlationId: `iva-account-activation:${input.mappingId}` });
+  return { id: input.mappingId, verificationStatus: "ACTIVE", activated: true } as const;
+}

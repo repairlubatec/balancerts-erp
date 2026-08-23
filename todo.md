@@ -2899,3 +2899,11 @@
 - [x] Implementar leitura tenant-aware das regras e mapeamentos sem activar entradas pendentes.
 - [x] Implementar testes de precedência temporal, taxa, regime, CONFIRMED_ONLY e não publicação automática.
 - [x] Guardar checkpoint da segunda entrega antes de integrar regras nos lançamentos e declarações.
+
+# Implementação autorizada — revisão humana e activação controlada IVA
+- [x] Implementar revisão server-side de regras IVA com decisões HUMAN_APPROVED ou REJECTED e nota obrigatória quando aplicável.
+- [x] Implementar revisão server-side dos mapeamentos 34.5 e subcontas com evidência e estado verificável.
+- [x] Implementar activação separada, administrativa e auditada, apenas após HUMAN_APPROVED.
+- [x] Garantir transições determinísticas, imutabilidade de entradas ACTIVE e bloqueio de publicação automática.
+- [x] Adicionar testes de RBAC, tenant, transições, auditoria e tentativa de activação indevida.
+- [x] Guardar checkpoint da terceira entrega antes de integrar regras em lançamentos e declarações.

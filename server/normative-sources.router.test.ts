@@ -41,6 +41,18 @@ describe("fontes normativas IVA", () => {
     expect(list).toHaveBeenCalledWith({ userId: 8, organizationId: 3, accountCode: "34.5", asOf: new Date("2026-08-23T00:00:00Z"), limit: 10 });
   });
 
+  it("restringe revisão e activação ao papel administrativo", async () => {
+    const review = vi.spyOn(db, "reviewIvaNormativeRuleForUser").mockResolvedValue({ id: 9, verificationStatus: "HUMAN_APPROVED", activated: false });
+    const activate = vi.spyOn(db, "activateIvaNormativeRuleForUser").mockResolvedValue({ id: 9, verificationStatus: "ACTIVE", activated: true });
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.normative.reviewIvaRule({ organizationId: 3, ruleId: 9, decision: "HUMAN_APPROVED" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    const admin = appRouter.createCaller(contextWithRole("admin"));
+    await expect(admin.normative.reviewIvaRule({ organizationId: 3, ruleId: 9, decision: "HUMAN_APPROVED" })).resolves.toMatchObject({ verificationStatus: "HUMAN_APPROVED", activated: false });
+    await expect(admin.normative.activateIvaRule({ organizationId: 3, ruleId: 9 })).resolves.toMatchObject({ verificationStatus: "ACTIVE", activated: true });
+    expect(review).toHaveBeenCalledWith({ userId: 8, organizationId: 3, ruleId: 9, decision: "HUMAN_APPROVED" });
+    expect(activate).toHaveBeenCalledWith({ userId: 8, organizationId: 3, ruleId: 9 });
+  });
+
   it("aceita relações com filtro de fonte e limite contratual", async () => {
     const list = vi.spyOn(db, "listNormativeSourceRelationsForUser").mockResolvedValue([]);
     const caller = appRouter.createCaller(contextWithRole("auditor"));
