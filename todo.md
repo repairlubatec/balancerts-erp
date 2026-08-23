@@ -2835,3 +2835,9 @@
 - [x] Criar procedimento tRPC protegido para criar a regra apenas como rascunho ou submissão à revisão humana.
 - [x] Construir formulário desktop em português com selecção de contas aprovadas e mensagens de bloqueio.
 - [x] Adicionar testes de validação, RBAC, isolamento, não activação automática, conflitos e fluxo de revisão.
+
+# Intervalo de datas no dashboard de auditoria
+- [x] Definir campos de início e fim com conversão UTC e validação de intervalo.
+- [x] Aplicar o intervalo à consulta de logs, métricas, gráficos e exportações.
+- [x] Integrar filtros rápidos, limpar intervalo e indicação do período activo no painel.
+- [x] Adicionar testes de limites, datas inclusivas, UTC, estados vazios e validação visual.
