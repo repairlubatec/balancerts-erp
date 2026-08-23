@@ -17,6 +17,13 @@ const baseReadiness = {
     "IVA_CADEIA_NORMATIVA_INCOMPLETA",
     "IVA_SEM_MAPEAMENTO_34_5_ACTIVE",
   ],
+  sourceDates: {
+    "IVA-LAW-7-19": new Date("2026-08-01T10:00:00Z"),
+    "IVA-DP-180-19": new Date("2026-08-03T10:00:00Z"),
+    "IVA-DE-134-19": new Date("2026-08-05T10:00:00Z"),
+    "IVA-LAW-17-19": new Date("2026-08-07T10:00:00Z"),
+    "IVA-LAW-14-23": new Date("2026-08-09T10:00:00Z"),
+  },
 };
 
 describe("painel de prontidão IVA", () => {
@@ -106,6 +113,142 @@ describe("painel de prontidão IVA", () => {
     expect(screen.getByText("1/5 diplomas")).toBeTruthy();
     expect(screen.getByTestId("iva-chain-IVA-LAW-14-23")).toBeTruthy();
     expect(screen.queryByTestId("iva-chain-IVA-LAW-7-19")).toBeNull();
+  });
+
+  it("filtra por etiqueta temática e ordena alfabeticamente", () => {
+    render(<IvaReadinessPanel data={baseReadiness} />);
+
+    fireEvent.click(
+      screen.getByRole("combobox", { name: "Filtrar área temática IVA" })
+    );
+    fireEvent.click(screen.getByRole("option", { name: "Consolidação" }));
+
+    expect(screen.getByText("1/5 diplomas")).toBeTruthy();
+    expect(screen.getByTestId("iva-chain-IVA-LAW-14-23")).toBeTruthy();
+    expect(screen.queryByTestId("iva-chain-IVA-LAW-7-19")).toBeNull();
+
+    fireEvent.click(
+      screen.getByRole("combobox", { name: "Ordenar diplomas IVA" })
+    );
+    fireEvent.click(screen.getByRole("option", { name: "Ordem alfabética" }));
+    expect(screen.getByTestId("iva-chain-IVA-LAW-14-23")).toBeTruthy();
+  });
+
+  it("filtra os diplomas por importância", () => {
+    render(<IvaReadinessPanel data={baseReadiness} />);
+
+    fireEvent.click(
+      screen.getByRole("combobox", { name: "Filtrar importância IVA" })
+    );
+    fireEvent.click(screen.getByRole("option", { name: "Central" }));
+
+    expect(screen.getByText("1/5 diplomas")).toBeTruthy();
+    expect(screen.getByTestId("iva-chain-IVA-LAW-14-23")).toBeTruthy();
+    expect(screen.queryByTestId("iva-chain-IVA-LAW-7-19")).toBeNull();
+  });
+
+  it("ordena diplomas por data real das fontes quando disponível", () => {
+    render(<IvaReadinessPanel data={baseReadiness} />);
+    fireEvent.click(
+      screen.getByRole("combobox", { name: "Ordenar diplomas IVA" })
+    );
+    fireEvent.click(
+      screen.getByRole("option", { name: "Data de carregamento" })
+    );
+
+    const cards = Array.from(
+      document.querySelectorAll('[data-testid^="iva-chain-IVA-"]')
+    ).map(element => element.getAttribute("data-testid"));
+    expect(cards).toEqual([
+      "iva-chain-IVA-LAW-14-23",
+      "iva-chain-IVA-LAW-17-19",
+      "iva-chain-IVA-DE-134-19",
+      "iva-chain-IVA-DP-180-19",
+      "iva-chain-IVA-LAW-7-19",
+    ]);
+  });
+
+  it("mostra empty state quando ainda não existem exportações", () => {
+    render(<IvaReadinessPanel data={baseReadiness} />);
+
+    expect(screen.getByTestId("iva-export-history-empty")).toBeTruthy();
+    expect(screen.getByText("Ainda não existem exportações")).toBeTruthy();
+  });
+
+  it("ordena o histórico de exportações por tipo de ficheiro", () => {
+    const entries = [
+      {
+        id: "pdf-1",
+        format: "PDF" as const,
+        filename: "prontidao-iva-3.pdf",
+        mimeType: "application/pdf",
+        content: "pdf",
+        encoding: "base64" as const,
+        createdAt: 200,
+      },
+      {
+        id: "csv-1",
+        format: "CSV" as const,
+        filename: "prontidao-iva-3.csv",
+        mimeType: "text/csv;charset=utf-8",
+        content: "csv",
+        encoding: "text" as const,
+        createdAt: 100,
+      },
+    ];
+    render(<IvaReadinessPanel data={baseReadiness} exportHistory={entries} />);
+
+    fireEvent.click(
+      screen.getByRole("combobox", {
+        name: "Ordenar histórico de exportações IVA",
+      })
+    );
+    fireEvent.click(screen.getByRole("option", { name: "Tipo de ficheiro" }));
+
+    const filenames = Array.from(
+      document.querySelectorAll('[data-testid="iva-export-history"] p.truncate')
+    ).map(element => element.textContent);
+    expect(filenames).toEqual(["prontidao-iva-3.csv", "prontidao-iva-3.pdf"]);
+  });
+
+  it("ordena o histórico de exportações por data mais recente", () => {
+    const entries = [
+      {
+        id: "older",
+        format: "CSV" as const,
+        filename: "mais-antigo.csv",
+        mimeType: "text/csv;charset=utf-8",
+        content: "csv",
+        encoding: "text" as const,
+        createdAt: 100,
+      },
+      {
+        id: "newer",
+        format: "PDF" as const,
+        filename: "mais-recente.pdf",
+        mimeType: "application/pdf",
+        content: "pdf",
+        encoding: "base64" as const,
+        createdAt: 200,
+      },
+    ];
+    render(<IvaReadinessPanel data={baseReadiness} exportHistory={entries} />);
+
+    const filenames = Array.from(
+      document.querySelectorAll('[data-testid="iva-export-history"] p.truncate')
+    ).map(element => element.textContent);
+    expect(filenames).toEqual(["mais-recente.pdf", "mais-antigo.csv"]);
+
+    fireEvent.click(
+      screen.getByRole("combobox", {
+        name: "Ordenar histórico de exportações IVA",
+      })
+    );
+    fireEvent.click(screen.getByRole("option", { name: "Mais antigas" }));
+    const ascendingFilenames = Array.from(
+      document.querySelectorAll('[data-testid="iva-export-history"] p.truncate')
+    ).map(element => element.textContent);
+    expect(ascendingFilenames).toEqual(["mais-antigo.csv", "mais-recente.pdf"]);
   });
 
   it("mostra histórico local com re-download e abertura", () => {

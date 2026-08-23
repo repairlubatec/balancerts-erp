@@ -67,3 +67,15 @@ As exportações bem-sucedidas são registadas num histórico local limitado aos
 O painel IVA passou a permitir pesquisa local por nome, código ou função normativa, combinável com os filtros de estado da cadeia. As exportações CSV e PDF concluídas são mantidas num histórico local limitado aos cinco ficheiros mais recentes da sessão actual, permitindo descarregar novamente o conteúdo sem repetir a consulta ou o processo de geração.
 
 O toast de sucesso inclui a acção **Abrir ficheiro**, que cria um URL temporário e abre a exportação num novo separador. O histórico e os URLs temporários não são persistidos no servidor; a funcionalidade não confirma diplomas, não modifica fontes normativas e não altera a política `CONFIRMED_ONLY`.
+
+## Refinamentos avançados do fluxo IVA
+
+Foi acrescentado um `AlertDialog` antes de limpar uploads simulados. A confirmação explica que o ficheiro, a pré-visualização e o progresso local serão removidos, enquanto a prontidão real apenas será relida; cancelar mantém o estado intacto.
+
+A selecção ou arrastar de um PDF executa uma validação simulada do nome contra o catálogo visual dos cinco diplomas. Um nome compatível apresenta um aviso informativo; uma divergência apresenta uma mensagem de atenção. Esta validação é heurística, não constitui confirmação humana, não cria evidência e não activa regras.
+
+Os diplomas passaram a ter etiquetas temáticas e nível de importância visíveis, com filtros separados por área temática e importância. A lista suporta ordem normativa, ordem alfabética e data de carregamento. Quando disponível, a data é obtida do `createdAt` real da fonte normativa, sempre dentro do escopo da organização; na ausência de data, é preservada a ordem normativa.
+
+O histórico de exportações passou a estar sempre visível. Sem ficheiros, apresenta um estado vazio explicativo. Com ficheiros, permite ordenar por mais recentes, mais antigas ou tipo de ficheiro. O histórico continua limitado à sessão do navegador, sem persistência adicional no servidor.
+
+A suite global validou 132 ficheiros e 524 testes, incluindo 21 testes direccionados do painel e simulador. O TypeScript terminou sem erros.

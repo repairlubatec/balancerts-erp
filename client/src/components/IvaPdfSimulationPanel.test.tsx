@@ -71,7 +71,45 @@ describe("simulação de envio de PDF IVA", () => {
     expect(screen.getByRole("button", { name: "Simular envio" })).toBeTruthy();
   });
 
-  it("mostra a pré-visualização local e remove-a ao limpar", () => {
+  it("mostra aviso quando o nome não corresponde a um diploma", () => {
+    render(<IvaPdfSimulationPanel />);
+    const file = new File(["pdf de teste"], "documento-sem-diploma.pdf", {
+      type: "application/pdf",
+    });
+
+    fireEvent.change(screen.getByLabelText("PDF para simulação"), {
+      target: { files: [file] },
+    });
+
+    expect(screen.getByTestId("iva-filename-validation").textContent).toContain(
+      "Aviso de divergência"
+    );
+    expect(
+      screen.getByText(/não identifica claramente um dos cinco diplomas/)
+    ).toBeTruthy();
+  });
+
+  it("identifica no nome um diploma exigido sem o confirmar", () => {
+    render(<IvaPdfSimulationPanel />);
+    const file = new File(["pdf de teste"], "Lei-14-23.pdf", {
+      type: "application/pdf",
+    });
+
+    fireEvent.change(screen.getByLabelText("PDF para simulação"), {
+      target: { files: [file] },
+    });
+
+    expect(screen.getByTestId("iva-filename-validation").textContent).toContain(
+      "Nome compatível"
+    );
+    expect(screen.getByTestId("iva-filename-validation").textContent).toContain(
+      "Lei n.º 14/23"
+    );
+    expect(screen.queryByText(/não confirma qualquer diploma/)).toBeNull();
+    expect(screen.getByText("Seleccionado para teste")).toBeTruthy();
+  });
+
+  it("mostra confirmação antes de remover a pré-visualização", () => {
     const createObjectURL = vi.fn(() => "blob:iva-pdf-preview");
     const revokeObjectURL = vi.fn();
     const originalCreateObjectURL = URL.createObjectURL;
@@ -119,6 +157,11 @@ describe("simulação de envio de PDF IVA", () => {
     expect(createObjectURL).toHaveBeenCalledWith(file);
 
     fireEvent.click(screen.getByRole("button", { name: "Limpar e repor" }));
+    expect(screen.getByRole("alertdialog")).toBeTruthy();
+    expect(screen.getByText("Limpar a simulação?")).toBeTruthy();
+    fireEvent.click(
+      screen.getByRole("button", { name: "Sim, limpar e repor" })
+    );
 
     expect(screen.queryByTestId("iva-pdf-preview")).toBeNull();
     expect(revokeObjectURL).toHaveBeenCalledWith("blob:iva-pdf-preview");
@@ -199,6 +242,10 @@ describe("simulação de envio de PDF IVA", () => {
     );
 
     fireEvent.click(screen.getByRole("button", { name: "Limpar e repor" }));
+    expect(screen.getByRole("alertdialog")).toBeTruthy();
+    fireEvent.click(
+      screen.getByRole("button", { name: "Sim, limpar e repor" })
+    );
 
     expect(onResetReadiness).toHaveBeenCalledTimes(1);
     expect(screen.queryByText("limpar.pdf")).toBeNull();

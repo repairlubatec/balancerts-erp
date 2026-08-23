@@ -42,7 +42,21 @@ type ReadinessData = {
   missingChainSources?: string[];
   activeByRegime: Record<string, number>;
   blockers: string[];
+  sourceDates?: Record<string, Date | string | number>;
 };
+
+type DiplomaSort = "NORMATIVE" | "ALPHABETICAL" | "UPLOAD_DATE";
+type HistorySort = "DATE_DESC" | "DATE_ASC" | "TYPE";
+
+const importanceLabels = {
+  CENTRAL: "Central",
+  OPERACIONAL: "Operacional",
+  HISTÓRICA: "Histórica",
+} as const;
+
+const diplomaTags = Array.from(
+  new Set(ivaNormativeChain.flatMap(diploma => diploma.tags))
+).sort((left, right) => left.localeCompare(right, "pt-PT"));
 
 type Props = {
   data?: ReadinessData;
@@ -83,6 +97,10 @@ export function IvaReadinessPanel({
   const [chainFilter, setChainFilter] = useState<
     "ALL" | "MISSING" | "CONFIRMED"
   >("ALL");
+  const [tagFilter, setTagFilter] = useState("ALL");
+  const [importanceFilter, setImportanceFilter] = useState("ALL");
+  const [diplomaSort, setDiplomaSort] = useState<DiplomaSort>("NORMATIVE");
+  const [historySort, setHistorySort] = useState<HistorySort>("DATE_DESC");
   const [searchTerm, setSearchTerm] = useState("");
   const missing = new Set(data?.missingChainSources ?? []);
   const hasChainBlocker = data?.blockers.includes(
@@ -97,18 +115,53 @@ export function IvaReadinessPanel({
   );
   const normalizedSearch = searchTerm.trim().toLocaleLowerCase("pt-PT");
   const filteredDiplomas = ivaNormativeChain.filter(diploma => {
+    const matchesTag =
+      tagFilter === "ALL" ||
+      (diploma.tags as readonly string[]).includes(tagFilter);
+    const matchesImportance =
+      importanceFilter === "ALL" || diploma.importance === importanceFilter;
     const matchesStatus =
       chainFilter === "MISSING"
         ? missing.has(diploma.code)
         : chainFilter === "CONFIRMED"
           ? !missing.has(diploma.code)
           : true;
-    if (!matchesStatus) return false;
+    if (!matchesStatus || !matchesTag || !matchesImportance) return false;
     if (!normalizedSearch) return true;
-    return [diploma.code, diploma.shortTitle, diploma.title, diploma.role]
+    return [
+      diploma.code,
+      diploma.shortTitle,
+      diploma.title,
+      diploma.role,
+      ...diploma.tags,
+      diploma.importance,
+    ]
       .join(" ")
       .toLocaleLowerCase("pt-PT")
       .includes(normalizedSearch);
+  });
+  const sortedDiplomas = [...filteredDiplomas].sort((left, right) => {
+    if (diplomaSort === "ALPHABETICAL") {
+      return left.shortTitle.localeCompare(right.shortTitle, "pt-PT");
+    }
+    if (diplomaSort === "UPLOAD_DATE") {
+      const leftDate = data?.sourceDates?.[left.code];
+      const rightDate = data?.sourceDates?.[right.code];
+      if (leftDate && rightDate) {
+        return (
+          new Date(String(rightDate)).getTime() -
+          new Date(String(leftDate)).getTime()
+        );
+      }
+    }
+    return ivaNormativeChain.indexOf(left) - ivaNormativeChain.indexOf(right);
+  });
+  const sortedHistory = [...exportHistory].sort((left, right) => {
+    if (historySort === "TYPE") {
+      return left.format.localeCompare(right.format, "pt-PT");
+    }
+    const difference = left.createdAt - right.createdAt;
+    return historySort === "DATE_ASC" ? difference : -difference;
   });
   const chainFilterLabel =
     chainFilter === "MISSING"
@@ -287,7 +340,7 @@ export function IvaReadinessPanel({
                     qualquer elemento bloqueia a prontidão.
                   </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center justify-end gap-2">
                   <Select
                     value={chainFilter}
                     onValueChange={value =>
@@ -304,6 +357,61 @@ export function IvaReadinessPanel({
                       <SelectItem value="ALL">Todos</SelectItem>
                       <SelectItem value="MISSING">Em falta</SelectItem>
                       <SelectItem value="CONFIRMED">Confirmados</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Select value={tagFilter} onValueChange={setTagFilter}>
+                    <SelectTrigger
+                      aria-label="Filtrar área temática IVA"
+                      className="h-7 w-[148px] rounded-sm bg-white text-[10px]"
+                    >
+                      <SelectValue placeholder="Área temática" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="ALL">Todas as áreas</SelectItem>
+                      {diplomaTags.map(tag => (
+                        <SelectItem key={tag} value={tag}>
+                          {tag}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Select
+                    value={importanceFilter}
+                    onValueChange={setImportanceFilter}
+                  >
+                    <SelectTrigger
+                      aria-label="Filtrar importância IVA"
+                      className="h-7 w-[132px] rounded-sm bg-white text-[10px]"
+                    >
+                      <SelectValue placeholder="Importância" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="ALL">Toda a importância</SelectItem>
+                      <SelectItem value="CENTRAL">Central</SelectItem>
+                      <SelectItem value="OPERACIONAL">Operacional</SelectItem>
+                      <SelectItem value="HISTÓRICA">Histórica</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Select
+                    value={diplomaSort}
+                    onValueChange={value =>
+                      setDiplomaSort(value as DiplomaSort)
+                    }
+                  >
+                    <SelectTrigger
+                      aria-label="Ordenar diplomas IVA"
+                      className="h-7 w-[148px] rounded-sm bg-white text-[10px]"
+                    >
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="NORMATIVE">Ordem normativa</SelectItem>
+                      <SelectItem value="ALPHABETICAL">
+                        Ordem alfabética
+                      </SelectItem>
+                      <SelectItem value="UPLOAD_DATE">
+                        Data de carregamento
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <Tooltip>
@@ -348,8 +456,10 @@ export function IvaReadinessPanel({
                 </span>
               </div>
               <div className="grid gap-2 p-3 md:grid-cols-2 xl:grid-cols-5">
-                {filteredDiplomas.map((diploma, index) => {
+                {sortedDiplomas.map(diploma => {
                   const isMissing = missing.has(diploma.code);
+                  const ordinal = ivaNormativeChain.indexOf(diploma) + 1;
+                  const sourceDate = data?.sourceDates?.[diploma.code];
                   return (
                     <Tooltip key={diploma.code}>
                       <TooltipTrigger asChild>
@@ -364,7 +474,7 @@ export function IvaReadinessPanel({
                         >
                           <div className="flex items-start justify-between gap-2">
                             <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
-                              {index + 1}. {diploma.shortTitle}
+                              {ordinal}. {diploma.shortTitle}
                             </span>
                             {isMissing ? (
                               <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-red-600" />
@@ -378,6 +488,34 @@ export function IvaReadinessPanel({
                           <p className="mt-1 line-clamp-2 text-[10px] leading-tight text-slate-600">
                             {diploma.role}
                           </p>
+                          <div className="mt-2 flex flex-wrap gap-1">
+                            {diploma.tags.map(tag => (
+                              <Badge
+                                key={tag}
+                                variant="outline"
+                                className="rounded-sm border-slate-300 bg-white/70 px-1.5 py-0 text-[9px] text-slate-600"
+                              >
+                                {tag}
+                              </Badge>
+                            ))}
+                            <Badge
+                              variant="outline"
+                              className={cn(
+                                "rounded-sm px-1.5 py-0 text-[9px]",
+                                diploma.importance === "CENTRAL"
+                                  ? "border-blue-300 bg-blue-50 text-blue-700"
+                                  : "border-slate-300 bg-white/70 text-slate-600"
+                              )}
+                            >
+                              {importanceLabels[diploma.importance]}
+                            </Badge>
+                          </div>
+                          {sourceDate && (
+                            <p className="mt-1 text-[9px] text-slate-500">
+                              Carregado em{" "}
+                              {new Date(sourceDate).toLocaleDateString("pt-PT")}
+                            </p>
+                          )}
                         </div>
                       </TooltipTrigger>
                       <TooltipContent
@@ -457,29 +595,63 @@ export function IvaReadinessPanel({
           </>
         )}
 
-        {exportHistory.length > 0 && (
-          <div
-            className="border border-[#d7e0e8] bg-white"
-            data-testid="iva-export-history"
-          >
-            <div className="flex items-center justify-between gap-2 border-b border-[#e4e9ef] bg-[#eef3f7] px-3 py-2">
-              <div className="flex items-center gap-2">
-                <History className="h-3.5 w-3.5 text-[#1267d6]" />
-                <div>
-                  <p className="text-xs font-semibold text-[#1d2a38]">
-                    Exportações recentes
-                  </p>
-                  <p className="text-[10px] text-slate-500">
-                    Histórico local desta sessão; não é guardado no servidor.
-                  </p>
-                </div>
+        <div
+          className="border border-[#d7e0e8] bg-white"
+          data-testid="iva-export-history"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e4e9ef] bg-[#eef3f7] px-3 py-2">
+            <div className="flex items-center gap-2">
+              <History className="h-3.5 w-3.5 text-[#1267d6]" />
+              <div>
+                <p className="text-xs font-semibold text-[#1d2a38]">
+                  Exportações recentes
+                </p>
+                <p className="text-[10px] text-slate-500">
+                  Histórico local desta sessão; não é guardado no servidor.
+                </p>
               </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Select
+                value={historySort}
+                onValueChange={value => setHistorySort(value as HistorySort)}
+              >
+                <SelectTrigger
+                  aria-label="Ordenar histórico de exportações IVA"
+                  className="h-7 w-[150px] rounded-sm bg-white text-[10px]"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="DATE_DESC">Mais recentes</SelectItem>
+                  <SelectItem value="DATE_ASC">Mais antigas</SelectItem>
+                  <SelectItem value="TYPE">Tipo de ficheiro</SelectItem>
+                </SelectContent>
+              </Select>
               <span className="text-[10px] text-slate-500">
                 {exportHistory.length} ficheiro(s)
               </span>
             </div>
+          </div>
+          {exportHistory.length === 0 ? (
+            <div
+              className="flex flex-col items-center justify-center gap-2 px-4 py-8 text-center"
+              data-testid="iva-export-history-empty"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#eef3f7] text-[#1267d6]">
+                <FileDown className="h-5 w-5" />
+              </div>
+              <p className="text-xs font-semibold text-[#1d2a38]">
+                Ainda não existem exportações
+              </p>
+              <p className="max-w-sm text-[10px] leading-relaxed text-slate-500">
+                Quando gerar o relatório CSV ou PDF, ele aparecerá aqui para
+                descarregar novamente ou abrir durante esta sessão.
+              </p>
+            </div>
+          ) : (
             <div className="divide-y divide-[#edf0f3]">
-              {exportHistory.map(entry => (
+              {sortedHistory.map(entry => (
                 <div
                   key={entry.id}
                   className="flex items-center justify-between gap-2 px-3 py-2"
@@ -522,8 +694,8 @@ export function IvaReadinessPanel({
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </CardContent>
     </Card>
   );

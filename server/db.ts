@@ -250,28 +250,26 @@ export async function createBalancertsIaDocumentSuggestionForUser(input: {
     aplicaçãoAutomática: false,
     revisãoObrigatória: true,
   });
-  await db
-    .insert(balancertsIaSuggestions)
-    .values({
-      organizationId: row.company.organizationId,
-      companyId: input.companyId,
-      createdBy: input.userId,
-      targetType: "DOCUMENT",
-      targetId: input.documentId,
-      task,
-      status: "PROPOSED",
-      provider: result.provider,
-      model: result.model,
-      confidence: "50.00",
-      idempotencyKey,
-      inputSummary: JSON.stringify(safeInput),
-      beforeState: JSON.stringify({
-        status: row.document.status,
-        documentType: row.document.documentType,
-        ivaRegime: row.document.ivaRegime,
-      }),
-      suggestion: suggestionPayload,
-    });
+  await db.insert(balancertsIaSuggestions).values({
+    organizationId: row.company.organizationId,
+    companyId: input.companyId,
+    createdBy: input.userId,
+    targetType: "DOCUMENT",
+    targetId: input.documentId,
+    task,
+    status: "PROPOSED",
+    provider: result.provider,
+    model: result.model,
+    confidence: "50.00",
+    idempotencyKey,
+    inputSummary: JSON.stringify(safeInput),
+    beforeState: JSON.stringify({
+      status: row.document.status,
+      documentType: row.document.documentType,
+      ivaRegime: row.document.ivaRegime,
+    }),
+    suggestion: suggestionPayload,
+  });
   await createBalancertsIaLogForUser({
     userId: input.userId,
     companyId: input.companyId,
@@ -570,21 +568,19 @@ export async function createBalancertsIaLogForUser(input: {
     .limit(1);
   const company = rows[0]?.company;
   if (!company) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
-  await db
-    .insert(balancertsIaLogs)
-    .values({
-      organizationId: company.organizationId,
-      companyId: input.companyId,
-      userId: input.userId,
-      operation: input.operation,
-      provider: input.provider,
-      model: input.model,
-      confidence: input.confidence?.toFixed(2),
-      requestSummary: input.requestSummary?.slice(0, 2000),
-      resultSummary: input.resultSummary?.slice(0, 2000),
-      responseMs: input.responseMs,
-      error: input.error?.slice(0, 1000),
-    });
+  await db.insert(balancertsIaLogs).values({
+    organizationId: company.organizationId,
+    companyId: input.companyId,
+    userId: input.userId,
+    operation: input.operation,
+    provider: input.provider,
+    model: input.model,
+    confidence: input.confidence?.toFixed(2),
+    requestSummary: input.requestSummary?.slice(0, 2000),
+    resultSummary: input.resultSummary?.slice(0, 2000),
+    responseMs: input.responseMs,
+    error: input.error?.slice(0, 1000),
+  });
   return { recorded: true };
 }
 
@@ -708,23 +704,21 @@ export async function createCounterpartyForUser(input: {
     organizationId: input.organizationId,
     companyId: input.companyId,
   });
-  const result = await db
-    .insert(counterparties)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      kind: input.kind,
-      taxId: input.taxId,
-      name: input.name,
-      email: input.email,
-      phone: input.phone,
-      address: input.address,
-      municipality: input.municipality,
-      province: input.province,
-      paymentTermsDays: input.paymentTermsDays ?? 0,
-      creditLimit: (input.creditLimit ?? 0).toFixed(2),
-      preferredCurrency: input.preferredCurrency ?? "AOA",
-    });
+  const result = await db.insert(counterparties).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    kind: input.kind,
+    taxId: input.taxId,
+    name: input.name,
+    email: input.email,
+    phone: input.phone,
+    address: input.address,
+    municipality: input.municipality,
+    province: input.province,
+    paymentTermsDays: input.paymentTermsDays ?? 0,
+    creditLimit: (input.creditLimit ?? 0).toFixed(2),
+    preferredCurrency: input.preferredCurrency ?? "AOA",
+  });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -790,19 +784,17 @@ export async function createProductForUser(input: {
     )
     .limit(1);
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
-  const result = await db
-    .insert(products)
-    .values({
-      companyId: input.companyId,
-      code: input.code,
-      name: input.name,
-      kind: input.kind,
-      unitCode: input.unitCode ?? "UN",
-      taxCode: input.taxCode,
-      salePrice: (input.salePrice ?? 0).toFixed(4),
-      purchasePrice: (input.purchasePrice ?? 0).toFixed(4),
-      stockManaged: input.stockManaged === false ? 0 : 1,
-    });
+  const result = await db.insert(products).values({
+    companyId: input.companyId,
+    code: input.code,
+    name: input.name,
+    kind: input.kind,
+    unitCode: input.unitCode ?? "UN",
+    taxCode: input.taxCode,
+    salePrice: (input.salePrice ?? 0).toFixed(4),
+    purchasePrice: (input.purchasePrice ?? 0).toFixed(4),
+    stockManaged: input.stockManaged === false ? 0 : 1,
+  });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({
     organizationId: company[0].organizationId,
@@ -934,22 +926,20 @@ export async function createCashAccountForUser(input: {
     organizationId: input.organizationId,
     companyId: input.companyId,
   });
-  const result = await db
-    .insert(cashAccounts)
-    .values({
-      companyId: input.companyId,
-      name: input.name,
-      kind: input.kind,
-      bankName: input.bankName,
-      bankCode: input.bankCode,
-      branchName: input.branchName,
-      accountNumber: input.accountNumber,
-      iban: input.iban,
-      holderName: input.holderName,
-      openingBalance: (input.openingBalance ?? 0).toFixed(2),
-      accountingAccountId: input.accountingAccountId,
-      currency: input.currency ?? "AOA",
-    });
+  const result = await db.insert(cashAccounts).values({
+    companyId: input.companyId,
+    name: input.name,
+    kind: input.kind,
+    bankName: input.bankName,
+    bankCode: input.bankCode,
+    branchName: input.branchName,
+    accountNumber: input.accountNumber,
+    iban: input.iban,
+    holderName: input.holderName,
+    openingBalance: (input.openingBalance ?? 0).toFixed(2),
+    accountingAccountId: input.accountingAccountId,
+    currency: input.currency ?? "AOA",
+  });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -1066,41 +1056,37 @@ export async function createPaymentForUser(input: {
     .where(eq(payments.idempotencyKey, input.idempotencyKey))
     .limit(1);
   if (existing[0]) return { payment: existing[0], idempotent: true };
-  const result = await db
-    .insert(payments)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      periodId: input.periodId,
-      documentId: input.documentId,
-      cashAccountId: input.cashAccountId,
-      direction: input.direction,
-      amount: String(input.amount),
-      currency: input.currency ?? "AOA",
-      paidAt: input.paidAt,
-      method: input.method,
-      approvalStatus: input.approvalRequired ? "PENDING" : "APPROVED",
-      approvedBy: input.approvalRequired ? undefined : input.userId,
-      approvedAt: input.approvalRequired ? undefined : new Date(),
-      idempotencyKey: input.idempotencyKey,
-      correlationId: input.correlationId,
-      createdBy: input.userId,
-    });
+  const result = await db.insert(payments).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    periodId: input.periodId,
+    documentId: input.documentId,
+    cashAccountId: input.cashAccountId,
+    direction: input.direction,
+    amount: String(input.amount),
+    currency: input.currency ?? "AOA",
+    paidAt: input.paidAt,
+    method: input.method,
+    approvalStatus: input.approvalRequired ? "PENDING" : "APPROVED",
+    approvedBy: input.approvalRequired ? undefined : input.userId,
+    approvedAt: input.approvalRequired ? undefined : new Date(),
+    idempotencyKey: input.idempotencyKey,
+    correlationId: input.correlationId,
+    createdBy: input.userId,
+  });
   const id = Number(result[0].insertId);
   let treasuryTransactionId: number | undefined;
   if (input.cashAccountId && !input.approvalRequired) {
-    const treasury = await db
-      .insert(treasuryTransactions)
-      .values({
-        companyId: input.companyId,
-        periodId: input.periodId,
-        cashAccountId: input.cashAccountId,
-        paymentId: id,
-        direction: input.direction === "RECEIPT" ? "IN" : "OUT",
-        amount: String(input.amount),
-        valueDate: input.paidAt,
-        correlationId: input.correlationId,
-      });
+    const treasury = await db.insert(treasuryTransactions).values({
+      companyId: input.companyId,
+      periodId: input.periodId,
+      cashAccountId: input.cashAccountId,
+      paymentId: id,
+      direction: input.direction === "RECEIPT" ? "IN" : "OUT",
+      amount: String(input.amount),
+      valueDate: input.paidAt,
+      correlationId: input.correlationId,
+    });
     treasuryTransactionId = Number(treasury[0].insertId);
     await appendAuditEventForUser({
       organizationId: input.organizationId,
@@ -1295,24 +1281,22 @@ export async function configureAgtIntegrationForUser(input: {
     )
     .limit(1);
   if (!context[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
-  const inserted = await db
-    .insert(agtIntegrationConfigs)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      version: input.version,
-      productId: input.productId,
-      productVersion: input.productVersion,
-      softwareValidationNumber: input.softwareValidationNumber,
-      serviceNamespace: input.serviceNamespace,
-      xsdVersion: input.xsdVersion,
-      xsdReference: input.xsdReference,
-      endpointReference: input.endpointReference,
-      authReference: input.authReference,
-      officialCodes: input.officialCodes,
-      homologationStatus: input.homologationStatus ?? "INTERNAL_READY",
-      active: 1,
-    });
+  const inserted = await db.insert(agtIntegrationConfigs).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    version: input.version,
+    productId: input.productId,
+    productVersion: input.productVersion,
+    softwareValidationNumber: input.softwareValidationNumber,
+    serviceNamespace: input.serviceNamespace,
+    xsdVersion: input.xsdVersion,
+    xsdReference: input.xsdReference,
+    endpointReference: input.endpointReference,
+    authReference: input.authReference,
+    officialCodes: input.officialCodes,
+    homologationStatus: input.homologationStatus ?? "INTERNAL_READY",
+    active: 1,
+  });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -1367,15 +1351,13 @@ export async function createAgtEstablishmentForUser(input: {
     organizationId: input.organizationId,
     companyId: input.companyId,
   });
-  const result = await db
-    .insert(agtEstablishments)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      establishmentNumber: input.establishmentNumber.trim(),
-      name: input.name.trim(),
-      address: input.address?.trim(),
-    });
+  const result = await db.insert(agtEstablishments).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    establishmentNumber: input.establishmentNumber.trim(),
+    name: input.name.trim(),
+    address: input.address?.trim(),
+  });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -1448,21 +1430,19 @@ export async function createAgtSeriesForUser(input: {
     .limit(1);
   if (!establishment[0])
     throw new Error("AGT_ESTABLISHMENT_NOT_FOUND_OR_FORBIDDEN");
-  const result = await db
-    .insert(agtSeries)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      establishmentId: input.establishmentId,
-      seriesCode: input.seriesCode.trim(),
-      seriesYear: input.seriesYear,
-      documentType: input.documentType.trim().toUpperCase(),
-      contingencyIndicator: input.contingencyIndicator ?? "N",
-      invoicingMethod: input.invoicingMethod ?? "FESF",
-      firstDocumentApproved: input.firstDocumentApproved,
-      lastDocumentApproved: input.lastDocumentApproved,
-      seriesCreationDate: new Date(),
-    });
+  const result = await db.insert(agtSeries).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    establishmentId: input.establishmentId,
+    seriesCode: input.seriesCode.trim(),
+    seriesYear: input.seriesYear,
+    documentType: input.documentType.trim().toUpperCase(),
+    contingencyIndicator: input.contingencyIndicator ?? "N",
+    invoicingMethod: input.invoicingMethod ?? "FESF",
+    firstDocumentApproved: input.firstDocumentApproved,
+    lastDocumentApproved: input.lastDocumentApproved,
+    seriesCreationDate: new Date(),
+  });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -1530,28 +1510,24 @@ export async function createAgtSubmissionForUser(input: {
     )
     .limit(1);
   if (existing[0]) return { id: existing[0].id, idempotent: true };
-  const inserted = await db
-    .insert(agtSubmissions)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      operation: input.operation,
-      submissionUUID: input.submissionUUID,
-      requestID: input.requestID,
-      payload: JSON.stringify(input.payload),
-      createdBy: input.userId,
-      nextPollAt: new Date(),
-    });
+  const inserted = await db.insert(agtSubmissions).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    operation: input.operation,
+    submissionUUID: input.submissionUUID,
+    requestID: input.requestID,
+    payload: JSON.stringify(input.payload),
+    createdBy: input.userId,
+    nextPollAt: new Date(),
+  });
   const id = Number(inserted[0].insertId);
   for (const document of input.documentIds ?? []) {
-    await db
-      .insert(agtSubmissionDocuments)
-      .values({
-        submissionId: id,
-        companyId: input.companyId,
-        documentId: document.documentId,
-        documentNo: document.documentNo,
-      });
+    await db.insert(agtSubmissionDocuments).values({
+      submissionId: id,
+      companyId: input.companyId,
+      documentId: document.documentId,
+      documentNo: document.documentNo,
+    });
   }
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -1675,18 +1651,16 @@ export async function createAgtSignatureKeyReferenceForUser(input: {
   });
   if (/BEGIN (RSA |EC )?PRIVATE KEY/.test(input.privateKeyReference ?? ""))
     throw new Error("AGT_PRIVATE_KEY_MATERIAL_FORBIDDEN");
-  const inserted = await db
-    .insert(agtSignatureKeys)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      keyType: input.keyType,
-      signatureVersion: input.signatureVersion,
-      publicKeyReference: input.publicKeyReference.trim(),
-      privateKeyReference: input.privateKeyReference?.trim(),
-      effectiveFrom: input.effectiveFrom,
-      createdBy: input.userId,
-    });
+  const inserted = await db.insert(agtSignatureKeys).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    keyType: input.keyType,
+    signatureVersion: input.signatureVersion,
+    publicKeyReference: input.publicKeyReference.trim(),
+    privateKeyReference: input.privateKeyReference?.trim(),
+    effectiveFrom: input.effectiveFrom,
+    createdBy: input.userId,
+  });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -2630,18 +2604,16 @@ export async function createHumanResourcesTaskForUser(input: {
       .limit(1);
     if (!member[0]) throw new Error("HR_TASK_ASSIGNEE_NOT_IN_ORGANIZATION");
   }
-  const inserted = await db
-    .insert(humanResourcesTasks)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      title: input.title.trim(),
-      description: input.description?.trim() || null,
-      priority: input.priority,
-      assigneeUserId: input.assigneeUserId,
-      dueDate: input.dueDate,
-      createdBy: input.userId,
-    });
+  const inserted = await db.insert(humanResourcesTasks).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    title: input.title.trim(),
+    description: input.description?.trim() || null,
+    priority: input.priority,
+    assigneeUserId: input.assigneeUserId,
+    dueDate: input.dueDate,
+    createdBy: input.userId,
+  });
   const taskId = Number(inserted[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -3417,16 +3389,14 @@ export async function closePayrollRunForUser(input: {
         eq(humanResourcesTasks.status, "PENDING")
       )
     );
-  await db
-    .insert(humanResourcesTasks)
-    .values({
-      organizationId: run.organizationId,
-      companyId: run.companyId,
-      payrollRunId: input.runId,
-      title: `Folha ${String(run.month).padStart(2, "0")}/${run.year} pronta para lançamento contabilístico`,
-      dueDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
-      createdBy: input.userId,
-    });
+  await db.insert(humanResourcesTasks).values({
+    organizationId: run.organizationId,
+    companyId: run.companyId,
+    payrollRunId: input.runId,
+    title: `Folha ${String(run.month).padStart(2, "0")}/${run.year} pronta para lançamento contabilístico`,
+    dueDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
+    createdBy: input.userId,
+  });
   await appendAuditEventForUser({
     organizationId: run.organizationId,
     companyId: run.companyId,
@@ -3836,25 +3806,23 @@ export async function calculatePayrollRunForUser(input: {
     irtTotal += calculated.irtAmount;
     socialEmployerTotal += calculated.socialEmployerAmount;
     netTotal += calculated.netAmount;
-    await db
-      .insert(payrollItems)
-      .values({
-        organizationId: input.organizationId,
-        companyId: input.companyId,
-        runId,
-        employeeId: row.employee.id,
-        contractId: row.contract.id,
-        grossAmount: String(calculated.grossAmount),
-        socialEmployeeAmount: String(calculated.socialEmployeeAmount),
-        irtAmount: String(calculated.irtAmount),
-        socialEmployerAmount: String(calculated.socialEmployerAmount),
-        netAmount: String(calculated.netAmount),
-        breakdown: JSON.stringify({
-          taxableAmount: calculated.taxableAmount,
-          ruleSetId: rule.id,
-          ruleVersion: rule.version,
-        }),
-      });
+    await db.insert(payrollItems).values({
+      organizationId: input.organizationId,
+      companyId: input.companyId,
+      runId,
+      employeeId: row.employee.id,
+      contractId: row.contract.id,
+      grossAmount: String(calculated.grossAmount),
+      socialEmployeeAmount: String(calculated.socialEmployeeAmount),
+      irtAmount: String(calculated.irtAmount),
+      socialEmployerAmount: String(calculated.socialEmployerAmount),
+      netAmount: String(calculated.netAmount),
+      breakdown: JSON.stringify({
+        taxableAmount: calculated.taxableAmount,
+        ruleSetId: rule.id,
+        ruleVersion: rule.version,
+      }),
+    });
   }
   await db
     .update(payrollRuns)
@@ -3867,16 +3835,14 @@ export async function calculatePayrollRunForUser(input: {
     })
     .where(eq(payrollRuns.id, runId));
   const approvalDueDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
-  await db
-    .insert(humanResourcesTasks)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      payrollRunId: runId,
-      title: `Folha ${String(input.month).padStart(2, "0")}/${input.year} requer aprovação`,
-      dueDate: approvalDueDate,
-      createdBy: input.userId,
-    });
+  await db.insert(humanResourcesTasks).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    payrollRunId: runId,
+    title: `Folha ${String(input.month).padStart(2, "0")}/${input.year} requer aprovação`,
+    dueDate: approvalDueDate,
+    createdBy: input.userId,
+  });
   await appendAuditEventForUser({
     organizationId: input.organizationId,
     companyId: input.companyId,
@@ -4598,31 +4564,27 @@ export async function createStockCountForUser(input: {
   }
   const normalized = input.items.map(item => validateStockCountLine(item));
   const result = await db.transaction(async tx => {
-    const inserted = await tx
-      .insert(stockCounts)
-      .values({
-        organizationId: input.organizationId,
-        companyId: input.companyId,
-        periodId: input.periodId,
-        warehouseId: input.warehouseId,
-        reference: input.reference.trim(),
-        countDate: input.countDate,
-        notes: input.notes?.trim() || undefined,
-        createdBy: input.userId,
-      });
+    const inserted = await tx.insert(stockCounts).values({
+      organizationId: input.organizationId,
+      companyId: input.companyId,
+      periodId: input.periodId,
+      warehouseId: input.warehouseId,
+      reference: input.reference.trim(),
+      countDate: input.countDate,
+      notes: input.notes?.trim() || undefined,
+      createdBy: input.userId,
+    });
     const countId = Number(inserted[0].insertId);
     for (const item of normalized)
-      await tx
-        .insert(stockCountItems)
-        .values({
-          organizationId: input.organizationId,
-          companyId: input.companyId,
-          countId,
-          productCode: item.productCode,
-          expectedQuantity: item.expectedQuantity.toFixed(4),
-          countedQuantity: item.countedQuantity.toFixed(4),
-          unitCost: item.unitCost.toFixed(4),
-        });
+      await tx.insert(stockCountItems).values({
+        organizationId: input.organizationId,
+        companyId: input.companyId,
+        countId,
+        productCode: item.productCode,
+        expectedQuantity: item.expectedQuantity.toFixed(4),
+        countedQuantity: item.countedQuantity.toFixed(4),
+        unitCost: item.unitCost.toFixed(4),
+      });
     return countId;
   });
   await appendAuditEventForUser({
@@ -4770,20 +4732,18 @@ export async function applyStockCountForUser(input: {
   const result = await db.transaction(async tx => {
     const movementIds: Array<{ itemId: number; movementId: number }> = [];
     for (const adjustment of adjustments) {
-      const movement = await tx
-        .insert(stockMovements)
-        .values({
-          organizationId: current.count.organizationId,
-          companyId: input.companyId,
-          periodId: current.count.periodId,
-          warehouseId: current.count.warehouseId,
-          productCode: adjustment.item.productCode,
-          type: adjustment.difference > 0 ? "IN" : "OUT",
-          quantity: Math.abs(adjustment.difference).toFixed(4),
-          unitCost: adjustment.item.unitCost,
-          sourceDocumentId: undefined,
-          correlationId: `stock-count:${input.countId}:${adjustment.item.id}`,
-        });
+      const movement = await tx.insert(stockMovements).values({
+        organizationId: current.count.organizationId,
+        companyId: input.companyId,
+        periodId: current.count.periodId,
+        warehouseId: current.count.warehouseId,
+        productCode: adjustment.item.productCode,
+        type: adjustment.difference > 0 ? "IN" : "OUT",
+        quantity: Math.abs(adjustment.difference).toFixed(4),
+        unitCost: adjustment.item.unitCost,
+        sourceDocumentId: undefined,
+        correlationId: `stock-count:${input.countId}:${adjustment.item.id}`,
+      });
       const movementId = Number(movement[0].insertId);
       await tx
         .update(stockCountItems)
@@ -4912,17 +4872,15 @@ export async function createWarehouseForUser(input: {
     )
     .limit(1);
   if (existing[0]) throw new Error("WAREHOUSE_CODE_ALREADY_EXISTS");
-  const inserted = await db
-    .insert(warehouses)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      code,
-      name,
-      address: input.address?.trim() || null,
-      createdBy: input.userId,
-      active: 1,
-    });
+  const inserted = await db.insert(warehouses).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    code,
+    name,
+    address: input.address?.trim() || null,
+    createdBy: input.userId,
+    active: 1,
+  });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -5022,21 +4980,19 @@ export async function recordStockMovement(input: {
       .limit(1);
     if (!warehouse[0]) throw new Error("WAREHOUSE_NOT_FOUND_OR_FORBIDDEN");
   }
-  const result = await db
-    .insert(stockMovements)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      periodId: input.periodId,
-      warehouseId: input.warehouseId,
-      productCode: input.productCode,
-      type: input.type,
-      quantity: String(movement.quantity),
-      unitCost: String(movement.unitCost),
-      sourceDocumentId: input.sourceDocumentId,
-      journalEntryId: input.journalEntryId,
-      correlationId: input.correlationId,
-    });
+  const result = await db.insert(stockMovements).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    periodId: input.periodId,
+    warehouseId: input.warehouseId,
+    productCode: input.productCode,
+    type: input.type,
+    quantity: String(movement.quantity),
+    unitCost: String(movement.unitCost),
+    sourceDocumentId: input.sourceDocumentId,
+    journalEntryId: input.journalEntryId,
+    correlationId: input.correlationId,
+  });
   const movementId = Number(result[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -5134,34 +5090,30 @@ export async function transferStockBetweenWarehousesForUser(input: {
   if (available + 0.0000001 < transfer.quantity)
     throw new Error("STOCK_INSUFFICIENT");
   const result = await db.transaction(async tx => {
-    const outgoing = await tx
-      .insert(stockMovements)
-      .values({
-        organizationId: input.organizationId,
-        companyId: input.companyId,
-        periodId: input.periodId,
-        warehouseId: transfer.fromWarehouseId,
-        transferGroupId: transfer.transferGroupId,
-        productCode: transfer.productCode,
-        type: "OUT",
-        quantity: String(transfer.quantity),
-        unitCost: String(transfer.unitCost),
-        correlationId: `${transfer.transferGroupId}:OUT`,
-      });
-    const incoming = await tx
-      .insert(stockMovements)
-      .values({
-        organizationId: input.organizationId,
-        companyId: input.companyId,
-        periodId: input.periodId,
-        warehouseId: transfer.toWarehouseId,
-        transferGroupId: transfer.transferGroupId,
-        productCode: transfer.productCode,
-        type: "IN",
-        quantity: String(transfer.quantity),
-        unitCost: String(transfer.unitCost),
-        correlationId: `${transfer.transferGroupId}:IN`,
-      });
+    const outgoing = await tx.insert(stockMovements).values({
+      organizationId: input.organizationId,
+      companyId: input.companyId,
+      periodId: input.periodId,
+      warehouseId: transfer.fromWarehouseId,
+      transferGroupId: transfer.transferGroupId,
+      productCode: transfer.productCode,
+      type: "OUT",
+      quantity: String(transfer.quantity),
+      unitCost: String(transfer.unitCost),
+      correlationId: `${transfer.transferGroupId}:OUT`,
+    });
+    const incoming = await tx.insert(stockMovements).values({
+      organizationId: input.organizationId,
+      companyId: input.companyId,
+      periodId: input.periodId,
+      warehouseId: transfer.toWarehouseId,
+      transferGroupId: transfer.transferGroupId,
+      productCode: transfer.productCode,
+      type: "IN",
+      quantity: String(transfer.quantity),
+      unitCost: String(transfer.unitCost),
+      correlationId: `${transfer.transferGroupId}:IN`,
+    });
     return {
       outgoingId: Number(outgoing[0].insertId),
       incomingId: Number(incoming[0].insertId),
@@ -5202,38 +5154,34 @@ export async function createFileAsset(input: {
     organizationId: input.organizationId,
     companyId: input.companyId,
   });
-  const result = await db
-    .insert(fileAssets)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      ownerUserId: input.userId,
-      storageKey: input.storageKey,
-      filename: input.filename,
-      mimeType: input.mimeType,
-      size: input.size,
-      sha256: input.sha256,
-      allowedUserIds: JSON.stringify(input.allowedUserIds ?? []),
-      category: input.category ?? "OUTRO",
-      description: input.description ?? null,
-      reference: input.reference ?? null,
-      currentVersion: 1,
-    });
+  const result = await db.insert(fileAssets).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    ownerUserId: input.userId,
+    storageKey: input.storageKey,
+    filename: input.filename,
+    mimeType: input.mimeType,
+    size: input.size,
+    sha256: input.sha256,
+    allowedUserIds: JSON.stringify(input.allowedUserIds ?? []),
+    category: input.category ?? "OUTRO",
+    description: input.description ?? null,
+    reference: input.reference ?? null,
+    currentVersion: 1,
+  });
   const fileId = Number(result[0].insertId);
-  await db
-    .insert(fileAssetVersions)
-    .values({
-      fileAssetId: fileId,
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      versionNumber: 1,
-      storageKey: input.storageKey,
-      filename: input.filename,
-      mimeType: input.mimeType,
-      size: input.size,
-      sha256: input.sha256,
-      createdBy: input.userId,
-    });
+  await db.insert(fileAssetVersions).values({
+    fileAssetId: fileId,
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    versionNumber: 1,
+    storageKey: input.storageKey,
+    filename: input.filename,
+    mimeType: input.mimeType,
+    size: input.size,
+    sha256: input.sha256,
+    createdBy: input.userId,
+  });
   await appendAuditEventForUser({
     organizationId: input.organizationId,
     companyId: input.companyId,
@@ -5400,20 +5348,18 @@ export async function createFileAssetVersion(input: {
   if (file.ownerUserId !== input.userId)
     throw new Error("FILE_VERSION_FORBIDDEN");
   const versionNumber = file.currentVersion + 1;
-  await db
-    .insert(fileAssetVersions)
-    .values({
-      fileAssetId: input.fileId,
-      organizationId: file.organizationId,
-      companyId: input.companyId,
-      versionNumber,
-      storageKey: input.storageKey,
-      filename: input.filename,
-      mimeType: input.mimeType,
-      size: input.size,
-      sha256: input.sha256,
-      createdBy: input.userId,
-    });
+  await db.insert(fileAssetVersions).values({
+    fileAssetId: input.fileId,
+    organizationId: file.organizationId,
+    companyId: input.companyId,
+    versionNumber,
+    storageKey: input.storageKey,
+    filename: input.filename,
+    mimeType: input.mimeType,
+    size: input.size,
+    sha256: input.sha256,
+    createdBy: input.userId,
+  });
   await db
     .update(fileAssets)
     .set({
@@ -5562,41 +5508,37 @@ export async function createPurchaseOrderForUser(input: {
     { net: 0, tax: 0, total: 0 }
   );
   const orderNumber = `EC/${input.requestedDate.getUTCFullYear()}/${Date.now()}`;
-  const result = await db
-    .insert(purchaseOrders)
-    .values({
+  const result = await db.insert(purchaseOrders).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    supplierId: input.supplierId,
+    orderNumber,
+    currency: input.currency ?? "AOA",
+    netAmount: totals.net.toFixed(2),
+    taxAmount: totals.tax.toFixed(2),
+    totalAmount: totals.total.toFixed(2),
+    requestedDate: input.requestedDate,
+    expectedDate: input.expectedDate,
+    notes: input.notes,
+    createdBy: input.userId,
+  });
+  const orderId = Number(result[0].insertId);
+  await db.insert(purchaseOrderItems).values(
+    normalized.map(item => ({
       organizationId: input.organizationId,
       companyId: input.companyId,
-      supplierId: input.supplierId,
-      orderNumber,
-      currency: input.currency ?? "AOA",
-      netAmount: totals.net.toFixed(2),
-      taxAmount: totals.tax.toFixed(2),
-      totalAmount: totals.total.toFixed(2),
-      requestedDate: input.requestedDate,
-      expectedDate: input.expectedDate,
-      notes: input.notes,
-      createdBy: input.userId,
-    });
-  const orderId = Number(result[0].insertId);
-  await db
-    .insert(purchaseOrderItems)
-    .values(
-      normalized.map(item => ({
-        organizationId: input.organizationId,
-        companyId: input.companyId,
-        orderId,
-        lineNumber: item.lineNumber,
-        productId: item.productId,
-        description: item.description,
-        quantity: item.quantity.toFixed(4),
-        unitPrice: item.unitPrice.toFixed(4),
-        taxRate: item.taxRate.toFixed(4),
-        netAmount: item.netAmount.toFixed(2),
-        taxAmount: item.taxAmount.toFixed(2),
-        totalAmount: item.totalAmount.toFixed(2),
-      }))
-    );
+      orderId,
+      lineNumber: item.lineNumber,
+      productId: item.productId,
+      description: item.description,
+      quantity: item.quantity.toFixed(4),
+      unitPrice: item.unitPrice.toFixed(4),
+      taxRate: item.taxRate.toFixed(4),
+      netAmount: item.netAmount.toFixed(2),
+      taxAmount: item.taxAmount.toFixed(2),
+      totalAmount: item.totalAmount.toFixed(2),
+    }))
+  );
   await appendAuditEventForUser({
     organizationId: input.organizationId,
     companyId: input.companyId,
@@ -5860,52 +5802,46 @@ export async function receivePurchaseOrderForUser(input: {
   }
   const receiptNumber = `REC/${input.receivedAt.getUTCFullYear()}/${Date.now()}`;
   const receipt = await db.transaction(async tx => {
-    const result = await tx
-      .insert(purchaseReceipts)
-      .values({
-        organizationId: order.organizationId,
-        companyId: input.companyId,
-        orderId: input.orderId,
-        receiptNumber,
-        periodId: input.periodId,
-        receivedAt: input.receivedAt,
-        notes: input.notes,
-        idempotencyKey: input.idempotencyKey,
-        createdBy: input.userId,
-      });
+    const result = await tx.insert(purchaseReceipts).values({
+      organizationId: order.organizationId,
+      companyId: input.companyId,
+      orderId: input.orderId,
+      receiptNumber,
+      periodId: input.periodId,
+      receivedAt: input.receivedAt,
+      notes: input.notes,
+      idempotencyKey: input.idempotencyKey,
+      createdBy: input.userId,
+    });
     const receiptId = Number(result[0].insertId);
     for (const row of normalized) {
-      await tx
-        .insert(purchaseReceiptItems)
-        .values({
-          organizationId: order.organizationId,
-          companyId: input.companyId,
-          receiptId,
-          orderItemId: row.item.id,
-          productId: row.item.productId,
-          productCode: row.productCode,
-          quantity: row.quantity.toFixed(4),
-          unitCost: row.unitCost.toFixed(4),
-        });
+      await tx.insert(purchaseReceiptItems).values({
+        organizationId: order.organizationId,
+        companyId: input.companyId,
+        receiptId,
+        orderItemId: row.item.id,
+        productId: row.item.productId,
+        productCode: row.productCode,
+        quantity: row.quantity.toFixed(4),
+        unitCost: row.unitCost.toFixed(4),
+      });
       await tx
         .update(purchaseOrderItems)
         .set({
           receivedQuantity: sql`${purchaseOrderItems.receivedQuantity} + ${row.quantity.toFixed(4)}`,
         })
         .where(eq(purchaseOrderItems.id, row.item.id));
-      await tx
-        .insert(stockMovements)
-        .values({
-          organizationId: order.organizationId,
-          companyId: input.companyId,
-          periodId: input.periodId,
-          warehouseId: input.warehouseId,
-          productCode: row.productCode,
-          type: "IN",
-          quantity: row.quantity.toFixed(4),
-          unitCost: row.unitCost.toFixed(4),
-          correlationId: `receipt:${receiptId}:${row.item.id}`,
-        });
+      await tx.insert(stockMovements).values({
+        organizationId: order.organizationId,
+        companyId: input.companyId,
+        periodId: input.periodId,
+        warehouseId: input.warehouseId,
+        productCode: row.productCode,
+        type: "IN",
+        quantity: row.quantity.toFixed(4),
+        unitCost: row.unitCost.toFixed(4),
+        correlationId: `receipt:${receiptId}:${row.item.id}`,
+      });
     }
     return receiptId;
   });
@@ -6323,63 +6259,56 @@ export async function createDraftBusinessDocumentForUser(input: {
     documentType: input.documentType,
   });
   const inserted = await db.transaction(async tx => {
-    const documentResult = await tx
-      .insert(businessDocuments)
-      .values({
-        companyId: input.companyId,
-        documentNumber: reserved.formatted,
-        series: input.series,
-        status: "DRAFT",
-        documentType: input.documentType,
-        customerName: counterparty[0].name,
-        counterpartyId: input.counterpartyId,
-        counterpartyType: input.counterpartyType,
-        correctsDocumentId: input.correctsDocumentId,
-        currency: input.currency ?? companyContext[0].functionalCurrency,
-        ivaRegime: input.ivaRegime,
-        netAmount: totals.net.toFixed(2),
-        taxAmount: totals.tax.toFixed(2),
-        totalAmount: totals.total.toFixed(2),
-        dueDate:
-          input.dueDate ??
-          new Date(
-            Date.now() +
-              Number(counterparty[0].paymentTermsDays ?? 0) * 86400000
-          ),
-        createdBy: input.userId,
-      });
+    const documentResult = await tx.insert(businessDocuments).values({
+      companyId: input.companyId,
+      documentNumber: reserved.formatted,
+      series: input.series,
+      status: "DRAFT",
+      documentType: input.documentType,
+      customerName: counterparty[0].name,
+      counterpartyId: input.counterpartyId,
+      counterpartyType: input.counterpartyType,
+      correctsDocumentId: input.correctsDocumentId,
+      currency: input.currency ?? companyContext[0].functionalCurrency,
+      ivaRegime: input.ivaRegime,
+      netAmount: totals.net.toFixed(2),
+      taxAmount: totals.tax.toFixed(2),
+      totalAmount: totals.total.toFixed(2),
+      dueDate:
+        input.dueDate ??
+        new Date(
+          Date.now() + Number(counterparty[0].paymentTermsDays ?? 0) * 86400000
+        ),
+      createdBy: input.userId,
+    });
     const documentId = Number(documentResult[0].insertId);
     for (let index = 0; index < input.items.length; index += 1) {
       const item = input.items[index];
-      const itemResult = await tx
-        .insert(documentItems)
-        .values({
-          companyId: input.companyId,
-          documentId,
-          lineNumber: index + 1,
-          productId: item.productId,
-          description: item.description,
-          quantity: item.quantity.toFixed(4),
-          unitPrice: item.unitPrice.toFixed(4),
-          netAmount: item.netAmount.toFixed(2),
-          taxAmount: item.taxAmount.toFixed(2),
-          totalAmount: item.totalAmount.toFixed(2),
-        });
+      const itemResult = await tx.insert(documentItems).values({
+        companyId: input.companyId,
+        documentId,
+        lineNumber: index + 1,
+        productId: item.productId,
+        description: item.description,
+        quantity: item.quantity.toFixed(4),
+        unitPrice: item.unitPrice.toFixed(4),
+        netAmount: item.netAmount.toFixed(2),
+        taxAmount: item.taxAmount.toFixed(2),
+        totalAmount: item.totalAmount.toFixed(2),
+      });
       const itemId = Number(itemResult[0].insertId);
       if (item.taxAmount > 0 || item.taxType)
-        await tx
-          .insert(documentTaxes)
-          .values({
-            companyId: input.companyId,
-            documentId,
-            itemId,
-            taxType: item.taxType ?? "IVA",
-            regime: input.ivaRegime,
-            rate: (item.taxRate ?? 0).toFixed(4),
-            baseAmount: item.netAmount.toFixed(2),
-            taxAmount: item.taxAmount.toFixed(2),
-            normativeRuleId: input.normativeRuleId,
-          });
+        await tx.insert(documentTaxes).values({
+          companyId: input.companyId,
+          documentId,
+          itemId,
+          taxType: item.taxType ?? "IVA",
+          regime: input.ivaRegime,
+          rate: (item.taxRate ?? 0).toFixed(4),
+          baseAmount: item.netAmount.toFixed(2),
+          taxAmount: item.taxAmount.toFixed(2),
+          normativeRuleId: input.normativeRuleId,
+        });
     }
     return { documentId };
   });
@@ -6619,19 +6548,17 @@ export async function createFixedAssetForUser(input: {
     )
     .limit(1);
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
-  const inserted = await db
-    .insert(fixedAssets)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      code: input.code,
-      name: input.name,
-      acquisitionDate: input.acquisitionDate,
-      acquisitionCost: input.acquisitionCost.toFixed(2),
-      residualValue: (input.residualValue ?? 0).toFixed(2),
-      usefulLifeMonths: input.usefulLifeMonths,
-      createdBy: input.userId,
-    });
+  const inserted = await db.insert(fixedAssets).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    code: input.code,
+    name: input.name,
+    acquisitionDate: input.acquisitionDate,
+    acquisitionCost: input.acquisitionCost.toFixed(2),
+    residualValue: (input.residualValue ?? 0).toFixed(2),
+    usefulLifeMonths: input.usefulLifeMonths,
+    createdBy: input.userId,
+  });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -6732,19 +6659,17 @@ export async function reconcileCashAccountForUser(input: {
   const status = adjustment.reconciled
     ? ("RECONCILED" as const)
     : ("OPEN" as const);
-  const inserted = await db
-    .insert(cashReconciliations)
-    .values({
-      companyId: input.companyId,
-      cashAccountId: input.cashAccountId,
-      statementDate: input.statementDate,
-      openingBalance: input.openingBalance.toFixed(2),
-      closingBalance: input.closingBalance.toFixed(2),
-      systemBalance: systemBalance.toFixed(2),
-      difference: difference.toFixed(2),
-      status,
-      createdBy: input.userId,
-    });
+  const inserted = await db.insert(cashReconciliations).values({
+    companyId: input.companyId,
+    cashAccountId: input.cashAccountId,
+    statementDate: input.statementDate,
+    openingBalance: input.openingBalance.toFixed(2),
+    closingBalance: input.closingBalance.toFixed(2),
+    systemBalance: systemBalance.toFixed(2),
+    difference: difference.toFixed(2),
+    status,
+    createdBy: input.userId,
+  });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({
     organizationId: account[0].organizationId,
@@ -8056,39 +7981,35 @@ export async function postJournalEntry(input: {
       .limit(1);
     if (!period[0] || period[0].status === "CLOSED")
       throw new Error("PERIOD_NOT_OPEN");
-    const inserted = await tx
-      .insert(journalEntries)
-      .values({
-        companyId: input.companyId,
-        periodId: input.periodId,
-        sourceDocumentId: input.sourceDocumentId,
-        supportFileAssetId: input.supportFileAssetId,
-        documentReference: input.documentReference,
-        journalCode: input.journalCode ?? "GERAL",
-        costCenter: input.costCenter,
-        analyticalDimension: input.analyticalDimension,
-        reversalOfEntryId: input.reversalOfEntryId,
-        idempotencyKey: input.idempotencyKey,
-        description: input.description,
-        createdBy: input.createdBy,
-        status: "POSTED",
-        reviewStatus: input.reviewRequired ? "PENDING" : "APPROVED",
-        reviewedBy: input.reviewRequired ? undefined : input.createdBy,
-        reviewedAt: input.reviewRequired ? undefined : new Date(),
-      });
+    const inserted = await tx.insert(journalEntries).values({
+      companyId: input.companyId,
+      periodId: input.periodId,
+      sourceDocumentId: input.sourceDocumentId,
+      supportFileAssetId: input.supportFileAssetId,
+      documentReference: input.documentReference,
+      journalCode: input.journalCode ?? "GERAL",
+      costCenter: input.costCenter,
+      analyticalDimension: input.analyticalDimension,
+      reversalOfEntryId: input.reversalOfEntryId,
+      idempotencyKey: input.idempotencyKey,
+      description: input.description,
+      createdBy: input.createdBy,
+      status: "POSTED",
+      reviewStatus: input.reviewRequired ? "PENDING" : "APPROVED",
+      reviewedBy: input.reviewRequired ? undefined : input.createdBy,
+      reviewedAt: input.reviewRequired ? undefined : new Date(),
+    });
     const entryId = Number(inserted[0].insertId);
-    await tx
-      .insert(journalLines)
-      .values(
-        input.lines.map(line => ({
-          entryId,
-          accountId: line.accountId,
-          debit: line.debit.toFixed(2),
-          credit: line.credit.toFixed(2),
-          currency: line.currency ?? "AOA",
-          exchangeRate: (line.exchangeRate ?? 1).toFixed(8),
-        }))
-      );
+    await tx.insert(journalLines).values(
+      input.lines.map(line => ({
+        entryId,
+        accountId: line.accountId,
+        debit: line.debit.toFixed(2),
+        credit: line.credit.toFixed(2),
+        currency: line.currency ?? "AOA",
+        exchangeRate: (line.exchangeRate ?? 1).toFixed(8),
+      }))
+    );
     if (input.reversalOfEntryId !== undefined)
       await tx
         .update(journalEntries)
@@ -8194,37 +8115,33 @@ export async function createDocumentImportBatchForUser(input: {
     companyId: input.companyId,
   });
   const hasErrors = input.rows.some(row => row.errors.length > 0);
-  const inserted = await db
-    .insert(documentImportBatches)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      kind: input.kind,
-      status: hasErrors ? "IMPORTED_REVIEW" : "READY_TO_CONFIRM",
-      originalFilename: input.originalFilename,
-      validationSummary: JSON.stringify({
-        rows: input.rows.length,
-        errors: input.rows.reduce((count, row) => count + row.errors.length, 0),
-      }),
-      createdBy: input.userId,
-    });
+  const inserted = await db.insert(documentImportBatches).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    kind: input.kind,
+    status: hasErrors ? "IMPORTED_REVIEW" : "READY_TO_CONFIRM",
+    originalFilename: input.originalFilename,
+    validationSummary: JSON.stringify({
+      rows: input.rows.length,
+      errors: input.rows.reduce((count, row) => count + row.errors.length, 0),
+    }),
+    createdBy: input.userId,
+  });
   const batchId = Number(inserted[0].insertId);
   if (input.rows.length)
-    await db
-      .insert(documentImportRows)
-      .values(
-        input.rows.map((row, index) => ({
-          batchId,
-          organizationId: input.organizationId,
-          companyId: input.companyId,
-          lineNumber: index + 2,
-          payload: JSON.stringify(row.payload),
-          status: (row.errors.length ? "INVALID" : "VALID") as
-            | "INVALID"
-            | "VALID",
-          errors: JSON.stringify(row.errors),
-        }))
-      );
+    await db.insert(documentImportRows).values(
+      input.rows.map((row, index) => ({
+        batchId,
+        organizationId: input.organizationId,
+        companyId: input.companyId,
+        lineNumber: index + 2,
+        payload: JSON.stringify(row.payload),
+        status: (row.errors.length ? "INVALID" : "VALID") as
+          | "INVALID"
+          | "VALID",
+        errors: JSON.stringify(row.errors),
+      }))
+    );
   await appendAuditEventForUser({
     organizationId: input.organizationId,
     companyId: input.companyId,
@@ -8538,15 +8455,13 @@ export async function createFiscalPeriodForUser(input: {
     )
     .limit(1);
   if (existing[0]) return existing[0];
-  const inserted = await db
-    .insert(fiscalPeriods)
-    .values({
-      companyId: input.companyId,
-      exerciseId: exercise[0]?.exercise.id,
-      year: input.year,
-      month: input.month,
-      status: "OPEN",
-    });
+  const inserted = await db.insert(fiscalPeriods).values({
+    companyId: input.companyId,
+    exerciseId: exercise[0]?.exercise.id,
+    year: input.year,
+    month: input.month,
+    status: "OPEN",
+  });
   await appendAuditEventForUser({
     organizationId: current.organization.id,
     companyId: input.companyId,
@@ -8633,15 +8548,13 @@ export async function createDocumentSeriesForUser(input: {
     )
     .limit(1);
   if (existing[0]) return existing[0];
-  const inserted = await db
-    .insert(documentSeries)
-    .values({
-      companyId: input.companyId,
-      code,
-      documentType,
-      nextNumber,
-      active: 1,
-    });
+  const inserted = await db.insert(documentSeries).values({
+    companyId: input.companyId,
+    code,
+    documentType,
+    nextNumber,
+    active: 1,
+  });
   await appendAuditEventForUser({
     organizationId: current.organization.id,
     companyId: input.companyId,
@@ -8729,17 +8642,15 @@ export async function createChartAccountForUser(input: {
     )
     .limit(1);
   if (duplicate[0]) throw new Error("ACCOUNT_CODE_ALREADY_EXISTS");
-  const result = await db
-    .insert(chartAccounts)
-    .values({
-      companyId: input.companyId,
-      code: input.code.trim(),
-      name: input.name.trim(),
-      parentCode: input.parentCode?.trim() || null,
-      postable: input.postable === false ? 0 : 1,
-      validFrom: input.validFrom,
-      validTo: input.validTo ?? null,
-    });
+  const result = await db.insert(chartAccounts).values({
+    companyId: input.companyId,
+    code: input.code.trim(),
+    name: input.name.trim(),
+    parentCode: input.parentCode?.trim() || null,
+    postable: input.postable === false ? 0 : 1,
+    validFrom: input.validFrom,
+    validTo: input.validTo ?? null,
+  });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({
     organizationId: scope[0].organizationId,
@@ -8950,14 +8861,12 @@ export async function createCostCenterForUser(input: {
     )
     .limit(1);
   if (duplicate[0]) throw new Error("COST_CENTER_CODE_ALREADY_EXISTS");
-  const result = await db
-    .insert(costCenters)
-    .values({
-      companyId: input.companyId,
-      code,
-      name: input.name.trim(),
-      active: 1,
-    });
+  const result = await db.insert(costCenters).values({
+    companyId: input.companyId,
+    code,
+    name: input.name.trim(),
+    active: 1,
+  });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({
     organizationId: scope[0].organizationId,
@@ -9105,26 +9014,24 @@ export async function createFiscalTaxRecordForUser(input: {
     .where(eq(fiscalTaxRecords.idempotencyKey, input.idempotencyKey))
     .limit(1);
   if (existing[0]) return { record: existing[0].record, idempotent: true };
-  const inserted = await db
-    .insert(fiscalTaxRecords)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      periodId: input.periodId,
-      taxType: input.taxType,
-      direction: input.direction,
-      regime: input.regime,
-      taxCode: input.taxCode,
-      baseAmount: String(input.baseAmount),
-      taxAmount: String(input.taxAmount),
-      withheldAmount: String(input.withheldAmount ?? 0),
-      currency: input.currency ?? "AOA",
-      dueDate: input.dueDate,
-      sourceReference: input.sourceReference,
-      idempotencyKey: input.idempotencyKey,
-      createdBy: input.userId,
-      status: "CALCULATED",
-    });
+  const inserted = await db.insert(fiscalTaxRecords).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    periodId: input.periodId,
+    taxType: input.taxType,
+    direction: input.direction,
+    regime: input.regime,
+    taxCode: input.taxCode,
+    baseAmount: String(input.baseAmount),
+    taxAmount: String(input.taxAmount),
+    withheldAmount: String(input.withheldAmount ?? 0),
+    currency: input.currency ?? "AOA",
+    dueDate: input.dueDate,
+    sourceReference: input.sourceReference,
+    idempotencyKey: input.idempotencyKey,
+    createdBy: input.userId,
+    status: "CALCULATED",
+  });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -9275,20 +9182,18 @@ export async function createOpeningBalanceForUser(input: {
     )
     .limit(1);
   if (!account[0]) throw new Error("OPENING_BALANCE_ACCOUNT_NOT_POSTABLE");
-  const inserted = await db
-    .insert(openingBalances)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      periodId: input.periodId,
-      accountId: operationalAccountId,
-      debit: input.debit.toFixed(2),
-      credit: input.credit.toFixed(2),
-      currency: input.currency ?? "AOA",
-      reason: input.reason,
-      createdBy: input.userId,
-      status: "DRAFT",
-    });
+  const inserted = await db.insert(openingBalances).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    periodId: input.periodId,
+    accountId: operationalAccountId,
+    debit: input.debit.toFixed(2),
+    credit: input.credit.toFixed(2),
+    currency: input.currency ?? "AOA",
+    reason: input.reason,
+    createdBy: input.userId,
+    status: "DRAFT",
+  });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -9462,18 +9367,16 @@ export async function createAccountingAdjustmentForUser(input: {
     })
   );
   const totals = validateP1AccountingLines(operationalLines);
-  const inserted = await db
-    .insert(accountingAdjustments)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      periodId: input.periodId,
-      adjustmentType: input.adjustmentType,
-      reason: input.reason.trim(),
-      linesJson: JSON.stringify(operationalLines),
-      createdBy: input.userId,
-      status: "DRAFT",
-    });
+  const inserted = await db.insert(accountingAdjustments).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    periodId: input.periodId,
+    adjustmentType: input.adjustmentType,
+    reason: input.reason.trim(),
+    linesJson: JSON.stringify(operationalLines),
+    createdBy: input.userId,
+    status: "DRAFT",
+  });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -9900,43 +9803,39 @@ export async function importBankStatementForUser(input: {
     .limit(1);
   if (existing[0])
     return { importRow: existing[0].importRow, idempotent: true };
-  const inserted = await db
-    .insert(bankStatementImports)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId,
-      cashAccountId: input.cashAccountId,
-      statementDate: input.statementDate,
-      openingBalance: String(input.openingBalance),
-      closingBalance: String(input.closingBalance),
-      currency: input.currency ?? account[0].account.currency,
-      originalFilename: input.originalFilename,
-      sha256,
-      idempotencyKey: `extracto:${sha256}`,
-      createdBy: input.userId,
-      status: "IMPORTED",
-    });
+  const inserted = await db.insert(bankStatementImports).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId,
+    cashAccountId: input.cashAccountId,
+    statementDate: input.statementDate,
+    openingBalance: String(input.openingBalance),
+    closingBalance: String(input.closingBalance),
+    currency: input.currency ?? account[0].account.currency,
+    originalFilename: input.originalFilename,
+    sha256,
+    idempotencyKey: `extracto:${sha256}`,
+    createdBy: input.userId,
+    status: "IMPORTED",
+  });
   const importId = Number(inserted[0].insertId);
   for (const row of input.rows) {
     const fingerprint = createHash("sha256")
       .update(JSON.stringify({ importId, ...row }))
       .digest("hex");
-    await db
-      .insert(bankStatementLines)
-      .values({
-        importId,
-        companyId: input.companyId,
-        bookingDate: row.bookingDate,
-        valueDate: row.valueDate,
-        description: row.description,
-        externalReference: row.externalReference,
-        counterparty: row.counterparty,
-        direction: row.direction,
-        amount: String(row.amount),
-        balance: row.balance === undefined ? undefined : String(row.balance),
-        fingerprint,
-        status: "UNMATCHED",
-      });
+    await db.insert(bankStatementLines).values({
+      importId,
+      companyId: input.companyId,
+      bookingDate: row.bookingDate,
+      valueDate: row.valueDate,
+      description: row.description,
+      externalReference: row.externalReference,
+      counterparty: row.counterparty,
+      direction: row.direction,
+      amount: String(row.amount),
+      balance: row.balance === undefined ? undefined : String(row.balance),
+      fingerprint,
+      status: "UNMATCHED",
+    });
   }
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -10220,28 +10119,24 @@ export async function transferBetweenCashAccountsForUser(input: {
   if (existing[0])
     return { correlationId: input.correlationId, idempotent: true };
   const result = await db.transaction(async tx => {
-    const out = await tx
-      .insert(treasuryTransactions)
-      .values({
-        companyId: input.companyId,
-        periodId: input.periodId,
-        cashAccountId: input.fromCashAccountId,
-        direction: "OUT",
-        amount: input.amount.toFixed(2),
-        valueDate: input.valueDate,
-        correlationId: input.correlationId,
-      });
-    const into = await tx
-      .insert(treasuryTransactions)
-      .values({
-        companyId: input.companyId,
-        periodId: input.periodId,
-        cashAccountId: input.toCashAccountId,
-        direction: "IN",
-        amount: input.amount.toFixed(2),
-        valueDate: input.valueDate,
-        correlationId: input.correlationId,
-      });
+    const out = await tx.insert(treasuryTransactions).values({
+      companyId: input.companyId,
+      periodId: input.periodId,
+      cashAccountId: input.fromCashAccountId,
+      direction: "OUT",
+      amount: input.amount.toFixed(2),
+      valueDate: input.valueDate,
+      correlationId: input.correlationId,
+    });
+    const into = await tx.insert(treasuryTransactions).values({
+      companyId: input.companyId,
+      periodId: input.periodId,
+      cashAccountId: input.toCashAccountId,
+      direction: "IN",
+      amount: input.amount.toFixed(2),
+      valueDate: input.valueDate,
+      correlationId: input.correlationId,
+    });
     return { outId: Number(out[0].insertId), intoId: Number(into[0].insertId) };
   });
   await appendAuditEventForUser({
@@ -10325,18 +10220,16 @@ export async function approvePaymentForUser(input: {
         )
         .limit(1);
       if (!existing[0])
-        await tx
-          .insert(treasuryTransactions)
-          .values({
-            companyId: input.companyId,
-            periodId: rows[0].payment.periodId,
-            cashAccountId: rows[0].payment.cashAccountId,
-            paymentId: input.paymentId,
-            direction: rows[0].payment.direction === "RECEIPT" ? "IN" : "OUT",
-            amount: rows[0].payment.amount,
-            valueDate: rows[0].payment.paidAt,
-            correlationId: `payment:${input.paymentId}`,
-          });
+        await tx.insert(treasuryTransactions).values({
+          companyId: input.companyId,
+          periodId: rows[0].payment.periodId,
+          cashAccountId: rows[0].payment.cashAccountId,
+          paymentId: input.paymentId,
+          direction: rows[0].payment.direction === "RECEIPT" ? "IN" : "OUT",
+          amount: rows[0].payment.amount,
+          valueDate: rows[0].payment.paidAt,
+          correlationId: `payment:${input.paymentId}`,
+        });
     }
     if (rows[0].payment.documentId)
       await tx
@@ -10606,16 +10499,14 @@ export async function getPgcAuditLogsForUser(input: {
     page,
     pageSize,
     hasMore,
-    items: rows
-      .slice(0, pageSize)
-      .map(row => ({
-        ...row.event,
-        actor: row.actor,
-        companyName: row.companyName ?? null,
-        reviewStatus: row.reviewState?.status ?? ("OPEN" as const),
-        reviewUpdatedBy: row.reviewState?.updatedBy ?? null,
-        reviewUpdatedAt: row.reviewState?.updatedAt ?? null,
-      })),
+    items: rows.slice(0, pageSize).map(row => ({
+      ...row.event,
+      actor: row.actor,
+      companyName: row.companyName ?? null,
+      reviewStatus: row.reviewState?.status ?? ("OPEN" as const),
+      reviewUpdatedBy: row.reviewState?.updatedBy ?? null,
+      reviewUpdatedAt: row.reviewState?.updatedAt ?? null,
+    })),
   };
 }
 
@@ -10844,15 +10735,13 @@ export async function updatePgcAuditReviewStatusForUser(input: {
         )
       );
   } else {
-    await db
-      .insert(auditEventReviewStates)
-      .values({
-        organizationId: input.organizationId,
-        companyId: input.companyId ?? null,
-        auditEventId: input.auditEventId,
-        status: input.status,
-        updatedBy: input.userId,
-      });
+    await db.insert(auditEventReviewStates).values({
+      organizationId: input.organizationId,
+      companyId: input.companyId ?? null,
+      auditEventId: input.auditEventId,
+      status: input.status,
+      updatedBy: input.userId,
+    });
   }
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -10956,15 +10845,13 @@ export async function createPgcAuditNoteForUser(input: {
     .limit(1);
   const event = eventRows[0]?.event;
   if (!event) throw new Error("AUDIT_EVENT_NOT_FOUND_OR_FORBIDDEN");
-  const inserted = await db
-    .insert(auditEventNotes)
-    .values({
-      organizationId: input.organizationId,
-      companyId: input.companyId ?? null,
-      auditEventId: input.auditEventId,
-      authorUserId: input.userId,
-      note,
-    });
+  const inserted = await db.insert(auditEventNotes).values({
+    organizationId: input.organizationId,
+    companyId: input.companyId ?? null,
+    auditEventId: input.auditEventId,
+    authorUserId: input.userId,
+    note,
+  });
   const id = Number(inserted[0].insertId);
   await appendAuditEventForUser({
     organizationId: input.organizationId,
@@ -11163,6 +11050,7 @@ export async function getIvaReadinessForUser(input: {
       .select({
         code: normativeSources.code,
         verificationStatus: normativeSources.verificationStatus,
+        createdAt: normativeSources.createdAt,
       })
       .from(normativeSources)
       .where(
@@ -11174,7 +11062,17 @@ export async function getIvaReadinessForUser(input: {
       .limit(100),
   ]);
   const readiness = evaluateIvaReadiness({ rules, mappings, sources });
-  return { organizationId: input.organizationId, asOf, ...readiness };
+  const sourceDates = Object.fromEntries(
+    sources
+      .filter(source => Boolean(source.code))
+      .map(source => [source.code as string, source.createdAt])
+  );
+  return {
+    organizationId: input.organizationId,
+    asOf,
+    sourceDates,
+    ...readiness,
+  };
 }
 
 export async function listIvaAccountMappingsForUser(input: {

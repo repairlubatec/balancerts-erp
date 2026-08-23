@@ -4,18 +4,30 @@ import {
   Eye,
   FileCheck2,
   FileText,
+  FileWarning,
   FlaskConical,
   LockKeyhole,
   RotateCcw,
   UploadCloud,
 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { ivaNormativeChain } from "@/data/ivaNormativeChain";
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -27,7 +39,40 @@ function buildTestIdentifier(file: File) {
   return `SIM-${file.name.length}-${file.size}-${file.lastModified}`;
 }
 
+function normalizeForNameMatch(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+}
+
+function findDiplomaNameMatch(fileName: string) {
+  const normalizedName = normalizeForNameMatch(fileName.replace(/\.pdf$/i, ""));
+  return ivaNormativeChain.find(diploma => {
+    const numericReference = diploma.shortTitle.replace(/[^0-9]+/g, "");
+    const aliases = [
+      diploma.shortTitle,
+      diploma.title,
+      diploma.code,
+      `lei${numericReference}`,
+      numericReference,
+    ];
+    return aliases.some(alias => {
+      const normalizedAlias = normalizeForNameMatch(alias);
+      const isUsefulAlias =
+        normalizedAlias.length > 4 ||
+        (/^\\d+$/.test(normalizedAlias) && normalizedAlias.length >= 4);
+      return isUsefulAlias && normalizedName.includes(normalizedAlias);
+    });
+  });
+}
+
 type SimulationStatus = "IDLE" | "READY" | "PROCESSING" | "COMPLETED";
+type FilenameValidation = {
+  matchedDiploma: (typeof ivaNormativeChain)[number] | null;
+  checked: boolean;
+};
 
 type Props = {
   onResetReadiness?: () => void | Promise<void>;
@@ -42,6 +87,9 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
   const [progress, setProgress] = useState(0);
   const [isDragActive, setIsDragActive] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [filenameValidation, setFilenameValidation] =
+    useState<FilenameValidation>({ matchedDiploma: null, checked: false });
+  const [clearDialogOpen, setClearDialogOpen] = useState(false);
 
   const testIdentifier = useMemo(
     () => (simulatedFile ? buildTestIdentifier(simulatedFile) : null),
@@ -88,6 +136,10 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
     }
     setSelectedFile(file);
     setSimulatedFile(null);
+    setFilenameValidation({
+      matchedDiploma: findDiplomaNameMatch(file.name) ?? null,
+      checked: true,
+    });
     setProgress(0);
     setSimulationStatus("READY");
   };
@@ -105,9 +157,11 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
   const clearSimulation = () => {
     setSelectedFile(null);
     setSimulatedFile(null);
+    setFilenameValidation({ matchedDiploma: null, checked: false });
     setProgress(0);
     setSimulationStatus("IDLE");
     setFileInputKey(value => value + 1);
+    setClearDialogOpen(false);
     void onResetReadiness?.();
     toast.success(
       "Simulação limpa. A prontidão IVA foi reposta ao estado validado."
@@ -198,7 +252,7 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
           <Button
             type="button"
             variant="outline"
-            onClick={clearSimulation}
+            onClick={() => setClearDialogOpen(true)}
             disabled={!hasLocalState && simulationStatus === "IDLE"}
             className="h-8 rounded-sm bg-white text-xs"
           >
@@ -234,6 +288,33 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
                 "Seleccionado para teste"
               )}
             </Badge>
+          </div>
+        )}
+
+        {selectedFile && filenameValidation.checked && (
+          <div
+            className={`flex items-start gap-2 border px-3 py-2 text-[11px] ${filenameValidation.matchedDiploma ? "border-emerald-200 bg-emerald-50 text-emerald-900" : "border-amber-200 bg-amber-50 text-amber-900"}`}
+            data-testid="iva-filename-validation"
+          >
+            {filenameValidation.matchedDiploma ? (
+              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" />
+            ) : (
+              <FileWarning className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600" />
+            )}
+            <span>
+              {filenameValidation.matchedDiploma ? (
+                <>
+                  <strong>Nome compatível:</strong> o ficheiro parece referir-se
+                  a {filenameValidation.matchedDiploma.shortTitle}.
+                </>
+              ) : (
+                <>
+                  <strong>Aviso de divergência:</strong> o nome do PDF não
+                  identifica claramente um dos cinco diplomas exigidos. A
+                  simulação pode continuar, mas não confirma qualquer diploma.
+                </>
+              )}
+            </span>
           </div>
         )}
 
@@ -325,6 +406,31 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
           </span>
         </div>
       </CardContent>
+      <AlertDialog open={clearDialogOpen} onOpenChange={setClearDialogOpen}>
+        <AlertDialogContent className="rounded-sm border-[#bfc9d4]">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-base text-[#1d2a38]">
+              Limpar a simulação?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-xs leading-relaxed text-slate-600">
+              O PDF seleccionado, a pré-visualização e o progresso local serão
+              removidos. A prontidão IVA validada no servidor será apenas
+              relida; nenhuma fonte ou confirmação normativa será alterada.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="rounded-sm bg-white text-xs">
+              Cancelar
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="rounded-sm bg-red-600 text-xs text-white hover:bg-red-700"
+              onClick={clearSimulation}
+            >
+              Sim, limpar e repor
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Card>
   );
 }

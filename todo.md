@@ -3164,3 +3164,12 @@
 - [x] Manter histórico local limitado de exportações recentes com re-download durante a sessão.
 - [x] Adicionar acção rápida no toast para abrir directamente o ficheiro exportado.
 - [x] Criar testes para pesquisa, histórico, re-download, abertura e preservação da política CONFIRMED_ONLY.
+
+# Refinamentos avançados do fluxo IVA
+- [x] Adicionar modal de confirmação antes de limpar uploads simulados.
+- [x] Validar simuladamente se o nome do PDF corresponde ao diploma exigido, sem confirmação normativa automática.
+- [x] Adicionar etiquetas temáticas e de importância aos diplomas com filtro associado.
+- [x] Adicionar ordenação alfabética e por data de carregamento à lista de diplomas.
+- [x] Adicionar empty state visual ao histórico sem exportações.
+- [x] Adicionar ordenação do histórico por data e tipo de ficheiro.
+- [x] Criar testes para confirmação, validação simulada, tags, ordenações e empty state.
