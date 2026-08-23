@@ -37,3 +37,9 @@ O painel de prontidão mostra a conclusão da cadeia normativa como contagem e p
 Foram adicionados os comandos **CSV** e **PDF**. O CSV é construído no cliente a partir do resultado actualmente visível e inclui os cinco diplomas, estados, funções, bloqueios e regras por regime. O PDF é gerado no servidor através do procedimento protegido `normative.exportIvaReadinessPdf`, com validação server-side do papel e da organização. Ambos são relatórios de consulta e não confirmam diplomas, não activam regras e não persistem o PDF simulado.
 
 A exportação PDF usa a mesma data de vigência consultada pelo painel e devolve o estado de prontidão, contagem percentual, lista de diplomas em falta, bloqueios e repartição por regime. O procedimento é permitido apenas para papéis com leitura normativa; o Operador é bloqueado antes da consulta.
+
+## Pré-visualização local do PDF simulado
+
+O simulador apresenta agora uma pré-visualização incorporada do PDF seleccionado antes da simulação, através de um URL temporário criado no navegador. O conteúdo permanece local: não é enviado para a API, não é guardado no armazenamento e não cria evidência normativa.
+
+Quando o utilizador selecciona outro ficheiro ou usa **Limpar e repor**, o URL temporário anterior é revogado e o painel de pré-visualização é removido. Se o ambiente não suportar visualização incorporada, é mostrado um aviso em português sem bloquear o teste do fluxo local.

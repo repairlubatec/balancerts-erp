@@ -3143,3 +3143,8 @@
 - [x] Exportar o estado real de prontidão IVA e os diplomas em falta em PDF.
 - [x] Mostrar percentagem e contagem de diplomas confirmados face aos cinco exigidos.
 - [x] Criar testes para drag-and-drop, resumo de conclusão e exportações sem activação normativa.
+
+# Pré-visualização da simulação IVA
+- [x] Adicionar pré-visualização local do PDF seleccionado antes da conclusão da simulação.
+- [x] Remover a pré-visualização ao limpar o upload e garantir que não há envio nem persistência.
+- [x] Criar testes da pré-visualização, limpeza e aviso de segurança do fluxo simulado.

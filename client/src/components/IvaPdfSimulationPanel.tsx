@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
   CheckCircle2,
+  Eye,
   FileCheck2,
   FileText,
   FlaskConical,
@@ -40,11 +41,25 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
     useState<SimulationStatus>("IDLE");
   const [progress, setProgress] = useState(0);
   const [isDragActive, setIsDragActive] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const testIdentifier = useMemo(
     () => (simulatedFile ? buildTestIdentifier(simulatedFile) : null),
     [simulatedFile]
   );
+
+  useEffect(() => {
+    if (!selectedFile || typeof URL.createObjectURL !== "function") {
+      setPreviewUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(selectedFile);
+    setPreviewUrl(url);
+    return () => {
+      URL.revokeObjectURL(url);
+      setPreviewUrl(current => (current === url ? null : current));
+    };
+  }, [selectedFile]);
 
   useEffect(() => {
     if (simulationStatus !== "PROCESSING") return;
@@ -219,6 +234,42 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
                 "Seleccionado para teste"
               )}
             </Badge>
+          </div>
+        )}
+
+        {selectedFile && (
+          <div
+            className="border border-slate-200 bg-slate-50 p-2.5"
+            data-testid="iva-pdf-preview"
+          >
+            <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-700">
+              <Eye className="h-3.5 w-3.5 text-[#1267d6]" />
+              Pré-visualização local antes da simulação
+            </div>
+            {previewUrl ? (
+              <object
+                title="Pré-visualização do PDF simulado"
+                data={previewUrl}
+                type="application/pdf"
+                aria-label="Pré-visualização do PDF simulado"
+                className="mt-2 h-56 w-full border border-slate-300 bg-white"
+              >
+                <span className="block p-2 text-[10px] text-slate-600">
+                  O visualizador incorporado não conseguiu abrir este PDF neste
+                  ambiente.
+                </span>
+              </object>
+            ) : (
+              <p className="mt-2 border border-amber-200 bg-amber-50 px-2.5 py-2 text-[10px] text-amber-900">
+                A pré-visualização incorporada não está disponível neste
+                ambiente. O PDF continua seleccionado localmente e não foi
+                enviado.
+              </p>
+            )}
+            <p className="mt-1 text-[10px] text-slate-500">
+              Pré-visualização temporária no navegador; não é guardada nem usada
+              como confirmação normativa.
+            </p>
           </div>
         )}
 

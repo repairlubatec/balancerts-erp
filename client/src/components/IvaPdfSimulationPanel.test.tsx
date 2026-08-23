@@ -14,7 +14,14 @@ vi.mock("sonner", () => ({
   toast: { success: vi.fn(), error: vi.fn() },
 }));
 
-afterEach(() => cleanup());
+let restorePreviewUrl: (() => void) | undefined;
+
+afterEach(() => {
+  cleanup();
+  restorePreviewUrl?.();
+  restorePreviewUrl = undefined;
+  vi.unstubAllGlobals();
+});
 
 describe("simulação de envio de PDF IVA", () => {
   it("mantém a simulação bloqueada até existir um PDF seleccionado", () => {
@@ -62,6 +69,59 @@ describe("simulação de envio de PDF IVA", () => {
 
     expect(screen.queryByText("notas.txt")).toBeNull();
     expect(screen.getByRole("button", { name: "Simular envio" })).toBeTruthy();
+  });
+
+  it("mostra a pré-visualização local e remove-a ao limpar", () => {
+    const createObjectURL = vi.fn(() => "blob:iva-pdf-preview");
+    const revokeObjectURL = vi.fn();
+    const originalCreateObjectURL = URL.createObjectURL;
+    const originalRevokeObjectURL = URL.revokeObjectURL;
+    Object.defineProperty(URL, "createObjectURL", {
+      configurable: true,
+      value: createObjectURL,
+    });
+    Object.defineProperty(URL, "revokeObjectURL", {
+      configurable: true,
+      value: revokeObjectURL,
+    });
+    restorePreviewUrl = () => {
+      if (originalCreateObjectURL) {
+        Object.defineProperty(URL, "createObjectURL", {
+          configurable: true,
+          value: originalCreateObjectURL,
+        });
+      } else {
+        delete (URL as unknown as { createObjectURL?: unknown })
+          .createObjectURL;
+      }
+      if (originalRevokeObjectURL) {
+        Object.defineProperty(URL, "revokeObjectURL", {
+          configurable: true,
+          value: originalRevokeObjectURL,
+        });
+      } else {
+        delete (URL as unknown as { revokeObjectURL?: unknown })
+          .revokeObjectURL;
+      }
+    };
+
+    render(<IvaPdfSimulationPanel />);
+    const file = new File(["pdf de teste"], "preview.pdf", {
+      type: "application/pdf",
+    });
+
+    fireEvent.change(screen.getByLabelText("PDF para simulação"), {
+      target: { files: [file] },
+    });
+
+    const preview = screen.getByTitle("Pré-visualização do PDF simulado");
+    expect(preview.getAttribute("data")).toBe("blob:iva-pdf-preview");
+    expect(createObjectURL).toHaveBeenCalledWith(file);
+
+    fireEvent.click(screen.getByRole("button", { name: "Limpar e repor" }));
+
+    expect(screen.queryByTestId("iva-pdf-preview")).toBeNull();
+    expect(revokeObjectURL).toHaveBeenCalledWith("blob:iva-pdf-preview");
   });
 
   it("mostra progresso e bloqueia nova simulação durante o processamento", async () => {
