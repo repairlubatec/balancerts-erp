@@ -3104,3 +3104,17 @@
 - [x] Adicionar paginação ao histórico de alterações de estado no modal.
 - [x] Criar testes para feedback de download, exportação filtrada, RBAC e paginação.
 - [x] Validar visualmente, actualizar o TODO e guardar checkpoint.
+
+# Destino isolado para restauro — faixa seleccionada
+- [ ] Disponibilizar RESTORE_DATABASE_URL de uma base MySQL/TiDB isolada, com utilizador restrito.
+- [ ] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino.
+- [ ] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro.
+- [ ] Validar o destino sem contactar ou alterar a base de produção.
+- [ ] Executar restauro não destrutivo e validar módulos apenas após todos os pré-requisitos anteriores estarem comprovados.
+
+# Suspensão temporária do restauro externo
+- [ ] Manter a configuração RESTORE_DATABASE_URL e os parâmetros do destino isolado em espera até existirem credenciais e ambiente externo verificável.
+- [x] Seleccionar a próxima melhoria interna executável sem depender do destino de restauro.
+
+# Auditoria interna de terminologia
+- [x] Auditar e corrigir termos ingleses visíveis na interface operacional, sem alterar identificadores técnicos, contratos ou dados.
