@@ -1885,7 +1885,7 @@
 
 - [x] Encerrar SMTP Gmail: não é necessária palavra-passe porque o fluxo foi removido
 - [ ] Criar destino MySQL/TiDB isolado e executar restauro real não destrutivo (EM ESPERA — requer privilégios externos)
-- [ ] Validar EXE/MSI numa máquina Windows limpa e recolher evidência de instalação/actualização
+- [ ] Validar EXE/MSI numa máquina Windows limpa e recolher evidência de instalação/actualização (EM ESPERA — requer máquina Windows externa)
 - [ ] Validar assinatura de código e certificado de distribuição Windows fora do sandbox (EM ESPERA — fora da execução activa)
 - [ ] Obter credenciais e endpoint oficiais AGT para homologação controlada (EM ESPERA — fora da execução activa)
 - [ ] Obter credenciais e documentação dos bancos para integração bancária (EM ESPERA — fora da execução activa)
