@@ -2907,3 +2907,9 @@
 - [x] Garantir transições determinísticas, imutabilidade de entradas ACTIVE e bloqueio de publicação automática.
 - [x] Adicionar testes de RBAC, tenant, transições, auditoria e tentativa de activação indevida.
 - [x] Guardar checkpoint da terceira entrega antes de integrar regras em lançamentos e declarações.
+
+# Integração controlada no motor fiscal IVA
+- [x] Impedir cálculo material com regra IVA pendente, rejeitada ou apenas HUMAN_APPROVED.
+- [x] Permitir cálculo apenas com regra ACTIVE e regime compatível, preservando a API existente.
+- [x] Adicionar testes de bloqueio CONFIRMED_ONLY e não-regressão do cálculo IVA.
+- [x] Guardar checkpoint da integração controlada no motor fiscal.

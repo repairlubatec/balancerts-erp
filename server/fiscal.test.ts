@@ -10,6 +10,11 @@ describe("Angola IVA rule engine", () => {
     expect(calculateIva({ netAmount: 1000, regime: "GERAL", rule })).toEqual({ netAmount: 1000, taxAmount: 140, totalAmount: 1140 });
   });
 
+  it("bloqueia regras ainda não activadas pelo fluxo CONFIRMED_ONLY", () => {
+    const pending = { code: "IVA-GER-PENDING", regime: "GERAL" as const, validFrom: new Date("2026-01-01"), rate: 0.14, evidence: "official-pdf", verificationStatus: "HUMAN_APPROVED" as const };
+    expect(() => calculateIva({ netAmount: 1000, regime: "GERAL", rule: pending })).toThrow("FISCAL_RULE_NOT_ACTIVE");
+  });
+
   it("keeps exclusion without liquidation and requires configuration for simplified", () => {
     const exclusion = { code: "IVA-EXC-2026", regime: "EXCLUSAO" as const, validFrom: new Date("2026-01-01"), evidence: "normative-config" };
     expect(calculateIva({ netAmount: 1000, regime: "EXCLUSAO", rule: exclusion }).taxAmount).toBe(0);

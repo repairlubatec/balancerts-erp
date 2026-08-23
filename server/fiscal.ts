@@ -7,6 +7,7 @@ export type FiscalRule = {
   validTo?: Date | null;
   rate?: number;
   evidence: string;
+  verificationStatus?: "PENDING" | "HUMAN_APPROVED" | "ACTIVE" | "SUPERSEDED" | "REJECTED";
 };
 
 export function activeFiscalRule(rules: FiscalRule[], regime: IvaRegime, at: Date) {
@@ -14,6 +15,7 @@ export function activeFiscalRule(rules: FiscalRule[], regime: IvaRegime, at: Dat
 }
 
 export function calculateIva(input: { netAmount: number; regime: IvaRegime; rule: FiscalRule }) {
+  if (input.rule.verificationStatus && input.rule.verificationStatus !== "ACTIVE") throw new Error("FISCAL_RULE_NOT_ACTIVE");
   if (input.rule.regime !== input.regime) throw new Error("FISCAL_RULE_REGIME_MISMATCH");
   if (input.regime === "EXCLUSAO") return { netAmount: input.netAmount, taxAmount: 0, totalAmount: input.netAmount };
   if (input.rule.rate === undefined) throw new Error("FISCAL_RULE_RATE_REQUIRED");
