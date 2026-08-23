@@ -2544,7 +2544,7 @@
 - [x] Implementar validação automática e dashboard de conformidade do PGC
 - [x] Implementar banco de regras contabilísticas sem códigos hardcoded
 - [ ] Integrar o novo PGC com IVA, compras, vendas, stock, tesouraria, salários, imobilizado e relatórios
-- [ ] Integrar o novo PGC como fonte oficial do Balancerts IA e do SAADI
+- [x] Integrar o novo PGC como fonte oficial do Balancerts IA e do SAADI
 - [ ] Implementar migração segura, backup, rollback e preservação de históricos
 - [x] Criar administração do PGC com RBAC, histórico e fontes normativas
 - [ ] Executar testes contabilísticos completos e aceitação controlada sem activar dados não validados
@@ -3021,3 +3021,7 @@
 # Contexto PGCA no Balancerts IA
 - [x] Disponibilizar ao Balancerts IA o contexto PGCA activo e confirmado, apenas para análise e rastreabilidade.
 - [x] Testar RBAC e não-escrita do novo contexto normativo.
+
+# Visibilidade PGCA no Balancerts IA
+- [x] Mostrar no painel IA a versão activa, contas e fontes PGCA confirmadas.
+- [x] Validar a indicação visual sem criar scroll ou activação automática.
