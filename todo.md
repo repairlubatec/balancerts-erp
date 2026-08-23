@@ -2822,3 +2822,9 @@
 
 # Endurecimento da revisão em lote
 - [x] Bloquear explicitamente contas que já tenham decisão final e garantir que só o estado pendente pode ser actualizado e auditado.
+
+# Filtros e etiquetas do plano de contas PGCA
+- [x] Adicionar filtro rápido por estado: Todos, Confirmadas, Pendentes e Outros estados.
+- [x] Criar etiquetas visuais com texto, ícone e contraste para cada estado normativo.
+- [x] Integrar o filtro com pesquisa, contadores e selecção em lote sem alterar dados.
+- [x] Adicionar testes de filtragem, estados vazios, selecção e validação visual.
