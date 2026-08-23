@@ -3029,3 +3029,7 @@
 # Visibilidade PGCA no SAADI
 - [x] Mostrar no painel SAADI a fonte normativa PGCA activa e confirmada.
 - [x] Testar a indicação sem introduzir escrita no ERP nem alterar o fluxo analítico.
+
+# Vista operacional sem dependências externas activas
+- [x] Retirar referências AGT da vista operacional activa sem remover o módulo nem os bloqueios server-side.
+- [x] Testar a vista inicial e manter a indicação genérica de prontidão fiscal.
