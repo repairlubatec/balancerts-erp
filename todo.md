@@ -2988,3 +2988,7 @@
 # Compatibilidade de operações no posting
 - [x] Aplicar a mesma normalização de aliases na resolução server-side da AccountingRule.
 - [x] Testar que uma operação COMPRA/VENDA importada resolve a regra canónica correspondente.
+
+# Visibilidade da cobertura PGCA
+- [x] Mostrar no painel PGCA as operações cobertas e em falta na prontidão de activação.
+- [x] Cobrir a indicação visual da cobertura com teste de componente.

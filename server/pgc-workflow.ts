@@ -59,8 +59,9 @@ export async function getPgcActivationReadinessForUser(input: { userId: number; 
   ]);
   const confirmedAccounts = accounts.filter((account) => account.validationStatus === "CONFIRMED");
   const confirmedSources = sources.filter((source) => source.verificationStatus === "CONFIRMED");
+  const coverage = getAccountingRuleCoverage({ activeRuleOperations: rules.map((rule) => rule.operation) });
   const blockers = getPgcReadinessBlockers({ status: version.status, accountCount: accounts.length, confirmedAccountCount: confirmedAccounts.length, sourceCount: sources.length, confirmedSourceCount: confirmedSources.length, accountingRuleCount: rules.length, accountingRuleOperations: rules.map((rule) => rule.operation) });
-  return { versionId: input.versionId, status: version.status, accountCount: accounts.length, confirmedAccountCount: confirmedAccounts.length, sourceCount: sources.length, confirmedSourceCount: confirmedSources.length, accountingRuleCount: rules.length, ready: blockers.length === 0, blockers };
+  return { versionId: input.versionId, status: version.status, accountCount: accounts.length, confirmedAccountCount: confirmedAccounts.length, sourceCount: sources.length, confirmedSourceCount: confirmedSources.length, accountingRuleCount: rules.length, coverage, ready: blockers.length === 0, blockers };
 }
 
 export async function activatePgcVersionForUser(input: { userId: number; organizationId: number; versionId: number }) {
