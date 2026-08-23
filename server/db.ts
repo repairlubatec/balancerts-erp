@@ -1379,6 +1379,12 @@ export async function createDraftBusinessDocumentForUser(input: { userId: number
   if (!companyContext[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
   const counterparty = await db.select({ id: counterparties.id, name: counterparties.name, kind: counterparties.kind, paymentTermsDays: counterparties.paymentTermsDays, creditLimit: counterparties.creditLimit }).from(counterparties).where(and(eq(counterparties.id, input.counterpartyId), eq(counterparties.companyId, input.companyId), eq(counterparties.kind, input.counterpartyType))).limit(1);
   if (!counterparty[0]) throw new Error("COUNTERPARTY_NOT_FOUND_OR_FORBIDDEN");
+  const hasLiquidatedIva = input.items.some((item) => item.taxAmount > 0 || (item.taxRate ?? 0) > 0);
+  if (hasLiquidatedIva && !input.normativeRuleId) throw new Error("IVA_NORMATIVE_RULE_REQUIRED");
+  if (input.normativeRuleId) {
+    const activeRule = await db.select({ rule: ivaNormativeRules }).from(ivaNormativeRules).where(and(eq(ivaNormativeRules.id, input.normativeRuleId), eq(ivaNormativeRules.organizationId, companyContext[0].organizationId), eq(ivaNormativeRules.regime, input.ivaRegime), eq(ivaNormativeRules.verificationStatus, "ACTIVE"), lte(ivaNormativeRules.effectiveFrom, new Date()), or(isNull(ivaNormativeRules.effectiveTo), gte(ivaNormativeRules.effectiveTo, new Date())))).limit(1);
+    if (!activeRule[0]) throw new Error("IVA_NORMATIVE_RULE_NOT_ACTIVE_OR_FORBIDDEN");
+  }
   if (["NC", "ND"].includes(input.documentType) && !input.correctsDocumentId) throw new Error("CORRECTION_ORIGIN_REQUIRED");
   if (input.documentType === "AF" && input.counterpartyType !== "SUPPLIER") throw new Error("AUTOFATURACAO_REQUER_FORNECEDOR");
   if (input.counterpartyType === "CUSTOMER" && Number(counterparty[0].creditLimit ?? 0) > 0) {

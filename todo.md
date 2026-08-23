@@ -2926,3 +2926,10 @@
 - [x] Gerar e aplicar migração aditiva/segura da restrição temporal.
 - [x] Testar múltiplas versões históricas do mesmo código e selecção por data.
 - [x] Guardar checkpoint da correcção temporal.
+
+# Integração operacional controlada do IVA
+- [x] Mapear os pontos actuais de cálculo de impostos em documentos e lançamentos.
+- [x] Criar resolução server-side de regra IVA ACTIVE por organização, regime e data.
+- [x] Integrar a resolução nos cálculos sem publicar regras pendentes ou alterar históricos.
+- [x] Testar vigência, fonte normativa, RBAC, bloqueios e não-regressão.
+- [x] Guardar checkpoint da integração operacional IVA.
