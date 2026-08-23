@@ -3071,3 +3071,10 @@
 - [x] Apresentar e actualizar as notas no modal sem permitir edição ou eliminação indevida do histórico.
 - [x] Criar testes Vitest para criação, leitura, RBAC, isolamento e validação das notas.
 - [x] Validar visualmente o modal e guardar checkpoint da funcionalidade.
+
+# Estado operacional de alertas de alto risco
+- [x] Permitir marcar o alerta seleccionado como revisto no modal.
+- [x] Permitir marcar o alerta seleccionado como resolvido no modal, com transição válida e auditada.
+- [x] Persistir o estado do alerta e reflecti-lo no dashboard com isolamento e RBAC server-side.
+- [x] Adicionar testes de transições, permissões, isolamento e actualização do dashboard.
+- [x] Validar visualmente, actualizar o TODO e guardar checkpoint.

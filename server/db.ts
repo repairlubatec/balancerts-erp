@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, auditEventNotes, accountingRules, pgcAccounts, pgcVersions, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, normativeSources, normativeSourceRelations, ivaNormativeRules, ivaAccountMappings, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
+  auditEvents, auditEventNotes, auditEventReviewStates, accountingRules, pgcAccounts, pgcVersions, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, normativeSources, normativeSourceRelations, ivaNormativeRules, ivaAccountMappings, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildSaftAoXml, buildTrialBalance, buildVatSummary, type JournalRow, type SaftAoAccount, type SaftAoJournalEntry, type SaftAoSourceDocument } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, validateStockMovement } from "./operations";
@@ -15,6 +15,7 @@ import { ENV } from "./_core/env";
 import { AIRouter, LocalAIProvider, type IAConfig, type IARequest } from "./balancerts-ia/providers";
 import { evaluateIvaReadiness } from "./normative";
 import { accountingRuleOperationCandidates } from "./accounting-rule-operations";
+import { evaluateAuditReviewTransition, type AuditReviewStatus } from "./audit-review-state";
 
 const organizationAccessCondition = (userId: number) => or(eq(organizations.ownerUserId, userId), sql`EXISTS (SELECT 1 FROM organizationMemberships AS om_access WHERE om_access.organizationId = ${organizations.id} AND om_access.userId = ${userId} AND om_access.status = 'ACTIVE')`);
 
@@ -2348,9 +2349,46 @@ export async function getPgcAuditLogsForUser(input: { userId: number; organizati
   if (input.action) filters.push(eq(auditEvents.action, input.action));
   if (input.from) filters.push(gte(auditEvents.createdAt, input.from));
   if (input.to) filters.push(lte(auditEvents.createdAt, input.to));
-  const rows = await db.select({ event: auditEvents, actor: { id: users.id, name: users.name, email: users.email }, companyName: companies.name }).from(auditEvents).leftJoin(users, eq(auditEvents.actorUserId, users.id)).leftJoin(companies, eq(auditEvents.companyId, companies.id)).where(and(...filters)).orderBy(desc(auditEvents.id)).limit(pageSize + 1).offset((page - 1) * pageSize);
+  const rows = await db.select({ event: auditEvents, actor: { id: users.id, name: users.name, email: users.email }, companyName: companies.name, reviewState: auditEventReviewStates }).from(auditEvents).leftJoin(users, eq(auditEvents.actorUserId, users.id)).leftJoin(companies, eq(auditEvents.companyId, companies.id)).leftJoin(auditEventReviewStates, eq(auditEvents.id, auditEventReviewStates.auditEventId)).where(and(...filters)).orderBy(desc(auditEvents.id)).limit(pageSize + 1).offset((page - 1) * pageSize);
   const hasMore = rows.length > pageSize;
-  return { page, pageSize, hasMore, items: rows.slice(0, pageSize).map((row) => ({ ...row.event, actor: row.actor, companyName: row.companyName ?? null })) };
+  return { page, pageSize, hasMore, items: rows.slice(0, pageSize).map((row) => ({ ...row.event, actor: row.actor, companyName: row.companyName ?? null, reviewStatus: row.reviewState?.status ?? "OPEN" as const, reviewUpdatedBy: row.reviewState?.updatedBy ?? null, reviewUpdatedAt: row.reviewState?.updatedAt ?? null })) };
+}
+
+const pgcHighRiskActions = new Set(["PGC_VERSION_ACTIVATED", "ACCOUNTING_RULE_CREATED", "JOURNAL_ENTRY_POSTED", "PAYMENT_POSTED", "FISCAL_PERIOD_CLOSED", "FISCAL_PERIOD_REOPENED", "OPENING_BALANCES_PUBLISHED", "PGC_ACCOUNT_REVIEWED", "PGC_SOURCE_REVIEWED", "PGC_EVIDENCE_REVIEW_DECIDED", "PGC_EVIDENCE_REVIEW_STARTED", "PGC_VERSION_VALIDATED", "DOCUMENT_ISSUED", "DOCUMENT_ARCHIVED", "PAYMENT_APPROVED", "PAYMENT_REVERSED", "JOURNAL_ENTRY_REVERSED"]);
+
+function isPgcHighRiskEvent(event: { action: string; beforeState?: string | null; afterState?: string | null }) {
+  return pgcHighRiskActions.has(event.action) || Boolean(event.beforeState && event.afterState && event.beforeState !== event.afterState);
+}
+
+async function getPgcReviewableEventForUser(input: { userId: number; organizationId: number; companyId?: number | null; auditEventId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId ?? null });
+  const rows = await db.select({ event: auditEvents, reviewState: auditEventReviewStates }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).leftJoin(auditEventReviewStates, eq(auditEvents.id, auditEventReviewStates.auditEventId)).where(and(eq(auditEvents.id, input.auditEventId), eq(auditEvents.organizationId, input.organizationId), input.companyId == null ? isNull(auditEvents.companyId) : eq(auditEvents.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  const row = rows[0];
+  if (!row || !isPgcHighRiskEvent(row.event)) throw new Error("AUDIT_HIGH_RISK_EVENT_NOT_FOUND_OR_FORBIDDEN");
+  return { db, event: row.event, reviewState: row.reviewState };
+}
+
+export async function getPgcAuditReviewStateForUser(input: { userId: number; organizationId: number; companyId?: number | null; auditEventId: number }) {
+  const { reviewState } = await getPgcReviewableEventForUser(input);
+  return { auditEventId: input.auditEventId, organizationId: input.organizationId, companyId: input.companyId ?? null, status: reviewState?.status ?? "OPEN" as AuditReviewStatus, updatedBy: reviewState?.updatedBy ?? null, updatedAt: reviewState?.updatedAt ?? null };
+}
+
+export async function updatePgcAuditReviewStatusForUser(input: { userId: number; organizationId: number; companyId?: number | null; auditEventId: number; status: "REVIEWED" | "RESOLVED" }) {
+  const { db, event, reviewState } = await getPgcReviewableEventForUser(input);
+  const currentStatus: AuditReviewStatus = reviewState?.status ?? "OPEN";
+  const transition = evaluateAuditReviewTransition(currentStatus, input.status);
+  if (!transition.allowed) throw new Error("AUDIT_REVIEW_STATE_TRANSITION_INVALID");
+  if (transition.idempotent) return { auditEventId: input.auditEventId, organizationId: input.organizationId, companyId: input.companyId ?? null, status: currentStatus, updatedBy: reviewState?.updatedBy ?? input.userId, updatedAt: reviewState?.updatedAt ?? null, idempotent: true };
+  const companyCondition = input.companyId == null ? isNull(auditEventReviewStates.companyId) : eq(auditEventReviewStates.companyId, input.companyId);
+  if (reviewState) {
+    await db.update(auditEventReviewStates).set({ status: input.status, updatedBy: input.userId }).where(and(eq(auditEventReviewStates.id, reviewState.id), eq(auditEventReviewStates.organizationId, input.organizationId), companyCondition, eq(auditEventReviewStates.auditEventId, input.auditEventId)));
+  } else {
+    await db.insert(auditEventReviewStates).values({ organizationId: input.organizationId, companyId: input.companyId ?? null, auditEventId: input.auditEventId, status: input.status, updatedBy: input.userId });
+  }
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId ?? null, actorUserId: input.userId, action: input.status === "REVIEWED" ? "AUDIT_ALERT_REVIEWED" : "AUDIT_ALERT_RESOLVED", entityType: "auditEvent", entityId: String(event.id), beforeState: currentStatus, afterState: input.status, correlationId: `audit-alert-status:${event.id}:${input.status}` });
+  return { ...(await getPgcReviewableEventForUser(input)).reviewState, auditEventId: input.auditEventId, organizationId: input.organizationId, companyId: input.companyId ?? null, status: input.status, updatedBy: input.userId, idempotent: false };
 }
 
 export async function listPgcAuditNotesForUser(input: { userId: number; organizationId: number; companyId?: number | null; auditEventId: number; limit?: number }) {

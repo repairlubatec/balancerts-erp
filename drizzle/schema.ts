@@ -1035,6 +1035,19 @@ export const auditEventNotes = mysqlTable("auditEventNotes", {
 }, (table) => ({
   eventScopeIndex: index("audit_event_notes_event_scope_idx").on(table.organizationId, table.companyId, table.auditEventId, table.createdAt),
 }));
+export const auditEventReviewStates = mysqlTable("auditEventReviewStates", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  companyId: int("companyId").references(() => companies.id),
+  auditEventId: int("auditEventId").notNull().references(() => auditEvents.id),
+  status: mysqlEnum("status", ["OPEN", "REVIEWED", "RESOLVED"]).default("OPEN").notNull(),
+  updatedBy: int("updatedBy").notNull().references(() => users.id),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  eventUnique: uniqueIndex("audit_event_review_states_event_unique").on(table.auditEventId),
+  scopeIndex: index("audit_event_review_states_scope_idx").on(table.organizationId, table.companyId, table.status, table.updatedAt),
+}));
 export const saadiStudies = mysqlTable("saadiStudies", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

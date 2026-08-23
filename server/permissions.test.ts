@@ -11,7 +11,7 @@ describe("role segregation", () => {
   it("segrega notas de investigação por papel", () => {
     expect(can("contabilista", "audit", "read")).toBe(true);
     expect(can("contabilista", "audit", "create")).toBe(true);
-    expect(can("contabilista", "audit", "update")).toBe(false);
+    expect(can("contabilista", "audit", "update")).toBe(true);
     expect(can("auditor", "audit", "read")).toBe(true);
     expect(can("auditor", "audit", "create")).toBe(false);
     expect(can("operador", "audit", "read")).toBe(false);

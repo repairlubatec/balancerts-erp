@@ -320,3 +320,19 @@ describe("PGCA activation readiness permissions", () => {
     const operador = appRouter.createCaller(contextWithRole("operador"));
     await expect(operador.audit.pgcNotes({ organizationId: 7, companyId: 41, auditEventId: 27 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
+
+  it("permite ao Contabilista marcar alertas como revistos ou resolvidos e bloqueia alterações do Auditor", async () => {
+    const state = vi.spyOn(db, "getPgcAuditReviewStateForUser").mockResolvedValue({ auditEventId: 27, organizationId: 7, companyId: 41, status: "OPEN", updatedBy: null, updatedAt: null });
+    const update = vi.spyOn(db, "updatePgcAuditReviewStatusForUser").mockResolvedValue({ auditEventId: 27, organizationId: 7, companyId: 41, status: "REVIEWED", updatedBy: 8, updatedAt: new Date("2026-08-23T10:00:00Z"), idempotent: false });
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.audit.pgcAlertStatus({ organizationId: 7, companyId: 41, auditEventId: 27 })).resolves.toMatchObject({ status: "OPEN" });
+    await expect(accountant.audit.updatePgcAlertStatus({ organizationId: 7, companyId: 41, auditEventId: 27, status: "REVIEWED" })).resolves.toMatchObject({ status: "REVIEWED", idempotent: false });
+    expect(state).toHaveBeenCalledWith({ userId: 8, organizationId: 7, companyId: 41, auditEventId: 27 });
+    expect(update).toHaveBeenCalledWith({ userId: 8, organizationId: 7, companyId: 41, auditEventId: 27, status: "REVIEWED" });
+    update.mockResolvedValue({ auditEventId: 27, organizationId: 7, companyId: 41, status: "RESOLVED", updatedBy: 8, updatedAt: new Date("2026-08-23T10:01:00Z"), idempotent: false });
+    await expect(accountant.audit.updatePgcAlertStatus({ organizationId: 7, companyId: 41, auditEventId: 27, status: "RESOLVED" })).resolves.toMatchObject({ status: "RESOLVED" });
+    const auditor = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(auditor.audit.updatePgcAlertStatus({ organizationId: 7, companyId: 41, auditEventId: 27, status: "REVIEWED" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    const operador = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operador.audit.pgcAlertStatus({ organizationId: 7, companyId: 41, auditEventId: 27 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
