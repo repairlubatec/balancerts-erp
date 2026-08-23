@@ -35,3 +35,20 @@ export function validateNormativeCoverage(input: { area: "FISCAL_DOCUMENT" | "AC
   const missing = required.filter((code) => !input.evidenceCodes.includes(code) || !normativeEvidence(code));
   return { valid: missing.length === 0, required, missing, evidence: input.evidenceCodes.map(normativeEvidence).filter(Boolean) };
 }
+
+export function evaluateIvaReadiness(input: {
+  rules: Array<{ verificationStatus: string; regime: string }>;
+  mappings: Array<{ verificationStatus: string }>;
+  sources: Array<{ verificationStatus: string }>;
+}) {
+  const activeRules = input.rules.filter((row) => row.verificationStatus === "ACTIVE");
+  const activeMappings = input.mappings.filter((row) => row.verificationStatus === "ACTIVE");
+  const confirmedSources = input.sources.filter((row) => ["CONFIRMED", "VISUALLY_CONFIRMED", "HUMAN_APPROVED", "ACTIVE"].includes(row.verificationStatus));
+  const regimes = ["GERAL", "SIMPLIFICADO", "EXCLUSAO"] as const;
+  const activeByRegime = Object.fromEntries(regimes.map((regime) => [regime, activeRules.filter((row) => row.regime === regime).length])) as Record<(typeof regimes)[number], number>;
+  const blockers: string[] = [];
+  if (!activeRules.length) blockers.push("IVA_SEM_REGRA_ACTIVE");
+  if (!activeMappings.length) blockers.push("IVA_SEM_MAPEAMENTO_34_5_ACTIVE");
+  if (!confirmedSources.length) blockers.push("IVA_SEM_FONTE_CONFIRMADA");
+  return { ready: blockers.length === 0, activeRules: activeRules.length, activeMappings: activeMappings.length, confirmedSources: confirmedSources.length, activeByRegime, blockers };
+}

@@ -13,6 +13,7 @@ import { validateBalancedEntry, validateDocumentTransition, type JournalLineInpu
 import { assertSecondApprover, calculatePayrollAmounts, parseIrtBrackets } from "./payroll";
 import { ENV } from "./_core/env";
 import { AIRouter, LocalAIProvider, type IAConfig, type IARequest } from "./balancerts-ia/providers";
+import { evaluateIvaReadiness } from "./normative";
 
 const organizationAccessCondition = (userId: number) => or(eq(organizations.ownerUserId, userId), sql`EXISTS (SELECT 1 FROM organizationMemberships AS om_access WHERE om_access.organizationId = ${organizations.id} AND om_access.userId = ${userId} AND om_access.status = 'ACTIVE')`);
 
@@ -2371,6 +2372,19 @@ export async function listIvaNormativeRulesForUser(input: { userId: number; orga
   const asOf = input.asOf ?? new Date();
   const rows = await db.select({ rule: ivaNormativeRules }).from(ivaNormativeRules).innerJoin(organizations, eq(ivaNormativeRules.organizationId, organizations.id)).where(and(eq(ivaNormativeRules.organizationId, input.organizationId), organizationAccessCondition(input.userId), ...(input.regime ? [eq(ivaNormativeRules.regime, input.regime)] : []), ...(input.ruleType ? [eq(ivaNormativeRules.ruleType, input.ruleType)] : []), lte(ivaNormativeRules.effectiveFrom, asOf), or(isNull(ivaNormativeRules.effectiveTo), gte(ivaNormativeRules.effectiveTo, asOf)), ...(input.includePending ? [] : [eq(ivaNormativeRules.verificationStatus, "ACTIVE")]))).orderBy(desc(ivaNormativeRules.effectiveFrom), desc(ivaNormativeRules.id)).limit(limit);
   return rows.map(({ rule }) => rule);
+}
+
+export async function getIvaReadinessForUser(input: { userId: number; organizationId: number; asOf?: Date }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const asOf = input.asOf ?? new Date();
+  const [rules, mappings, sources] = await Promise.all([
+    db.select({ verificationStatus: ivaNormativeRules.verificationStatus, regime: ivaNormativeRules.regime }).from(ivaNormativeRules).innerJoin(organizations, eq(ivaNormativeRules.organizationId, organizations.id)).where(and(eq(ivaNormativeRules.organizationId, input.organizationId), organizationAccessCondition(input.userId), lte(ivaNormativeRules.effectiveFrom, asOf), or(isNull(ivaNormativeRules.effectiveTo), gte(ivaNormativeRules.effectiveTo, asOf)))),
+    db.select({ verificationStatus: ivaAccountMappings.verificationStatus }).from(ivaAccountMappings).innerJoin(organizations, eq(ivaAccountMappings.organizationId, organizations.id)).where(and(eq(ivaAccountMappings.organizationId, input.organizationId), organizationAccessCondition(input.userId), lte(ivaAccountMappings.effectiveFrom, asOf), or(isNull(ivaAccountMappings.effectiveTo), gte(ivaAccountMappings.effectiveTo, asOf)))),
+    db.select({ verificationStatus: normativeSources.verificationStatus }).from(normativeSources).where(and(eq(normativeSources.organizationId, input.organizationId), organizationAccessCondition(input.userId))).limit(100),
+  ]);
+  const readiness = evaluateIvaReadiness({ rules, mappings, sources });
+  return { organizationId: input.organizationId, asOf, ...readiness };
 }
 
 export async function listIvaAccountMappingsForUser(input: { userId: number; organizationId: number; accountCode?: string; asOf?: Date; includePending?: boolean; limit?: number }) {

@@ -2933,3 +2933,10 @@
 - [x] Integrar a resolução nos cálculos sem publicar regras pendentes ou alterar históricos.
 - [x] Testar vigência, fonte normativa, RBAC, bloqueios e não-regressão.
 - [x] Guardar checkpoint da integração operacional IVA.
+
+# Prontidão fiscal IVA
+- [x] Definir critérios de prontidão por regras ACTIVE, conta 34.5 ACTIVE e cobertura de fonte.
+- [x] Implementar consulta tenant-aware de prontidão sem expor dados de outras organizações.
+- [x] Integrar indicador de bloqueio no painel desktop IVA.
+- [x] Testar estados sem dados, parcialmente configurados e prontos.
+- [x] Guardar checkpoint da prontidão fiscal.

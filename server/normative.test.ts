@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normativeEvidence, validateNormativeCoverage } from "./normative";
+import { evaluateIvaReadiness, normativeEvidence, validateNormativeCoverage } from "./normative";
 
 describe("Angola normative evidence", () => {
   it("resolves the Presidential Decree 71/25 evidence", () => {
@@ -27,6 +27,20 @@ describe("Angola normative evidence", () => {
     expect(normativeEvidence("IVA-DP-180-19")).toMatchObject({ verificationStatus: "CONFIRMED", scope: expect.stringContaining("34.5-IVA") });
     expect(normativeEvidence("IVA-DE-134-19")).toMatchObject({ verificationStatus: "CONFIRMED", scope: expect.stringContaining("Modelos") });
     expect(normativeEvidence("IVA-LAW-14-23")).toMatchObject({ verificationStatus: "CONFIRMED", scope: expect.stringContaining("consolidada") });
+  });
+
+  it("avalia prontidão IVA bloqueada quando não existem entradas activas", () => {
+    expect(evaluateIvaReadiness({ rules: [], mappings: [], sources: [] })).toMatchObject({ ready: false, activeRules: 0, activeMappings: 0, confirmedSources: 0, blockers: ["IVA_SEM_REGRA_ACTIVE", "IVA_SEM_MAPEAMENTO_34_5_ACTIVE", "IVA_SEM_FONTE_CONFIRMADA"] });
+  });
+
+  it("avalia prontidão IVA parcial e não confunde aprovação humana com activação", () => {
+    const result = evaluateIvaReadiness({ rules: [{ verificationStatus: "HUMAN_APPROVED", regime: "GERAL" }], mappings: [{ verificationStatus: "ACTIVE" }], sources: [{ verificationStatus: "CONFIRMED" }] });
+    expect(result).toMatchObject({ ready: false, activeRules: 0, activeMappings: 1, confirmedSources: 1, blockers: ["IVA_SEM_REGRA_ACTIVE"] });
+  });
+
+  it("avalia prontidão IVA completa por estado activo e fonte confirmada", () => {
+    const result = evaluateIvaReadiness({ rules: [{ verificationStatus: "ACTIVE", regime: "GERAL" }, { verificationStatus: "ACTIVE", regime: "SIMPLIFICADO" }], mappings: [{ verificationStatus: "ACTIVE" }], sources: [{ verificationStatus: "CONFIRMED" }] });
+    expect(result).toMatchObject({ ready: true, activeRules: 2, activeMappings: 1, confirmedSources: 1, activeByRegime: { GERAL: 1, SIMPLIFICADO: 1, EXCLUSAO: 0 }, blockers: [] });
   });
 
   it("keeps the official PGCA evidence and review boundary", async () => {
