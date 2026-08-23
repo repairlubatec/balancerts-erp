@@ -3,10 +3,14 @@ import {
   AlertTriangle,
   CheckCircle2,
   CircleHelp,
+  Download,
+  ExternalLink,
   FileDown,
   FileSpreadsheet,
   FileWarning,
+  History,
   LockKeyhole,
+  Search,
   ShieldCheck,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +22,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -26,6 +31,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ivaNormativeChain } from "@/data/ivaNormativeChain";
+import type { IvaReadinessExportEntry } from "@/lib/ivaReadinessExport";
 import { cn } from "@/lib/utils";
 
 type ReadinessData = {
@@ -45,6 +51,9 @@ type Props = {
   onExportCsv?: () => void;
   onExportPdf?: () => void;
   exportPdfPending?: boolean;
+  exportHistory?: IvaReadinessExportEntry[];
+  onRedownloadExport?: (entry: IvaReadinessExportEntry) => void;
+  onOpenExport?: (entry: IvaReadinessExportEntry) => void;
 };
 
 const blockerLabels: Record<string, string> = {
@@ -67,10 +76,14 @@ export function IvaReadinessPanel({
   onExportCsv,
   onExportPdf,
   exportPdfPending = false,
+  exportHistory = [],
+  onRedownloadExport,
+  onOpenExport,
 }: Props) {
   const [chainFilter, setChainFilter] = useState<
     "ALL" | "MISSING" | "CONFIRMED"
   >("ALL");
+  const [searchTerm, setSearchTerm] = useState("");
   const missing = new Set(data?.missingChainSources ?? []);
   const hasChainBlocker = data?.blockers.includes(
     "IVA_CADEIA_NORMATIVA_INCOMPLETA"
@@ -82,10 +95,20 @@ export function IvaReadinessPanel({
   const completionPercentage = Math.round(
     (confirmedDiplomas / ivaNormativeChain.length) * 100
   );
+  const normalizedSearch = searchTerm.trim().toLocaleLowerCase("pt-PT");
   const filteredDiplomas = ivaNormativeChain.filter(diploma => {
-    if (chainFilter === "MISSING") return missing.has(diploma.code);
-    if (chainFilter === "CONFIRMED") return !missing.has(diploma.code);
-    return true;
+    const matchesStatus =
+      chainFilter === "MISSING"
+        ? missing.has(diploma.code)
+        : chainFilter === "CONFIRMED"
+          ? !missing.has(diploma.code)
+          : true;
+    if (!matchesStatus) return false;
+    if (!normalizedSearch) return true;
+    return [diploma.code, diploma.shortTitle, diploma.title, diploma.role]
+      .join(" ")
+      .toLocaleLowerCase("pt-PT")
+      .includes(normalizedSearch);
   });
   const chainFilterLabel =
     chainFilter === "MISSING"
@@ -301,9 +324,26 @@ export function IvaReadinessPanel({
                   </Tooltip>
                 </div>
               </div>
-              <div className="flex items-center justify-between border-b border-[#e4e9ef] px-3 py-1.5 text-[10px] text-slate-500">
-                <span>Filtro: {chainFilterLabel}</span>
-                <span>
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e4e9ef] px-3 py-2">
+                <label className="flex min-w-56 flex-1 items-center gap-2">
+                  <Search className="h-3.5 w-3.5 shrink-0 text-slate-400" />
+                  <Input
+                    value={searchTerm}
+                    onChange={event => setSearchTerm(event.target.value)}
+                    aria-label="Pesquisar diploma IVA"
+                    placeholder="Pesquisar por nome, código ou função…"
+                    className="h-7 rounded-sm bg-white text-[10px]"
+                  />
+                </label>
+                <div className="text-right text-[10px] text-slate-500">
+                  <span className="block">Filtro: {chainFilterLabel}</span>
+                  {searchTerm.trim() && (
+                    <span className="block">
+                      Pesquisa: “{searchTerm.trim()}”
+                    </span>
+                  )}
+                </div>
+                <span className="text-[10px] text-slate-500">
                   {filteredDiplomas.length}/{ivaNormativeChain.length} diplomas
                 </span>
               </div>
@@ -415,6 +455,74 @@ export function IvaReadinessPanel({
               </div>
             )}
           </>
+        )}
+
+        {exportHistory.length > 0 && (
+          <div
+            className="border border-[#d7e0e8] bg-white"
+            data-testid="iva-export-history"
+          >
+            <div className="flex items-center justify-between gap-2 border-b border-[#e4e9ef] bg-[#eef3f7] px-3 py-2">
+              <div className="flex items-center gap-2">
+                <History className="h-3.5 w-3.5 text-[#1267d6]" />
+                <div>
+                  <p className="text-xs font-semibold text-[#1d2a38]">
+                    Exportações recentes
+                  </p>
+                  <p className="text-[10px] text-slate-500">
+                    Histórico local desta sessão; não é guardado no servidor.
+                  </p>
+                </div>
+              </div>
+              <span className="text-[10px] text-slate-500">
+                {exportHistory.length} ficheiro(s)
+              </span>
+            </div>
+            <div className="divide-y divide-[#edf0f3]">
+              {exportHistory.map(entry => (
+                <div
+                  key={entry.id}
+                  className="flex items-center justify-between gap-2 px-3 py-2"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-[11px] font-semibold text-slate-800">
+                      {entry.filename}
+                    </p>
+                    <p className="text-[10px] text-slate-500">
+                      {entry.format} ·{" "}
+                      {new Date(entry.createdAt).toLocaleTimeString("pt-PT")}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-1">
+                    {onRedownloadExport && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        aria-label={`Descarregar novamente ${entry.filename}`}
+                        onClick={() => onRedownloadExport(entry)}
+                        className="h-6 rounded-sm bg-white px-2 text-[10px]"
+                      >
+                        <Download className="mr-1 h-3 w-3" /> Novamente
+                      </Button>
+                    )}
+                    {onOpenExport && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        aria-label={`Abrir ${entry.filename}`}
+                        onClick={() => onOpenExport(entry)}
+                        className="h-6 rounded-sm bg-white px-2 text-[10px]"
+                      >
+                        <ExternalLink className="mr-1 h-3 w-3" /> Abrir
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </CardContent>
     </Card>

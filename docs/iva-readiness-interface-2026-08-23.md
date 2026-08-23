@@ -55,3 +55,15 @@ O filtro altera apenas a apresentação local da lista. A percentagem de conclus
 As exportações CSV e PDF do estado de prontidão IVA apresentam agora um toast de sucesso em português somente depois de a descarga ser preparada. A notificação identifica o formato e mostra o nome do ficheiro gerado, permitindo ao utilizador reconhecer imediatamente o resultado.
 
 Falhas na preparação da descarga não apresentam uma confirmação positiva: são comunicadas por uma mensagem de erro separada. O toast não altera o estado normativo, não confirma diplomas e não transforma a exportação numa operação de escrita.
+
+## Pesquisa e histórico de exportações
+
+A cadeia normativa IVA dispõe agora de pesquisa local por nome, código ou função normativa. A pesquisa combina-se com os filtros de estado **Todos**, **Em falta** e **Confirmados**, sem alterar a contagem global, a percentagem ou a política `CONFIRMED_ONLY`.
+
+As exportações bem-sucedidas são registadas num histórico local limitado aos cinco ficheiros mais recentes da sessão do navegador. Cada entrada conserva apenas os dados necessários para permitir um novo download ou a abertura do ficheiro num separador separado; não há persistência no servidor nem alteração de fontes normativas. O toast de sucesso inclui a acção **Abrir ficheiro**, com tratamento explícito para bloqueios do navegador.
+
+## Pesquisa, histórico e abertura de exportações
+
+O painel IVA passou a permitir pesquisa local por nome, código ou função normativa, combinável com os filtros de estado da cadeia. As exportações CSV e PDF concluídas são mantidas num histórico local limitado aos cinco ficheiros mais recentes da sessão actual, permitindo descarregar novamente o conteúdo sem repetir a consulta ou o processo de geração.
+
+O toast de sucesso inclui a acção **Abrir ficheiro**, que cria um URL temporário e abre a exportação num novo separador. O histórico e os URLs temporários não são persistidos no servidor; a funcionalidade não confirma diplomas, não modifica fontes normativas e não altera a política `CONFIRMED_ONLY`.

@@ -93,6 +93,56 @@ describe("painel de prontidão IVA", () => {
     expect(screen.getByText("5/5 diplomas")).toBeTruthy();
   });
 
+  it("pesquisa rapidamente um diploma pelo nome", () => {
+    render(<IvaReadinessPanel data={baseReadiness} />);
+    fireEvent.change(
+      screen.getByRole("textbox", { name: "Pesquisar diploma IVA" }),
+      {
+        target: { value: "Lei n.º 14/23" },
+      }
+    );
+
+    expect(screen.getByText("Pesquisa: “Lei n.º 14/23”")).toBeTruthy();
+    expect(screen.getByText("1/5 diplomas")).toBeTruthy();
+    expect(screen.getByTestId("iva-chain-IVA-LAW-14-23")).toBeTruthy();
+    expect(screen.queryByTestId("iva-chain-IVA-LAW-7-19")).toBeNull();
+  });
+
+  it("mostra histórico local com re-download e abertura", () => {
+    const entry = {
+      id: "csv-1",
+      format: "CSV" as const,
+      filename: "prontidao-iva-3.csv",
+      mimeType: "text/csv;charset=utf-8",
+      content: "csv",
+      encoding: "text" as const,
+      createdAt: Date.now(),
+    };
+    const onRedownloadExport = vi.fn();
+    const onOpenExport = vi.fn();
+    render(
+      <IvaReadinessPanel
+        data={baseReadiness}
+        exportHistory={[entry]}
+        onRedownloadExport={onRedownloadExport}
+        onOpenExport={onOpenExport}
+      />
+    );
+
+    expect(screen.getByTestId("iva-export-history")).toBeTruthy();
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "Descarregar novamente prontidao-iva-3.csv",
+      })
+    );
+    fireEvent.click(
+      screen.getByRole("button", { name: "Abrir prontidao-iva-3.csv" })
+    );
+
+    expect(onRedownloadExport).toHaveBeenCalledWith(entry);
+    expect(onOpenExport).toHaveBeenCalledWith(entry);
+  });
+
   it("mostra a prontidão como pronta quando a cadeia está completa", () => {
     render(
       <IvaReadinessPanel

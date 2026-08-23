@@ -3158,3 +3158,9 @@
 - [x] Mostrar toast de sucesso depois de preparar a descarga CSV de prontidão IVA.
 - [x] Mostrar toast de sucesso depois de preparar a descarga PDF de prontidão IVA.
 - [x] Testar toasts de sucesso e garantir que erros não apresentam confirmação indevida.
+
+# Pesquisa e histórico de exportações IVA
+- [x] Adicionar pesquisa por nome e código na lista dos cinco diplomas IVA.
+- [x] Manter histórico local limitado de exportações recentes com re-download durante a sessão.
+- [x] Adicionar acção rápida no toast para abrir directamente o ficheiro exportado.
+- [x] Criar testes para pesquisa, histórico, re-download, abertura e preservação da política CONFIRMED_ONLY.

@@ -1,7 +1,49 @@
-import { describe, expect, it } from "vitest";
-import { buildIvaReadinessCsv } from "./ivaReadinessExport";
+// @vitest-environment jsdom
+import { describe, expect, it, vi } from "vitest";
+import {
+  buildIvaReadinessCsv,
+  downloadIvaExport,
+  openIvaExport,
+} from "./ivaReadinessExport";
 
 describe("exportação do estado de prontidão IVA", () => {
+  const entry = {
+    id: "pdf-1",
+    format: "PDF" as const,
+    filename: "prontidao-iva-3.pdf",
+    mimeType: "application/pdf",
+    content: "JVBERi0xLjQ=",
+    encoding: "base64" as const,
+    createdAt: Date.now(),
+  };
+
+  it("permite reabrir uma exportação PDF da sessão", () => {
+    const createObjectURL = vi.fn(() => "blob:iva-pdf");
+    const revokeObjectURL = vi.fn();
+    const open = vi.fn(() => ({}));
+    Object.defineProperty(URL, "createObjectURL", {
+      configurable: true,
+      value: createObjectURL,
+    });
+    Object.defineProperty(URL, "revokeObjectURL", {
+      configurable: true,
+      value: revokeObjectURL,
+    });
+    Object.defineProperty(window, "open", {
+      configurable: true,
+      value: open,
+    });
+
+    expect(openIvaExport(entry)).toBe(true);
+    expect(createObjectURL).toHaveBeenCalledTimes(1);
+    expect(open).toHaveBeenCalledWith(
+      "blob:iva-pdf",
+      "_blank",
+      "noopener,noreferrer"
+    );
+    expect(downloadIvaExport).toBeTypeOf("function");
+  });
+
   it("inclui o resumo 3/5, a percentagem e os diplomas em falta", () => {
     const csv = buildIvaReadinessCsv(
       {

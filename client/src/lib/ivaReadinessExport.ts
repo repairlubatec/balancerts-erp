@@ -1,5 +1,15 @@
 import { ivaNormativeChain } from "@/data/ivaNormativeChain";
 
+export type IvaReadinessExportEntry = {
+  id: string;
+  format: "CSV" | "PDF";
+  filename: string;
+  mimeType: string;
+  content: string;
+  encoding: "text" | "base64";
+  createdAt: number;
+};
+
 type IvaReadinessExportData = {
   ready: boolean;
   activeRules: number;
@@ -76,4 +86,26 @@ export function downloadBase64File(
   const binary = window.atob(dataBase64);
   const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
   downloadBlob(bytes, filename, mimeType);
+}
+
+export function downloadIvaExport(entry: IvaReadinessExportEntry) {
+  if (entry.encoding === "base64") {
+    downloadBase64File(entry.content, entry.filename, entry.mimeType);
+    return;
+  }
+  downloadBlob(entry.content, entry.filename, entry.mimeType);
+}
+
+export function openIvaExport(entry: IvaReadinessExportEntry) {
+  const data =
+    entry.encoding === "base64"
+      ? Uint8Array.from(window.atob(entry.content), character =>
+          character.charCodeAt(0)
+        )
+      : entry.content;
+  const blob = new Blob([data], { type: entry.mimeType });
+  const url = URL.createObjectURL(blob);
+  const opened = window.open(url, "_blank", "noopener,noreferrer");
+  window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  return Boolean(opened);
 }

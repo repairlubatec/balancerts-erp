@@ -23,8 +23,9 @@ import {
 import { normativeErrorLabel } from "@/lib/normativeErrors";
 import {
   buildIvaReadinessCsv,
-  downloadBase64File,
-  downloadBlob,
+  downloadIvaExport,
+  openIvaExport,
+  type IvaReadinessExportEntry,
 } from "@/lib/ivaReadinessExport";
 import { IvaReadinessPanel } from "@/components/IvaReadinessPanel";
 
@@ -81,6 +82,9 @@ export function IvaNormativeReviewPanel({
   >("TODOS");
   const [asOf, setAsOf] = useState("2026-08-23");
   const [note, setNote] = useState("");
+  const [exportHistory, setExportHistory] = useState<IvaReadinessExportEntry[]>(
+    []
+  );
   const [selectedRuleId, setSelectedRuleId] = useState<number>();
   const [selectedMappingId, setSelectedMappingId] = useState<number>();
   const asOfDate = useMemo(() => new Date(`${asOf}T00:00:00Z`), [asOf]);
@@ -107,18 +111,52 @@ export function IvaNormativeReviewPanel({
   const readinessQuery = trpc.normative.ivaReadiness.useQuery(readinessInput, {
     enabled: Boolean(organizationId),
   });
+  const openExport = (entry: IvaReadinessExportEntry) => {
+    try {
+      if (!openIvaExport(entry)) {
+        toast.error("O navegador bloqueou a abertura do ficheiro exportado.");
+      }
+    } catch {
+      toast.error("Não foi possível abrir o ficheiro exportado.");
+    }
+  };
+  const showExportSuccess = (entry: IvaReadinessExportEntry) => {
+    setExportHistory(previous =>
+      [entry, ...previous.filter(item => item.id !== entry.id)].slice(0, 5)
+    );
+    toast.success(`Relatório ${entry.format} de prontidão IVA descarregado.`, {
+      description: entry.filename,
+      action: {
+        label: "Abrir ficheiro",
+        onClick: () => openExport(entry),
+      },
+    });
+  };
+  const redownloadExport = (entry: IvaReadinessExportEntry) => {
+    try {
+      downloadIvaExport(entry);
+      showExportSuccess(entry);
+    } catch {
+      toast.error(
+        `Não foi possível descarregar novamente o ficheiro ${entry.filename}.`
+      );
+    }
+  };
   const exportIvaReadinessPdf =
     trpc.normative.exportIvaReadinessPdf.useMutation({
       onSuccess: result => {
+        const entry: IvaReadinessExportEntry = {
+          id: `${result.filename}-${Date.now()}`,
+          format: "PDF",
+          filename: result.filename,
+          mimeType: result.mimeType,
+          content: result.dataBase64,
+          encoding: "base64",
+          createdAt: Date.now(),
+        };
         try {
-          downloadBase64File(
-            result.dataBase64,
-            result.filename,
-            result.mimeType
-          );
-          toast.success("Relatório PDF de prontidão IVA descarregado.", {
-            description: result.filename,
-          });
+          downloadIvaExport(entry);
+          showExportSuccess(entry);
         } catch {
           toast.error(
             "Não foi possível preparar a descarga do relatório PDF IVA."
@@ -133,15 +171,18 @@ export function IvaNormativeReviewPanel({
       return;
     }
     const filename = `prontidao-iva-${organizationId ?? "contexto"}-${new Date().toISOString().slice(0, 10)}.csv`;
+    const entry: IvaReadinessExportEntry = {
+      id: `${filename}-${Date.now()}`,
+      format: "CSV",
+      filename,
+      mimeType: "text/csv;charset=utf-8",
+      content: buildIvaReadinessCsv(readinessQuery.data, asOfDate),
+      encoding: "text",
+      createdAt: Date.now(),
+    };
     try {
-      downloadBlob(
-        buildIvaReadinessCsv(readinessQuery.data, asOfDate),
-        filename,
-        "text/csv;charset=utf-8"
-      );
-      toast.success("Relatório CSV de prontidão IVA descarregado.", {
-        description: filename,
-      });
+      downloadIvaExport(entry);
+      showExportSuccess(entry);
     } catch {
       toast.error("Não foi possível preparar a descarga do relatório CSV IVA.");
     }
@@ -282,6 +323,9 @@ export function IvaNormativeReviewPanel({
           onExportCsv={exportCsv}
           onExportPdf={exportPdf}
           exportPdfPending={exportIvaReadinessPdf.isPending}
+          exportHistory={exportHistory}
+          onRedownloadExport={redownloadExport}
+          onOpenExport={openExport}
         />
         <div className="mb-3 grid grid-cols-[1fr_180px_auto] items-end gap-2">
           <div>

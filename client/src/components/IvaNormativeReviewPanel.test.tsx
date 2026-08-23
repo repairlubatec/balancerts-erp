@@ -11,6 +11,8 @@ const mocks = vi.hoisted(() => ({
   },
   downloadBlob: vi.fn(),
   downloadBase64File: vi.fn(),
+  downloadIvaExport: vi.fn(),
+  openIvaExport: vi.fn(() => true),
 }));
 
 vi.mock("sonner", () => ({ toast: mocks.toast }));
@@ -21,6 +23,8 @@ vi.mock("@/lib/ivaReadinessExport", () => ({
   buildIvaReadinessCsv: vi.fn(() => "csv"),
   downloadBlob: mocks.downloadBlob,
   downloadBase64File: mocks.downloadBase64File,
+  downloadIvaExport: mocks.downloadIvaExport,
+  openIvaExport: mocks.openIvaExport,
 }));
 vi.mock("@/lib/normativeErrors", () => ({
   normativeErrorLabel: (value: string) => value,
@@ -83,7 +87,7 @@ describe("exportação IVA na revisão normativa", () => {
     render(<IvaNormativeReviewPanel organizationId={3} />);
 
     fireEvent.click(screen.getByRole("button", { name: "CSV" }));
-    expect(mocks.downloadBlob).toHaveBeenCalledTimes(1);
+    expect(mocks.downloadIvaExport).toHaveBeenCalledTimes(1);
     expect(mocks.toast.success).toHaveBeenCalledWith(
       "Relatório CSV de prontidão IVA descarregado.",
       expect.objectContaining({ description: expect.stringContaining(".csv") })
@@ -98,14 +102,27 @@ describe("exportação IVA na revisão normativa", () => {
       mimeType: "application/pdf",
     });
 
-    expect(mocks.downloadBase64File).toHaveBeenCalledWith(
-      "JVBERi0xLjQ=",
-      "prontidao-iva-3.pdf",
-      "application/pdf"
+    expect(mocks.downloadIvaExport).toHaveBeenCalledTimes(2);
+    expect(mocks.downloadIvaExport).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        content: "JVBERi0xLjQ=",
+        filename: "prontidao-iva-3.pdf",
+        encoding: "base64",
+      })
     );
-    expect(mocks.toast.success).toHaveBeenCalledWith(
-      "Relatório PDF de prontidão IVA descarregado.",
-      { description: "prontidao-iva-3.pdf" }
+    const pdfToast = mocks.toast.success.mock.calls.find(
+      ([message]) => message === "Relatório PDF de prontidão IVA descarregado."
+    );
+    expect(pdfToast).toBeTruthy();
+    expect(pdfToast?.[1]).toEqual(
+      expect.objectContaining({
+        description: "prontidao-iva-3.pdf",
+        action: expect.objectContaining({ label: "Abrir ficheiro" }),
+      })
+    );
+    pdfToast?.[1]?.action?.onClick();
+    expect(mocks.openIvaExport).toHaveBeenCalledWith(
+      expect.objectContaining({ filename: "prontidao-iva-3.pdf" })
     );
   });
 });
