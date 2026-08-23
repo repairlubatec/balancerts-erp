@@ -2858,3 +2858,12 @@
 - [x] Incluir o Decreto Executivo n.º 134/19, de 10 de Junho, na matriz de fontes obrigatórias do IVA.
 - [ ] Conferir no PDF oficial o objecto, artigos aplicáveis, vigência, alterações e relação hierárquica do Decreto Executivo n.º 134/19.
 - [ ] Confrontar as regras do Decreto Executivo n.º 134/19 com a implementação actual antes de qualquer activação.
+
+# Cadeia normativa e temporal do IVA — fontes oficiais Ministério das Finanças/AGT
+- [ ] Registar como fontes primárias institucionais a Lei n.º 7/19, a Lei n.º 17/19, o Decreto Presidencial n.º 180/19, o Decreto Executivo n.º 134/19 e a Lei n.º 14/23.
+- [ ] Construir a cadeia temporal Lei n.º 7/19 → Lei n.º 17/19 → Lei n.º 14/23, mantendo versões históricas e vigência aplicável por data.
+- [ ] Modelar o Decreto Presidencial n.º 180/19 como regulamento subordinado ao Código do IVA, incluindo as regras contabilísticas e a conta 34.5-IVA com respectivas subcontas, sujeitas a confirmação literal.
+- [ ] Modelar o Decreto Executivo n.º 134/19 como fonte dos modelos declarativos e procedimentos de submissão, sem o tratar como alteração ao Código.
+- [ ] Localizar e arquivar os PDFs oficiais disponibilizados pelo Ministério das Finanças/AGT, incluindo a Lei n.º 14/23 e o Decreto Presidencial n.º 180/19.
+- [ ] Conferir nos PDFs oficiais artigos, anexos, contas 34.5/subcontas, vigência, alterações, revogações e remissões antes de activar qualquer regra.
+- [ ] Confrontar a cadeia normativa e a conta 34.5 com a implementação actual do IVA e do motor contabilístico, sem substituir o trabalho existente.
