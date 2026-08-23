@@ -1,6 +1,9 @@
 import { and, eq, sql } from "drizzle-orm";
 import { getDb, appendAuditEventForUser } from "./db";
 import { accountingRules, pgcAccounts, pgcSources, pgcVersions, organizations } from "../drizzle/schema";
+import { normalizeAccountingRuleOperation, requiredOperationalAccountingRuleOperations } from "./accounting-rule-operations";
+
+export { normalizeAccountingRuleOperation, requiredOperationalAccountingRuleOperations };
 
 async function accessibleVersion(userId: number, organizationId: number, versionId: number) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
@@ -71,19 +74,6 @@ export async function activatePgcVersionForUser(input: { userId: number; organiz
   await db.update(pgcVersions).set({ status: "ACTIVE", activatedAt: new Date(), activatedBy: input.userId }).where(eq(pgcVersions.id, input.versionId));
   await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_VERSION_ACTIVATED", entityType: "pgcVersion", entityId: String(input.versionId), beforeState: JSON.stringify({ status: version.status, previousActiveVersionId: active[0]?.id ?? null }), afterState: JSON.stringify({ status: "ACTIVE" }), correlationId: `pgc-version:${input.versionId}` });
   return { versionId: input.versionId, status: "ACTIVE" as const, previousActiveVersionId: active[0]?.id ?? null };
-}
-
-export const requiredOperationalAccountingRuleOperations = ["COMPRAS", "VENDAS", "STOCK", "TESOURARIA", "SALARIOS", "IMOBILIZADO"] as const;
-
-export function normalizeAccountingRuleOperation(operation: string) {
-  const normalized = operation.trim().toUpperCase();
-  if (["COMPRA", "COMPRAS"].includes(normalized)) return "COMPRAS";
-  if (["VENDA", "VENDAS"].includes(normalized)) return "VENDAS";
-  if (["STOCK", "ESTOQUE", "INVENTARIO"].includes(normalized)) return "STOCK";
-  if (["TESOURARIA", "PAGAMENTO", "PAGAMENTOS", "RECEBIMENTO", "RECEBIMENTOS"].includes(normalized)) return "TESOURARIA";
-  if (["SALARIO", "SALARIOS", "FOLHA"].includes(normalized)) return "SALARIOS";
-  if (["IMOBILIZADO", "DEPRECIACAO", "DEPRECIAÇÃO"].includes(normalized)) return "IMOBILIZADO";
-  return normalized;
 }
 
 export function getAccountingRuleCoverage(input: { requiredOperations?: readonly string[]; activeRuleOperations: readonly string[] }) {

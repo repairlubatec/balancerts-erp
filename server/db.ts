@@ -14,6 +14,7 @@ import { assertSecondApprover, calculatePayrollAmounts, parseIrtBrackets } from 
 import { ENV } from "./_core/env";
 import { AIRouter, LocalAIProvider, type IAConfig, type IARequest } from "./balancerts-ia/providers";
 import { evaluateIvaReadiness } from "./normative";
+import { accountingRuleOperationCandidates } from "./accounting-rule-operations";
 
 const organizationAccessCondition = (userId: number) => or(eq(organizations.ownerUserId, userId), sql`EXISTS (SELECT 1 FROM organizationMemberships AS om_access WHERE om_access.organizationId = ${organizations.id} AND om_access.userId = ${userId} AND om_access.status = 'ACTIVE')`);
 
@@ -1760,7 +1761,8 @@ export async function postJournalEntry(input: { companyId: number; periodId: num
   }
   let resolvedAccountingRule: typeof accountingRules.$inferSelect | undefined;
   if (activePgc[0] && input.accountingRuleOperation) {
-    const ruleRows = await db.select({ rule: accountingRules }).from(accountingRules).innerJoin(pgcVersions, eq(accountingRules.versionId, pgcVersions.id)).where(and(eq(accountingRules.organizationId, companyContext[0].company.organizationId), or(eq(accountingRules.companyId, input.companyId), isNull(accountingRules.companyId)), eq(accountingRules.operation, input.accountingRuleOperation), input.accountingRuleDocumentType ? eq(accountingRules.documentType, input.accountingRuleDocumentType) : sql`1 = 1`, eq(accountingRules.active, 1), eq(pgcVersions.status, "ACTIVE"), lte(accountingRules.effectiveFrom, new Date()), or(isNull(accountingRules.effectiveTo), gte(accountingRules.effectiveTo, new Date())))).orderBy(accountingRules.priority).limit(1);
+    const operationCandidates = accountingRuleOperationCandidates(input.accountingRuleOperation);
+    const ruleRows = await db.select({ rule: accountingRules }).from(accountingRules).innerJoin(pgcVersions, eq(accountingRules.versionId, pgcVersions.id)).where(and(eq(accountingRules.organizationId, companyContext[0].company.organizationId), or(eq(accountingRules.companyId, input.companyId), isNull(accountingRules.companyId)), inArray(accountingRules.operation, operationCandidates), input.accountingRuleDocumentType ? eq(accountingRules.documentType, input.accountingRuleDocumentType) : sql`1 = 1`, eq(accountingRules.active, 1), eq(pgcVersions.status, "ACTIVE"), lte(accountingRules.effectiveFrom, new Date()), or(isNull(accountingRules.effectiveTo), gte(accountingRules.effectiveTo, new Date())))).orderBy(accountingRules.priority).limit(1);
     resolvedAccountingRule = ruleRows[0]?.rule;
     if (!resolvedAccountingRule) throw new Error("ACCOUNTING_RULE_NOT_FOUND");
     if (resolvedAccountingRule.debitAccountId === null || resolvedAccountingRule.creditAccountId === null) throw new Error("ACCOUNTING_RULE_INCOMPLETE");

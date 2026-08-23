@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getAccountingRuleCoverage, getPgcReadinessBlockers } from "./pgc-workflow";
+import { accountingRuleOperationCandidates } from "./accounting-rule-operations";
 
 describe("PGCA activation readiness", () => {
   it("blocks an under-review partial version without accounting rules", () => {
@@ -32,5 +33,10 @@ describe("PGCA activation readiness", () => {
 
   it("bloqueia activação com regras parciais", () => {
     expect(getPgcReadinessBlockers({ status: "VALIDATED", accountCount: 20, confirmedAccountCount: 20, sourceCount: 1, confirmedSourceCount: 1, accountingRuleCount: 2, accountingRuleOperations: ["COMPRAS", "VENDAS"] })).toContain("PGC_VERSION_ACCOUNTING_RULE_COVERAGE_INCOMPLETE");
+  });
+
+  it("resolve candidatos canónicos para operações importadas", () => {
+    expect(accountingRuleOperationCandidates(" COMPRA ")).toEqual(["COMPRA", "COMPRAS"]);
+    expect(accountingRuleOperationCandidates("VENDA")).toEqual(["VENDA", "VENDAS"]);
   });
 });

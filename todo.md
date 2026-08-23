@@ -2984,3 +2984,7 @@
 # Bloqueio de activação por cobertura operacional
 - [x] Exigir cobertura canónica de AccountingRules no readiness de activação PGCA.
 - [x] Testar bloqueio quando existem regras mas faltam operações essenciais.
+
+# Compatibilidade de operações no posting
+- [x] Aplicar a mesma normalização de aliases na resolução server-side da AccountingRule.
+- [x] Testar que uma operação COMPRA/VENDA importada resolve a regra canónica correspondente.
