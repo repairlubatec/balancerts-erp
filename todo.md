@@ -3064,3 +3064,10 @@
 - [x] Adicionar botão de exportação CSV no modal de detalhe do log de alto risco.
 - [x] Adicionar botão de exportação PDF no modal de detalhe do log de alto risco.
 - [x] Validar conteúdo, nome de ficheiro, RBAC e testes dos dois formatos.
+
+# Notas de investigação em alertas de alto risco
+- [x] Permitir aos contabilistas adicionar notas de investigação no modal do alerta de alto risco.
+- [x] Persistir notas com isolamento por organização/empresa, autorização server-side e auditoria append-only.
+- [x] Apresentar e actualizar as notas no modal sem permitir edição ou eliminação indevida do histórico.
+- [x] Criar testes Vitest para criação, leitura, RBAC, isolamento e validação das notas.
+- [x] Validar visualmente o modal e guardar checkpoint da funcionalidade.

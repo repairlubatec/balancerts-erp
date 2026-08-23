@@ -8,9 +8,13 @@ describe("role segregation", () => {
     expect(can("auditor", "accounting", "post")).toBe(false);
   });
 
-  it("keeps audit read-only for auditors and gives admin full access", () => {
+  it("segrega notas de investigação por papel", () => {
+    expect(can("contabilista", "audit", "read")).toBe(true);
+    expect(can("contabilista", "audit", "create")).toBe(true);
+    expect(can("contabilista", "audit", "update")).toBe(false);
     expect(can("auditor", "audit", "read")).toBe(true);
-    expect(can("auditor", "audit", "issue")).toBe(false);
+    expect(can("auditor", "audit", "create")).toBe(false);
+    expect(can("operador", "audit", "read")).toBe(false);
     expect(can("admin", "any-module", "reopen")).toBe(true);
   });
 

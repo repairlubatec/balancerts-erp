@@ -1,4 +1,4 @@
-import { decimal, int, json, mysqlEnum, mysqlTable, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
+import { decimal, index, int, json, mysqlEnum, mysqlTable, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -1024,6 +1024,17 @@ export const auditEvents = mysqlTable("auditEvents", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const auditEventNotes = mysqlTable("auditEventNotes", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  companyId: int("companyId").references(() => companies.id),
+  auditEventId: int("auditEventId").notNull().references(() => auditEvents.id),
+  authorUserId: int("authorUserId").notNull().references(() => users.id),
+  note: text("note").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  eventScopeIndex: index("audit_event_notes_event_scope_idx").on(table.organizationId, table.companyId, table.auditEventId, table.createdAt),
+}));
 export const saadiStudies = mysqlTable("saadiStudies", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull(),

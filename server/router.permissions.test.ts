@@ -304,3 +304,19 @@ describe("PGCA activation readiness permissions", () => {
     const operador = appRouter.createCaller(contextWithRole("operador"));
     await expect(operador.audit.exportPgcPdf({ organizationId: 7, companyId: 41, auditEventId: 27 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
+
+  it("permite ao Contabilista consultar e adicionar notas, mantém o Auditor em leitura e bloqueia o Operador", async () => {
+    const note = { id: 44, organizationId: 7, companyId: 41, auditEventId: 27, authorUserId: 8, note: "Confirmar documento de suporte com a empresa.", createdAt: new Date("2026-08-23T10:00:00Z"), author: { id: 8, name: "contabilista", email: "contabilista@example.com" } };
+    const list = vi.spyOn(db, "listPgcAuditNotesForUser").mockResolvedValue([note] as never);
+    const create = vi.spyOn(db, "createPgcAuditNoteForUser").mockResolvedValue(note as never);
+    const accountant = appRouter.createCaller(contextWithRole("contabilista"));
+    await expect(accountant.audit.pgcNotes({ organizationId: 7, companyId: 41, auditEventId: 27 })).resolves.toMatchObject([{ id: 44, note: note.note }]);
+    await expect(accountant.audit.addPgcNote({ organizationId: 7, companyId: 41, auditEventId: 27, note: `  ${note.note}  ` })).resolves.toMatchObject({ id: 44, note: note.note });
+    expect(list).toHaveBeenCalledWith({ userId: 8, organizationId: 7, companyId: 41, auditEventId: 27 });
+    expect(create).toHaveBeenCalledWith({ userId: 8, organizationId: 7, companyId: 41, auditEventId: 27, note: note.note });
+    const auditor = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(auditor.audit.pgcNotes({ organizationId: 7, companyId: 41, auditEventId: 27 })).resolves.toHaveLength(1);
+    await expect(auditor.audit.addPgcNote({ organizationId: 7, companyId: 41, auditEventId: 27, note: note.note })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    const operador = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operador.audit.pgcNotes({ organizationId: 7, companyId: 41, auditEventId: 27 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });

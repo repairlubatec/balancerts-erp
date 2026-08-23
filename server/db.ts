@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, accountingRules, pgcAccounts, pgcVersions, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, normativeSources, normativeSourceRelations, ivaNormativeRules, ivaAccountMappings, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
+  auditEvents, auditEventNotes, accountingRules, pgcAccounts, pgcVersions, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, normativeSources, normativeSourceRelations, ivaNormativeRules, ivaAccountMappings, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildSaftAoXml, buildTrialBalance, buildVatSummary, type JournalRow, type SaftAoAccount, type SaftAoJournalEntry, type SaftAoSourceDocument } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, validateStockMovement } from "./operations";
@@ -2351,6 +2351,32 @@ export async function getPgcAuditLogsForUser(input: { userId: number; organizati
   const rows = await db.select({ event: auditEvents, actor: { id: users.id, name: users.name, email: users.email }, companyName: companies.name }).from(auditEvents).leftJoin(users, eq(auditEvents.actorUserId, users.id)).leftJoin(companies, eq(auditEvents.companyId, companies.id)).where(and(...filters)).orderBy(desc(auditEvents.id)).limit(pageSize + 1).offset((page - 1) * pageSize);
   const hasMore = rows.length > pageSize;
   return { page, pageSize, hasMore, items: rows.slice(0, pageSize).map((row) => ({ ...row.event, actor: row.actor, companyName: row.companyName ?? null })) };
+}
+
+export async function listPgcAuditNotesForUser(input: { userId: number; organizationId: number; companyId?: number | null; auditEventId: number; limit?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId ?? null });
+  const limit = Math.min(Math.max(input.limit ?? 50, 1), 100);
+  const rows = await db.select({ note: auditEventNotes, author: { id: users.id, name: users.name, email: users.email } }).from(auditEventNotes).innerJoin(auditEvents, eq(auditEventNotes.auditEventId, auditEvents.id)).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).leftJoin(users, eq(auditEventNotes.authorUserId, users.id)).where(and(eq(auditEventNotes.organizationId, input.organizationId), eq(auditEventNotes.auditEventId, input.auditEventId), input.companyId == null ? isNull(auditEventNotes.companyId) : eq(auditEventNotes.companyId, input.companyId), eq(auditEvents.organizationId, input.organizationId), input.companyId == null ? isNull(auditEvents.companyId) : eq(auditEvents.companyId, input.companyId), organizationAccessCondition(input.userId))).orderBy(desc(auditEventNotes.id)).limit(limit);
+  return rows.map(({ note, author }) => ({ ...note, author }));
+}
+
+export async function createPgcAuditNoteForUser(input: { userId: number; organizationId: number; companyId?: number | null; auditEventId: number; note: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const note = input.note.trim();
+  if (note.length < 2) throw new Error("AUDIT_NOTE_TOO_SHORT");
+  if (note.length > 4000) throw new Error("AUDIT_NOTE_TOO_LONG");
+  await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId ?? null });
+  const eventRows = await db.select({ event: auditEvents }).from(auditEvents).innerJoin(organizations, eq(auditEvents.organizationId, organizations.id)).where(and(eq(auditEvents.id, input.auditEventId), eq(auditEvents.organizationId, input.organizationId), input.companyId == null ? isNull(auditEvents.companyId) : eq(auditEvents.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  const event = eventRows[0]?.event;
+  if (!event) throw new Error("AUDIT_EVENT_NOT_FOUND_OR_FORBIDDEN");
+  const inserted = await db.insert(auditEventNotes).values({ organizationId: input.organizationId, companyId: input.companyId ?? null, auditEventId: input.auditEventId, authorUserId: input.userId, note });
+  const id = Number(inserted[0].insertId);
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId ?? null, actorUserId: input.userId, action: "AUDIT_INVESTIGATION_NOTE_ADDED", entityType: "auditEvent", entityId: String(input.auditEventId), beforeState: null, afterState: JSON.stringify({ noteId: id, noteLength: note.length }), correlationId: `audit-note:${input.auditEventId}:${id}` });
+  const created = await db.select({ note: auditEventNotes, author: { id: users.id, name: users.name, email: users.email } }).from(auditEventNotes).leftJoin(users, eq(auditEventNotes.authorUserId, users.id)).where(and(eq(auditEventNotes.id, id), eq(auditEventNotes.organizationId, input.organizationId))).limit(1);
+  return { ...created[0]?.note, author: created[0]?.author ?? null };
 }
 
 export async function listNormativeSourcesForUser(input: { userId: number; organizationId: number; verificationStatus?: "PENDING" | "OCR_REVIEWED" | "VISUALLY_CONFIRMED" | "HUMAN_APPROVED" | "ACTIVE" | "SUPERSEDED" | "REJECTED"; limit?: number }) {
