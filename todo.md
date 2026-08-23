@@ -1685,7 +1685,7 @@
 
 - [x] Inspeccionar configuração de correio disponível
 - [x] Completar preparação interna de envio e validação
-- [ ] Activar integração real quando houver credenciais
+- [ ] Activar integração real quando houver credenciais (EM ESPERA — não bloqueia o desenvolvimento interno)
 - [x] Validar envio, auditoria, permissões e build
 - [x] Guardar checkpoint da configuração de email
 
@@ -1886,9 +1886,9 @@
 - [x] Encerrar SMTP Gmail: não é necessária palavra-passe porque o fluxo foi removido
 - [ ] Criar destino MySQL/TiDB isolado e executar restauro real não destrutivo
 - [ ] Validar EXE/MSI numa máquina Windows limpa e recolher evidência de instalação/actualização
-- [ ] Validar assinatura de código e certificado de distribuição Windows fora do sandbox
-- [ ] Obter credenciais e endpoint oficiais AGT para homologação controlada
-- [ ] Obter credenciais e documentação dos bancos para integração bancária
+- [ ] Validar assinatura de código e certificado de distribuição Windows fora do sandbox (EM ESPERA — fora da execução activa)
+- [ ] Obter credenciais e endpoint oficiais AGT para homologação controlada (EM ESPERA — fora da execução activa)
+- [ ] Obter credenciais e documentação dos bancos para integração bancária (EM ESPERA — fora da execução activa)
 - [ ] Executar testes de aceitação com utilizadores da Repair Lubatec e dados anonimizados
 
 ## Auditoria de lacunas — ciclo actual
@@ -2567,7 +2567,7 @@
 - [x] Auditar todos os fluxos contabilísticos que ainda seleccionam contas directamente de chartAccounts
 - [x] Criar adaptador server-side de conta operacional para conta PGCA activa, com bloqueio de contas sem correspondência
 - [x] Fazer a Contabilidade usar o catálogo PGCA activo na criação e edição de lançamentos
-- [ ] Integrar a resolução PGCA nos fluxos de compras, vendas, tesouraria, stock, salários, imobilizado e relatórios
+- [x] Integrar a resolução PGCA nos fluxos de compras, vendas, tesouraria, stock, salários, imobilizado e relatórios
 - [x] Preservar leitura de históricos legados através de mapa de migração, sem reescrever lançamentos já publicados
 - [x] Criar testes de não-regressão para lançamento PGCA, isolamento por empresa e bloqueio de versão não activa
 - [x] Verificar visualmente o fluxo operacional da Contabilidade com selecção de contas PGCA
@@ -3013,3 +3013,11 @@
 - [x] Expor no adaptador SAADI o contexto PGCA confirmado/activo da empresa, apenas em leitura.
 - [x] Garantir hash, organização, empresa, versão normativa e bloqueio de dados não confirmados.
 - [x] Testar isolamento e exclusão de contas pendentes no contexto SAADI.
+
+# Fila externa — não bloquear desenvolvimento interno
+- [x] Manter AGT, homologação, assinatura, banca, restauro e aceitação externa fora da execução activa até existirem dados reais.
+- [x] Preservar os bloqueios CONFIRMED_ONLY, auditoria e validação humana; não activar dados normativos sem confirmação.
+
+# Contexto PGCA no Balancerts IA
+- [x] Disponibilizar ao Balancerts IA o contexto PGCA activo e confirmado, apenas para análise e rastreabilidade.
+- [x] Testar RBAC e não-escrita do novo contexto normativo.

@@ -3,7 +3,7 @@ import { appRouter } from "./routers";
 import * as db from "./db";
 import type { TrpcContext } from "./_core/context";
 
-function context(role: "admin" | "auditor" | "operador"): TrpcContext {
+function context(role: "admin" | "auditor" | "operador" | "user"): TrpcContext {
   return { user: { id: 52, openId: role, name: role, email: `${role}@example.com`, loginMethod: "test", role, createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() }, req: { protocol: "https", headers: {} } as TrpcContext["req"], res: { clearCookie: () => undefined } as TrpcContext["res"] };
 }
 
@@ -15,6 +15,10 @@ describe("router Balancerts IA", () => {
     const result = await appRouter.createCaller(context("auditor")).ia.status({ companyId: 2 });
     expect(result.mode).toBe("OFFLINE");
     expect(status).toHaveBeenCalledWith({ userId: 52, companyId: 2 });
+  });
+
+  it("protege o contexto PGCA contra perfil sem leitura de IA", async () => {
+    await expect(appRouter.createCaller(context("user")).ia.pgcNormativeContext({ companyId: 2 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
   it("testa a disponibilidade local sem enviar conteúdo fiscal", async () => {
