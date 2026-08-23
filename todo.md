@@ -2875,3 +2875,13 @@
 - [x] Reconstruir a cadeia normativa e temporal com preservação do histórico e da consolidação da Lei n.º 14/23.
 - [x] Confrontar os cinco PDFs com o motor fiscal, catálogo normativo, contas IVA, declarações e relatórios actuais.
 - [x] Produzir parecer documental e matriz de activação condicionada antes de qualquer alteração técnica.
+
+# Especificação técnica da cadeia normativa do IVA — fase autorizada
+- [x] Definir modelo versionado de fontes, diplomas, artigos, vigências, alterações, revogações e republicação consolidada.
+- [x] Especificar precedência normativa por matéria e data, sem seleccionar automaticamente o diploma mais recente.
+- [x] Especificar taxas, regimes, incidência, isenções, dedução, cativação, regularizações e momento de exigibilidade com referência legal.
+- [x] Especificar a conta 34.5-IVA, subcontas, regras de movimentação e relação com lançamentos contabilísticos.
+- [x] Mapear os modelos declarativos e anexos do Decreto Executivo n.º 134/19 para o circuito fiscal do ERP.
+- [x] Definir fluxo de confirmação humana, estados CONFIRMED_ONLY, activação condicionada, auditoria e rollback.
+- [x] Definir critérios de aceitação, testes de vigência histórica, não-regressão e rastreabilidade por fonte/artigo/página/hash.
+- [x] Produzir a especificação técnica consolidada para aprovação antes de qualquer implementação.
