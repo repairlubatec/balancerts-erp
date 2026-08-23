@@ -1685,7 +1685,7 @@
 
 - [x] Inspeccionar configuração de correio disponível
 - [x] Completar preparação interna de envio e validação
-- [ ] Activar integração real quando houver credenciais (EM ESPERA — não bloqueia o desenvolvimento interno)
+- [ ] Activar integração real quando houver credenciais (EM ESPERA — fora da execução activa)
 - [x] Validar envio, auditoria, permissões e build
 - [x] Guardar checkpoint da configuração de email
 
@@ -1737,7 +1737,7 @@
 - [x] Concluir os testes E2E dos fluxos críticos com dados controlados — 12 testes de integração e 52 testes modulares aprovados
 - [x] Reforçar segurança de produção, backup/restauro, integridade referencial e observabilidade — implementação validada; restauro real isolado permanece pendente
 - [x] Executar validação operacional com dados reais anonimizados da Repair Lubatec — leitura tenant-aware da Repair Lubatec e cenários controlados descartáveis aprovados; não foram escritos dados empresariais reais
-- [ ] Validar instaladores EXE/MSI numa máquina Windows limpa
+- [ ] Validar instaladores EXE/MSI numa máquina Windows limpa (EM ESPERA — requer máquina Windows externa)
 - [x] Tratar a dependência SMTP: removida do projecto; bancos e AGT permanecem dependentes de credenciais e homologação
 - [x] Preparar contratos, fronteiras e plano de dados do SAADI sem implementação inicial
 - [x] Implementar o SAADI como bounded context separado após aprovação da arquitectura — primeiro incremento funcional entregue; cenários, sensibilidades, riscos e decisões avançadas permanecem planeados
@@ -1765,7 +1765,7 @@
 ## P1 — Pendências descobertas na validação
 
 - [x] Corrigir os dois `journalLines` órfãos do lançamento 3420001 após confirmação do contabilista da conta correcta
-- [ ] Criar uma `RESTORE_DATABASE_URL` isolada e executar um restauro real não destrutivo com validação dos módulos
+- [ ] Criar uma `RESTORE_DATABASE_URL` isolada e executar um restauro real não destrutivo com validação dos módulos (EM ESPERA — requer destino externo)
 - [x] Repetir a auditoria de integridade referencial até obter zero órfãos
 - [x] Repetir a suite sem SMTP: suite global executada após a remoção da integração
 
@@ -1788,8 +1788,8 @@
 
 - [x] Verificar se o ambiente gerido suporta criar a base `balancerts_restore_test` separada da produção — não suportado pelos privilégios actuais
 - [x] Verificar se é possível criar utilizador exclusivo com permissões apenas na base de restauro — não suportado pelos privilégios actuais
-- [ ] Configurar `RESTORE_DATABASE_URL` apenas depois de existir um destino real e isolado
-- [ ] Executar restauro verificável e validação dos módulos sem tocar na produção
+- [ ] Configurar `RESTORE_DATABASE_URL` apenas depois de existir um destino real e isolado (EM ESPERA — requer destino externo)
+- [ ] Executar restauro verificável e validação dos módulos sem tocar na produção (EM ESPERA — requer destino externo)
 
 ## Email documental — fecho interno sem SMTP real
 
@@ -1884,12 +1884,12 @@
 ## Plano ampliado de conclusão — dependências externas
 
 - [x] Encerrar SMTP Gmail: não é necessária palavra-passe porque o fluxo foi removido
-- [ ] Criar destino MySQL/TiDB isolado e executar restauro real não destrutivo
+- [ ] Criar destino MySQL/TiDB isolado e executar restauro real não destrutivo (EM ESPERA — requer privilégios externos)
 - [ ] Validar EXE/MSI numa máquina Windows limpa e recolher evidência de instalação/actualização
 - [ ] Validar assinatura de código e certificado de distribuição Windows fora do sandbox (EM ESPERA — fora da execução activa)
 - [ ] Obter credenciais e endpoint oficiais AGT para homologação controlada (EM ESPERA — fora da execução activa)
 - [ ] Obter credenciais e documentação dos bancos para integração bancária (EM ESPERA — fora da execução activa)
-- [ ] Executar testes de aceitação com utilizadores da Repair Lubatec e dados anonimizados
+- [ ] Executar testes de aceitação com utilizadores da Repair Lubatec e dados anonimizados (EM ESPERA — requer sessão de aceitação)
 
 ## Auditoria de lacunas — ciclo actual
 
@@ -2545,22 +2545,22 @@
 - [x] Implementar banco de regras contabilísticas sem códigos hardcoded
 - [x] Integrar o novo PGC com IVA, compras, vendas, stock, tesouraria, salários, imobilizado e relatórios
 - [x] Integrar o novo PGC como fonte oficial do Balancerts IA e do SAADI
-- [ ] Implementar migração segura, backup, rollback e preservação de históricos
+- [ ] Implementar migração segura, backup, rollback e preservação de históricos (EM ESPERA — depende de destino isolado)
 - [x] Criar administração do PGC com RBAC, histórico e fontes normativas
-- [ ] Executar testes contabilísticos completos e aceitação controlada sem activar dados não validados
+- [ ] Executar testes contabilísticos completos e aceitação controlada sem activar dados não validados (EM ESPERA — requer dados/sessão de aceitação)
 
 - [x] Gerar e aplicar a migração 0067 do metamodelo versionado PGCA sem operações destrutivas
 - [x] Criar serviço server-side PGCA com isolamento por organização/empresa e auditoria
 - [x] Expor procedimentos tRPC protegidos para versões, fontes, contas, auditoria, mapas e regras contabilísticas
 - [x] Criar a interface desktop administrativa do PGCA em português
 - [x] Executar auditoria real do plano de contas legado e apresentar resultados no painel de conformidade
-- [ ] Importar a estrutura normativa confirmada do Decreto n.º 82/01 e regras IVA sem inventar contas não validadas
+- [ ] Importar a estrutura normativa confirmada do Decreto n.º 82/01 e regras IVA sem inventar contas não validadas (EM ESPERA — requer confirmação humana legível)
 - [x] Implementar aprovação/activação versionada do PGCA com bloqueios e segregação de funções
 - [x] Ligar o motor de lançamentos às AccountingRules sem códigos contabilísticos hardcoded
 - [x] Criar testes Vitest do serviço PGCA, RBAC, isolamento e não-escrita do legado
 - [x] Corrigir o nome residual “Disposable” da empresa técnica para terminologia portuguesa no painel PGCA
 - [x] Importar como rascunho a hierarquia PGCA confirmada por OCR (4/45/451/4511 e 6/61/613/6131), sem activar contas
-- [ ] Confirmar integralmente a lista normativa no PDF oficial e catalogar regras IVA aplicáveis
+- [ ] Confirmar integralmente a lista normativa no PDF oficial e catalogar regras IVA aplicáveis (EM ESPERA — requer confirmação visual humana)
 
 ## Reorientação: Contabilidade operacional baseada no novo PGCA
 
@@ -2575,7 +2575,7 @@
 - [x] Fazer estornos e depreciações passarem por operações AccountingRules explícitas quando existe PGCA activo
 - [x] Integrar tesouraria com publicação contabilística explícita por contas PGCA, aprovação e AccountingRules
 - [x] Garantir que compras, vendas, stock e relatórios não contornam o posting central PGCA; a transição contabilística exige lançamento publicado e a parametrização normativa fica no motor central
-- [ ] Parametrizar automaticamente as AccountingRules específicas de compras, vendas e stock quando esses fluxos passarem a publicar lançamentos automáticos
+- [ ] Parametrizar automaticamente as AccountingRules específicas de compras, vendas e stock quando esses fluxos passarem a publicar lançamentos automáticos (EM ESPERA — só após fluxos e contas confirmadas)
 - [x] Retirar o PGCA da navegação principal e manter a Contabilidade como ponto operacional único do plano de contas
 - [x] Mostrar na Contabilidade a cobertura das AccountingRules activas por operação, versão e empresa
 - [x] Exigir operação AccountingRules por linha na importação CSV quando o PGCA estiver activo
@@ -2630,7 +2630,7 @@
 - [x] Confrontar códigos e designações do guia auxiliar com o Decreto n.º 82/01, sem substituir a fonte oficial
 - [x] Seleccionar e importar apenas um lote adicional inequivocamente confirmado, se existir
 - [x] Preparar a validação final de backup, hash, manifesto e destino isolado para restauro
-- [ ] Executar restauro não destrutivo apenas se o destino isolado real estiver disponível e validado
+- [ ] Executar restauro não destrutivo apenas se o destino isolado real estiver disponível e validado (EM ESPERA — requer destino externo)
 - [x] Colocar novas alterações do projecto em fila de espera após concluir ou bloquear o restauro com segurança
 - [x] Catalogar integralmente a árvore PGCA por lotes com código, designação literal, hierarquia, página, fonte e hash
 - [x] Catalogar integralmente as regras IVA da Lei n.º 14/23 com artigo, regra, taxa/regime, vigência, anexos e fonte
@@ -3001,10 +3001,10 @@
 - [x] Documentar a cobertura interna já existente por fluxo e os bloqueios que permanecem externos.
 
 # Preparação do destino isolado de restauro
-- [ ] Disponibilizar RESTORE_DATABASE_URL de uma base MySQL/TiDB isolada, com utilizador restrito.
-- [ ] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino.
-- [ ] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro.
-- [ ] Validar o destino sem contactar ou alterar a base de produção.
+- [ ] Disponibilizar RESTORE_DATABASE_URL de uma base MySQL/TiDB isolada, com utilizador restrito (EM ESPERA — requer destino externo).
+- [ ] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino (EM ESPERA — requer destino externo).
+- [ ] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro (EM ESPERA — requer destino externo).
+- [ ] Validar o destino sem contactar ou alterar a base de produção (EM ESPERA — requer destino externo).
 
 # Continuação sem restauro externo
 - [x] Seleccionar e concluir a próxima melhoria interna disponível, mantendo o destino MySQL/TiDB isolado pendente.
