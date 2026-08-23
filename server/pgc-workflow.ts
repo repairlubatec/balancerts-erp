@@ -71,3 +71,12 @@ export async function activatePgcVersionForUser(input: { userId: number; organiz
   await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_VERSION_ACTIVATED", entityType: "pgcVersion", entityId: String(input.versionId), beforeState: JSON.stringify({ status: version.status, previousActiveVersionId: active[0]?.id ?? null }), afterState: JSON.stringify({ status: "ACTIVE" }), correlationId: `pgc-version:${input.versionId}` });
   return { versionId: input.versionId, status: "ACTIVE" as const, previousActiveVersionId: active[0]?.id ?? null };
 }
+
+export const requiredOperationalAccountingRuleOperations = ["COMPRAS", "VENDAS", "STOCK", "TESOURARIA", "SALARIOS", "IMOBILIZADO"] as const;
+
+export function getAccountingRuleCoverage(input: { requiredOperations?: readonly string[]; activeRuleOperations: readonly string[] }) {
+  const required = [...(input.requiredOperations ?? requiredOperationalAccountingRuleOperations)];
+  const active = new Set(input.activeRuleOperations);
+  const missing = required.filter((operation) => !active.has(operation));
+  return { required, active: required.filter((operation) => active.has(operation)), missing, complete: missing.length === 0 };
+}

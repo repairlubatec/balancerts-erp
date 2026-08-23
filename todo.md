@@ -2962,3 +2962,13 @@
 - [x] Documentar os valores de cadastro do BALANCERTS.ERP e a versão da chave pública.
 - [x] Documentar que a chave privada permanece fora do projecto e nunca deve ser anexada ao Portal.
 - [x] Documentar os bloqueios que permanecem até homologação e credenciais oficiais AGT.
+
+# Continuação interna após cadastro AGT tratado em paralelo
+- [ ] Não repetir a geração ou o cadastro da chave pública AGT nesta linha de trabalho.
+- [ ] Seleccionar e executar o próximo incremento interno prioritário de contabilidade, fiscalidade, auditoria ou validação.
+
+# Cobertura operacional das AccountingRules
+- [x] Definir o catálogo de operações que exigem AccountingRule activa.
+- [x] Calcular lacunas de cobertura por versão, empresa e operação sem criar regras automaticamente.
+- [x] Expor os bloqueios de cobertura para impedir publicação sem regra aplicável.
+- [x] Adicionar testes de cobertura completa, parcial e vazia.

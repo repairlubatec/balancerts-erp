@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getPgcReadinessBlockers } from "./pgc-workflow";
+import { getAccountingRuleCoverage, getPgcReadinessBlockers } from "./pgc-workflow";
 
 describe("PGCA activation readiness", () => {
   it("blocks an under-review partial version without accounting rules", () => {
@@ -12,5 +12,17 @@ describe("PGCA activation readiness", () => {
 
   it("reports ready only when all activation prerequisites exist", () => {
     expect(getPgcReadinessBlockers({ status: "VALIDATED", accountCount: 20, confirmedAccountCount: 20, sourceCount: 1, confirmedSourceCount: 1, accountingRuleCount: 4 })).toEqual([]);
+  });
+
+  it("identifica cobertura AccountingRules vazia", () => {
+    expect(getAccountingRuleCoverage({ activeRuleOperations: [] })).toMatchObject({ complete: false, active: [], missing: ["COMPRAS", "VENDAS", "STOCK", "TESOURARIA", "SALARIOS", "IMOBILIZADO"] });
+  });
+
+  it("identifica cobertura parcial sem parametrizar operações ausentes", () => {
+    expect(getAccountingRuleCoverage({ activeRuleOperations: ["COMPRAS", "VENDAS"] })).toMatchObject({ complete: false, active: ["COMPRAS", "VENDAS"], missing: ["STOCK", "TESOURARIA", "SALARIOS", "IMOBILIZADO"] });
+  });
+
+  it("confirma cobertura completa apenas quando todas as operações têm regra activa", () => {
+    expect(getAccountingRuleCoverage({ activeRuleOperations: ["COMPRAS", "VENDAS", "STOCK", "TESOURARIA", "SALARIOS", "IMOBILIZADO"] })).toMatchObject({ complete: true, missing: [] });
   });
 });
