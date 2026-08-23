@@ -3040,3 +3040,6 @@
 # Terminologia portuguesa da interface
 - [x] Substituir “tenant actual” por “organização actual” na actividade recente.
 - [x] Validar a tradução sem alterar identificadores técnicos internos.
+
+# Regressão da fila externa na vista inicial
+- [x] Testar que a vista inicial apresenta apenas prontidão fiscal e não “Integrações AGT”.

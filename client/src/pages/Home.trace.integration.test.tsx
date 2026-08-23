@@ -292,4 +292,12 @@ describe("Home traceability integration", () => {
     const reportRow = screen.getAllByText("Balancete analítico")[0]?.closest("tr");
     await waitFor(() => expect(reportRow?.className).toContain("bg-[#f0f6ff]"));
   });
+
+  it("apresenta prontidão fiscal sem expor uma tarefa AGT na vista operacional", () => {
+    locationState.current = "/";
+    window.history.pushState({}, "", "/");
+    render(<Home />);
+    expect(screen.getByText("Prontidão fiscal")).toBeTruthy();
+    expect(screen.queryByText("Integrações AGT")).toBeNull();
+  });
 });
