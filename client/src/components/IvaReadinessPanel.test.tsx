@@ -55,6 +55,44 @@ describe("painel de prontidão IVA", () => {
     ).toBeTruthy();
   });
 
+  it("alterna entre diplomas em falta, confirmados e todos", () => {
+    render(<IvaReadinessPanel data={baseReadiness} />);
+    const filter = screen.getByRole("combobox", {
+      name: "Filtrar diplomas IVA",
+    });
+
+    fireEvent.click(filter);
+    fireEvent.click(screen.getByRole("option", { name: "Em falta" }));
+
+    expect(screen.getByText("Filtro: Em falta")).toBeTruthy();
+    expect(screen.getByText("2/5 diplomas")).toBeTruthy();
+    expect(screen.getByTestId("iva-chain-IVA-DP-180-19")).toBeTruthy();
+    expect(screen.getByTestId("iva-chain-IVA-LAW-14-23")).toBeTruthy();
+    expect(screen.queryByTestId("iva-chain-IVA-LAW-7-19")).toBeNull();
+
+    fireEvent.click(
+      screen.getByRole("combobox", {
+        name: "Filtrar diplomas IVA",
+      })
+    );
+    fireEvent.click(screen.getByRole("option", { name: "Confirmados" }));
+
+    expect(screen.getByText("Filtro: Confirmados")).toBeTruthy();
+    expect(screen.getByText("3/5 diplomas")).toBeTruthy();
+    expect(screen.queryByTestId("iva-chain-IVA-DP-180-19")).toBeNull();
+    expect(screen.getByTestId("iva-chain-IVA-LAW-7-19")).toBeTruthy();
+
+    fireEvent.click(
+      screen.getByRole("combobox", {
+        name: "Filtrar diplomas IVA",
+      })
+    );
+    fireEvent.click(screen.getByRole("option", { name: "Todos" }));
+
+    expect(screen.getByText("Filtro: Todos")).toBeTruthy();
+    expect(screen.getByText("5/5 diplomas")).toBeTruthy();
+  });
+
   it("mostra a prontidão como pronta quando a cadeia está completa", () => {
     render(
       <IvaReadinessPanel

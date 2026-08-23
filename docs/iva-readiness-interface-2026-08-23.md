@@ -43,3 +43,9 @@ A exportação PDF usa a mesma data de vigência consultada pelo painel e devolv
 O simulador apresenta agora uma pré-visualização incorporada do PDF seleccionado antes da simulação, através de um URL temporário criado no navegador. O conteúdo permanece local: não é enviado para a API, não é guardado no armazenamento e não cria evidência normativa.
 
 Quando o utilizador selecciona outro ficheiro ou usa **Limpar e repor**, o URL temporário anterior é revogado e o painel de pré-visualização é removido. Se o ambiente não suportar visualização incorporada, é mostrado um aviso em português sem bloquear o teste do fluxo local.
+
+## Filtro da cadeia normativa
+
+A listagem dos cinco diplomas IVA passou a incluir um filtro acessível com três opções: **Todos**, **Em falta** e **Confirmados**. A opção seleccionada é apresentada no próprio painel, acompanhada pela contagem visível face ao total de cinco diplomas.
+
+O filtro altera apenas a apresentação local da lista. A percentagem de conclusão, o estado de prontidão, os bloqueios, as exportações e a política `CONFIRMED_ONLY` continuam a ser calculados sobre a cadeia completa. Quando uma categoria não contém elementos, o painel apresenta um estado vazio em português sem interpretar a ausência como confirmação.

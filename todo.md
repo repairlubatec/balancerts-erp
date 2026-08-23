@@ -3148,3 +3148,8 @@
 - [x] Adicionar pré-visualização local do PDF seleccionado antes da conclusão da simulação.
 - [x] Remover a pré-visualização ao limpar o upload e garantir que não há envio nem persistência.
 - [x] Criar testes da pré-visualização, limpeza e aviso de segurança do fluxo simulado.
+
+# Filtro da cadeia normativa IVA
+- [x] Adicionar filtro Todos / Em falta / Confirmados à listagem dos cinco diplomas IVA.
+- [x] Manter contagens, cores, resumo percentual e exportações coerentes com a cadeia completa.
+- [x] Criar testes de alternância e estado vazio dos filtros sem alterar CONFIRMED_ONLY.

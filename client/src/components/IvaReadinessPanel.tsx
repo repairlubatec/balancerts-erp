@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AlertTriangle,
   CheckCircle2,
@@ -18,6 +18,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Progress } from "@/components/ui/progress";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ivaNormativeChain } from "@/data/ivaNormativeChain";
 import { cn } from "@/lib/utils";
 
@@ -61,6 +68,9 @@ export function IvaReadinessPanel({
   onExportPdf,
   exportPdfPending = false,
 }: Props) {
+  const [chainFilter, setChainFilter] = useState<
+    "ALL" | "MISSING" | "CONFIRMED"
+  >("ALL");
   const missing = new Set(data?.missingChainSources ?? []);
   const hasChainBlocker = data?.blockers.includes(
     "IVA_CADEIA_NORMATIVA_INCOMPLETA"
@@ -72,6 +82,17 @@ export function IvaReadinessPanel({
   const completionPercentage = Math.round(
     (confirmedDiplomas / ivaNormativeChain.length) * 100
   );
+  const filteredDiplomas = ivaNormativeChain.filter(diploma => {
+    if (chainFilter === "MISSING") return missing.has(diploma.code);
+    if (chainFilter === "CONFIRMED") return !missing.has(diploma.code);
+    return true;
+  });
+  const chainFilterLabel =
+    chainFilter === "MISSING"
+      ? "Em falta"
+      : chainFilter === "CONFIRMED"
+        ? "Confirmados"
+        : "Todos";
 
   return (
     <Card className="rounded-sm border-[#bfc9d4] bg-[#f8fafc] shadow-none">
@@ -243,25 +264,51 @@ export function IvaReadinessPanel({
                     qualquer elemento bloqueia a prontidão.
                   </p>
                 </div>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      aria-label="Explicar a cadeia normativa IVA"
-                      className="rounded-sm p-1 text-slate-500 hover:bg-slate-100 hover:text-[#1267d6]"
+                <div className="flex items-center gap-2">
+                  <Select
+                    value={chainFilter}
+                    onValueChange={value =>
+                      setChainFilter(value as typeof chainFilter)
+                    }
+                  >
+                    <SelectTrigger
+                      aria-label="Filtrar diplomas IVA"
+                      className="h-7 w-[132px] rounded-sm bg-white text-[10px]"
                     >
-                      <CircleHelp className="h-4 w-4" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent className="max-w-xs text-[11px]">
-                    A cadeia histórica preserva as versões anteriores. A
-                    presença de um diploma não confirma automaticamente as suas
-                    regras, taxas ou contas.
-                  </TooltipContent>
-                </Tooltip>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="ALL">Todos</SelectItem>
+                      <SelectItem value="MISSING">Em falta</SelectItem>
+                      <SelectItem value="CONFIRMED">Confirmados</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        aria-label="Explicar a cadeia normativa IVA"
+                        className="rounded-sm p-1 text-slate-500 hover:bg-slate-100 hover:text-[#1267d6]"
+                      >
+                        <CircleHelp className="h-4 w-4" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-xs text-[11px]">
+                      A cadeia histórica preserva as versões anteriores. A
+                      presença de um diploma não confirma automaticamente as
+                      suas regras, taxas ou contas.
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </div>
+              <div className="flex items-center justify-between border-b border-[#e4e9ef] px-3 py-1.5 text-[10px] text-slate-500">
+                <span>Filtro: {chainFilterLabel}</span>
+                <span>
+                  {filteredDiplomas.length}/{ivaNormativeChain.length} diplomas
+                </span>
               </div>
               <div className="grid gap-2 p-3 md:grid-cols-2 xl:grid-cols-5">
-                {ivaNormativeChain.map((diploma, index) => {
+                {filteredDiplomas.map((diploma, index) => {
                   const isMissing = missing.has(diploma.code);
                   return (
                     <Tooltip key={diploma.code}>
@@ -311,6 +358,11 @@ export function IvaReadinessPanel({
                     </Tooltip>
                   );
                 })}
+                {filteredDiplomas.length === 0 && (
+                  <div className="border border-slate-200 bg-slate-50 px-3 py-4 text-center text-[11px] text-slate-600">
+                    Não existem diplomas nesta categoria no contexto actual.
+                  </div>
+                )}
               </div>
               <div
                 className={cn(
