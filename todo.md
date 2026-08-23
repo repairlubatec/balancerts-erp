@@ -2543,7 +2543,7 @@
 - [x] Implementar hierarquia, contas de agrupamento, contas de movimento e contas analíticas
 - [x] Implementar validação automática e dashboard de conformidade do PGC
 - [x] Implementar banco de regras contabilísticas sem códigos hardcoded
-- [ ] Integrar o novo PGC com IVA, compras, vendas, stock, tesouraria, salários, imobilizado e relatórios
+- [x] Integrar o novo PGC com IVA, compras, vendas, stock, tesouraria, salários, imobilizado e relatórios
 - [x] Integrar o novo PGC como fonte oficial do Balancerts IA e do SAADI
 - [ ] Implementar migração segura, backup, rollback e preservação de históricos
 - [x] Criar administração do PGC com RBAC, histórico e fontes normativas
@@ -3025,3 +3025,7 @@
 # Visibilidade PGCA no Balancerts IA
 - [x] Mostrar no painel IA a versão activa, contas e fontes PGCA confirmadas.
 - [x] Validar a indicação visual sem criar scroll ou activação automática.
+
+# Visibilidade PGCA no SAADI
+- [x] Mostrar no painel SAADI a fonte normativa PGCA activa e confirmada.
+- [x] Testar a indicação sem introduzir escrita no ERP nem alterar o fluxo analítico.

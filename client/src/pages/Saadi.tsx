@@ -75,6 +75,7 @@ export default function Saadi() {
   const [decisionChoice, setDecisionChoice] = useState<"APROVAR" | "REJEITAR" | "PEDIR_REVISAO">("APROVAR");
   const [decisionJustification, setDecisionJustification] = useState("");
   const feasibility = trpc.saadi.feasibility.useQuery(activeCompanyId && organizationId && selectedStudyId ? { organizationId, companyId: activeCompanyId, studyId: selectedStudyId } : { organizationId: 0, companyId: 0, studyId: 0 }, { enabled: Boolean(activeCompanyId && organizationId && selectedStudyId) });
+  const pgcNormativeContext = trpc.saadi.erpPgcNormativeContext.useQuery({ companyId: activeCompanyId ?? 0 }, { enabled: Boolean(activeCompanyId) });
   const [initialInvestment, setInitialInvestment] = useState("1000000");
   const [discountRate, setDiscountRate] = useState("0.15");
   const [terminalGrowthRate, setTerminalGrowthRate] = useState("0.03");
@@ -157,6 +158,7 @@ export default function Saadi() {
         </div>
         <Badge className="border-emerald-200 bg-emerald-50 text-emerald-700"><ShieldCheck className="mr-1 h-3.5 w-3.5" /> Escopo protegido</Badge>
       </div>
+      <Card className="rounded-sm border-[#b9d2ef] bg-[#f8fbff] shadow-none"><CardHeader className="py-2"><CardTitle className="flex items-center gap-2 text-sm text-[#102a43]"><ShieldCheck className="h-4 w-4 text-[#477514]" /> Fonte normativa PGCA</CardTitle></CardHeader><CardContent className="grid gap-2 text-xs md:grid-cols-4"><span className="font-semibold">{pgcNormativeContext.isLoading ? "A verificar…" : pgcNormativeContext.data?.data.available ? "Versão activa disponível" : "Sem versão activa"}</span><span>Contas confirmadas: {pgcNormativeContext.data?.data.accounts.length ?? 0}</span><span>Fontes confirmadas: {pgcNormativeContext.data?.data.sources.length ?? 0}</span><span className="text-slate-500">{pgcNormativeContext.data?.data.confirmedOnly ? "Apenas dados confirmados" : "Leitura normativa indisponível"}</span></CardContent></Card>
 
       <Card className="rounded-sm border-[#bfc9d4] bg-[#fbfcfd] shadow-none">
         <CardHeader className="pb-2"><CardTitle className="flex items-center gap-2 text-sm text-[#102a43]"><Building2 className="h-4 w-4 text-[#1267d6]" /> Contexto da análise</CardTitle></CardHeader>
