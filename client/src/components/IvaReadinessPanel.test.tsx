@@ -3,6 +3,11 @@ import React from "react";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { IvaReadinessPanel } from "./IvaReadinessPanel";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+
+function renderPanel(ui: React.ReactElement) {
+  return render(<ThemeProvider switchable>{ui}</ThemeProvider>);
+}
 
 afterEach(() => cleanup());
 
@@ -28,7 +33,7 @@ const baseReadiness = {
 
 describe("painel de prontidão IVA", () => {
   it("mostra visualmente os diplomas em falta e o motivo do bloqueio", () => {
-    render(<IvaReadinessPanel data={baseReadiness} />);
+    renderPanel(<IvaReadinessPanel data={baseReadiness} />);
 
     expect(
       screen.getByRole("status", { name: "Prontidão IVA bloqueada" })
@@ -63,7 +68,7 @@ describe("painel de prontidão IVA", () => {
   });
 
   it("alterna entre diplomas em falta, confirmados e todos", () => {
-    render(<IvaReadinessPanel data={baseReadiness} />);
+    renderPanel(<IvaReadinessPanel data={baseReadiness} />);
     const filter = screen.getByRole("combobox", {
       name: "Filtrar diplomas IVA",
     });
@@ -101,7 +106,7 @@ describe("painel de prontidão IVA", () => {
   });
 
   it("pesquisa rapidamente um diploma pelo nome", () => {
-    render(<IvaReadinessPanel data={baseReadiness} />);
+    renderPanel(<IvaReadinessPanel data={baseReadiness} />);
     fireEvent.change(
       screen.getByRole("textbox", { name: "Pesquisar diploma IVA" }),
       {
@@ -116,7 +121,7 @@ describe("painel de prontidão IVA", () => {
   });
 
   it("filtra por etiqueta temática e ordena alfabeticamente", () => {
-    render(<IvaReadinessPanel data={baseReadiness} />);
+    renderPanel(<IvaReadinessPanel data={baseReadiness} />);
 
     fireEvent.click(
       screen.getByRole("combobox", { name: "Filtrar área temática IVA" })
@@ -135,7 +140,7 @@ describe("painel de prontidão IVA", () => {
   });
 
   it("filtra os diplomas por importância", () => {
-    render(<IvaReadinessPanel data={baseReadiness} />);
+    renderPanel(<IvaReadinessPanel data={baseReadiness} />);
 
     fireEvent.click(
       screen.getByRole("combobox", { name: "Filtrar importância IVA" })
@@ -148,7 +153,7 @@ describe("painel de prontidão IVA", () => {
   });
 
   it("ordena diplomas por data real das fontes quando disponível", () => {
-    render(<IvaReadinessPanel data={baseReadiness} />);
+    renderPanel(<IvaReadinessPanel data={baseReadiness} />);
     fireEvent.click(
       screen.getByRole("combobox", { name: "Ordenar diplomas IVA" })
     );
@@ -169,10 +174,49 @@ describe("painel de prontidão IVA", () => {
   });
 
   it("mostra empty state quando ainda não existem exportações", () => {
-    render(<IvaReadinessPanel data={baseReadiness} />);
+    renderPanel(<IvaReadinessPanel data={baseReadiness} />);
 
     expect(screen.getByTestId("iva-export-history-empty")).toBeTruthy();
     expect(screen.getByText("Ainda não existem exportações")).toBeTruthy();
+  });
+
+  it("agrupa diplomas pela primeira etiqueta temática sem duplicar cartões", () => {
+    renderPanel(<IvaReadinessPanel data={baseReadiness} />);
+
+    expect(screen.getByTestId("iva-diploma-groups")).toBeTruthy();
+    expect(screen.getByTestId("iva-diploma-group-Fundamento legal")).toBeTruthy();
+    expect(screen.getByTestId("iva-diploma-group-Regulamentação")).toBeTruthy();
+    expect(
+      document.querySelectorAll('[data-testid^="iva-chain-IVA-"]')
+    ).toHaveLength(5);
+  });
+
+  it("alterna o tema e actualiza o nome acessível do botão", () => {
+    renderPanel(<IvaReadinessPanel data={baseReadiness} />);
+
+    const toggle = screen.getByRole("button", { name: "Mudar para modo escuro" });
+    fireEvent.click(toggle);
+
+    expect(document.documentElement.classList.contains("dark")).toBe(true);
+    expect(
+      screen.getByRole("button", { name: "Mudar para modo claro" })
+    ).toBeTruthy();
+
+    fireEvent.click(screen.getByRole("button", { name: "Mudar para modo claro" }));
+    expect(document.documentElement.classList.contains("dark")).toBe(false);
+  });
+
+  it("permite iniciar uma nova exportação no histórico vazio", () => {
+    const onStartExport = vi.fn();
+    renderPanel(
+      <IvaReadinessPanel
+        data={baseReadiness}
+        onStartExport={onStartExport}
+      />
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Nova exportação" }));
+    expect(onStartExport).toHaveBeenCalledTimes(1);
   });
 
   it("ordena o histórico de exportações por tipo de ficheiro", () => {
@@ -196,7 +240,7 @@ describe("painel de prontidão IVA", () => {
         createdAt: 100,
       },
     ];
-    render(<IvaReadinessPanel data={baseReadiness} exportHistory={entries} />);
+    renderPanel(<IvaReadinessPanel data={baseReadiness} exportHistory={entries} />);
 
     fireEvent.click(
       screen.getByRole("combobox", {
@@ -232,7 +276,7 @@ describe("painel de prontidão IVA", () => {
         createdAt: 200,
       },
     ];
-    render(<IvaReadinessPanel data={baseReadiness} exportHistory={entries} />);
+    renderPanel(<IvaReadinessPanel data={baseReadiness} exportHistory={entries} />);
 
     const filenames = Array.from(
       document.querySelectorAll('[data-testid="iva-export-history"] p.truncate')
@@ -263,7 +307,7 @@ describe("painel de prontidão IVA", () => {
     };
     const onRedownloadExport = vi.fn();
     const onOpenExport = vi.fn();
-    render(
+    renderPanel(
       <IvaReadinessPanel
         data={baseReadiness}
         exportHistory={[entry]}
@@ -287,7 +331,7 @@ describe("painel de prontidão IVA", () => {
   });
 
   it("mostra a prontidão como pronta quando a cadeia está completa", () => {
-    render(
+    renderPanel(
       <IvaReadinessPanel
         data={{
           ...baseReadiness,
@@ -320,7 +364,7 @@ describe("painel de prontidão IVA", () => {
   it("expõe exportação CSV e PDF quando recebe os handlers", () => {
     const onExportCsv = vi.fn();
     const onExportPdf = vi.fn();
-    render(
+    renderPanel(
       <IvaReadinessPanel
         data={{ ...baseReadiness }}
         onExportCsv={onExportCsv}

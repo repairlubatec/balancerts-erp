@@ -326,6 +326,7 @@ export function IvaNormativeReviewPanel({
           exportHistory={exportHistory}
           onRedownloadExport={redownloadExport}
           onOpenExport={openExport}
+          onStartExport={exportCsv}
         />
         <div className="mb-3 grid grid-cols-[1fr_180px_auto] items-end gap-2">
           <div>

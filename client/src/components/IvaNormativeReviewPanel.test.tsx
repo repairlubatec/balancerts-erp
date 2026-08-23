@@ -75,6 +75,15 @@ vi.mock("@/lib/trpc", () => {
 });
 
 import { IvaNormativeReviewPanel } from "./IvaNormativeReviewPanel";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+
+function renderReviewPanel() {
+  return render(
+    <ThemeProvider switchable>
+      <IvaNormativeReviewPanel organizationId={3} />
+    </ThemeProvider>
+  );
+}
 
 afterEach(() => {
   cleanup();
@@ -84,7 +93,7 @@ afterEach(() => {
 
 describe("exportação IVA na revisão normativa", () => {
   it("confirma por toast a preparação do CSV e do PDF", () => {
-    render(<IvaNormativeReviewPanel organizationId={3} />);
+    renderReviewPanel();
 
     fireEvent.click(screen.getByRole("button", { name: "CSV" }));
     expect(mocks.downloadIvaExport).toHaveBeenCalledTimes(1);

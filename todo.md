@@ -3173,3 +3173,15 @@
 - [x] Adicionar empty state visual ao histórico sem exportações.
 - [x] Adicionar ordenação do histórico por data e tipo de ficheiro.
 - [x] Criar testes para confirmação, validação simulada, tags, ordenações e empty state.
+
+# Tema e organização visual do painel IVA
+- [x] Adicionar botão de alternância entre modo claro e modo escuro no painel IVA.
+- [x] Agrupar visualmente os diplomas por etiquetas ou categorias atribuídas, preservando filtros e estados.
+- [x] Adicionar acção rápida de nova exportação no estado vazio do histórico.
+- [x] Criar testes para dark mode, agrupamento e acção rápida de exportação.
+
+- [x] Activar alternância de tema claro/escuro no shell e no painel de prontidão IVA
+- [x] Agrupar visualmente os diplomas IVA por categoria/etiqueta principal sem duplicar itens
+- [x] Adicionar CTA “Nova exportação” ao estado vazio do histórico IVA
+- [x] Testar modal de confirmação de limpeza do simulador PDF e os refinamentos IVA
+- [x] Executar TypeScript, testes direccionados, suite completa e verificação visual desktop/mobile dos refinamentos IVA

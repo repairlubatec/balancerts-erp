@@ -45,6 +45,11 @@ button { cursor: pointer; }
 [data-sidebar="menu-button"][data-active="true"] { background: #eaf2ff; color: #1267d6; box-shadow: inset 3px 0 0 #1267d6; }
 [data-sidebar="menu-button"]:hover { background: #f4f8fd; }
 
+.dark [data-sidebar="sidebar"] { background: var(--sidebar); border-right-color: var(--sidebar-border); }
+.dark [data-sidebar="menu-button"][data-active="true"] { background: #1a3048; color: #72adff; box-shadow: inset 3px 0 0 #72adff; }
+.dark [data-sidebar="menu-button"]:hover { background: #1a3048; }
+.dark .erp-workspace thead { background: #172c43; color: var(--pmr-muted); }
+
 @media (prefers-reduced-motion: no-preference) {
   button, a, input { transition: background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out, box-shadow 160ms ease-out, transform 160ms ease-out; }
   button:active { transform: scale(0.98); }
@@ -64,6 +69,15 @@ button { cursor: pointer; }
   --sidebar: #142438;
   --sidebar-foreground: #eaf2ff;
   --sidebar-border: #29415d;
+  --pmr-surface: #132235;
+  --pmr-panel: #1b3047;
+  --pmr-panel-strong: #24415e;
+  --pmr-line: #29415d;
+  --pmr-line-soft: #35516d;
+  --pmr-ink: #eaf2ff;
+  --pmr-muted: #9fb3c8;
+  --pmr-blue: #72adff;
+  --pmr-green: #a6dc65;
 }
 
 /* Desktop application surface: less card-like, more operational and windowed. */

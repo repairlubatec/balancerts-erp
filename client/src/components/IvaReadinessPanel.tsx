@@ -9,9 +9,12 @@ import {
   FileSpreadsheet,
   FileWarning,
   History,
+  Layers3,
   LockKeyhole,
+  Moon,
   Search,
   ShieldCheck,
+  Sun,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -33,6 +36,7 @@ import {
 import { ivaNormativeChain } from "@/data/ivaNormativeChain";
 import type { IvaReadinessExportEntry } from "@/lib/ivaReadinessExport";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/contexts/ThemeContext";
 
 type ReadinessData = {
   ready: boolean;
@@ -68,6 +72,7 @@ type Props = {
   exportHistory?: IvaReadinessExportEntry[];
   onRedownloadExport?: (entry: IvaReadinessExportEntry) => void;
   onOpenExport?: (entry: IvaReadinessExportEntry) => void;
+  onStartExport?: () => void;
 };
 
 const blockerLabels: Record<string, string> = {
@@ -93,7 +98,9 @@ export function IvaReadinessPanel({
   exportHistory = [],
   onRedownloadExport,
   onOpenExport,
+  onStartExport,
 }: Props) {
+  const { theme, toggleTheme, switchable } = useTheme();
   const [chainFilter, setChainFilter] = useState<
     "ALL" | "MISSING" | "CONFIRMED"
   >("ALL");
@@ -156,6 +163,15 @@ export function IvaReadinessPanel({
     }
     return ivaNormativeChain.indexOf(left) - ivaNormativeChain.indexOf(right);
   });
+  const groupedDiplomas = Array.from(
+    sortedDiplomas.reduce((groups, diploma) => {
+      const category = diploma.tags[0] ?? "Sem categoria";
+      const current = groups.get(category) ?? [];
+      current.push(diploma);
+      groups.set(category, current);
+      return groups;
+    }, new Map<string, typeof sortedDiplomas>())
+  );
   const sortedHistory = [...exportHistory].sort((left, right) => {
     if (historySort === "TYPE") {
       return left.format.localeCompare(right.format, "pt-PT");
@@ -171,24 +187,45 @@ export function IvaReadinessPanel({
         : "Todos";
 
   return (
-    <Card className="rounded-sm border-[#bfc9d4] bg-[#f8fafc] shadow-none">
-      <CardHeader className="border-b border-[#d9e0e7] px-3 py-2.5">
+    <Card className="rounded-sm border-[#bfc9d4] bg-[#f8fafc] text-[#1d2a38] shadow-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+      <CardHeader className="border-b border-[#d9e0e7] px-3 py-2.5 dark:border-slate-700">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <CardTitle className="flex items-center gap-2 text-sm text-[#1d2a38]">
+            <CardTitle className="flex items-center gap-2 text-sm text-[#1d2a38] dark:text-slate-100">
               <ShieldCheck className="h-4 w-4 text-[#1267d6]" />
               Estado da prontidão IVA
             </CardTitle>
-            <p className="mt-1 text-[11px] text-slate-500">
+            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-300">
               Resultado das validações normativas da organização e da data
               seleccionada. A prontidão não substitui a confirmação humana da
               evidência primária.
             </p>
           </div>
           <div className="flex flex-wrap items-center justify-end gap-1.5">
+            {switchable && toggleTheme && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={toggleTheme}
+                aria-label={
+                  theme === "dark"
+                    ? "Mudar para modo claro"
+                    : "Mudar para modo escuro"
+                }
+                className="h-7 rounded-sm bg-white px-2 text-[10px] dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"
+              >
+                {theme === "dark" ? (
+                  <Sun className="mr-1 h-3 w-3" />
+                ) : (
+                  <Moon className="mr-1 h-3 w-3" />
+                )}
+                {theme === "dark" ? "Modo claro" : "Modo escuro"}
+              </Button>
+            )}
             <Badge
               variant="outline"
-              className="rounded-sm border-slate-300 bg-white text-[10px] text-slate-600"
+              className="rounded-sm border-slate-300 bg-white text-[10px] text-slate-600 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
             >
               <LockKeyhole className="mr-1 h-3 w-3" /> CONFIRMED_ONLY
             </Badge>
@@ -199,7 +236,7 @@ export function IvaReadinessPanel({
                 size="sm"
                 onClick={onExportCsv}
                 disabled={!data || isLoading || isError}
-                className="h-7 rounded-sm bg-white px-2 text-[10px]"
+                className="h-7 rounded-sm bg-white px-2 text-[10px] dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"
               >
                 <FileSpreadsheet className="mr-1 h-3 w-3" /> CSV
               </Button>
@@ -211,7 +248,7 @@ export function IvaReadinessPanel({
                 size="sm"
                 onClick={onExportPdf}
                 disabled={!data || isLoading || isError || exportPdfPending}
-                className="h-7 rounded-sm bg-white px-2 text-[10px]"
+                className="h-7 rounded-sm bg-white px-2 text-[10px] dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"
               >
                 <FileDown className="mr-1 h-3 w-3" />
                 {exportPdfPending ? "A preparar…" : "PDF"}
@@ -220,7 +257,7 @@ export function IvaReadinessPanel({
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-3 p-3">
+      <CardContent className="space-y-3 p-3 dark:bg-slate-900">
         {isLoading ? (
           <div className="border border-slate-200 bg-white px-3 py-4 text-xs text-slate-500">
             A verificar a prontidão IVA…
@@ -451,95 +488,119 @@ export function IvaReadinessPanel({
                     </span>
                   )}
                 </div>
-                <span className="text-[10px] text-slate-500">
+                <span className="text-[10px] text-slate-500 dark:text-slate-300">
                   {filteredDiplomas.length}/{ivaNormativeChain.length} diplomas
                 </span>
               </div>
-              <div className="grid gap-2 p-3 md:grid-cols-2 xl:grid-cols-5">
-                {sortedDiplomas.map(diploma => {
-                  const isMissing = missing.has(diploma.code);
-                  const ordinal = ivaNormativeChain.indexOf(diploma) + 1;
-                  const sourceDate = data?.sourceDates?.[diploma.code];
-                  return (
-                    <Tooltip key={diploma.code}>
-                      <TooltipTrigger asChild>
-                        <div
-                          className={cn(
-                            "min-h-24 border px-2.5 py-2 text-left",
-                            isMissing
-                              ? "border-red-300 bg-red-50"
-                              : "border-emerald-300 bg-emerald-50"
-                          )}
-                          data-testid={`iva-chain-${diploma.code}`}
-                        >
-                          <div className="flex items-start justify-between gap-2">
-                            <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
-                              {ordinal}. {diploma.shortTitle}
-                            </span>
-                            {isMissing ? (
-                              <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-red-600" />
-                            ) : (
-                              <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
-                            )}
-                          </div>
-                          <p className="mt-1 text-[11px] font-semibold leading-tight text-[#1d2a38]">
-                            {isMissing ? "Em falta" : "Confirmado"}
-                          </p>
-                          <p className="mt-1 line-clamp-2 text-[10px] leading-tight text-slate-600">
-                            {diploma.role}
-                          </p>
-                          <div className="mt-2 flex flex-wrap gap-1">
-                            {diploma.tags.map(tag => (
-                              <Badge
-                                key={tag}
-                                variant="outline"
-                                className="rounded-sm border-slate-300 bg-white/70 px-1.5 py-0 text-[9px] text-slate-600"
-                              >
-                                {tag}
-                              </Badge>
-                            ))}
-                            <Badge
-                              variant="outline"
-                              className={cn(
-                                "rounded-sm px-1.5 py-0 text-[9px]",
-                                diploma.importance === "CENTRAL"
-                                  ? "border-blue-300 bg-blue-50 text-blue-700"
-                                  : "border-slate-300 bg-white/70 text-slate-600"
-                              )}
-                            >
-                              {importanceLabels[diploma.importance]}
-                            </Badge>
-                          </div>
-                          {sourceDate && (
-                            <p className="mt-1 text-[9px] text-slate-500">
-                              Carregado em{" "}
-                              {new Date(sourceDate).toLocaleDateString("pt-PT")}
-                            </p>
-                          )}
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent
-                        className={cn(
-                          "max-w-xs border text-[11px]",
-                          isMissing
-                            ? "border-red-300 bg-red-950 text-red-50"
-                            : "border-emerald-300 bg-emerald-950 text-emerald-50"
-                        )}
-                      >
-                        <strong>{diploma.title}</strong>
-                        <span className="mt-1 block">
-                          {isMissing
-                            ? "Não existe confirmação identificada para este diploma no contexto actual."
-                            : "Existe uma fonte confirmada com este código no contexto actual."}
-                        </span>
-                      </TooltipContent>
-                    </Tooltip>
-                  );
-                })}
-                {filteredDiplomas.length === 0 && (
+              <div
+                className="space-y-3 p-3"
+                data-testid="iva-diploma-groups"
+              >
+                {groupedDiplomas.length === 0 ? (
                   <div className="border border-slate-200 bg-slate-50 px-3 py-4 text-center text-[11px] text-slate-600">
                     Não existem diplomas nesta categoria no contexto actual.
                   </div>
+                ) : (
+                  groupedDiplomas.map(([category, diplomas]) => (
+                    <section
+                      key={category}
+                      data-testid={`iva-diploma-group-${category}`}
+                    >
+                      <div className="mb-2 flex items-center justify-between border-b border-[#e4e9ef] pb-1.5">
+                        <div className="flex items-center gap-1.5">
+                          <Layers3 className="h-3.5 w-3.5 text-[#1267d6]" />
+                          <h3 className="text-[10px] font-bold uppercase tracking-wide text-[#1d2a38] dark:text-slate-100">
+                            {category}
+                          </h3>
+                        </div>
+                        <span className="text-[10px] text-slate-500 dark:text-slate-300">
+                          {diplomas.length} diploma(s)
+                        </span>
+                      </div>
+                      <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-5">
+                        {diplomas.map(diploma => {
+                          const isMissing = missing.has(diploma.code);
+                          const ordinal = ivaNormativeChain.indexOf(diploma) + 1;
+                          const sourceDate = data?.sourceDates?.[diploma.code];
+                          return (
+                            <Tooltip key={diploma.code}>
+                              <TooltipTrigger asChild>
+                                <div
+                                  className={cn(
+                                    "min-h-24 border px-2.5 py-2 text-left",
+                                    isMissing
+                                      ? "border-red-300 bg-red-50"
+                                      : "border-emerald-300 bg-emerald-50"
+                                  )}
+                                  data-testid={`iva-chain-${diploma.code}`}
+                                >
+                                  <div className="flex items-start justify-between gap-2">
+                                    <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
+                                      {ordinal}. {diploma.shortTitle}
+                                    </span>
+                                    {isMissing ? (
+                                      <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-red-600" />
+                                    ) : (
+                                      <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
+                                    )}
+                                  </div>
+                                  <p className="mt-1 text-[11px] font-semibold leading-tight text-[#1d2a38]">
+                                    {isMissing ? "Em falta" : "Confirmado"}
+                                  </p>
+                                  <p className="mt-1 line-clamp-2 text-[10px] leading-tight text-slate-600">
+                                    {diploma.role}
+                                  </p>
+                                  <div className="mt-2 flex flex-wrap gap-1">
+                                    {diploma.tags.map(tag => (
+                                      <Badge
+                                        key={tag}
+                                        variant="outline"
+                                        className="rounded-sm border-slate-300 bg-white/70 px-1.5 py-0 text-[9px] text-slate-600"
+                                      >
+                                        {tag}
+                                      </Badge>
+                                    ))}
+                                    <Badge
+                                      variant="outline"
+                                      className={cn(
+                                        "rounded-sm px-1.5 py-0 text-[9px]",
+                                        diploma.importance === "CENTRAL"
+                                          ? "border-blue-300 bg-blue-50 text-blue-700"
+                                          : "border-slate-300 bg-white/70 text-slate-600"
+                                      )}
+                                    >
+                                      {importanceLabels[diploma.importance]}
+                                    </Badge>
+                                  </div>
+                                  {sourceDate && (
+                                    <p className="mt-1 text-[9px] text-slate-500">
+                                      Carregado em{" "}
+                                      {new Date(sourceDate).toLocaleDateString("pt-PT")}
+                                    </p>
+                                  )}
+                                </div>
+                              </TooltipTrigger>
+                              <TooltipContent
+                                className={cn(
+                                  "max-w-xs border text-[11px]",
+                                  isMissing
+                                    ? "border-red-300 bg-red-950 text-red-50"
+                                    : "border-emerald-300 bg-emerald-950 text-emerald-50"
+                                )}
+                              >
+                                <strong>{diploma.title}</strong>
+                                <span className="mt-1 block">
+                                  {isMissing
+                                    ? "Não existe confirmação identificada para este diploma no contexto actual."
+                                    : "Existe uma fonte confirmada com este código no contexto actual."}
+                                </span>
+                              </TooltipContent>
+                            </Tooltip>
+                          );
+                        })}
+                      </div>
+                    </section>
+                  ))
                 )}
               </div>
               <div
@@ -628,7 +689,7 @@ export function IvaReadinessPanel({
                   <SelectItem value="TYPE">Tipo de ficheiro</SelectItem>
                 </SelectContent>
               </Select>
-              <span className="text-[10px] text-slate-500">
+                        <span className="text-[10px] text-slate-500 dark:text-slate-300">
                 {exportHistory.length} ficheiro(s)
               </span>
             </div>
@@ -648,6 +709,18 @@ export function IvaReadinessPanel({
                 Quando gerar o relatório CSV ou PDF, ele aparecerá aqui para
                 descarregar novamente ou abrir durante esta sessão.
               </p>
+              {onStartExport && (
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={onStartExport}
+                  disabled={!data || isLoading || isError}
+                  className="h-7 rounded-sm px-2.5 text-[10px]"
+                >
+                  <FileSpreadsheet className="mr-1 h-3 w-3" />
+                  Nova exportação
+                </Button>
+              )}
             </div>
           ) : (
             <div className="divide-y divide-[#edf0f3]">
