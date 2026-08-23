@@ -3059,3 +3059,8 @@
 # Organização real no módulo Empresas
 - [x] Remover “BALANCERTS Group” hardcoded da tabela de empresas.
 - [x] Apresentar a organização derivada do organizationId persistido, sem inventar nomes.
+
+# Exportação no detalhe de alerta de alto risco
+- [x] Adicionar botão de exportação CSV no modal de detalhe do log de alto risco.
+- [x] Adicionar botão de exportação PDF no modal de detalhe do log de alto risco.
+- [x] Validar conteúdo, nome de ficheiro, RBAC e testes dos dois formatos.

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import * as XLSX from "xlsx";
-import { auditCsvFilename, auditExcelFilename, buildAuditCsv, buildAuditXlsx } from "./auditExport";
+import { auditCsvFilename, auditEventCsvFilename, auditExcelFilename, buildAuditCsv, buildAuditXlsx } from "./auditExport";
 
 describe("exportação Excel da auditoria", () => {
   it("preserva rastreabilidade e cabeçalhos em português", () => {
@@ -28,5 +28,9 @@ describe("exportação CSV dos logs de auditoria", () => {
 
   it("gera nome CSV por empresa e data", () => {
     expect(auditCsvFilename(4)).toMatch(/^auditoria-4-\d{4}-\d{2}-\d{2}\.csv$/);
+  });
+
+  it("gera nome CSV específico para o evento seleccionado", () => {
+    expect(auditEventCsvFilename(27, 4)).toBe("auditoria-alerta-4-evento-27.csv");
   });
 });

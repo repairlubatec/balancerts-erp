@@ -34,7 +34,6 @@ export function auditExcelFilename(companyId?: number) {
   return `auditoria-${companyId ?? "empresa"}-${date}.xlsx`;
 }
 
-
 function csvCell(value: unknown) {
   return `"${String(value ?? "").replace(/"/g, '""')}"`;
 }
@@ -56,4 +55,8 @@ export function buildAuditCsv(events: AuditExportEvent[]) {
 export function auditCsvFilename(companyId?: number) {
   const date = new Date().toISOString().slice(0, 10);
   return `auditoria-${companyId ?? "empresa"}-${date}.csv`;
+}
+
+export function auditEventCsvFilename(eventId: number, companyId?: number) {
+  return `auditoria-alerta-${companyId ?? "empresa"}-evento-${eventId}.csv`;
 }

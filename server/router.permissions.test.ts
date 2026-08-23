@@ -295,3 +295,12 @@ describe("PGCA activation readiness permissions", () => {
     const operador = appRouter.createCaller(contextWithRole("operador"));
     await expect(operador.audit.pgcLogs({ organizationId: 7, companyId: 41 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
+
+  it("permite ao Auditor exportar exactamente um alerta PGCA e bloqueia o Operador", async () => {
+    const logs = vi.spyOn(db, "getPgcAuditLogsForUser").mockResolvedValue({ page: 1, pageSize: 10, hasMore: false, items: [{ id: 27, createdAt: new Date("2026-08-22T10:00:00Z"), organizationId: 7, companyId: 41, action: "PGC_ACCOUNT_REVIEWED", entityType: "pgcAccount", entityId: "99", actorUserId: 8, correlationId: "corr-27", beforeState: "PENDENTE", afterState: "CONFIRMADA", actor: { id: 8, name: "Auditor", email: "auditor@example.com" }, companyName: "Repair Lubatec" }] } as never);
+    const auditor = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(auditor.audit.exportPgcPdf({ organizationId: 7, companyId: 41, auditEventId: 27 })).resolves.toMatchObject({ filename: "logs-auditoria-pgc-evento-27.pdf", eventCount: 1, mimeType: "application/pdf" });
+    expect(logs).toHaveBeenCalledWith(expect.objectContaining({ userId: 8, organizationId: 7, companyId: 41, auditEventId: 27, page: 1, pageSize: 10 }));
+    const operador = appRouter.createCaller(contextWithRole("operador"));
+    await expect(operador.audit.exportPgcPdf({ organizationId: 7, companyId: 41, auditEventId: 27 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });

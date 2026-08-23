@@ -2334,7 +2334,7 @@ export async function getFinancialDashboardForUserCompany(input: { userId: numbe
 }
 
 
-export async function getPgcAuditLogsForUser(input: { userId: number; organizationId: number; companyId?: number | null; actorUserId?: number; entityType?: string; action?: string; from?: Date; to?: Date; page?: number; pageSize?: number }) {
+export async function getPgcAuditLogsForUser(input: { userId: number; organizationId: number; companyId?: number | null; auditEventId?: number; actorUserId?: number; entityType?: string; action?: string; from?: Date; to?: Date; page?: number; pageSize?: number }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await assertAuditScopeForUser({ actorUserId: input.userId, organizationId: input.organizationId, companyId: input.companyId ?? null });
@@ -2342,6 +2342,7 @@ export async function getPgcAuditLogsForUser(input: { userId: number; organizati
   const pageSize = Math.min(100, Math.max(10, input.pageSize ?? 50));
   const filters = [eq(auditEvents.organizationId, input.organizationId)];
   if (input.companyId) filters.push(eq(auditEvents.companyId, input.companyId));
+  if (input.auditEventId) filters.push(eq(auditEvents.id, input.auditEventId));
   if (input.actorUserId) filters.push(eq(auditEvents.actorUserId, input.actorUserId));
   if (input.entityType) filters.push(eq(auditEvents.entityType, input.entityType));
   if (input.action) filters.push(eq(auditEvents.action, input.action));
