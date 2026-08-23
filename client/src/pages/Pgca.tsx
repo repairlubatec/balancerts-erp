@@ -94,6 +94,7 @@ export default function Pgca() {
   const companiesQuery = trpc.companies.list.useQuery();
   const companies = companiesQuery.data ?? [];
   const [companyId, setCompanyId] = useState<number>();
+  const [ivaReadinessResetKey, setIvaReadinessResetKey] = useState(0);
   const activeCompany =
     companies.find(row => row.company.id === companyId) ?? companies[0];
   const resolvedCompanyId = activeCompany?.company.id;
@@ -433,8 +434,13 @@ export default function Pgca() {
           </CardContent>
         </Card>
         <NormativeConfirmationDashboard />
-        <IvaNormativeReviewPanel organizationId={organizationId} />
-        <IvaPdfSimulationPanel />
+        <IvaNormativeReviewPanel
+          organizationId={organizationId}
+          readinessResetKey={ivaReadinessResetKey}
+        />
+        <IvaPdfSimulationPanel
+          onResetReadiness={() => setIvaReadinessResetKey(value => value + 1)}
+        />
         <PgcEvidenceSubmissionPanel
           organizationId={organizationId}
           companyId={resolvedCompanyId}

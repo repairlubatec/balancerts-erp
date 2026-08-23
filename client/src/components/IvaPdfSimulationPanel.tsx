@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
+  CheckCircle2,
   FileCheck2,
   FileText,
   FlaskConical,
@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -25,30 +26,65 @@ function buildTestIdentifier(file: File) {
   return `SIM-${file.name.length}-${file.size}-${file.lastModified}`;
 }
 
-export function IvaPdfSimulationPanel() {
+type SimulationStatus = "IDLE" | "READY" | "PROCESSING" | "COMPLETED";
+
+type Props = {
+  onResetReadiness?: () => void | Promise<void>;
+};
+
+export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [simulatedFile, setSimulatedFile] = useState<File | null>(null);
   const [fileInputKey, setFileInputKey] = useState(0);
+  const [simulationStatus, setSimulationStatus] =
+    useState<SimulationStatus>("IDLE");
+  const [progress, setProgress] = useState(0);
 
   const testIdentifier = useMemo(
     () => (simulatedFile ? buildTestIdentifier(simulatedFile) : null),
     [simulatedFile]
   );
 
+  useEffect(() => {
+    if (simulationStatus !== "PROCESSING") return;
+    const timer = window.setInterval(() => {
+      setProgress(current => Math.min(current + 20, 100));
+    }, 80);
+    return () => window.clearInterval(timer);
+  }, [simulationStatus]);
+
+  useEffect(() => {
+    if (simulationStatus !== "PROCESSING" || progress < 100 || !selectedFile)
+      return;
+    setSimulatedFile(selectedFile);
+    setSimulationStatus("COMPLETED");
+    toast.success("Simulação concluída localmente. Nenhum PDF foi enviado.");
+  }, [progress, selectedFile, simulationStatus]);
+
   const simulateUpload = () => {
     if (!selectedFile) {
       toast.error("Seleccione um PDF para iniciar a simulação.");
       return;
     }
-    setSimulatedFile(selectedFile);
-    toast.success("Simulação concluída localmente. Nenhum PDF foi enviado.");
+    setSimulatedFile(null);
+    setProgress(0);
+    setSimulationStatus("PROCESSING");
   };
 
   const clearSimulation = () => {
     setSelectedFile(null);
     setSimulatedFile(null);
+    setProgress(0);
+    setSimulationStatus("IDLE");
     setFileInputKey(value => value + 1);
+    void onResetReadiness?.();
+    toast.success(
+      "Simulação limpa. A prontidão IVA foi reposta ao estado validado."
+    );
   };
+
+  const isProcessing = simulationStatus === "PROCESSING";
+  const hasLocalState = Boolean(selectedFile || simulatedFile);
 
   return (
     <Card className="rounded-sm border-[#bfc9d4] bg-[#f8fafc] shadow-none">
@@ -87,6 +123,8 @@ export function IvaPdfSimulationPanel() {
                 const file = event.target.files?.[0] ?? null;
                 setSelectedFile(file);
                 setSimulatedFile(null);
+                setProgress(0);
+                setSimulationStatus(file ? "READY" : "IDLE");
               }}
               className="mt-1 h-9 cursor-pointer rounded-sm bg-white text-xs file:mr-2 file:border-0 file:bg-[#eee8ff] file:px-2 file:py-1 file:text-xs file:font-semibold file:text-violet-700"
             />
@@ -97,19 +135,20 @@ export function IvaPdfSimulationPanel() {
           <Button
             type="button"
             onClick={simulateUpload}
-            disabled={!selectedFile}
+            disabled={!selectedFile || isProcessing}
             className="h-8 rounded-sm bg-[#1267d6] text-xs"
           >
-            <UploadCloud className="mr-1 h-3.5 w-3.5" /> Simular envio
+            <UploadCloud className="mr-1 h-3.5 w-3.5" />
+            {isProcessing ? "A simular…" : "Simular envio"}
           </Button>
           <Button
             type="button"
             variant="outline"
             onClick={clearSimulation}
-            disabled={!selectedFile && !simulatedFile}
+            disabled={!hasLocalState && simulationStatus === "IDLE"}
             className="h-8 rounded-sm bg-white text-xs"
           >
-            <RotateCcw className="mr-1 h-3.5 w-3.5" /> Limpar
+            <RotateCcw className="mr-1 h-3.5 w-3.5" /> Limpar e repor
           </Button>
         </div>
 
@@ -129,12 +168,14 @@ export function IvaPdfSimulationPanel() {
             </div>
             <Badge
               variant="outline"
-              className={`w-fit rounded-sm text-[10px] ${simulatedFile ? "border-emerald-300 bg-emerald-50 text-emerald-700" : "border-slate-300 bg-slate-50 text-slate-600"}`}
+              className={`w-fit rounded-sm text-[10px] ${simulatedFile ? "border-emerald-300 bg-emerald-50 text-emerald-700" : isProcessing ? "border-blue-300 bg-blue-50 text-blue-700" : "border-slate-300 bg-slate-50 text-slate-600"}`}
             >
               {simulatedFile ? (
                 <>
                   <FileCheck2 className="mr-1 h-3 w-3" /> Simulação concluída
                 </>
+              ) : isProcessing ? (
+                "A processar…"
               ) : (
                 "Seleccionado para teste"
               )}
@@ -142,15 +183,40 @@ export function IvaPdfSimulationPanel() {
           </div>
         )}
 
+        {isProcessing && (
+          <div
+            className="border border-blue-200 bg-blue-50 px-3 py-2.5"
+            aria-live="polite"
+          >
+            <div className="flex items-center justify-between gap-2 text-[11px] text-blue-900">
+              <span className="font-semibold">
+                A simular o carregamento local…
+              </span>
+              <span className="font-mono font-semibold">{progress}%</span>
+            </div>
+            <Progress
+              value={progress}
+              aria-label="Progresso da simulação"
+              className="mt-2 h-2 bg-blue-100 [&_[data-slot=progress-indicator]]:bg-[#1267d6]"
+            />
+            <p className="mt-1 text-[10px] text-blue-800">
+              O progresso é apenas visual; nenhum conteúdo está a ser
+              transmitido.
+            </p>
+          </div>
+        )}
+
         {simulatedFile && testIdentifier && (
-          <div className="border border-violet-200 bg-violet-50 px-3 py-2 text-[11px] text-violet-900">
-            <p className="font-semibold">Resultado da simulação</p>
+          <div className="border border-emerald-200 bg-emerald-50 px-3 py-2 text-[11px] text-emerald-900">
+            <p className="flex items-center gap-1 font-semibold">
+              <CheckCircle2 className="h-3.5 w-3.5" /> Resultado da simulação
+            </p>
             <p className="mt-1">
               O fluxo de selecção e submissão visual foi concluído.
               Identificador de teste:{" "}
               <span className="font-mono">{testIdentifier}</span>.
             </p>
-            <p className="mt-1 text-violet-800">
+            <p className="mt-1 text-emerald-800">
               Este identificador não é hash probatório e não substitui a
               evidência primária, a revisão humana ou a confirmação de qualquer
               diploma.
@@ -163,8 +229,9 @@ export function IvaPdfSimulationPanel() {
           <span>
             <strong>Simulação local e não normativa.</strong> O PDF não é
             enviado para a API, não é guardado no armazenamento, não cria
-            evidência na fila e não altera a prontidão IVA. Para submissão real,
-            utilize o formulário de evidência primária sujeito a revisão humana.
+            evidência na fila e não altera a prontidão IVA. O botão “Limpar e
+            repor” remove o estado local e actualiza novamente a prontidão
+            validada no servidor.
           </span>
         </div>
       </CardContent>

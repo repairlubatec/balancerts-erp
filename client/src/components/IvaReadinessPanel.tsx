@@ -173,8 +173,8 @@ export function IvaReadinessPanel({ data, isLoading, isError }: Props) {
                           className={cn(
                             "min-h-24 border px-2.5 py-2 text-left",
                             isMissing
-                              ? "border-amber-300 bg-amber-50"
-                              : "border-emerald-200 bg-emerald-50"
+                              ? "border-red-300 bg-red-50"
+                              : "border-emerald-300 bg-emerald-50"
                           )}
                           data-testid={`iva-chain-${diploma.code}`}
                         >
@@ -183,20 +183,27 @@ export function IvaReadinessPanel({ data, isLoading, isError }: Props) {
                               {index + 1}. {diploma.shortTitle}
                             </span>
                             {isMissing ? (
-                              <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-amber-600" />
+                              <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-red-600" />
                             ) : (
                               <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
                             )}
                           </div>
                           <p className="mt-1 text-[11px] font-semibold leading-tight text-[#1d2a38]">
-                            {isMissing ? "Em falta" : "Identificado"}
+                            {isMissing ? "Em falta" : "Confirmado"}
                           </p>
                           <p className="mt-1 line-clamp-2 text-[10px] leading-tight text-slate-600">
                             {diploma.role}
                           </p>
                         </div>
                       </TooltipTrigger>
-                      <TooltipContent className="max-w-xs text-[11px]">
+                      <TooltipContent
+                        className={cn(
+                          "max-w-xs border text-[11px]",
+                          isMissing
+                            ? "border-red-300 bg-red-950 text-red-50"
+                            : "border-emerald-300 bg-emerald-950 text-emerald-50"
+                        )}
+                      >
                         <strong>{diploma.title}</strong>
                         <span className="mt-1 block">
                           {isMissing

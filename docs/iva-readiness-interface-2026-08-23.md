@@ -19,3 +19,11 @@ Foram criados testes para os estados bloqueado e pronto, identificação dos dip
 ## Limite funcional
 
 A simulação não prova a legibilidade, autenticidade, integridade jurídica ou adequação do PDF. Para produzir evidência utilizável, o utilizador deverá usar o formulário de submissão primária e concluir a revisão humana correspondente. A política `CONFIRMED_ONLY` permanece inalterada.
+
+## Refinamentos da simulação
+
+A simulação passou a apresentar uma barra de progresso acessível entre 0% e 100%, com estado de processamento, botão de simulação temporariamente bloqueado e conclusão automática apenas no estado final. O progresso é uma animação local e não representa transmissão de dados.
+
+O botão **Limpar e repor** remove o PDF, o identificador de teste, o progresso e o resultado local. Em seguida, solicita uma nova leitura da prontidão IVA no painel pai, sem alterar fontes, regras, contas ou confirmações. Assim, o estado mostrado volta a reflectir exclusivamente os dados validados no servidor.
+
+Os cartões e tooltips da cadeia utilizam agora verde para diplomas confirmados e vermelho para diplomas em falta. A cor acompanha sempre uma etiqueta textual e um ícone, não sendo usada como único meio de comunicação.

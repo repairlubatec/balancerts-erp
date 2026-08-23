@@ -3130,3 +3130,9 @@
 - [x] Implementar simulação controlada de envio de PDFs para teste do fluxo de interface, sem confirmação normativa nem activação.
 - [x] Criar painel de estado da prontidão IVA com resultado das validações normativas e estado não operacional quando existirem bloqueios.
 - [x] Criar testes Vitest para detalhe da cadeia, simulação de PDF, painel de prontidão e não-activação de regras.
+
+# Refinamentos da simulação IVA
+- [x] Adicionar progresso visual durante a simulação de envio do PDF, sem efectuar envio real.
+- [x] Adicionar botão para limpar os uploads simulados e repor o estado inicial do painel de prontidão IVA.
+- [x] Reforçar o feedback cromático dos tooltips e cartões dos diplomas: vermelho em falta e verde carregado/confirmado.
+- [x] Criar e actualizar testes para progresso, reset, cores e preservação da política CONFIRMED_ONLY.

@@ -33,7 +33,13 @@ describe("painel de prontidão IVA", () => {
       "Em falta"
     );
     expect(screen.getByTestId("iva-chain-IVA-LAW-7-19").textContent).toContain(
-      "Identificado"
+      "Confirmado"
+    );
+    expect(screen.getByTestId("iva-chain-IVA-DP-180-19").className).toContain(
+      "border-red-300"
+    );
+    expect(screen.getByTestId("iva-chain-IVA-LAW-7-19").className).toContain(
+      "border-emerald-300"
     );
     expect(screen.getByTestId("iva-chain-summary").textContent).toContain(
       "Diplomas em falta: 2"
@@ -63,6 +69,6 @@ describe("painel de prontidão IVA", () => {
     expect(screen.getByTestId("iva-chain-summary").textContent).toContain(
       "Os cinco diplomas estão identificados como confirmados."
     );
-    expect(screen.getAllByText("Identificado")).toHaveLength(5);
+    expect(screen.getAllByText("Confirmado")).toHaveLength(5);
   });
 });

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   CheckCircle2,
   LockKeyhole,
@@ -60,11 +60,15 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
+type IvaNormativeReviewPanelProps = {
+  organizationId?: number;
+  readinessResetKey?: number;
+};
+
 export function IvaNormativeReviewPanel({
   organizationId,
-}: {
-  organizationId?: number;
-}) {
+  readinessResetKey = 0,
+}: IvaNormativeReviewPanelProps) {
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
   const [regime, setRegime] = useState<
@@ -98,6 +102,9 @@ export function IvaNormativeReviewPanel({
   const readinessQuery = trpc.normative.ivaReadiness.useQuery(readinessInput, {
     enabled: Boolean(organizationId),
   });
+  useEffect(() => {
+    if (readinessResetKey > 0 && organizationId) void readinessQuery.refetch();
+  }, [organizationId, readinessQuery.refetch, readinessResetKey]);
   const rulesQuery = trpc.normative.ivaRules.useQuery(
     queryInput ?? { organizationId: 0, limit: 1 },
     { enabled: Boolean(organizationId) }
@@ -108,7 +115,11 @@ export function IvaNormativeReviewPanel({
   );
   const utils = trpc.useUtils();
   const refresh = async () => {
-    await Promise.all([rulesQuery.refetch(), accountsQuery.refetch()]);
+    await Promise.all([
+      readinessQuery.refetch(),
+      rulesQuery.refetch(),
+      accountsQuery.refetch(),
+    ]);
   };
   const reviewRule = trpc.normative.reviewIvaRule.useMutation({
     onSuccess: async () => {
