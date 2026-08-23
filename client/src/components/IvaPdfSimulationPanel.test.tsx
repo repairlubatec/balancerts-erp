@@ -25,6 +25,45 @@ describe("simulação de envio de PDF IVA", () => {
     expect(screen.getByText(/não é enviado para a API/)).toBeTruthy();
   });
 
+  it("selecciona um PDF através de arrastar e largar", () => {
+    render(<IvaPdfSimulationPanel />);
+    const file = new File(["pdf de teste"], "arrastado.pdf", {
+      type: "application/pdf",
+      lastModified: 999,
+    });
+    const dropzone = screen.getByRole("group", {
+      name: "Zona de arrastar e largar PDF",
+    });
+
+    fireEvent.dragEnter(dropzone);
+    expect(
+      screen.getByText("Largue o PDF aqui para o seleccionar")
+    ).toBeTruthy();
+    fireEvent.drop(dropzone, { dataTransfer: { files: [file] } });
+
+    expect(screen.getByText("arrastado.pdf")).toBeTruthy();
+    expect(
+      (
+        screen.getByRole("button", {
+          name: "Simular envio",
+        }) as HTMLButtonElement
+      ).disabled
+    ).toBe(false);
+  });
+
+  it("rejeita ficheiros que não sejam PDF no arrastar e largar", () => {
+    render(<IvaPdfSimulationPanel />);
+    const file = new File(["texto"], "notas.txt", { type: "text/plain" });
+    const dropzone = screen.getByRole("group", {
+      name: "Zona de arrastar e largar PDF",
+    });
+
+    fireEvent.drop(dropzone, { dataTransfer: { files: [file] } });
+
+    expect(screen.queryByText("notas.txt")).toBeNull();
+    expect(screen.getByRole("button", { name: "Simular envio" })).toBeTruthy();
+  });
+
   it("mostra progresso e bloqueia nova simulação durante o processamento", async () => {
     render(<IvaPdfSimulationPanel />);
     const file = new File(["pdf de teste"], "progresso.pdf", {

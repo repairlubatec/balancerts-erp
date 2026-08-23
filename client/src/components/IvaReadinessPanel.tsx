@@ -3,17 +3,21 @@ import {
   AlertTriangle,
   CheckCircle2,
   CircleHelp,
+  FileDown,
+  FileSpreadsheet,
   FileWarning,
   LockKeyhole,
   ShieldCheck,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Progress } from "@/components/ui/progress";
 import { ivaNormativeChain } from "@/data/ivaNormativeChain";
 import { cn } from "@/lib/utils";
 
@@ -31,6 +35,9 @@ type Props = {
   data?: ReadinessData;
   isLoading?: boolean;
   isError?: boolean;
+  onExportCsv?: () => void;
+  onExportPdf?: () => void;
+  exportPdfPending?: boolean;
 };
 
 const blockerLabels: Record<string, string> = {
@@ -46,12 +53,25 @@ function formatBlocker(blocker: string) {
   return blockerLabels[blocker] ?? blocker;
 }
 
-export function IvaReadinessPanel({ data, isLoading, isError }: Props) {
+export function IvaReadinessPanel({
+  data,
+  isLoading,
+  isError,
+  onExportCsv,
+  onExportPdf,
+  exportPdfPending = false,
+}: Props) {
   const missing = new Set(data?.missingChainSources ?? []);
   const hasChainBlocker = data?.blockers.includes(
     "IVA_CADEIA_NORMATIVA_INCOMPLETA"
   );
   const chainComplete = data ? !hasChainBlocker && missing.size === 0 : false;
+  const confirmedDiplomas = ivaNormativeChain.filter(
+    diploma => !missing.has(diploma.code)
+  ).length;
+  const completionPercentage = Math.round(
+    (confirmedDiplomas / ivaNormativeChain.length) * 100
+  );
 
   return (
     <Card className="rounded-sm border-[#bfc9d4] bg-[#f8fafc] shadow-none">
@@ -68,12 +88,39 @@ export function IvaReadinessPanel({ data, isLoading, isError }: Props) {
               evidência primária.
             </p>
           </div>
-          <Badge
-            variant="outline"
-            className="rounded-sm border-slate-300 bg-white text-[10px] text-slate-600"
-          >
-            <LockKeyhole className="mr-1 h-3 w-3" /> CONFIRMED_ONLY
-          </Badge>
+          <div className="flex flex-wrap items-center justify-end gap-1.5">
+            <Badge
+              variant="outline"
+              className="rounded-sm border-slate-300 bg-white text-[10px] text-slate-600"
+            >
+              <LockKeyhole className="mr-1 h-3 w-3" /> CONFIRMED_ONLY
+            </Badge>
+            {onExportCsv && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={onExportCsv}
+                disabled={!data || isLoading || isError}
+                className="h-7 rounded-sm bg-white px-2 text-[10px]"
+              >
+                <FileSpreadsheet className="mr-1 h-3 w-3" /> CSV
+              </Button>
+            )}
+            {onExportPdf && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={onExportPdf}
+                disabled={!data || isLoading || isError || exportPdfPending}
+                className="h-7 rounded-sm bg-white px-2 text-[10px]"
+              >
+                <FileDown className="mr-1 h-3 w-3" />
+                {exportPdfPending ? "A preparar…" : "PDF"}
+              </Button>
+            )}
+          </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-3 p-3">
@@ -133,6 +180,56 @@ export function IvaReadinessPanel({ data, isLoading, isError }: Props) {
                   <span>fontes confirmadas</span>
                 </div>
               </div>
+            </div>
+
+            <div
+              className={cn(
+                "border px-3 py-2.5",
+                chainComplete
+                  ? "border-emerald-200 bg-emerald-50"
+                  : "border-red-200 bg-red-50"
+              )}
+              data-testid="iva-chain-completion"
+            >
+              <div className="flex items-center justify-between gap-2 text-[11px]">
+                <span
+                  className={cn(
+                    "font-semibold",
+                    chainComplete ? "text-emerald-900" : "text-red-900"
+                  )}
+                >
+                  Conclusão da cadeia normativa
+                </span>
+                <span
+                  className={cn(
+                    "font-mono font-semibold",
+                    chainComplete ? "text-emerald-800" : "text-red-800"
+                  )}
+                >
+                  {confirmedDiplomas}/{ivaNormativeChain.length} ·{" "}
+                  {completionPercentage}%
+                </span>
+              </div>
+              <Progress
+                value={completionPercentage}
+                aria-label="Conclusão da cadeia normativa IVA"
+                className={cn(
+                  "mt-2 h-2",
+                  chainComplete
+                    ? "bg-emerald-100 [&_[data-slot=progress-indicator]]:bg-emerald-600"
+                    : "bg-red-100 [&_[data-slot=progress-indicator]]:bg-red-600"
+                )}
+              />
+              <p
+                className={cn(
+                  "mt-1 text-[10px]",
+                  chainComplete ? "text-emerald-800" : "text-red-800"
+                )}
+              >
+                {chainComplete
+                  ? "Todos os diplomas exigidos estão confirmados."
+                  : "A percentagem é informativa; a cadeia continua bloqueada até confirmar os diplomas em falta."}
+              </p>
             </div>
 
             <div className="border border-[#d7e0e8] bg-white">

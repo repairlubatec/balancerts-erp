@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import React from "react";
-import { cleanup, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { IvaReadinessPanel } from "./IvaReadinessPanel";
 
 afterEach(() => cleanup());
@@ -44,6 +44,12 @@ describe("painel de prontidão IVA", () => {
     expect(screen.getByTestId("iva-chain-summary").textContent).toContain(
       "Diplomas em falta: 2"
     );
+    expect(screen.getByTestId("iva-chain-completion").textContent).toContain(
+      "3/5 · 60%"
+    );
+    expect(screen.getByTestId("iva-chain-completion").className).toContain(
+      "border-red-200"
+    );
     expect(
       screen.getByText(/Falta confirmar um ou mais diplomas/)
     ).toBeTruthy();
@@ -70,5 +76,31 @@ describe("painel de prontidão IVA", () => {
       "Os cinco diplomas estão identificados como confirmados."
     );
     expect(screen.getAllByText("Confirmado")).toHaveLength(5);
+    expect(screen.getByTestId("iva-chain-completion").textContent).toContain(
+      "5/5 · 100%"
+    );
+    expect(
+      screen.getByRole("progressbar", {
+        name: "Conclusão da cadeia normativa IVA",
+      })
+    ).toBeTruthy();
+  });
+
+  it("expõe exportação CSV e PDF quando recebe os handlers", () => {
+    const onExportCsv = vi.fn();
+    const onExportPdf = vi.fn();
+    render(
+      <IvaReadinessPanel
+        data={{ ...baseReadiness }}
+        onExportCsv={onExportCsv}
+        onExportPdf={onExportPdf}
+      />
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "CSV" }));
+    fireEvent.click(screen.getByRole("button", { name: "PDF" }));
+
+    expect(onExportCsv).toHaveBeenCalledTimes(1);
+    expect(onExportPdf).toHaveBeenCalledTimes(1);
   });
 });

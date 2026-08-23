@@ -3136,3 +3136,10 @@
 - [x] Adicionar botão para limpar os uploads simulados e repor o estado inicial do painel de prontidão IVA.
 - [x] Reforçar o feedback cromático dos tooltips e cartões dos diplomas: vermelho em falta e verde carregado/confirmado.
 - [x] Criar e actualizar testes para progresso, reset, cores e preservação da política CONFIRMED_ONLY.
+
+# Extensões do painel de prontidão IVA
+- [x] Adicionar zona de arrastar e largar para seleccionar PDFs no simulador local.
+- [x] Exportar o estado real de prontidão IVA e os diplomas em falta em CSV.
+- [x] Exportar o estado real de prontidão IVA e os diplomas em falta em PDF.
+- [x] Mostrar percentagem e contagem de diplomas confirmados face aos cinco exigidos.
+- [x] Criar testes para drag-and-drop, resumo de conclusão e exportações sem activação normativa.

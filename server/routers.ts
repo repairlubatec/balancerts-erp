@@ -1,60 +1,381 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
-import { calculateSaadiFeasibilityForUser, captureSaadiErpAccountingSnapshot, compareSaadiProjectionToRealized, createSaadiRisk, createSaadiSnapshot, generateSaadiFeasibilityReport, listSaadiDecisionsForUser, submitSaadiDecision, createSaadiStudy, createSaadiVersion, getSaadiFeasibilityForUser, listSaadiProvenanceForUser, listSaadiScenariosForUser, listSaadiSnapshotsForUser, listSaadiRisksForUser, listSaadiStudiesForUser, listSaadiVariancesForUser, listSaadiVersionsForUser, saveSaadiFeasibilityInput, saveSaadiScenario, transitionSaadiVersionForUser } from "./saadi";
-import { saadiSnapshotSchema, saadiSnapshotRequestSchema, saadiVersionSchema } from "../shared/saadi-contracts";
-import { readSaadiAccountingSummary, readSaadiCompanyContext, readSaadiOperationalSummary, readSaadiPgcNormativeContext } from "./saadi-erp-read";
+import {
+  calculateSaadiFeasibilityForUser,
+  captureSaadiErpAccountingSnapshot,
+  compareSaadiProjectionToRealized,
+  createSaadiRisk,
+  createSaadiSnapshot,
+  generateSaadiFeasibilityReport,
+  listSaadiDecisionsForUser,
+  submitSaadiDecision,
+  createSaadiStudy,
+  createSaadiVersion,
+  getSaadiFeasibilityForUser,
+  listSaadiProvenanceForUser,
+  listSaadiScenariosForUser,
+  listSaadiSnapshotsForUser,
+  listSaadiRisksForUser,
+  listSaadiStudiesForUser,
+  listSaadiVariancesForUser,
+  listSaadiVersionsForUser,
+  saveSaadiFeasibilityInput,
+  saveSaadiScenario,
+  transitionSaadiVersionForUser,
+} from "./saadi";
+import {
+  saadiSnapshotSchema,
+  saadiSnapshotRequestSchema,
+  saadiVersionSchema,
+} from "../shared/saadi-contracts";
+import {
+  readSaadiAccountingSummary,
+  readSaadiCompanyContext,
+  readSaadiOperationalSummary,
+  readSaadiPgcNormativeContext,
+} from "./saadi-erp-read";
 import { systemRouter } from "./_core/systemRouter";
-import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import {
+  adminProcedure,
+  protectedProcedure,
+  publicProcedure,
+  router,
+} from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
 import { can, type BalancertsRole } from "./permissions";
 import { z } from "zod";
 import { createHash } from "node:crypto";
-import { activateCompanyForUser, appendAuditEvent, appendAuditEventForUser, assertAuditScopeForUser, assertClosedFiscalPeriodForUserCompany, createCompanyForUser, updateCompanyForUser, setPrimaryLegalRepresentativeForUser, createFiscalExerciseForUser, createFiscalPeriodForUser, closeFiscalPeriodForUser, reopenFiscalPeriodForUser, getDocumentSeriesForUserCompany, createDocumentSeriesForUser, getAuditEventsForUserCompany, getExercisesForUserCompany, getBalanceSheetForUserCompany, getCompaniesForUser, getEffectiveRoleForUserCompany, getEffectivePermissionsForUserCompany, getOrganizationMembershipsForUser, listOrganizationMembershipsForUser, getEmployeesForUserCompany, createEmployeeForUser, updateEmployeeForUser, getEmploymentContractsForUserCompany, createEmploymentContractForUser, transitionEmploymentContractForUser, getPayrollRuleSetsForUserCompany, createPayrollRuleSetForUser, getPayrollRunsForUserCompany, getHumanResourcesTasksForUserCompany, createHumanResourcesTaskForUser, updateHumanResourcesTaskForUser, updateHumanResourcesTasksStatusForUser, undoHumanResourcesTasksStatusForUser, getPayrollItemsForUserRun, getPayrollJournalForUserRun, approvePayrollRunForUser, approvePayrollAccountingPreparationForUser, postPayrollJournalForUser, closePayrollRunForUser, calculatePayrollRunForUser, createOrganizationMembershipForUser, updateOrganizationMembershipForUser, getDocumentAccountingChainForUserCompany, getDocumentOriginReconciliationForUserCompany, getDocumentsForUserCompany, getFiscalRegisterForUserCompany, getAgingForUserCompany, getFinancialDashboardForUserCompany, getIncomeStatementForUserCompany, getJournalDocumentChainForUserCompany,   getJournalForUserCompany,
+import {
+  activateCompanyForUser,
+  appendAuditEvent,
+  appendAuditEventForUser,
+  assertAuditScopeForUser,
+  assertClosedFiscalPeriodForUserCompany,
+  createCompanyForUser,
+  updateCompanyForUser,
+  setPrimaryLegalRepresentativeForUser,
+  createFiscalExerciseForUser,
+  createFiscalPeriodForUser,
+  closeFiscalPeriodForUser,
+  reopenFiscalPeriodForUser,
+  getDocumentSeriesForUserCompany,
+  createDocumentSeriesForUser,
+  getAuditEventsForUserCompany,
+  getExercisesForUserCompany,
+  getBalanceSheetForUserCompany,
+  getCompaniesForUser,
+  getEffectiveRoleForUserCompany,
+  getEffectivePermissionsForUserCompany,
+  getOrganizationMembershipsForUser,
+  listOrganizationMembershipsForUser,
+  getEmployeesForUserCompany,
+  createEmployeeForUser,
+  updateEmployeeForUser,
+  getEmploymentContractsForUserCompany,
+  createEmploymentContractForUser,
+  transitionEmploymentContractForUser,
+  getPayrollRuleSetsForUserCompany,
+  createPayrollRuleSetForUser,
+  getPayrollRunsForUserCompany,
+  getHumanResourcesTasksForUserCompany,
+  createHumanResourcesTaskForUser,
+  updateHumanResourcesTaskForUser,
+  updateHumanResourcesTasksStatusForUser,
+  undoHumanResourcesTasksStatusForUser,
+  getPayrollItemsForUserRun,
+  getPayrollJournalForUserRun,
+  approvePayrollRunForUser,
+  approvePayrollAccountingPreparationForUser,
+  postPayrollJournalForUser,
+  closePayrollRunForUser,
+  calculatePayrollRunForUser,
+  createOrganizationMembershipForUser,
+  updateOrganizationMembershipForUser,
+  getDocumentAccountingChainForUserCompany,
+  getDocumentOriginReconciliationForUserCompany,
+  getDocumentsForUserCompany,
+  getFiscalRegisterForUserCompany,
+  getAgingForUserCompany,
+  getFinancialDashboardForUserCompany,
+  getIncomeStatementForUserCompany,
+  getJournalDocumentChainForUserCompany,
+  getJournalForUserCompany,
   listPendingJournalEntriesForUser,
   reviewJournalEntryForUser,
   transferBetweenCashAccountsForUser,
-  updateHumanResourcesTasksPriorityForUser, undoHumanResourcesTasksPriorityForUser, updateHumanResourcesTasksDueDateForUser, undoHumanResourcesTasksDueDateForUser, undoHumanResourcesTaskDueDateForUser, approvePaymentForUser, getLedgerForUserCompany, getPeriodsForUserCompany, getReportTraceForUserCompany, getReportsReconciliationForUserCompany, getSaftReadinessForUserCompany, getSaftLocalExportForUserCompany, getTrialBalanceForUserCompany, getVatSummaryForUserCompany, postJournalEntry, reconcileStockForUserCompany, reserveDocumentNumber, transitionBusinessDocument, createDraftBusinessDocumentForUser, updateCounterpartyForUser, updateDocumentItemForUser, updateDocumentTaxForUser, archiveBusinessDocumentForUser, updatePaymentForUser, getCounterpartiesForUserCompany, createCounterpartyForUser, getProductsForUserCompany, createProductForUser, updateProductForUser, getCashAccountsForUserCompany, createCashAccountForUser, updateCashAccountForUser,   getTreasuryTransactionsForUserCompany, getPaymentsForUserCompany, postPaymentAccountingForUser, getChartAccountsForUserCompany, createChartAccountForUser, updateChartAccountForUser, getCostCentersForUserCompany, getAnalyticalCostCenterReportForUserCompany, createCostCenterForUser, importJournalEntriesForUser, reconcileCashAccountForUser, reconcileTreasuryTransactionForUser, createPaymentForUser, getAgtIntegrationConfigForUserCompany, configureAgtIntegrationForUser, getNormativeRulesForUserCompany, getFiscalDocumentPdfDataForUser, createDocumentImportBatchForUser, getDocumentImportBatchForUser, updateDocumentImportRowForUser, confirmDocumentImportBatchForUser, getAgtEstablishmentsForUserCompany, createAgtEstablishmentForUser, getAgtSeriesForUserCompany, createAgtSeriesForUser, getAgtSubmissionsForUserCompany, createAgtSubmissionForUser, updateAgtSubmissionResultForUser, getAgtSignatureKeysForUserCompany, getAgtReadinessForUserCompany, createAgtSignatureKeyReferenceForUser, changeAgtSignatureKeyStatusForUser, getFixedAssetsForUserCompany, createFixedAssetForUser, updateFixedAssetForUser, getStockBalancesForUserCompany, createStockCountForUser, listStockCountsForUserCompany, reviewStockCountForUser, applyStockCountForUser, getWarehousesForUserCompany, createWarehouseForUser, transferStockBetweenWarehousesForUser, createPurchaseOrderForUser, getPurchaseOrdersForUserCompany, transitionPurchaseOrderForUser, receivePurchaseOrderForUser, convertPurchaseReceiptToSupplierDraftForUser, getBalancertsIaConfigForUserCompany, updateBalancertsIaConfigForUser, getBalancertsIaStatusForUserCompany, getBalancertsIaLogsForUserCompany, createBalancertsIaLogForUser, testBalancertsIaLocalProviderForUser, createBalancertsIaDocumentSuggestionForUser, getBalancertsIaSuggestionsForUserCompany, reviewBalancertsIaSuggestionForUser, createFiscalTaxRecordForUser, listFiscalTaxRecordsForUser, getFiscalObligationsForUserCompany, createOpeningBalanceForUser, listOpeningBalancesForUser, reviewOpeningBalanceForUser, publishOpeningBalancesForUser, createAccountingAdjustmentForUser, postJournalEntryWithPgcAccountsForUser, listAccountingAdjustmentsForUser, reviewAccountingAdjustmentForUser, publishAccountingAdjustmentForUser, importBankStatementForUser, listBankStatementLinesForUser, matchBankStatementLineForUser, getPgcAuditLogsForUser, getPgcAuditReviewStateForUser, getPgcAuditReviewHistoryForUser, getPgcDashboardAlertEventsForUser, updatePgcAuditReviewStatusForUser, listPgcAuditNotesForUser, createPgcAuditNoteForUser, listNormativeSourcesForUser, listNormativeSourceRelationsForUser, listIvaNormativeRulesForUser, listIvaAccountMappingsForUser, getIvaReadinessForUser, reviewIvaNormativeRuleForUser, reviewIvaAccountMappingForUser, activateIvaNormativeRuleForUser, activateIvaAccountMappingForUser } from "./db";
+  updateHumanResourcesTasksPriorityForUser,
+  undoHumanResourcesTasksPriorityForUser,
+  updateHumanResourcesTasksDueDateForUser,
+  undoHumanResourcesTasksDueDateForUser,
+  undoHumanResourcesTaskDueDateForUser,
+  approvePaymentForUser,
+  getLedgerForUserCompany,
+  getPeriodsForUserCompany,
+  getReportTraceForUserCompany,
+  getReportsReconciliationForUserCompany,
+  getSaftReadinessForUserCompany,
+  getSaftLocalExportForUserCompany,
+  getTrialBalanceForUserCompany,
+  getVatSummaryForUserCompany,
+  postJournalEntry,
+  reconcileStockForUserCompany,
+  reserveDocumentNumber,
+  transitionBusinessDocument,
+  createDraftBusinessDocumentForUser,
+  updateCounterpartyForUser,
+  updateDocumentItemForUser,
+  updateDocumentTaxForUser,
+  archiveBusinessDocumentForUser,
+  updatePaymentForUser,
+  getCounterpartiesForUserCompany,
+  createCounterpartyForUser,
+  getProductsForUserCompany,
+  createProductForUser,
+  updateProductForUser,
+  getCashAccountsForUserCompany,
+  createCashAccountForUser,
+  updateCashAccountForUser,
+  getTreasuryTransactionsForUserCompany,
+  getPaymentsForUserCompany,
+  postPaymentAccountingForUser,
+  getChartAccountsForUserCompany,
+  createChartAccountForUser,
+  updateChartAccountForUser,
+  getCostCentersForUserCompany,
+  getAnalyticalCostCenterReportForUserCompany,
+  createCostCenterForUser,
+  importJournalEntriesForUser,
+  reconcileCashAccountForUser,
+  reconcileTreasuryTransactionForUser,
+  createPaymentForUser,
+  getAgtIntegrationConfigForUserCompany,
+  configureAgtIntegrationForUser,
+  getNormativeRulesForUserCompany,
+  getFiscalDocumentPdfDataForUser,
+  createDocumentImportBatchForUser,
+  getDocumentImportBatchForUser,
+  updateDocumentImportRowForUser,
+  confirmDocumentImportBatchForUser,
+  getAgtEstablishmentsForUserCompany,
+  createAgtEstablishmentForUser,
+  getAgtSeriesForUserCompany,
+  createAgtSeriesForUser,
+  getAgtSubmissionsForUserCompany,
+  createAgtSubmissionForUser,
+  updateAgtSubmissionResultForUser,
+  getAgtSignatureKeysForUserCompany,
+  getAgtReadinessForUserCompany,
+  createAgtSignatureKeyReferenceForUser,
+  changeAgtSignatureKeyStatusForUser,
+  getFixedAssetsForUserCompany,
+  createFixedAssetForUser,
+  updateFixedAssetForUser,
+  getStockBalancesForUserCompany,
+  createStockCountForUser,
+  listStockCountsForUserCompany,
+  reviewStockCountForUser,
+  applyStockCountForUser,
+  getWarehousesForUserCompany,
+  createWarehouseForUser,
+  transferStockBetweenWarehousesForUser,
+  createPurchaseOrderForUser,
+  getPurchaseOrdersForUserCompany,
+  transitionPurchaseOrderForUser,
+  receivePurchaseOrderForUser,
+  convertPurchaseReceiptToSupplierDraftForUser,
+  getBalancertsIaConfigForUserCompany,
+  updateBalancertsIaConfigForUser,
+  getBalancertsIaStatusForUserCompany,
+  getBalancertsIaLogsForUserCompany,
+  createBalancertsIaLogForUser,
+  testBalancertsIaLocalProviderForUser,
+  createBalancertsIaDocumentSuggestionForUser,
+  getBalancertsIaSuggestionsForUserCompany,
+  reviewBalancertsIaSuggestionForUser,
+  createFiscalTaxRecordForUser,
+  listFiscalTaxRecordsForUser,
+  getFiscalObligationsForUserCompany,
+  createOpeningBalanceForUser,
+  listOpeningBalancesForUser,
+  reviewOpeningBalanceForUser,
+  publishOpeningBalancesForUser,
+  createAccountingAdjustmentForUser,
+  postJournalEntryWithPgcAccountsForUser,
+  listAccountingAdjustmentsForUser,
+  reviewAccountingAdjustmentForUser,
+  publishAccountingAdjustmentForUser,
+  importBankStatementForUser,
+  listBankStatementLinesForUser,
+  matchBankStatementLineForUser,
+  getPgcAuditLogsForUser,
+  getPgcAuditReviewStateForUser,
+  getPgcAuditReviewHistoryForUser,
+  getPgcDashboardAlertEventsForUser,
+  updatePgcAuditReviewStatusForUser,
+  listPgcAuditNotesForUser,
+  createPgcAuditNoteForUser,
+  listNormativeSourcesForUser,
+  listNormativeSourceRelationsForUser,
+  listIvaNormativeRulesForUser,
+  listIvaAccountMappingsForUser,
+  getIvaReadinessForUser,
+  reviewIvaNormativeRuleForUser,
+  reviewIvaAccountMappingForUser,
+  activateIvaNormativeRuleForUser,
+  activateIvaAccountMappingForUser,
+} from "./db";
 import { enqueueAgtSubmission } from "./integrations";
 import { buildFiscalDocumentPdf } from "./fiscal-document-pdf";
 import { buildFinancialDashboardPdf } from "./financial-dashboard-pdf";
 import { buildAuditLogsPdf } from "./audit-logs-pdf";
-import { calculateExtendedIndicators, calculateFinancing, calculateSensitivity, calculateValuation } from "./saadi-financial";
-import { exportFiscalCsv, exportFiscalWorkbook, parseFiscalTabular, validateFiscalImport, type FiscalImportKind } from "./fiscal-tabular";
-import { validateBalancedEntry, validateDocumentTransition } from "./accounting";
+import { buildIvaReadinessPdf } from "./iva-readiness-pdf";
+import {
+  calculateExtendedIndicators,
+  calculateFinancing,
+  calculateSensitivity,
+  calculateValuation,
+} from "./saadi-financial";
+import {
+  exportFiscalCsv,
+  exportFiscalWorkbook,
+  parseFiscalTabular,
+  validateFiscalImport,
+  type FiscalImportKind,
+} from "./fiscal-tabular";
+import {
+  validateBalancedEntry,
+  validateDocumentTransition,
+} from "./accounting";
 import { calculateIva } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
 import { calculateWeightedAverage } from "./inventory";
 import { calculateStraightLineDepreciation } from "./fixed-assets";
-import { buildDepreciationAudit, buildDepreciationPosting } from "./fixed-assets-posting";
-import { buildReopenAudit, evaluatePeriodClose, validateReopenReason } from "./closing";
+import {
+  buildDepreciationAudit,
+  buildDepreciationPosting,
+} from "./fixed-assets-posting";
+import {
+  buildReopenAudit,
+  evaluatePeriodClose,
+  validateReopenReason,
+} from "./closing";
 import { buildDecree71Coverage, validateNormativeCoverage } from "./normative";
 import { convertToFunctionalCurrency } from "./currency";
 import { buildReversalLines, reversalDescription } from "./reversal";
-import { archiveFileAssetForUser, createFileAsset, createFileAssetVersion, getFileAssetForUser, getFileAssetVersionsForUser, listFileAssetsForUser, recordStockMovement, updateFileAssetMetadataForUser } from "./db";
+import {
+  archiveFileAssetForUser,
+  createFileAsset,
+  createFileAssetVersion,
+  getFileAssetForUser,
+  getFileAssetVersionsForUser,
+  listFileAssetsForUser,
+  recordStockMovement,
+  updateFileAssetMetadataForUser,
+} from "./db";
 import { prepareTenantFile } from "./files";
 import { storageGetSignedUrl, storagePut } from "./storage";
-import { buildAgtComplianceCalendar, validateAgtFiscalRecord } from "./tax-compliance";
+import {
+  buildAgtComplianceCalendar,
+  validateAgtFiscalRecord,
+} from "./tax-compliance";
 import { buildSaftLocalPackageManifest } from "./reports";
 import { getBalancertsIaDiagnostics } from "./balancerts-ia/diagnostics";
 import { importAndAnalyzeBalancertsDocument } from "./balancerts-ia/import-service";
 import { generateAgtQrCodeDataUrl, validateAgtQrPayload } from "./agt-qrcode";
-import { createExternalSaadiStudy, getExternalCompanyForStudy, createSaadiInvestmentItem, listSaadiInvestmentItems, createSaadiFinancingSource, listSaadiFinancingSources, createSaadiAssumption, listSaadiAssumptions, createSaadiHistoricalData, listSaadiHistoricalData, updateSaadiHistoricalValidation, getSaadiValidationChecklist, createSaadiProject, listSaadiProjects, createSaadiIntegrationRun, updateSaadiIntegrationRun, listSaadiIntegrationRuns, linkSaadiVersionSnapshot, listSaadiVersionSnapshots, recordSaadiMetricProvenance, listSaadiMetricProvenance, createSaadiCompanyLink, listSaadiCompanyLinks, authorizeSaadiCompanyLink, createSaadiProjection, listSaadiProjections, createSaadiAlert, listSaadiAlerts, resolveSaadiAlert, upsertSaadiValidation, listSaadiValidations, transitionSaadiStudyWorkflow } from "./saadi-feasibility";
-import { createSaadiStudyDocument, listSaadiStudyDocuments, suggestSaadiDocumentExtraction, reprocessSaadiStudyDocument, reviewSaadiStudyDocument } from "./saadi-documents";
-import { addPgcAccountDraftForUser, addPgcAccountVisualConfirmedForUser, addPgcSourceForUser, auditLegacyChartForUser, createAccountingRuleForUser, listPgcSourcesForUser, registerPendingNormativeSourcesForUser, reviewPgcSourceForUser, reviewPgcAccountForUser, reviewPgcAccountsBatchForUser, createPgcMigrationMapForUser, listAccountingRulesForUser, listPgcAccountsForUser, listPgcAuditRunsForUser, listPgcMigrationMapsForUser, listPgcVersionsForUser, createPgcVersionForUser, submitPgcEvidenceForUser, listPgcEvidenceSubmissionsForUser, startPgcEvidenceReviewForUser, reviewPgcEvidenceSubmissionForUser, simulatePgcMovementForUser } from "./pgc";
-import { activatePgcVersionForUser, getPgcActivationReadinessForUser, submitPgcVersionForReview, validatePgcVersionForUser } from "./pgc-workflow";
+import {
+  createExternalSaadiStudy,
+  getExternalCompanyForStudy,
+  createSaadiInvestmentItem,
+  listSaadiInvestmentItems,
+  createSaadiFinancingSource,
+  listSaadiFinancingSources,
+  createSaadiAssumption,
+  listSaadiAssumptions,
+  createSaadiHistoricalData,
+  listSaadiHistoricalData,
+  updateSaadiHistoricalValidation,
+  getSaadiValidationChecklist,
+  createSaadiProject,
+  listSaadiProjects,
+  createSaadiIntegrationRun,
+  updateSaadiIntegrationRun,
+  listSaadiIntegrationRuns,
+  linkSaadiVersionSnapshot,
+  listSaadiVersionSnapshots,
+  recordSaadiMetricProvenance,
+  listSaadiMetricProvenance,
+  createSaadiCompanyLink,
+  listSaadiCompanyLinks,
+  authorizeSaadiCompanyLink,
+  createSaadiProjection,
+  listSaadiProjections,
+  createSaadiAlert,
+  listSaadiAlerts,
+  resolveSaadiAlert,
+  upsertSaadiValidation,
+  listSaadiValidations,
+  transitionSaadiStudyWorkflow,
+} from "./saadi-feasibility";
+import {
+  createSaadiStudyDocument,
+  listSaadiStudyDocuments,
+  suggestSaadiDocumentExtraction,
+  reprocessSaadiStudyDocument,
+  reviewSaadiStudyDocument,
+} from "./saadi-documents";
+import {
+  addPgcAccountDraftForUser,
+  addPgcAccountVisualConfirmedForUser,
+  addPgcSourceForUser,
+  auditLegacyChartForUser,
+  createAccountingRuleForUser,
+  listPgcSourcesForUser,
+  registerPendingNormativeSourcesForUser,
+  reviewPgcSourceForUser,
+  reviewPgcAccountForUser,
+  reviewPgcAccountsBatchForUser,
+  createPgcMigrationMapForUser,
+  listAccountingRulesForUser,
+  listPgcAccountsForUser,
+  listPgcAuditRunsForUser,
+  listPgcMigrationMapsForUser,
+  listPgcVersionsForUser,
+  createPgcVersionForUser,
+  submitPgcEvidenceForUser,
+  listPgcEvidenceSubmissionsForUser,
+  startPgcEvidenceReviewForUser,
+  reviewPgcEvidenceSubmissionForUser,
+  simulatePgcMovementForUser,
+} from "./pgc";
+import {
+  activatePgcVersionForUser,
+  getPgcActivationReadinessForUser,
+  submitPgcVersionForReview,
+  validatePgcVersionForUser,
+} from "./pgc-workflow";
 
-const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) => protectedProcedure.use(async ({ ctx, next, getRawInput }) => {
-  const rawInput = await getRawInput();
-  const companyId = typeof rawInput === "object" && rawInput !== null && "companyId" in rawInput && typeof rawInput.companyId === "number" ? rawInput.companyId : undefined;
-  const overrides = companyId ? await getEffectivePermissionsForUserCompany(ctx.user.id, companyId) : [];
-  if (!can(ctx.user.role as BalancertsRole, module, permission, overrides)) throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
-  return next();
-});
+const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) =>
+  protectedProcedure.use(async ({ ctx, next, getRawInput }) => {
+    const rawInput = await getRawInput();
+    const companyId =
+      typeof rawInput === "object" &&
+      rawInput !== null &&
+      "companyId" in rawInput &&
+      typeof rawInput.companyId === "number"
+        ? rawInput.companyId
+        : undefined;
+    const overrides = companyId
+      ? await getEffectivePermissionsForUserCompany(ctx.user.id, companyId)
+      : [];
+    if (!can(ctx.user.role as BalancertsRole, module, permission, overrides))
+      throw new TRPCError({ code: "FORBIDDEN", message: "PERMISSION_DENIED" });
+    return next();
+  });
 
 export const appRouter = router({
   system: systemRouter,
   auth: router({
-    me: publicProcedure.query((opts) => opts.ctx.user),
+    me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
@@ -62,445 +383,5705 @@ export const appRouter = router({
     }),
   }),
   saadi: router({
-    studies: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive() })).query(({ ctx, input }) => listSaadiStudiesForUser({ ...input, userId: ctx.user.id })),
-    erpCompanyContext: roleProcedure("saadi", "read").input(z.object({ companyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => readSaadiCompanyContext(ctx.user.id, input.companyId)),
-    erpAccountingSummary: roleProcedure("saadi", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() }).strict()).query(({ ctx, input }) => readSaadiAccountingSummary(ctx.user.id, input.companyId, input.periodId)),
-    erpPgcNormativeContext: roleProcedure("saadi", "read").input(z.object({ companyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => readSaadiPgcNormativeContext(ctx.user.id, input.companyId)),
-    erpOperationalSummary: roleProcedure("saadi", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() }).strict()).query(({ ctx, input }) => readSaadiOperationalSummary(ctx.user.id, input.companyId, input.periodId)),
-    captureErpAccountingSnapshot: roleProcedure("saadi", "create").input(z.object({ studyId: z.number().int().positive(), request: saadiSnapshotRequestSchema }).strict()).mutation(({ ctx, input }) => captureSaadiErpAccountingSnapshot({ ...input, userId: ctx.user.id })),
-    compareProjectionToRealized: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), snapshotId: z.number().int().positive(), metric: z.string().trim().min(1).max(160), projectedValue: z.number().finite(), currency: z.string().trim().length(3).default("AOA") }).strict()).mutation(({ ctx, input }) => compareSaadiProjectionToRealized({ ...input, userId: ctx.user.id })),
-    variances: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), snapshotId: z.number().int().positive().optional() }).strict()).query(({ ctx, input }) => listSaadiVariancesForUser({ ...input, userId: ctx.user.id })),
-    risks: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listSaadiRisksForUser({ ...input, userId: ctx.user.id })),
-    decisions: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listSaadiDecisionsForUser({ ...input, userId: ctx.user.id })),
-    submitDecision: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), versionId: z.number().int().positive(), decision: z.enum(["APROVAR", "REJEITAR", "PEDIR_REVISAO"]), justification: z.string().trim().min(1).max(4000) }).strict()).mutation(({ ctx, input }) => submitSaadiDecision({ ...input, userId: ctx.user.id })),
-    generateReport: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => generateSaadiFeasibilityReport({ ...input, userId: ctx.user.id })),
-    sensitivity: roleProcedure("saadi", "read").input(z.object({ initialInvestment: z.number().positive(), discountRate: z.number().gt(-1), cashFlows: z.array(z.number().finite()).min(1).max(120), rateDeltas: z.array(z.number().finite()).max(9).optional(), cashFlowDeltas: z.array(z.number().finite()).max(9).optional() }).strict()).query(({ input }) => calculateSensitivity(input, input.rateDeltas, input.cashFlowDeltas)),
-    valuation: roleProcedure("saadi", "read").input(z.object({ initialInvestment: z.number().positive(), discountRate: z.number().gt(0), cashFlows: z.array(z.number().finite()).min(1).max(120), terminalGrowthRate: z.number().nonnegative() }).strict()).query(({ input }) => calculateValuation(input, input.terminalGrowthRate)),
-    financing: roleProcedure("saadi", "read").input(z.object({ debtAmount: z.number().nonnegative(), equityAmount: z.number().nonnegative(), annualInterestRate: z.number().min(0).max(1), termMonths: z.number().int().min(0).max(360) }).strict()).query(({ input }) => calculateFinancing(input.debtAmount, input.equityAmount, input.annualInterestRate, input.termMonths)),
-    indicators: roleProcedure("saadi", "read").input(z.object({ initialInvestment: z.number().positive(), discountRate: z.number().gt(-1), cashFlows: z.array(z.number().finite()).min(1).max(120), revenue: z.array(z.number().finite()).max(120).optional(), grossProfit: z.array(z.number().finite()).max(120).optional(), operatingProfit: z.array(z.number().finite()).max(120).optional(), ebitda: z.array(z.number().finite()).max(120).optional(), netIncome: z.array(z.number().finite()).max(120).optional(), fixedCosts: z.array(z.number().finite()).max(120).optional(), variableCosts: z.array(z.number().finite()).max(120).optional(), unitPrice: z.number().positive().optional(), variableCostPerUnit: z.number().nonnegative().optional(), debtService: z.array(z.number().finite()).max(120).optional() }).strict()).query(({ input }) => calculateExtendedIndicators(input)),
-    createRisk: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), title: z.string().trim().min(1).max(180), description: z.string().trim().min(1).max(2000), probability: z.number().int().min(1).max(5), impact: z.number().int().min(1).max(5), response: z.enum(["EVITAR", "REDUZIR", "TRANSFERIR", "ACEITAR"]).default("REDUZIR") }).strict()).mutation(({ ctx, input }) => createSaadiRisk({ ...input, userId: ctx.user.id })),
-    createStudy: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyCode: z.string().trim().min(1).max(64), name: z.string().trim().min(1).max(180), investmentDomain: z.enum(["IMOBILIARIO", "AGRICULTURA", "INDUSTRIA", "ENERGIA", "HOTELARIA", "LOGISTICA", "OUTRO"]).default("OUTRO"), baseCurrency: z.string().trim().length(3).default("AOA"), projectionHorizonYears: z.number().int().min(3).max(30).default(5) })).mutation(({ ctx, input }) => createSaadiStudy({ ...input, userId: ctx.user.id })),
-    createSnapshot: roleProcedure("saadi", "create").input(z.object({ studyId: z.number().int().positive(), request: saadiSnapshotRequestSchema, snapshot: saadiSnapshotSchema, idempotencyKey: z.string().trim().min(1).max(160) })).mutation(({ ctx, input }) => createSaadiSnapshot({ ...input, userId: ctx.user.id })),
-    snapshots: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive().optional() })).query(({ ctx, input }) => listSaadiSnapshotsForUser({ ...input, userId: ctx.user.id })),
-    versions: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() })).query(({ ctx, input }) => listSaadiVersionsForUser({ ...input, userId: ctx.user.id })),
-    provenance: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), snapshotId: z.number().int().positive() })).query(({ ctx, input }) => listSaadiProvenanceForUser({ ...input, userId: ctx.user.id })),
-    createVersion: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), snapshotId: z.number().int().positive(), version: saadiVersionSchema })).mutation(({ ctx, input }) => createSaadiVersion({ ...input, userId: ctx.user.id })),
-    transitionVersion: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), versionId: z.number().int().positive(), decision: z.enum(["APPROVE", "ARCHIVE"]) })).mutation(({ ctx, input }) => transitionSaadiVersionForUser({ ...input, userId: ctx.user.id })),
-    feasibility: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() })).query(({ ctx, input }) => getSaadiFeasibilityForUser({ ...input, userId: ctx.user.id })),
-    saveFeasibilityInput: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), feasibility: z.object({ initialInvestment: z.number().positive(), discountRate: z.number().min(-0.99).max(10), cashFlows: z.array(z.number()).min(1).max(120), currency: z.string().regex(/^[A-Z]{3}$/), equityAmount: z.number().nonnegative().default(0), debtAmount: z.number().nonnegative().default(0), debtInterestRate: z.number().min(0).max(1).default(0), debtTermMonths: z.number().int().min(0).max(360).default(0) }).strict() }).strict()).mutation(({ ctx, input }) => saveSaadiFeasibilityInput({ ...input, userId: ctx.user.id })),
-    calculateFeasibility: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => calculateSaadiFeasibilityForUser({ ...input, userId: ctx.user.id })),
-    scenarios: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listSaadiScenariosForUser({ ...input, userId: ctx.user.id })),
-    saveScenario: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), name: z.string().trim().min(1).max(120), feasibility: z.object({ initialInvestment: z.number().positive(), discountRate: z.number().min(-0.99).max(10), cashFlows: z.array(z.number()).min(1).max(120), currency: z.string().regex(/^[A-Z]{3}$/), equityAmount: z.number().nonnegative().default(0), debtAmount: z.number().nonnegative().default(0), debtInterestRate: z.number().min(0).max(1).default(0), debtTermMonths: z.number().int().min(0).max(360).default(0) }).strict() }).strict()).mutation(({ ctx, input }) => saveSaadiScenario({ ...input, userId: ctx.user.id })),
-    createExternalStudy: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), studyCode: z.string().trim().min(1).max(64), name: z.string().trim().min(1).max(180), studyType: z.string().trim().min(1).max(100), description: z.string().trim().max(10000).optional(), baseCurrency: z.string().trim().length(3).default("AOA"), investmentDomain: z.enum(["IMOBILIARIO", "AGRICULTURA", "INDUSTRIA", "ENERGIA", "HOTELARIA", "LOGISTICA", "OUTRO"]).default("OUTRO"), responsibleName: z.string().trim().max(180).optional(), responsibleProfessionalId: z.string().trim().max(80).optional(), accountingFirm: z.string().trim().max(180).optional(), responsibleContact: z.string().trim().max(120).optional(), responsibleEmail: z.string().email().optional(), studyDate: z.coerce.date().optional(), projectionHorizonYears: z.number().int().min(3).max(30).default(5), externalCompany: z.object({ legalName: z.string().trim().min(1).max(180), nif: z.string().trim().max(32).optional(), societyType: z.string().trim().max(80).optional(), registrationNumber: z.string().trim().max(80).optional(), incorporationDate: z.coerce.date().optional(), activity: z.string().trim().max(180).optional(), activityCode: z.string().trim().max(40).optional(), sector: z.string().trim().max(120).optional(), country: z.string().trim().max(80).optional(), province: z.string().trim().max(120).optional(), municipality: z.string().trim().max(120).optional(), address: z.string().trim().max(255).optional(), phone: z.string().trim().max(40).optional(), email: z.string().email().optional(), website: z.string().url().optional(), contactName: z.string().trim().max(180).optional(), contactPosition: z.string().trim().max(120).optional() }).strict() }).strict()).mutation(({ ctx, input }) => createExternalSaadiStudy({ ...input, userId: ctx.user.id })),
-    externalCompany: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => getExternalCompanyForStudy({ ...input, userId: ctx.user.id })),
-    investmentItems: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listSaadiInvestmentItems({ ...input, userId: ctx.user.id })),
-    createInvestmentItem: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), studyId: z.number().int().positive(), description: z.string().trim().min(1).max(180), quantity: z.number().positive(), unitValue: z.number().nonnegative(), category: z.string().trim().min(1).max(80), expectedDate: z.coerce.date().optional(), sourceDocumentId: z.number().int().positive().optional(), currency: z.string().trim().length(3).default("AOA") }).strict()).mutation(({ ctx, input }) => createSaadiInvestmentItem({ ...input, userId: ctx.user.id })),
-    financingSources: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listSaadiFinancingSources({ ...input, userId: ctx.user.id })),
-    createFinancingSource: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), studyId: z.number().int().positive(), sourceType: z.enum(["CAPITAL_PROPRIO", "EMPRESTIMO_BANCARIO", "INVESTIDOR", "SUBSIDIO", "LEASING", "OUTRO"]), description: z.string().trim().min(1).max(180), amount: z.number().nonnegative(), interestRate: z.number().min(0).max(1).optional(), termMonths: z.number().int().min(0).max(480).optional(), graceMonths: z.number().int().min(0).max(120).optional(), periodicity: z.string().trim().max(40).optional(), startDate: z.coerce.date().optional(), endDate: z.coerce.date().optional(), guarantees: z.string().max(2000).optional(), commissions: z.number().nonnegative().optional(), currency: z.string().trim().length(3).default("AOA") }).strict()).mutation(({ ctx, input }) => createSaadiFinancingSource({ ...input, userId: ctx.user.id })),
-    assumptions: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive(), scenarioId: z.number().int().positive().optional() }).strict()).query(({ ctx, input }) => listSaadiAssumptions({ ...input, userId: ctx.user.id })),
-    createAssumption: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), studyId: z.number().int().positive(), scenarioId: z.number().int().positive().optional(), name: z.string().trim().min(1).max(120), value: z.string().trim().min(1).max(80), unit: z.string().trim().min(1).max(40), startYear: z.number().int().min(1900).max(2200), endYear: z.number().int().min(1900).max(2200), source: z.string().trim().max(255).optional(), notes: z.string().trim().max(4000).optional(), dataOrigin: z.enum(["MANUAL", "ERP", "DOCUMENTO", "IA"]).optional() }).strict()).mutation(({ ctx, input }) => createSaadiAssumption({ ...input, userId: ctx.user.id })),
-    historicalData: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive(), periodYear: z.number().int().optional() }).strict()).query(({ ctx, input }) => listSaadiHistoricalData({ ...input, userId: ctx.user.id })),
-    createHistoricalData: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), studyId: z.number().int().positive(), periodYear: z.number().int().min(1900).max(2200), section: z.enum(["DRE", "BALANCO", "FLUXO_CAIXA"]), metric: z.string().trim().min(1).max(120), value: z.number().finite(), currency: z.string().trim().length(3).default("AOA"), sourceDocumentId: z.number().int().positive().optional(), sourcePage: z.number().int().positive().optional(), sourceField: z.string().trim().max(120).optional(), dataOrigin: z.enum(["ERP", "DOCUMENTO", "MANUAL", "IA"]) }).strict()).mutation(({ ctx, input }) => createSaadiHistoricalData({ ...input, userId: ctx.user.id })),
-    validateHistoricalData: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), historicalId: z.number().int().positive(), status: z.enum(["PENDENTE", "VALIDADO", "REJEITADO"]) }).strict()).mutation(({ ctx, input }) => updateSaadiHistoricalValidation({ ...input, userId: ctx.user.id })),
-    validationChecklist: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => getSaadiValidationChecklist({ ...input, userId: ctx.user.id })),
-    projects: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), limit: z.number().int().min(1).max(100).optional(), offset: z.number().int().min(0).optional() }).strict()).query(({ ctx, input }) => listSaadiProjects({ ...input, userId: ctx.user.id })),
-    createProject: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), externalCompanyId: z.number().int().positive().optional(), code: z.string().trim().min(1).max(64), name: z.string().trim().min(1).max(180), description: z.string().trim().max(10000).optional() }).strict()).mutation(({ ctx, input }) => createSaadiProject({ ...input, userId: ctx.user.id })),
-    companyLinks: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), externalCompanyId: z.number().int().positive().optional() }).strict()).query(({ ctx, input }) => listSaadiCompanyLinks({ ...input, userId: ctx.user.id })),
-    createCompanyLink: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), externalCompanyId: z.number().int().positive().optional(), linkType: z.enum(["ESTUDO_OPERACIONAL", "REFERENCIA_EXTERNA"]) }).strict()).mutation(({ ctx, input }) => createSaadiCompanyLink({ ...input, userId: ctx.user.id })),
-    authorizeCompanyLink: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), linkId: z.number().int().positive(), status: z.enum(["AUTORIZADA", "REVOGADA"]) }).strict()).mutation(({ ctx, input }) => authorizeSaadiCompanyLink({ ...input, userId: ctx.user.id })),
-    projections: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive(), scenarioId: z.number().int().positive().optional(), metric: z.string().trim().max(120).optional(), limit: z.number().int().min(1).max(500).optional(), offset: z.number().int().min(0).optional() }).strict()).query(({ ctx, input }) => listSaadiProjections({ ...input, userId: ctx.user.id })),
-    createProjection: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), studyId: z.number().int().positive(), scenarioId: z.number().int().positive().optional(), periodYear: z.number().int().min(1900).max(2200), metric: z.string().trim().min(1).max(120), value: z.number().finite(), currency: z.string().trim().length(3).default("AOA"), formulaVersion: z.string().trim().max(40).default("v1") }).strict()).mutation(({ ctx, input }) => createSaadiProjection({ ...input, userId: ctx.user.id })),
-    alerts: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), includeResolved: z.boolean().optional() }).strict()).query(({ ctx, input }) => listSaadiAlerts({ ...input, userId: ctx.user.id })),
-    createAlert: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), code: z.string().trim().min(1).max(80), severity: z.enum(["CRITICO", "ATENCAO", "FAVORAVEL"]), title: z.string().trim().min(1).max(180), description: z.string().trim().min(1).max(4000), thresholdValue: z.number().finite().optional(), actualValue: z.number().finite().optional() }).strict()).mutation(({ ctx, input }) => createSaadiAlert({ ...input, userId: ctx.user.id })),
-    resolveAlert: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), alertId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => resolveSaadiAlert({ ...input, userId: ctx.user.id })),
-    validations: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listSaadiValidations({ ...input, userId: ctx.user.id })),
-    upsertValidation: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), studyId: z.number().int().positive(), requirementCode: z.string().trim().min(1).max(100), status: z.enum(["PENDENTE", "VALIDADO", "BLOQUEADO"]), message: z.string().trim().min(1).max(500) }).strict()).mutation(({ ctx, input }) => upsertSaadiValidation({ ...input, userId: ctx.user.id })),
-    transitionWorkflow: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive(), nextStatus: z.enum(["RASCUNHO", "EM_ANALISE", "AGUARDANDO_VALIDACAO", "VALIDADO", "CONCLUIDO", "ARQUIVADO"]) }).strict()).mutation(({ ctx, input }) => transitionSaadiStudyWorkflow({ ...input, userId: ctx.user.id })),
-    integrationRuns: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive(), limit: z.number().int().min(1).max(100).optional(), offset: z.number().int().min(0).optional() }).strict()).query(({ ctx, input }) => listSaadiIntegrationRuns({ ...input, userId: ctx.user.id })),
-    createIntegrationRun: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), studyId: z.number().int().positive(), source: z.string().trim().min(1).max(80), request: z.unknown() }).strict()).mutation(({ ctx, input }) => createSaadiIntegrationRun({ ...input, userId: ctx.user.id })),
-    updateIntegrationRun: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), runId: z.number().int().positive(), status: z.enum(["PENDENTE", "EM_PROCESSAMENTO", "CONCLUIDA", "RETRY", "FALHADA", "RECONCILIACAO_NECESSARIA"]), errorCode: z.string().trim().max(80).optional(), errorMessage: z.string().trim().max(4000).optional(), attempts: z.number().int().min(0).max(10).optional() }).strict()).mutation(({ ctx, input }) => updateSaadiIntegrationRun({ ...input, userId: ctx.user.id })),
-    versionSnapshots: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listSaadiVersionSnapshots({ ...input, userId: ctx.user.id })),
-    linkVersionSnapshot: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), versionId: z.number().int().positive(), snapshotId: z.number().int().positive(), relationType: z.enum(["BASE", "SUPORTE", "RECONCILIACAO"]) }).strict()).mutation(({ ctx, input }) => linkSaadiVersionSnapshot({ ...input, userId: ctx.user.id })),
-    metricProvenance: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive(), metric: z.string().trim().max(160).optional(), limit: z.number().int().min(1).max(200).optional(), offset: z.number().int().min(0).optional() }).strict()).query(({ ctx, input }) => listSaadiMetricProvenance({ ...input, userId: ctx.user.id })),
-    recordMetricProvenance: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), studyId: z.number().int().positive(), versionId: z.number().int().positive().optional(), metric: z.string().trim().min(1).max(160), periodYear: z.number().int().min(1900).max(2200).optional(), value: z.string().trim().min(1).max(80), currency: z.string().trim().length(3).default("AOA"), authoritySource: z.enum(["ERP", "DOCUMENTO", "UTILIZADOR", "IA"]), dataNature: z.enum(["REALIZADO", "PREMISSA", "PROJECCAO", "DERIVADO", "INTRODUZIDO_UTILIZADOR", "SUGESTAO_IA"]), sourceDocumentId: z.number().int().positive().optional(), sourcePage: z.number().int().positive().optional(), sourceField: z.string().trim().max(120).optional(), transformation: z.string().trim().max(4000).optional() }).strict()).mutation(({ ctx, input }) => recordSaadiMetricProvenance({ ...input, userId: ctx.user.id })),
-    documents: roleProcedure("saadi", "read").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listSaadiStudyDocuments({ ...input, userId: ctx.user.id })),
-    addDocument: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().optional(), studyId: z.number().int().positive(), filename: z.string().trim().min(1).max(255), mimeType: z.string().trim().min(1).max(120), size: z.number().int().positive().max(25 * 1024 * 1024), storageKey: z.string().trim().min(1).max(500), category: z.string().trim().min(1).max(80), sourceLabel: z.string().trim().max(255).optional(), sha256: z.string().trim().length(64).optional() }).strict()).mutation(({ ctx, input }) => createSaadiStudyDocument({ ...input, userId: ctx.user.id })),
-    suggestDocumentExtraction: roleProcedure("saadi", "create").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive(), documentId: z.number().int().positive(), extractedText: z.string().trim().min(1).max(100000) }).strict()).mutation(({ ctx, input }) => suggestSaadiDocumentExtraction({ ...input, userId: ctx.user.id })),
-    reviewDocument: roleProcedure("saadi", "validate").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive(), documentId: z.number().int().positive(), status: z.enum(["EM_REVISAO", "VALIDADO", "REJEITADO"]), notes: z.string().trim().max(4000).optional() }).strict()).mutation(({ ctx, input }) => reviewSaadiStudyDocument({ ...input, userId: ctx.user.id })),
+    studies: roleProcedure("saadi", "read")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        listSaadiStudiesForUser({ ...input, userId: ctx.user.id })
+      ),
+    erpCompanyContext: roleProcedure("saadi", "read")
+      .input(z.object({ companyId: z.number().int().positive() }).strict())
+      .query(({ ctx, input }) =>
+        readSaadiCompanyContext(ctx.user.id, input.companyId)
+      ),
+    erpAccountingSummary: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            companyId: z.number().int().positive(),
+            periodId: z.number().int().positive().optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        readSaadiAccountingSummary(ctx.user.id, input.companyId, input.periodId)
+      ),
+    erpPgcNormativeContext: roleProcedure("saadi", "read")
+      .input(z.object({ companyId: z.number().int().positive() }).strict())
+      .query(({ ctx, input }) =>
+        readSaadiPgcNormativeContext(ctx.user.id, input.companyId)
+      ),
+    erpOperationalSummary: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            companyId: z.number().int().positive(),
+            periodId: z.number().int().positive().optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        readSaadiOperationalSummary(
+          ctx.user.id,
+          input.companyId,
+          input.periodId
+        )
+      ),
+    captureErpAccountingSnapshot: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            studyId: z.number().int().positive(),
+            request: saadiSnapshotRequestSchema,
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        captureSaadiErpAccountingSnapshot({ ...input, userId: ctx.user.id })
+      ),
+    compareProjectionToRealized: roleProcedure("saadi", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            snapshotId: z.number().int().positive(),
+            metric: z.string().trim().min(1).max(160),
+            projectedValue: z.number().finite(),
+            currency: z.string().trim().length(3).default("AOA"),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        compareSaadiProjectionToRealized({ ...input, userId: ctx.user.id })
+      ),
+    variances: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            snapshotId: z.number().int().positive().optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiVariancesForUser({ ...input, userId: ctx.user.id })
+      ),
+    risks: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiRisksForUser({ ...input, userId: ctx.user.id })
+      ),
+    decisions: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiDecisionsForUser({ ...input, userId: ctx.user.id })
+      ),
+    submitDecision: roleProcedure("saadi", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            decision: z.enum(["APROVAR", "REJEITAR", "PEDIR_REVISAO"]),
+            justification: z.string().trim().min(1).max(4000),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        submitSaadiDecision({ ...input, userId: ctx.user.id })
+      ),
+    generateReport: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        generateSaadiFeasibilityReport({ ...input, userId: ctx.user.id })
+      ),
+    sensitivity: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            initialInvestment: z.number().positive(),
+            discountRate: z.number().gt(-1),
+            cashFlows: z.array(z.number().finite()).min(1).max(120),
+            rateDeltas: z.array(z.number().finite()).max(9).optional(),
+            cashFlowDeltas: z.array(z.number().finite()).max(9).optional(),
+          })
+          .strict()
+      )
+      .query(({ input }) =>
+        calculateSensitivity(input, input.rateDeltas, input.cashFlowDeltas)
+      ),
+    valuation: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            initialInvestment: z.number().positive(),
+            discountRate: z.number().gt(0),
+            cashFlows: z.array(z.number().finite()).min(1).max(120),
+            terminalGrowthRate: z.number().nonnegative(),
+          })
+          .strict()
+      )
+      .query(({ input }) =>
+        calculateValuation(input, input.terminalGrowthRate)
+      ),
+    financing: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            debtAmount: z.number().nonnegative(),
+            equityAmount: z.number().nonnegative(),
+            annualInterestRate: z.number().min(0).max(1),
+            termMonths: z.number().int().min(0).max(360),
+          })
+          .strict()
+      )
+      .query(({ input }) =>
+        calculateFinancing(
+          input.debtAmount,
+          input.equityAmount,
+          input.annualInterestRate,
+          input.termMonths
+        )
+      ),
+    indicators: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            initialInvestment: z.number().positive(),
+            discountRate: z.number().gt(-1),
+            cashFlows: z.array(z.number().finite()).min(1).max(120),
+            revenue: z.array(z.number().finite()).max(120).optional(),
+            grossProfit: z.array(z.number().finite()).max(120).optional(),
+            operatingProfit: z.array(z.number().finite()).max(120).optional(),
+            ebitda: z.array(z.number().finite()).max(120).optional(),
+            netIncome: z.array(z.number().finite()).max(120).optional(),
+            fixedCosts: z.array(z.number().finite()).max(120).optional(),
+            variableCosts: z.array(z.number().finite()).max(120).optional(),
+            unitPrice: z.number().positive().optional(),
+            variableCostPerUnit: z.number().nonnegative().optional(),
+            debtService: z.array(z.number().finite()).max(120).optional(),
+          })
+          .strict()
+      )
+      .query(({ input }) => calculateExtendedIndicators(input)),
+    createRisk: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            title: z.string().trim().min(1).max(180),
+            description: z.string().trim().min(1).max(2000),
+            probability: z.number().int().min(1).max(5),
+            impact: z.number().int().min(1).max(5),
+            response: z
+              .enum(["EVITAR", "REDUZIR", "TRANSFERIR", "ACEITAR"])
+              .default("REDUZIR"),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiRisk({ ...input, userId: ctx.user.id })
+      ),
+    createStudy: roleProcedure("saadi", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          studyCode: z.string().trim().min(1).max(64),
+          name: z.string().trim().min(1).max(180),
+          investmentDomain: z
+            .enum([
+              "IMOBILIARIO",
+              "AGRICULTURA",
+              "INDUSTRIA",
+              "ENERGIA",
+              "HOTELARIA",
+              "LOGISTICA",
+              "OUTRO",
+            ])
+            .default("OUTRO"),
+          baseCurrency: z.string().trim().length(3).default("AOA"),
+          projectionHorizonYears: z.number().int().min(3).max(30).default(5),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiStudy({ ...input, userId: ctx.user.id })
+      ),
+    createSnapshot: roleProcedure("saadi", "create")
+      .input(
+        z.object({
+          studyId: z.number().int().positive(),
+          request: saadiSnapshotRequestSchema,
+          snapshot: saadiSnapshotSchema,
+          idempotencyKey: z.string().trim().min(1).max(160),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiSnapshot({ ...input, userId: ctx.user.id })
+      ),
+    snapshots: roleProcedure("saadi", "read")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          studyId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        listSaadiSnapshotsForUser({ ...input, userId: ctx.user.id })
+      ),
+    versions: roleProcedure("saadi", "read")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          studyId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        listSaadiVersionsForUser({ ...input, userId: ctx.user.id })
+      ),
+    provenance: roleProcedure("saadi", "read")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          snapshotId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        listSaadiProvenanceForUser({ ...input, userId: ctx.user.id })
+      ),
+    createVersion: roleProcedure("saadi", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          studyId: z.number().int().positive(),
+          snapshotId: z.number().int().positive(),
+          version: saadiVersionSchema,
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiVersion({ ...input, userId: ctx.user.id })
+      ),
+    transitionVersion: roleProcedure("saadi", "validate")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          versionId: z.number().int().positive(),
+          decision: z.enum(["APPROVE", "ARCHIVE"]),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        transitionSaadiVersionForUser({ ...input, userId: ctx.user.id })
+      ),
+    feasibility: roleProcedure("saadi", "read")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          studyId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getSaadiFeasibilityForUser({ ...input, userId: ctx.user.id })
+      ),
+    saveFeasibilityInput: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            feasibility: z
+              .object({
+                initialInvestment: z.number().positive(),
+                discountRate: z.number().min(-0.99).max(10),
+                cashFlows: z.array(z.number()).min(1).max(120),
+                currency: z.string().regex(/^[A-Z]{3}$/),
+                equityAmount: z.number().nonnegative().default(0),
+                debtAmount: z.number().nonnegative().default(0),
+                debtInterestRate: z.number().min(0).max(1).default(0),
+                debtTermMonths: z.number().int().min(0).max(360).default(0),
+              })
+              .strict(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        saveSaadiFeasibilityInput({ ...input, userId: ctx.user.id })
+      ),
+    calculateFeasibility: roleProcedure("saadi", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        calculateSaadiFeasibilityForUser({ ...input, userId: ctx.user.id })
+      ),
+    scenarios: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiScenariosForUser({ ...input, userId: ctx.user.id })
+      ),
+    saveScenario: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            name: z.string().trim().min(1).max(120),
+            feasibility: z
+              .object({
+                initialInvestment: z.number().positive(),
+                discountRate: z.number().min(-0.99).max(10),
+                cashFlows: z.array(z.number()).min(1).max(120),
+                currency: z.string().regex(/^[A-Z]{3}$/),
+                equityAmount: z.number().nonnegative().default(0),
+                debtAmount: z.number().nonnegative().default(0),
+                debtInterestRate: z.number().min(0).max(1).default(0),
+                debtTermMonths: z.number().int().min(0).max(360).default(0),
+              })
+              .strict(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        saveSaadiScenario({ ...input, userId: ctx.user.id })
+      ),
+    createExternalStudy: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyCode: z.string().trim().min(1).max(64),
+            name: z.string().trim().min(1).max(180),
+            studyType: z.string().trim().min(1).max(100),
+            description: z.string().trim().max(10000).optional(),
+            baseCurrency: z.string().trim().length(3).default("AOA"),
+            investmentDomain: z
+              .enum([
+                "IMOBILIARIO",
+                "AGRICULTURA",
+                "INDUSTRIA",
+                "ENERGIA",
+                "HOTELARIA",
+                "LOGISTICA",
+                "OUTRO",
+              ])
+              .default("OUTRO"),
+            responsibleName: z.string().trim().max(180).optional(),
+            responsibleProfessionalId: z.string().trim().max(80).optional(),
+            accountingFirm: z.string().trim().max(180).optional(),
+            responsibleContact: z.string().trim().max(120).optional(),
+            responsibleEmail: z.string().email().optional(),
+            studyDate: z.coerce.date().optional(),
+            projectionHorizonYears: z.number().int().min(3).max(30).default(5),
+            externalCompany: z
+              .object({
+                legalName: z.string().trim().min(1).max(180),
+                nif: z.string().trim().max(32).optional(),
+                societyType: z.string().trim().max(80).optional(),
+                registrationNumber: z.string().trim().max(80).optional(),
+                incorporationDate: z.coerce.date().optional(),
+                activity: z.string().trim().max(180).optional(),
+                activityCode: z.string().trim().max(40).optional(),
+                sector: z.string().trim().max(120).optional(),
+                country: z.string().trim().max(80).optional(),
+                province: z.string().trim().max(120).optional(),
+                municipality: z.string().trim().max(120).optional(),
+                address: z.string().trim().max(255).optional(),
+                phone: z.string().trim().max(40).optional(),
+                email: z.string().email().optional(),
+                website: z.string().url().optional(),
+                contactName: z.string().trim().max(180).optional(),
+                contactPosition: z.string().trim().max(120).optional(),
+              })
+              .strict(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createExternalSaadiStudy({ ...input, userId: ctx.user.id })
+      ),
+    externalCompany: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        getExternalCompanyForStudy({ ...input, userId: ctx.user.id })
+      ),
+    investmentItems: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiInvestmentItems({ ...input, userId: ctx.user.id })
+      ),
+    createInvestmentItem: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            studyId: z.number().int().positive(),
+            description: z.string().trim().min(1).max(180),
+            quantity: z.number().positive(),
+            unitValue: z.number().nonnegative(),
+            category: z.string().trim().min(1).max(80),
+            expectedDate: z.coerce.date().optional(),
+            sourceDocumentId: z.number().int().positive().optional(),
+            currency: z.string().trim().length(3).default("AOA"),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiInvestmentItem({ ...input, userId: ctx.user.id })
+      ),
+    financingSources: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiFinancingSources({ ...input, userId: ctx.user.id })
+      ),
+    createFinancingSource: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            studyId: z.number().int().positive(),
+            sourceType: z.enum([
+              "CAPITAL_PROPRIO",
+              "EMPRESTIMO_BANCARIO",
+              "INVESTIDOR",
+              "SUBSIDIO",
+              "LEASING",
+              "OUTRO",
+            ]),
+            description: z.string().trim().min(1).max(180),
+            amount: z.number().nonnegative(),
+            interestRate: z.number().min(0).max(1).optional(),
+            termMonths: z.number().int().min(0).max(480).optional(),
+            graceMonths: z.number().int().min(0).max(120).optional(),
+            periodicity: z.string().trim().max(40).optional(),
+            startDate: z.coerce.date().optional(),
+            endDate: z.coerce.date().optional(),
+            guarantees: z.string().max(2000).optional(),
+            commissions: z.number().nonnegative().optional(),
+            currency: z.string().trim().length(3).default("AOA"),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiFinancingSource({ ...input, userId: ctx.user.id })
+      ),
+    assumptions: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            scenarioId: z.number().int().positive().optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiAssumptions({ ...input, userId: ctx.user.id })
+      ),
+    createAssumption: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            studyId: z.number().int().positive(),
+            scenarioId: z.number().int().positive().optional(),
+            name: z.string().trim().min(1).max(120),
+            value: z.string().trim().min(1).max(80),
+            unit: z.string().trim().min(1).max(40),
+            startYear: z.number().int().min(1900).max(2200),
+            endYear: z.number().int().min(1900).max(2200),
+            source: z.string().trim().max(255).optional(),
+            notes: z.string().trim().max(4000).optional(),
+            dataOrigin: z.enum(["MANUAL", "ERP", "DOCUMENTO", "IA"]).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiAssumption({ ...input, userId: ctx.user.id })
+      ),
+    historicalData: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            periodYear: z.number().int().optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiHistoricalData({ ...input, userId: ctx.user.id })
+      ),
+    createHistoricalData: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            studyId: z.number().int().positive(),
+            periodYear: z.number().int().min(1900).max(2200),
+            section: z.enum(["DRE", "BALANCO", "FLUXO_CAIXA"]),
+            metric: z.string().trim().min(1).max(120),
+            value: z.number().finite(),
+            currency: z.string().trim().length(3).default("AOA"),
+            sourceDocumentId: z.number().int().positive().optional(),
+            sourcePage: z.number().int().positive().optional(),
+            sourceField: z.string().trim().max(120).optional(),
+            dataOrigin: z.enum(["ERP", "DOCUMENTO", "MANUAL", "IA"]),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiHistoricalData({ ...input, userId: ctx.user.id })
+      ),
+    validateHistoricalData: roleProcedure("saadi", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            historicalId: z.number().int().positive(),
+            status: z.enum(["PENDENTE", "VALIDADO", "REJEITADO"]),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        updateSaadiHistoricalValidation({ ...input, userId: ctx.user.id })
+      ),
+    validationChecklist: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        getSaadiValidationChecklist({ ...input, userId: ctx.user.id })
+      ),
+    projects: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            limit: z.number().int().min(1).max(100).optional(),
+            offset: z.number().int().min(0).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiProjects({ ...input, userId: ctx.user.id })
+      ),
+    createProject: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            externalCompanyId: z.number().int().positive().optional(),
+            code: z.string().trim().min(1).max(64),
+            name: z.string().trim().min(1).max(180),
+            description: z.string().trim().max(10000).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiProject({ ...input, userId: ctx.user.id })
+      ),
+    companyLinks: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            externalCompanyId: z.number().int().positive().optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiCompanyLinks({ ...input, userId: ctx.user.id })
+      ),
+    createCompanyLink: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            externalCompanyId: z.number().int().positive().optional(),
+            linkType: z.enum(["ESTUDO_OPERACIONAL", "REFERENCIA_EXTERNA"]),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiCompanyLink({ ...input, userId: ctx.user.id })
+      ),
+    authorizeCompanyLink: roleProcedure("saadi", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            linkId: z.number().int().positive(),
+            status: z.enum(["AUTORIZADA", "REVOGADA"]),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        authorizeSaadiCompanyLink({ ...input, userId: ctx.user.id })
+      ),
+    projections: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            scenarioId: z.number().int().positive().optional(),
+            metric: z.string().trim().max(120).optional(),
+            limit: z.number().int().min(1).max(500).optional(),
+            offset: z.number().int().min(0).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiProjections({ ...input, userId: ctx.user.id })
+      ),
+    createProjection: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            studyId: z.number().int().positive(),
+            scenarioId: z.number().int().positive().optional(),
+            periodYear: z.number().int().min(1900).max(2200),
+            metric: z.string().trim().min(1).max(120),
+            value: z.number().finite(),
+            currency: z.string().trim().length(3).default("AOA"),
+            formulaVersion: z.string().trim().max(40).default("v1"),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiProjection({ ...input, userId: ctx.user.id })
+      ),
+    alerts: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            includeResolved: z.boolean().optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiAlerts({ ...input, userId: ctx.user.id })
+      ),
+    createAlert: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            code: z.string().trim().min(1).max(80),
+            severity: z.enum(["CRITICO", "ATENCAO", "FAVORAVEL"]),
+            title: z.string().trim().min(1).max(180),
+            description: z.string().trim().min(1).max(4000),
+            thresholdValue: z.number().finite().optional(),
+            actualValue: z.number().finite().optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiAlert({ ...input, userId: ctx.user.id })
+      ),
+    resolveAlert: roleProcedure("saadi", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            alertId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        resolveSaadiAlert({ ...input, userId: ctx.user.id })
+      ),
+    validations: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiValidations({ ...input, userId: ctx.user.id })
+      ),
+    upsertValidation: roleProcedure("saadi", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            requirementCode: z.string().trim().min(1).max(100),
+            status: z.enum(["PENDENTE", "VALIDADO", "BLOQUEADO"]),
+            message: z.string().trim().min(1).max(500),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        upsertSaadiValidation({ ...input, userId: ctx.user.id })
+      ),
+    transitionWorkflow: roleProcedure("saadi", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            nextStatus: z.enum([
+              "RASCUNHO",
+              "EM_ANALISE",
+              "AGUARDANDO_VALIDACAO",
+              "VALIDADO",
+              "CONCLUIDO",
+              "ARQUIVADO",
+            ]),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        transitionSaadiStudyWorkflow({ ...input, userId: ctx.user.id })
+      ),
+    integrationRuns: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            limit: z.number().int().min(1).max(100).optional(),
+            offset: z.number().int().min(0).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiIntegrationRuns({ ...input, userId: ctx.user.id })
+      ),
+    createIntegrationRun: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            studyId: z.number().int().positive(),
+            source: z.string().trim().min(1).max(80),
+            request: z.unknown(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiIntegrationRun({ ...input, userId: ctx.user.id })
+      ),
+    updateIntegrationRun: roleProcedure("saadi", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            runId: z.number().int().positive(),
+            status: z.enum([
+              "PENDENTE",
+              "EM_PROCESSAMENTO",
+              "CONCLUIDA",
+              "RETRY",
+              "FALHADA",
+              "RECONCILIACAO_NECESSARIA",
+            ]),
+            errorCode: z.string().trim().max(80).optional(),
+            errorMessage: z.string().trim().max(4000).optional(),
+            attempts: z.number().int().min(0).max(10).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        updateSaadiIntegrationRun({ ...input, userId: ctx.user.id })
+      ),
+    versionSnapshots: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiVersionSnapshots({ ...input, userId: ctx.user.id })
+      ),
+    linkVersionSnapshot: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            versionId: z.number().int().positive(),
+            snapshotId: z.number().int().positive(),
+            relationType: z.enum(["BASE", "SUPORTE", "RECONCILIACAO"]),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        linkSaadiVersionSnapshot({ ...input, userId: ctx.user.id })
+      ),
+    metricProvenance: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            metric: z.string().trim().max(160).optional(),
+            limit: z.number().int().min(1).max(200).optional(),
+            offset: z.number().int().min(0).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiMetricProvenance({ ...input, userId: ctx.user.id })
+      ),
+    recordMetricProvenance: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            studyId: z.number().int().positive(),
+            versionId: z.number().int().positive().optional(),
+            metric: z.string().trim().min(1).max(160),
+            periodYear: z.number().int().min(1900).max(2200).optional(),
+            value: z.string().trim().min(1).max(80),
+            currency: z.string().trim().length(3).default("AOA"),
+            authoritySource: z.enum(["ERP", "DOCUMENTO", "UTILIZADOR", "IA"]),
+            dataNature: z.enum([
+              "REALIZADO",
+              "PREMISSA",
+              "PROJECCAO",
+              "DERIVADO",
+              "INTRODUZIDO_UTILIZADOR",
+              "SUGESTAO_IA",
+            ]),
+            sourceDocumentId: z.number().int().positive().optional(),
+            sourcePage: z.number().int().positive().optional(),
+            sourceField: z.string().trim().max(120).optional(),
+            transformation: z.string().trim().max(4000).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        recordSaadiMetricProvenance({ ...input, userId: ctx.user.id })
+      ),
+    documents: roleProcedure("saadi", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listSaadiStudyDocuments({ ...input, userId: ctx.user.id })
+      ),
+    addDocument: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            studyId: z.number().int().positive(),
+            filename: z.string().trim().min(1).max(255),
+            mimeType: z.string().trim().min(1).max(120),
+            size: z
+              .number()
+              .int()
+              .positive()
+              .max(25 * 1024 * 1024),
+            storageKey: z.string().trim().min(1).max(500),
+            category: z.string().trim().min(1).max(80),
+            sourceLabel: z.string().trim().max(255).optional(),
+            sha256: z.string().trim().length(64).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createSaadiStudyDocument({ ...input, userId: ctx.user.id })
+      ),
+    suggestDocumentExtraction: roleProcedure("saadi", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            documentId: z.number().int().positive(),
+            extractedText: z.string().trim().min(1).max(100000),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        suggestSaadiDocumentExtraction({ ...input, userId: ctx.user.id })
+      ),
+    reviewDocument: roleProcedure("saadi", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            studyId: z.number().int().positive(),
+            documentId: z.number().int().positive(),
+            status: z.enum(["EM_REVISAO", "VALIDADO", "REJEITADO"]),
+            notes: z.string().trim().max(4000).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        reviewSaadiStudyDocument({ ...input, userId: ctx.user.id })
+      ),
   }),
   companies: router({
-    list: roleProcedure("companies", "read").query(({ ctx }) => getCompaniesForUser(ctx.user.id)),
-    effectiveRole: roleProcedure("companies", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getEffectiveRoleForUserCompany(ctx.user.id, input.companyId)),
-    update: roleProcedure("companies", "update").input(z.object({ companyId: z.number().int().positive(), name: z.string().min(2).optional(), functionalCurrency: z.string().length(3).optional(), ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).optional(), legalForm: z.string().min(2).optional(), address: z.string().min(3).optional(), municipality: z.string().min(2).optional(), province: z.string().min(2).optional(), phone: z.string().min(5).optional(), email: z.string().email().optional(), activity: z.string().min(2).optional(), incorporationYear: z.number().int().min(1900).max(new Date().getFullYear()).optional(), legalRepresentatives: z.string().min(3).optional() })).mutation(({ ctx, input }) => updateCompanyForUser({ ...input, userId: ctx.user.id })),
-    activate: roleProcedure("companies", "create").input(z.object({ companyId: z.number().int().positive(), confirmation: z.literal("ACTIVATE_COMPANY") })).mutation(async ({ ctx, input }) => {
-      try {
-        return await activateCompanyForUser({ ...input, userId: ctx.user.id });
-      } catch (error) {
-        if (error instanceof Error && error.message === "ACTIVATION_CONFIRMATION_REQUIRED") throw new TRPCError({ code: "BAD_REQUEST", message: error.message });
-        if (error instanceof Error && error.message === "COMPANY_CONFIGURATION_INCOMPLETE") throw new TRPCError({ code: "PRECONDITION_FAILED", message: error.message });
-        throw error;
-      }
-    }),
-    create: roleProcedure("companies", "create").input(z.object({ name: z.string().min(2), nif: z.string().min(5), functionalCurrency: z.string().length(3).default("AOA"), ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), legalForm: z.string().min(2), address: z.string().min(3), municipality: z.string().min(2), province: z.string().min(2), phone: z.string().min(5), email: z.string().email(), activity: z.string().min(2), incorporationYear: z.number().int().min(1900).max(new Date().getFullYear()), legalRepresentatives: z.string().min(3) })).mutation(async ({ ctx, input }) => {
-      try {
-        return await createCompanyForUser({ ...input, userId: ctx.user.id });
-      } catch (error) {
-        if (error instanceof Error && error.message === "ORGANIZATION_REQUIRED") throw new TRPCError({ code: "PRECONDITION_FAILED", message: "ORGANIZATION_REQUIRED" });
-        throw error;
-      }
-    }),
-    setPrimaryRepresentative: roleProcedure("companies", "create").input(z.object({ companyId: z.number().int().positive(), representative: z.string().min(3) })).mutation(({ ctx, input }) => setPrimaryLegalRepresentativeForUser({ ...input, userId: ctx.user.id })),
-    createExercise: roleProcedure("companies", "create").input(z.object({ companyId: z.number().int().positive(), year: z.number().int().min(1900).max(new Date().getFullYear()) })).mutation(({ ctx, input }) => createFiscalExerciseForUser({ ...input, userId: ctx.user.id })),
-    createPeriod: roleProcedure("companies", "create").input(z.object({ companyId: z.number().int().positive(), year: z.number().int().min(1900).max(new Date().getFullYear()), month: z.number().int().min(1).max(12) })).mutation(({ ctx, input }) => createFiscalPeriodForUser({ ...input, userId: ctx.user.id })),
-    exercises: roleProcedure("companies", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getExercisesForUserCompany(ctx.user.id, input.companyId)),
-    periods: roleProcedure("companies", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getPeriodsForUserCompany(ctx.user.id, input.companyId)),
-    documents: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentsForUserCompany(ctx.user.id, input.companyId)),
-    memberships: roleProcedure("companies", "read").input(z.object({ organizationId: z.number().int().positive() })).query(async ({ ctx, input }) => {
-      try { return await listOrganizationMembershipsForUser({ actorUserId: ctx.user.id, organizationId: input.organizationId }); }
-      catch (error) { if (error instanceof Error && error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN") throw new TRPCError({ code: "FORBIDDEN", message: error.message }); throw error; }
-    }),
-    addMembership: roleProcedure("companies", "update").input(z.object({ organizationId: z.number().int().positive(), userId: z.number().int().positive(), role: z.enum(["user", "admin", "contabilista", "financeiro", "operador", "auditor"]) })).mutation(async ({ ctx, input }) => {
-      try { return await createOrganizationMembershipForUser({ actorUserId: ctx.user.id, ...input }); }
-      catch (error) { if (error instanceof Error && error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN") throw new TRPCError({ code: "FORBIDDEN", message: "ORGANIZATION_MEMBERSHIP_FORBIDDEN" }); throw error; }
-    }),
-    updateMembership: roleProcedure("companies", "update").input(z.object({ membershipId: z.number().int().positive(), status: z.enum(["INVITED", "ACTIVE", "SUSPENDED", "REMOVED"]).optional(), role: z.enum(["user", "admin", "contabilista", "financeiro", "operador", "auditor"]).optional(), permissions: z.array(z.string().trim().min(3).max(80)).max(100).optional() })).mutation(async ({ ctx, input }) => {
-      try { return await updateOrganizationMembershipForUser({ actorUserId: ctx.user.id, ...input }); }
-      catch (error) { if (error instanceof Error && error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN") throw new TRPCError({ code: "FORBIDDEN", message: "ORGANIZATION_MEMBERSHIP_FORBIDDEN" }); throw error; }
-    }),
+    list: roleProcedure("companies", "read").query(({ ctx }) =>
+      getCompaniesForUser(ctx.user.id)
+    ),
+    effectiveRole: roleProcedure("companies", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getEffectiveRoleForUserCompany(ctx.user.id, input.companyId)
+      ),
+    update: roleProcedure("companies", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          name: z.string().min(2).optional(),
+          functionalCurrency: z.string().length(3).optional(),
+          ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).optional(),
+          legalForm: z.string().min(2).optional(),
+          address: z.string().min(3).optional(),
+          municipality: z.string().min(2).optional(),
+          province: z.string().min(2).optional(),
+          phone: z.string().min(5).optional(),
+          email: z.string().email().optional(),
+          activity: z.string().min(2).optional(),
+          incorporationYear: z
+            .number()
+            .int()
+            .min(1900)
+            .max(new Date().getFullYear())
+            .optional(),
+          legalRepresentatives: z.string().min(3).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateCompanyForUser({ ...input, userId: ctx.user.id })
+      ),
+    activate: roleProcedure("companies", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          confirmation: z.literal("ACTIVATE_COMPANY"),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await activateCompanyForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            error.message === "ACTIVATION_CONFIRMATION_REQUIRED"
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          if (
+            error instanceof Error &&
+            error.message === "COMPANY_CONFIGURATION_INCOMPLETE"
+          )
+            throw new TRPCError({
+              code: "PRECONDITION_FAILED",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    create: roleProcedure("companies", "create")
+      .input(
+        z.object({
+          name: z.string().min(2),
+          nif: z.string().min(5),
+          functionalCurrency: z.string().length(3).default("AOA"),
+          ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]),
+          legalForm: z.string().min(2),
+          address: z.string().min(3),
+          municipality: z.string().min(2),
+          province: z.string().min(2),
+          phone: z.string().min(5),
+          email: z.string().email(),
+          activity: z.string().min(2),
+          incorporationYear: z
+            .number()
+            .int()
+            .min(1900)
+            .max(new Date().getFullYear()),
+          legalRepresentatives: z.string().min(3),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await createCompanyForUser({ ...input, userId: ctx.user.id });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            error.message === "ORGANIZATION_REQUIRED"
+          )
+            throw new TRPCError({
+              code: "PRECONDITION_FAILED",
+              message: "ORGANIZATION_REQUIRED",
+            });
+          throw error;
+        }
+      }),
+    setPrimaryRepresentative: roleProcedure("companies", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          representative: z.string().min(3),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        setPrimaryLegalRepresentativeForUser({ ...input, userId: ctx.user.id })
+      ),
+    createExercise: roleProcedure("companies", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          year: z.number().int().min(1900).max(new Date().getFullYear()),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createFiscalExerciseForUser({ ...input, userId: ctx.user.id })
+      ),
+    createPeriod: roleProcedure("companies", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          year: z.number().int().min(1900).max(new Date().getFullYear()),
+          month: z.number().int().min(1).max(12),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createFiscalPeriodForUser({ ...input, userId: ctx.user.id })
+      ),
+    exercises: roleProcedure("companies", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getExercisesForUserCompany(ctx.user.id, input.companyId)
+      ),
+    periods: roleProcedure("companies", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getPeriodsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    documents: roleProcedure("documents", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getDocumentsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    memberships: roleProcedure("companies", "read")
+      .input(z.object({ organizationId: z.number().int().positive() }))
+      .query(async ({ ctx, input }) => {
+        try {
+          return await listOrganizationMembershipsForUser({
+            actorUserId: ctx.user.id,
+            organizationId: input.organizationId,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN"
+          )
+            throw new TRPCError({ code: "FORBIDDEN", message: error.message });
+          throw error;
+        }
+      }),
+    addMembership: roleProcedure("companies", "update")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          userId: z.number().int().positive(),
+          role: z.enum([
+            "user",
+            "admin",
+            "contabilista",
+            "financeiro",
+            "operador",
+            "auditor",
+          ]),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await createOrganizationMembershipForUser({
+            actorUserId: ctx.user.id,
+            ...input,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN"
+          )
+            throw new TRPCError({
+              code: "FORBIDDEN",
+              message: "ORGANIZATION_MEMBERSHIP_FORBIDDEN",
+            });
+          throw error;
+        }
+      }),
+    updateMembership: roleProcedure("companies", "update")
+      .input(
+        z.object({
+          membershipId: z.number().int().positive(),
+          status: z
+            .enum(["INVITED", "ACTIVE", "SUSPENDED", "REMOVED"])
+            .optional(),
+          role: z
+            .enum([
+              "user",
+              "admin",
+              "contabilista",
+              "financeiro",
+              "operador",
+              "auditor",
+            ])
+            .optional(),
+          permissions: z
+            .array(z.string().trim().min(3).max(80))
+            .max(100)
+            .optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await updateOrganizationMembershipForUser({
+            actorUserId: ctx.user.id,
+            ...input,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            error.message === "ORGANIZATION_MEMBERSHIP_FORBIDDEN"
+          )
+            throw new TRPCError({
+              code: "FORBIDDEN",
+              message: "ORGANIZATION_MEMBERSHIP_FORBIDDEN",
+            });
+          throw error;
+        }
+      }),
   }),
   humanResources: router({
-    employees: roleProcedure("human_resources", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getEmployeesForUserCompany(ctx.user.id, input.companyId)),
-    createEmployee: roleProcedure("human_resources", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), employeeNumber: z.string().trim().min(1).max(40), fullName: z.string().trim().min(2).max(180), taxId: z.string().trim().max(32).optional(), socialSecurityNumber: z.string().trim().max(40).optional(), birthDate: z.coerce.date().optional(), hireDate: z.coerce.date(), email: z.string().email().optional(), phone: z.string().trim().max(40).optional(), address: z.string().trim().max(255).optional(), bankName: z.string().trim().max(120).optional(), bankAccount: z.string().trim().max(80).optional() })).mutation(({ ctx, input }) => createEmployeeForUser({ ...input, userId: ctx.user.id })),
-    updateEmployee: roleProcedure("human_resources", "update").input(z.object({ companyId: z.number().int().positive(), employeeId: z.number().int().positive(), fullName: z.string().trim().min(2).max(180).optional(), taxId: z.string().trim().max(32).optional(), socialSecurityNumber: z.string().trim().max(40).optional(), email: z.string().email().optional(), phone: z.string().trim().max(40).optional(), address: z.string().trim().max(255).optional(), bankName: z.string().trim().max(120).optional(), bankAccount: z.string().trim().max(80).optional(), status: z.enum(["ACTIVE", "INACTIVE", "SUSPENDED"]).optional() })).mutation(({ ctx, input }) => updateEmployeeForUser({ ...input, userId: ctx.user.id })),
-    contracts: roleProcedure("human_resources", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getEmploymentContractsForUserCompany(ctx.user.id, input.companyId)),
-    createContract: roleProcedure("human_resources", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), employeeId: z.number().int().positive(), contractNumber: z.string().trim().min(1).max(50), contractType: z.enum(["INDETERMINADO", "TERMO", "TEMPO_PARCIAL", "ESTAGIO", "PRESTACAO_SERVICOS"]), position: z.string().trim().min(2).max(160), department: z.string().trim().max(120).optional(), startDate: z.coerce.date(), endDate: z.coerce.date().optional(), baseSalary: z.number().nonnegative(), salaryCurrency: z.string().length(3).optional(), weeklyHours: z.number().positive().max(168).optional(), workSchedule: z.string().trim().max(120).optional() })).mutation(({ ctx, input }) => createEmploymentContractForUser({ ...input, userId: ctx.user.id })),
-    transitionContract: roleProcedure("human_resources", "validate").input(z.object({ companyId: z.number().int().positive(), contractId: z.number().int().positive(), to: z.enum(["ACTIVE", "ENDED", "CANCELLED"]), terminationReason: z.string().trim().max(255).optional() })).mutation(({ ctx, input }) => transitionEmploymentContractForUser({ ...input, userId: ctx.user.id })),
-    payrollRules: roleProcedure("human_resources", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getPayrollRuleSetsForUserCompany(ctx.user.id, input.companyId)),
-    createPayrollRule: roleProcedure("human_resources", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), version: z.string().trim().min(1).max(40), effectiveFrom: z.coerce.date(), effectiveTo: z.coerce.date().optional(), socialEmployeeRate: z.number().min(0).max(100), socialEmployerRate: z.number().min(0).max(100), irtBrackets: z.string().min(2), sourceUrl: z.string().url().optional(), salaryAccountCode: z.string().trim().max(30).optional(), socialExpenseAccountCode: z.string().trim().max(30).optional(), socialPayableAccountCode: z.string().trim().max(30).optional(), irtPayableAccountCode: z.string().trim().max(30).optional(), netPayableAccountCode: z.string().trim().max(30).optional() })).mutation(({ ctx, input }) => createPayrollRuleSetForUser({ ...input, userId: ctx.user.id })),
-    payrollRuns: roleProcedure("human_resources", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getPayrollRunsForUserCompany(ctx.user.id, input.companyId)),
-    tasks: roleProcedure("human_resources", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getHumanResourcesTasksForUserCompany(ctx.user.id, input.companyId)),
-    createTask: roleProcedure("human_resources", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), title: z.string().trim().min(3).max(180), description: z.string().trim().max(2000).optional(), priority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]), assigneeUserId: z.number().int().positive().optional(), dueDate: z.coerce.date().optional() })).mutation(({ ctx, input }) => createHumanResourcesTaskForUser({ ...input, userId: ctx.user.id })),
-    updateTask: roleProcedure("human_resources", "update").input(z.object({ companyId: z.number().int().positive(), taskId: z.number().int().positive(), status: z.enum(["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"]).optional(), assigneeUserId: z.number().int().positive().nullable().optional(), dueDate: z.coerce.date().nullable().optional(), priority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]).optional() })).mutation(({ ctx, input }) => updateHumanResourcesTaskForUser({ ...input, userId: ctx.user.id })),
-    undoTaskDueDate: roleProcedure("human_resources", "update").input(z.object({ companyId: z.number().int().positive(), taskId: z.number().int().positive(), appliedDueDate: z.coerce.date().nullable(), previousDueDate: z.coerce.date().nullable() })).mutation(({ ctx, input }) => undoHumanResourcesTaskDueDateForUser({ ...input, userId: ctx.user.id })),
-    updateTasksStatusBulk: roleProcedure("human_resources", "update").input(z.object({ companyId: z.number().int().positive(), taskIds: z.array(z.number().int().positive()).min(1).max(100), status: z.enum(["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"]) })).mutation(({ ctx, input }) => updateHumanResourcesTasksStatusForUser({ ...input, userId: ctx.user.id })),
-    updateTasksPriorityBulk: roleProcedure("human_resources", "update").input(z.object({ companyId: z.number().int().positive(), taskIds: z.array(z.number().int().positive()).min(1).max(100), priority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]) })).mutation(({ ctx, input }) => updateHumanResourcesTasksPriorityForUser({ ...input, userId: ctx.user.id })),
-    undoTasksPriorityBulk: roleProcedure("human_resources", "update").input(z.object({ companyId: z.number().int().positive(), changes: z.array(z.object({ taskId: z.number().int().positive(), appliedPriority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]), previousPriority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]) })).min(1).max(100) })).mutation(({ ctx, input }) => undoHumanResourcesTasksPriorityForUser({ ...input, userId: ctx.user.id })),
-    updateTasksDueDateBulk: roleProcedure("human_resources", "update").input(z.object({ companyId: z.number().int().positive(), taskIds: z.array(z.number().int().positive()).min(1).max(100), dueDate: z.coerce.date().nullable() })).mutation(({ ctx, input }) => updateHumanResourcesTasksDueDateForUser({ ...input, userId: ctx.user.id })),
-    undoTasksDueDateBulk: roleProcedure("human_resources", "update").input(z.object({ companyId: z.number().int().positive(), changes: z.array(z.object({ taskId: z.number().int().positive(), appliedDueDate: z.coerce.date().nullable(), previousDueDate: z.coerce.date().nullable() })).min(1).max(100) })).mutation(({ ctx, input }) => undoHumanResourcesTasksDueDateForUser({ ...input, userId: ctx.user.id })),
-    undoTasksStatusBulk: roleProcedure("human_resources", "update").input(z.object({ companyId: z.number().int().positive(), changes: z.array(z.object({ taskId: z.number().int().positive(), appliedStatus: z.enum(["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"]), previousStatus: z.enum(["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"]), previousCompletedBy: z.number().int().positive().nullable(), previousCompletedAt: z.coerce.date().nullable() })).min(1).max(100) })).mutation(({ ctx, input }) => undoHumanResourcesTasksStatusForUser({ ...input, userId: ctx.user.id })),
-    payrollItems: roleProcedure("human_resources", "read").input(z.object({ companyId: z.number().int().positive(), runId: z.number().int().positive() })).query(({ ctx, input }) => getPayrollItemsForUserRun(ctx.user.id, input.companyId, input.runId)),
-    payrollJournal: roleProcedure("human_resources", "read").input(z.object({ companyId: z.number().int().positive(), runId: z.number().int().positive() })).query(({ ctx, input }) => getPayrollJournalForUserRun({ userId: ctx.user.id, ...input })),
-    approvePayroll: roleProcedure("human_resources", "validate").input(z.object({ companyId: z.number().int().positive(), runId: z.number().int().positive() })).mutation(({ ctx, input }) => approvePayrollRunForUser({ ...input, userId: ctx.user.id })),
-    closePayroll: roleProcedure("human_resources", "validate").input(z.object({ companyId: z.number().int().positive(), runId: z.number().int().positive() })).mutation(({ ctx, input }) => closePayrollRunForUser({ ...input, userId: ctx.user.id })),
-    approveAccountingPreparation: roleProcedure("human_resources", "validate").input(z.object({ companyId: z.number().int().positive(), runId: z.number().int().positive(), accountingReference: z.string().trim().min(3).max(160) })).mutation(({ ctx, input }) => approvePayrollAccountingPreparationForUser({ ...input, userId: ctx.user.id })),
-    postAccountingJournal: roleProcedure("accounting", "post").input(z.object({ companyId: z.number().int().positive(), runId: z.number().int().positive(), idempotencyKey: z.string().min(8) })).mutation(({ ctx, input }) => postPayrollJournalForUser({ ...input, userId: ctx.user.id })),
-    calculatePayroll: roleProcedure("human_resources", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), ruleSetId: z.number().int().positive(), year: z.number().int().min(2000).max(2100), month: z.number().int().min(1).max(12) })).mutation(({ ctx, input }) => calculatePayrollRunForUser({ ...input, userId: ctx.user.id })),
+    employees: roleProcedure("human_resources", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getEmployeesForUserCompany(ctx.user.id, input.companyId)
+      ),
+    createEmployee: roleProcedure("human_resources", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          employeeNumber: z.string().trim().min(1).max(40),
+          fullName: z.string().trim().min(2).max(180),
+          taxId: z.string().trim().max(32).optional(),
+          socialSecurityNumber: z.string().trim().max(40).optional(),
+          birthDate: z.coerce.date().optional(),
+          hireDate: z.coerce.date(),
+          email: z.string().email().optional(),
+          phone: z.string().trim().max(40).optional(),
+          address: z.string().trim().max(255).optional(),
+          bankName: z.string().trim().max(120).optional(),
+          bankAccount: z.string().trim().max(80).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createEmployeeForUser({ ...input, userId: ctx.user.id })
+      ),
+    updateEmployee: roleProcedure("human_resources", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          employeeId: z.number().int().positive(),
+          fullName: z.string().trim().min(2).max(180).optional(),
+          taxId: z.string().trim().max(32).optional(),
+          socialSecurityNumber: z.string().trim().max(40).optional(),
+          email: z.string().email().optional(),
+          phone: z.string().trim().max(40).optional(),
+          address: z.string().trim().max(255).optional(),
+          bankName: z.string().trim().max(120).optional(),
+          bankAccount: z.string().trim().max(80).optional(),
+          status: z.enum(["ACTIVE", "INACTIVE", "SUSPENDED"]).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateEmployeeForUser({ ...input, userId: ctx.user.id })
+      ),
+    contracts: roleProcedure("human_resources", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getEmploymentContractsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    createContract: roleProcedure("human_resources", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          employeeId: z.number().int().positive(),
+          contractNumber: z.string().trim().min(1).max(50),
+          contractType: z.enum([
+            "INDETERMINADO",
+            "TERMO",
+            "TEMPO_PARCIAL",
+            "ESTAGIO",
+            "PRESTACAO_SERVICOS",
+          ]),
+          position: z.string().trim().min(2).max(160),
+          department: z.string().trim().max(120).optional(),
+          startDate: z.coerce.date(),
+          endDate: z.coerce.date().optional(),
+          baseSalary: z.number().nonnegative(),
+          salaryCurrency: z.string().length(3).optional(),
+          weeklyHours: z.number().positive().max(168).optional(),
+          workSchedule: z.string().trim().max(120).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createEmploymentContractForUser({ ...input, userId: ctx.user.id })
+      ),
+    transitionContract: roleProcedure("human_resources", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          contractId: z.number().int().positive(),
+          to: z.enum(["ACTIVE", "ENDED", "CANCELLED"]),
+          terminationReason: z.string().trim().max(255).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        transitionEmploymentContractForUser({ ...input, userId: ctx.user.id })
+      ),
+    payrollRules: roleProcedure("human_resources", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getPayrollRuleSetsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    createPayrollRule: roleProcedure("human_resources", "validate")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          version: z.string().trim().min(1).max(40),
+          effectiveFrom: z.coerce.date(),
+          effectiveTo: z.coerce.date().optional(),
+          socialEmployeeRate: z.number().min(0).max(100),
+          socialEmployerRate: z.number().min(0).max(100),
+          irtBrackets: z.string().min(2),
+          sourceUrl: z.string().url().optional(),
+          salaryAccountCode: z.string().trim().max(30).optional(),
+          socialExpenseAccountCode: z.string().trim().max(30).optional(),
+          socialPayableAccountCode: z.string().trim().max(30).optional(),
+          irtPayableAccountCode: z.string().trim().max(30).optional(),
+          netPayableAccountCode: z.string().trim().max(30).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createPayrollRuleSetForUser({ ...input, userId: ctx.user.id })
+      ),
+    payrollRuns: roleProcedure("human_resources", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getPayrollRunsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    tasks: roleProcedure("human_resources", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getHumanResourcesTasksForUserCompany(ctx.user.id, input.companyId)
+      ),
+    createTask: roleProcedure("human_resources", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          title: z.string().trim().min(3).max(180),
+          description: z.string().trim().max(2000).optional(),
+          priority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]),
+          assigneeUserId: z.number().int().positive().optional(),
+          dueDate: z.coerce.date().optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createHumanResourcesTaskForUser({ ...input, userId: ctx.user.id })
+      ),
+    updateTask: roleProcedure("human_resources", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          taskId: z.number().int().positive(),
+          status: z
+            .enum(["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"])
+            .optional(),
+          assigneeUserId: z.number().int().positive().nullable().optional(),
+          dueDate: z.coerce.date().nullable().optional(),
+          priority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateHumanResourcesTaskForUser({ ...input, userId: ctx.user.id })
+      ),
+    undoTaskDueDate: roleProcedure("human_resources", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          taskId: z.number().int().positive(),
+          appliedDueDate: z.coerce.date().nullable(),
+          previousDueDate: z.coerce.date().nullable(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        undoHumanResourcesTaskDueDateForUser({ ...input, userId: ctx.user.id })
+      ),
+    updateTasksStatusBulk: roleProcedure("human_resources", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          taskIds: z.array(z.number().int().positive()).min(1).max(100),
+          status: z.enum(["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"]),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateHumanResourcesTasksStatusForUser({
+          ...input,
+          userId: ctx.user.id,
+        })
+      ),
+    updateTasksPriorityBulk: roleProcedure("human_resources", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          taskIds: z.array(z.number().int().positive()).min(1).max(100),
+          priority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateHumanResourcesTasksPriorityForUser({
+          ...input,
+          userId: ctx.user.id,
+        })
+      ),
+    undoTasksPriorityBulk: roleProcedure("human_resources", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          changes: z
+            .array(
+              z.object({
+                taskId: z.number().int().positive(),
+                appliedPriority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]),
+                previousPriority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]),
+              })
+            )
+            .min(1)
+            .max(100),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        undoHumanResourcesTasksPriorityForUser({
+          ...input,
+          userId: ctx.user.id,
+        })
+      ),
+    updateTasksDueDateBulk: roleProcedure("human_resources", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          taskIds: z.array(z.number().int().positive()).min(1).max(100),
+          dueDate: z.coerce.date().nullable(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateHumanResourcesTasksDueDateForUser({
+          ...input,
+          userId: ctx.user.id,
+        })
+      ),
+    undoTasksDueDateBulk: roleProcedure("human_resources", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          changes: z
+            .array(
+              z.object({
+                taskId: z.number().int().positive(),
+                appliedDueDate: z.coerce.date().nullable(),
+                previousDueDate: z.coerce.date().nullable(),
+              })
+            )
+            .min(1)
+            .max(100),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        undoHumanResourcesTasksDueDateForUser({ ...input, userId: ctx.user.id })
+      ),
+    undoTasksStatusBulk: roleProcedure("human_resources", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          changes: z
+            .array(
+              z.object({
+                taskId: z.number().int().positive(),
+                appliedStatus: z.enum([
+                  "PENDING",
+                  "IN_PROGRESS",
+                  "COMPLETED",
+                  "CANCELLED",
+                ]),
+                previousStatus: z.enum([
+                  "PENDING",
+                  "IN_PROGRESS",
+                  "COMPLETED",
+                  "CANCELLED",
+                ]),
+                previousCompletedBy: z.number().int().positive().nullable(),
+                previousCompletedAt: z.coerce.date().nullable(),
+              })
+            )
+            .min(1)
+            .max(100),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        undoHumanResourcesTasksStatusForUser({ ...input, userId: ctx.user.id })
+      ),
+    payrollItems: roleProcedure("human_resources", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          runId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getPayrollItemsForUserRun(ctx.user.id, input.companyId, input.runId)
+      ),
+    payrollJournal: roleProcedure("human_resources", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          runId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getPayrollJournalForUserRun({ userId: ctx.user.id, ...input })
+      ),
+    approvePayroll: roleProcedure("human_resources", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          runId: z.number().int().positive(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        approvePayrollRunForUser({ ...input, userId: ctx.user.id })
+      ),
+    closePayroll: roleProcedure("human_resources", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          runId: z.number().int().positive(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        closePayrollRunForUser({ ...input, userId: ctx.user.id })
+      ),
+    approveAccountingPreparation: roleProcedure("human_resources", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          runId: z.number().int().positive(),
+          accountingReference: z.string().trim().min(3).max(160),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        approvePayrollAccountingPreparationForUser({
+          ...input,
+          userId: ctx.user.id,
+        })
+      ),
+    postAccountingJournal: roleProcedure("accounting", "post")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          runId: z.number().int().positive(),
+          idempotencyKey: z.string().min(8),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        postPayrollJournalForUser({ ...input, userId: ctx.user.id })
+      ),
+    calculatePayroll: roleProcedure("human_resources", "validate")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          ruleSetId: z.number().int().positive(),
+          year: z.number().int().min(2000).max(2100),
+          month: z.number().int().min(1).max(12),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        calculatePayrollRunForUser({ ...input, userId: ctx.user.id })
+      ),
   }),
   counterparties: router({
-    list: roleProcedure("customers", "read").input(z.object({ companyId: z.number().int().positive(), kind: z.enum(["CUSTOMER", "SUPPLIER"]).optional() })).query(({ ctx, input }) => getCounterpartiesForUserCompany(ctx.user.id, input.companyId, input.kind)),
-    update: roleProcedure("customers", "create").input(z.object({ companyId: z.number().int().positive(), counterpartyId: z.number().int().positive(), name: z.string().min(2).optional(), email: z.string().email().optional(), phone: z.string().optional(), address: z.string().optional(), paymentTermsDays: z.number().int().nonnegative().optional(), creditLimit: z.number().nonnegative().optional(), preferredCurrency: z.string().length(3).optional() })).mutation(({ ctx, input }) => updateCounterpartyForUser({ ...input, userId: ctx.user.id })),
-    create: roleProcedure("customers", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), kind: z.enum(["CUSTOMER", "SUPPLIER"]), taxId: z.string().optional(), name: z.string().min(2), email: z.string().email().optional(), phone: z.string().optional(), address: z.string().optional(), municipality: z.string().optional(), province: z.string().optional(), paymentTermsDays: z.number().int().nonnegative().optional(), creditLimit: z.number().nonnegative().optional(), preferredCurrency: z.string().length(3).optional() })).mutation(({ ctx, input }) => createCounterpartyForUser({ ...input, userId: ctx.user.id })),
+    list: roleProcedure("customers", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          kind: z.enum(["CUSTOMER", "SUPPLIER"]).optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getCounterpartiesForUserCompany(
+          ctx.user.id,
+          input.companyId,
+          input.kind
+        )
+      ),
+    update: roleProcedure("customers", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          counterpartyId: z.number().int().positive(),
+          name: z.string().min(2).optional(),
+          email: z.string().email().optional(),
+          phone: z.string().optional(),
+          address: z.string().optional(),
+          paymentTermsDays: z.number().int().nonnegative().optional(),
+          creditLimit: z.number().nonnegative().optional(),
+          preferredCurrency: z.string().length(3).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateCounterpartyForUser({ ...input, userId: ctx.user.id })
+      ),
+    create: roleProcedure("customers", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          kind: z.enum(["CUSTOMER", "SUPPLIER"]),
+          taxId: z.string().optional(),
+          name: z.string().min(2),
+          email: z.string().email().optional(),
+          phone: z.string().optional(),
+          address: z.string().optional(),
+          municipality: z.string().optional(),
+          province: z.string().optional(),
+          paymentTermsDays: z.number().int().nonnegative().optional(),
+          creditLimit: z.number().nonnegative().optional(),
+          preferredCurrency: z.string().length(3).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createCounterpartyForUser({ ...input, userId: ctx.user.id })
+      ),
   }),
   catalog: router({
-    list: roleProcedure("catalog", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getProductsForUserCompany(ctx.user.id, input.companyId)),
-    create: roleProcedure("catalog", "create").input(z.object({ companyId: z.number().int().positive(), code: z.string().min(1), name: z.string().min(2), kind: z.enum(["GOOD", "SERVICE"]), unitCode: z.string().optional(), taxCode: z.string().optional(), salePrice: z.number().nonnegative().optional(), purchasePrice: z.number().nonnegative().optional(), stockManaged: z.boolean().optional() })).mutation(({ ctx, input }) => createProductForUser({ ...input, userId: ctx.user.id })),
-    update: roleProcedure("catalog", "create").input(z.object({ companyId: z.number().int().positive(), productId: z.number().int().positive(), name: z.string().min(2).optional(), taxCode: z.string().optional(), unitCode: z.string().optional(), salePrice: z.number().nonnegative().optional(), purchasePrice: z.number().nonnegative().optional(), stockManaged: z.boolean().optional() })).mutation(({ ctx, input }) => updateProductForUser({ ...input, userId: ctx.user.id })),
+    list: roleProcedure("catalog", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getProductsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    create: roleProcedure("catalog", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          code: z.string().min(1),
+          name: z.string().min(2),
+          kind: z.enum(["GOOD", "SERVICE"]),
+          unitCode: z.string().optional(),
+          taxCode: z.string().optional(),
+          salePrice: z.number().nonnegative().optional(),
+          purchasePrice: z.number().nonnegative().optional(),
+          stockManaged: z.boolean().optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createProductForUser({ ...input, userId: ctx.user.id })
+      ),
+    update: roleProcedure("catalog", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          productId: z.number().int().positive(),
+          name: z.string().min(2).optional(),
+          taxCode: z.string().optional(),
+          unitCode: z.string().optional(),
+          salePrice: z.number().nonnegative().optional(),
+          purchasePrice: z.number().nonnegative().optional(),
+          stockManaged: z.boolean().optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateProductForUser({ ...input, userId: ctx.user.id })
+      ),
   }),
   purchases: router({
-    list: roleProcedure("purchases", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getPurchaseOrdersForUserCompany({ userId: ctx.user.id, companyId: input.companyId })),
-    create: roleProcedure("purchases", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), supplierId: z.number().int().positive(), currency: z.string().length(3).optional(), requestedDate: z.coerce.date(), expectedDate: z.coerce.date().optional(), notes: z.string().max(2000).optional(), items: z.array(z.object({ productId: z.number().int().positive().optional(), description: z.string().min(2).max(255), quantity: z.number().positive(), unitPrice: z.number().nonnegative(), taxRate: z.number().nonnegative().max(100).optional() })).min(1).max(200) })).mutation(async ({ ctx, input }) => {
-      try { return await createPurchaseOrderForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["SUPPLIER_NOT_FOUND_OR_FORBIDDEN", "PURCHASE_ORDER_ITEMS_REQUIRED"].includes(error.message)) throw new TRPCError({ code: "BAD_REQUEST", message: error.message }); throw error; }
-    }),
-    convertToSupplierDraft: roleProcedure("purchases", "validate").input(z.object({ companyId: z.number().int().positive(), receiptId: z.number().int().positive(), series: z.string().trim().min(1).max(32), documentType: z.string().trim().min(1).max(32), ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]) })).mutation(async ({ ctx, input }) => {
-      try { return await convertPurchaseReceiptToSupplierDraftForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["PURCHASE_RECEIPT_NOT_FOUND_OR_FORBIDDEN", "PURCHASE_RECEIPT_WITHOUT_LINES"].includes(error.message)) throw new TRPCError({ code: "BAD_REQUEST", message: error.message }); throw error; }
-    }),
-    receive: roleProcedure("purchases", "validate").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive(), orderId: z.number().int().positive(), warehouseId: z.number().int().positive().optional(), receivedAt: z.coerce.date(), idempotencyKey: z.string().trim().min(8).max(160), notes: z.string().max(2000).optional(), items: z.array(z.object({ orderItemId: z.number().int().positive(), quantity: z.number().positive(), unitCost: z.number().nonnegative().optional() })).min(1).max(200) })).mutation(async ({ ctx, input }) => {
-      try { return await receivePurchaseOrderForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["PURCHASE_RECEIPT_ITEMS_REQUIRED", "PURCHASE_RECEIPT_LINE_INVALID", "PURCHASE_RECEIPT_QUANTITY_EXCEEDS_ORDER", "PURCHASE_RECEIPT_PRODUCT_REQUIRED", "PURCHASE_RECEIPT_PRODUCT_NOT_FOUND_OR_FORBIDDEN", "PURCHASE_ORDER_NOT_APPROVED_OR_FORBIDDEN", "WAREHOUSE_NOT_FOUND_OR_FORBIDDEN"].includes(error.message)) throw new TRPCError({ code: "BAD_REQUEST", message: error.message }); throw error; }
-    }),
-    transition: roleProcedure("purchases", "validate").input(z.object({ companyId: z.number().int().positive(), orderId: z.number().int().positive(), target: z.enum(["SUBMITTED", "APPROVED", "RECEIVED", "CANCELLED"]), reason: z.string().trim().max(500).optional() })).mutation(async ({ ctx, input }) => {
-      try { return await transitionPurchaseOrderForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["PURCHASE_ORDER_NOT_FOUND_OR_FORBIDDEN", "PURCHASE_ORDER_INVALID_TRANSITION"].includes(error.message)) throw new TRPCError({ code: "BAD_REQUEST", message: error.message }); throw error; }
-    }),
+    list: roleProcedure("purchases", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getPurchaseOrdersForUserCompany({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+        })
+      ),
+    create: roleProcedure("purchases", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          supplierId: z.number().int().positive(),
+          currency: z.string().length(3).optional(),
+          requestedDate: z.coerce.date(),
+          expectedDate: z.coerce.date().optional(),
+          notes: z.string().max(2000).optional(),
+          items: z
+            .array(
+              z.object({
+                productId: z.number().int().positive().optional(),
+                description: z.string().min(2).max(255),
+                quantity: z.number().positive(),
+                unitPrice: z.number().nonnegative(),
+                taxRate: z.number().nonnegative().max(100).optional(),
+              })
+            )
+            .min(1)
+            .max(200),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await createPurchaseOrderForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "SUPPLIER_NOT_FOUND_OR_FORBIDDEN",
+              "PURCHASE_ORDER_ITEMS_REQUIRED",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    convertToSupplierDraft: roleProcedure("purchases", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          receiptId: z.number().int().positive(),
+          series: z.string().trim().min(1).max(32),
+          documentType: z.string().trim().min(1).max(32),
+          ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await convertPurchaseReceiptToSupplierDraftForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "PURCHASE_RECEIPT_NOT_FOUND_OR_FORBIDDEN",
+              "PURCHASE_RECEIPT_WITHOUT_LINES",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    receive: roleProcedure("purchases", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          orderId: z.number().int().positive(),
+          warehouseId: z.number().int().positive().optional(),
+          receivedAt: z.coerce.date(),
+          idempotencyKey: z.string().trim().min(8).max(160),
+          notes: z.string().max(2000).optional(),
+          items: z
+            .array(
+              z.object({
+                orderItemId: z.number().int().positive(),
+                quantity: z.number().positive(),
+                unitCost: z.number().nonnegative().optional(),
+              })
+            )
+            .min(1)
+            .max(200),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await receivePurchaseOrderForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "PURCHASE_RECEIPT_ITEMS_REQUIRED",
+              "PURCHASE_RECEIPT_LINE_INVALID",
+              "PURCHASE_RECEIPT_QUANTITY_EXCEEDS_ORDER",
+              "PURCHASE_RECEIPT_PRODUCT_REQUIRED",
+              "PURCHASE_RECEIPT_PRODUCT_NOT_FOUND_OR_FORBIDDEN",
+              "PURCHASE_ORDER_NOT_APPROVED_OR_FORBIDDEN",
+              "WAREHOUSE_NOT_FOUND_OR_FORBIDDEN",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    transition: roleProcedure("purchases", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          orderId: z.number().int().positive(),
+          target: z.enum(["SUBMITTED", "APPROVED", "RECEIVED", "CANCELLED"]),
+          reason: z.string().trim().max(500).optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await transitionPurchaseOrderForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "PURCHASE_ORDER_NOT_FOUND_OR_FORBIDDEN",
+              "PURCHASE_ORDER_INVALID_TRANSITION",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
   }),
   ia: router({
-    config: roleProcedure("ia", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getBalancertsIaConfigForUserCompany({ userId: ctx.user.id, companyId: input.companyId })),
-    status: roleProcedure("ia", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getBalancertsIaStatusForUserCompany({ userId: ctx.user.id, companyId: input.companyId })),
-    pgcNormativeContext: roleProcedure("ia", "read").input(z.object({ companyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => readSaadiPgcNormativeContext(ctx.user.id, input.companyId)),
-    logs: roleProcedure("ia", "read").input(z.object({ companyId: z.number().int().positive(), limit: z.number().int().min(1).max(100).optional() })).query(({ ctx, input }) => getBalancertsIaLogsForUserCompany({ userId: ctx.user.id, companyId: input.companyId, limit: input.limit })),
-    updateConfig: roleProcedure("ia", "update").input(z.object({ companyId: z.number().int().positive(), enabled: z.boolean(), localEnabled: z.boolean(), localBaseUrl: z.string().url(), localPort: z.number().int().min(1).max(65535), localModel: z.string().trim().min(1).max(120) })).mutation(({ ctx, input }) => updateBalancertsIaConfigForUser({ ...input, userId: ctx.user.id })),
-    diagnostics: roleProcedure("ia", "read").input(z.object({ companyId: z.number().int().positive() })).query(async ({ ctx, input }) => { const config = await getBalancertsIaConfigForUserCompany({ userId: ctx.user.id, companyId: input.companyId }); return getBalancertsIaDiagnostics({ localBaseUrl: config.localBaseUrl, localPort: config.localPort, localModel: config.localModel }); }),
-    importAndAnalyze: roleProcedure("ia", "validate").input(z.object({ companyId: z.number().int().positive(), filename: z.string().trim().min(1).max(255), mimeType: z.string().trim().min(1).max(120), contentBase64: z.string().min(1).max(22000000) })).mutation(async ({ ctx, input }) => { try { return await importAndAnalyzeBalancertsDocument({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["DOCUMENTO_IMPORTACAO_INVALIDO", "IA_DESACTIVADA"].includes(error.message)) throw new TRPCError({ code: "BAD_REQUEST", message: error.message }); throw error; } }),
-    reprocessSaadiDocument: roleProcedure("ia", "validate").input(z.object({ organizationId: z.number().int().positive(), studyId: z.number().int().positive(), documentId: z.number().int().positive(), extractedText: z.string().trim().min(1).max(100000) })).mutation(({ ctx, input }) => reprocessSaadiStudyDocument({ ...input, userId: ctx.user.id })),
-    testLocalProvider: roleProcedure("ia", "validate").input(z.object({ companyId: z.number().int().positive() })).mutation(async ({ ctx, input }) => { try { return await testBalancertsIaLocalProviderForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && error.message === "IA_LOCAL_DESACTIVADA") throw new TRPCError({ code: "PRECONDITION_FAILED", message: error.message }); throw error; } }),
-    recordLog: roleProcedure("ia", "validate").input(z.object({ companyId: z.number().int().positive(), operation: z.string().trim().min(1).max(80), provider: z.string().trim().min(1).max(40), model: z.string().trim().max(120).optional(), confidence: z.number().min(0).max(100).optional(), requestSummary: z.string().max(2000).optional(), resultSummary: z.string().max(2000).optional(), responseMs: z.number().int().nonnegative().optional(), error: z.string().max(1000).optional() })).mutation(({ ctx, input }) => createBalancertsIaLogForUser({ ...input, userId: ctx.user.id })),
-    suggestions: roleProcedure("ia", "read").input(z.object({ companyId: z.number().int().positive(), status: z.enum(["PROPOSED", "APPROVED", "REJECTED", "EXPIRED"]).optional() })).query(({ ctx, input }) => getBalancertsIaSuggestionsForUserCompany({ userId: ctx.user.id, companyId: input.companyId, status: input.status })),
-    suggestDocumentClassification: roleProcedure("ia", "validate").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive() })).mutation(async ({ ctx, input }) => { try { return await createBalancertsIaDocumentSuggestionForUser({ ...input, task: "CLASSIFICAR_DOCUMENTO", userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["DOCUMENT_NOT_FOUND_OR_FORBIDDEN", "IA_DESACTIVADA", "IA_SEM_PROVEDOR_DISPONIVEL"].includes(error.message)) throw new TRPCError({ code: "PRECONDITION_FAILED", message: error.message }); throw error; } }),
-    suggestDraftCompletion: roleProcedure("ia", "validate").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive() })).mutation(async ({ ctx, input }) => { try { return await createBalancertsIaDocumentSuggestionForUser({ ...input, task: "PREENCHER_RASCUNHO", userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["DOCUMENT_NOT_FOUND_OR_FORBIDDEN", "IA_DESACTIVADA", "IA_SEM_PROVEDOR_DISPONIVEL", "IA_RASCUNHO_REQUER_DOCUMENTO_EM_RASCUNHO"].includes(error.message)) throw new TRPCError({ code: "PRECONDITION_FAILED", message: error.message }); throw error; } }),
-    reviewSuggestion: roleProcedure("ia", "validate").input(z.object({ companyId: z.number().int().positive(), suggestionId: z.number().int().positive(), decision: z.enum(["APPROVED", "REJECTED"]), reviewNote: z.string().trim().max(500).optional() })).mutation(async ({ ctx, input }) => { try { return await reviewBalancertsIaSuggestionForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["IA_SUGGESTION_NOT_FOUND_OR_FORBIDDEN", "IA_SUGGESTION_ALREADY_REVIEWED"].includes(error.message)) throw new TRPCError({ code: "BAD_REQUEST", message: error.message }); throw error; } }),
+    config: roleProcedure("ia", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getBalancertsIaConfigForUserCompany({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+        })
+      ),
+    status: roleProcedure("ia", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getBalancertsIaStatusForUserCompany({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+        })
+      ),
+    pgcNormativeContext: roleProcedure("ia", "read")
+      .input(z.object({ companyId: z.number().int().positive() }).strict())
+      .query(({ ctx, input }) =>
+        readSaadiPgcNormativeContext(ctx.user.id, input.companyId)
+      ),
+    logs: roleProcedure("ia", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          limit: z.number().int().min(1).max(100).optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getBalancertsIaLogsForUserCompany({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+          limit: input.limit,
+        })
+      ),
+    updateConfig: roleProcedure("ia", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          enabled: z.boolean(),
+          localEnabled: z.boolean(),
+          localBaseUrl: z.string().url(),
+          localPort: z.number().int().min(1).max(65535),
+          localModel: z.string().trim().min(1).max(120),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateBalancertsIaConfigForUser({ ...input, userId: ctx.user.id })
+      ),
+    diagnostics: roleProcedure("ia", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(async ({ ctx, input }) => {
+        const config = await getBalancertsIaConfigForUserCompany({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+        });
+        return getBalancertsIaDiagnostics({
+          localBaseUrl: config.localBaseUrl,
+          localPort: config.localPort,
+          localModel: config.localModel,
+        });
+      }),
+    importAndAnalyze: roleProcedure("ia", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          filename: z.string().trim().min(1).max(255),
+          mimeType: z.string().trim().min(1).max(120),
+          contentBase64: z.string().min(1).max(22000000),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await importAndAnalyzeBalancertsDocument({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            ["DOCUMENTO_IMPORTACAO_INVALIDO", "IA_DESACTIVADA"].includes(
+              error.message
+            )
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    reprocessSaadiDocument: roleProcedure("ia", "validate")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          studyId: z.number().int().positive(),
+          documentId: z.number().int().positive(),
+          extractedText: z.string().trim().min(1).max(100000),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        reprocessSaadiStudyDocument({ ...input, userId: ctx.user.id })
+      ),
+    testLocalProvider: roleProcedure("ia", "validate")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await testBalancertsIaLocalProviderForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            error.message === "IA_LOCAL_DESACTIVADA"
+          )
+            throw new TRPCError({
+              code: "PRECONDITION_FAILED",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    recordLog: roleProcedure("ia", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          operation: z.string().trim().min(1).max(80),
+          provider: z.string().trim().min(1).max(40),
+          model: z.string().trim().max(120).optional(),
+          confidence: z.number().min(0).max(100).optional(),
+          requestSummary: z.string().max(2000).optional(),
+          resultSummary: z.string().max(2000).optional(),
+          responseMs: z.number().int().nonnegative().optional(),
+          error: z.string().max(1000).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createBalancertsIaLogForUser({ ...input, userId: ctx.user.id })
+      ),
+    suggestions: roleProcedure("ia", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          status: z
+            .enum(["PROPOSED", "APPROVED", "REJECTED", "EXPIRED"])
+            .optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getBalancertsIaSuggestionsForUserCompany({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+          status: input.status,
+        })
+      ),
+    suggestDocumentClassification: roleProcedure("ia", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          documentId: z.number().int().positive(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await createBalancertsIaDocumentSuggestionForUser({
+            ...input,
+            task: "CLASSIFICAR_DOCUMENTO",
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "DOCUMENT_NOT_FOUND_OR_FORBIDDEN",
+              "IA_DESACTIVADA",
+              "IA_SEM_PROVEDOR_DISPONIVEL",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "PRECONDITION_FAILED",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    suggestDraftCompletion: roleProcedure("ia", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          documentId: z.number().int().positive(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await createBalancertsIaDocumentSuggestionForUser({
+            ...input,
+            task: "PREENCHER_RASCUNHO",
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "DOCUMENT_NOT_FOUND_OR_FORBIDDEN",
+              "IA_DESACTIVADA",
+              "IA_SEM_PROVEDOR_DISPONIVEL",
+              "IA_RASCUNHO_REQUER_DOCUMENTO_EM_RASCUNHO",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "PRECONDITION_FAILED",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    reviewSuggestion: roleProcedure("ia", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          suggestionId: z.number().int().positive(),
+          decision: z.enum(["APPROVED", "REJECTED"]),
+          reviewNote: z.string().trim().max(500).optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await reviewBalancertsIaSuggestionForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "IA_SUGGESTION_NOT_FOUND_OR_FORBIDDEN",
+              "IA_SUGGESTION_ALREADY_REVIEWED",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
   }),
   treasury: router({
-    accounts: roleProcedure("treasury", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getCashAccountsForUserCompany(ctx.user.id, input.companyId)),
-    createAccount: roleProcedure("treasury", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), name: z.string().min(2), kind: z.enum(["CASH", "BANK"]), bankName: z.string().max(160).optional(), bankCode: z.string().max(32).optional(), branchName: z.string().max(160).optional(), accountNumber: z.string().max(80).optional(), iban: z.string().max(64).optional(), holderName: z.string().trim().max(180).optional(), openingBalance: z.number().finite().optional(), accountingAccountId: z.number().int().positive().optional(), currency: z.string().length(3).optional() })).mutation(({ ctx, input }) => createCashAccountForUser({ ...input, userId: ctx.user.id })),
-    updateAccount: roleProcedure("treasury", "update").input(z.object({ companyId: z.number().int().positive(), cashAccountId: z.number().int().positive(), name: z.string().min(2).optional(), bankName: z.string().max(160).optional(), bankCode: z.string().max(32).optional(), branchName: z.string().max(160).optional(), accountNumber: z.string().max(80).optional(), iban: z.string().max(64).optional(), holderName: z.string().trim().max(180).optional(), openingBalance: z.number().finite().optional(), accountingAccountId: z.number().int().positive().optional() })).mutation(({ ctx, input }) => updateCashAccountForUser({ ...input, userId: ctx.user.id })),
-    transactions: roleProcedure("treasury", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getTreasuryTransactionsForUserCompany(ctx.user.id, input.companyId)),
-    payments: roleProcedure("treasury", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getPaymentsForUserCompany(ctx.user.id, input.companyId)),
-    reconcile: roleProcedure("treasury", "create").input(z.object({ companyId: z.number().int().positive(), cashAccountId: z.number().int().positive(), statementDate: z.coerce.date(), openingBalance: z.number(), closingBalance: z.number(), adjustmentAmount: z.number().optional(), adjustmentReason: z.string().trim().max(500).optional() })).mutation(({ ctx, input }) => reconcileCashAccountForUser({ ...input, userId: ctx.user.id })),
-    reconcileTransaction: roleProcedure("treasury", "validate").input(z.object({ companyId: z.number().int().positive(), transactionId: z.number().int().positive(), reason: z.string().trim().max(500).optional() })).mutation(({ ctx, input }) => reconcileTreasuryTransactionForUser({ ...input, userId: ctx.user.id })),
-    createPayment: roleProcedure("treasury", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive().optional(), documentId: z.number().int().positive().optional(), direction: z.enum(["RECEIPT", "PAYMENT"]), amount: z.number().positive(), currency: z.string().length(3).optional(), cashAccountId: z.number().int().positive().optional(), paidAt: z.coerce.date(), method: z.enum(["CASH", "BANK_TRANSFER", "CARD", "OTHER"]), approvalRequired: z.boolean().optional(), idempotencyKey: z.string().min(8), correlationId: z.string().min(1) })).mutation(({ ctx, input }) => createPaymentForUser({ ...input, userId: ctx.user.id })),
-    approvePayment: roleProcedure("treasury", "validate").input(z.object({ companyId: z.number().int().positive(), paymentId: z.number().int().positive(), executionReference: z.string().trim().max(160).optional() })).mutation(({ ctx, input }) => approvePaymentForUser({ ...input, userId: ctx.user.id })),
-    postPaymentAccounting: roleProcedure("accounting", "post").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), paymentId: z.number().int().positive(), cashPgcAccountId: z.number().int().positive(), counterpartyPgcAccountId: z.number().int().positive(), idempotencyKey: z.string().min(8) }).strict()).mutation(({ ctx, input }) => postPaymentAccountingForUser({ ...input, userId: ctx.user.id })),
-    updatePayment: roleProcedure("treasury", "create").input(z.object({ companyId: z.number().int().positive(), paymentId: z.number().int().positive(), amount: z.number().positive().optional(), method: z.enum(["CASH", "BANK_TRANSFER", "CARD", "OTHER"]).optional(), status: z.enum(["PENDING", "CONFIRMED", "CANCELLED"]).optional() })).mutation(({ ctx, input }) => updatePaymentForUser({ ...input, userId: ctx.user.id })),
-    importStatement: roleProcedure("treasury", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), cashAccountId: z.number().int().positive(), statementDate: z.coerce.date(), openingBalance: z.number(), closingBalance: z.number(), currency: z.string().length(3).optional(), originalFilename: z.string().trim().min(1).max(255), rows: z.array(z.object({ bookingDate: z.coerce.date(), valueDate: z.coerce.date(), description: z.string().trim().min(1).max(500), externalReference: z.string().max(160).optional(), counterparty: z.string().max(180).optional(), direction: z.enum(["IN", "OUT"]), amount: z.number().positive(), balance: z.number().optional() })).min(1).max(5000) })).mutation(({ ctx, input }) => importBankStatementForUser({ ...input, userId: ctx.user.id })),
-    statementLines: roleProcedure("treasury", "read").input(z.object({ companyId: z.number().int().positive(), cashAccountId: z.number().int().positive().optional(), importId: z.number().int().positive().optional(), status: z.enum(["UNMATCHED", "SUGGESTED", "MATCHED", "EXCEPTION"]).optional() })).query(({ ctx, input }) => listBankStatementLinesForUser({ ...input, userId: ctx.user.id })),
-    matchStatementLine: roleProcedure("treasury", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), lineId: z.number().int().positive(), treasuryTransactionId: z.number().int().positive(), reason: z.string().trim().max(500).optional() })).mutation(({ ctx, input }) => matchBankStatementLineForUser({ ...input, userId: ctx.user.id })),
-    transferInternal: roleProcedure("treasury", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive().optional(), fromCashAccountId: z.number().int().positive(), toCashAccountId: z.number().int().positive(), amount: z.number().positive(), valueDate: z.coerce.date(), correlationId: z.string().min(8).max(160) })).mutation(({ ctx, input }) => transferBetweenCashAccountsForUser({ ...input, userId: ctx.user.id })),
+    accounts: roleProcedure("treasury", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getCashAccountsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    createAccount: roleProcedure("treasury", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          name: z.string().min(2),
+          kind: z.enum(["CASH", "BANK"]),
+          bankName: z.string().max(160).optional(),
+          bankCode: z.string().max(32).optional(),
+          branchName: z.string().max(160).optional(),
+          accountNumber: z.string().max(80).optional(),
+          iban: z.string().max(64).optional(),
+          holderName: z.string().trim().max(180).optional(),
+          openingBalance: z.number().finite().optional(),
+          accountingAccountId: z.number().int().positive().optional(),
+          currency: z.string().length(3).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createCashAccountForUser({ ...input, userId: ctx.user.id })
+      ),
+    updateAccount: roleProcedure("treasury", "update")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          cashAccountId: z.number().int().positive(),
+          name: z.string().min(2).optional(),
+          bankName: z.string().max(160).optional(),
+          bankCode: z.string().max(32).optional(),
+          branchName: z.string().max(160).optional(),
+          accountNumber: z.string().max(80).optional(),
+          iban: z.string().max(64).optional(),
+          holderName: z.string().trim().max(180).optional(),
+          openingBalance: z.number().finite().optional(),
+          accountingAccountId: z.number().int().positive().optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateCashAccountForUser({ ...input, userId: ctx.user.id })
+      ),
+    transactions: roleProcedure("treasury", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getTreasuryTransactionsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    payments: roleProcedure("treasury", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getPaymentsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    reconcile: roleProcedure("treasury", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          cashAccountId: z.number().int().positive(),
+          statementDate: z.coerce.date(),
+          openingBalance: z.number(),
+          closingBalance: z.number(),
+          adjustmentAmount: z.number().optional(),
+          adjustmentReason: z.string().trim().max(500).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        reconcileCashAccountForUser({ ...input, userId: ctx.user.id })
+      ),
+    reconcileTransaction: roleProcedure("treasury", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          transactionId: z.number().int().positive(),
+          reason: z.string().trim().max(500).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        reconcileTreasuryTransactionForUser({ ...input, userId: ctx.user.id })
+      ),
+    createPayment: roleProcedure("treasury", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+          documentId: z.number().int().positive().optional(),
+          direction: z.enum(["RECEIPT", "PAYMENT"]),
+          amount: z.number().positive(),
+          currency: z.string().length(3).optional(),
+          cashAccountId: z.number().int().positive().optional(),
+          paidAt: z.coerce.date(),
+          method: z.enum(["CASH", "BANK_TRANSFER", "CARD", "OTHER"]),
+          approvalRequired: z.boolean().optional(),
+          idempotencyKey: z.string().min(8),
+          correlationId: z.string().min(1),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createPaymentForUser({ ...input, userId: ctx.user.id })
+      ),
+    approvePayment: roleProcedure("treasury", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          paymentId: z.number().int().positive(),
+          executionReference: z.string().trim().max(160).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        approvePaymentForUser({ ...input, userId: ctx.user.id })
+      ),
+    postPaymentAccounting: roleProcedure("accounting", "post")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            paymentId: z.number().int().positive(),
+            cashPgcAccountId: z.number().int().positive(),
+            counterpartyPgcAccountId: z.number().int().positive(),
+            idempotencyKey: z.string().min(8),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        postPaymentAccountingForUser({ ...input, userId: ctx.user.id })
+      ),
+    updatePayment: roleProcedure("treasury", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          paymentId: z.number().int().positive(),
+          amount: z.number().positive().optional(),
+          method: z.enum(["CASH", "BANK_TRANSFER", "CARD", "OTHER"]).optional(),
+          status: z.enum(["PENDING", "CONFIRMED", "CANCELLED"]).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updatePaymentForUser({ ...input, userId: ctx.user.id })
+      ),
+    importStatement: roleProcedure("treasury", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          cashAccountId: z.number().int().positive(),
+          statementDate: z.coerce.date(),
+          openingBalance: z.number(),
+          closingBalance: z.number(),
+          currency: z.string().length(3).optional(),
+          originalFilename: z.string().trim().min(1).max(255),
+          rows: z
+            .array(
+              z.object({
+                bookingDate: z.coerce.date(),
+                valueDate: z.coerce.date(),
+                description: z.string().trim().min(1).max(500),
+                externalReference: z.string().max(160).optional(),
+                counterparty: z.string().max(180).optional(),
+                direction: z.enum(["IN", "OUT"]),
+                amount: z.number().positive(),
+                balance: z.number().optional(),
+              })
+            )
+            .min(1)
+            .max(5000),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        importBankStatementForUser({ ...input, userId: ctx.user.id })
+      ),
+    statementLines: roleProcedure("treasury", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          cashAccountId: z.number().int().positive().optional(),
+          importId: z.number().int().positive().optional(),
+          status: z
+            .enum(["UNMATCHED", "SUGGESTED", "MATCHED", "EXCEPTION"])
+            .optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        listBankStatementLinesForUser({ ...input, userId: ctx.user.id })
+      ),
+    matchStatementLine: roleProcedure("treasury", "validate")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          lineId: z.number().int().positive(),
+          treasuryTransactionId: z.number().int().positive(),
+          reason: z.string().trim().max(500).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        matchBankStatementLineForUser({ ...input, userId: ctx.user.id })
+      ),
+    transferInternal: roleProcedure("treasury", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+          fromCashAccountId: z.number().int().positive(),
+          toCashAccountId: z.number().int().positive(),
+          amount: z.number().positive(),
+          valueDate: z.coerce.date(),
+          correlationId: z.string().min(8).max(160),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        transferBetweenCashAccountsForUser({ ...input, userId: ctx.user.id })
+      ),
   }),
   agt: router({
-    establishments: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getAgtEstablishmentsForUserCompany(ctx.user.id, input.companyId)),
-    createEstablishment: roleProcedure("fiscal", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), establishmentNumber: z.string().min(1).max(200), name: z.string().min(2), address: z.string().optional() })).mutation(({ ctx, input }) => createAgtEstablishmentForUser({ ...input, userId: ctx.user.id })),
-    series: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getAgtSeriesForUserCompany(ctx.user.id, input.companyId)),
-    createSeries: roleProcedure("fiscal", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), establishmentId: z.number().int().positive(), seriesCode: z.string().min(3).max(60), seriesYear: z.number().int().min(2020).max(2100), documentType: z.string().length(2), contingencyIndicator: z.enum(["N", "C"]).optional(), invoicingMethod: z.enum(["FEPC", "FESF", "SF"]).optional(), firstDocumentApproved: z.string().optional(), lastDocumentApproved: z.string().optional() })).mutation(({ ctx, input }) => createAgtSeriesForUser({ ...input, userId: ctx.user.id })),
-    submissions: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getAgtSubmissionsForUserCompany(ctx.user.id, input.companyId)),
-    createSubmission: roleProcedure("fiscal", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), operation: z.string().min(1), submissionUUID: z.string().uuid(), requestID: z.string().max(15).optional(), payload: z.record(z.string(), z.unknown()), documents: z.array(z.object({ documentId: z.number().int().positive().optional(), documentNo: z.string().min(1).max(60) })).max(30).optional() })).mutation(({ ctx, input }) => createAgtSubmissionForUser({ userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, operation: input.operation, submissionUUID: input.submissionUUID, requestID: input.requestID, payload: input.payload, documentIds: input.documents })),
-    updateSubmission: roleProcedure("fiscal", "create").input(z.object({ companyId: z.number().int().positive(), submissionId: z.number().int().positive(), state: z.enum(["PENDING", "PROCESSING", "COMPLETED", "PARTIAL", "FAILED", "CANCELLED"]), resultCode: z.string().optional(), requestID: z.string().max(15).optional(), responsePayload: z.record(z.string(), z.unknown()).optional(), lastError: z.string().optional(), documents: z.array(z.object({ documentNo: z.string(), documentStatus: z.enum(["PENDING", "VALID", "INVALID", "REJECTED", "CANCELLED"]), errorCode: z.string().optional(), errorDescription: z.string().optional() })).optional() })).mutation(({ ctx, input }) => updateAgtSubmissionResultForUser({ ...input, userId: ctx.user.id })),
-    validateDocument: roleProcedure("fiscal", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), submissionUUID: z.string().uuid(), taxRegistrationNumber: z.string().min(9), documentNo: z.string().min(1), documentDate: z.coerce.date(), validationCode: z.string().min(1) })).mutation(({ ctx, input }) => createAgtSubmissionForUser({ userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, operation: "ValidarDocumento", submissionUUID: input.submissionUUID, payload: { taxRegistrationNumber: input.taxRegistrationNumber, documentNo: input.documentNo, documentDate: input.documentDate.toISOString(), validationCode: input.validationCode }, documentIds: [{ documentNo: input.documentNo }] })),
-    createReceipt: roleProcedure("fiscal", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), submissionUUID: z.string().uuid(), documentNo: z.string().min(1), documentType: z.enum(["AR", "RC", "RG"]), sourceDocumentNo: z.string().min(1), documentDate: z.coerce.date(), amount: z.number().nonnegative(), currency: z.string().length(3).default("AOA") })).mutation(({ ctx, input }) => createAgtSubmissionForUser({ userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, operation: "RegistarFactura", submissionUUID: input.submissionUUID, payload: { documentNo: input.documentNo, documentType: input.documentType, documentDate: input.documentDate.toISOString(), paymentReceipt: { sourceDocuments: [{ lineNo: "1", sourceDocumentID: { OriginatingON: input.sourceDocumentNo, documentDate: input.documentDate.toISOString() }, debitAmount: String(input.amount), creditAmount: "0" }] }, currency: input.currency }, documentIds: [{ documentNo: input.documentNo }] })),
-    signatureKeys: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getAgtSignatureKeysForUserCompany(ctx.user.id, input.companyId)),
-    registerSignatureKey: roleProcedure("fiscal", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), keyType: z.enum(["SOFTWARE", "ISSUER"]), signatureVersion: z.number().int().positive(), publicKeyReference: z.string().url(), privateKeyReference: z.string().min(1).optional(), effectiveFrom: z.coerce.date().optional() })).mutation(({ ctx, input }) => createAgtSignatureKeyReferenceForUser({ ...input, userId: ctx.user.id })),
-    changeSignatureKeyStatus: roleProcedure("fiscal", "create").input(z.object({ companyId: z.number().int().positive(), keyId: z.number().int().positive(), status: z.enum(["ACTIVE", "ROTATING", "REVOKED"]) })).mutation(({ ctx, input }) => changeAgtSignatureKeyStatusForUser({ ...input, userId: ctx.user.id })),
+    establishments: roleProcedure("fiscal", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getAgtEstablishmentsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    createEstablishment: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          establishmentNumber: z.string().min(1).max(200),
+          name: z.string().min(2),
+          address: z.string().optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createAgtEstablishmentForUser({ ...input, userId: ctx.user.id })
+      ),
+    series: roleProcedure("fiscal", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getAgtSeriesForUserCompany(ctx.user.id, input.companyId)
+      ),
+    createSeries: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          establishmentId: z.number().int().positive(),
+          seriesCode: z.string().min(3).max(60),
+          seriesYear: z.number().int().min(2020).max(2100),
+          documentType: z.string().length(2),
+          contingencyIndicator: z.enum(["N", "C"]).optional(),
+          invoicingMethod: z.enum(["FEPC", "FESF", "SF"]).optional(),
+          firstDocumentApproved: z.string().optional(),
+          lastDocumentApproved: z.string().optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createAgtSeriesForUser({ ...input, userId: ctx.user.id })
+      ),
+    submissions: roleProcedure("fiscal", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getAgtSubmissionsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    createSubmission: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          operation: z.string().min(1),
+          submissionUUID: z.string().uuid(),
+          requestID: z.string().max(15).optional(),
+          payload: z.record(z.string(), z.unknown()),
+          documents: z
+            .array(
+              z.object({
+                documentId: z.number().int().positive().optional(),
+                documentNo: z.string().min(1).max(60),
+              })
+            )
+            .max(30)
+            .optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createAgtSubmissionForUser({
+          userId: ctx.user.id,
+          organizationId: input.organizationId,
+          companyId: input.companyId,
+          operation: input.operation,
+          submissionUUID: input.submissionUUID,
+          requestID: input.requestID,
+          payload: input.payload,
+          documentIds: input.documents,
+        })
+      ),
+    updateSubmission: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          submissionId: z.number().int().positive(),
+          state: z.enum([
+            "PENDING",
+            "PROCESSING",
+            "COMPLETED",
+            "PARTIAL",
+            "FAILED",
+            "CANCELLED",
+          ]),
+          resultCode: z.string().optional(),
+          requestID: z.string().max(15).optional(),
+          responsePayload: z.record(z.string(), z.unknown()).optional(),
+          lastError: z.string().optional(),
+          documents: z
+            .array(
+              z.object({
+                documentNo: z.string(),
+                documentStatus: z.enum([
+                  "PENDING",
+                  "VALID",
+                  "INVALID",
+                  "REJECTED",
+                  "CANCELLED",
+                ]),
+                errorCode: z.string().optional(),
+                errorDescription: z.string().optional(),
+              })
+            )
+            .optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateAgtSubmissionResultForUser({ ...input, userId: ctx.user.id })
+      ),
+    validateDocument: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          submissionUUID: z.string().uuid(),
+          taxRegistrationNumber: z.string().min(9),
+          documentNo: z.string().min(1),
+          documentDate: z.coerce.date(),
+          validationCode: z.string().min(1),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createAgtSubmissionForUser({
+          userId: ctx.user.id,
+          organizationId: input.organizationId,
+          companyId: input.companyId,
+          operation: "ValidarDocumento",
+          submissionUUID: input.submissionUUID,
+          payload: {
+            taxRegistrationNumber: input.taxRegistrationNumber,
+            documentNo: input.documentNo,
+            documentDate: input.documentDate.toISOString(),
+            validationCode: input.validationCode,
+          },
+          documentIds: [{ documentNo: input.documentNo }],
+        })
+      ),
+    createReceipt: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          submissionUUID: z.string().uuid(),
+          documentNo: z.string().min(1),
+          documentType: z.enum(["AR", "RC", "RG"]),
+          sourceDocumentNo: z.string().min(1),
+          documentDate: z.coerce.date(),
+          amount: z.number().nonnegative(),
+          currency: z.string().length(3).default("AOA"),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createAgtSubmissionForUser({
+          userId: ctx.user.id,
+          organizationId: input.organizationId,
+          companyId: input.companyId,
+          operation: "RegistarFactura",
+          submissionUUID: input.submissionUUID,
+          payload: {
+            documentNo: input.documentNo,
+            documentType: input.documentType,
+            documentDate: input.documentDate.toISOString(),
+            paymentReceipt: {
+              sourceDocuments: [
+                {
+                  lineNo: "1",
+                  sourceDocumentID: {
+                    OriginatingON: input.sourceDocumentNo,
+                    documentDate: input.documentDate.toISOString(),
+                  },
+                  debitAmount: String(input.amount),
+                  creditAmount: "0",
+                },
+              ],
+            },
+            currency: input.currency,
+          },
+          documentIds: [{ documentNo: input.documentNo }],
+        })
+      ),
+    signatureKeys: roleProcedure("fiscal", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getAgtSignatureKeysForUserCompany(ctx.user.id, input.companyId)
+      ),
+    registerSignatureKey: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          keyType: z.enum(["SOFTWARE", "ISSUER"]),
+          signatureVersion: z.number().int().positive(),
+          publicKeyReference: z.string().url(),
+          privateKeyReference: z.string().min(1).optional(),
+          effectiveFrom: z.coerce.date().optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createAgtSignatureKeyReferenceForUser({ ...input, userId: ctx.user.id })
+      ),
+    changeSignatureKeyStatus: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          keyId: z.number().int().positive(),
+          status: z.enum(["ACTIVE", "ROTATING", "REVOKED"]),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        changeAgtSignatureKeyStatusForUser({ ...input, userId: ctx.user.id })
+      ),
   }),
   normative: router({
-    agtConfig: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getAgtIntegrationConfigForUserCompany(ctx.user.id, input.companyId)),
-    agtReadiness: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => getAgtReadinessForUserCompany(ctx.user.id, input.companyId)),
-    configureAgt: roleProcedure("fiscal", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), version: z.string().min(1), productId: z.string().min(1).optional(), productVersion: z.string().min(1).optional(), softwareValidationNumber: z.string().min(1).optional(), serviceNamespace: z.string().url().optional(), xsdVersion: z.string().optional(), xsdReference: z.string().url().optional(), endpointReference: z.string().url().optional(), authReference: z.string().min(1).optional(), officialCodes: z.record(z.string(), z.string()).optional(), homologationStatus: z.enum(["NOT_AVAILABLE", "INTERNAL_READY", "TECHNICAL_PENDING"]).optional() })).mutation(({ ctx, input }) => configureAgtIntegrationForUser({ ...input, userId: ctx.user.id })),
-    enqueueSubmission: roleProcedure("fiscal", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), idempotencyKey: z.string().min(8), payload: z.record(z.string(), z.unknown()) })).mutation(async ({ ctx, input }) => { const result = await enqueueAgtSubmission(input); if (!result.idempotent) await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: ctx.user.id, action: "AGT_SUBMISSION_ENQUEUED", entityType: "integrationOperation", entityId: String(result.id), beforeState: null, afterState: JSON.stringify({ state: result.state, idempotencyKey: input.idempotencyKey, payload: input.payload }), correlationId: input.idempotencyKey }); return result; }),
-    list: roleProcedure("normative", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getNormativeRulesForUserCompany(ctx.user.id, input.companyId)),
-    coverage: roleProcedure("normative", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => { void ctx; void input; return buildDecree71Coverage({}); }),
-    sources: roleProcedure("normative", "read").input(z.object({ organizationId: z.number().int().positive(), verificationStatus: z.enum(["PENDING", "OCR_REVIEWED", "VISUALLY_CONFIRMED", "HUMAN_APPROVED", "ACTIVE", "SUPERSEDED", "REJECTED"]).optional(), limit: z.number().int().min(1).max(100).optional() }).strict()).query(({ ctx, input }) => listNormativeSourcesForUser({ ...input, userId: ctx.user.id })),
-    sourceRelations: roleProcedure("normative", "read").input(z.object({ organizationId: z.number().int().positive(), sourceId: z.number().int().positive().optional(), limit: z.number().int().min(1).max(100).optional() }).strict()).query(({ ctx, input }) => listNormativeSourceRelationsForUser({ ...input, userId: ctx.user.id })),
-    ivaRules: roleProcedure("normative", "read").input(z.object({ organizationId: z.number().int().positive(), regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).optional(), ruleType: z.enum(["TAX_RATE", "REGIME", "INCIDENCE", "EXEMPTION", "DEDUCTION", "WITHHOLDING", "REGULARIZATION", "DECLARATION"]).optional(), asOf: z.coerce.date().optional(), includePending: z.boolean().optional(), limit: z.number().int().min(1).max(100).optional() }).strict()).query(({ ctx, input }) => listIvaNormativeRulesForUser({ ...input, includePending: input.includePending === true && ctx.user.role === "admin", userId: ctx.user.id })),
-    ivaAccounts: roleProcedure("normative", "read").input(z.object({ organizationId: z.number().int().positive(), accountCode: z.string().trim().max(32).optional(), asOf: z.coerce.date().optional(), includePending: z.boolean().optional(), limit: z.number().int().min(1).max(100).optional() }).strict()).query(({ ctx, input }) => listIvaAccountMappingsForUser({ ...input, includePending: input.includePending === true && ctx.user.role === "admin", userId: ctx.user.id })),
-    ivaReadiness: roleProcedure("normative", "read").input(z.object({ organizationId: z.number().int().positive(), asOf: z.coerce.date().optional() }).strict()).query(({ ctx, input }) => getIvaReadinessForUser({ ...input, userId: ctx.user.id })),
-    reviewIvaRule: roleProcedure("normative", "validate").input(z.object({ organizationId: z.number().int().positive(), ruleId: z.number().int().positive(), decision: z.enum(["HUMAN_APPROVED", "REJECTED"]), note: z.string().trim().max(4000).optional() }).strict()).mutation(({ ctx, input }) => reviewIvaNormativeRuleForUser({ ...input, userId: ctx.user.id })),
-    reviewIvaAccount: roleProcedure("normative", "validate").input(z.object({ organizationId: z.number().int().positive(), mappingId: z.number().int().positive(), decision: z.enum(["HUMAN_APPROVED", "REJECTED"]), note: z.string().trim().max(4000).optional() }).strict()).mutation(({ ctx, input }) => reviewIvaAccountMappingForUser({ ...input, userId: ctx.user.id })),
-    activateIvaRule: roleProcedure("normative", "validate").input(z.object({ organizationId: z.number().int().positive(), ruleId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => activateIvaNormativeRuleForUser({ ...input, userId: ctx.user.id })),
-    activateIvaAccount: roleProcedure("normative", "validate").input(z.object({ organizationId: z.number().int().positive(), mappingId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => activateIvaAccountMappingForUser({ ...input, userId: ctx.user.id })),
+    agtConfig: roleProcedure("fiscal", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getAgtIntegrationConfigForUserCompany(ctx.user.id, input.companyId)
+      ),
+    agtReadiness: roleProcedure("fiscal", "read")
+      .input(z.object({ companyId: z.number().int().positive() }).strict())
+      .query(({ ctx, input }) =>
+        getAgtReadinessForUserCompany(ctx.user.id, input.companyId)
+      ),
+    configureAgt: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          version: z.string().min(1),
+          productId: z.string().min(1).optional(),
+          productVersion: z.string().min(1).optional(),
+          softwareValidationNumber: z.string().min(1).optional(),
+          serviceNamespace: z.string().url().optional(),
+          xsdVersion: z.string().optional(),
+          xsdReference: z.string().url().optional(),
+          endpointReference: z.string().url().optional(),
+          authReference: z.string().min(1).optional(),
+          officialCodes: z.record(z.string(), z.string()).optional(),
+          homologationStatus: z
+            .enum(["NOT_AVAILABLE", "INTERNAL_READY", "TECHNICAL_PENDING"])
+            .optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        configureAgtIntegrationForUser({ ...input, userId: ctx.user.id })
+      ),
+    enqueueSubmission: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          idempotencyKey: z.string().min(8),
+          payload: z.record(z.string(), z.unknown()),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const result = await enqueueAgtSubmission(input);
+        if (!result.idempotent)
+          await appendAuditEventForUser({
+            organizationId: input.organizationId,
+            companyId: input.companyId,
+            actorUserId: ctx.user.id,
+            action: "AGT_SUBMISSION_ENQUEUED",
+            entityType: "integrationOperation",
+            entityId: String(result.id),
+            beforeState: null,
+            afterState: JSON.stringify({
+              state: result.state,
+              idempotencyKey: input.idempotencyKey,
+              payload: input.payload,
+            }),
+            correlationId: input.idempotencyKey,
+          });
+        return result;
+      }),
+    list: roleProcedure("normative", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getNormativeRulesForUserCompany(ctx.user.id, input.companyId)
+      ),
+    coverage: roleProcedure("normative", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) => {
+        void ctx;
+        void input;
+        return buildDecree71Coverage({});
+      }),
+    sources: roleProcedure("normative", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            verificationStatus: z
+              .enum([
+                "PENDING",
+                "OCR_REVIEWED",
+                "VISUALLY_CONFIRMED",
+                "HUMAN_APPROVED",
+                "ACTIVE",
+                "SUPERSEDED",
+                "REJECTED",
+              ])
+              .optional(),
+            limit: z.number().int().min(1).max(100).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listNormativeSourcesForUser({ ...input, userId: ctx.user.id })
+      ),
+    sourceRelations: roleProcedure("normative", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            sourceId: z.number().int().positive().optional(),
+            limit: z.number().int().min(1).max(100).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listNormativeSourceRelationsForUser({ ...input, userId: ctx.user.id })
+      ),
+    ivaRules: roleProcedure("normative", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).optional(),
+            ruleType: z
+              .enum([
+                "TAX_RATE",
+                "REGIME",
+                "INCIDENCE",
+                "EXEMPTION",
+                "DEDUCTION",
+                "WITHHOLDING",
+                "REGULARIZATION",
+                "DECLARATION",
+              ])
+              .optional(),
+            asOf: z.coerce.date().optional(),
+            includePending: z.boolean().optional(),
+            limit: z.number().int().min(1).max(100).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listIvaNormativeRulesForUser({
+          ...input,
+          includePending:
+            input.includePending === true && ctx.user.role === "admin",
+          userId: ctx.user.id,
+        })
+      ),
+    ivaAccounts: roleProcedure("normative", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            accountCode: z.string().trim().max(32).optional(),
+            asOf: z.coerce.date().optional(),
+            includePending: z.boolean().optional(),
+            limit: z.number().int().min(1).max(100).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listIvaAccountMappingsForUser({
+          ...input,
+          includePending:
+            input.includePending === true && ctx.user.role === "admin",
+          userId: ctx.user.id,
+        })
+      ),
+    ivaReadiness: roleProcedure("normative", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            asOf: z.coerce.date().optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        getIvaReadinessForUser({ ...input, userId: ctx.user.id })
+      ),
+    exportIvaReadinessPdf: roleProcedure("normative", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            asOf: z.coerce.date().optional(),
+          })
+          .strict()
+      )
+      .mutation(async ({ ctx, input }) => {
+        const readiness = await getIvaReadinessForUser({
+          ...input,
+          userId: ctx.user.id,
+        });
+        const pdf = await buildIvaReadinessPdf({
+          organizationName: `Organização BALANCERTS.ERP · contexto #${input.organizationId}`,
+          asOf: input.asOf ?? new Date(),
+          readiness,
+        });
+        return {
+          filename: `prontidao-iva-${input.organizationId}-${new Date().toISOString().slice(0, 10)}.pdf`,
+          mimeType: pdf.mimeType,
+          dataBase64: pdf.buffer.toString("base64"),
+          missingCount: readiness.missingChainSources.length,
+          ready: readiness.ready,
+        };
+      }),
+    reviewIvaRule: roleProcedure("normative", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            ruleId: z.number().int().positive(),
+            decision: z.enum(["HUMAN_APPROVED", "REJECTED"]),
+            note: z.string().trim().max(4000).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        reviewIvaNormativeRuleForUser({ ...input, userId: ctx.user.id })
+      ),
+    reviewIvaAccount: roleProcedure("normative", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            mappingId: z.number().int().positive(),
+            decision: z.enum(["HUMAN_APPROVED", "REJECTED"]),
+            note: z.string().trim().max(4000).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        reviewIvaAccountMappingForUser({ ...input, userId: ctx.user.id })
+      ),
+    activateIvaRule: roleProcedure("normative", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            ruleId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        activateIvaNormativeRuleForUser({ ...input, userId: ctx.user.id })
+      ),
+    activateIvaAccount: roleProcedure("normative", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            mappingId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        activateIvaAccountMappingForUser({ ...input, userId: ctx.user.id })
+      ),
   }),
   accounting: router({
-    openingBalances: roleProcedure("accounting", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => listOpeningBalancesForUser({ ...input, userId: ctx.user.id })),
-    createOpeningBalance: roleProcedure("accounting", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), accountId: z.number().int().positive().optional(), pgcAccountId: z.number().int().positive().optional(), debit: z.number().nonnegative(), credit: z.number().nonnegative(), currency: z.string().length(3).optional(), reason: z.string().max(500).optional() }).refine((value) => Boolean(value.accountId || value.pgcAccountId), { message: "É necessária uma conta PGCA ou uma conta histórica." })).mutation(({ ctx, input }) => createOpeningBalanceForUser({ ...input, userId: ctx.user.id })),
-    reviewOpeningBalance: roleProcedure("accounting", "validate").input(z.object({ companyId: z.number().int().positive(), openingBalanceId: z.number().int().positive(), decision: z.enum(["VALIDATED", "REJECTED"]), reason: z.string().max(500).optional() })).mutation(({ ctx, input }) => reviewOpeningBalanceForUser({ ...input, userId: ctx.user.id })),
-    publishOpeningBalances: roleProcedure("accounting", "post").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive() })).mutation(({ ctx, input }) => publishOpeningBalancesForUser({ ...input, userId: ctx.user.id })),
-    adjustments: roleProcedure("accounting", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => listAccountingAdjustmentsForUser({ ...input, userId: ctx.user.id })),
-    createAdjustment: roleProcedure("accounting", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), adjustmentType: z.enum(["REGULARIZACAO", "RECLASSIFICACAO", "ACRESCIMO", "DIFERIMENTO", "CORRECCAO"]), reason: z.string().trim().min(1).max(500), lines: z.array(z.object({ accountId: z.number().int().positive().optional(), pgcAccountId: z.number().int().positive().optional(), debit: z.number().nonnegative(), credit: z.number().nonnegative() }).refine((value) => Boolean(value.accountId || value.pgcAccountId), { message: "Cada linha exige uma conta PGCA ou histórica." })).min(2) })).mutation(({ ctx, input }) => createAccountingAdjustmentForUser({ ...input, userId: ctx.user.id })),
-    reviewAdjustment: roleProcedure("accounting", "validate").input(z.object({ companyId: z.number().int().positive(), adjustmentId: z.number().int().positive(), decision: z.enum(["APPROVED", "REJECTED"]), reason: z.string().max(500).optional() })).mutation(({ ctx, input }) => reviewAccountingAdjustmentForUser({ ...input, userId: ctx.user.id })),
-    publishAdjustment: roleProcedure("accounting", "post").input(z.object({ companyId: z.number().int().positive(), adjustmentId: z.number().int().positive() })).mutation(({ ctx, input }) => publishAccountingAdjustmentForUser({ ...input, userId: ctx.user.id })),
-    postWithRule: roleProcedure("accounting", "post").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), operation: z.string().trim().min(1).max(80), documentType: z.string().trim().max(60).optional(), description: z.string().trim().min(1).max(500), documentReference: z.string().trim().max(120).optional(), idempotencyKey: z.string().trim().min(8).max(180), lines: z.array(z.object({ accountId: z.number().int().positive(), debit: z.number().nonnegative(), credit: z.number().nonnegative(), currency: z.string().length(3).optional(), exchangeRate: z.number().positive().optional() })).min(2).max(50) }).strict()).mutation(({ ctx, input }) => postJournalEntry({ companyId: input.companyId, periodId: input.periodId, description: input.description, documentReference: input.documentReference, idempotencyKey: input.idempotencyKey, createdBy: ctx.user.id, accountingRuleOperation: input.operation, accountingRuleDocumentType: input.documentType, lines: input.lines.map((line) => ({ ...line, postable: true, validFrom: new Date() })) })),
-    postWithPgcAccounts: roleProcedure("accounting", "post").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), operation: z.string().trim().min(1).max(80), documentType: z.string().trim().max(60).optional(), description: z.string().trim().min(1).max(500), sourceDocumentId: z.number().int().positive().optional(), supportFileAssetId: z.number().int().positive().optional(), documentReference: z.string().trim().max(120).optional(), journalCode: z.string().trim().max(32).optional(), costCenter: z.string().trim().max(80).optional(), analyticalDimension: z.string().trim().max(120).optional(), reviewRequired: z.boolean().optional(), idempotencyKey: z.string().trim().min(8).max(180), lines: z.array(z.object({ pgcAccountId: z.number().int().positive(), debit: z.number().nonnegative(), credit: z.number().nonnegative(), currency: z.string().length(3).optional(), exchangeRate: z.number().positive().optional() })).min(2).max(50) }).strict()).mutation(({ ctx, input }) => postJournalEntryWithPgcAccountsForUser({ ...input, userId: ctx.user.id })),
-    costCenters: roleProcedure("accounting", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getCostCentersForUserCompany(ctx.user.id, input.companyId)),
-    analyticalCostCenters: roleProcedure("accounting", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => getAnalyticalCostCenterReportForUserCompany({ ...input, userId: ctx.user.id })),
-    import: roleProcedure("accounting", "post").input(z.object({ companyId: z.number().int().positive(), rows: z.array(z.object({ periodId: z.number().int().positive(), description: z.string().min(1), debitAccountId: z.number().int().positive(), creditAccountId: z.number().int().positive(), amount: z.number().positive(), operation: z.string().trim().min(1).max(80).optional(), documentReference: z.string().max(120).optional(), journalCode: z.string().max(32).optional(), costCenter: z.string().max(80).optional(), analyticalDimension: z.string().max(120).optional(), idempotencyKey: z.string().min(8) })).min(1).max(500) })).mutation(({ ctx, input }) => importJournalEntriesForUser({ ...input, userId: ctx.user.id })),
-    createCostCenter: roleProcedure("accounting", "create").input(z.object({ companyId: z.number().int().positive(), code: z.string().trim().min(1).max(40), name: z.string().trim().min(2).max(180) })).mutation(async ({ ctx, input }) => { try { return await createCostCenterForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["COMPANY_NOT_FOUND_OR_FORBIDDEN", "COST_CENTER_CODE_ALREADY_EXISTS"].includes(error.message)) throw new TRPCError({ code: "BAD_REQUEST", message: error.message }); throw error; } }),
-    accounts: roleProcedure("accounting", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getChartAccountsForUserCompany(ctx.user.id, input.companyId)),
-    createAccount: roleProcedure("accounting", "create").input(z.object({ companyId: z.number().int().positive(), code: z.string().trim().min(1).max(32), name: z.string().trim().min(2).max(180), parentCode: z.string().trim().max(32).optional(), postable: z.boolean().optional(), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional() })).mutation(async ({ ctx, input }) => { try { return await createChartAccountForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["COMPANY_NOT_FOUND_OR_FORBIDDEN", "PARENT_ACCOUNT_NOT_FOUND_OR_FORBIDDEN", "ACCOUNT_CODE_ALREADY_EXISTS"].includes(error.message)) throw new TRPCError({ code: "BAD_REQUEST", message: error.message }); throw error; } }),
-    updateAccount: roleProcedure("accounting", "create").input(z.object({ companyId: z.number().int().positive(), accountId: z.number().int().positive(), name: z.string().trim().min(2).max(180).optional(), parentCode: z.string().trim().max(32).nullable().optional(), postable: z.boolean().optional(), validTo: z.coerce.date().nullable().optional() })).mutation(async ({ ctx, input }) => { try { return await updateChartAccountForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["ACCOUNT_NOT_FOUND_OR_FORBIDDEN", "PARENT_ACCOUNT_NOT_FOUND_OR_FORBIDDEN", "ACCOUNT_PARENT_CYCLE"].includes(error.message)) throw new TRPCError({ code: "BAD_REQUEST", message: error.message }); throw error; } }),
-    validateEntry: roleProcedure("accounting", "validate").input(z.object({
-      lines: z.array(z.object({ debit: z.number().nonnegative(), credit: z.number().nonnegative(), accountId: z.number().int().positive(), postable: z.boolean(), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional() })).min(2),
-    })).mutation(({ input }) => validateBalancedEntry(input.lines)),
-    post: roleProcedure("accounting", "post").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive(), sourceDocumentId: z.number().int().positive().optional(), supportFileAssetId: z.number().int().positive().optional(), documentReference: z.string().trim().max(120).optional(), journalCode: z.string().trim().max(32).optional(), costCenter: z.string().trim().max(80).optional(), analyticalDimension: z.string().trim().max(120).optional(), reviewRequired: z.boolean().optional(), idempotencyKey: z.string().min(8), description: z.string().min(1), lines: z.array(z.object({ debit: z.number().nonnegative(), credit: z.number().nonnegative(), accountId: z.number().int().positive(), postable: z.boolean(), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional(), currency: z.string().length(3).optional(), exchangeRate: z.number().positive().optional() })).min(2) })).mutation(({ ctx, input }) => postJournalEntry({ ...input, createdBy: ctx.user.id })),
-    pending: roleProcedure("accounting", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => listPendingJournalEntriesForUser({ ...input, userId: ctx.user.id })),
-    review: roleProcedure("accounting", "validate").input(z.object({ companyId: z.number().int().positive(), entryId: z.number().int().positive(), decision: z.enum(["APPROVED", "REJECTED"]), reason: z.string().trim().max(500).optional() })).mutation(({ ctx, input }) => reviewJournalEntryForUser({ ...input, userId: ctx.user.id })),
+    openingBalances: roleProcedure("accounting", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        listOpeningBalancesForUser({ ...input, userId: ctx.user.id })
+      ),
+    createOpeningBalance: roleProcedure("accounting", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            periodId: z.number().int().positive(),
+            accountId: z.number().int().positive().optional(),
+            pgcAccountId: z.number().int().positive().optional(),
+            debit: z.number().nonnegative(),
+            credit: z.number().nonnegative(),
+            currency: z.string().length(3).optional(),
+            reason: z.string().max(500).optional(),
+          })
+          .refine(value => Boolean(value.accountId || value.pgcAccountId), {
+            message: "É necessária uma conta PGCA ou uma conta histórica.",
+          })
+      )
+      .mutation(({ ctx, input }) =>
+        createOpeningBalanceForUser({ ...input, userId: ctx.user.id })
+      ),
+    reviewOpeningBalance: roleProcedure("accounting", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          openingBalanceId: z.number().int().positive(),
+          decision: z.enum(["VALIDATED", "REJECTED"]),
+          reason: z.string().max(500).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        reviewOpeningBalanceForUser({ ...input, userId: ctx.user.id })
+      ),
+    publishOpeningBalances: roleProcedure("accounting", "post")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        publishOpeningBalancesForUser({ ...input, userId: ctx.user.id })
+      ),
+    adjustments: roleProcedure("accounting", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        listAccountingAdjustmentsForUser({ ...input, userId: ctx.user.id })
+      ),
+    createAdjustment: roleProcedure("accounting", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          adjustmentType: z.enum([
+            "REGULARIZACAO",
+            "RECLASSIFICACAO",
+            "ACRESCIMO",
+            "DIFERIMENTO",
+            "CORRECCAO",
+          ]),
+          reason: z.string().trim().min(1).max(500),
+          lines: z
+            .array(
+              z
+                .object({
+                  accountId: z.number().int().positive().optional(),
+                  pgcAccountId: z.number().int().positive().optional(),
+                  debit: z.number().nonnegative(),
+                  credit: z.number().nonnegative(),
+                })
+                .refine(
+                  value => Boolean(value.accountId || value.pgcAccountId),
+                  { message: "Cada linha exige uma conta PGCA ou histórica." }
+                )
+            )
+            .min(2),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createAccountingAdjustmentForUser({ ...input, userId: ctx.user.id })
+      ),
+    reviewAdjustment: roleProcedure("accounting", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          adjustmentId: z.number().int().positive(),
+          decision: z.enum(["APPROVED", "REJECTED"]),
+          reason: z.string().max(500).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        reviewAccountingAdjustmentForUser({ ...input, userId: ctx.user.id })
+      ),
+    publishAdjustment: roleProcedure("accounting", "post")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          adjustmentId: z.number().int().positive(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        publishAccountingAdjustmentForUser({ ...input, userId: ctx.user.id })
+      ),
+    postWithRule: roleProcedure("accounting", "post")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            periodId: z.number().int().positive(),
+            operation: z.string().trim().min(1).max(80),
+            documentType: z.string().trim().max(60).optional(),
+            description: z.string().trim().min(1).max(500),
+            documentReference: z.string().trim().max(120).optional(),
+            idempotencyKey: z.string().trim().min(8).max(180),
+            lines: z
+              .array(
+                z.object({
+                  accountId: z.number().int().positive(),
+                  debit: z.number().nonnegative(),
+                  credit: z.number().nonnegative(),
+                  currency: z.string().length(3).optional(),
+                  exchangeRate: z.number().positive().optional(),
+                })
+              )
+              .min(2)
+              .max(50),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        postJournalEntry({
+          companyId: input.companyId,
+          periodId: input.periodId,
+          description: input.description,
+          documentReference: input.documentReference,
+          idempotencyKey: input.idempotencyKey,
+          createdBy: ctx.user.id,
+          accountingRuleOperation: input.operation,
+          accountingRuleDocumentType: input.documentType,
+          lines: input.lines.map(line => ({
+            ...line,
+            postable: true,
+            validFrom: new Date(),
+          })),
+        })
+      ),
+    postWithPgcAccounts: roleProcedure("accounting", "post")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            periodId: z.number().int().positive(),
+            operation: z.string().trim().min(1).max(80),
+            documentType: z.string().trim().max(60).optional(),
+            description: z.string().trim().min(1).max(500),
+            sourceDocumentId: z.number().int().positive().optional(),
+            supportFileAssetId: z.number().int().positive().optional(),
+            documentReference: z.string().trim().max(120).optional(),
+            journalCode: z.string().trim().max(32).optional(),
+            costCenter: z.string().trim().max(80).optional(),
+            analyticalDimension: z.string().trim().max(120).optional(),
+            reviewRequired: z.boolean().optional(),
+            idempotencyKey: z.string().trim().min(8).max(180),
+            lines: z
+              .array(
+                z.object({
+                  pgcAccountId: z.number().int().positive(),
+                  debit: z.number().nonnegative(),
+                  credit: z.number().nonnegative(),
+                  currency: z.string().length(3).optional(),
+                  exchangeRate: z.number().positive().optional(),
+                })
+              )
+              .min(2)
+              .max(50),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        postJournalEntryWithPgcAccountsForUser({
+          ...input,
+          userId: ctx.user.id,
+        })
+      ),
+    costCenters: roleProcedure("accounting", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getCostCentersForUserCompany(ctx.user.id, input.companyId)
+      ),
+    analyticalCostCenters: roleProcedure("accounting", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getAnalyticalCostCenterReportForUserCompany({
+          ...input,
+          userId: ctx.user.id,
+        })
+      ),
+    import: roleProcedure("accounting", "post")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          rows: z
+            .array(
+              z.object({
+                periodId: z.number().int().positive(),
+                description: z.string().min(1),
+                debitAccountId: z.number().int().positive(),
+                creditAccountId: z.number().int().positive(),
+                amount: z.number().positive(),
+                operation: z.string().trim().min(1).max(80).optional(),
+                documentReference: z.string().max(120).optional(),
+                journalCode: z.string().max(32).optional(),
+                costCenter: z.string().max(80).optional(),
+                analyticalDimension: z.string().max(120).optional(),
+                idempotencyKey: z.string().min(8),
+              })
+            )
+            .min(1)
+            .max(500),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        importJournalEntriesForUser({ ...input, userId: ctx.user.id })
+      ),
+    createCostCenter: roleProcedure("accounting", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          code: z.string().trim().min(1).max(40),
+          name: z.string().trim().min(2).max(180),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await createCostCenterForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "COMPANY_NOT_FOUND_OR_FORBIDDEN",
+              "COST_CENTER_CODE_ALREADY_EXISTS",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    accounts: roleProcedure("accounting", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getChartAccountsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    createAccount: roleProcedure("accounting", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          code: z.string().trim().min(1).max(32),
+          name: z.string().trim().min(2).max(180),
+          parentCode: z.string().trim().max(32).optional(),
+          postable: z.boolean().optional(),
+          validFrom: z.coerce.date(),
+          validTo: z.coerce.date().nullable().optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await createChartAccountForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "COMPANY_NOT_FOUND_OR_FORBIDDEN",
+              "PARENT_ACCOUNT_NOT_FOUND_OR_FORBIDDEN",
+              "ACCOUNT_CODE_ALREADY_EXISTS",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    updateAccount: roleProcedure("accounting", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          accountId: z.number().int().positive(),
+          name: z.string().trim().min(2).max(180).optional(),
+          parentCode: z.string().trim().max(32).nullable().optional(),
+          postable: z.boolean().optional(),
+          validTo: z.coerce.date().nullable().optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await updateChartAccountForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "ACCOUNT_NOT_FOUND_OR_FORBIDDEN",
+              "PARENT_ACCOUNT_NOT_FOUND_OR_FORBIDDEN",
+              "ACCOUNT_PARENT_CYCLE",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    validateEntry: roleProcedure("accounting", "validate")
+      .input(
+        z.object({
+          lines: z
+            .array(
+              z.object({
+                debit: z.number().nonnegative(),
+                credit: z.number().nonnegative(),
+                accountId: z.number().int().positive(),
+                postable: z.boolean(),
+                validFrom: z.coerce.date(),
+                validTo: z.coerce.date().nullable().optional(),
+              })
+            )
+            .min(2),
+        })
+      )
+      .mutation(({ input }) => validateBalancedEntry(input.lines)),
+    post: roleProcedure("accounting", "post")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          sourceDocumentId: z.number().int().positive().optional(),
+          supportFileAssetId: z.number().int().positive().optional(),
+          documentReference: z.string().trim().max(120).optional(),
+          journalCode: z.string().trim().max(32).optional(),
+          costCenter: z.string().trim().max(80).optional(),
+          analyticalDimension: z.string().trim().max(120).optional(),
+          reviewRequired: z.boolean().optional(),
+          idempotencyKey: z.string().min(8),
+          description: z.string().min(1),
+          lines: z
+            .array(
+              z.object({
+                debit: z.number().nonnegative(),
+                credit: z.number().nonnegative(),
+                accountId: z.number().int().positive(),
+                postable: z.boolean(),
+                validFrom: z.coerce.date(),
+                validTo: z.coerce.date().nullable().optional(),
+                currency: z.string().length(3).optional(),
+                exchangeRate: z.number().positive().optional(),
+              })
+            )
+            .min(2),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        postJournalEntry({ ...input, createdBy: ctx.user.id })
+      ),
+    pending: roleProcedure("accounting", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        listPendingJournalEntriesForUser({ ...input, userId: ctx.user.id })
+      ),
+    review: roleProcedure("accounting", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          entryId: z.number().int().positive(),
+          decision: z.enum(["APPROVED", "REJECTED"]),
+          reason: z.string().trim().max(500).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        reviewJournalEntryForUser({ ...input, userId: ctx.user.id })
+      ),
   }),
   fiscal: router({
-    calculateIva: roleProcedure("fiscal", "validate").input(z.object({ netAmount: z.number().nonnegative(), regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), rule: z.object({ code: z.string().min(1), regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional(), rate: z.number().nonnegative().optional(), evidence: z.string().min(1) }) })).mutation(({ input }) => calculateIva(input)),
-    taxRecords: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional(), taxType: z.enum(["IVA", "IAC", "INDUSTRIAL", "IRT", "IEC", "RETENCAO", "OUTRO"]).optional() })).query(({ ctx, input }) => listFiscalTaxRecordsForUser({ ...input, userId: ctx.user.id })),
-    createTaxRecord: roleProcedure("fiscal", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), taxType: z.enum(["IVA", "IAC", "INDUSTRIAL", "IRT", "IEC", "RETENCAO", "OUTRO"]), direction: z.enum(["OUTPUT", "INPUT", "WITHHELD"]), regime: z.string().max(40).optional(), taxCode: z.string().max(64).optional(), baseAmount: z.number().nonnegative(), taxAmount: z.number().nonnegative(), withheldAmount: z.number().nonnegative().optional(), currency: z.string().length(3).optional(), dueDate: z.coerce.date().optional(), sourceReference: z.string().max(160).optional(), idempotencyKey: z.string().min(8).max(160) })).mutation(({ ctx, input }) => createFiscalTaxRecordForUser({ ...input, userId: ctx.user.id })),
-    validateNormative: roleProcedure("fiscal", "validate").input(z.object({ area: z.enum(["FISCAL_DOCUMENT", "ACCOUNTING"]), evidenceCodes: z.array(z.string().min(1)) })).query(({ input }) => validateNormativeCoverage(input)),
-    complianceCalendar: roleProcedure("fiscal", "read").input(z.object({ year: z.number().int().min(2025).max(2100), regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).optional() })).query(({ input }) => buildAgtComplianceCalendar(input)),
-    obligations: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive(), year: z.number().int().min(2025).max(2100), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => getFiscalObligationsForUserCompany({ ...input, userId: ctx.user.id })),
+    calculateIva: roleProcedure("fiscal", "validate")
+      .input(
+        z.object({
+          netAmount: z.number().nonnegative(),
+          regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]),
+          rule: z.object({
+            code: z.string().min(1),
+            regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]),
+            validFrom: z.coerce.date(),
+            validTo: z.coerce.date().nullable().optional(),
+            rate: z.number().nonnegative().optional(),
+            evidence: z.string().min(1),
+          }),
+        })
+      )
+      .mutation(({ input }) => calculateIva(input)),
+    taxRecords: roleProcedure("fiscal", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+          taxType: z
+            .enum([
+              "IVA",
+              "IAC",
+              "INDUSTRIAL",
+              "IRT",
+              "IEC",
+              "RETENCAO",
+              "OUTRO",
+            ])
+            .optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        listFiscalTaxRecordsForUser({ ...input, userId: ctx.user.id })
+      ),
+    createTaxRecord: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          taxType: z.enum([
+            "IVA",
+            "IAC",
+            "INDUSTRIAL",
+            "IRT",
+            "IEC",
+            "RETENCAO",
+            "OUTRO",
+          ]),
+          direction: z.enum(["OUTPUT", "INPUT", "WITHHELD"]),
+          regime: z.string().max(40).optional(),
+          taxCode: z.string().max(64).optional(),
+          baseAmount: z.number().nonnegative(),
+          taxAmount: z.number().nonnegative(),
+          withheldAmount: z.number().nonnegative().optional(),
+          currency: z.string().length(3).optional(),
+          dueDate: z.coerce.date().optional(),
+          sourceReference: z.string().max(160).optional(),
+          idempotencyKey: z.string().min(8).max(160),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createFiscalTaxRecordForUser({ ...input, userId: ctx.user.id })
+      ),
+    validateNormative: roleProcedure("fiscal", "validate")
+      .input(
+        z.object({
+          area: z.enum(["FISCAL_DOCUMENT", "ACCOUNTING"]),
+          evidenceCodes: z.array(z.string().min(1)),
+        })
+      )
+      .query(({ input }) => validateNormativeCoverage(input)),
+    complianceCalendar: roleProcedure("fiscal", "read")
+      .input(
+        z.object({
+          year: z.number().int().min(2025).max(2100),
+          regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).optional(),
+        })
+      )
+      .query(({ input }) => buildAgtComplianceCalendar(input)),
+    obligations: roleProcedure("fiscal", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          year: z.number().int().min(2025).max(2100),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getFiscalObligationsForUserCompany({ ...input, userId: ctx.user.id })
+      ),
   }),
   documents: router({
-    generateAgtQr: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), issuerNif: z.string().min(9).max(15), documentNo: z.string().min(1).max(60) })).query(async ({ input }) => ({ payload: validateAgtQrPayload({ issuerNif: input.issuerNif, documentNo: input.documentNo }), dataUrl: await generateAgtQrCodeDataUrl({ issuerNif: input.issuerNif, documentNo: input.documentNo }) })),
-    renderPreparationPdf: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive() })).mutation(async ({ ctx, input }) => { const data = await getFiscalDocumentPdfDataForUser({ userId: ctx.user.id, companyId: input.companyId, documentId: input.documentId }); const result = await buildFiscalDocumentPdf({ company: { name: data.company.name, nif: data.company.nif, address: [data.company.address, data.company.municipality, data.company.province].filter(Boolean).join(", "), email: data.company.email ?? undefined, phone: data.company.phone ?? undefined }, document: { documentNumber: data.document.documentNumber, documentType: data.document.documentType, status: data.document.status, currency: data.document.currency, ivaRegime: data.document.ivaRegime, netAmount: data.document.netAmount, taxAmount: data.document.taxAmount, totalAmount: data.document.totalAmount, issuedAt: data.document.issuedAt, immutableHash: data.document.immutableHash }, counterparty: data.counterparty ? { name: data.counterparty.name, taxId: data.counterparty.taxId, address: data.counterparty.address } : undefined, lines: data.items.map((item) => ({ description: item.description, quantity: item.quantity, unitPrice: item.unitPrice, netAmount: item.netAmount, taxAmount: item.taxAmount, totalAmount: item.totalAmount })) }); const uploaded = await storagePut(`fiscal-documents/${data.company.nif}/${data.document.documentNumber}.pdf`, result.buffer, result.mimeType); const file = await createFileAsset({ userId: ctx.user.id, organizationId: data.company.organizationId, companyId: input.companyId, storageKey: uploaded.key, filename: `${data.document.documentNumber}.pdf`, mimeType: result.mimeType, size: result.buffer.length, sha256: createHash("sha256").update(result.buffer).digest("hex") }); return { fileId: file.id, certified: result.certified, hash: result.hash, storageKey: file.storageKey }; }),
-    validateTransition: roleProcedure("documents", "validate").input(z.object({ from: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]), to: z.string() })).query(({ input }) => ({ allowed: validateDocumentTransition(input.from, input.to) })),
-    list: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentsForUserCompany(ctx.user.id, input.companyId)),
-    seriesList: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentSeriesForUserCompany(ctx.user.id, input.companyId)),
-    createSeries: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), code: z.string().min(1).max(32), documentType: z.string().min(1).max(32), nextNumber: z.number().int().positive().optional() })).mutation(({ ctx, input }) => createDocumentSeriesForUser({ ...input, userId: ctx.user.id })),
-    reserveNumber: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), series: z.string().min(1), documentType: z.string().min(1) })).mutation(({ ctx, input }) => reserveDocumentNumber({ ...input, userId: ctx.user.id })),
-    createDraft: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), series: z.string().min(1), documentType: z.enum(["FT", "FR", "GF", "FG", "AC", "AR", "ND", "NC", "AF", "TV", "RP", "RE", "CS", "LD", "RA"]), counterpartyId: z.number().int().positive(), counterpartyType: z.enum(["CUSTOMER", "SUPPLIER"]), ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]), currency: z.string().length(3).optional(), dueDate: z.coerce.date().optional(), correctsDocumentId: z.number().int().positive().optional(), normativeRuleId: z.number().int().positive().optional(), items: z.array(z.object({ productId: z.number().int().positive().optional(), description: z.string().min(1), quantity: z.number().positive(), unitPrice: z.number().nonnegative(), netAmount: z.number().nonnegative(), taxAmount: z.number().nonnegative(), totalAmount: z.number().nonnegative(), taxType: z.string().optional(), taxRate: z.number().nonnegative().optional() })).min(1) })).mutation(({ ctx, input }) => createDraftBusinessDocumentForUser({ ...input, userId: ctx.user.id })),
-    updateItem: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), itemId: z.number().int().positive(), description: z.string().optional(), quantity: z.number().positive().optional(), unitPrice: z.number().nonnegative().optional(), netAmount: z.number().nonnegative().optional(), taxAmount: z.number().nonnegative().optional(), totalAmount: z.number().nonnegative().optional() })).mutation(({ ctx, input }) => updateDocumentItemForUser({ ...input, userId: ctx.user.id })),
-    updateTax: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), taxId: z.number().int().positive(), rate: z.number().nonnegative().optional(), baseAmount: z.number().nonnegative().optional(), taxAmount: z.number().nonnegative().optional() })).mutation(({ ctx, input }) => updateDocumentTaxForUser({ ...input, userId: ctx.user.id })),
-    archive: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive() })).mutation(({ ctx, input }) => archiveBusinessDocumentForUser({ ...input, userId: ctx.user.id })),
-    transition: roleProcedure("documents", "issue").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive(), to: z.enum(["DRAFT", "VALIDATED", "ISSUED", "ACCOUNTED", "CANCELLED"]), cancellationReason: z.string().min(3).optional(), correlationId: z.string().min(8).optional(), accounting: z.object({ periodId: z.number().int().positive(), operation: z.string().trim().min(1).max(80), documentType: z.string().trim().max(60).optional(), journalCode: z.string().trim().max(32).optional(), costCenter: z.string().trim().max(80).optional(), analyticalDimension: z.string().trim().max(120).optional(), idempotencyKey: z.string().trim().min(8).max(180), lines: z.array(z.object({ pgcAccountId: z.number().int().positive(), debit: z.number().nonnegative(), credit: z.number().nonnegative(), currency: z.string().length(3).optional(), exchangeRate: z.number().positive().optional() })).min(2).max(50) }).optional() })).mutation(({ ctx, input }) => transitionBusinessDocument({ ...input, userId: ctx.user.id })),
+    generateAgtQr: roleProcedure("documents", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          issuerNif: z.string().min(9).max(15),
+          documentNo: z.string().min(1).max(60),
+        })
+      )
+      .query(async ({ input }) => ({
+        payload: validateAgtQrPayload({
+          issuerNif: input.issuerNif,
+          documentNo: input.documentNo,
+        }),
+        dataUrl: await generateAgtQrCodeDataUrl({
+          issuerNif: input.issuerNif,
+          documentNo: input.documentNo,
+        }),
+      })),
+    renderPreparationPdf: roleProcedure("documents", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          documentId: z.number().int().positive(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const data = await getFiscalDocumentPdfDataForUser({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+          documentId: input.documentId,
+        });
+        const result = await buildFiscalDocumentPdf({
+          company: {
+            name: data.company.name,
+            nif: data.company.nif,
+            address: [
+              data.company.address,
+              data.company.municipality,
+              data.company.province,
+            ]
+              .filter(Boolean)
+              .join(", "),
+            email: data.company.email ?? undefined,
+            phone: data.company.phone ?? undefined,
+          },
+          document: {
+            documentNumber: data.document.documentNumber,
+            documentType: data.document.documentType,
+            status: data.document.status,
+            currency: data.document.currency,
+            ivaRegime: data.document.ivaRegime,
+            netAmount: data.document.netAmount,
+            taxAmount: data.document.taxAmount,
+            totalAmount: data.document.totalAmount,
+            issuedAt: data.document.issuedAt,
+            immutableHash: data.document.immutableHash,
+          },
+          counterparty: data.counterparty
+            ? {
+                name: data.counterparty.name,
+                taxId: data.counterparty.taxId,
+                address: data.counterparty.address,
+              }
+            : undefined,
+          lines: data.items.map(item => ({
+            description: item.description,
+            quantity: item.quantity,
+            unitPrice: item.unitPrice,
+            netAmount: item.netAmount,
+            taxAmount: item.taxAmount,
+            totalAmount: item.totalAmount,
+          })),
+        });
+        const uploaded = await storagePut(
+          `fiscal-documents/${data.company.nif}/${data.document.documentNumber}.pdf`,
+          result.buffer,
+          result.mimeType
+        );
+        const file = await createFileAsset({
+          userId: ctx.user.id,
+          organizationId: data.company.organizationId,
+          companyId: input.companyId,
+          storageKey: uploaded.key,
+          filename: `${data.document.documentNumber}.pdf`,
+          mimeType: result.mimeType,
+          size: result.buffer.length,
+          sha256: createHash("sha256").update(result.buffer).digest("hex"),
+        });
+        return {
+          fileId: file.id,
+          certified: result.certified,
+          hash: result.hash,
+          storageKey: file.storageKey,
+        };
+      }),
+    validateTransition: roleProcedure("documents", "validate")
+      .input(
+        z.object({
+          from: z.enum([
+            "DRAFT",
+            "VALIDATED",
+            "ISSUED",
+            "ACCOUNTED",
+            "CANCELLED",
+          ]),
+          to: z.string(),
+        })
+      )
+      .query(({ input }) => ({
+        allowed: validateDocumentTransition(input.from, input.to),
+      })),
+    list: roleProcedure("documents", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getDocumentsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    seriesList: roleProcedure("documents", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getDocumentSeriesForUserCompany(ctx.user.id, input.companyId)
+      ),
+    createSeries: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          code: z.string().min(1).max(32),
+          documentType: z.string().min(1).max(32),
+          nextNumber: z.number().int().positive().optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createDocumentSeriesForUser({ ...input, userId: ctx.user.id })
+      ),
+    reserveNumber: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          series: z.string().min(1),
+          documentType: z.string().min(1),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        reserveDocumentNumber({ ...input, userId: ctx.user.id })
+      ),
+    createDraft: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          series: z.string().min(1),
+          documentType: z.enum([
+            "FT",
+            "FR",
+            "GF",
+            "FG",
+            "AC",
+            "AR",
+            "ND",
+            "NC",
+            "AF",
+            "TV",
+            "RP",
+            "RE",
+            "CS",
+            "LD",
+            "RA",
+          ]),
+          counterpartyId: z.number().int().positive(),
+          counterpartyType: z.enum(["CUSTOMER", "SUPPLIER"]),
+          ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]),
+          currency: z.string().length(3).optional(),
+          dueDate: z.coerce.date().optional(),
+          correctsDocumentId: z.number().int().positive().optional(),
+          normativeRuleId: z.number().int().positive().optional(),
+          items: z
+            .array(
+              z.object({
+                productId: z.number().int().positive().optional(),
+                description: z.string().min(1),
+                quantity: z.number().positive(),
+                unitPrice: z.number().nonnegative(),
+                netAmount: z.number().nonnegative(),
+                taxAmount: z.number().nonnegative(),
+                totalAmount: z.number().nonnegative(),
+                taxType: z.string().optional(),
+                taxRate: z.number().nonnegative().optional(),
+              })
+            )
+            .min(1),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createDraftBusinessDocumentForUser({ ...input, userId: ctx.user.id })
+      ),
+    updateItem: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          itemId: z.number().int().positive(),
+          description: z.string().optional(),
+          quantity: z.number().positive().optional(),
+          unitPrice: z.number().nonnegative().optional(),
+          netAmount: z.number().nonnegative().optional(),
+          taxAmount: z.number().nonnegative().optional(),
+          totalAmount: z.number().nonnegative().optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateDocumentItemForUser({ ...input, userId: ctx.user.id })
+      ),
+    updateTax: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          taxId: z.number().int().positive(),
+          rate: z.number().nonnegative().optional(),
+          baseAmount: z.number().nonnegative().optional(),
+          taxAmount: z.number().nonnegative().optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateDocumentTaxForUser({ ...input, userId: ctx.user.id })
+      ),
+    archive: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          documentId: z.number().int().positive(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        archiveBusinessDocumentForUser({ ...input, userId: ctx.user.id })
+      ),
+    transition: roleProcedure("documents", "issue")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          documentId: z.number().int().positive(),
+          to: z.enum([
+            "DRAFT",
+            "VALIDATED",
+            "ISSUED",
+            "ACCOUNTED",
+            "CANCELLED",
+          ]),
+          cancellationReason: z.string().min(3).optional(),
+          correlationId: z.string().min(8).optional(),
+          accounting: z
+            .object({
+              periodId: z.number().int().positive(),
+              operation: z.string().trim().min(1).max(80),
+              documentType: z.string().trim().max(60).optional(),
+              journalCode: z.string().trim().max(32).optional(),
+              costCenter: z.string().trim().max(80).optional(),
+              analyticalDimension: z.string().trim().max(120).optional(),
+              idempotencyKey: z.string().trim().min(8).max(180),
+              lines: z
+                .array(
+                  z.object({
+                    pgcAccountId: z.number().int().positive(),
+                    debit: z.number().nonnegative(),
+                    credit: z.number().nonnegative(),
+                    currency: z.string().length(3).optional(),
+                    exchangeRate: z.number().positive().optional(),
+                  })
+                )
+                .min(2)
+                .max(50),
+            })
+            .optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        transitionBusinessDocument({ ...input, userId: ctx.user.id })
+      ),
   }),
   exports: router({
-    csv: roleProcedure("documents", "read").input(z.object({ kind: z.enum(["counterparties", "products", "documents"]), rows: z.array(z.record(z.string(), z.unknown())).max(10000) })).query(({ input }) => ({ filename: `${input.kind}.csv`, mimeType: "text/csv; charset=utf-8", data: exportFiscalCsv(input.rows) })),
-    xlsx: roleProcedure("documents", "read").input(z.object({ kind: z.enum(["counterparties", "products", "documents"]), rows: z.array(z.record(z.string(), z.unknown())).max(10000) })).query(({ input }) => ({ filename: `${input.kind}.xlsx`, mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", dataBase64: exportFiscalWorkbook(input.kind as FiscalImportKind, input.rows).toString("base64") })),
-    validateImport: roleProcedure("documents", "create").input(z.object({ kind: z.enum(["counterparties", "products", "documents"]), dataBase64: z.string().min(1), filename: z.string().min(1) })).mutation(({ input }) => { const rows = parseFiscalTabular(Buffer.from(input.dataBase64, "base64"), input.filename); return { ...validateFiscalImport(input.kind as FiscalImportKind, rows), rows }; }),
-    commitImport: roleProcedure("documents", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), kind: z.enum(["counterparties", "products", "documents"]), rows: z.array(z.record(z.string(), z.unknown())).min(1).max(10000) })).mutation(async ({ ctx, input }) => { const validation = validateFiscalImport(input.kind as FiscalImportKind, input.rows); if (!validation.valid) throw new TRPCError({ code: "BAD_REQUEST", message: "FISCAL_IMPORT_VALIDATION_FAILED" }); if (input.kind === "documents") throw new TRPCError({ code: "PRECONDITION_FAILED", message: "FISCAL_DOCUMENT_IMPORT_REQUIRES_REVIEW" }); const created = []; for (const row of input.rows) { if (input.kind === "counterparties") created.push(await createCounterpartyForUser({ userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, kind: String(row.kind) as "CUSTOMER" | "SUPPLIER", taxId: String(row.taxId ?? "") || undefined, name: String(row.name), email: String(row.email ?? "") || undefined, phone: String(row.phone ?? "") || undefined, address: String(row.address ?? "") || undefined, municipality: String(row.municipality ?? "") || undefined, province: String(row.province ?? "") || undefined })); else created.push(await createProductForUser({ userId: ctx.user.id, companyId: input.companyId, code: String(row.code), name: String(row.name), kind: String(row.kind) as "GOOD" | "SERVICE", unitCode: String(row.unitCode ?? "UN"), taxCode: String(row.taxCode ?? "") || undefined })); } return { kind: input.kind, count: created.length, created }; }),
-    createReviewBatch: roleProcedure("documents", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), kind: z.enum(["counterparties", "products", "documents"]), filename: z.string().min(1), dataBase64: z.string().min(1) })).mutation(({ ctx, input }) => { const rows = parseFiscalTabular(Buffer.from(input.dataBase64, "base64"), input.filename); const validation = validateFiscalImport(input.kind as FiscalImportKind, rows); if (validation.privacy.findings.length) throw new TRPCError({ code: "BAD_REQUEST", message: "FISCAL_IMPORT_PRIVACY_BLOCKED" }); return createDocumentImportBatchForUser({ userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, kind: input.kind, originalFilename: input.filename, rows: rows.map((payload) => ({ payload, errors: validation.errors.filter((error) => error.row === rows.indexOf(payload) + 2) })) }); }),
-    reviewBatch: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), batchId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentImportBatchForUser({ userId: ctx.user.id, companyId: input.companyId, batchId: input.batchId })),
-    correctReviewRow: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), rowId: z.number().int().positive(), payload: z.record(z.string(), z.unknown()), errors: z.array(z.record(z.string(), z.unknown())) })).mutation(({ ctx, input }) => updateDocumentImportRowForUser({ userId: ctx.user.id, companyId: input.companyId, rowId: input.rowId, payload: input.payload, errors: input.errors })),
-    confirmReviewBatch: roleProcedure("documents", "issue").input(z.object({ companyId: z.number().int().positive(), batchId: z.number().int().positive() })).mutation(({ ctx, input }) => confirmDocumentImportBatchForUser({ userId: ctx.user.id, companyId: input.companyId, batchId: input.batchId })),
+    csv: roleProcedure("documents", "read")
+      .input(
+        z.object({
+          kind: z.enum(["counterparties", "products", "documents"]),
+          rows: z.array(z.record(z.string(), z.unknown())).max(10000),
+        })
+      )
+      .query(({ input }) => ({
+        filename: `${input.kind}.csv`,
+        mimeType: "text/csv; charset=utf-8",
+        data: exportFiscalCsv(input.rows),
+      })),
+    xlsx: roleProcedure("documents", "read")
+      .input(
+        z.object({
+          kind: z.enum(["counterparties", "products", "documents"]),
+          rows: z.array(z.record(z.string(), z.unknown())).max(10000),
+        })
+      )
+      .query(({ input }) => ({
+        filename: `${input.kind}.xlsx`,
+        mimeType:
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        dataBase64: exportFiscalWorkbook(
+          input.kind as FiscalImportKind,
+          input.rows
+        ).toString("base64"),
+      })),
+    validateImport: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          kind: z.enum(["counterparties", "products", "documents"]),
+          dataBase64: z.string().min(1),
+          filename: z.string().min(1),
+        })
+      )
+      .mutation(({ input }) => {
+        const rows = parseFiscalTabular(
+          Buffer.from(input.dataBase64, "base64"),
+          input.filename
+        );
+        return {
+          ...validateFiscalImport(input.kind as FiscalImportKind, rows),
+          rows,
+        };
+      }),
+    commitImport: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          kind: z.enum(["counterparties", "products", "documents"]),
+          rows: z.array(z.record(z.string(), z.unknown())).min(1).max(10000),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const validation = validateFiscalImport(
+          input.kind as FiscalImportKind,
+          input.rows
+        );
+        if (!validation.valid)
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "FISCAL_IMPORT_VALIDATION_FAILED",
+          });
+        if (input.kind === "documents")
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "FISCAL_DOCUMENT_IMPORT_REQUIRES_REVIEW",
+          });
+        const created = [];
+        for (const row of input.rows) {
+          if (input.kind === "counterparties")
+            created.push(
+              await createCounterpartyForUser({
+                userId: ctx.user.id,
+                organizationId: input.organizationId,
+                companyId: input.companyId,
+                kind: String(row.kind) as "CUSTOMER" | "SUPPLIER",
+                taxId: String(row.taxId ?? "") || undefined,
+                name: String(row.name),
+                email: String(row.email ?? "") || undefined,
+                phone: String(row.phone ?? "") || undefined,
+                address: String(row.address ?? "") || undefined,
+                municipality: String(row.municipality ?? "") || undefined,
+                province: String(row.province ?? "") || undefined,
+              })
+            );
+          else
+            created.push(
+              await createProductForUser({
+                userId: ctx.user.id,
+                companyId: input.companyId,
+                code: String(row.code),
+                name: String(row.name),
+                kind: String(row.kind) as "GOOD" | "SERVICE",
+                unitCode: String(row.unitCode ?? "UN"),
+                taxCode: String(row.taxCode ?? "") || undefined,
+              })
+            );
+        }
+        return { kind: input.kind, count: created.length, created };
+      }),
+    createReviewBatch: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          kind: z.enum(["counterparties", "products", "documents"]),
+          filename: z.string().min(1),
+          dataBase64: z.string().min(1),
+        })
+      )
+      .mutation(({ ctx, input }) => {
+        const rows = parseFiscalTabular(
+          Buffer.from(input.dataBase64, "base64"),
+          input.filename
+        );
+        const validation = validateFiscalImport(
+          input.kind as FiscalImportKind,
+          rows
+        );
+        if (validation.privacy.findings.length)
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "FISCAL_IMPORT_PRIVACY_BLOCKED",
+          });
+        return createDocumentImportBatchForUser({
+          userId: ctx.user.id,
+          organizationId: input.organizationId,
+          companyId: input.companyId,
+          kind: input.kind,
+          originalFilename: input.filename,
+          rows: rows.map(payload => ({
+            payload,
+            errors: validation.errors.filter(
+              error => error.row === rows.indexOf(payload) + 2
+            ),
+          })),
+        });
+      }),
+    reviewBatch: roleProcedure("documents", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          batchId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getDocumentImportBatchForUser({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+          batchId: input.batchId,
+        })
+      ),
+    correctReviewRow: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          rowId: z.number().int().positive(),
+          payload: z.record(z.string(), z.unknown()),
+          errors: z.array(z.record(z.string(), z.unknown())),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateDocumentImportRowForUser({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+          rowId: input.rowId,
+          payload: input.payload,
+          errors: input.errors,
+        })
+      ),
+    confirmReviewBatch: roleProcedure("documents", "issue")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          batchId: z.number().int().positive(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        confirmDocumentImportBatchForUser({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+          batchId: input.batchId,
+        })
+      ),
   }),
   files: router({
-    register: roleProcedure("documents", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), filename: z.string().min(1), mimeType: z.string().min(1), dataBase64: z.string().min(1), allowedUserIds: z.array(z.number().int().positive()).optional(), category: z.enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"]).optional(), description: z.string().max(2000).optional(), reference: z.string().max(180).optional() })).mutation(async ({ ctx, input }) => {
-      const data = Buffer.from(input.dataBase64, "base64");
-      const prepared = prepareTenantFile({ ...input, userId: ctx.user.id, data });
-      const uploaded = await storagePut(prepared.key, data, prepared.mimeType);
-      return createFileAsset({ ...prepared, userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, storageKey: uploaded.key, category: input.category, description: input.description, reference: input.reference });
-    }),
-    list: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), search: z.string().max(120).optional(), category: z.enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"]).optional(), from: z.coerce.date().optional(), to: z.coerce.date().optional() })).query(({ ctx, input }) => listFileAssetsForUser({ ...input, userId: ctx.user.id })),
-    recipients: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive() })).query(async ({ ctx, input }) => {
-      const [companyRows, overrides] = await Promise.all([getCompaniesForUser(ctx.user.id), getEffectivePermissionsForUserCompany(ctx.user.id, input.companyId)]);
-      const company = companyRows.find(({ company }) => company.id === input.companyId);
-      if (!company) throw new TRPCError({ code: "FORBIDDEN", message: "Empresa não autorizada." });
-      const recipients: Array<{ kind: "EMPRESA" | "CLIENTE" | "FORNECEDOR" | "COLABORADOR"; name: string; email: string }> = [];
-      if (company.company.email) recipients.push({ kind: "EMPRESA", name: company.company.name, email: company.company.email });
-      if (can(ctx.user.role as BalancertsRole, "customers", "read", overrides)) {
-        const counterparties = await getCounterpartiesForUserCompany(ctx.user.id, input.companyId);
-        recipients.push(...counterparties.flatMap(({ counterparty }) => counterparty.email ? [{ kind: counterparty.kind === "CUSTOMER" ? "CLIENTE" as const : "FORNECEDOR" as const, name: counterparty.name, email: counterparty.email }] : []));
-      }
-      if (can(ctx.user.role as BalancertsRole, "human_resources", "read", overrides)) {
-        const employees = await getEmployeesForUserCompany(ctx.user.id, input.companyId);
-        recipients.push(...employees.flatMap(({ employee }) => employee.email ? [{ kind: "COLABORADOR" as const, name: employee.fullName, email: employee.email }] : []));
-      }
-      return recipients.filter((recipient, index, all) => all.findIndex((item) => item.email.toLowerCase() === recipient.email.toLowerCase()) === index).sort((a, b) => a.name.localeCompare(b.name, "pt-PT"));
-    }),
-    updateMetadata: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive(), category: z.enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"]).optional(), description: z.string().max(2000).optional(), reference: z.string().max(180).optional(), allowedUserIds: z.array(z.number().int().positive()).optional() })).mutation(({ ctx, input }) => updateFileAssetMetadataForUser({ ...input, userId: ctx.user.id })),
-    archive: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive(), reason: z.string().trim().min(3).max(500) })).mutation(({ ctx, input }) => archiveFileAssetForUser({ ...input, userId: ctx.user.id })),
-    versions: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive() })).query(({ ctx, input }) => getFileAssetVersionsForUser({ ...input, userId: ctx.user.id })),
-    newVersion: roleProcedure("documents", "create").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive(), filename: z.string().min(1), mimeType: z.string().min(1), dataBase64: z.string().min(1) })).mutation(async ({ ctx, input }) => {
-      const data = Buffer.from(input.dataBase64, "base64");
-      const current = await getFileAssetForUser({ userId: ctx.user.id, companyId: input.companyId, fileId: input.fileId });
-      const prepared = prepareTenantFile({ organizationId: current.organizationId, companyId: input.companyId, userId: ctx.user.id, filename: `${input.fileId}-versao-${Date.now()}-${input.filename}`, mimeType: input.mimeType, data });
-      const uploaded = await storagePut(prepared.key, data, prepared.mimeType);
-      return createFileAssetVersion({ userId: ctx.user.id, companyId: input.companyId, fileId: input.fileId, storageKey: uploaded.key, filename: input.filename, mimeType: input.mimeType, size: prepared.size, sha256: prepared.sha256 });
-    }),
-    metadata: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive() })).query(({ ctx, input }) => getFileAssetForUser({ ...input, userId: ctx.user.id })),
-    downloadUrl: roleProcedure("documents", "read").input(z.object({ companyId: z.number().int().positive(), fileId: z.number().int().positive() })).query(async ({ ctx, input }) => {
-      const file = await getFileAssetForUser({ ...input, userId: ctx.user.id });
-      return { ...file, url: await storageGetSignedUrl(file.storageKey) };
-    }),
+    register: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          filename: z.string().min(1),
+          mimeType: z.string().min(1),
+          dataBase64: z.string().min(1),
+          allowedUserIds: z.array(z.number().int().positive()).optional(),
+          category: z
+            .enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"])
+            .optional(),
+          description: z.string().max(2000).optional(),
+          reference: z.string().max(180).optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const data = Buffer.from(input.dataBase64, "base64");
+        const prepared = prepareTenantFile({
+          ...input,
+          userId: ctx.user.id,
+          data,
+        });
+        const uploaded = await storagePut(
+          prepared.key,
+          data,
+          prepared.mimeType
+        );
+        return createFileAsset({
+          ...prepared,
+          userId: ctx.user.id,
+          organizationId: input.organizationId,
+          companyId: input.companyId,
+          storageKey: uploaded.key,
+          category: input.category,
+          description: input.description,
+          reference: input.reference,
+        });
+      }),
+    list: roleProcedure("documents", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          search: z.string().max(120).optional(),
+          category: z
+            .enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"])
+            .optional(),
+          from: z.coerce.date().optional(),
+          to: z.coerce.date().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        listFileAssetsForUser({ ...input, userId: ctx.user.id })
+      ),
+    recipients: roleProcedure("documents", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(async ({ ctx, input }) => {
+        const [companyRows, overrides] = await Promise.all([
+          getCompaniesForUser(ctx.user.id),
+          getEffectivePermissionsForUserCompany(ctx.user.id, input.companyId),
+        ]);
+        const company = companyRows.find(
+          ({ company }) => company.id === input.companyId
+        );
+        if (!company)
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "Empresa não autorizada.",
+          });
+        const recipients: Array<{
+          kind: "EMPRESA" | "CLIENTE" | "FORNECEDOR" | "COLABORADOR";
+          name: string;
+          email: string;
+        }> = [];
+        if (company.company.email)
+          recipients.push({
+            kind: "EMPRESA",
+            name: company.company.name,
+            email: company.company.email,
+          });
+        if (
+          can(ctx.user.role as BalancertsRole, "customers", "read", overrides)
+        ) {
+          const counterparties = await getCounterpartiesForUserCompany(
+            ctx.user.id,
+            input.companyId
+          );
+          recipients.push(
+            ...counterparties.flatMap(({ counterparty }) =>
+              counterparty.email
+                ? [
+                    {
+                      kind:
+                        counterparty.kind === "CUSTOMER"
+                          ? ("CLIENTE" as const)
+                          : ("FORNECEDOR" as const),
+                      name: counterparty.name,
+                      email: counterparty.email,
+                    },
+                  ]
+                : []
+            )
+          );
+        }
+        if (
+          can(
+            ctx.user.role as BalancertsRole,
+            "human_resources",
+            "read",
+            overrides
+          )
+        ) {
+          const employees = await getEmployeesForUserCompany(
+            ctx.user.id,
+            input.companyId
+          );
+          recipients.push(
+            ...employees.flatMap(({ employee }) =>
+              employee.email
+                ? [
+                    {
+                      kind: "COLABORADOR" as const,
+                      name: employee.fullName,
+                      email: employee.email,
+                    },
+                  ]
+                : []
+            )
+          );
+        }
+        return recipients
+          .filter(
+            (recipient, index, all) =>
+              all.findIndex(
+                item =>
+                  item.email.toLowerCase() === recipient.email.toLowerCase()
+              ) === index
+          )
+          .sort((a, b) => a.name.localeCompare(b.name, "pt-PT"));
+      }),
+    updateMetadata: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          fileId: z.number().int().positive(),
+          category: z
+            .enum(["FISCAL", "CONTABILISTICO", "CONTRATO", "RH", "OUTRO"])
+            .optional(),
+          description: z.string().max(2000).optional(),
+          reference: z.string().max(180).optional(),
+          allowedUserIds: z.array(z.number().int().positive()).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateFileAssetMetadataForUser({ ...input, userId: ctx.user.id })
+      ),
+    archive: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          fileId: z.number().int().positive(),
+          reason: z.string().trim().min(3).max(500),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        archiveFileAssetForUser({ ...input, userId: ctx.user.id })
+      ),
+    versions: roleProcedure("documents", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          fileId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getFileAssetVersionsForUser({ ...input, userId: ctx.user.id })
+      ),
+    newVersion: roleProcedure("documents", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          fileId: z.number().int().positive(),
+          filename: z.string().min(1),
+          mimeType: z.string().min(1),
+          dataBase64: z.string().min(1),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const data = Buffer.from(input.dataBase64, "base64");
+        const current = await getFileAssetForUser({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+          fileId: input.fileId,
+        });
+        const prepared = prepareTenantFile({
+          organizationId: current.organizationId,
+          companyId: input.companyId,
+          userId: ctx.user.id,
+          filename: `${input.fileId}-versao-${Date.now()}-${input.filename}`,
+          mimeType: input.mimeType,
+          data,
+        });
+        const uploaded = await storagePut(
+          prepared.key,
+          data,
+          prepared.mimeType
+        );
+        return createFileAssetVersion({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+          fileId: input.fileId,
+          storageKey: uploaded.key,
+          filename: input.filename,
+          mimeType: input.mimeType,
+          size: prepared.size,
+          sha256: prepared.sha256,
+        });
+      }),
+    metadata: roleProcedure("documents", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          fileId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getFileAssetForUser({ ...input, userId: ctx.user.id })
+      ),
+    downloadUrl: roleProcedure("documents", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          fileId: z.number().int().positive(),
+        })
+      )
+      .query(async ({ ctx, input }) => {
+        const file = await getFileAssetForUser({
+          ...input,
+          userId: ctx.user.id,
+        });
+        return { ...file, url: await storageGetSignedUrl(file.storageKey) };
+      }),
   }),
   reversal: router({
-    preview: roleProcedure("accounting", "reverse").input(z.object({ originalEntryId: z.number().int().positive(), reason: z.string().min(1), lines: z.array(z.object({ accountId: z.number().int().positive(), debit: z.number().nonnegative(), credit: z.number().nonnegative(), currency: z.string().length(3), exchangeRate: z.number().positive() })) })).mutation(({ input }) => ({ description: reversalDescription(input.originalEntryId, input.reason), lines: buildReversalLines(input.lines) })),
-    post: roleProcedure("accounting", "reverse").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive(), originalEntryId: z.number().int().positive(), reason: z.string().min(1), idempotencyKey: z.string().min(8), lines: z.array(z.object({ accountId: z.number().int().positive(), debit: z.number().nonnegative(), credit: z.number().nonnegative(), currency: z.string().length(3), exchangeRate: z.number().positive(), postable: z.boolean(), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional() })).min(2) })).mutation(({ ctx, input }) => postJournalEntry({ companyId: input.companyId, periodId: input.periodId, reversalOfEntryId: input.originalEntryId, idempotencyKey: input.idempotencyKey, description: reversalDescription(input.originalEntryId, input.reason), sourceDocumentId: undefined, accountingRuleOperation: "ESTORNO", accountingRuleDocumentType: "REVERSAO", createdBy: ctx.user.id, lines: buildReversalLines(input.lines).map((line) => ({ ...line, postable: true, validFrom: new Date() })) })),
+    preview: roleProcedure("accounting", "reverse")
+      .input(
+        z.object({
+          originalEntryId: z.number().int().positive(),
+          reason: z.string().min(1),
+          lines: z.array(
+            z.object({
+              accountId: z.number().int().positive(),
+              debit: z.number().nonnegative(),
+              credit: z.number().nonnegative(),
+              currency: z.string().length(3),
+              exchangeRate: z.number().positive(),
+            })
+          ),
+        })
+      )
+      .mutation(({ input }) => ({
+        description: reversalDescription(input.originalEntryId, input.reason),
+        lines: buildReversalLines(input.lines),
+      })),
+    post: roleProcedure("accounting", "reverse")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          originalEntryId: z.number().int().positive(),
+          reason: z.string().min(1),
+          idempotencyKey: z.string().min(8),
+          lines: z
+            .array(
+              z.object({
+                accountId: z.number().int().positive(),
+                debit: z.number().nonnegative(),
+                credit: z.number().nonnegative(),
+                currency: z.string().length(3),
+                exchangeRate: z.number().positive(),
+                postable: z.boolean(),
+                validFrom: z.coerce.date(),
+                validTo: z.coerce.date().nullable().optional(),
+              })
+            )
+            .min(2),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        postJournalEntry({
+          companyId: input.companyId,
+          periodId: input.periodId,
+          reversalOfEntryId: input.originalEntryId,
+          idempotencyKey: input.idempotencyKey,
+          description: reversalDescription(input.originalEntryId, input.reason),
+          sourceDocumentId: undefined,
+          accountingRuleOperation: "ESTORNO",
+          accountingRuleDocumentType: "REVERSAO",
+          createdBy: ctx.user.id,
+          lines: buildReversalLines(input.lines).map(line => ({
+            ...line,
+            postable: true,
+            validFrom: new Date(),
+          })),
+        })
+      ),
   }),
   currency: router({
-    convert: roleProcedure("accounting", "create").input(z.object({ amount: z.number().nonnegative(), operationCurrency: z.string().length(3), functionalCurrency: z.string().length(3), quote: z.object({ from: z.string().length(3), to: z.string().length(3), rate: z.number().positive(), source: z.string().min(1), date: z.string().min(1) }) })).mutation(({ input }) => convertToFunctionalCurrency(input.amount, input.operationCurrency, input.functionalCurrency, input.quote)),
+    convert: roleProcedure("accounting", "create")
+      .input(
+        z.object({
+          amount: z.number().nonnegative(),
+          operationCurrency: z.string().length(3),
+          functionalCurrency: z.string().length(3),
+          quote: z.object({
+            from: z.string().length(3),
+            to: z.string().length(3),
+            rate: z.number().positive(),
+            source: z.string().min(1),
+            date: z.string().min(1),
+          }),
+        })
+      )
+      .mutation(({ input }) =>
+        convertToFunctionalCurrency(
+          input.amount,
+          input.operationCurrency,
+          input.functionalCurrency,
+          input.quote
+        )
+      ),
   }),
   closing: router({
-    evaluate: roleProcedure("close", "close").input(z.object({ checks: z.array(z.object({ code: z.string(), label: z.string(), passed: z.boolean(), blocking: z.boolean() })) })).mutation(({ input }) => evaluatePeriodClose(input.checks)),
-    close: roleProcedure("close", "close").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), correlationId: z.string().min(8) })).mutation(({ ctx, input }) => closeFiscalPeriodForUser({ ...input, userId: ctx.user.id })),
-    reopen: roleProcedure("close", "reopen").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), reason: z.string().min(3), correlationId: z.string().min(8) })).mutation(({ ctx, input }) => reopenFiscalPeriodForUser({ ...input, userId: ctx.user.id })),
-    validateReopen: roleProcedure("close", "reopen").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), reason: z.string().optional(), correlationId: z.string().min(1) })).mutation(async ({ ctx, input }) => { const reason = validateReopenReason(input.reason); await assertAuditScopeForUser({ actorUserId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId }); await assertClosedFiscalPeriodForUserCompany({ actorUserId: ctx.user.id, companyId: input.companyId, periodId: input.periodId }); const audit = buildReopenAudit({ ...input, actorUserId: ctx.user.id, reason }); await appendAuditEventForUser({ ...audit, actorUserId: ctx.user.id }); return { reason, audited: true }; }),
+    evaluate: roleProcedure("close", "close")
+      .input(
+        z.object({
+          checks: z.array(
+            z.object({
+              code: z.string(),
+              label: z.string(),
+              passed: z.boolean(),
+              blocking: z.boolean(),
+            })
+          ),
+        })
+      )
+      .mutation(({ input }) => evaluatePeriodClose(input.checks)),
+    close: roleProcedure("close", "close")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          correlationId: z.string().min(8),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        closeFiscalPeriodForUser({ ...input, userId: ctx.user.id })
+      ),
+    reopen: roleProcedure("close", "reopen")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          reason: z.string().min(3),
+          correlationId: z.string().min(8),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        reopenFiscalPeriodForUser({ ...input, userId: ctx.user.id })
+      ),
+    validateReopen: roleProcedure("close", "reopen")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          reason: z.string().optional(),
+          correlationId: z.string().min(1),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const reason = validateReopenReason(input.reason);
+        await assertAuditScopeForUser({
+          actorUserId: ctx.user.id,
+          organizationId: input.organizationId,
+          companyId: input.companyId,
+        });
+        await assertClosedFiscalPeriodForUserCompany({
+          actorUserId: ctx.user.id,
+          companyId: input.companyId,
+          periodId: input.periodId,
+        });
+        const audit = buildReopenAudit({
+          ...input,
+          actorUserId: ctx.user.id,
+          reason,
+        });
+        await appendAuditEventForUser({ ...audit, actorUserId: ctx.user.id });
+        return { reason, audited: true };
+      }),
   }),
   fixedAssets: router({
-    list: roleProcedure("accounting", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getFixedAssetsForUserCompany(ctx.user.id, input.companyId)),
-    create: roleProcedure("accounting", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), code: z.string().min(1), name: z.string().min(2), acquisitionDate: z.coerce.date(), acquisitionCost: z.number().nonnegative(), residualValue: z.number().nonnegative().optional(), usefulLifeMonths: z.number().int().positive() })).mutation(({ ctx, input }) => createFixedAssetForUser({ ...input, userId: ctx.user.id })),
-    update: roleProcedure("accounting", "create").input(z.object({ companyId: z.number().int().positive(), assetId: z.number().int().positive(), name: z.string().min(2).optional(), residualValue: z.number().nonnegative().optional(), usefulLifeMonths: z.number().int().positive().optional(), status: z.enum(["ACTIVE", "DISPOSED"]).optional() })).mutation(({ ctx, input }) => updateFixedAssetForUser({ ...input, userId: ctx.user.id })),
-    depreciation: roleProcedure("accounting", "validate").input(z.object({ acquisitionCost: z.number().nonnegative(), residualValue: z.number().nonnegative(), usefulLifeMonths: z.number().int().positive(), elapsedMonths: z.number().int().nonnegative() })).mutation(({ input }) => calculateStraightLineDepreciation(input)),
-    postDepreciation: roleProcedure("accounting", "post").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), assetId: z.number().int().positive(), amount: z.number().positive(), expenseAccountId: z.number().int().positive(), accumulatedDepreciationAccountId: z.number().int().positive(), correlationId: z.string().min(1) })).mutation(async ({ ctx, input }) => { await assertAuditScopeForUser({ actorUserId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId }); const posting = buildDepreciationPosting({ ...input, depreciationAmount: input.amount }); const entry = await postJournalEntry({ companyId: input.companyId, periodId: input.periodId, idempotencyKey: input.correlationId, description: `Depreciação do imobilizado ${input.assetId}`, accountingRuleOperation: "DEPRECIACAO", accountingRuleDocumentType: "IMOBILIZADO", createdBy: ctx.user.id, lines: posting.lines.map((line) => ({ ...line, postable: true, validFrom: new Date() })) }); await appendAuditEventForUser(buildDepreciationAudit({ organizationId: input.organizationId, companyId: input.companyId, actorUserId: ctx.user.id, assetId: input.assetId, amount: input.amount, entryId: Number(entry.entryId), correlationId: input.correlationId })); return { posting, entry, audited: true }; }),
+    list: roleProcedure("accounting", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getFixedAssetsForUserCompany(ctx.user.id, input.companyId)
+      ),
+    create: roleProcedure("accounting", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          code: z.string().min(1),
+          name: z.string().min(2),
+          acquisitionDate: z.coerce.date(),
+          acquisitionCost: z.number().nonnegative(),
+          residualValue: z.number().nonnegative().optional(),
+          usefulLifeMonths: z.number().int().positive(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createFixedAssetForUser({ ...input, userId: ctx.user.id })
+      ),
+    update: roleProcedure("accounting", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          assetId: z.number().int().positive(),
+          name: z.string().min(2).optional(),
+          residualValue: z.number().nonnegative().optional(),
+          usefulLifeMonths: z.number().int().positive().optional(),
+          status: z.enum(["ACTIVE", "DISPOSED"]).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        updateFixedAssetForUser({ ...input, userId: ctx.user.id })
+      ),
+    depreciation: roleProcedure("accounting", "validate")
+      .input(
+        z.object({
+          acquisitionCost: z.number().nonnegative(),
+          residualValue: z.number().nonnegative(),
+          usefulLifeMonths: z.number().int().positive(),
+          elapsedMonths: z.number().int().nonnegative(),
+        })
+      )
+      .mutation(({ input }) => calculateStraightLineDepreciation(input)),
+    postDepreciation: roleProcedure("accounting", "post")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          assetId: z.number().int().positive(),
+          amount: z.number().positive(),
+          expenseAccountId: z.number().int().positive(),
+          accumulatedDepreciationAccountId: z.number().int().positive(),
+          correlationId: z.string().min(1),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        await assertAuditScopeForUser({
+          actorUserId: ctx.user.id,
+          organizationId: input.organizationId,
+          companyId: input.companyId,
+        });
+        const posting = buildDepreciationPosting({
+          ...input,
+          depreciationAmount: input.amount,
+        });
+        const entry = await postJournalEntry({
+          companyId: input.companyId,
+          periodId: input.periodId,
+          idempotencyKey: input.correlationId,
+          description: `Depreciação do imobilizado ${input.assetId}`,
+          accountingRuleOperation: "DEPRECIACAO",
+          accountingRuleDocumentType: "IMOBILIZADO",
+          createdBy: ctx.user.id,
+          lines: posting.lines.map(line => ({
+            ...line,
+            postable: true,
+            validFrom: new Date(),
+          })),
+        });
+        await appendAuditEventForUser(
+          buildDepreciationAudit({
+            organizationId: input.organizationId,
+            companyId: input.companyId,
+            actorUserId: ctx.user.id,
+            assetId: input.assetId,
+            amount: input.amount,
+            entryId: Number(entry.entryId),
+            correlationId: input.correlationId,
+          })
+        );
+        return { posting, entry, audited: true };
+      }),
   }),
   inventory: router({
-    valuation: roleProcedure("stock", "validate").input(z.object({ movements: z.array(z.object({ type: z.enum(["IN", "OUT"]), quantity: z.number().positive(), unitCost: z.number().nonnegative() })) })).mutation(({ input }) => calculateWeightedAverage(input.movements)),
-    balances: roleProcedure("stock", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getStockBalancesForUserCompany({ userId: ctx.user.id, companyId: input.companyId })),
-    counts: roleProcedure("stock", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => listStockCountsForUserCompany({ userId: ctx.user.id, companyId: input.companyId })),
-    createCount: roleProcedure("stock", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), warehouseId: z.number().int().positive().optional(), reference: z.string().trim().min(3).max(80), countDate: z.coerce.date(), notes: z.string().max(2000).optional(), items: z.array(z.object({ productCode: z.string().trim().min(1).max(80), expectedQuantity: z.number().nonnegative(), countedQuantity: z.number().nonnegative(), unitCost: z.number().nonnegative() })).min(1).max(500) })).mutation(async ({ ctx, input }) => { try { return await createStockCountForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["STOCK_COUNT_ITEMS_REQUIRED", "STOCK_COUNT_DUPLICATE_PRODUCT", "WAREHOUSE_NOT_FOUND_OR_FORBIDDEN"].includes(error.message)) throw new TRPCError({ code: "BAD_REQUEST", message: error.message }); throw error; } }),
-    reviewCount: roleProcedure("stock", "validate").input(z.object({ companyId: z.number().int().positive(), countId: z.number().int().positive(), decision: z.enum(["VALIDATED", "CANCELLED"]) })).mutation(({ ctx, input }) => reviewStockCountForUser({ ...input, userId: ctx.user.id })),
-    applyCount: roleProcedure("stock", "post").input(z.object({ companyId: z.number().int().positive(), countId: z.number().int().positive() })).mutation(({ ctx, input }) => applyStockCountForUser({ ...input, userId: ctx.user.id })),
-    warehouses: roleProcedure("stock", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getWarehousesForUserCompany({ userId: ctx.user.id, companyId: input.companyId })),
-    createWarehouse: roleProcedure("stock", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), code: z.string().trim().min(1).max(40), name: z.string().trim().min(2).max(180), address: z.string().trim().max(255).optional() })).mutation(({ ctx, input }) => createWarehouseForUser({ ...input, userId: ctx.user.id })),
-    record: roleProcedure("stock", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), warehouseId: z.number().int().positive().optional(), productCode: z.string().min(1), type: z.enum(["IN", "OUT"]), quantity: z.number().positive(), unitCost: z.number().nonnegative(), sourceDocumentId: z.number().int().positive().optional(), journalEntryId: z.number().int().positive().optional(), correlationId: z.string().min(1) })).mutation(({ ctx, input }) => recordStockMovement({ ...input, userId: ctx.user.id })),
-    transfer: roleProcedure("stock", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive(), fromWarehouseId: z.number().int().positive(), toWarehouseId: z.number().int().positive(), productCode: z.string().min(1), quantity: z.number().positive(), unitCost: z.number().nonnegative(), transferGroupId: z.string().trim().min(8).max(128) })).mutation(({ ctx, input }) => transferStockBetweenWarehousesForUser({ ...input, userId: ctx.user.id })),
-    reconcile: roleProcedure("stock", "validate").input(z.object({ companyId: z.number().int().positive(), inventoryAccountId: z.number().int().positive() })).query(({ ctx, input }) => reconcileStockForUserCompany({ ...input, userId: ctx.user.id })),
+    valuation: roleProcedure("stock", "validate")
+      .input(
+        z.object({
+          movements: z.array(
+            z.object({
+              type: z.enum(["IN", "OUT"]),
+              quantity: z.number().positive(),
+              unitCost: z.number().nonnegative(),
+            })
+          ),
+        })
+      )
+      .mutation(({ input }) => calculateWeightedAverage(input.movements)),
+    balances: roleProcedure("stock", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getStockBalancesForUserCompany({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+        })
+      ),
+    counts: roleProcedure("stock", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        listStockCountsForUserCompany({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+        })
+      ),
+    createCount: roleProcedure("stock", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          warehouseId: z.number().int().positive().optional(),
+          reference: z.string().trim().min(3).max(80),
+          countDate: z.coerce.date(),
+          notes: z.string().max(2000).optional(),
+          items: z
+            .array(
+              z.object({
+                productCode: z.string().trim().min(1).max(80),
+                expectedQuantity: z.number().nonnegative(),
+                countedQuantity: z.number().nonnegative(),
+                unitCost: z.number().nonnegative(),
+              })
+            )
+            .min(1)
+            .max(500),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await createStockCountForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "STOCK_COUNT_ITEMS_REQUIRED",
+              "STOCK_COUNT_DUPLICATE_PRODUCT",
+              "WAREHOUSE_NOT_FOUND_OR_FORBIDDEN",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    reviewCount: roleProcedure("stock", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          countId: z.number().int().positive(),
+          decision: z.enum(["VALIDATED", "CANCELLED"]),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        reviewStockCountForUser({ ...input, userId: ctx.user.id })
+      ),
+    applyCount: roleProcedure("stock", "post")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          countId: z.number().int().positive(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        applyStockCountForUser({ ...input, userId: ctx.user.id })
+      ),
+    warehouses: roleProcedure("stock", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getWarehousesForUserCompany({
+          userId: ctx.user.id,
+          companyId: input.companyId,
+        })
+      ),
+    createWarehouse: roleProcedure("stock", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          code: z.string().trim().min(1).max(40),
+          name: z.string().trim().min(2).max(180),
+          address: z.string().trim().max(255).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        createWarehouseForUser({ ...input, userId: ctx.user.id })
+      ),
+    record: roleProcedure("stock", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          warehouseId: z.number().int().positive().optional(),
+          productCode: z.string().min(1),
+          type: z.enum(["IN", "OUT"]),
+          quantity: z.number().positive(),
+          unitCost: z.number().nonnegative(),
+          sourceDocumentId: z.number().int().positive().optional(),
+          journalEntryId: z.number().int().positive().optional(),
+          correlationId: z.string().min(1),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        recordStockMovement({ ...input, userId: ctx.user.id })
+      ),
+    transfer: roleProcedure("stock", "create")
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive(),
+          fromWarehouseId: z.number().int().positive(),
+          toWarehouseId: z.number().int().positive(),
+          productCode: z.string().min(1),
+          quantity: z.number().positive(),
+          unitCost: z.number().nonnegative(),
+          transferGroupId: z.string().trim().min(8).max(128),
+        })
+      )
+      .mutation(({ ctx, input }) =>
+        transferStockBetweenWarehousesForUser({ ...input, userId: ctx.user.id })
+      ),
+    reconcile: roleProcedure("stock", "validate")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          inventoryAccountId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        reconcileStockForUserCompany({ ...input, userId: ctx.user.id })
+      ),
   }),
   reconciliation: router({
-    bank: roleProcedure("treasury", "validate").input(z.object({ bank: z.array(z.object({ id: z.string(), reference: z.string().optional(), amount: z.number(), date: z.string() })), ledger: z.array(z.object({ id: z.string(), reference: z.string().optional(), amount: z.number(), date: z.string() })), tolerance: z.number().nonnegative().optional() })).mutation(({ input }) => reconcileBankMovements(input.bank, input.ledger, input.tolerance)),
+    bank: roleProcedure("treasury", "validate")
+      .input(
+        z.object({
+          bank: z.array(
+            z.object({
+              id: z.string(),
+              reference: z.string().optional(),
+              amount: z.number(),
+              date: z.string(),
+            })
+          ),
+          ledger: z.array(
+            z.object({
+              id: z.string(),
+              reference: z.string().optional(),
+              amount: z.number(),
+              date: z.string(),
+            })
+          ),
+          tolerance: z.number().nonnegative().optional(),
+        })
+      )
+      .mutation(({ input }) =>
+        reconcileBankMovements(input.bank, input.ledger, input.tolerance)
+      ),
   }),
   reports: router({
-    trialBalance: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => getTrialBalanceForUserCompany(ctx.user.id, input.companyId, input.periodId)),
-    journal: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => getJournalForUserCompany(ctx.user.id, input.companyId, input.periodId)),
-    ledger: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), accountCode: z.string().min(1).optional(), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => getLedgerForUserCompany(ctx.user.id, input.companyId, input.accountCode, input.periodId)),
-    incomeStatement: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => getIncomeStatementForUserCompany(ctx.user.id, input.companyId, input.periodId)),
-    balanceSheet: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => getBalanceSheetForUserCompany(ctx.user.id, input.companyId, input.periodId)),
-    reconciliation: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getReportsReconciliationForUserCompany(ctx.user.id, input.companyId)),
-    financialDashboard: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional(), comparisonPeriodId: z.number().int().positive().optional(), costCenter: z.string().trim().min(1).optional(), analyticalDimension: z.string().trim().min(1).optional() })).query(({ ctx, input }) => getFinancialDashboardForUserCompany({ userId: ctx.user.id, ...input })),
-    archiveFinancialDashboardPdf: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), periodId: z.number().int().positive().optional(), comparisonPeriodId: z.number().int().positive().optional(), costCenter: z.string().trim().min(1).optional(), analyticalDimension: z.string().trim().min(1).optional() })).mutation(async ({ ctx, input }) => { const companyAccess = (await getCompaniesForUser(ctx.user.id)).find(({ company }) => company.id === input.companyId); if (!companyAccess) throw new TRPCError({ code: "FORBIDDEN", message: "Empresa não autorizada." }); const dashboard = await getFinancialDashboardForUserCompany({ userId: ctx.user.id, ...input }); const result = await buildFinancialDashboardPdf({ companyName: companyAccess.company.name, companyNif: companyAccess.company.nif, currency: dashboard.currency, periodId: dashboard.periodId, comparisonPeriodId: dashboard.comparisonPeriodId, filters: dashboard.filters, kpis: dashboard.kpis, comparison: dashboard.comparison, reconciliation: dashboard.reconciliation, revenueRows: dashboard.revenueRows, expenseRows: dashboard.expenseRows }); const filename = `analise-financeira-${companyAccess.company.nif}-${new Date().toISOString().slice(0, 10)}.pdf`; const data = result.buffer; const prepared = prepareTenantFile({ organizationId: companyAccess.company.organizationId, companyId: input.companyId, userId: ctx.user.id, filename, mimeType: result.mimeType, data }); const uploaded = await storagePut(prepared.key, data, prepared.mimeType); const file = await createFileAsset({ ...prepared, userId: ctx.user.id, organizationId: companyAccess.company.organizationId, companyId: input.companyId, storageKey: uploaded.key, category: "CONTABILISTICO", description: "Análise Financeira Global arquivada", reference: `financial-dashboard:${input.periodId ?? "activo"}; assinatura-digital:pendente` }); return { fileId: file.id, filename, sha256: prepared.sha256, size: prepared.size }; }),
-    documentOriginReconciliation: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentOriginReconciliationForUserCompany(ctx.user.id, input.companyId)),
-    saftReadiness: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getSaftReadinessForUserCompany(ctx.user.id, input.companyId)),
-    saftExport: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive() })).query(async ({ ctx, input }) => {
-      const readiness = await getSaftReadinessForUserCompany(ctx.user.id, input.companyId);
-      const local = await getSaftLocalExportForUserCompany(ctx.user.id, input.companyId);
-      const localPackage = buildSaftLocalPackageManifest(readiness, local.contentHash);
-      return { namespace: readiness.namespace, version: readiness.schemaVersion, submissionEligible: false as const, exportBlockedReason: readiness.exportBlockedReason, xml: local.xml, contentType: local.contentType, contentHash: local.contentHash, localPackage, externalSubmission: local.externalSubmission, counts: local.counts };
-    }),
-    documentChain: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), documentId: z.number().int().positive() })).query(({ ctx, input }) => getDocumentAccountingChainForUserCompany(ctx.user.id, input.companyId, input.documentId)),
-    entryChain: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), entryId: z.number().int().positive() })).query(({ ctx, input }) => getJournalDocumentChainForUserCompany(ctx.user.id, input.companyId, input.entryId)),
-    trace: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), report: z.enum(["TRIAL_BALANCE", "INCOME_STATEMENT", "BALANCE_SHEET"]), accountCode: z.string().min(1).optional(), periodId: z.number().int().positive().optional() })).query(({ ctx, input }) => input.periodId === undefined ? getReportTraceForUserCompany(ctx.user.id, input.companyId, input.report, input.accountCode) : getReportTraceForUserCompany(ctx.user.id, input.companyId, input.report, input.accountCode, input.periodId)),
-    vatSummary: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getVatSummaryForUserCompany(ctx.user.id, input.companyId)),
-    customerAging: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), asOf: z.coerce.date() })).query(({ ctx, input }) => getAgingForUserCompany(ctx.user.id, input.companyId, "CUSTOMER", input.asOf)),
-    supplierAging: roleProcedure("reports", "read").input(z.object({ companyId: z.number().int().positive(), asOf: z.coerce.date() })).query(({ ctx, input }) => getAgingForUserCompany(ctx.user.id, input.companyId, "SUPPLIER", input.asOf)),
-    fiscalRegister: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive() })).query(({ ctx, input }) => getFiscalRegisterForUserCompany(ctx.user.id, input.companyId)),
-    agtValidation: roleProcedure("fiscal", "read").input(z.object({ companyId: z.number().int().positive(), year: z.number().int().min(2023).max(2100), month: z.number().int().min(1).max(12) })).query(async ({ ctx, input }) => {
-      const companies = await getCompaniesForUser(ctx.user.id);
-      const company = companies.find(({ company }) => company.id === input.companyId)?.company;
-      if (!company) throw new TRPCError({ code: "NOT_FOUND", message: "COMPANY_NOT_FOUND_OR_FORBIDDEN" });
-      const register = await getFiscalRegisterForUserCompany(ctx.user.id, input.companyId);
-      return { companyId: input.companyId, period: { year: input.year, month: input.month }, regime: company.ivaRegime, validation: validateAgtFiscalRecord({ companyId: input.companyId, period: { year: input.year, month: input.month }, regime: company.ivaRegime, sourceDocumentCount: register.entries.length, netAmount: register.totals.netAmount, taxAmount: register.totals.taxAmount, totalAmount: register.totals.totalAmount }) };
-    }),
+    trialBalance: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getTrialBalanceForUserCompany(
+          ctx.user.id,
+          input.companyId,
+          input.periodId
+        )
+      ),
+    journal: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getJournalForUserCompany(ctx.user.id, input.companyId, input.periodId)
+      ),
+    ledger: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          accountCode: z.string().min(1).optional(),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getLedgerForUserCompany(
+          ctx.user.id,
+          input.companyId,
+          input.accountCode,
+          input.periodId
+        )
+      ),
+    incomeStatement: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getIncomeStatementForUserCompany(
+          ctx.user.id,
+          input.companyId,
+          input.periodId
+        )
+      ),
+    balanceSheet: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getBalanceSheetForUserCompany(
+          ctx.user.id,
+          input.companyId,
+          input.periodId
+        )
+      ),
+    reconciliation: roleProcedure("reports", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getReportsReconciliationForUserCompany(ctx.user.id, input.companyId)
+      ),
+    financialDashboard: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+          comparisonPeriodId: z.number().int().positive().optional(),
+          costCenter: z.string().trim().min(1).optional(),
+          analyticalDimension: z.string().trim().min(1).optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getFinancialDashboardForUserCompany({ userId: ctx.user.id, ...input })
+      ),
+    archiveFinancialDashboardPdf: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          periodId: z.number().int().positive().optional(),
+          comparisonPeriodId: z.number().int().positive().optional(),
+          costCenter: z.string().trim().min(1).optional(),
+          analyticalDimension: z.string().trim().min(1).optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const companyAccess = (await getCompaniesForUser(ctx.user.id)).find(
+          ({ company }) => company.id === input.companyId
+        );
+        if (!companyAccess)
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "Empresa não autorizada.",
+          });
+        const dashboard = await getFinancialDashboardForUserCompany({
+          userId: ctx.user.id,
+          ...input,
+        });
+        const result = await buildFinancialDashboardPdf({
+          companyName: companyAccess.company.name,
+          companyNif: companyAccess.company.nif,
+          currency: dashboard.currency,
+          periodId: dashboard.periodId,
+          comparisonPeriodId: dashboard.comparisonPeriodId,
+          filters: dashboard.filters,
+          kpis: dashboard.kpis,
+          comparison: dashboard.comparison,
+          reconciliation: dashboard.reconciliation,
+          revenueRows: dashboard.revenueRows,
+          expenseRows: dashboard.expenseRows,
+        });
+        const filename = `analise-financeira-${companyAccess.company.nif}-${new Date().toISOString().slice(0, 10)}.pdf`;
+        const data = result.buffer;
+        const prepared = prepareTenantFile({
+          organizationId: companyAccess.company.organizationId,
+          companyId: input.companyId,
+          userId: ctx.user.id,
+          filename,
+          mimeType: result.mimeType,
+          data,
+        });
+        const uploaded = await storagePut(
+          prepared.key,
+          data,
+          prepared.mimeType
+        );
+        const file = await createFileAsset({
+          ...prepared,
+          userId: ctx.user.id,
+          organizationId: companyAccess.company.organizationId,
+          companyId: input.companyId,
+          storageKey: uploaded.key,
+          category: "CONTABILISTICO",
+          description: "Análise Financeira Global arquivada",
+          reference: `financial-dashboard:${input.periodId ?? "activo"}; assinatura-digital:pendente`,
+        });
+        return {
+          fileId: file.id,
+          filename,
+          sha256: prepared.sha256,
+          size: prepared.size,
+        };
+      }),
+    documentOriginReconciliation: roleProcedure("reports", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getDocumentOriginReconciliationForUserCompany(
+          ctx.user.id,
+          input.companyId
+        )
+      ),
+    saftReadiness: roleProcedure("reports", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getSaftReadinessForUserCompany(ctx.user.id, input.companyId)
+      ),
+    saftExport: roleProcedure("reports", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(async ({ ctx, input }) => {
+        const readiness = await getSaftReadinessForUserCompany(
+          ctx.user.id,
+          input.companyId
+        );
+        const local = await getSaftLocalExportForUserCompany(
+          ctx.user.id,
+          input.companyId
+        );
+        const localPackage = buildSaftLocalPackageManifest(
+          readiness,
+          local.contentHash
+        );
+        return {
+          namespace: readiness.namespace,
+          version: readiness.schemaVersion,
+          submissionEligible: false as const,
+          exportBlockedReason: readiness.exportBlockedReason,
+          xml: local.xml,
+          contentType: local.contentType,
+          contentHash: local.contentHash,
+          localPackage,
+          externalSubmission: local.externalSubmission,
+          counts: local.counts,
+        };
+      }),
+    documentChain: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          documentId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getDocumentAccountingChainForUserCompany(
+          ctx.user.id,
+          input.companyId,
+          input.documentId
+        )
+      ),
+    entryChain: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          entryId: z.number().int().positive(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getJournalDocumentChainForUserCompany(
+          ctx.user.id,
+          input.companyId,
+          input.entryId
+        )
+      ),
+    trace: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          report: z.enum([
+            "TRIAL_BALANCE",
+            "INCOME_STATEMENT",
+            "BALANCE_SHEET",
+          ]),
+          accountCode: z.string().min(1).optional(),
+          periodId: z.number().int().positive().optional(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        input.periodId === undefined
+          ? getReportTraceForUserCompany(
+              ctx.user.id,
+              input.companyId,
+              input.report,
+              input.accountCode
+            )
+          : getReportTraceForUserCompany(
+              ctx.user.id,
+              input.companyId,
+              input.report,
+              input.accountCode,
+              input.periodId
+            )
+      ),
+    vatSummary: roleProcedure("fiscal", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getVatSummaryForUserCompany(ctx.user.id, input.companyId)
+      ),
+    customerAging: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          asOf: z.coerce.date(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getAgingForUserCompany(
+          ctx.user.id,
+          input.companyId,
+          "CUSTOMER",
+          input.asOf
+        )
+      ),
+    supplierAging: roleProcedure("reports", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          asOf: z.coerce.date(),
+        })
+      )
+      .query(({ ctx, input }) =>
+        getAgingForUserCompany(
+          ctx.user.id,
+          input.companyId,
+          "SUPPLIER",
+          input.asOf
+        )
+      ),
+    fiscalRegister: roleProcedure("fiscal", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) =>
+        getFiscalRegisterForUserCompany(ctx.user.id, input.companyId)
+      ),
+    agtValidation: roleProcedure("fiscal", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          year: z.number().int().min(2023).max(2100),
+          month: z.number().int().min(1).max(12),
+        })
+      )
+      .query(async ({ ctx, input }) => {
+        const companies = await getCompaniesForUser(ctx.user.id);
+        const company = companies.find(
+          ({ company }) => company.id === input.companyId
+        )?.company;
+        if (!company)
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "COMPANY_NOT_FOUND_OR_FORBIDDEN",
+          });
+        const register = await getFiscalRegisterForUserCompany(
+          ctx.user.id,
+          input.companyId
+        );
+        return {
+          companyId: input.companyId,
+          period: { year: input.year, month: input.month },
+          regime: company.ivaRegime,
+          validation: validateAgtFiscalRecord({
+            companyId: input.companyId,
+            period: { year: input.year, month: input.month },
+            regime: company.ivaRegime,
+            sourceDocumentCount: register.entries.length,
+            netAmount: register.totals.netAmount,
+            taxAmount: register.totals.taxAmount,
+            totalAmount: register.totals.totalAmount,
+          }),
+        };
+      }),
   }),
   pgc: router({
-    versions: roleProcedure("accounting", "read").input(z.object({ organizationId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listPgcVersionsForUser({ ...input, userId: ctx.user.id })),
-    submitForReview: roleProcedure("accounting", "validate").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => submitPgcVersionForReview({ ...input, userId: ctx.user.id })),
-    validateVersion: roleProcedure("accounting", "validate").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => validatePgcVersionForUser({ ...input, userId: ctx.user.id })),
-    activateVersion: roleProcedure("accounting", "validate").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => activatePgcVersionForUser({ ...input, userId: ctx.user.id })),
-    activationReadiness: roleProcedure("accounting", "read").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive() }).strict()).query(({ ctx, input }) => getPgcActivationReadinessForUser({ ...input, userId: ctx.user.id })),
-    createVersion: roleProcedure("accounting", "create").input(z.object({ organizationId: z.number().int().positive(), code: z.string().trim().min(1).max(50), name: z.string().trim().min(1).max(180), description: z.string().trim().min(1).max(5000), sourceType: z.enum(["PGC_BASE", "LEGISLATIVE_CHANGE", "FISCAL_RULE", "SECTOR_PLAN"]), effectiveFrom: z.coerce.date() }).strict()).mutation(({ ctx, input }) => createPgcVersionForUser({ ...input, userId: ctx.user.id })),
-    addSource: roleProcedure("accounting", "create").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), instrument: z.string().trim().min(1).max(180), instrumentNumber: z.string().trim().max(80).optional(), article: z.string().trim().max(80).optional(), title: z.string().trim().min(1).max(255), sourceUrl: z.string().url().max(512).optional(), issuedAt: z.coerce.date().optional(), effectiveFrom: z.coerce.date().optional(), verificationStatus: z.enum(["PENDING", "CONFIRMED", "CONFLICT", "REJECTED"]).optional(), conflictNote: z.string().trim().max(4000).optional() }).strict()).mutation(({ ctx, input }) => addPgcSourceForUser({ ...input, userId: ctx.user.id })),
-    registerPendingSources: roleProcedure("accounting", "create").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => registerPendingNormativeSourcesForUser({ ...input, userId: ctx.user.id })),
-    accounts: roleProcedure("accounting", "read").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), search: z.string().trim().max(120).optional() }).strict()).query(({ ctx, input }) => listPgcAccountsForUser({ ...input, userId: ctx.user.id })),
-    sources: roleProcedure("accounting", "read").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listPgcSourcesForUser({ ...input, userId: ctx.user.id })),
-    simulateMovement: roleProcedure("accounting", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), versionId: z.number().int().positive(), debitAccountId: z.number().int().positive(), creditAccountId: z.number().int().positive(), amount: z.number().finite().positive(), operation: z.string().trim().min(1).max(80), documentType: z.string().trim().max(60).nullable().optional(), transactionDate: z.coerce.date(), ivaRate: z.number().finite().min(0).max(100).nullable().optional(), ivaAmount: z.number().finite().nonnegative().nullable().optional() }).strict()).mutation(({ ctx, input }) => simulatePgcMovementForUser({ ...input, userId: ctx.user.id })),
-    evidenceSubmissions: roleProcedure("accounting", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), versionId: z.number().int().positive(), status: z.enum(["PENDING_REVIEW", "UNDER_REVIEW", "ACCEPTED", "REJECTED"]).optional() }).strict()).query(({ ctx, input }) => listPgcEvidenceSubmissionsForUser({ ...input, userId: ctx.user.id })),
-    startEvidenceReview: roleProcedure("accounting", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), versionId: z.number().int().positive(), submissionId: z.number().int().positive() }).strict()).mutation(({ ctx, input }) => startPgcEvidenceReviewForUser({ ...input, userId: ctx.user.id })),
-    reviewEvidence: roleProcedure("accounting", "validate").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), versionId: z.number().int().positive(), submissionId: z.number().int().positive(), decision: z.enum(["CONFIRM", "KEEP_PENDING", "REQUEST_NEW_EVIDENCE", "REJECT"]), reviewNote: z.string().trim().max(4000).nullable().optional() }).strict()).mutation(({ ctx, input }) => reviewPgcEvidenceSubmissionForUser({ ...input, userId: ctx.user.id })),
-    submitEvidence: roleProcedure("accounting", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), versionId: z.number().int().positive(), sourceId: z.number().int().positive().nullable().optional(), classCode: z.string().regex(/^[1-9]$/), targetCodes: z.array(z.string().trim().min(1).max(32)).min(1).max(100), evidenceType: z.enum(["DIPLOMA", "ANEXO", "QUADRO", "DIAGRAMA", "OUTRO"]), pageFrom: z.number().int().min(1).max(20000).nullable().optional(), pageTo: z.number().int().min(1).max(20000).nullable().optional(), notes: z.string().trim().max(4000).nullable().optional(), filename: z.string().trim().min(1).max(255), mimeType: z.string().trim().min(1).max(128), dataBase64: z.string().min(1).max(35_000_000) }).strict()).mutation(async ({ ctx, input }) => {
-      const data = Buffer.from(input.dataBase64, "base64");
-      const prepared = prepareTenantFile({ organizationId: input.organizationId, companyId: input.companyId, userId: ctx.user.id, filename: `pgc-evidencia-${input.versionId}-${input.classCode}-${Date.now()}-${input.filename}`, mimeType: input.mimeType, data });
-      const uploaded = await storagePut(prepared.key, data, prepared.mimeType);
-      return submitPgcEvidenceForUser({ ...input, userId: ctx.user.id, filename: input.filename, mimeType: input.mimeType, size: prepared.size, sha256: prepared.sha256, storageKey: uploaded.key });
-    }),
-    reviewSource: roleProcedure("accounting", "validate").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), sourceId: z.number().int().positive(), verificationStatus: z.enum(["CONFIRMED", "CONFLICT", "REJECTED"]), conflictNote: z.string().trim().max(4000).optional() }).strict()).mutation(({ ctx, input }) => reviewPgcSourceForUser({ ...input, userId: ctx.user.id })),
-    reviewAccount: roleProcedure("accounting", "validate").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), accountId: z.number().int().positive(), validationStatus: z.enum(["CONFIRMED", "INVALID", "DUPLICATE", "MISSING_PARENT"]), notes: z.string().trim().max(4000).optional() }).strict()).mutation(({ ctx, input }) => reviewPgcAccountForUser({ ...input, userId: ctx.user.id })),
-    addAccountDraft: roleProcedure("accounting", "create").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), account: z.object({ code: z.string().trim().min(1).max(32), name: z.string().trim().min(1).max(180), description: z.string().trim().max(5000).optional(), classCode: z.string().trim().min(1).max(4), parentCode: z.string().trim().max(32).nullable().optional(), level: z.number().int().min(1).max(10), accountType: z.enum(["CLASS", "GROUP", "MOVEMENT", "ANALYTICAL"]), nature: z.enum(["DEBIT", "CREDIT", "MIXED", "NOT_APPLICABLE"]), balanceType: z.enum(["DEBIT", "CREDIT", "VARIABLE", "NOT_APPLICABLE"]), acceptsEntries: z.boolean(), acceptsChildren: z.boolean(), fiscal: z.boolean().optional(), iva: z.boolean().optional(), balanceSheet: z.boolean().optional(), incomeStatement: z.boolean().optional(), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional(), sourceId: z.number().int().positive().nullable().optional(), notes: z.string().trim().max(4000).optional() }).strict() }).strict()).mutation(({ ctx, input }) => addPgcAccountDraftForUser({ ...input, userId: ctx.user.id })),
-    addAccountVisualConfirmed: roleProcedure("accounting", "validate").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), evidencePages: z.array(z.number().int().positive()).min(1).max(20), sourceSha256: z.string().regex(/^[a-f0-9]{64}$/), account: z.object({ code: z.string().trim().min(1).max(32), name: z.string().trim().min(1).max(180), description: z.string().trim().max(5000).optional(), classCode: z.string().trim().min(1).max(4), parentCode: z.string().trim().max(32).nullable().optional(), level: z.number().int().min(1).max(10), accountType: z.enum(["CLASS", "GROUP", "MOVEMENT", "ANALYTICAL"]), nature: z.enum(["DEBIT", "CREDIT", "MIXED", "NOT_APPLICABLE"]), balanceType: z.enum(["DEBIT", "CREDIT", "VARIABLE", "NOT_APPLICABLE"]), acceptsEntries: z.boolean(), acceptsChildren: z.boolean(), fiscal: z.boolean().optional(), iva: z.boolean().optional(), balanceSheet: z.boolean().optional(), incomeStatement: z.boolean().optional(), validFrom: z.coerce.date(), validTo: z.coerce.date().nullable().optional(), sourceId: z.number().int().positive(), notes: z.string().trim().max(4000).optional() }).strict() }).strict()).mutation(({ ctx, input }) => addPgcAccountVisualConfirmedForUser({ ...input, userId: ctx.user.id })),
-    auditLegacy: roleProcedure("accounting", "validate").input(z.object({ companyId: z.number().int().positive(), versionId: z.number().int().positive().optional() }).strict()).mutation(({ ctx, input }) => auditLegacyChartForUser({ ...input, userId: ctx.user.id })),
-    auditRuns: roleProcedure("accounting", "read").input(z.object({ companyId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listPgcAuditRunsForUser({ ...input, userId: ctx.user.id })),
-    createMigrationMap: roleProcedure("accounting", "create").input(z.object({ companyId: z.number().int().positive(), versionId: z.number().int().positive(), legacyAccountId: z.number().int().positive(), legacyCode: z.string().trim().min(1).max(32), newAccountId: z.number().int().positive().optional(), newCode: z.string().trim().max(32).optional(), action: z.enum(["KEEP", "REPLACE", "MERGE", "SPLIT", "DEACTIVATE", "MAP", "NEEDS_REVIEW"]), reason: z.string().trim().max(4000), sourceId: z.number().int().positive().optional() }).strict()).mutation(({ ctx, input }) => createPgcMigrationMapForUser({ ...input, userId: ctx.user.id })),
-    migrationMaps: roleProcedure("accounting", "read").input(z.object({ companyId: z.number().int().positive(), versionId: z.number().int().positive() }).strict()).query(({ ctx, input }) => listPgcMigrationMapsForUser({ ...input, userId: ctx.user.id })),
-    reviewAccountsBatch: roleProcedure("accounting", "validate").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), accountIds: z.array(z.number().int().positive()).min(1).max(100), validationStatus: z.enum(["CONFIRMED", "INVALID", "DUPLICATE", "MISSING_PARENT"]), notes: z.string().trim().max(4000).nullable().optional() }).strict()).mutation(({ ctx, input }) => reviewPgcAccountsBatchForUser({ ...input, userId: ctx.user.id })),
-    accountingRules: roleProcedure("accounting", "read").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), companyId: z.number().int().positive().optional() }).strict()).query(({ ctx, input }) => listAccountingRulesForUser({ ...input, userId: ctx.user.id })),
-    createAccountingRule: roleProcedure("accounting", "create").input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), companyId: z.number().int().positive().optional(), operation: z.string().trim().min(1).max(80), documentType: z.string().trim().max(60).optional(), debitAccountId: z.number().int().positive(), creditAccountId: z.number().int().positive(), ivaAccountId: z.number().int().positive().optional(), nature: z.string().trim().max(40).optional(), costCenterCode: z.string().trim().max(80).optional(), priority: z.number().int().min(1).max(10000).optional(), effectiveFrom: z.coerce.date(), effectiveTo: z.coerce.date().nullable().optional(), sourceId: z.number().int().positive().optional(), notes: z.string().trim().max(4000).optional() }).strict()).mutation(({ ctx, input }) => createAccountingRuleForUser({ ...input, userId: ctx.user.id })),
+    versions: roleProcedure("accounting", "read")
+      .input(z.object({ organizationId: z.number().int().positive() }).strict())
+      .query(({ ctx, input }) =>
+        listPgcVersionsForUser({ ...input, userId: ctx.user.id })
+      ),
+    submitForReview: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        submitPgcVersionForReview({ ...input, userId: ctx.user.id })
+      ),
+    validateVersion: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        validatePgcVersionForUser({ ...input, userId: ctx.user.id })
+      ),
+    activateVersion: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        activatePgcVersionForUser({ ...input, userId: ctx.user.id })
+      ),
+    activationReadiness: roleProcedure("accounting", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        getPgcActivationReadinessForUser({ ...input, userId: ctx.user.id })
+      ),
+    createVersion: roleProcedure("accounting", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            code: z.string().trim().min(1).max(50),
+            name: z.string().trim().min(1).max(180),
+            description: z.string().trim().min(1).max(5000),
+            sourceType: z.enum([
+              "PGC_BASE",
+              "LEGISLATIVE_CHANGE",
+              "FISCAL_RULE",
+              "SECTOR_PLAN",
+            ]),
+            effectiveFrom: z.coerce.date(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createPgcVersionForUser({ ...input, userId: ctx.user.id })
+      ),
+    addSource: roleProcedure("accounting", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            instrument: z.string().trim().min(1).max(180),
+            instrumentNumber: z.string().trim().max(80).optional(),
+            article: z.string().trim().max(80).optional(),
+            title: z.string().trim().min(1).max(255),
+            sourceUrl: z.string().url().max(512).optional(),
+            issuedAt: z.coerce.date().optional(),
+            effectiveFrom: z.coerce.date().optional(),
+            verificationStatus: z
+              .enum(["PENDING", "CONFIRMED", "CONFLICT", "REJECTED"])
+              .optional(),
+            conflictNote: z.string().trim().max(4000).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        addPgcSourceForUser({ ...input, userId: ctx.user.id })
+      ),
+    registerPendingSources: roleProcedure("accounting", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        registerPendingNormativeSourcesForUser({
+          ...input,
+          userId: ctx.user.id,
+        })
+      ),
+    accounts: roleProcedure("accounting", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            search: z.string().trim().max(120).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listPgcAccountsForUser({ ...input, userId: ctx.user.id })
+      ),
+    sources: roleProcedure("accounting", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listPgcSourcesForUser({ ...input, userId: ctx.user.id })
+      ),
+    simulateMovement: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            debitAccountId: z.number().int().positive(),
+            creditAccountId: z.number().int().positive(),
+            amount: z.number().finite().positive(),
+            operation: z.string().trim().min(1).max(80),
+            documentType: z.string().trim().max(60).nullable().optional(),
+            transactionDate: z.coerce.date(),
+            ivaRate: z.number().finite().min(0).max(100).nullable().optional(),
+            ivaAmount: z.number().finite().nonnegative().nullable().optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        simulatePgcMovementForUser({ ...input, userId: ctx.user.id })
+      ),
+    evidenceSubmissions: roleProcedure("accounting", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            status: z
+              .enum(["PENDING_REVIEW", "UNDER_REVIEW", "ACCEPTED", "REJECTED"])
+              .optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listPgcEvidenceSubmissionsForUser({ ...input, userId: ctx.user.id })
+      ),
+    startEvidenceReview: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            submissionId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        startPgcEvidenceReviewForUser({ ...input, userId: ctx.user.id })
+      ),
+    reviewEvidence: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            submissionId: z.number().int().positive(),
+            decision: z.enum([
+              "CONFIRM",
+              "KEEP_PENDING",
+              "REQUEST_NEW_EVIDENCE",
+              "REJECT",
+            ]),
+            reviewNote: z.string().trim().max(4000).nullable().optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        reviewPgcEvidenceSubmissionForUser({ ...input, userId: ctx.user.id })
+      ),
+    submitEvidence: roleProcedure("accounting", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            sourceId: z.number().int().positive().nullable().optional(),
+            classCode: z.string().regex(/^[1-9]$/),
+            targetCodes: z
+              .array(z.string().trim().min(1).max(32))
+              .min(1)
+              .max(100),
+            evidenceType: z.enum([
+              "DIPLOMA",
+              "ANEXO",
+              "QUADRO",
+              "DIAGRAMA",
+              "OUTRO",
+            ]),
+            pageFrom: z.number().int().min(1).max(20000).nullable().optional(),
+            pageTo: z.number().int().min(1).max(20000).nullable().optional(),
+            notes: z.string().trim().max(4000).nullable().optional(),
+            filename: z.string().trim().min(1).max(255),
+            mimeType: z.string().trim().min(1).max(128),
+            dataBase64: z.string().min(1).max(35_000_000),
+          })
+          .strict()
+      )
+      .mutation(async ({ ctx, input }) => {
+        const data = Buffer.from(input.dataBase64, "base64");
+        const prepared = prepareTenantFile({
+          organizationId: input.organizationId,
+          companyId: input.companyId,
+          userId: ctx.user.id,
+          filename: `pgc-evidencia-${input.versionId}-${input.classCode}-${Date.now()}-${input.filename}`,
+          mimeType: input.mimeType,
+          data,
+        });
+        const uploaded = await storagePut(
+          prepared.key,
+          data,
+          prepared.mimeType
+        );
+        return submitPgcEvidenceForUser({
+          ...input,
+          userId: ctx.user.id,
+          filename: input.filename,
+          mimeType: input.mimeType,
+          size: prepared.size,
+          sha256: prepared.sha256,
+          storageKey: uploaded.key,
+        });
+      }),
+    reviewSource: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            sourceId: z.number().int().positive(),
+            verificationStatus: z.enum(["CONFIRMED", "CONFLICT", "REJECTED"]),
+            conflictNote: z.string().trim().max(4000).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        reviewPgcSourceForUser({ ...input, userId: ctx.user.id })
+      ),
+    reviewAccount: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            accountId: z.number().int().positive(),
+            validationStatus: z.enum([
+              "CONFIRMED",
+              "INVALID",
+              "DUPLICATE",
+              "MISSING_PARENT",
+            ]),
+            notes: z.string().trim().max(4000).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        reviewPgcAccountForUser({ ...input, userId: ctx.user.id })
+      ),
+    addAccountDraft: roleProcedure("accounting", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            account: z
+              .object({
+                code: z.string().trim().min(1).max(32),
+                name: z.string().trim().min(1).max(180),
+                description: z.string().trim().max(5000).optional(),
+                classCode: z.string().trim().min(1).max(4),
+                parentCode: z.string().trim().max(32).nullable().optional(),
+                level: z.number().int().min(1).max(10),
+                accountType: z.enum([
+                  "CLASS",
+                  "GROUP",
+                  "MOVEMENT",
+                  "ANALYTICAL",
+                ]),
+                nature: z.enum(["DEBIT", "CREDIT", "MIXED", "NOT_APPLICABLE"]),
+                balanceType: z.enum([
+                  "DEBIT",
+                  "CREDIT",
+                  "VARIABLE",
+                  "NOT_APPLICABLE",
+                ]),
+                acceptsEntries: z.boolean(),
+                acceptsChildren: z.boolean(),
+                fiscal: z.boolean().optional(),
+                iva: z.boolean().optional(),
+                balanceSheet: z.boolean().optional(),
+                incomeStatement: z.boolean().optional(),
+                validFrom: z.coerce.date(),
+                validTo: z.coerce.date().nullable().optional(),
+                sourceId: z.number().int().positive().nullable().optional(),
+                notes: z.string().trim().max(4000).optional(),
+              })
+              .strict(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        addPgcAccountDraftForUser({ ...input, userId: ctx.user.id })
+      ),
+    addAccountVisualConfirmed: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            evidencePages: z.array(z.number().int().positive()).min(1).max(20),
+            sourceSha256: z.string().regex(/^[a-f0-9]{64}$/),
+            account: z
+              .object({
+                code: z.string().trim().min(1).max(32),
+                name: z.string().trim().min(1).max(180),
+                description: z.string().trim().max(5000).optional(),
+                classCode: z.string().trim().min(1).max(4),
+                parentCode: z.string().trim().max(32).nullable().optional(),
+                level: z.number().int().min(1).max(10),
+                accountType: z.enum([
+                  "CLASS",
+                  "GROUP",
+                  "MOVEMENT",
+                  "ANALYTICAL",
+                ]),
+                nature: z.enum(["DEBIT", "CREDIT", "MIXED", "NOT_APPLICABLE"]),
+                balanceType: z.enum([
+                  "DEBIT",
+                  "CREDIT",
+                  "VARIABLE",
+                  "NOT_APPLICABLE",
+                ]),
+                acceptsEntries: z.boolean(),
+                acceptsChildren: z.boolean(),
+                fiscal: z.boolean().optional(),
+                iva: z.boolean().optional(),
+                balanceSheet: z.boolean().optional(),
+                incomeStatement: z.boolean().optional(),
+                validFrom: z.coerce.date(),
+                validTo: z.coerce.date().nullable().optional(),
+                sourceId: z.number().int().positive(),
+                notes: z.string().trim().max(4000).optional(),
+              })
+              .strict(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        addPgcAccountVisualConfirmedForUser({ ...input, userId: ctx.user.id })
+      ),
+    auditLegacy: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            companyId: z.number().int().positive(),
+            versionId: z.number().int().positive().optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        auditLegacyChartForUser({ ...input, userId: ctx.user.id })
+      ),
+    auditRuns: roleProcedure("accounting", "read")
+      .input(z.object({ companyId: z.number().int().positive() }).strict())
+      .query(({ ctx, input }) =>
+        listPgcAuditRunsForUser({ ...input, userId: ctx.user.id })
+      ),
+    createMigrationMap: roleProcedure("accounting", "create")
+      .input(
+        z
+          .object({
+            companyId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            legacyAccountId: z.number().int().positive(),
+            legacyCode: z.string().trim().min(1).max(32),
+            newAccountId: z.number().int().positive().optional(),
+            newCode: z.string().trim().max(32).optional(),
+            action: z.enum([
+              "KEEP",
+              "REPLACE",
+              "MERGE",
+              "SPLIT",
+              "DEACTIVATE",
+              "MAP",
+              "NEEDS_REVIEW",
+            ]),
+            reason: z.string().trim().max(4000),
+            sourceId: z.number().int().positive().optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createPgcMigrationMapForUser({ ...input, userId: ctx.user.id })
+      ),
+    migrationMaps: roleProcedure("accounting", "read")
+      .input(
+        z
+          .object({
+            companyId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listPgcMigrationMapsForUser({ ...input, userId: ctx.user.id })
+      ),
+    reviewAccountsBatch: roleProcedure("accounting", "validate")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            accountIds: z.array(z.number().int().positive()).min(1).max(100),
+            validationStatus: z.enum([
+              "CONFIRMED",
+              "INVALID",
+              "DUPLICATE",
+              "MISSING_PARENT",
+            ]),
+            notes: z.string().trim().max(4000).nullable().optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        reviewPgcAccountsBatchForUser({ ...input, userId: ctx.user.id })
+      ),
+    accountingRules: roleProcedure("accounting", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listAccountingRulesForUser({ ...input, userId: ctx.user.id })
+      ),
+    createAccountingRule: roleProcedure("accounting", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            companyId: z.number().int().positive().optional(),
+            operation: z.string().trim().min(1).max(80),
+            documentType: z.string().trim().max(60).optional(),
+            debitAccountId: z.number().int().positive(),
+            creditAccountId: z.number().int().positive(),
+            ivaAccountId: z.number().int().positive().optional(),
+            nature: z.string().trim().max(40).optional(),
+            costCenterCode: z.string().trim().max(80).optional(),
+            priority: z.number().int().min(1).max(10000).optional(),
+            effectiveFrom: z.coerce.date(),
+            effectiveTo: z.coerce.date().nullable().optional(),
+            sourceId: z.number().int().positive().optional(),
+            notes: z.string().trim().max(4000).optional(),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        createAccountingRuleForUser({ ...input, userId: ctx.user.id })
+      ),
   }),
   audit: router({
-    list: roleProcedure("audit", "read").input(z.object({ companyId: z.number().int().positive(), entityType: z.string().min(1).optional(), entityId: z.string().min(1).optional(), action: z.string().min(1).optional(), actorUserId: z.number().int().positive().optional(), from: z.coerce.date().optional(), to: z.coerce.date().optional() })).query(({ ctx, input }) => { const hasExtendedFilters = Boolean(input.action || input.actorUserId || input.from || input.to); return hasExtendedFilters ? getAuditEventsForUserCompany(ctx.user.id, input.companyId, input.entityType, input.entityId, input.action, input.actorUserId, input.from, input.to) : getAuditEventsForUserCompany(ctx.user.id, input.companyId, input.entityType, input.entityId); }),
-    pgcLogs: roleProcedure("audit", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), actorUserId: z.number().int().positive().optional(), entityType: z.string().trim().min(1).max(80).optional(), action: z.string().trim().min(1).max(80).optional(), from: z.coerce.date().optional(), to: z.coerce.date().optional(), page: z.number().int().positive().max(10000).optional(), pageSize: z.number().int().min(10).max(100).optional() }).strict()).query(({ ctx, input }) => getPgcAuditLogsForUser({ ...input, userId: ctx.user.id })),
-    pgcNotes: roleProcedure("audit", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), auditEventId: z.number().int().positive(), limit: z.number().int().positive().max(100).optional() }).strict()).query(({ ctx, input }) => listPgcAuditNotesForUser({ ...input, userId: ctx.user.id })),
-    pgcAlertStatus: roleProcedure("audit", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), auditEventId: z.number().int().positive() }).strict()).query(async ({ ctx, input }) => { try { return await getPgcAuditReviewStateForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["AUDIT_HIGH_RISK_EVENT_NOT_FOUND_OR_FORBIDDEN", "AUDIT_SCOPE_FORBIDDEN"].includes(error.message)) throw new TRPCError({ code: error.message === "AUDIT_SCOPE_FORBIDDEN" ? "FORBIDDEN" : "NOT_FOUND", message: error.message }); throw error; } }),
-    pgcReviewHistory: roleProcedure("audit", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), auditEventId: z.number().int().positive(), limit: z.number().int().positive().max(100).optional() }).strict()).query(async ({ ctx, input }) => { try { return await getPgcAuditReviewHistoryForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["AUDIT_HIGH_RISK_EVENT_NOT_FOUND_OR_FORBIDDEN", "AUDIT_SCOPE_FORBIDDEN"].includes(error.message)) throw new TRPCError({ code: error.message === "AUDIT_SCOPE_FORBIDDEN" ? "FORBIDDEN" : "NOT_FOUND", message: error.message }); throw error; } }),
-    exportPgcAlertsPdf: roleProcedure("audit", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), auditEventIds: z.array(z.number().int().positive()).min(1).max(100), status: z.enum(["ALL", "OPEN", "REVIEWED", "RESOLVED"]) }).strict()).mutation(async ({ ctx, input }) => { const events = await getPgcDashboardAlertEventsForUser({ ...input, userId: ctx.user.id }); const pdf = await buildAuditLogsPdf({ organizationName: "Organização BALANCERTS.ERP", companyName: events[0]?.companyName ?? null, filters: [`alertas de alto risco: ${input.status === "ALL" ? "todos os estados" : input.status}`, `empresa #${input.companyId}`].join(" · "), items: events }); return { filename: `alertas-alto-risco-${input.status.toLowerCase()}-${input.companyId}-${new Date().toISOString().slice(0, 10)}.pdf`, mimeType: pdf.mimeType, dataBase64: pdf.buffer.toString("base64"), eventCount: events.length, truncated: false }; }),
-    updatePgcAlertStatus: roleProcedure("audit", "update").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), auditEventId: z.number().int().positive(), status: z.enum(["REVIEWED", "RESOLVED"]) }).strict()).mutation(async ({ ctx, input }) => { try { return await updatePgcAuditReviewStatusForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["AUDIT_HIGH_RISK_EVENT_NOT_FOUND_OR_FORBIDDEN", "AUDIT_REVIEW_STATE_TRANSITION_INVALID", "AUDIT_SCOPE_FORBIDDEN"].includes(error.message)) throw new TRPCError({ code: error.message === "AUDIT_SCOPE_FORBIDDEN" ? "FORBIDDEN" : error.message === "AUDIT_HIGH_RISK_EVENT_NOT_FOUND_OR_FORBIDDEN" ? "NOT_FOUND" : "BAD_REQUEST", message: error.message }); throw error; } }),
-    addPgcNote: roleProcedure("audit", "create").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), auditEventId: z.number().int().positive(), note: z.string().trim().min(2).max(4000) }).strict()).mutation(async ({ ctx, input }) => { try { return await createPgcAuditNoteForUser({ ...input, userId: ctx.user.id }); } catch (error) { if (error instanceof Error && ["AUDIT_NOTE_TOO_SHORT", "AUDIT_NOTE_TOO_LONG", "AUDIT_EVENT_NOT_FOUND_OR_FORBIDDEN", "AUDIT_SCOPE_FORBIDDEN"].includes(error.message)) throw new TRPCError({ code: error.message === "AUDIT_SCOPE_FORBIDDEN" ? "FORBIDDEN" : "BAD_REQUEST", message: error.message }); throw error; } }),
-    exportPgcPdf: roleProcedure("audit", "read").input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), auditEventId: z.number().int().positive().optional(), actorUserId: z.number().int().positive().optional(), entityType: z.string().trim().min(1).max(80).optional(), action: z.string().trim().min(1).max(80).optional(), from: z.coerce.date().optional(), to: z.coerce.date().optional() }).strict()).mutation(async ({ ctx, input }) => { const result = await getPgcAuditLogsForUser({ ...input, userId: ctx.user.id, page: 1, pageSize: input.auditEventId ? 10 : 100 }); if (input.auditEventId && result.items.length !== 1) throw new TRPCError({ code: "NOT_FOUND", message: "EVENTO_AUDITORIA_NAO_ENCONTRADO" }); const pdf = await buildAuditLogsPdf({ organizationName: "Organização BALANCERTS.ERP", companyName: result.items[0]?.companyName ?? null, filters: [input.auditEventId ? `evento #${input.auditEventId}` : input.action ? `acção ${input.action}` : "todas as acções", input.entityType ? `entidade ${input.entityType}` : "todas as entidades", input.from ? `desde ${input.from.toLocaleDateString("pt-PT")}` : "sem data inicial", input.to ? `até ${input.to.toLocaleDateString("pt-PT")}` : "sem data final"].join(" · "), items: result.items }); return { filename: `logs-auditoria-pgc-${input.auditEventId ? `evento-${input.auditEventId}` : new Date().toISOString().slice(0, 10)}.pdf`, mimeType: pdf.mimeType, dataBase64: pdf.buffer.toString("base64"), eventCount: result.items.length, truncated: result.hasMore }; }),
-    append: adminProcedure.input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive().nullable().optional(), action: z.string().min(1), entityType: z.string().min(1), entityId: z.string().min(1), beforeState: z.string().nullable().optional(), afterState: z.string().nullable().optional(), correlationId: z.string().min(1) })).mutation(async ({ ctx, input }) => {
-      try {
-        return await appendAuditEventForUser({ ...input, actorUserId: ctx.user.id, beforeState: input.beforeState ?? null, afterState: input.afterState ?? null });
-      } catch (error) {
-        if (error instanceof Error && error.message === "AUDIT_SCOPE_FORBIDDEN") throw new TRPCError({ code: "FORBIDDEN", message: error.message });
-        throw error;
-      }
-    }),
+    list: roleProcedure("audit", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          entityType: z.string().min(1).optional(),
+          entityId: z.string().min(1).optional(),
+          action: z.string().min(1).optional(),
+          actorUserId: z.number().int().positive().optional(),
+          from: z.coerce.date().optional(),
+          to: z.coerce.date().optional(),
+        })
+      )
+      .query(({ ctx, input }) => {
+        const hasExtendedFilters = Boolean(
+          input.action || input.actorUserId || input.from || input.to
+        );
+        return hasExtendedFilters
+          ? getAuditEventsForUserCompany(
+              ctx.user.id,
+              input.companyId,
+              input.entityType,
+              input.entityId,
+              input.action,
+              input.actorUserId,
+              input.from,
+              input.to
+            )
+          : getAuditEventsForUserCompany(
+              ctx.user.id,
+              input.companyId,
+              input.entityType,
+              input.entityId
+            );
+      }),
+    pgcLogs: roleProcedure("audit", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().nullable().optional(),
+            actorUserId: z.number().int().positive().optional(),
+            entityType: z.string().trim().min(1).max(80).optional(),
+            action: z.string().trim().min(1).max(80).optional(),
+            from: z.coerce.date().optional(),
+            to: z.coerce.date().optional(),
+            page: z.number().int().positive().max(10000).optional(),
+            pageSize: z.number().int().min(10).max(100).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        getPgcAuditLogsForUser({ ...input, userId: ctx.user.id })
+      ),
+    pgcNotes: roleProcedure("audit", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().nullable().optional(),
+            auditEventId: z.number().int().positive(),
+            limit: z.number().int().positive().max(100).optional(),
+          })
+          .strict()
+      )
+      .query(({ ctx, input }) =>
+        listPgcAuditNotesForUser({ ...input, userId: ctx.user.id })
+      ),
+    pgcAlertStatus: roleProcedure("audit", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().nullable().optional(),
+            auditEventId: z.number().int().positive(),
+          })
+          .strict()
+      )
+      .query(async ({ ctx, input }) => {
+        try {
+          return await getPgcAuditReviewStateForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "AUDIT_HIGH_RISK_EVENT_NOT_FOUND_OR_FORBIDDEN",
+              "AUDIT_SCOPE_FORBIDDEN",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code:
+                error.message === "AUDIT_SCOPE_FORBIDDEN"
+                  ? "FORBIDDEN"
+                  : "NOT_FOUND",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    pgcReviewHistory: roleProcedure("audit", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().nullable().optional(),
+            auditEventId: z.number().int().positive(),
+            limit: z.number().int().positive().max(100).optional(),
+          })
+          .strict()
+      )
+      .query(async ({ ctx, input }) => {
+        try {
+          return await getPgcAuditReviewHistoryForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "AUDIT_HIGH_RISK_EVENT_NOT_FOUND_OR_FORBIDDEN",
+              "AUDIT_SCOPE_FORBIDDEN",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code:
+                error.message === "AUDIT_SCOPE_FORBIDDEN"
+                  ? "FORBIDDEN"
+                  : "NOT_FOUND",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    exportPgcAlertsPdf: roleProcedure("audit", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            auditEventIds: z.array(z.number().int().positive()).min(1).max(100),
+            status: z.enum(["ALL", "OPEN", "REVIEWED", "RESOLVED"]),
+          })
+          .strict()
+      )
+      .mutation(async ({ ctx, input }) => {
+        const events = await getPgcDashboardAlertEventsForUser({
+          ...input,
+          userId: ctx.user.id,
+        });
+        const pdf = await buildAuditLogsPdf({
+          organizationName: "Organização BALANCERTS.ERP",
+          companyName: events[0]?.companyName ?? null,
+          filters: [
+            `alertas de alto risco: ${input.status === "ALL" ? "todos os estados" : input.status}`,
+            `empresa #${input.companyId}`,
+          ].join(" · "),
+          items: events,
+        });
+        return {
+          filename: `alertas-alto-risco-${input.status.toLowerCase()}-${input.companyId}-${new Date().toISOString().slice(0, 10)}.pdf`,
+          mimeType: pdf.mimeType,
+          dataBase64: pdf.buffer.toString("base64"),
+          eventCount: events.length,
+          truncated: false,
+        };
+      }),
+    updatePgcAlertStatus: roleProcedure("audit", "update")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().nullable().optional(),
+            auditEventId: z.number().int().positive(),
+            status: z.enum(["REVIEWED", "RESOLVED"]),
+          })
+          .strict()
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await updatePgcAuditReviewStatusForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "AUDIT_HIGH_RISK_EVENT_NOT_FOUND_OR_FORBIDDEN",
+              "AUDIT_REVIEW_STATE_TRANSITION_INVALID",
+              "AUDIT_SCOPE_FORBIDDEN",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code:
+                error.message === "AUDIT_SCOPE_FORBIDDEN"
+                  ? "FORBIDDEN"
+                  : error.message ===
+                      "AUDIT_HIGH_RISK_EVENT_NOT_FOUND_OR_FORBIDDEN"
+                    ? "NOT_FOUND"
+                    : "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    addPgcNote: roleProcedure("audit", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().nullable().optional(),
+            auditEventId: z.number().int().positive(),
+            note: z.string().trim().min(2).max(4000),
+          })
+          .strict()
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await createPgcAuditNoteForUser({
+            ...input,
+            userId: ctx.user.id,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            [
+              "AUDIT_NOTE_TOO_SHORT",
+              "AUDIT_NOTE_TOO_LONG",
+              "AUDIT_EVENT_NOT_FOUND_OR_FORBIDDEN",
+              "AUDIT_SCOPE_FORBIDDEN",
+            ].includes(error.message)
+          )
+            throw new TRPCError({
+              code:
+                error.message === "AUDIT_SCOPE_FORBIDDEN"
+                  ? "FORBIDDEN"
+                  : "BAD_REQUEST",
+              message: error.message,
+            });
+          throw error;
+        }
+      }),
+    exportPgcPdf: roleProcedure("audit", "read")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive().nullable().optional(),
+            auditEventId: z.number().int().positive().optional(),
+            actorUserId: z.number().int().positive().optional(),
+            entityType: z.string().trim().min(1).max(80).optional(),
+            action: z.string().trim().min(1).max(80).optional(),
+            from: z.coerce.date().optional(),
+            to: z.coerce.date().optional(),
+          })
+          .strict()
+      )
+      .mutation(async ({ ctx, input }) => {
+        const result = await getPgcAuditLogsForUser({
+          ...input,
+          userId: ctx.user.id,
+          page: 1,
+          pageSize: input.auditEventId ? 10 : 100,
+        });
+        if (input.auditEventId && result.items.length !== 1)
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "EVENTO_AUDITORIA_NAO_ENCONTRADO",
+          });
+        const pdf = await buildAuditLogsPdf({
+          organizationName: "Organização BALANCERTS.ERP",
+          companyName: result.items[0]?.companyName ?? null,
+          filters: [
+            input.auditEventId
+              ? `evento #${input.auditEventId}`
+              : input.action
+                ? `acção ${input.action}`
+                : "todas as acções",
+            input.entityType
+              ? `entidade ${input.entityType}`
+              : "todas as entidades",
+            input.from
+              ? `desde ${input.from.toLocaleDateString("pt-PT")}`
+              : "sem data inicial",
+            input.to
+              ? `até ${input.to.toLocaleDateString("pt-PT")}`
+              : "sem data final",
+          ].join(" · "),
+          items: result.items,
+        });
+        return {
+          filename: `logs-auditoria-pgc-${input.auditEventId ? `evento-${input.auditEventId}` : new Date().toISOString().slice(0, 10)}.pdf`,
+          mimeType: pdf.mimeType,
+          dataBase64: pdf.buffer.toString("base64"),
+          eventCount: result.items.length,
+          truncated: result.hasMore,
+        };
+      }),
+    append: adminProcedure
+      .input(
+        z.object({
+          organizationId: z.number().int().positive(),
+          companyId: z.number().int().positive().nullable().optional(),
+          action: z.string().min(1),
+          entityType: z.string().min(1),
+          entityId: z.string().min(1),
+          beforeState: z.string().nullable().optional(),
+          afterState: z.string().nullable().optional(),
+          correlationId: z.string().min(1),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          return await appendAuditEventForUser({
+            ...input,
+            actorUserId: ctx.user.id,
+            beforeState: input.beforeState ?? null,
+            afterState: input.afterState ?? null,
+          });
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            error.message === "AUDIT_SCOPE_FORBIDDEN"
+          )
+            throw new TRPCError({ code: "FORBIDDEN", message: error.message });
+          throw error;
+        }
+      }),
   }),
 });
 

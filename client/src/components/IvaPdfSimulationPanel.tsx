@@ -39,6 +39,7 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
   const [simulationStatus, setSimulationStatus] =
     useState<SimulationStatus>("IDLE");
   const [progress, setProgress] = useState(0);
+  const [isDragActive, setIsDragActive] = useState(false);
 
   const testIdentifier = useMemo(
     () => (simulatedFile ? buildTestIdentifier(simulatedFile) : null),
@@ -60,6 +61,21 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
     setSimulationStatus("COMPLETED");
     toast.success("Simulação concluída localmente. Nenhum PDF foi enviado.");
   }, [progress, selectedFile, simulationStatus]);
+
+  const handlePdfFile = (file: File | null) => {
+    if (!file) return;
+    const isPdf =
+      file.type === "application/pdf" ||
+      file.name.toLowerCase().endsWith(".pdf");
+    if (!isPdf) {
+      toast.error("Seleccione um ficheiro PDF válido.");
+      return;
+    }
+    setSelectedFile(file);
+    setSimulatedFile(null);
+    setProgress(0);
+    setSimulationStatus("READY");
+  };
 
   const simulateUpload = () => {
     if (!selectedFile) {
@@ -109,7 +125,29 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
         </div>
       </CardHeader>
       <CardContent className="space-y-3 p-3">
-        <div className="flex flex-wrap items-end gap-2 border border-dashed border-[#9fb4c9] bg-white p-2.5">
+        <div
+          className={`flex flex-wrap items-end gap-2 border border-dashed bg-white p-2.5 transition-colors ${isDragActive ? "border-[#1267d6] bg-blue-50" : "border-[#9fb4c9]"}`}
+          data-testid="iva-pdf-dropzone"
+          role="group"
+          aria-label="Zona de arrastar e largar PDF"
+          onDragEnter={event => {
+            event.preventDefault();
+            setIsDragActive(true);
+          }}
+          onDragOver={event => event.preventDefault()}
+          onDragLeave={event => {
+            if (
+              !event.currentTarget.contains(event.relatedTarget as Node | null)
+            ) {
+              setIsDragActive(false);
+            }
+          }}
+          onDrop={event => {
+            event.preventDefault();
+            setIsDragActive(false);
+            handlePdfFile(event.dataTransfer.files?.[0] ?? null);
+          }}
+        >
           <div className="min-w-64 flex-1">
             <Label className="text-[10px] uppercase tracking-wide text-slate-500">
               PDF para simulação
@@ -119,17 +157,18 @@ export function IvaPdfSimulationPanel({ onResetReadiness }: Props) {
               aria-label="PDF para simulação"
               type="file"
               accept=".pdf,application/pdf"
-              onChange={event => {
-                const file = event.target.files?.[0] ?? null;
-                setSelectedFile(file);
-                setSimulatedFile(null);
-                setProgress(0);
-                setSimulationStatus(file ? "READY" : "IDLE");
-              }}
+              onChange={event => handlePdfFile(event.target.files?.[0] ?? null)}
               className="mt-1 h-9 cursor-pointer rounded-sm bg-white text-xs file:mr-2 file:border-0 file:bg-[#eee8ff] file:px-2 file:py-1 file:text-xs file:font-semibold file:text-violet-700"
             />
             <p className="mt-1 text-[10px] text-slate-500">
               Aceita apenas PDF · o conteúdo não sai do navegador.
+            </p>
+            <p
+              className={`mt-2 border px-2 py-1.5 text-[10px] ${isDragActive ? "border-blue-300 bg-blue-50 font-semibold text-blue-800" : "border-slate-200 bg-slate-50 text-slate-600"}`}
+            >
+              {isDragActive
+                ? "Largue o PDF aqui para o seleccionar"
+                : "Ou arraste e largue o PDF nesta zona"}
             </p>
           </div>
           <Button

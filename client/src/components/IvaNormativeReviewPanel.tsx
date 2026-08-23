@@ -21,6 +21,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { normativeErrorLabel } from "@/lib/normativeErrors";
+import {
+  buildIvaReadinessCsv,
+  downloadBase64File,
+  downloadBlob,
+} from "@/lib/ivaReadinessExport";
 import { IvaReadinessPanel } from "@/components/IvaReadinessPanel";
 
 const statusLabel: Record<string, string> = {
@@ -102,6 +107,37 @@ export function IvaNormativeReviewPanel({
   const readinessQuery = trpc.normative.ivaReadiness.useQuery(readinessInput, {
     enabled: Boolean(organizationId),
   });
+  const exportIvaReadinessPdf =
+    trpc.normative.exportIvaReadinessPdf.useMutation({
+      onSuccess: result => {
+        downloadBase64File(result.dataBase64, result.filename, result.mimeType);
+        toast.success("Relatório PDF de prontidão IVA descarregado.");
+      },
+      onError: error => toast.error(normativeErrorLabel(error.message)),
+    });
+  const exportCsv = () => {
+    if (!readinessQuery.data) {
+      toast.error("O estado de prontidão IVA ainda não está disponível.");
+      return;
+    }
+    const filename = `prontidao-iva-${organizationId ?? "contexto"}-${new Date().toISOString().slice(0, 10)}.csv`;
+    downloadBlob(
+      buildIvaReadinessCsv(readinessQuery.data, asOfDate),
+      filename,
+      "text/csv;charset=utf-8"
+    );
+    toast.success("Relatório CSV de prontidão IVA descarregado.");
+  };
+  const exportPdf = () => {
+    if (!organizationId) {
+      toast.error("Seleccione uma organização autorizada antes de exportar.");
+      return;
+    }
+    exportIvaReadinessPdf.mutate({
+      organizationId,
+      asOf: asOfDate,
+    });
+  };
   useEffect(() => {
     if (readinessResetKey > 0 && organizationId) void readinessQuery.refetch();
   }, [organizationId, readinessQuery.refetch, readinessResetKey]);
@@ -225,6 +261,9 @@ export function IvaNormativeReviewPanel({
           data={readinessQuery.data}
           isLoading={readinessQuery.isLoading}
           isError={readinessQuery.isError}
+          onExportCsv={exportCsv}
+          onExportPdf={exportPdf}
+          exportPdfPending={exportIvaReadinessPdf.isPending}
         />
         <div className="mb-3 grid grid-cols-[1fr_180px_auto] items-end gap-2">
           <div>

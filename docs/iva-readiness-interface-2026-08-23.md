@@ -27,3 +27,13 @@ A simulação passou a apresentar uma barra de progresso acessível entre 0% e 1
 O botão **Limpar e repor** remove o PDF, o identificador de teste, o progresso e o resultado local. Em seguida, solicita uma nova leitura da prontidão IVA no painel pai, sem alterar fontes, regras, contas ou confirmações. Assim, o estado mostrado volta a reflectir exclusivamente os dados validados no servidor.
 
 Os cartões e tooltips da cadeia utilizam agora verde para diplomas confirmados e vermelho para diplomas em falta. A cor acompanha sempre uma etiqueta textual e um ícone, não sendo usada como único meio de comunicação.
+
+## Drag-and-drop, resumo e exportação
+
+O simulador de evidência IVA passou a aceitar selecção por arrastar e largar na zona identificada, mantendo a validação de extensão/tipo PDF e o mesmo fluxo local do selector de ficheiros. Ficheiros que não sejam PDF são rejeitados sem criar estado simulado.
+
+O painel de prontidão mostra a conclusão da cadeia normativa como contagem e percentagem, por exemplo **3/5 · 60%**, acompanhada por barra de progresso acessível. A cor vermelha sinaliza cadeia incompleta e a verde sinaliza os cinco diplomas confirmados; a informação textual permanece sempre presente.
+
+Foram adicionados os comandos **CSV** e **PDF**. O CSV é construído no cliente a partir do resultado actualmente visível e inclui os cinco diplomas, estados, funções, bloqueios e regras por regime. O PDF é gerado no servidor através do procedimento protegido `normative.exportIvaReadinessPdf`, com validação server-side do papel e da organização. Ambos são relatórios de consulta e não confirmam diplomas, não activam regras e não persistem o PDF simulado.
+
+A exportação PDF usa a mesma data de vigência consultada pelo painel e devolve o estado de prontidão, contagem percentual, lista de diplomas em falta, bloqueios e repartição por regime. O procedimento é permitido apenas para papéis com leitura normativa; o Operador é bloqueado antes da consulta.
