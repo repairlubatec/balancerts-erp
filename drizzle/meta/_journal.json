@@ -498,6 +498,13 @@
       "when": 1787436752131,
       "tag": "0070_steep_talisman",
       "breakpoints": true
+    },
+    {
+      "idx": 71,
+      "version": "5",
+      "when": 1787463618366,
+      "tag": "0071_numerous_jack_flag",
+      "breakpoints": true
     }
   ]
 }

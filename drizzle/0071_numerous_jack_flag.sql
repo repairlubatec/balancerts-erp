@@ -1,0 +1,40 @@
+CREATE TABLE `normativeSourceRelations` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`organizationId` int NOT NULL,
+	`sourceId` int NOT NULL,
+	`relatedSourceId` int NOT NULL,
+	`relationType` enum('AMENDS','REPEALS','REPUBLISHES','REGULATES','APPROVES_MODELS','DERIVES_FROM') NOT NULL,
+	`article` varchar(80),
+	`effectiveFrom` timestamp,
+	`effectiveTo` timestamp,
+	`evidencePage` int,
+	`evidenceHash` varchar(64),
+	`verificationStatus` enum('PENDING','HUMAN_APPROVED','REJECTED') NOT NULL DEFAULT 'PENDING',
+	`createdBy` int NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `normativeSourceRelations_id` PRIMARY KEY(`id`),
+	CONSTRAINT `normative_source_relations_unique` UNIQUE(`organizationId`,`sourceId`,`relatedSourceId`,`relationType`)
+);
+--> statement-breakpoint
+CREATE TABLE `normativeSources` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`organizationId` int NOT NULL,
+	`code` varchar(80) NOT NULL,
+	`title` varchar(255) NOT NULL,
+	`instrumentType` enum('LAW','PRESIDENTIAL_DECREE','EXECUTIVE_DECREE','PGC','AGT_GUIDANCE') NOT NULL,
+	`publicationDate` timestamp,
+	`effectiveFrom` timestamp,
+	`effectiveTo` timestamp,
+	`sourceUrl` varchar(512),
+	`storageKey` varchar(500),
+	`sha256` varchar(64),
+	`pageCount` int,
+	`verificationStatus` enum('PENDING','OCR_REVIEWED','VISUALLY_CONFIRMED','HUMAN_APPROVED','ACTIVE','SUPERSEDED','REJECTED') NOT NULL DEFAULT 'PENDING',
+	`verifiedBy` int,
+	`verifiedAt` timestamp,
+	`createdBy` int NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `normativeSources_id` PRIMARY KEY(`id`),
+	CONSTRAINT `normative_sources_organization_code_unique` UNIQUE(`organizationId`,`code`),
+	CONSTRAINT `normative_sources_organization_hash_unique` UNIQUE(`organizationId`,`sha256`)
+);

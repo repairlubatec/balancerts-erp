@@ -21,6 +21,14 @@ describe("Angola normative evidence", () => {
     expect(validateNormativeCoverage({ area: "ACCOUNTING", evidenceCodes: [] })).toMatchObject({ valid: false, missing: ["PGC-AO-82-01"] });
   });
 
+  it("regista as cinco fontes oficiais do IVA com papéis distintos", () => {
+    expect(normativeEvidence("IVA-LAW-7-19")).toMatchObject({ verificationStatus: "CONFIRMED", title: expect.stringContaining("Lei n.º 7/19"), scope: expect.stringContaining("histórica") });
+    expect(normativeEvidence("IVA-LAW-17-19")).toMatchObject({ verificationStatus: "CONFIRMED", title: expect.stringContaining("Lei n.º 17/19"), scope: expect.stringContaining("1 de Outubro de 2019") });
+    expect(normativeEvidence("IVA-DP-180-19")).toMatchObject({ verificationStatus: "CONFIRMED", scope: expect.stringContaining("34.5-IVA") });
+    expect(normativeEvidence("IVA-DE-134-19")).toMatchObject({ verificationStatus: "CONFIRMED", scope: expect.stringContaining("Modelos") });
+    expect(normativeEvidence("IVA-LAW-14-23")).toMatchObject({ verificationStatus: "CONFIRMED", scope: expect.stringContaining("consolidada") });
+  });
+
   it("keeps the official PGCA evidence and review boundary", async () => {
     const { existsSync, readFileSync } = await import("node:fs");
     expect(existsSync("docs/normative-sources/decreto-82-01-pgca.pdf")).toBe(true);

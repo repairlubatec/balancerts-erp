@@ -839,6 +839,47 @@ export const normativeRules = mysqlTable("normativeRules", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const normativeSources = mysqlTable("normativeSources", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  code: varchar("code", { length: 80 }).notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  instrumentType: mysqlEnum("instrumentType", ["LAW", "PRESIDENTIAL_DECREE", "EXECUTIVE_DECREE", "PGC", "AGT_GUIDANCE"]).notNull(),
+  publicationDate: timestamp("publicationDate"),
+  effectiveFrom: timestamp("effectiveFrom"),
+  effectiveTo: timestamp("effectiveTo"),
+  sourceUrl: varchar("sourceUrl", { length: 512 }),
+  storageKey: varchar("storageKey", { length: 500 }),
+  sha256: varchar("sha256", { length: 64 }),
+  pageCount: int("pageCount"),
+  verificationStatus: mysqlEnum("verificationStatus", ["PENDING", "OCR_REVIEWED", "VISUALLY_CONFIRMED", "HUMAN_APPROVED", "ACTIVE", "SUPERSEDED", "REJECTED"]).default("PENDING").notNull(),
+  verifiedBy: int("verifiedBy"),
+  verifiedAt: timestamp("verifiedAt"),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  organizationCodeUnique: uniqueIndex("normative_sources_organization_code_unique").on(table.organizationId, table.code),
+  organizationHashUnique: uniqueIndex("normative_sources_organization_hash_unique").on(table.organizationId, table.sha256),
+}));
+
+export const normativeSourceRelations = mysqlTable("normativeSourceRelations", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  sourceId: int("sourceId").notNull(),
+  relatedSourceId: int("relatedSourceId").notNull(),
+  relationType: mysqlEnum("relationType", ["AMENDS", "REPEALS", "REPUBLISHES", "REGULATES", "APPROVES_MODELS", "DERIVES_FROM"]).notNull(),
+  article: varchar("article", { length: 80 }),
+  effectiveFrom: timestamp("effectiveFrom"),
+  effectiveTo: timestamp("effectiveTo"),
+  evidencePage: int("evidencePage"),
+  evidenceHash: varchar("evidenceHash", { length: 64 }),
+  verificationStatus: mysqlEnum("verificationStatus", ["PENDING", "HUMAN_APPROVED", "REJECTED"]).default("PENDING").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  relationUnique: uniqueIndex("normative_source_relations_unique").on(table.organizationId, table.sourceId, table.relatedSourceId, table.relationType),
+}));
+
 export const payrollRuleSets = mysqlTable("payrollRuleSets", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull().references(() => organizations.id),

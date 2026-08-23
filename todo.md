@@ -2885,3 +2885,10 @@
 - [x] Definir fluxo de confirmação humana, estados CONFIRMED_ONLY, activação condicionada, auditoria e rollback.
 - [x] Definir critérios de aceitação, testes de vigência histórica, não-regressão e rastreabilidade por fonte/artigo/página/hash.
 - [x] Produzir a especificação técnica consolidada para aprovação antes de qualquer implementação.
+
+# Implementação autorizada — cadeia normativa IVA — primeira etapa
+- [x] Mapear o schema, helpers e routers actuais para extensão segura do catálogo normativo sem duplicar entidades.
+- [x] Definir migração não destrutiva para fontes, versões, artigos, relações normativas e evidências.
+- [x] Implementar consultas tenant-aware de fontes e versões com estado CONFIRMED_ONLY.
+- [x] Implementar testes de isolamento, vigência, precedência, idempotência e não activação automática.
+- [x] Guardar checkpoint da primeira entrega implementada antes de avançar para regras materiais.

@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, accountingRules, pgcAccounts, pgcVersions, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
+  auditEvents, accountingRules, pgcAccounts, pgcVersions, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, normativeSources, normativeSourceRelations, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildSaftAoXml, buildTrialBalance, buildVatSummary, type JournalRow, type SaftAoAccount, type SaftAoJournalEntry, type SaftAoSourceDocument } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, validateStockMovement } from "./operations";
@@ -2341,4 +2341,19 @@ export async function getPgcAuditLogsForUser(input: { userId: number; organizati
   const rows = await db.select({ event: auditEvents, actor: { id: users.id, name: users.name, email: users.email }, companyName: companies.name }).from(auditEvents).leftJoin(users, eq(auditEvents.actorUserId, users.id)).leftJoin(companies, eq(auditEvents.companyId, companies.id)).where(and(...filters)).orderBy(desc(auditEvents.id)).limit(pageSize + 1).offset((page - 1) * pageSize);
   const hasMore = rows.length > pageSize;
   return { page, pageSize, hasMore, items: rows.slice(0, pageSize).map((row) => ({ ...row.event, actor: row.actor, companyName: row.companyName ?? null })) };
+}
+
+export async function listNormativeSourcesForUser(input: { userId: number; organizationId: number; verificationStatus?: "PENDING" | "OCR_REVIEWED" | "VISUALLY_CONFIRMED" | "HUMAN_APPROVED" | "ACTIVE" | "SUPERSEDED" | "REJECTED"; limit?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const limit = Math.min(Math.max(input.limit ?? 100, 1), 100);
+  const rows = await db.select({ source: normativeSources }).from(normativeSources).innerJoin(organizations, eq(normativeSources.organizationId, organizations.id)).where(and(eq(normativeSources.organizationId, input.organizationId), organizationAccessCondition(input.userId), ...(input.verificationStatus ? [eq(normativeSources.verificationStatus, input.verificationStatus)] : []))).orderBy(desc(normativeSources.id)).limit(limit);
+  return rows.map(({ source }) => source);
+}
+
+export async function listNormativeSourceRelationsForUser(input: { userId: number; organizationId: number; sourceId?: number; limit?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const limit = Math.min(Math.max(input.limit ?? 100, 1), 100);
+  return db.select({ relation: normativeSourceRelations }).from(normativeSourceRelations).innerJoin(organizations, eq(normativeSourceRelations.organizationId, organizations.id)).where(and(eq(normativeSourceRelations.organizationId, input.organizationId), organizationAccessCondition(input.userId), ...(input.sourceId ? [eq(normativeSourceRelations.sourceId, input.sourceId)] : []))).orderBy(desc(normativeSourceRelations.id)).limit(limit);
 }
