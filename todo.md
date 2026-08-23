@@ -3084,3 +3084,9 @@
 - [x] Aplicar o filtro aos alertas e às métricas visíveis sem quebrar o isolamento da organização.
 - [x] Cobrir a filtragem com testes Vitest e validar a actualização após mudança de estado.
 - [x] Validar visualmente, actualizar o TODO e guardar checkpoint.
+
+# Indicador visual de alertas resolvidos no dashboard
+- [x] Destacar linhas de alertas resolvidos com ícone e mudança de cor.
+- [x] Garantir que o indicador inclui texto acessível e não depende apenas da cor.
+- [x] Adicionar teste do indicador visual e validar a apresentação no dashboard.
+- [x] Actualizar o TODO e guardar checkpoint.

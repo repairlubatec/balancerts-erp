@@ -41,6 +41,9 @@ describe("filtro de alertas do dashboard principal", () => {
     render(<Harness />);
     expect(screen.getByText("Alerta em aberto")).toBeTruthy();
     expect(screen.getByText("Alerta resolvido")).toBeTruthy();
+    const resolvedIndicator = screen.getByLabelText("Alerta resolvido");
+    expect(resolvedIndicator.querySelector("svg")).toBeTruthy();
+    expect(resolvedIndicator.parentElement?.className).toContain("bg-emerald-50/70");
     fireEvent.change(screen.getByLabelText("Filtrar alertas por estado"), { target: { value: "RESOLVED" } });
     expect(screen.getByText("Alerta resolvido")).toBeTruthy();
     expect(screen.queryByText("Alerta em aberto")).toBeNull();
