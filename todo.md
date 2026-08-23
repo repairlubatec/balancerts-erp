@@ -2980,3 +2980,7 @@
 # Normalização da cobertura AccountingRules
 - [x] Normalizar aliases de operações existentes para o catálogo de cobertura.
 - [x] Testar COMPRA/VENDA/PAGAMENTO e variantes sem criar regras.
+
+# Bloqueio de activação por cobertura operacional
+- [x] Exigir cobertura canónica de AccountingRules no readiness de activação PGCA.
+- [x] Testar bloqueio quando existem regras mas faltam operações essenciais.

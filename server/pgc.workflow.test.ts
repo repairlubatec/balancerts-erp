@@ -29,4 +29,8 @@ describe("PGCA activation readiness", () => {
   it("normaliza variantes existentes sem criar operações adicionais", () => {
     expect(getAccountingRuleCoverage({ activeRuleOperations: ["COMPRA", "VENDA", "ESTOQUE", "PAGAMENTO", "FOLHA", "DEPRECIAÇÃO"] })).toMatchObject({ complete: true, missing: [], active: ["COMPRAS", "VENDAS", "STOCK", "TESOURARIA", "SALARIOS", "IMOBILIZADO"] });
   });
+
+  it("bloqueia activação com regras parciais", () => {
+    expect(getPgcReadinessBlockers({ status: "VALIDATED", accountCount: 20, confirmedAccountCount: 20, sourceCount: 1, confirmedSourceCount: 1, accountingRuleCount: 2, accountingRuleOperations: ["COMPRAS", "VENDAS"] })).toContain("PGC_VERSION_ACCOUNTING_RULE_COVERAGE_INCOMPLETE");
+  });
 });

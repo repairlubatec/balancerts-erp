@@ -34,7 +34,7 @@ export async function validatePgcVersionForUser(input: { userId: number; organiz
   return { versionId: input.versionId, status: "VALIDATED" as const, accountCount: accounts.length, sourceCount: sources.length };
 }
 
-export function getPgcReadinessBlockers(input: { status: string; accountCount: number; confirmedAccountCount: number; sourceCount: number; confirmedSourceCount: number; accountingRuleCount: number }) {
+export function getPgcReadinessBlockers(input: { status: string; accountCount: number; confirmedAccountCount: number; sourceCount: number; confirmedSourceCount: number; accountingRuleCount: number; accountingRuleOperations?: readonly string[] }) {
   const blockers: string[] = [];
   if (input.status !== "VALIDATED") blockers.push("PGC_VERSION_MUST_BE_VALIDATED");
   if (input.accountCount === 0) blockers.push("PGC_VERSION_WITHOUT_ACCOUNTS");
@@ -42,6 +42,7 @@ export function getPgcReadinessBlockers(input: { status: string; accountCount: n
   if (input.sourceCount === 0) blockers.push("PGC_VERSION_WITHOUT_SOURCES");
   if (input.confirmedSourceCount !== input.sourceCount) blockers.push("PGC_VERSION_HAS_UNCONFIRMED_SOURCES");
   if (input.accountingRuleCount === 0) blockers.push("PGC_VERSION_WITHOUT_ACCOUNTING_RULES");
+  if (input.accountingRuleCount > 0 && input.accountingRuleOperations && !getAccountingRuleCoverage({ activeRuleOperations: input.accountingRuleOperations }).complete) blockers.push("PGC_VERSION_ACCOUNTING_RULE_COVERAGE_INCOMPLETE");
   return blockers;
 }
 
@@ -55,7 +56,7 @@ export async function getPgcActivationReadinessForUser(input: { userId: number; 
   ]);
   const confirmedAccounts = accounts.filter((account) => account.validationStatus === "CONFIRMED");
   const confirmedSources = sources.filter((source) => source.verificationStatus === "CONFIRMED");
-  const blockers = getPgcReadinessBlockers({ status: version.status, accountCount: accounts.length, confirmedAccountCount: confirmedAccounts.length, sourceCount: sources.length, confirmedSourceCount: confirmedSources.length, accountingRuleCount: rules.length });
+  const blockers = getPgcReadinessBlockers({ status: version.status, accountCount: accounts.length, confirmedAccountCount: confirmedAccounts.length, sourceCount: sources.length, confirmedSourceCount: confirmedSources.length, accountingRuleCount: rules.length, accountingRuleOperations: rules.map((rule) => rule.operation) });
   return { versionId: input.versionId, status: version.status, accountCount: accounts.length, confirmedAccountCount: confirmedAccounts.length, sourceCount: sources.length, confirmedSourceCount: confirmedSources.length, accountingRuleCount: rules.length, ready: blockers.length === 0, blockers };
 }
 
