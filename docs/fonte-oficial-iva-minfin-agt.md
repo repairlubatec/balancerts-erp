@@ -32,3 +32,9 @@ Fontes consultadas:
 - [Decreto Presidencial n.º 180/19 — referência pública de consulta](https://lex.ao/docs/presidente-da-republica/2019/decreto-presidencial-n-o-180-19-de-24-de-maio/)
 
 Estes dados não autorizam activação ou alteração do motor fiscal. A fonte primária oficial e os anexos devem prevalecer sobre a transcrição pública.
+
+## Confirmação HTML da secção oficial do IVA
+
+A inspecção não destrutiva do HTML da página oficial confirmou que a secção “Imposto sobre o Valor Acrescentado” contém explicitamente três acções documentais: “Lei N.º 7/19 - Lei que Aprova o Código do Imposto sobre o Valor Acrescentado”, “Lei N.º 17/19 - Lei que Altera o Código do Imposto sobre o Valor Acrescentado” e “Decreto Executivo N.º 134/19 de 10 de Junho - Aprova os Modelos Declarativos do IVA”. Os links são carregados por acções PrimeFaces, não por hrefs PDF directamente expostos no HTML inicial.
+
+A Lei n.º 14/23 e o Decreto Presidencial n.º 180/19 não apareceram no bloco HTML inicial desta secção. Isto não contradiz a informação do utilizador nem prova indisponibilidade: podem estar noutra página, noutra versão da biblioteca institucional ou ser carregados por fluxo documental separado. A análise continuará a exigir as fontes oficiais correspondentes e não substituirá essa ausência por uma fonte secundária.
