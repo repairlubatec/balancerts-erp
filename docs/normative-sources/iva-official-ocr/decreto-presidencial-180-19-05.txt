@@ -1,0 +1,139 @@
+ISÉRIE-N. 72 — DE 24 DE MAIO DE 2019
+
+3495
+
+ARTIGO 15º
+
+(Solicitação de restituição)
+
+1. Asolicitação de restituição é efectuada através de modelo
+próprio, por transmissão electrónica de dados, do qual cons-
+tem os elementos identificativos das facturas ou documentos
+equivalentes, processados nos termos da legislação aplicável
+
+2. A solicitação de restituição é efectuada no prazo de um
+ano a contar da data da factura ou documento equivalente que
+certifique a aquisição dos bens ou serviços
+
+3.A solicitação de restituição efectuada por membro ou
+funcionário das entidades mencionadas no n.º 1 do artigo 13.º
+deve ser visada e autenticada electronicamente pelos Chefes
+da Missão.
+
+4. Na solicitação de restituição, as Representações
+Diplomáticas ou Consulares ou os seus fimcionários devem.
+indicar o seu número de identificação fiscal quando legalmente
+exigível eos dados da sua conta bancária destinada ao crédito
+dos montantes a restituir, cujo numero e demais elementos de
+identificação são confirmados pela respectiva instimição de
+crédito no primeiro pedido em que sejam indicados
+
+ARTIGO 16º
+(Recusa de restituição)
+
+1.A Administração Geral Tributária pode se recusar a res-
+tituição do Imposto sobre o Valor Acrescentado suportado nas
+aquisições de bens e serviços efectuadas no mercado intemo,
+quando este exceda manifestamente as necessidades de con-
+sumo das entidades mencionadas non.º 1 do artigo 13º
+
+2. A restituição do Imposto sobre o Valor Acrescentado
+pode ainda ser recusado quando haja fundadas razões para
+crer que os bens ou serviços a que se refere o imposto ar
+tituir não se destinam a consumo das entidades mencionadas
+no número anterior.
+
+3.A Administração Geral Tributária não restitui o Imposto
+sobre o Valor Acrescentado contido em factura ou documento
+equivalente cujo valor unitário seja inferior a 114 UCF.
+
+4. A Administração Geral Tributária só restitui o Imposto
+sobre o Valor Acrescentado em caso de reciprocidade de
+tratamento.
+
+ARTIGO 17º
+(Consulta prévia)
+
+1.A Administração Geral Tributária deve solicitar o pare-
+cer do Ministério das Relações Exteriores, sempre que haja
+diúvida sobre a idoneidade do pedido, a qualidade do peticio-
+nário ou a existência de reciprocidade.
+
+2. O parecer mencionado no número anterior deve ser con-
+cedido pelo Ministério das Relações Exteriores à Administração
+Geral Tributária no prazo de 30 dias,
+
+3 Os Serviços da Administração Geral Tributária respon-
+sáveis pela gestão do Imposto sobre o Valor Acrescentado
+podem solicitar quaisquer outras informações para aprecia-
+ção do pedido de restituição. incluindo a apresentação dos
+originais dos documentos constantes da relação que acom-
+penha o pedido.
+
+4, Os originais dos documentos referidos no número ante-
+rior devem sermantidos em arquivo nos prazos previstos no
+Regime Jurídico das Facturas e documentos equivalentes.
+ARTIGO 18º
+(Crédito em conta)
+
+“Após ao deferimento do pedido. o montante da restituição
+é creditado pela Administração Geral Tributária na conta ban-
+cária que consta do cadastro do Registo Geral de Contribuintes
+indicada pelo peticionário e o facto é comunicado ao solicitante
+
+ARTIGO 19º
+(imposto indevidamente restituído)
+
+1. O imposto indevidamente restituído ou restituído em
+excesso será deduzido nos periodos subsequentes, até à liqui-
+dação do montante indevidamente restituído.
+
+2. 4 decisão relativa à dedução referida no número ante-
+tior é notificada ao peticicnário, contando-se os prazos para
+a reclamação administrativo, recurso hierárquico ou impug-
+nação conforme previsto no Código Geral Tributário, a partir
+do dia imediato ao da recepção da notificação com a confir-
+mação de recepção.
+
+3, Decontidos mais de 90 dias sobre a restituição indevida
+ou em excesso sem que se verifique o disposto non. 1 deste
+artigo, efectua-se a liquidação oficiosa pela importância devida.
+
+4. A Administração Geral Tributária não procede a qual-
+quer restituição do imposto à mesma entidade, enquanto não
+forem efectuados os pagamentos das liquidações referidas
+no número anterior.
+
+CAPÍTULO II
+Das Operações Activas e Passivas do Imposto
+sobre o Valor Acrescentado
+
+secção1
+Plano Geral de Contabilidade
+
+ARTIGO 20º
+(Criação de Código de Contas)
+
+1, É criado no Plano Geral de Contabilidade, aprovado
+pelo Decreto n.º 82/01, de 16 de Novembro, o Código de
+Contas para a contabilização das operações activas e passi-
+vas do Imposto sobre o Valor Acrescentado.
+
+2. O Imposto sobre o Valor Acrescentado doravante é
+designado por «IVA».
+
+3. O Código de Conta a que se refere o mimero anterior
+é designado por «34.5 — IVA».
+
+4, São ainda criados no Plano Geral de Contabilidade,
+aprovado pelo Decreto nº 82/01, de 16 de Novembro, os
+seguintes códigos de contas:
+
+a) 34.6 Certificado de Crédito Fiscal a Compensar;
+b) 63.5 IVA:
+c) 75.3.1.2- IVA.
+ARTIGO 21º
+(Subcontas da conta principal do Imposto sobre o Valor Acrescentado)
+A conta 34.5 — IVA, tem o seguinte desdobramento:
+a) 345.1 - IVA suportado;
+b) 345.2 TVA dedutível;

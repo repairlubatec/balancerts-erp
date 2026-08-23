@@ -1,0 +1,136 @@
+2938
+
+DIÁRIO DA REPÚBLICA
+
+3. Quando for apurado crédito a favor do sujeito passivo
+na declaração a que se refere on. 1, o sistema informático
+em uso na Administração Geral Tributária deve transfe-
+rir automaticamente o respectivo crédito para a declaração
+do periodo subsequente, caso não tenha sido solicitado o
+reembolso.
+
+4, Casoa declaração periódicaseja entregue fora do prazo
+legal ou preenchida pela Administração Geral Tributária e
+delaresulte crédito de imposto, este apenas é considerado na
+declaração a apresentar após o período do incumprimento
+
+5. A declaração periódica pode ser substituída nos termos
+do Código Geral Tributário.
+
+ARTIGO 45º
+(Declaração de alteração de actividade)
+
+1. Sempre que se verifique alteração de qualquer dos
+elementos constantes da declaração relativa ao início de
+actividade, com exclusão dos relativos ao volume de negó-
+cios e da percentagem de dedução das actividades mistas,
+deve o sujeito passivo submeter a respectiva declaração de
+alteração de actividade.
+
+2.A declatação prevista no número anterior é submetida
+por transmissão electrónica de dados, no prazo de 15 dias à
+contar da data da alteração.
+
+ARTIGO 46º
+(Declaração de cessação de actividade)
+
+1. No caso de cessação de actividade. deve o sujeito
+passivo, no prazo de 30 dias a contar da data de cessação,
+submeter por transmissão electrónica de dados à respectiva
+declaração.
+
+2. Para efeitos do disposto no artigo anterior. considera-
+se verificada a cessação da actividade exercida pelo sujeito
+passivo no momento em que ocorra qualquer dos seguintes
+factos
+
+a Deixem de praticar actos relacionados com activi-
+dades sujeitas a tributação durante um período
+de dois anos consecutivos, caso em que se pre-
+sumem transmitidos, nos termos da alínea e) do
+nº 3 do artigo 5º, os bens a essa data existentes
+no activo da empresa;
+
+b) Se esgote o activo do sujeito passivo pela venda
+dos bens que o constituem ou pela sua afecta-
+ção a uso próprio do titular, do pessoal ou, em
+eeral, a fins alheios à mesma, bem como pela sua
+transmissão gratuita;
+
+c) Severifique a transferência, a qualquer outro título,
+da propriedade do estabelecimento.
+
+3. Independentemente dos factos previstos no número
+anterior, pode ainda a Administração Geral Tributária, se
+assim o entender, declarar, oficiosamente, a cessação da
+actividade quando for manifesto que esta não está a ser exer-
+cida, não há intenção de a continuar a exercer, ou quando
+existam indícios de que está a ser exercida de forma ou com
+objectivos fraudulentos.
+
+SECÇÃO VI
+Disposieões Comuns
+ARTIGO 47º
+(Centralização da contabilidade)
+
+1. Os sujeitos passivos que exerçam a sua actividade em
+imais de um estabelecimento devem centralizar num deles os
+seus elementos contabilísticos relativos às operações reali-
+zadas em todos
+
+2. O estabelecimento escolhido para a centralização deve
+ser o mesmo para efeitos dos Impostos Sobre o Rendimento
+e nele manter-se o registo dos movimentos ocorridos entre
+os diversos estabelecimentos
+
+ARTIGO 48
+Gectificações do imposto)
+
+1. Sempre que o valor tributável de uma operação ou o
+respectivo imposto sejam rectificados, por qualquer motivo,
+apósa emissão da factura ou documento equivalente, aplica-
+-se as disposições do artigo 34.º e seguintes
+
+2. Se, depois de efectuado o registo das operações acti-
+vas. for anulada operação ou reduzido o seu valor tributável,
+o fornecedor do bem ou prestador de serviço pode efectuar à
+dedução do correspondente imposto até ao final do período
+de imposto seguinte àquele em que se verificarem as cir-
+cunstâncias que determinam a anulação da liquidação ou a
+redução do seu valor tributável
+
+3, No caso de rectificação nas facturas ou documentos
+equivalentes que já tenham dado lugar ao registo referido
+no número anterior, a rectificação é obrigatória quando hou-
+ver imposto liquidado a menos, o qual pode ser efectuado
+sem qualquer penalidade até ao final do período do imposto
+seguinte àquele a que respeite a factura ou documento equi-
+valente a rectificar, e é facultativa quando houver imposto
+liquidado à mais, mas apenas pode ser efectuada no prazo
+de um ano.
+
+4, O adquirente do bem ou destinatário do serviço que
+seja sujeito passivo do imposto. se tiver efectuado já o
+registo de uma operação relativamente à qual o seu fomece-
+dor ou prestador de serviço procedeu à anulação, redução do
+seu valor tributável ou rectificação para menos do valor fac-
+turado, corrige, até o fim do período de imposto seguinte ao
+da recepção do documento rectificado, a dedução efectuada.
+
+5. No caso de o valor tributável de uma operação cu o
+respectivo imposto tiver sido rectificado para menos, a regu-
+larização a favor do sujeito passivo só pode ser efectuada
+quando este tiver na sua posse a prova de que o adquirente
+tomou conhecimento da rectificação e que foi reembolsado
+do imposto, sem o que se considera indevida à respectiva
+dedução.
+
+6 Sempre que o valor tributável for objecto de redução,
+o montante desta deve ser repartido entre a contraprestação e
+o imposto, aquando da emissão do respectivo documento, se
+se pretender igualmente a rectificação do imposto.
+
+7. A correcção de erros nos registos a que se referem os
+artigos 38º a 42º e na declaração mencionada no artigo 44º é
+obrigatória quando houver imposto entregue a menos e poderá
+ser efectuada sem qualquer penalidade até o final do período

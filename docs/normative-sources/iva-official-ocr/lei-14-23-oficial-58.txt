@@ -1,0 +1,58 @@
+DIÁRIO DA REPÚBLICA DE 28 DE DEZEMBRO DE 2023 I SÉRIE, N.º 246 | 8575
+
+ARTIGO 44.º &
+(Declaração periódica)
+
+1. Os sujeitos passivos são obrigados a submeter a declaração periódica e os respectivos
+anexos, tal como previsto na alínea c) do n.º 1 do artigo 32.º, por transmissão electrónica
+de dados, até ao último dia útil do mês seguinte àquele a que respeitam as operações nela
+abrangidas.
+
+2. Quando for apurado imposto a entregar ao Estado na declaração a que se refere o número
+anterior, o sistema informático em uso na Administração Geral Tributária deve gerar automati-
+camente a Nota de Liquidação.
+
+3. Quando for apurado crédito a favor do sujeito passivo na declaração a que se refere o
+n.º 1,o sistema informático em uso na Administração Geral Tributária deve transferir automa-
+ticamente o respectivo crédito para a declaração do período subsequente, caso não tenha sido
+solicitado o reembolso.
+
+4. Caso a declaração periódica seja entregue fora do prazo legal ou preenchida pela
+Administração Geral Tributária e dela resulte crédito de imposto, este apenas é considerado na
+declaração a apresentar após o período do incumprimento.
+
+5. A declaração periódica pode ser substituída nos termos do Código Geral Tributário.
+
+ARTIGO 45.º *
+(Declaração de alteração de actividade)
+
+1. Sempre que se verifique alteração de qualquer dos elementos constantes da declara-
+ção relativa ao início de actividade, com exclusão dos relativos ao volume de negócios, deve o
+sujeito passivo submeter a respectiva declaração de alteração de actividade.
+
+2. A declaração prevista no número anterior é submetida por transmissão electrónica de
+dados, no prazo de 15 dias a contar da data da alteração.
+
+ARTIGO 46.º
+(Declaração de cessação de actividade)
+
+1. No caso de cessação de actividade, deve o sujeito passivo, no prazo de 30 dias a contar
+da data de cessação, submeter por transmissão electrónica de dados, a respectiva declaração.
+
+2. Para efeitos do disposto no artigo anterior, considera-se verificada a cessação da activi-
+dade exercida pelo sujeito passivo no momento em que ocorra qualquer dos seguintes factos:
+
+a) Deixem de praticar actos relacionados com actividades sujeitas a tributação durante
+um período de dois anos consecutivos, caso em que se presumem transmitidos,
+nos termos da alínea e) do n.º 3 do artigo 5.º, os bens a essa data existentes no
+activo da empresa;
+
+b) Se esgote o activo do sujeito passivo pela venda dos bens que o constituem ou pela sua
+afectação a uso próprio do titular, do pessoal ou, em geral, a fins alheios à mesma,
+bem como pela sua transmissão gratuita;
+
+* Alterado pelo artigo 1.º da Lei n.º 14/23, de 28 de Dezembro — De Alteração ao Código do Imposto sobre o Valor
+Acrescentado.
+
+** Alterado pelo artigo 1.º da Lei n.º 14/23, de 28 de Dezembro — De Alteração ao Código do Imposto sobre o Valor
+Acrescentado.

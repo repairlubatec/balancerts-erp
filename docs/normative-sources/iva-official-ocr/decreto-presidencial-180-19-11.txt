@@ -1,0 +1,144 @@
+ISÉRIE-N. 72 — DE 24 DE MAIO DE 2019
+
+3501
+
+Não se tratando de bens do activo imobilizado. quando se
+mostrar dificil a imputação especifica da referida contrapar-
+tída, esta pode ser registada como custo na conta 6624 IVA,
+quando a regularização seja a favor do Estado, ou como pro-
+veito na conta 7700 — Restituição de impostos. quando a
+regularização seja a favor do sujeito passivo.
+
+O saldo da subconta 46432 Anual por cálculo do pro-ata
+definitivo, é transferido para a conta 4644 IVA apuramento,
+no período de apuramento do imposto em que foram regista-
+das as respectivas reeularizações.
+
+46433 — Outras regularizações anuais
+
+Esta conta destina-se a registar outras regularizações anuais
+não expressamente previstas nas subcontas anteriores, a efec-
+uar, em qualquer dos casos, no final do ano.
+
+Em caso de utilização desta conta, deve o sujeito pas-
+sivo justificar e fundamentar nos Serviços da Administração
+Geral Tributária
+
+e) 4644 —IVA apuramento
+
+Esta conta destina-se a revelar a siniação devedora ou cre-
+dora do sujeito passivo perante o Estado, em cada período do
+apuramento do imposto, e deve ser movimentada da seguinte
+forma
+
+Debita-se por contrapartida das contas 4641 — IVA deduti-
+vel, 4643 — IVA regularizações (saldo devedor) e 4646 IVA
+a recuperar
+
+Credita-se por contrapartida das contas 4642 TVA liqui-
+dado e 4643 — IVA regularizações (saldo credor)
+
+Se o saldo decorrente das operações acima for credor,
+debita-se esta conta por contrapartida da subconta 46150 IVA.
+a pagar de apuramento e, se for devedor, credita-se por contra-
+partida da subconta 46160 IVA a recuperar de apuramento,
+
+A cada período de apuramento do imposto esta conta deve
+ter saldo nulo.
+
+S) 4645 IVA a pagar
+
+Esta conta, de nanireza credora, destina-se a revelar o
+montante do imposto a pagar ao Estado pelo sujeito passivo.
+
+A subconta 46450 — IVA a pagar de apuramento, é cre-
+ditada por contrapartida da conta 4644 — IVA apuramento,
+sempre que o saldo desta ultima seja credor.
+
+A subconta 46451 — IVA a pagar de cativo, é creditada pelo
+montante do imposto cativo aquando da aquisição de bens e
+serviços nos termos definidos no Códiso do Imposto sobre o
+Valor Acrescentado. por contrapartida das respectivas contas
+de fomecedores de bens e serviços.
+
+Asubconta 46152 TVA a pagar de liquidações oficiosas
+é creditada pelo montante do imposto liquidado por inicia-
+tiva da Administração Geral Tributária nos termos do Código
+do Imposto sobre o Valor Acrescentado, por contrapartida da
+conta 4648 — IVA liquidações oficiosas.
+
+As subcontas acima debitam-se por contrapartida das con-
+tas 11 - Depósitos à Ordem ou 10 — Caixa, pelo pagamento
+efectuado aos cofres do Estado.
+
+Sempre que a liquidação oficiosa ficar sem efeito, a sub-
+conta 46452 IVA a pagar de liquidações oficiosas é debitada
+com a anulação do lançamento anterior (anulação da liqui-
+dação oficiosa)
+
+8) 4646 IVA a recuperar
+
+Esta conta, de natureza devedora, destina-se a evidenciar
+o montante do crédito de imposto sobre o Estado, no final de
+cada período de tributação. Esta situação ocorre sempre que
+o montante do imposto a favor do sujeito passivo supere o
+valor do imposto a favor do Estado.
+
+A subconta 46460 — IVA a recuperar de apuramento, é
+debitada por contrapartida da conta 4614 — IVA apuramento,
+sempre que o saldo desta última seja devedor.
+
+A subconta 46161 — IVA a recuperar de cativo. é debitada
+pelo montante do imposto cativo pelos clientes aquando da
+transmissão de bens e serviços nos termos definidos no Código
+do Imposto sobre o Valor Acrescentado. por contrapartida das
+respectivas contas de clientes de bens e serviços
+
+A subconta 46460 — IVA a recuperar de apuramento, é
+creditada por contrapartida da conta 46470 — Reembolsos
+pedidos, sempre que o sujeito passivo solicita o reembolso
+ou restituição do IVA suportado ao Estado, ou ereditada por
+contrapartida da conta 4644 TVA apuramento, sempre que
+o sujeito passivo optar pelo reporte do crédito para o período
+de tributação seguinte.
+
+A subconta 46461 — IVA a recuperar de cativo, é creditada
+por contrapartida da conta 4644 — IVA apuramento. em cada
+período de apuramento de imposto.
+
+h) 4647 — IVA reembolsos pedidos
+Esta conta, de natureza devedora, destina-se a revelar o
+
+montante dos créditos sobre o Estado relativamente aos quais
+tiver sido apresentado um pedido de reembolso ou restitui-
+ção do TVA.
+
+A subconta 46470 — Reembolsos pedidos, é debitada por
+contrapartida da conta 46460 IVA a recuperar de apuramento,
+sempre que sujeito passivo apresente um pedido de reembolso
+ou restituição do IVA na Administração Geral Tributária
+
+A subconta 46471 - Reembolsos deferidos, é debitada por
+contrapartida da conta 46470 — Reembolsos pedidos, sempre
+que Administração Geral Tributária defere total ou parcial-
+mente o pedido de reembolso ou restituição do IVA.
+
+A subconta 46472 - Reembolsos indeferidos, é debitada
+por contrapattida da conta 46470 — Reembolsos pedidos, sem-
+pre que Administração Geral Tributária indefere, o pedido de
+reembolso ou restituição do TVA, sendo registada nesta conta
+o montante do imposto indeferido.
+
+A subconta 46473 - Reembolsos reclamados, recorridos
+ou impugnados, é debitada por contrapartida da conta 46472
+- Reembolsos indeferidos, no caso do sujeito passivo recla-
+mar, recorrer ou impugnar o indeferimento efectuado pela
+Administração Geral Tributária
+
+A subconta 46471 - Reembolsos deferidos, é creditada
+por contrapartida das contas 11 — Depósito à Ordem ou 10 —
+Caixa, aquando do recebimento em numerário dos cofres do
+Estado, ou por contrapartida da conta 465 — Certificado de
+crédito fiscal a compensar, aquando do recebimento em cer-
+tificado de crédito fiscal.
+

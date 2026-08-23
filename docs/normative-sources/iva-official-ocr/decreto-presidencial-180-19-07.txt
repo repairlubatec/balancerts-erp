@@ -1,0 +1,142 @@
+ISÉRIE-N. 72 — DE 24 DE MAIO DE 2019
+
+3497
+
+à. 46450 IVA a pagar de apuramento;
+
+il. 46451 TVA a pagar de cativo:
+
+iii. 46452 - IVA a pagar de liquidações oficiosas.
+f 4646 IVA a recuperar:
+
+à. 46160 — IVA a recuperar de apuramentos;
+
+ii. 46461 - IVA a recuperar de cativo.
+£) 4647 — IVA reembolsos pedidos:
+
+à. 46470 - Reembolsos pedidos;
+
+ii. 46471 - Reembolsos deferidos;
+
+iii. 46472 -Reembolsos indeferidos;
+
+iv. 46473 - Reembolsos reclamados, recorridos
+
+ou impugnados.
+
+2. Asregras de movimentação das contas e subcontas das
+operações activas e passivas em sede de IVA previstas no
+número anterior constam do Anexo TT do presente Regulamento
+e que dele é parte integrante.
+
+CAPÍTULO IV
+Disposições Finais
+ARTIGO 26º
+Gneorporação da nomenclatura no Sistema de Normalização
+Contabilistica)
+O Sistema de Normalização Contabilística e Relato
+Financeiro deve incorporar a nomenclatura e as regras de
+movimentação das contas previstas no presente Diploma.
+
+ANEXOI
+(a que se refere o n.º 3 do artigo 2.º do Regulamento)
+
+“As contas é subcontas do Imposto sobre o Valor Acrescentado
+(IVA) devem ser movimentadas e interpretadas nos seguin-
+tes termos:
+
+0) 345.1 TVA suportado
+
+Esta conta é de natureza devedora, destina-se a registar o
+IVA suportado em todas as aquisições de existências, meios
+fixos e investimentos e ontros bens e serviços. Sendo de uso
+obrigatório para os contribuintes enquadrados no regime de
+IVA de caixa e facultativo para os testantes contribuintes. A
+cada período de apuramento do imposto, esta conta deve ter
+saldo nulo, excepto para os sujeitos passivos enquadrados no
+regime de IVA de caixa.
+
+Debita-se pelo IVA suportado em todas as aquisições efce-
+uadas de existên
+bens e serviços, descriminadas nas diferentes subcontas, de
+acordo com a sua origem
+
+meios fixos e mvestimentos ou de outros
+
+Credita-se por contrapartida das resp ectivas subcontas de
+34,5.2- IVA Dedutível relativamente as parcelas de imposto
+dedutível, c o saldo, quando exista, é creditado por contra-
+partida das contas inerentes às respectivas aquisições, ou da
+rubrica 75.3.1.2 — IVA, excepto para as compras de meios
+fixos e investimentos em que o imposto suportado que não
+pode ser deduzido deverá afectar o valor de aquisição dos
+bens a que se refere
+
+b) 34.52 — IVA dedutível
+
+Esta conta, de natureza devedora, revela o valor do IVA,
+que, dada a natureza das operações subjacentes à actividade
+exercida, seja susceptível de dedução nos termos previsto no
+Código do Imposto sobre o Valor Acrescentado. Nos casos em
+que os sujeitos passivos de TVA utilizam a conta 34.5.1 IVA
+suportado, a conta em epígrafe terá o seguinte movimento:
+
+É debitada, pelo montante de IVA dedutível, por contra-
+partida de 34.5.1 — IVA suportado,
+
+E creditada, para transferência do saldo respeitante ao
+periodo de tributação, por débito da conta 34.5.5.1 — Apuramento
+do regime de TVA normal ou 34.5.5.2 - Apuramento do regime
+de IVA de caixa, consoante o caso;
+
+Se não houver utilização prévia da conta 34.5.1 - IVA
+Suportado, a conta em epigrafe terá o seguinte movimento:
+
+É deitada pelos valores do IVA dedutivel relativo a aqui-
+sições efectuadas de existências, meios fixos e investimentos
+ou de outros bens e serviços, descriminadas nas diferentes
+subcontas, de acordo com a sua origem;
+
+E creditada, para transferência do saldo respeitante
+ao periodo de tributação, por débito da rubrica 34,5.5.1 —
+Apuramento do regime de IVA normal ou 34.5.5.2 - Apuramento
+do regime de IVA de caixa, consomte o caso.
+
+Em cada período de apuramento do imposto, o saldo deve
+ser nulo.
+
+c) 34.53 “IVA liquidado
+
+Esta conta, de natureza credora. destina-se a registar o IVA
+liquidado nas transmissões de bens e prestações de serviços
+feitas pelo sujeito passivo de IVA aos seus clientes, ou pelas
+suas aquisições, se for o caso disso, desde que tais operações
+estejam sujeitas a efectiva tributação.
+
+Na subconta 34.5 3.1 — Operações gerais, credita-se o
+imposto liquidado nas facturas ou documentos equivalentes
+emitidos pelo sujeito passivo.
+
+Na subconta 34.5 3.2 - Operações abrangidas pelo regime
+de TVA de caixa, credita-se o imposto liquidado nas facturas ou
+documentos equivalentes emitidos pelo sujeito passivo enqua-
+drados no regime de TVA de caixa, relativamente as operações
+abrangidas por este regime, independentemente do recebi-
+mento dos valores das facturas ou documento equivalente
+
+Quando houver lugar à liquidação do IVA por força da
+afectação ou da utilização de bens a fins estranhos à empresa,
+de transmissão de bens ou de prestações de serviços gratuitos
+ou da afectação de bens a sector isentos quando relativamente
+a esses bens tenha havido dedução de imposto, credita-se a
+subconta 34.5.3.3 — Autoconsumos e operações gratuitas.
+
+Nos casos de inversão dos sujeitos passivos ou autoliqui-
+dação conforme definido nos termos do Código do Imposto
+sobre o Valor Acrescentado, credita-se a subconta 34,5.3.4 —
+Operações especiais
+
+As subcontas 34.5.3.1 — Operações gerais, 34.5.3.2 —
+Operações abrangidas pelo regime de IVA de caixa e 34.5.3.4
+— Operações especiais são debitadas pela transferência do saldo
+

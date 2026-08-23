@@ -1,0 +1,140 @@
+3498
+
+DIÁRIO DA REPÚBLICA
+
+respeitante ao período de tributação, por contrapartida da conta
+34,5.5,1 - Apuramento do regime de IVA nomal ou 34-5.5.2
+— Apuramento do regime de IVA de caixa, consoante o caso.
+
+A subconta 34.5.3.3 — Autoconsumos e operações gratuitas
+é debitada para transferência do saldo respeitante ao período
+de tributação, por contrapartida da conta 5.3.1.2 “TVA.
+
+A cada período de apuramento do imposto, esta conta deve
+ter saldo nulo, excepto para os sujeitos passivos enquadra-
+dos no regime de IVA de caixa, relativamente as operações
+abrangidas por este regime, nos termos previstos no Código
+do Imposto sobre o Valor Acrescentado.
+
+d) 34.5.4- TVA regularizações
+
+Esta conta, de natureza devedora ou credora, destina-se
+a registar as correcções de imposto a favor do sujeito pas-
+sivo ou a favor do Estado apuradas nos termos do Código do
+Imposto sobre o Valor Acrescentado e susceptíveis de serem
+efectuadas nas respectivas declarações periódicas.
+
+As correcções efectuadas são distribuídas pelas subcon-
+tas como se segue:
+
+34.5.4.1 - Mensais a favor do sujeito passivo
+
+Nesta subconta, de natureza devedora, registam-se as ope-
+rações que reduzem o valor tributável, diminuindo o valor do
+imposto a entregar ao Estado. Debita-se pelas regulatizações
+motivadas por erros ou omissões no apuramento do imposto,
+devoluções, descontos, abatimentos, reduções, rescisões e anu-
+lações de contratos por parte de clientes ou incobrabilidade de
+créditos, roubos, sinistros, etc, por contrapartida das contas
+que originaram a rectificação, e credita-se por contrapartida
+da conta 34.5.5.1 — Apuramento do regime de IVA normal ou
+34,5.5.2 - Apuramento do regime de IVA de caixa, consoante
+o caso, em cada período do apuramento do imposto.
+
+34.5.4.2 - Mensais a favor do Estado
+
+Nesta subconta, de natureza credora, registam-se as opera-
+ções que aumentam o valor tributável, aumentando o valor do
+imposto a entregar ao Estado. Credita-se pelas regularizações
+motivadas por erros ou omissões no apuramento do imposto,
+devoluções, descontos, abatimentos, reduções, rescisões e anu-
+lações de contratos decorrentes da relação com fornecedores,
+por contrapartida das contas que originaram a rectificação, e
+debita-se por contrapartida da conta 34.5.5.1 — Apuramento do
+regime de IVA normal ou 34.5.5.2 — Apuramento do regime
+de TVA de caixa, consoante o caso, em cada periodo do apu-
+ramento do imposto.
+
+34.5.4.3 — Anual por cálculo do pro-rata definitivo
+
+Esta subconta destina-se a registar as resularizações apli-
+cáveis a qualquer tipo de bens ou serviços, no fim do ano, à
+débito ou crédito da subconta em referência, por contrapar-
+lida das contas onde forem contabilizadas as aquisições cujo
+imposto dedutível é objecto de rectificação.
+
+Não se tratando de bens do activo imobilizado, quando
+se mostrar dificil a imputação especifica da referida contra-
+
+partida, esta pode ser registada como custo na conta 75.3.1.2
+
+IVA, quando a regularização seja a favor do Estado, ou
+como proveito na conta 63.5 - IVA, quando a regularização
+seja a favor do sujeito passivo.
+
+O saldo da subconta 34.5,4.3 - Anual por cálculo do pro-rata
+definitivo, é transferido para a conta 34.5.5.1 — Apuramento do
+regime de IVA normal ou 34.5.5.2 - Apuramento do regime de
+IVA de caixa, consoante o caso, no período de apuramento do
+imposto em que foram registadas as respectivas regularizações
+
+34,5.4.4- Outras regularizações anuais
+
+Esta subconta destina-se a registar outras regularizações
+anuais não expressamente previstas nas subcontas anteriores,
+a efectuar, em qualquer dos casos, no final do ano.
+
+Em caso de utilização desta conta, deve o sujeito pas-
+sivo justificar é fundamentar nos serviços da Administração
+Geral Tributária.
+
+6) 34.55 IVA apuramento
+
+Esta conta 34.5.5.1 — Apuramento do regime de IVA normal
+ou 34.5.5.2 Apuramento do regime de IVA de caixa, consoante
+o caso, destina-se a revelar a situação devedora ou credora do
+sujeito passivo perante o Estado, em cada período do apura-
+mento do imposto, e deve ser movimentada da seguinte forma:
+
+Debita-se por contrapartida das contas 34.5.2 IVA dedu-
+tível, 345.4 IVA regularizações (saldo devedor) e 34.5.7
+IVA a recuperar.
+
+Credita-se por contrapartida das contas 34.5.3 TVA liqui-
+dado é 34.5.4— IVA regularizações (saldo credor).
+
+Se o saldo decorrente das operações acima for credor,
+debita-se esta conta por contrapartida da subconta 34.5.6.1
+“IVA a pagar de apuramento e, se for devedor, credita-se
+por contrapartida da subconta 34.5.7.1 — IVA a recuperar de
+apuramento.
+
+“A cada período de apuramento do imposto esta conta deve
+ter saldo nulo.
+
+1) 345.6-1VA a pagar
+
+Esta conta, de natureza credora, destina-se a revelar o
+montante do imposto a pagar ao Estado pelo sujeito passivo.
+
+A subconta 34.5.6.1 —IVA a pagar de apuramento, é cre-
+ditada por contrapartida da conta 34,5.5.1 — Apuramento do
+regime de IVA normal ou 34.5.5.2 — Apuramento do regime
+de IVA de caixa, consomte o caso, sempre que o saldo desta
+última seja credor.
+
+A subeanta 34-5.62— IVA a pagar de cativo, é creditada
+pelo montante do imposto cativo aquando da aquisição de
+bens e serviços nos termos definidos no Código do Imposto
+sobre o Valor Acrescentado, por contrapartida das respectivas
+contas de fornecedores de bens e serviços
+
+A subconta 34.5.6.3 IVA a pagar de liquidações oficiosas,
+é creditada pelo montante do imposto liquidado por inicia-
+tiva da Administração Geral Tributária nos termos do Código
+do Imposto sobre o Valor Acrescentado, por contrapartida da
+conta 34.5.9— IVA liquidações oficiosas.
+subcontas acima debitam-se por contrapartida das con-
+tas 43 — Depósitos à Ordem ou 45 — Caixa, pelo pagamento
+efechiado aos cofres do Estado.
+

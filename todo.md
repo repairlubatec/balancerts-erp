@@ -2867,3 +2867,11 @@
 - [ ] Localizar e arquivar os PDFs oficiais disponibilizados pelo Ministério das Finanças/AGT, incluindo a Lei n.º 14/23 e o Decreto Presidencial n.º 180/19.
 - [ ] Conferir nos PDFs oficiais artigos, anexos, contas 34.5/subcontas, vigência, alterações, revogações e remissões antes de activar qualquer regra.
 - [ ] Confrontar a cadeia normativa e a conta 34.5 com a implementação actual do IVA e do motor contabilístico, sem substituir o trabalho existente.
+
+# Auditoria integral dos PDFs oficiais do IVA — documentos recebidos
+- [x] Preservar e identificar os PDFs oficiais recebidos da Lei n.º 7/19, Lei n.º 17/19, Decreto Presidencial n.º 180/19, Decreto Executivo n.º 134/19 e Lei n.º 14/23.
+- [x] Extrair texto integral, páginas, metadados e SHA-256 dos cinco PDFs.
+- [x] Conferir visualmente artigos, anexos, modelos declarativos, vigências e conta 34.5-IVA/subcontas no PDF do Decreto Presidencial n.º 180/19.
+- [ ] Reconstruir a cadeia normativa e temporal com preservação do histórico e da consolidação da Lei n.º 14/23.
+- [ ] Confrontar os cinco PDFs com o motor fiscal, catálogo normativo, contas IVA, declarações e relatórios actuais.
+- [ ] Produzir parecer documental e matriz de activação condicionada antes de qualquer alteração técnica.

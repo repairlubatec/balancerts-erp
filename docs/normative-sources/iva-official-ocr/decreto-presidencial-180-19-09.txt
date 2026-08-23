@@ -1,0 +1,121 @@
+ISÉRIE-N. 72 — DE 24 DE MAIO DE 2019
+
+3499
+
+Sempre que a liquidação oficiosa ficar sem efeito, a sub-
+conta 34.5.6.3 - IVA a pagar de liquidações oficiosas é debitada
+com a anulação do Imçamento anterior (anulação da liqui-
+dação oficiosa).
+
+8) 3457 1VA arecuperar
+
+Esta conta, de natureza devedora, destina-se a evidenciar
+omontante do crédito de imposto sobre o Estado, no final de
+cada período de tributação. Esta situação ocorre sempre que
+o montante do imposto à favor do sujeito passivo supere o
+valor do imposto a favor do Estado,
+
+A subconta 34.5.7.1 — IVA a recuperar de apuramento, é
+debitada por contrapartida da conta 34.5.5.1 — Apuramento do
+regime de IVA normal ou 34.5.5.2 — Apuramento do regime
+de TVA de caixa, consoante o caso, sempre que o saldo desta
+última seja devedor:
+
+A subconta 34.5.7.2 — IVA a recuperar de cativo, é debi-
+tada pelo montante do imposto cativo pelos clientes aquando
+da transmissão de bens e serviços nos ternos definidos no
+Código do Imposto sobre o Valor Acrescentado, por contra-
+partida das respectivas contas de clientes de bens e serviços
+
+A subconta 34.5.7.1 — IVA a recuperar de apuramento, é
+creditada por contrapartida da conta 34.5.8.1 — Reembolsos
+pedidos, sempre que o sujeito passivo solicita o reembolso
+ou restituição do IVA suportado ao Estado, ou creditada por
+contrapartida da conta 34.5.5.1 — Apuramento do regime de
+IVA normal ou 34.5.5.2 - Apuramento do regime de IVA de
+caixa, consoante o caso, sempre que o sujeito passivo optar
+pelo reporte do crédito para o período de tributação seguinte
+
+A subconta 34.5.7,2 — IVA a recuperar de cativo, é cre-
+ditada por contrapartida da conta 34.5.5.1 — Apuramento do
+regime de IVA normal cu 34-5.5.2 — Apuramento do regime
+de TVA de caixa, consoante o caso, em cada período de apu-
+ramento de imposto.
+
+1) 344,8 -IVA reembolsos pedidos
+Esta conta, de natureza devedora, destina-se a revelar o
+
+montante dos créditos sobre o Estado relativamente aos quais
+tiver sido apresentado um pedido de reembolso on restitmi-
+ção do TVA.
+
+A subconta 34,5.8.1 - Reembolsos pedidos, é debitada
+por contrapartida da conta 34.5.7.1 — IVA a recuperar de apu-
+ramento. sempre que sujeito passivo apresente um pedido
+de reembolso ou restituição do IVA na Administração Geral
+Tributária
+
+A subconta 34.5.8.2 - Reembolsos deferidos, é debitada
+por contrapartida da conta 34.5.8.1 — Reembolsos pedidos,
+sempre que Administração Geral Tributária defere total ou
+parcialmente o pedido de reembolso ou restituição do IVA.
+
+A subconta 34.5.8.3 - Reembolsos indeferidos, é debitada
+por contrapartida da conta 34.5.8.1 - Reembolsos pedidos,
+sempre que Administração Geral Tributária indefere, ainda
+que for parte, o pedido de reembolso ou restituição do TVA.
+
+A subconta 34.5.8.4 — Reembolsos reclamados, recorridos
+ou impugnados, é debitada por contrapartida da conta 34.5.8.3
+— Reembolsos indeferidos, no caso do sujeito passivo recla-
+mar, recorrer ou impuenar o indeferimento efectuado pela
+Administração Geral Tributária
+A subconta 34.5.8.2 — Reembolsos deferidos, é creditada
+por contrapartida das contas 43 - Depósito à Ordem ou 45
+— Caixa, aquando do recebimento em numerário dos cofres
+do Estado, ou por contrapartida da conta 34.6 — Certificado
+de Crédito Fiscal a Compensa, aquando do recebimento em
+Certificado de Crédito Fiscal
+A subconta 34.5.8.3 — Reembolsos indeferidos, é credi-
+tada por contrapartida da conta 75.3.1.2 — IVA, ou da conta
+34.5.84-Reembolsos reclamados, recorridos ou impugnados,
+no caso do sujeito passivo reclamar, recorrer ou impugnar o
+indeferimento efectuado pela Administração Geral Tributária.
+A subeonta 34.5.8,4 — Reembolsos reclamados, recorri-
+dos ou impugnados, é creditada por contrapartida da conta
+34.5.82 - Reembolsos deferidos no caso de esta resultar no
+deferimento para o efectivo reembolso ou restituição do IVA
+ou na conta 75.3.1.2- IVA, no caso de esta resultar de inde-
+ferimento da reclamação, recurso ou impugnação feita pelo
+sujeito passivo.
+à) 34.5.9 IVA liquidações oficiosas
+Esta conta, de natureza devedora, destina-se a revelar o
+montante do imposto liquidado por iniciativa da Administração
+Geral Tributária nos termos do Código do Imposto sobre o
+Valor Acrescentado. Debita-se por contrapartida da conta
+34.5.63 — IVA a pagar de liquidações oficiosas. Se a liqui-
+dação ficar sem efeito, procede-se à anulação do lançamento
+anterior (inversão de lançamento contabilistico)
+Havendo pagamento, esta conta é creditada por contra-
+partida da conta 75.3.1.2 — IVA.
+9) 34.6 - Certificado de Crédito Fiscal a Compensar
+Esta conta, de natureza devedora, destina-se a registar o
+montante do imposto reembolsado pela Administração Geral
+Ttibutária por meio de «Certificado de Credito Fiscal». Debita-se
+por contrapartida da conta 34.5.8.2 - Reembolsos deferi-
+dos, e credita-se por contrapartida da conta do imposto a ser
+compensado.
+W 63.8 -IVA
+Esta conta destina-se a registar as regularizações anuais
+por cálculo do pro-rata, quando estas sejam a favor do Estado.
+075.312 IVA
+Esta mbrica destina-se a registar o montante do TVA não
+dedutível nos termos do Código do Imposto sobre o Valor
+Acrescentado, bem como o IVA liquidados oficiosamente
+pelos Serviços da Administração Geral Tributária, os quais
+foram entregues aos cofres do Estado. Esta conta é utilizada
+quando se mostrar dificil a imputação especifica da referida
+conta de custo de aquisição de bens e serviços. Sugere-se a
+abertura da subconta 75.3.1.2.1 — Regularizações anuais por
+cálculo do pro-rata
+

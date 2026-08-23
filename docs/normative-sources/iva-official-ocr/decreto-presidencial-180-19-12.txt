@@ -1,0 +1,126 @@
+3502
+
+DIÁRIO DA REPÚBLICA
+
+A subconta 46172 - Reembolsos indeferidos, é creditada
+por contrapartida da conta 6624 - TVA, ou da conta 46473 —
+Reembolsos reclamados, recortidos ou impugnados, no caso
+do sujeito passivo reclamar, recorrer ou impugnar o indeferi-
+mento efectuado pela Administração Geral Tributária
+A subconta 46173 — Reembolsos reclamados, recorridos
+ouimpugnados, é creditada por contrapartida da conta 46471
+— Reembolsos deferidos, no caso de esta resultar no deferi-
+mento para o efectivo reembolso ou restituição do TVA ou na
+conta 6624 — IVA. no caso de esta resultar de indeferimento da
+reclamação, recurso ou impugnação feita pelo sujeito passivo.
+9) 4648 — IVA liquidações oficiosas
+Esta conta, de natureza devedora, destina-se a revelar o
+montante do imposto liquidado por iniciativa da Administração
+Geral Tributária nos termos do Código do Timposto sobre
+Valor Acrescentado. Debita-se por contrapartida da conta
+46452 — IVA a pagar de liquidações oficiosas. Se a liquida-
+ção ficar sem efeito, procede-se à anulação do Iançamento
+anterior (inversão de lançamento contabilístico).
+Havendo pagamento, esta conta é creditada por contra-
+partida da conta 6624- IVA.
+“) 465— Certificado de Crédito Fiscal a Compensar
+Esta conta, de natureza devedora, destina-se a registar
+o montante do imposto reembolsado pela A dministração
+Geral Tributária por meio de «Certificado de Crédito Fiscal».
+Debita-se por contrapartida da conta 46471 - Reembolsos
+deferidos, e credita-se por contrapartida da conta do imposto
+a ser compensado.
+E) 6624 — IVA
+Esta rubrica destina-se a registar o montante do IVA não
+dedutível nos termos do Código do Imposto sobre o Valor
+Acrescentado, bem como o IVA liquidado oficiosamente
+pelos Serviços da Administração Geral Tributária Esta conta
+é utilizada quando se mostrar dificil a imputação especifica
+da referida conta de custo de aquisição de bens e serviços
+Sugere-se a abertura da subconta 66240 — Regularizações
+anuais por cálculo do pro-rata
+O Presidente da República, João MANUEL GONÇALVES
+Lourenço.
+
+Despacho Presidencial n.º 85/19
+de 24 de Maio
+
+Havendo necessidade de aprovação dos modelos decla-
+rativos do Imposto sobre o Valor Acrescentado, conforme
+determina o artigo 73.º do Código do Imposto sobre o Valor
+“Acrescentado, aprovado pela Lei nº 7/19, de 24 de Abril;
+
+O Presidente da República decreta, nos termos da alí-
+
+nea 1) do artigo 120 e do n.º 3 do artigo 125º, ambos da
+Constituição da República de Angola, o seguinte:
+E delegada competência ao Ministro das Finanças
+para aprovar os modelos declarativos do Imposto sobre o
+Valor Acrescentado a que se refere o artigo 73º do Código
+do Imposto sobre o Valor Acrescentado, aprovado pela Lei
+nº 7/19, de 24 de Abril
+
+2.º — As dúvidas e omissões emergentes da interpreta-
+ção e aplicação do presente Despacho são resolvidas pelo
+Ministro das Finanças.
+
+3º — O presente Despacho entra em vigor no dia seguinte
+à data da sua publicação.
+
+Publique-se.
+
+Luanda, aos 24 de Maio de 2019.
+
+O Presidente da República, João MantL Gonçarves
+Lourenço.
+
+MINISTÉRIO DAS FINANÇAS
+
+Decreto Executivo n.º 122/19
+de 24 de Maio
+
+Havendo necessidade de se proceder à ajustamentos anuais
+nas tarifas e condições de venda de energia eléctrica, segundo
+os princípios estabelecidos na Lei Geral de Electricidade, Lei
+nº 27/15, de 14 de Dezembro, que altera a Lei n.º 14-A/96,
+de 31 de Maio;
+
+Considerando que os ajustamentos de tarifas devem,
+igualmente, acautelar os Princípios Gerais estabelecidos no
+Regulamento Tarifário. aprovado pelo Decreto Presidencial
+nº 4/1, de 6 de Janeiro, especialimente os previstos nas suas
+alincas a). d), €), 1) ei) doatizgo4º cons 3 do artigo 278;
+
+Tendo em conta que compete ao Ministro das Finanças,
+sob proposta dos órgãos de tutela sectotial, após ouvido o
+Conselho Nacional de Preços, determinar os preços dos bens
+e serviços sujeitos ao Regime de Preços Fixados, nos termos
+don 1 do artigo 3.º do Decreto Executivo n.º 77/16, de 25
+de Fevereiro conjusado com os artigos 7.º e 30º das Bases
+Gerais para a Organização do Sistema Nacional de Preços.
+aprovadas pelo Decreto Presidencial n.º 206/11, de 29 de Julho;
+
+Eim conformidade com os poderes delegados pelo Presidente
+da República, nos termos do attigo 137º da Constituição da
+República de Angola, conjugado com o Despacho Presidencial
+nº289/17, de 13 de Outubro e don: 1 do artigo 3.º do Decreto
+n.º 77/16, de 25 de Fevereiro, bem como os artigos 7.º e 30.º
+das Bases Gerais para Organização do Sistema Nacional de
+Preços, aprovadas pelo Decreto Presidencial n.º 206/11, de 29
+de Julho, determina-se
+
+ARTIGO 1º
+(Objecto e âmbito de aplicação)
+
+O presente Diploma visa aprovar as tarifas de venda de
+energia eléctrica, com base em fórmulas, suas variáveis, fac-
+tores de potência e multiplicadores, aplicando-se aos diversos
+tipos de consumidores no território nacional
+
+ARTIGO 2º
+(Tarifas)
+
+1. As tarifas de venda de energia eléctrica podem ser actuali-
+zadas trimestralmente, sendo os incrementos de custos apurados
+pelo órgão regulador do Sector Eléctrico, devendo ser homo-
+logados pela Autoridade de Preços, o Ministro das Finanças

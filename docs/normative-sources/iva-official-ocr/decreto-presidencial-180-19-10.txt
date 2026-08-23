@@ -1,0 +1,147 @@
+3500
+
+DIÁRIO DA REPÚBLICA
+
+ANEXO Il
+(a que se refere o n.º 2 do artigo 25.º)
+
+As contas e sibcontas do Imposto sobre o Valor Acrescentado
+(IVA) devem ser movimentadas e interpretadas nos segui
+tes termos:
+
+a) 4640 — IVA suportado
+
+Esta conta, de uso facultativo, é de natureza devedora,
+destina-se a registar o IVA suportado em todas as aquisições
+de existências, imobilizações e investimentos e ontros bens
+e serviços. Sendo facultativo. aconselha-se a movimenta-
+ção desta conta nos casos em que o sujeito passivo não tem
+integral direito à dedução do imposto que lhe foi facturado
+(método pro-rata) nos termos previstos no Código do Imposto
+sobre o Valor Acrescentado. A cada periodo de apuramento
+do imposto, esta conta deve ler saldo nulo.
+
+Debita-se pelo IVA suportado em todas as aquisições efec-
+tuadas de existências, imobilizações e investimentos ou de
+ontros bens e serviços, descriminadas nas diferentes subcon-
+tas, de acordo com a sua origem.
+
+Credita-se por contrapartida das respectivas subcontas da
+4641 — IVA Dedutível relativamente as parcelas de imposto
+dedutível, e o saldo. quando exista, é creditado por contra-
+partida das contas inerentes às respectivas aquisições, ou da
+conta 6624 IVA, excepto para as compras de imobilizações
+e investimentos em que o imposto suportado que não pode
+ser deduzido deverá afectar o valor de aquisição dos bens a
+que se refere
+
+b) 4641 — IVA dedutível
+
+Esta conta, de natureza devedora, revela o valor do IVA,
+que, dada a natureza das operações subjacentes à actividade
+exercida, seja susceptível de dedução nos temos previsto no
+Código do Imposto sobre o Valor Acrescentado. Nos casos em
+que os sujeitos passivos de IVA utilizam a conta 4640 — IVA
+suportado, a conta em epígrafe terá o seguinte movimento
+
+É debitada, pelo montante de IVA dedutível, por contra-
+partida da 4640 — TVA suportado:
+
+É creditada, para transferência do saldo respeitante
+ao período de tributação, por débito da conta 4644 — IVA
+apuramento.
+
+Se não houver utilização prévia da conta 4640 — IVA
+Suportado, a conta em epígrafe terá o sesninte movimento:
+
+É debitada pelos valores do IVA dedutível relativo a aquisi-
+ções efectuadas de existências, mobilizações e investimentos
+ou de outros bens e serviços, descriminadas nas diferentes
+subcontas, de acordo com a sua origem;
+
+É creditada, para transferência do saldo respeitante
+ao período de tributação, por débito da conta 4644 — IVA
+apuramento.
+
+Em cada período de apuramento do imposto, o saldo desta
+conta deve ser mio.
+
+c) 4641 “IVA liquidado
+
+Esta conta, de natureza credora, destina-se a registar o IVA
+liquidado nas transmissões de bens e prestações de serviços
+feitas pelo sujeito passivo de IVA aos seus clientes, ou pelas
+suas aquisições, se for o caso disso, desde que tais operações
+estejam sujeitas a efectiva tributação.
+
+Na subecnta 46420 - Operações gerais, credita-se o imposto
+liquidado nas facturas ou documentos equivalentes emitidos
+pelo sujeito passivo.
+
+Quando houver lugar à liquidação do IVA por força da
+afectação ou da utilização de bens a fins estranhos à empresa.
+de transmissões de bens ou de prestações de serviços gratuitos
+ou da afectação de bens a sector isentos quando relativamente
+a esses bens tenha havido dedução de imposto, credita-se a
+subconta 46421 — Autoconsumos € operações gratuitas. por
+contrapartida da conta 6624 “IVA
+os casos de inversão dos sujeitos passivos ou autoli-
+quidação conforme definido no Código do Imposto sobre o
+Valor Acrescentado, credita-se a subconta 46422 Operações
+especiais
+
+As subcontas 46420 — Operações gerais, 46421 —
+Autoconsumos e Operações gratuitas e 46422 — Operações
+especiais, são debitadas pela transferência do saldo respei-
+tante a cada período de tributação, por contrapartida da conta
+4644 —IVA apuramento.
+
+A cada período de apuramento do imposto, esta conta
+deve ter saldo nulo.
+
+d) 4643 —IVA regularizações
+
+Esta conta, de natureza devedora cu credora, destina-se
+a registar as correcções de imposto a favor do sujeito pas
+sivo ou a favor do Estado apuradas nos termos do Código do
+Imposto sobre o Valor Acrescentado e susceptíveis de serem
+efectuadas nas respectivas declarações periódicas
+
+As correcções efectuadas são distribuidas pela
+tas como se segue:
+
+46430 — Mensais a favor do sujeito passivo
+
+Nesta subconta, de natureza devedora, resistam-se as ope-
+rações que reduzem o valor tributável, diminuindo o valor do
+imposto à entregar ao Estado. Debita-se pelas regularizações
+motivadas por erros ou omissões no apuramento do imposto,
+devoluções, descontos, abatimentos, reduções, rescisões e
+anulações de contratos por parte de clientes ou incobrabili-
+dade de créditos, roubos, sinistros, etc, por contrapartida das
+contas que originaram a rectificação, e credita-se por contra-
+partida da conta 4644 — IVA apuramento, em cada período
+do apuramento do imposto.
+
+46431 - Mensais a favor do Estado
+
+Nesta subconta, de natureza credora, registam-se as ope-
+rações que aumentam o valor tributável, aumentando o valor
+do imposto a entregar ao Estado. Credita-se pelas regulari-
+zações motivadas por erros ou omissões no apuramento do
+imposto, devoluções, descontos, abatimentos, reduções, res-
+cisões e anulações de contratos decorrentes da relação com
+fomecedores, por contrapartida das contas que originaram a
+rectificação, e debita-se por contrapartida da conta 4644 —
+IVA apuramento, em cada período do apuramento do imposto.
+
+46432 — Anual por cálculo do pro-rata definitivo.
+
+Esta subeonta destina-se a registar as regularizações apli-
+cáveis a qualquer tipo de bens ou serviços, no fim do ano, a
+débito ou crédito da subconta em referência, por contrapar-
+tida das contas onde forem contabilizadas as aquisições cujo
+imposto dedutível é objecto de rectificação
+
+subcon-
+

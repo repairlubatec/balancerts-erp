@@ -1,0 +1,130 @@
+3496
+
+DIÁRIO DA REPÚBLICA
+
+c) 34.5.3- VA liquidado;
+dj 34,5.4- IVA regularizaçõe
+e) 34.5.5- IVA apuramento;
+9 34.5.6 IVA a pagar.
+
+hj 34.5.8- TVA reembolsos pedidos;
+à) 34.5.9 IVA liquidações oficiosas.
+ARTIGO 22º
+(Desdobr amento das sulbcontas do Imposto
+sobre o Valor Acrescentado)
+
+1. As subcontas da conta principal do IVA referidas no
+número anterior devem ser desdobradas nas contas especifi-
+cas do quarto grau nos seguintes termos
+
+a) 34.5. — IVA suportado
+1 345.11 Existências;
+ii 34,512 - Meios fixos e investimentos,
+ll 34.5.1.3 — Outros bens e serviços
+b) 34.5.2— IVA dedutível:
+i 345.2.1- Existências;
+ii, 345.22 - Meios fixos e investimentos
+iii, 34.5.2.3 - Outros bens e serviços.
+c) 34.5.3- TVA liquidado:
+1 345.3.1- Operações serais;
+ii 34,5 32 - Operações abrangidas pelo regime
+de IVA de caixa,
+if, 34.5.3.3— Autoconsumo e operações gratuitas;
+iv 34,534 - Operações especiais
+d) 34.5.4- IVA regularizações
+1 345.41 - Mensais a favor do sujeito passivo;
+ii. 345.42 — Mensais a favor do Estado;
+iii 345.43 — Anual por cálculo do pró rata
+definitivo.
+iv: 34,544 — Outras regularizações anuais;
+e) 34.5.5- IVA apuramento:
+i. 345.5.1 — Apuramento do regime de IVA normal;
+ii 34,552 — Apuramento do regime de IVA de
+caixa.
+9 34.5.6 IVA a pagar:
+1 345.61 IVA a pagar de apuramento;
+ii. 345.62 — IVA a pagar de cativo:
+ill. 34,5.6.3 “IVA a pagar de liquidações oficiosas
+8) 345,7 IVA a recuperar
+à 345.7 1- IVA à recuperar de apuramentos,
+ii, 345.72 IVA a recuperar de cativo,
+hj 34.5.8— IVA reembolsos pedidos:
+i 345.8 1 - Reembolsos pedidos;
+ii, 34.5.8.2 - Reembolsos deferidos,
+iii. 34.5,8.3 -Reembolsos indeferidos;
+iv 34,5 84-Reembolsos reclamados, recorridos
+ou impugnados
+
+2. As subcontas do quinto grau referidas no número ante-
+rior podem ser desdobradas em outras subcontas em função
+da especificidade da actividade do sujeito passivo, devendo
+
+justificar no relatório técnico anexo as demostrações finan-
+ceiras da sua criação.
+
+3.As regras de movimentação das contas e subcontas das
+operações activas e passivas em sede de IVA referidas nos núme-
+ros anteriores constam do Anexo T do presente Regulamento
+e que dele é parte integrante.
+
+ção m
+“Alteração do Plano de Contas para as Empresas de Seguros
+
+ARTIGO 33º
+(Criação de Código de Contas)
+
+1 É criado no Plano de Contas para as Empresas de Seguros,
+aprovado pelo Decreto n.º 79-A/02, de 5 de Dezembro, o
+Código de Contas para a Contabilização das Operações Activas
+e Passivas do Imposto sobre o Valor Acrescentado.
+
+2. O Código de Conta a que se refere o número anterior
+é designado por «464 IVA».
+
+3 É ainda criada no Plano de Contas para as Empresas de
+Seguros a conta 465 designada por «Certificado de Crédito
+Fiscal a Compensan» e a conta 6624 designada por «IVA».
+
+ARTIGO
+(Subcontas da conta principal do Imposto sobre o Valor Acrescentado)
+A conta 464 — IVA, tem o seguinte desdobramento:
+a) 4640 —IVA suportado,
+b) 4641 =TVA dedutível;
+c) 4642 IVA liquidado;
+d) 4643 —IVA regularizações;
+e) 4644 - IVA apuramento;
+4645 — IVA a pagar,
+8) 4646 —IVA arecuperar,
+h) 4647 = IVA reembolsos pedidos;
+) 4648 — IVA liquidações oficiosas.
+ARTIGO 25º
+
+(Desdobramento das subcontas do Imposto
+sobre o Valor Acrescentado)
+
+1, As contas referidas no número anterior devem ter o
+seguinte desdobramento:
+
+a) 4640 -IVA suportado:
+É 46400 Existências;
+ii 46401 - mobilizações e investimentos,
+ti. 46402 — Outros bens e serviços.
+
+b) 4641 TVA dedutível:
+É 46410 Existência:
+ii. 46411 - Imobilizações é investimentos;
+ti. 46412 — Outros bens e serviços.
+
+c) 4642 TVA liquidado:
+É 46420 — Operações gerais;
+iá. 46421 - Autoconsumo e operações gratuitas;
+iii. 46422 — Operações especiais.
+
+dj 4643 — IVA regularizações
+É 46430 — Mensais a favor do sujeito passivo;
+ii. 46431 — Mensais a favor do Estado;
+ti, 46432 — Anual por cálculo do pró-rata definitivo,
+iv. 46433 — Outras regularizações anuais
+
+e) 4645 TVA a pagar
+
