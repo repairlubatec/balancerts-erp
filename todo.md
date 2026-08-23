@@ -2957,3 +2957,8 @@
 - [x] Integrar o estado bloqueado/pronto na área fiscal sem expor referências privadas.
 - [x] Adicionar testes para configuração ausente, chave pendente e estado pronto local.
 - [x] Guardar checkpoint da guarda local AGT.
+
+# Preparação operacional do cadastro AGT
+- [x] Documentar os valores de cadastro do BALANCERTS.ERP e a versão da chave pública.
+- [x] Documentar que a chave privada permanece fora do projecto e nunca deve ser anexada ao Portal.
+- [x] Documentar os bloqueios que permanecem até homologação e credenciais oficiais AGT.
