@@ -3118,3 +3118,9 @@
 
 # Auditoria interna de terminologia
 - [x] Auditar e corrigir termos ingleses visíveis na interface operacional, sem alterar identificadores técnicos, contratos ou dados.
+
+# Revisão prioritária PGCA/IVA
+- [x] Rever o estado actual das contas PGCA e separar confirmação literal, pendência e conflito.
+- [x] Rever a cadeia temporal Lei n.º 7/19 → Lei n.º 17/19 → Decreto Presidencial n.º 180/19 → Lei n.º 14/23, sem substituir fontes anteriores.
+- [x] Corrigir apenas discrepâncias normativas confirmadas e manter a política CONFIRMED_ONLY.
+- [x] Testar a revisão normativa PGCA/IVA e guardar evidência do checkpoint.
