@@ -2992,3 +2992,7 @@
 # Visibilidade da cobertura PGCA
 - [x] Mostrar no painel PGCA as operações cobertas e em falta na prontidão de activação.
 - [x] Cobrir a indicação visual da cobertura com teste de componente.
+
+# Mensagens do readiness PGCA
+- [x] Traduzir o novo erro de cobertura operacional no catálogo normativo central.
+- [x] Testar a mensagem portuguesa do bloqueio de cobertura.

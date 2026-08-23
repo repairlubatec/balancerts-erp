@@ -5,6 +5,7 @@ const labels: Record<string, string> = {
   PGC_SOURCE_REVIEW_NOTE_REQUIRED: "Indique o motivo da divergência ou rejeição da fonte normativa.",
   PGC_ACCOUNT_NOT_FOUND_OR_FORBIDDEN: "A conta normativa não foi encontrada ou não está autorizada para esta organização.",
   PGC_ACCOUNT_NOT_REVIEWABLE: "A conta não está no estado correcto para revisão.",
+  PGC_VERSION_ACCOUNTING_RULE_COVERAGE_INCOMPLETE: "A versão não cobre todas as operações contabilísticas obrigatórias.",
   IVA_NORMATIVE_RULE_REQUIRED: "Indique uma regra IVA confirmada e activa para liquidar imposto.",
   IVA_NORMATIVE_RULE_NOT_ACTIVE_OR_FORBIDDEN: "A regra IVA não está activa, não vigora na data ou não pertence à organização.",
   IVA_RULE_HUMAN_APPROVAL_REQUIRED: "A regra IVA requer aprovação humana antes da activação.",
