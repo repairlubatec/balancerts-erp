@@ -3124,3 +3124,9 @@
 - [x] Rever a cadeia temporal Lei n.º 7/19 → Lei n.º 17/19 → Decreto Presidencial n.º 180/19 → Lei n.º 14/23, sem substituir fontes anteriores.
 - [x] Corrigir apenas discrepâncias normativas confirmadas e manter a política CONFIRMED_ONLY.
 - [x] Testar a revisão normativa PGCA/IVA e guardar evidência do checkpoint.
+
+# Melhorias de interface da prontidão IVA
+- [x] Mostrar visualmente os cinco diplomas IVA exigidos e indicar quais estão em falta quando a cadeia estiver incompleta.
+- [x] Implementar simulação controlada de envio de PDFs para teste do fluxo de interface, sem confirmação normativa nem activação.
+- [x] Criar painel de estado da prontidão IVA com resultado das validações normativas e estado não operacional quando existirem bloqueios.
+- [x] Criar testes Vitest para detalhe da cadeia, simulação de PDF, painel de prontidão e não-activação de regras.
