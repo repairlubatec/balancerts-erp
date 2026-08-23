@@ -2940,3 +2940,8 @@
 - [x] Integrar indicador de bloqueio no painel desktop IVA.
 - [x] Testar estados sem dados, parcialmente configurados e prontos.
 - [x] Guardar checkpoint da prontidão fiscal.
+
+# Endurecimento de acesso às regras IVA pendentes
+- [x] Restringir includePending aos administradores no servidor, independentemente do cliente.
+- [x] Testar que leitores não recebem regras pendentes mesmo solicitando includePending.
+- [x] Guardar checkpoint do endurecimento de RBAC IVA.

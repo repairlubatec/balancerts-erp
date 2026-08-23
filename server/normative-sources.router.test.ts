@@ -31,14 +31,21 @@ describe("fontes normativas IVA", () => {
     const list = vi.spyOn(db, "listIvaNormativeRulesForUser").mockResolvedValue([]);
     const caller = appRouter.createCaller(contextWithRole("auditor"));
     await expect(caller.normative.ivaRules({ organizationId: 3, regime: "GERAL", ruleType: "TAX_RATE", asOf: new Date("2026-08-23T00:00:00Z"), limit: 25 })).resolves.toEqual([]);
-    expect(list).toHaveBeenCalledWith({ userId: 8, organizationId: 3, regime: "GERAL", ruleType: "TAX_RATE", asOf: new Date("2026-08-23T00:00:00Z"), limit: 25 });
+    expect(list).toHaveBeenCalledWith({ userId: 8, organizationId: 3, regime: "GERAL", ruleType: "TAX_RATE", asOf: new Date("2026-08-23T00:00:00Z"), includePending: false, limit: 25 });
   });
 
   it("consulta a conta 34.5 por código sem activar mapeamentos pendentes", async () => {
     const list = vi.spyOn(db, "listIvaAccountMappingsForUser").mockResolvedValue([]);
     const caller = appRouter.createCaller(contextWithRole("contabilista"));
     await expect(caller.normative.ivaAccounts({ organizationId: 3, accountCode: "34.5", asOf: new Date("2026-08-23T00:00:00Z"), limit: 10 })).resolves.toEqual([]);
-    expect(list).toHaveBeenCalledWith({ userId: 8, organizationId: 3, accountCode: "34.5", asOf: new Date("2026-08-23T00:00:00Z"), limit: 10 });
+    expect(list).toHaveBeenCalledWith({ userId: 8, organizationId: 3, accountCode: "34.5", asOf: new Date("2026-08-23T00:00:00Z"), includePending: false, limit: 10 });
+  });
+
+  it("ignora includePending quando solicitado por um leitor", async () => {
+    const list = vi.spyOn(db, "listIvaNormativeRulesForUser").mockResolvedValue([]);
+    const caller = appRouter.createCaller(contextWithRole("auditor"));
+    await expect(caller.normative.ivaRules({ organizationId: 3, includePending: true })).resolves.toEqual([]);
+    expect(list).toHaveBeenCalledWith({ userId: 8, organizationId: 3, includePending: false });
   });
 
   it("restringe revisão e activação ao papel administrativo", async () => {
