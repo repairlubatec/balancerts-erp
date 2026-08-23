@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildPgcMovementSimulation, validatePgcBatchAccountStatuses, validatePgcBatchReviewSelection, validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata, validatePgcMovementSimulationInput } from "./pgc";
+import { buildPgcMovementSimulation, validateAccountingRuleDraft, validatePgcBatchAccountStatuses, validatePgcBatchReviewSelection, validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata, validatePgcMovementSimulationInput } from "./pgc";
 
 const validInput = {
   classCode: "2",
@@ -81,6 +81,14 @@ describe("revisão em lote de contas PGCA", () => {
 describe("simulador seguro de regras de movimentação PGCA", () => {
   const input = { debitAccountId: 1, creditAccountId: 2, amount: 1000, operation: "COMPRA", transactionDate: new Date("2026-08-22T00:00:00.000Z"), ivaRate: 14, ivaAmount: 140 };
   const account = (id: number, nature: string, validationStatus = "CONFIRMED") => ({ id, code: id === 1 ? "32" : "41", name: id === 1 ? "Mercadorias" : "Fornecedores", nature, validationStatus, acceptsEntries: 1, active: 1 });
+
+  it("valida regras contabilísticas antes da persistência", () => {
+    expect(validateAccountingRuleDraft({ operation: "Compra", debitAccountId: 1, creditAccountId: 2, effectiveFrom: new Date("2026-01-01"), sourceId: 4 })).toBe(true);
+    expect(() => validateAccountingRuleDraft({ operation: "", debitAccountId: 1, creditAccountId: 2, effectiveFrom: new Date("2026-01-01"), sourceId: 4 })).toThrow("PGC_RULE_OPERATION_REQUIRED");
+    expect(() => validateAccountingRuleDraft({ operation: "Compra", debitAccountId: 1, creditAccountId: 1, effectiveFrom: new Date("2026-01-01"), sourceId: 4 })).toThrow("PGC_RULE_ACCOUNTS_INVALID");
+    expect(() => validateAccountingRuleDraft({ operation: "Compra", debitAccountId: 1, creditAccountId: 2, effectiveFrom: new Date("2026-01-01") })).toThrow("PGC_RULE_SOURCE_REQUIRED");
+    expect(() => validateAccountingRuleDraft({ operation: "Compra", debitAccountId: 1, creditAccountId: 2, effectiveFrom: new Date("2026-02-01"), effectiveTo: new Date("2026-01-01"), sourceId: 4 })).toThrow("PGC_RULE_EFFECTIVE_DATES_INVALID");
+  });
 
   it("valida os três níveis e mantém canPost sempre falso", () => {
     const result = buildPgcMovementSimulation({ debitAccount: account(1, "DEBIT"), creditAccount: account(2, "CREDIT"), rule: { id: 7, operation: "COMPRA", documentType: null, priority: 10 }, versionStatus: "ACTIVE", periodStatus: "OPEN", input: { ...input, userId: 1, organizationId: 1, companyId: 1, versionId: 1 } });

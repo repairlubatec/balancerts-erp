@@ -2828,3 +2828,10 @@
 - [x] Criar etiquetas visuais com texto, ícone e contraste para cada estado normativo.
 - [x] Integrar o filtro com pesquisa, contadores e selecção em lote sem alterar dados.
 - [x] Adicionar testes de filtragem, estados vazios, selecção e validação visual.
+
+# Formulário de regras de movimentação PGCA
+- [x] Definir campos, pré-visualização, estados de rascunho e critérios de validação da regra.
+- [x] Implementar validação server-side de contas confirmadas, fonte, natureza, vigência, IVA e coerência débito/crédito.
+- [x] Criar procedimento tRPC protegido para criar a regra apenas como rascunho ou submissão à revisão humana.
+- [x] Construir formulário desktop em português com selecção de contas aprovadas e mensagens de bloqueio.
+- [x] Adicionar testes de validação, RBAC, isolamento, não activação automática, conflitos e fluxo de revisão.

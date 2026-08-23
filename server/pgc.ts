@@ -280,14 +280,30 @@ export async function listPgcMigrationMapsForUser(input: { userId: number; compa
   return db.select().from(pgcMigrationMaps).where(and(eq(pgcMigrationMaps.companyId, input.companyId), eq(pgcMigrationMaps.versionId, input.versionId))).orderBy(desc(pgcMigrationMaps.id)).limit(500);
 }
 
+export function validateAccountingRuleDraft(input: { operation: string; debitAccountId: number; creditAccountId: number; effectiveFrom: Date; effectiveTo?: Date | null; sourceId?: number | null }) {
+  if (!input.operation.trim()) throw new Error("PGC_RULE_OPERATION_REQUIRED");
+  if (!Number.isInteger(input.debitAccountId) || !Number.isInteger(input.creditAccountId) || input.debitAccountId < 1 || input.creditAccountId < 1 || input.debitAccountId === input.creditAccountId) throw new Error("PGC_RULE_ACCOUNTS_INVALID");
+  if (!input.sourceId || !Number.isInteger(input.sourceId) || input.sourceId < 1) throw new Error("PGC_RULE_SOURCE_REQUIRED");
+  if (!(input.effectiveFrom instanceof Date) || Number.isNaN(input.effectiveFrom.getTime()) || (input.effectiveTo && (Number.isNaN(input.effectiveTo.getTime()) || input.effectiveTo <= input.effectiveFrom))) throw new Error("PGC_RULE_EFFECTIVE_DATES_INVALID");
+  return true as const;
+}
+
 export async function createAccountingRuleForUser(input: { userId: number; organizationId: number; versionId: number; companyId?: number; operation: string; documentType?: string; debitAccountId: number; creditAccountId: number; ivaAccountId?: number; nature?: string; costCenterCode?: string; priority?: number; effectiveFrom: Date; effectiveTo?: Date | null; sourceId?: number; notes?: string }) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  validateAccountingRuleDraft(input);
   const version = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
   if (!version[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
   if (version[0].version.status === "ARCHIVED" || version[0].version.status === "SUPERSEDED") throw new Error("PGC_VERSION_NOT_EDITABLE");
+  const source = await db.select({ id: pgcSources.id, verificationStatus: pgcSources.verificationStatus }).from(pgcSources).where(and(eq(pgcSources.id, input.sourceId as number), eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId))).limit(1);
+  if (!source[0] || source[0].verificationStatus !== "CONFIRMED") throw new Error("PGC_RULE_SOURCE_NOT_CONFIRMED");
   const ids = [input.debitAccountId, input.creditAccountId, ...(input.ivaAccountId ? [input.ivaAccountId] : [])];
-  const accounts = await db.select({ id: pgcAccounts.id, organizationId: pgcAccounts.organizationId, versionId: pgcAccounts.versionId, acceptsEntries: pgcAccounts.acceptsEntries, validationStatus: pgcAccounts.validationStatus }).from(pgcAccounts).where(inArray(pgcAccounts.id, ids));
+  const accounts = await db.select({ id: pgcAccounts.id, organizationId: pgcAccounts.organizationId, versionId: pgcAccounts.versionId, acceptsEntries: pgcAccounts.acceptsEntries, validationStatus: pgcAccounts.validationStatus, nature: pgcAccounts.nature, iva: pgcAccounts.iva }).from(pgcAccounts).where(inArray(pgcAccounts.id, ids));
   if (accounts.length !== new Set(ids).size || accounts.some((account) => account.organizationId !== input.organizationId || account.versionId !== input.versionId || account.acceptsEntries !== 1 || account.validationStatus !== "CONFIRMED")) throw new Error("PGC_RULE_ACCOUNTS_NOT_CONFIRMED");
+  const debit = accounts.find((account) => account.id === input.debitAccountId);
+  const credit = accounts.find((account) => account.id === input.creditAccountId);
+  if (!debit || !["DEBIT", "MIXED"].includes(debit.nature)) throw new Error("PGC_RULE_DEBIT_NATURE_INVALID");
+  if (!credit || !["CREDIT", "MIXED"].includes(credit.nature)) throw new Error("PGC_RULE_CREDIT_NATURE_INVALID");
+  if (input.ivaAccountId && accounts.find((account) => account.id === input.ivaAccountId)?.iva !== 1) throw new Error("PGC_RULE_IVA_ACCOUNT_INVALID");
   const result = await db.insert(accountingRules).values({ organizationId: input.organizationId, companyId: input.companyId ?? null, versionId: input.versionId, operation: input.operation.trim(), documentType: input.documentType?.trim() || null, debitAccountId: input.debitAccountId, creditAccountId: input.creditAccountId, ivaAccountId: input.ivaAccountId ?? null, nature: input.nature?.trim() || null, costCenterCode: input.costCenterCode?.trim() || null, priority: input.priority ?? 100, effectiveFrom: input.effectiveFrom, effectiveTo: input.effectiveTo ?? null, sourceId: input.sourceId ?? null, active: 1, notes: input.notes?.trim() || null, createdBy: input.userId });
   const id = Number(result[0].insertId);
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId ?? null, actorUserId: input.userId, action: "ACCOUNTING_RULE_CREATED", entityType: "accountingRule", entityId: String(id), beforeState: null, afterState: JSON.stringify(input), correlationId: `accounting-rule:${id}` });
