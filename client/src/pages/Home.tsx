@@ -81,12 +81,6 @@ import {
   WalletCards,
 } from "lucide-react";
 
-const demoCompanies = [
-  { name: "BALANCERTS Serviços, Lda.", nif: "5417283901", status: "Em dia", period: "Novembro 2026", tone: "success", balance: "18 420 500 Kz", close: 82, pending: 0, docs: 2, tax: "IVA pronto", integrations: 0, tasks: 3 },
-  { name: "Kwanza Norte Comércio, Lda.", nif: "5419037284", status: "Atenção", period: "Outubro 2026", tone: "warning", balance: "7 830 240 Kz", close: 61, pending: 3, docs: 3, tax: "IVA em revisão", integrations: 1, tasks: 5 },
-  { name: "Luz & Linha Consultoria, SU", nif: "5416640198", status: "Bloqueado", period: "Setembro 2026", tone: "danger", balance: "2 104 880 Kz", close: 38, pending: 6, docs: 5, tax: "Declaração pendente", integrations: 2, tasks: 7 },
-];
-
 const alerts: { type: "critical" | "warning" | "info"; title: string; meta: string; action: string; path: string }[] = [];
 
 const moduleData: Record<string, { eyebrow: string; title: string; description: string; columns: string[]; rows: string[][] }> = {
@@ -104,7 +98,7 @@ const moduleData: Record<string, { eyebrow: string; title: string; description: 
   "/relatorios": { eyebrow: "Informação financeira", title: "Relatórios", description: "Demonstrações e auxiliares preparados para reconciliação e auditoria.", columns: ["Relatório", "Período", "Empresa", "Última execução", "Reconciliação", "Acção"], rows: [["Balancete analítico", "Nov 2026", "BALANCERTS Serviços", "18 Nov · 08:42", "100%", "Abrir"], ["Demonstração de Resultados", "Out 2026", "Kwanza Norte Comércio", "17 Nov · 17:10", "98,4%", "Rever"], ["Mapa de IVA", "Out 2026", "Luz & Linha", "17 Nov · 16:58", "Pendente", "Corrigir"]] },
   "/fecho": { eyebrow: "Controlo de período", title: "Fecho e reabertura", description: "Checklist operacional, bloqueios explícitos e reabertura sempre auditada.", columns: ["Empresa", "Período", "Checklist", "Pendências", "Responsável", "Estado"], rows: [] },
   "/auditoria": { eyebrow: "Trilho de negócio", title: "Auditoria", description: "Eventos append-only separados dos logs técnicos, com antes/depois e correlação.", columns: ["Evento", "Actor", "Entidade", "Quando", "Correlação", "Resultado"], rows: [["ISSUE / CONFIRM", "A. Mateus", "FT 2026/00482", "18 Nov · 08:38", "op_8J2K…", "Sucesso"], ["RULE_CHANGE", "Admin", "IVA-GER-001", "17 Nov · 16:02", "op_4X9P…", "Aprovado"], ["REOPEN", "M. Domingos", "Período Out/26", "17 Nov · 15:44", "op_6A1M…", "Auditado"]] },
-  "/empresas": { eyebrow: "Estrutura empresarial", title: "Empresas", description: "Organizações, empresas, exercícios e perfis com contexto seguro.", columns: ["Empresa", "NIF", "Organização", "Moeda", "Exercício", "Estado"], rows: demoCompanies.map((c) => [c.name, c.nif, "BALANCERTS Group", "AOA", "2026", c.status]) },
+  "/empresas": { eyebrow: "Estrutura empresarial", title: "Empresas", description: "Organizações, empresas, exercícios e perfis com contexto seguro.", columns: ["Empresa", "NIF", "Organização", "Moeda", "Exercício", "Estado"], rows: [] },
   "/definicoes": { eyebrow: "Governança", title: "Definições", description: "Perfis, permissões, séries, regimes, normas, integrações e preferências.", columns: ["Área", "Última alteração", "Responsável", "Versão", "Estado", "Acção"], rows: [] },
   "/ia": { eyebrow: "Inteligência modular", title: "Balancerts IA", description: "IA local e na nuvem com encaminhamento seguro, estado verificável e confirmação humana.", columns: ["Operação", "Fornecedor IA", "Modelo", "Confiança", "Tempo", "Estado"], rows: [] },
   "/rh": { eyebrow: "Gestão de pessoas", title: "Recursos Humanos", description: "Colaboradores, contratos e processamento salarial parametrizado por empresa.", columns: ["Colaborador", "Contrato", "Função", "Salário base", "Estado"], rows: [] },

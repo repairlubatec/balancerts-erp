@@ -3047,3 +3047,7 @@
 # Simulador PGCA com operações canónicas
 - [x] Substituir a operação livre do simulador por selecção do catálogo canónico.
 - [x] Testar que o simulador envia apenas operações suportadas e mantém o modo seguro.
+
+# Remoção de dados demonstrativos residuais
+- [x] Retirar a lista estática demoCompanies da metadata da rota Empresas.
+- [x] Garantir estado vazio ou dados persistidos reais, sem empresas fictícias na interface.
