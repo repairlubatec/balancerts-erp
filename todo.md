@@ -2996,3 +2996,6 @@
 # Mensagens do readiness PGCA
 - [x] Traduzir o novo erro de cobertura operacional no catálogo normativo central.
 - [x] Testar a mensagem portuguesa do bloqueio de cobertura.
+
+# Mapa de integração PGCA por módulo
+- [x] Documentar a cobertura interna já existente por fluxo e os bloqueios que permanecem externos.
