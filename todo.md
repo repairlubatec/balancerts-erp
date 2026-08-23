@@ -3036,3 +3036,7 @@
 
 # Fila interna sem dependências externas
 - [x] Documentar a fila activa de desenvolvimento enquanto AGT, restauro, assinatura, banca e aceitação permanecem em espera.
+
+# Terminologia portuguesa da interface
+- [x] Substituir “tenant actual” por “organização actual” na actividade recente.
+- [x] Validar a tradução sem alterar identificadores técnicos internos.
