@@ -74,9 +74,20 @@ export async function activatePgcVersionForUser(input: { userId: number; organiz
 
 export const requiredOperationalAccountingRuleOperations = ["COMPRAS", "VENDAS", "STOCK", "TESOURARIA", "SALARIOS", "IMOBILIZADO"] as const;
 
+export function normalizeAccountingRuleOperation(operation: string) {
+  const normalized = operation.trim().toUpperCase();
+  if (["COMPRA", "COMPRAS"].includes(normalized)) return "COMPRAS";
+  if (["VENDA", "VENDAS"].includes(normalized)) return "VENDAS";
+  if (["STOCK", "ESTOQUE", "INVENTARIO"].includes(normalized)) return "STOCK";
+  if (["TESOURARIA", "PAGAMENTO", "PAGAMENTOS", "RECEBIMENTO", "RECEBIMENTOS"].includes(normalized)) return "TESOURARIA";
+  if (["SALARIO", "SALARIOS", "FOLHA"].includes(normalized)) return "SALARIOS";
+  if (["IMOBILIZADO", "DEPRECIACAO", "DEPRECIAÇÃO"].includes(normalized)) return "IMOBILIZADO";
+  return normalized;
+}
+
 export function getAccountingRuleCoverage(input: { requiredOperations?: readonly string[]; activeRuleOperations: readonly string[] }) {
-  const required = [...(input.requiredOperations ?? requiredOperationalAccountingRuleOperations)];
-  const active = new Set(input.activeRuleOperations);
+  const required = [...(input.requiredOperations ?? requiredOperationalAccountingRuleOperations)].map(normalizeAccountingRuleOperation);
+  const active = new Set(input.activeRuleOperations.map(normalizeAccountingRuleOperation));
   const missing = required.filter((operation) => !active.has(operation));
   return { required, active: required.filter((operation) => active.has(operation)), missing, complete: missing.length === 0 };
 }

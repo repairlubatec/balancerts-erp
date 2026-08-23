@@ -25,4 +25,8 @@ describe("PGCA activation readiness", () => {
   it("confirma cobertura completa apenas quando todas as operações têm regra activa", () => {
     expect(getAccountingRuleCoverage({ activeRuleOperations: ["COMPRAS", "VENDAS", "STOCK", "TESOURARIA", "SALARIOS", "IMOBILIZADO"] })).toMatchObject({ complete: true, missing: [] });
   });
+
+  it("normaliza variantes existentes sem criar operações adicionais", () => {
+    expect(getAccountingRuleCoverage({ activeRuleOperations: ["COMPRA", "VENDA", "ESTOQUE", "PAGAMENTO", "FOLHA", "DEPRECIAÇÃO"] })).toMatchObject({ complete: true, missing: [], active: ["COMPRAS", "VENDAS", "STOCK", "TESOURARIA", "SALARIOS", "IMOBILIZADO"] });
+  });
 });

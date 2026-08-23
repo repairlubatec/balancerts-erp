@@ -2976,3 +2976,7 @@
 # Dependências externas restantes — sem repetir chave AGT
 - [x] Consolidar num documento operativo os bloqueios de restauro, Windows, AGT homologação, banca e aceitação.
 - [x] Indicar para cada bloqueio o dado ou ambiente exacto necessário e a protecção contra activação prematura.
+
+# Normalização da cobertura AccountingRules
+- [x] Normalizar aliases de operações existentes para o catálogo de cobertura.
+- [x] Testar COMPRA/VENDA/PAGAMENTO e variantes sem criar regras.
