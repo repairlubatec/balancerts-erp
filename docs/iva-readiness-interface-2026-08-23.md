@@ -49,3 +49,9 @@ Quando o utilizador selecciona outro ficheiro ou usa **Limpar e repor**, o URL t
 A listagem dos cinco diplomas IVA passou a incluir um filtro acessível com três opções: **Todos**, **Em falta** e **Confirmados**. A opção seleccionada é apresentada no próprio painel, acompanhada pela contagem visível face ao total de cinco diplomas.
 
 O filtro altera apenas a apresentação local da lista. A percentagem de conclusão, o estado de prontidão, os bloqueios, as exportações e a política `CONFIRMED_ONLY` continuam a ser calculados sobre a cadeia completa. Quando uma categoria não contém elementos, o painel apresenta um estado vazio em português sem interpretar a ausência como confirmação.
+
+## Notificações das exportações
+
+As exportações CSV e PDF do estado de prontidão IVA apresentam agora um toast de sucesso em português somente depois de a descarga ser preparada. A notificação identifica o formato e mostra o nome do ficheiro gerado, permitindo ao utilizador reconhecer imediatamente o resultado.
+
+Falhas na preparação da descarga não apresentam uma confirmação positiva: são comunicadas por uma mensagem de erro separada. O toast não altera o estado normativo, não confirma diplomas e não transforma a exportação numa operação de escrita.

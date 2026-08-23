@@ -3153,3 +3153,8 @@
 - [x] Adicionar filtro Todos / Em falta / Confirmados à listagem dos cinco diplomas IVA.
 - [x] Manter contagens, cores, resumo percentual e exportações coerentes com a cadeia completa.
 - [x] Criar testes de alternância e estado vazio dos filtros sem alterar CONFIRMED_ONLY.
+
+# Feedback das exportações IVA
+- [x] Mostrar toast de sucesso depois de preparar a descarga CSV de prontidão IVA.
+- [x] Mostrar toast de sucesso depois de preparar a descarga PDF de prontidão IVA.
+- [x] Testar toasts de sucesso e garantir que erros não apresentam confirmação indevida.

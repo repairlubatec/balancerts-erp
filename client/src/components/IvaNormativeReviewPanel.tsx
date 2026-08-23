@@ -110,8 +110,20 @@ export function IvaNormativeReviewPanel({
   const exportIvaReadinessPdf =
     trpc.normative.exportIvaReadinessPdf.useMutation({
       onSuccess: result => {
-        downloadBase64File(result.dataBase64, result.filename, result.mimeType);
-        toast.success("Relatório PDF de prontidão IVA descarregado.");
+        try {
+          downloadBase64File(
+            result.dataBase64,
+            result.filename,
+            result.mimeType
+          );
+          toast.success("Relatório PDF de prontidão IVA descarregado.", {
+            description: result.filename,
+          });
+        } catch {
+          toast.error(
+            "Não foi possível preparar a descarga do relatório PDF IVA."
+          );
+        }
       },
       onError: error => toast.error(normativeErrorLabel(error.message)),
     });
@@ -121,12 +133,18 @@ export function IvaNormativeReviewPanel({
       return;
     }
     const filename = `prontidao-iva-${organizationId ?? "contexto"}-${new Date().toISOString().slice(0, 10)}.csv`;
-    downloadBlob(
-      buildIvaReadinessCsv(readinessQuery.data, asOfDate),
-      filename,
-      "text/csv;charset=utf-8"
-    );
-    toast.success("Relatório CSV de prontidão IVA descarregado.");
+    try {
+      downloadBlob(
+        buildIvaReadinessCsv(readinessQuery.data, asOfDate),
+        filename,
+        "text/csv;charset=utf-8"
+      );
+      toast.success("Relatório CSV de prontidão IVA descarregado.", {
+        description: filename,
+      });
+    } catch {
+      toast.error("Não foi possível preparar a descarga do relatório CSV IVA.");
+    }
   };
   const exportPdf = () => {
     if (!organizationId) {
