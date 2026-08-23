@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import { and, eq, sql } from "drizzle-orm";
-import { businessDocuments, employees, fiscalTaxRecords, payments, purchaseOrders, stockMovements, treasuryTransactions } from "../drizzle/schema";
+import { and, desc, eq, sql } from "drizzle-orm";
+import { businessDocuments, employees, fiscalTaxRecords, payments, pgcAccounts, pgcSources, pgcVersions, purchaseOrders, stockMovements, treasuryTransactions } from "../drizzle/schema";
 import { getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getIncomeStatementForUserCompany, getTrialBalanceForUserCompany } from "./db";
 
 export type SaadiDataClass = "ACTUAL_REALIZED";
@@ -52,6 +52,22 @@ export async function readSaadiOperationalSummary(userId: number, companyId: num
     db.select({ total: sql<number>`count(*)`, amount: sql<string>`coalesce(sum(taxAmount), 0)` }).from(fiscalTaxRecords).where(and(eq(fiscalTaxRecords.organizationId, organizationId), eq(fiscalTaxRecords.companyId, companyId))),
   ]);
   return envelope({ organizationId, companyId, asOf: context.asOf, sourceSystem: "BALANCERTS.ERP", sourceService: "operational-domains.read", sourceVersion: "erp-read-v1", dataClass: "ACTUAL_REALIZED", authority: "ERP", data: { periodId: periodId ?? null, commercial: documents[0] ?? { total: 0, gross: "0" }, purchases: purchases[0] ?? { total: 0 }, treasury: treasury[0] ?? { total: 0, amountIn: "0", amountOut: "0" }, payments: paymentsSummary[0] ?? { total: 0, amount: "0" }, stock: stock[0] ?? { total: 0, quantity: "0" }, humanResources: humanResources[0] ?? { total: 0 }, fiscality: taxes[0] ?? { total: 0, amount: "0" } } });
+}
+
+export async function readSaadiPgcNormativeContext(userId: number, companyId: number) {
+  const { context, organizationId } = await contextFor(userId, companyId);
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const [versions] = await Promise.all([
+    db.select().from(pgcVersions).where(and(eq(pgcVersions.organizationId, organizationId), eq(pgcVersions.status, "ACTIVE"))).orderBy(desc(pgcVersions.effectiveFrom)).limit(1),
+  ]);
+  const version = versions[0] ?? null;
+  if (!version) return envelope({ organizationId, companyId, asOf: context.asOf, sourceSystem: "BALANCERTS.ERP", sourceService: "pgc.normative.read", sourceVersion: "erp-read-v1", dataClass: "ACTUAL_REALIZED", authority: "ERP", data: { version: null, sources: [], accounts: [], confirmedOnly: true, available: false } });
+  const [sources, accounts] = await Promise.all([
+    db.select({ id: pgcSources.id, instrument: pgcSources.instrument, instrumentNumber: pgcSources.instrumentNumber, article: pgcSources.article, title: pgcSources.title, effectiveFrom: pgcSources.effectiveFrom, sourceUrl: pgcSources.sourceUrl }).from(pgcSources).where(and(eq(pgcSources.organizationId, organizationId), eq(pgcSources.versionId, version.id), eq(pgcSources.verificationStatus, "CONFIRMED"))).orderBy(pgcSources.id),
+    db.select({ id: pgcAccounts.id, code: pgcAccounts.code, name: pgcAccounts.name, classCode: pgcAccounts.classCode, parentCode: pgcAccounts.parentCode, level: pgcAccounts.level, accountType: pgcAccounts.accountType, nature: pgcAccounts.nature, balanceType: pgcAccounts.balanceType, acceptsEntries: pgcAccounts.acceptsEntries, fiscal: pgcAccounts.fiscal, iva: pgcAccounts.iva }).from(pgcAccounts).where(and(eq(pgcAccounts.organizationId, organizationId), eq(pgcAccounts.versionId, version.id), eq(pgcAccounts.active, 1), eq(pgcAccounts.validationStatus, "CONFIRMED"))).orderBy(pgcAccounts.code),
+  ]);
+  return envelope({ organizationId, companyId, asOf: context.asOf, sourceSystem: "BALANCERTS.ERP", sourceService: "pgc.normative.read", sourceVersion: "erp-read-v1", dataClass: "ACTUAL_REALIZED", authority: "ERP", data: { version: { id: version.id, code: version.code, name: version.name, effectiveFrom: version.effectiveFrom, status: version.status }, sources, accounts, confirmedOnly: true, available: true } });
 }
 
 export async function readSaadiAccountingSummary(userId: number, companyId: number, periodId?: number) {

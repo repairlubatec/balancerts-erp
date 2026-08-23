@@ -5,9 +5,10 @@ vi.mock("./db", () => ({
   getTrialBalanceForUserCompany: vi.fn(async () => [{ accountCode: "4511", debit: 100, credit: 0 }]),
   getIncomeStatementForUserCompany: vi.fn(async () => ({ revenue: 1000, expenses: 400 })),
   getBalanceSheetForUserCompany: vi.fn(async () => ({ assets: 2000, liabilities: 500 })),
+  getDb: vi.fn(async () => ({ select: () => ({ from: () => ({ where: () => ({ orderBy: () => ({ limit: async () => [] }) }) }) }) })),
 }));
 
-import { readSaadiAccountingSummary, readSaadiCompanyContext } from "./saadi-erp-read";
+import { readSaadiAccountingSummary, readSaadiCompanyContext, readSaadiPgcNormativeContext } from "./saadi-erp-read";
 
 describe("adaptador de leitura ERP para SAADI", () => {
   it("devolve contexto ERP classificado como realizado e com hash", async () => {
@@ -21,6 +22,14 @@ describe("adaptador de leitura ERP para SAADI", () => {
 
   it("bloqueia empresa fora do contexto autorizado", async () => {
     await expect(readSaadiCompanyContext(7, 999)).rejects.toThrow("SAADI_ERP_COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  });
+
+  it("não expõe contas quando não existe versão PGCA activa", async () => {
+    const result = await readSaadiPgcNormativeContext(7, 20);
+    expect(result.sourceService).toBe("pgc.normative.read");
+    expect(result.data.confirmedOnly).toBe(true);
+    expect(result.data.available).toBe(false);
+    expect(result.data.accounts).toEqual([]);
   });
 
   it("reutiliza os três relatórios contabilísticos sem escrever no ERP", async () => {

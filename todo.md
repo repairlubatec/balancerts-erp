@@ -3008,3 +3008,8 @@
 
 # Continuação sem restauro externo
 - [x] Seleccionar e concluir a próxima melhoria interna disponível, mantendo o destino MySQL/TiDB isolado pendente.
+
+# Contexto normativo para SAADI
+- [x] Expor no adaptador SAADI o contexto PGCA confirmado/activo da empresa, apenas em leitura.
+- [x] Garantir hash, organização, empresa, versão normativa e bloqueio de dados não confirmados.
+- [x] Testar isolamento e exclusão de contas pendentes no contexto SAADI.
