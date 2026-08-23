@@ -30,3 +30,6 @@ Foi acrescentado `pnpm external:preflight`, implementado em `scripts/external-pr
 O preflight pode declarar apenas estados de preparação local: `PRONTO_PARA_EMPACOTAMENTO` quando existe `BALANCERTS_DESKTOP_URL`, ou `PRONTO_PARA_VALIDACAO_ISOLADA` quando todos os campos de destino, aprovação, fingerprint, allowlist e atestado estão preenchidos. Estes estados não substituem a validação física num Windows limpo, a assinatura efectiva, o restauro real, a homologação AGT, os testes bancários ou a aceitação da Repair Lubatec.
 
 A saída do preflight não inclui `RESTORE_DATABASE_URL`, passwords, certificados, fingerprints ou outros valores sensíveis. Os testes Vitest cobrem o bloqueio seguro, a ausência de exposição de segredos e a manutenção explícita das dependências externas.
+
+
+O smoke test local `pnpm run desktop:dir` foi executado com um URL HTTPS de preview e produziu a aplicação Linux não assinada. Isto confirma que o bundle e a preparação desktop local funcionam; não confirma EXE/MSI, instalação numa máquina Windows limpa, actualizações, macOS, cadeia de confiança ou assinatura de código.
