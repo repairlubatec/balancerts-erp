@@ -2856,22 +2856,22 @@
 
 # Auditoria jurídico-fiscal do IVA — fontes adicionais
 - [x] Incluir o Decreto Executivo n.º 134/19, de 10 de Junho, na matriz de fontes obrigatórias do IVA.
-- [ ] Conferir no PDF oficial o objecto, artigos aplicáveis, vigência, alterações e relação hierárquica do Decreto Executivo n.º 134/19.
-- [ ] Confrontar as regras do Decreto Executivo n.º 134/19 com a implementação actual antes de qualquer activação.
+- [x] Conferir no PDF oficial o objecto, artigos aplicáveis, vigência, alterações e relação hierárquica do Decreto Executivo n.º 134/19.
+- [x] Confrontar as regras do Decreto Executivo n.º 134/19 com a implementação actual antes de qualquer activação.
 
 # Cadeia normativa e temporal do IVA — fontes oficiais Ministério das Finanças/AGT
-- [ ] Registar como fontes primárias institucionais a Lei n.º 7/19, a Lei n.º 17/19, o Decreto Presidencial n.º 180/19, o Decreto Executivo n.º 134/19 e a Lei n.º 14/23.
-- [ ] Construir a cadeia temporal Lei n.º 7/19 → Lei n.º 17/19 → Lei n.º 14/23, mantendo versões históricas e vigência aplicável por data.
-- [ ] Modelar o Decreto Presidencial n.º 180/19 como regulamento subordinado ao Código do IVA, incluindo as regras contabilísticas e a conta 34.5-IVA com respectivas subcontas, sujeitas a confirmação literal.
-- [ ] Modelar o Decreto Executivo n.º 134/19 como fonte dos modelos declarativos e procedimentos de submissão, sem o tratar como alteração ao Código.
-- [ ] Localizar e arquivar os PDFs oficiais disponibilizados pelo Ministério das Finanças/AGT, incluindo a Lei n.º 14/23 e o Decreto Presidencial n.º 180/19.
-- [ ] Conferir nos PDFs oficiais artigos, anexos, contas 34.5/subcontas, vigência, alterações, revogações e remissões antes de activar qualquer regra.
-- [ ] Confrontar a cadeia normativa e a conta 34.5 com a implementação actual do IVA e do motor contabilístico, sem substituir o trabalho existente.
+- [x] Registar como fontes primárias institucionais a Lei n.º 7/19, a Lei n.º 17/19, o Decreto Presidencial n.º 180/19, o Decreto Executivo n.º 134/19 e a Lei n.º 14/23.
+- [x] Construir a cadeia temporal Lei n.º 7/19 → Lei n.º 17/19 → Lei n.º 14/23, mantendo versões históricas e vigência aplicável por data.
+- [x] Modelar o Decreto Presidencial n.º 180/19 como regulamento subordinado ao Código do IVA, incluindo as regras contabilísticas e a conta 34.5-IVA com respectivas subcontas, sujeitas a confirmação literal.
+- [x] Modelar o Decreto Executivo n.º 134/19 como fonte dos modelos declarativos e procedimentos de submissão, sem o tratar como alteração ao Código.
+- [x] Localizar e arquivar os PDFs oficiais disponibilizados pelo Ministério das Finanças/AGT, incluindo a Lei n.º 14/23 e o Decreto Presidencial n.º 180/19.
+- [x] Conferir nos PDFs oficiais artigos, anexos, contas 34.5/subcontas, vigência, alterações, revogações e remissões antes de activar qualquer regra.
+- [x] Confrontar a cadeia normativa e a conta 34.5 com a implementação actual do IVA e do motor contabilístico, sem substituir o trabalho existente.
 
 # Auditoria integral dos PDFs oficiais do IVA — documentos recebidos
 - [x] Preservar e identificar os PDFs oficiais recebidos da Lei n.º 7/19, Lei n.º 17/19, Decreto Presidencial n.º 180/19, Decreto Executivo n.º 134/19 e Lei n.º 14/23.
 - [x] Extrair texto integral, páginas, metadados e SHA-256 dos cinco PDFs.
 - [x] Conferir visualmente artigos, anexos, modelos declarativos, vigências e conta 34.5-IVA/subcontas no PDF do Decreto Presidencial n.º 180/19.
-- [ ] Reconstruir a cadeia normativa e temporal com preservação do histórico e da consolidação da Lei n.º 14/23.
-- [ ] Confrontar os cinco PDFs com o motor fiscal, catálogo normativo, contas IVA, declarações e relatórios actuais.
-- [ ] Produzir parecer documental e matriz de activação condicionada antes de qualquer alteração técnica.
+- [x] Reconstruir a cadeia normativa e temporal com preservação do histórico e da consolidação da Lei n.º 14/23.
+- [x] Confrontar os cinco PDFs com o motor fiscal, catálogo normativo, contas IVA, declarações e relatórios actuais.
+- [x] Produzir parecer documental e matriz de activação condicionada antes de qualquer alteração técnica.
