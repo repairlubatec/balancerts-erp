@@ -898,7 +898,7 @@ export const ivaNormativeRules = mysqlTable("ivaNormativeRules", {
   createdBy: int("createdBy").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 }, (table) => ({
-  organizationCodeUnique: uniqueIndex("iva_normative_rules_organization_code_unique").on(table.organizationId, table.code),
+  organizationCodeEffectiveFromUnique: uniqueIndex("iva_normative_rules_organization_code_effective_from_unique").on(table.organizationId, table.code, table.effectiveFrom),
 }));
 
 export const ivaAccountMappings = mysqlTable("ivaAccountMappings", {

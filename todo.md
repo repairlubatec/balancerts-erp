@@ -2920,3 +2920,9 @@
 - [x] Ligar consultas e decisões humanas aos controlos server-side, sem activação automática.
 - [x] Testar interface, RBAC, estados, acessibilidade e ausência de scroll.
 - [x] Guardar checkpoint da entrega visual do IVA.
+
+# Correcção de integridade temporal do catálogo IVA
+- [x] Alterar a unicidade de ivaNormativeRules para organização, código e início de vigência.
+- [x] Gerar e aplicar migração aditiva/segura da restrição temporal.
+- [x] Testar múltiplas versões históricas do mesmo código e selecção por data.
+- [x] Guardar checkpoint da correcção temporal.

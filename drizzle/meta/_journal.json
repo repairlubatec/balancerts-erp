@@ -512,6 +512,13 @@
       "when": 1787464077286,
       "tag": "0072_curly_angel",
       "breakpoints": true
+    },
+    {
+      "idx": 73,
+      "version": "5",
+      "when": 1787472147995,
+      "tag": "0073_calm_prodigy",
+      "breakpoints": true
     }
   ]
 }
