@@ -3078,3 +3078,9 @@
 - [x] Persistir o estado do alerta e reflecti-lo no dashboard com isolamento e RBAC server-side.
 - [x] Adicionar testes de transições, permissões, isolamento e actualização do dashboard.
 - [x] Validar visualmente, actualizar o TODO e guardar checkpoint.
+
+# Filtro de estado dos alertas no dashboard principal
+- [x] Adicionar filtro para Todos, Em aberto, Revistos e Resolvidos.
+- [x] Aplicar o filtro aos alertas e às métricas visíveis sem quebrar o isolamento da organização.
+- [x] Cobrir a filtragem com testes Vitest e validar a actualização após mudança de estado.
+- [x] Validar visualmente, actualizar o TODO e guardar checkpoint.

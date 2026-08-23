@@ -19,11 +19,18 @@ type CompanyRow = {
 };
 
 type ActivityRow = { id: number | string; title: string; meta: string };
+type DashboardAlertStatus = "OPEN" | "REVIEWED" | "RESOLVED";
+type DashboardAlertFilter = "ALL" | DashboardAlertStatus;
+type AlertRow = { id: number; title: string; meta: string; status: DashboardAlertStatus; risk: "HIGH" | "CRITICAL" };
 type ActionRow = { path: string; label: string; icon: React.ComponentType<{ className?: string }> };
 
 type DesktopOverviewPanelProps = {
   companies: CompanyRow[];
   activities: ActivityRow[];
+  alerts: AlertRow[];
+  alertFilter: DashboardAlertFilter;
+  onAlertFilterChange: (filter: DashboardAlertFilter) => void;
+  onOpenAlert: (alertId: number) => void;
   actions: ActionRow[];
   query: string;
   onQueryChange: (query: string) => void;
@@ -56,6 +63,10 @@ function StatusCell({ status }: { status: string }) {
 export function DesktopOverviewPanel({
   companies,
   activities,
+  alerts,
+  alertFilter,
+  onAlertFilterChange,
+  onOpenAlert,
   actions,
   query,
   onQueryChange,
@@ -81,6 +92,7 @@ export function DesktopOverviewPanel({
   const filteredActions = actions.filter(({ label }) => label.toLowerCase().includes(paletteQuery.toLowerCase()));
   const searchRef = React.useRef<HTMLInputElement>(null);
   const [aboutOpen, setAboutOpen] = React.useState(false);
+  const visibleAlerts = alerts.filter((alert) => alertFilter === "ALL" || alert.status === alertFilter);
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap items-center gap-1 border-b border-[#aeb8c4] bg-[#e6eaef] px-2 py-1.5 text-[11px]">
@@ -94,6 +106,11 @@ export function DesktopOverviewPanel({
 
       <div className="grid grid-cols-4 divide-x border border-[#bfc9d4] bg-[#fbfcfd]">
         {[["Facturação", volumeFacturado, "up"], ["A receber", aReceber, "up"], ["Pendências", String(documentosPendentes + obrigacoesPendentes), "up"], ["Reconciliação", reconciliation, reconciliation === "5/5" ? "up" : "down"]].map(([label, value, trend]) => <div key={label} className="min-w-0 px-3 py-2"><div className="flex items-center justify-between text-[10px] uppercase tracking-[0.1em] text-[#697888]"><span>{label}</span>{trend === "up" ? <ArrowUpRight className="h-3 w-3 text-[#5f9d1d]" /> : <ArrowDownRight className="h-3 w-3 text-[#b97818]" />}</div><div className="mt-1 text-base font-semibold text-[#1d2a38]">{value}</div></div>)}
+      </div>
+
+      <div className="border border-[#aeb8c4] bg-white">
+        <div className="flex min-w-0 flex-wrap items-center gap-2 border-b border-[#cbd3dc] bg-[#eef1f4] px-2 py-1.5"><div className="min-w-0 flex-1"><span className="text-xs font-semibold text-[#1d2a38]">Alertas de alto risco</span><span className="ml-2 text-[10px] text-[#6b7785]">{visibleAlerts.length} visíveis</span></div><select aria-label="Filtrar alertas por estado" value={alertFilter} onChange={(event) => onAlertFilterChange(event.target.value as DashboardAlertFilter)} className="ml-auto h-7 shrink-0 rounded-sm border border-[#bfc9d4] bg-white px-2 text-[11px]"><option value="ALL">Todos os estados</option><option value="OPEN">Em aberto</option><option value="REVIEWED">Revistos</option><option value="RESOLVED">Resolvidos</option></select></div>
+        <div className="divide-y divide-[#e0e5ea]">{visibleAlerts.length === 0 ? <div className="px-3 py-4 text-[11px] text-[#6b7785]">Não existem alertas de alto risco para o filtro seleccionado.</div> : visibleAlerts.map((alert) => <div key={alert.id} className="flex items-center gap-2 px-3 py-2 text-[11px]"><span className={cn("h-2 w-2 rounded-full", alert.risk === "CRITICAL" ? "bg-[#d85c5c]" : "bg-[#e4a438")} aria-hidden="true" /><div className="min-w-0"><p className="truncate font-medium text-[#1d2a38]">{alert.title}</p><p className="truncate text-[10px] text-[#7b8794]">{alert.meta}</p></div><span className={cn("ml-auto shrink-0 border px-1.5 py-0.5 text-[10px] font-semibold", alert.status === "RESOLVED" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : alert.status === "REVIEWED" ? "border-blue-200 bg-blue-50 text-blue-700" : "border-amber-200 bg-amber-50 text-amber-700")}>{alert.status === "RESOLVED" ? "Resolvido" : alert.status === "REVIEWED" ? "Revisto" : "Em aberto"}</span><Button type="button" variant="ghost" size="sm" onClick={() => onOpenAlert(alert.id)} className="h-6 rounded-sm px-2 text-[10px] text-[#1d568f]">Ver detalhe</Button></div>)}</div>
       </div>
 
       <div className="border border-[#aeb8c4] bg-white">

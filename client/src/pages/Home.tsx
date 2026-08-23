@@ -18,6 +18,8 @@ import { ModuleContextBar, ModuleSecurityNotice } from "@/components/ModuleConte
 import { DesktopReasonDialog } from "@/components/DesktopReasonDialog";
 import { DesktopConfirmDialog } from "@/components/DesktopConfirmDialog";
 import { getBulkTaskStatusNotification } from "@/lib/taskNotifications";
+import { filterDashboardAlerts, type DashboardAlertFilter } from "@/lib/dashboardAlerts";
+import { classifyAuditRisk } from "@/lib/auditRisk";
 import { getSelectedTaskCount, getVisibleTaskSelectionState, toggleVisibleTaskSelection } from "@/lib/taskSelection";
 import { buildTasksCsv, taskExportFilename } from "@/lib/taskExport";
 import { buildTaskNotificationsCsv, taskNotificationsExportFilename } from "@/lib/taskNotificationExport";
@@ -129,8 +131,14 @@ function Overview({ activeCompanyId }: { activeCompanyId?: number }) {
   const reportsApi = (trpc as typeof trpc & { reports?: { saftReadiness?: typeof trpc.reports.saftReadiness } }).reports;
   const saftReadinessQuery = reportsApi?.saftReadiness?.useQuery;
   const { data: saftReadiness } = saftReadinessQuery ? saftReadinessQuery(resolvedCompanyId ? { companyId: resolvedCompanyId } : skipToken) : { data: undefined };
-  const canReadAudit = user?.role === "admin" || user?.role === "auditor";
+  const canReadAudit = user?.role === "admin" || user?.role === "auditor" || user?.role === "contabilista";
   const { data: auditRows } = trpc.audit.list.useQuery(activeCompanyId && canReadAudit ? { companyId: activeCompanyId } : skipToken);
+  const [alertFilter, setAlertFilter] = useState<DashboardAlertFilter>("ALL");
+  const auditOrganizationId = activeCompany?.company.organizationId;
+  const auditApi = (trpc as typeof trpc & { audit?: { pgcLogs?: typeof trpc.audit.pgcLogs } }).audit;
+  const pgcLogsQuery = auditApi?.pgcLogs?.useQuery;
+  const { data: alertLogPage } = pgcLogsQuery ? pgcLogsQuery(auditOrganizationId && resolvedCompanyId && canReadAudit ? { organizationId: auditOrganizationId, companyId: resolvedCompanyId, page: 1, pageSize: 100 } : skipToken) : { data: undefined };
+  const dashboardAlerts = filterDashboardAlerts(alertLogPage?.items ?? [], "ALL").map((event) => ({ id: event.id, title: presentationLabel(event.action), meta: `${presentationLabel(event.entityType)} #${event.entityId} · ${new Date(event.createdAt).toLocaleString("pt-PT")}`, status: (event.reviewStatus ?? "OPEN") as "OPEN" | "REVIEWED" | "RESOLVED", risk: classifyAuditRisk(event).level as "HIGH" | "CRITICAL" }));
   const recentEvents = (auditRows ?? []).slice(0, 3).map(({ event }) => ({ id: event.id, title: presentationLabel(event.action), meta: `${presentationLabel(event.entityType)} #${event.entityId} · ${new Date(event.createdAt).toLocaleString("pt-PT")}`, color: "bg-blue-100 text-blue-700", Icon: FileCheck2 }));
   const portfolioCompanies = (companyRows ?? []).filter(({ company }) => !isEmpresaDeTeste(company)).map(({ company }) => ({
     name: company.name,
@@ -177,6 +185,10 @@ function Overview({ activeCompanyId }: { activeCompanyId?: number }) {
   return <DesktopOverviewPanel
     companies={filteredCompanies}
     activities={desktopActivities}
+    alerts={dashboardAlerts}
+    alertFilter={alertFilter}
+    onAlertFilterChange={setAlertFilter}
+    onOpenAlert={() => setLocation("/auditoria")}
     actions={desktopActions}
     query={query}
     statusFilter={statusFilter}
