@@ -3192,3 +3192,4 @@
 - [x] Cobrir o preflight com testes Vitest de bloqueio seguro, não exposição de segredos e estados externos pendentes
 - [x] Documentar a distinção entre preparação local e evidência externa na matriz operacional
 - [x] Executar smoke test local do empacotamento desktop sem assinatura, sem declarar validação Windows/macOS nem certificado de distribuição
+- [x] Consolidar as 27 pendências externas abertas num registo operacional com critérios de desbloqueio e protecções mantidas
