@@ -19,6 +19,7 @@ import { PgcEvidenceSubmissionPanel } from "@/components/PgcEvidenceSubmissionPa
 import { PgcMovementSimulatorPanel } from "@/components/PgcMovementSimulatorPanel";
 import { PgcAuditLogPanel } from "@/components/PgcAuditLogPanel";
 import { AccountingRuleFormPanel } from "@/components/AccountingRuleFormPanel";
+import { IvaNormativeReviewPanel } from "@/components/IvaNormativeReviewPanel";
 import { filterPgcAccountsByStatus, pgcAccountStatusClass, pgcAccountStatusLabel } from "@/lib/pgcAccountStatus";
 
 const statusLabel: Record<string, string> = { DRAFT: "Rascunho", UNDER_REVIEW: "Em revisão", VALIDATED: "Validada", ACTIVE: "Activa", SUPERSEDED: "Substituída", ARCHIVED: "Arquivada", NEEDS_NORMATIVE_VALIDATION: "Validação normativa pendente", CONFIRMED: "Confirmada", PENDING: "Pendente", RUNNING: "Em execução", COMPLETED: "Concluída", FAILED: "Falhou", REVIEWED: "Revisto", APPROVED: "Aprovado", APPLIED: "Aplicado", REJECTED: "Rejeitada", CONFLICT: "Conflito", INVALID: "Inválida", DUPLICATE: "Duplicada", MISSING_PARENT: "Conta-pai em falta" };
@@ -92,6 +93,7 @@ export default function Pgca() {
         <div className="grid grid-cols-3 gap-2"><Metric label="Contas carregadas" value={summary.total} /><Metric label="Postáveis" value={summary.entries} /><Metric label="Validação pendente" value={summary.pending} warning={summary.pending > 0} /></div>
       </CardContent></Card>
       <NormativeConfirmationDashboard />
+      <IvaNormativeReviewPanel organizationId={organizationId} />
       <PgcEvidenceSubmissionPanel organizationId={organizationId} companyId={resolvedCompanyId} versionId={resolvedVersionId} sources={sourcesQuery.data ?? []} />
       <PgcMovementSimulatorPanel organizationId={organizationId} companyId={resolvedCompanyId} versionId={resolvedVersionId} accounts={accountsQuery.data ?? []} />
       {user?.role === "admin" || user?.role === "contabilista" ? <AccountingRuleFormPanel organizationId={organizationId} companyId={resolvedCompanyId} versionId={resolvedVersionId} accounts={accountsQuery.data ?? []} sources={sourcesQuery.data ?? []} /> : null}

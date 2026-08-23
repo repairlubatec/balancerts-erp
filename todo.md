@@ -2913,3 +2913,10 @@
 - [x] Permitir cálculo apenas com regra ACTIVE e regime compatível, preservando a API existente.
 - [x] Adicionar testes de bloqueio CONFIRMED_ONLY e não-regressão do cálculo IVA.
 - [x] Guardar checkpoint da integração controlada no motor fiscal.
+
+# Interface desktop — revisão IVA e conta 34.5
+- [x] Auditar o painel PGCA existente e reutilizar os componentes de revisão humana.
+- [x] Criar painel sem scroll para regras IVA e conta 34.5, com filtros e estados legíveis.
+- [x] Ligar consultas e decisões humanas aos controlos server-side, sem activação automática.
+- [x] Testar interface, RBAC, estados, acessibilidade e ausência de scroll.
+- [x] Guardar checkpoint da entrega visual do IVA.
