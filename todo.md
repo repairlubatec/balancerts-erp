@@ -2892,3 +2892,10 @@
 - [x] Implementar consultas tenant-aware de fontes e versões com estado CONFIRMED_ONLY.
 - [x] Implementar testes de isolamento, vigência, precedência, idempotência e não activação automática.
 - [x] Guardar checkpoint da primeira entrega implementada antes de avançar para regras materiais.
+
+# Implementação autorizada — regras materiais IVA e conta 34.5
+- [x] Criar schema versionado para regras materiais de IVA com fonte, artigo, vigência, regime, taxa e confirmação.
+- [x] Criar schema de mapeamentos da conta 34.5-IVA e subcontas com evidência, natureza e estado de activação.
+- [x] Implementar leitura tenant-aware das regras e mapeamentos sem activar entradas pendentes.
+- [x] Implementar testes de precedência temporal, taxa, regime, CONFIRMED_ONLY e não publicação automática.
+- [x] Guardar checkpoint da segunda entrega antes de integrar regras nos lançamentos e declarações.

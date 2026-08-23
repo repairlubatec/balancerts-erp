@@ -3,7 +3,7 @@ import { validateAuditSnapshotShape } from "./audit-chain";
 import { and, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser,   agtIntegrationConfigs, agtEstablishments, agtSeries, agtSubmissions, agtSubmissionDocuments, agtSignatureKeys, documentImportBatches, documentImportRows,
-  auditEvents, accountingRules, pgcAccounts, pgcVersions, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, normativeSources, normativeSourceRelations, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
+  auditEvents, accountingRules, pgcAccounts, pgcVersions, balancertsIaConfigs, organizationMemberships, balancertsIaLogs, balancertsIaSuggestions, businessDocuments, cashAccounts, cashReconciliations, bankStatementImports, bankStatementLines, fiscalTaxRecords, openingBalances, accountingAdjustments, chartAccounts, companies, employees, employmentContracts, payrollItems, payrollRuleSets, payrollRuns, humanResourcesTasks, costCenters, counterparties, documentItems, documentSeries, documentTaxes, fileAssets, fileAssetVersions, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, normativeRules, normativeSources, normativeSourceRelations, ivaNormativeRules, ivaAccountMappings, organizations, payments, platforms, products, purchaseOrderItems, purchaseOrders, purchaseReceiptItems, purchaseReceipts, stockCountItems, stockCounts, stockMovements, treasuryTransactions, users, warehouses } from "../drizzle/schema";
 import { buildAgingReport, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftReadiness, buildSaftAoXml, buildTrialBalance, buildVatSummary, type JournalRow, type SaftAoAccount, type SaftAoJournalEntry, type SaftAoSourceDocument } from "./reports";
 import { reconcileInventoryToLedger } from "./inventory-posting";
 import { buildStockTransfer, normalizeWarehouseCode, validateStockCountLine, validateStockMovement } from "./operations";
@@ -2356,4 +2356,22 @@ export async function listNormativeSourceRelationsForUser(input: { userId: numbe
   if (!db) throw new Error("Database unavailable");
   const limit = Math.min(Math.max(input.limit ?? 100, 1), 100);
   return db.select({ relation: normativeSourceRelations }).from(normativeSourceRelations).innerJoin(organizations, eq(normativeSourceRelations.organizationId, organizations.id)).where(and(eq(normativeSourceRelations.organizationId, input.organizationId), organizationAccessCondition(input.userId), ...(input.sourceId ? [eq(normativeSourceRelations.sourceId, input.sourceId)] : []))).orderBy(desc(normativeSourceRelations.id)).limit(limit);
+}
+
+export async function listIvaNormativeRulesForUser(input: { userId: number; organizationId: number; regime?: "GERAL" | "SIMPLIFICADO" | "EXCLUSAO"; ruleType?: "TAX_RATE" | "REGIME" | "INCIDENCE" | "EXEMPTION" | "DEDUCTION" | "WITHHOLDING" | "REGULARIZATION" | "DECLARATION"; asOf?: Date; includePending?: boolean; limit?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const limit = Math.min(Math.max(input.limit ?? 100, 1), 100);
+  const asOf = input.asOf ?? new Date();
+  const rows = await db.select({ rule: ivaNormativeRules }).from(ivaNormativeRules).innerJoin(organizations, eq(ivaNormativeRules.organizationId, organizations.id)).where(and(eq(ivaNormativeRules.organizationId, input.organizationId), organizationAccessCondition(input.userId), ...(input.regime ? [eq(ivaNormativeRules.regime, input.regime)] : []), ...(input.ruleType ? [eq(ivaNormativeRules.ruleType, input.ruleType)] : []), lte(ivaNormativeRules.effectiveFrom, asOf), or(isNull(ivaNormativeRules.effectiveTo), gte(ivaNormativeRules.effectiveTo, asOf)), ...(input.includePending ? [] : [eq(ivaNormativeRules.verificationStatus, "ACTIVE")]))).orderBy(desc(ivaNormativeRules.effectiveFrom), desc(ivaNormativeRules.id)).limit(limit);
+  return rows.map(({ rule }) => rule);
+}
+
+export async function listIvaAccountMappingsForUser(input: { userId: number; organizationId: number; accountCode?: string; asOf?: Date; includePending?: boolean; limit?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const limit = Math.min(Math.max(input.limit ?? 100, 1), 100);
+  const asOf = input.asOf ?? new Date();
+  const rows = await db.select({ mapping: ivaAccountMappings }).from(ivaAccountMappings).innerJoin(organizations, eq(ivaAccountMappings.organizationId, organizations.id)).where(and(eq(ivaAccountMappings.organizationId, input.organizationId), organizationAccessCondition(input.userId), ...(input.accountCode ? [eq(ivaAccountMappings.accountCode, input.accountCode)] : []), lte(ivaAccountMappings.effectiveFrom, asOf), or(isNull(ivaAccountMappings.effectiveTo), gte(ivaAccountMappings.effectiveTo, asOf)), ...(input.includePending ? [] : [eq(ivaAccountMappings.verificationStatus, "ACTIVE")]))).orderBy(desc(ivaAccountMappings.effectiveFrom), desc(ivaAccountMappings.id)).limit(limit);
+  return rows.map(({ mapping }) => mapping);
 }

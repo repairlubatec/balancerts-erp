@@ -880,6 +880,47 @@ export const normativeSourceRelations = mysqlTable("normativeSourceRelations", {
   relationUnique: uniqueIndex("normative_source_relations_unique").on(table.organizationId, table.sourceId, table.relatedSourceId, table.relationType),
 }));
 
+export const ivaNormativeRules = mysqlTable("ivaNormativeRules", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  sourceId: int("sourceId").notNull(),
+  code: varchar("code", { length: 100 }).notNull(),
+  article: varchar("article", { length: 80 }).notNull(),
+  ruleType: mysqlEnum("ruleType", ["TAX_RATE", "REGIME", "INCIDENCE", "EXEMPTION", "DEDUCTION", "WITHHOLDING", "REGULARIZATION", "DECLARATION"]).notNull(),
+  regime: mysqlEnum("regime", ["GERAL", "SIMPLIFICADO", "EXCLUSAO"]).notNull(),
+  rate: decimal("rate", { precision: 7, scale: 4 }),
+  parameters: json("parameters"),
+  effectiveFrom: timestamp("effectiveFrom").notNull(),
+  effectiveTo: timestamp("effectiveTo"),
+  evidencePage: int("evidencePage"),
+  evidenceHash: varchar("evidenceHash", { length: 64 }),
+  verificationStatus: mysqlEnum("verificationStatus", ["PENDING", "HUMAN_APPROVED", "ACTIVE", "SUPERSEDED", "REJECTED"]).default("PENDING").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  organizationCodeUnique: uniqueIndex("iva_normative_rules_organization_code_unique").on(table.organizationId, table.code),
+}));
+
+export const ivaAccountMappings = mysqlTable("ivaAccountMappings", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  sourceId: int("sourceId").notNull(),
+  accountCode: varchar("accountCode", { length: 32 }).notNull(),
+  accountName: varchar("accountName", { length: 180 }).notNull(),
+  parentCode: varchar("parentCode", { length: 32 }),
+  movement: mysqlEnum("movement", ["DEBIT", "CREDIT", "MIXED", "NOT_APPLICABLE"]).notNull(),
+  purpose: mysqlEnum("purpose", ["IVA_APURAMENTO", "IVA_LIQUIDADO", "IVA_DEDUZIDO", "IVA_A_RECUPERAR", "IVA_A_PAGAR", "OUTRO"]).notNull(),
+  effectiveFrom: timestamp("effectiveFrom").notNull(),
+  effectiveTo: timestamp("effectiveTo"),
+  evidencePage: int("evidencePage"),
+  evidenceHash: varchar("evidenceHash", { length: 64 }),
+  verificationStatus: mysqlEnum("verificationStatus", ["PENDING", "HUMAN_APPROVED", "ACTIVE", "SUPERSEDED", "REJECTED"]).default("PENDING").notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  organizationAccountUnique: uniqueIndex("iva_account_mappings_organization_account_unique").on(table.organizationId, table.accountCode, table.effectiveFrom),
+}));
+
 export const payrollRuleSets = mysqlTable("payrollRuleSets", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull().references(() => organizations.id),

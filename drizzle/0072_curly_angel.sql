@@ -1,0 +1,40 @@
+CREATE TABLE `ivaAccountMappings` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`organizationId` int NOT NULL,
+	`sourceId` int NOT NULL,
+	`accountCode` varchar(32) NOT NULL,
+	`accountName` varchar(180) NOT NULL,
+	`parentCode` varchar(32),
+	`movement` enum('DEBIT','CREDIT','MIXED','NOT_APPLICABLE') NOT NULL,
+	`purpose` enum('IVA_APURAMENTO','IVA_LIQUIDADO','IVA_DEDUZIDO','IVA_A_RECUPERAR','IVA_A_PAGAR','OUTRO') NOT NULL,
+	`effectiveFrom` timestamp NOT NULL,
+	`effectiveTo` timestamp,
+	`evidencePage` int,
+	`evidenceHash` varchar(64),
+	`verificationStatus` enum('PENDING','HUMAN_APPROVED','ACTIVE','SUPERSEDED','REJECTED') NOT NULL DEFAULT 'PENDING',
+	`createdBy` int NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `ivaAccountMappings_id` PRIMARY KEY(`id`),
+	CONSTRAINT `iva_account_mappings_organization_account_unique` UNIQUE(`organizationId`,`accountCode`,`effectiveFrom`)
+);
+--> statement-breakpoint
+CREATE TABLE `ivaNormativeRules` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`organizationId` int NOT NULL,
+	`sourceId` int NOT NULL,
+	`code` varchar(100) NOT NULL,
+	`article` varchar(80) NOT NULL,
+	`ruleType` enum('TAX_RATE','REGIME','INCIDENCE','EXEMPTION','DEDUCTION','WITHHOLDING','REGULARIZATION','DECLARATION') NOT NULL,
+	`regime` enum('GERAL','SIMPLIFICADO','EXCLUSAO') NOT NULL,
+	`rate` decimal(7,4),
+	`parameters` json,
+	`effectiveFrom` timestamp NOT NULL,
+	`effectiveTo` timestamp,
+	`evidencePage` int,
+	`evidenceHash` varchar(64),
+	`verificationStatus` enum('PENDING','HUMAN_APPROVED','ACTIVE','SUPERSEDED','REJECTED') NOT NULL DEFAULT 'PENDING',
+	`createdBy` int NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `ivaNormativeRules_id` PRIMARY KEY(`id`),
+	CONSTRAINT `iva_normative_rules_organization_code_unique` UNIQUE(`organizationId`,`code`)
+);

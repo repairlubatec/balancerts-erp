@@ -505,6 +505,13 @@
       "when": 1787463618366,
       "tag": "0071_numerous_jack_flag",
       "breakpoints": true
+    },
+    {
+      "idx": 72,
+      "version": "5",
+      "when": 1787464077286,
+      "tag": "0072_curly_angel",
+      "breakpoints": true
     }
   ]
 }
