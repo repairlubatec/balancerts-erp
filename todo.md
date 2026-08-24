@@ -3250,3 +3250,4 @@
 - [x] Criar testes de importação segura, duplicações, pais, reservas e não-activação
 - [x] Executar suite global e guardar checkpoint da incorporação controlada
 - [x] Corrigir overflow horizontal dos cartões de resumo do painel de staging PGCA em viewport desktop
+- [x] Detalhar no painel de staging PGCA a classificação de cada código repetido e da reserva normativa, mantendo-os bloqueados

@@ -40,6 +40,23 @@ export function PgcaV2StagingPanel() {
             Importação normativa e activação bloqueadas
           </div>
         </div>
+        <div className="overflow-hidden rounded-sm border border-amber-200 bg-white/70">
+          <div className="grid grid-cols-[5rem_1fr_auto] gap-2 border-b border-amber-200 px-2 py-1 text-[9px] font-semibold uppercase tracking-wide text-slate-500">
+            <span>Código</span><span>Classificação</span><span>Tratamento</span>
+          </div>
+          {pgcaV2Preflight.duplicateCodes.map(code => (
+            <div key={code} className="grid grid-cols-[5rem_1fr_auto] gap-2 border-b border-amber-100 px-2 py-1 text-[10px] last:border-b-0">
+              <span className="font-mono font-semibold text-slate-800">{code}</span>
+              <span className="text-slate-700">Código repetido na fonte</span>
+              <span className="font-medium text-red-700">Desambiguar</span>
+            </div>
+          ))}
+          <div className="grid grid-cols-[5rem_1fr_auto] gap-2 px-2 py-1 text-[10px]">
+            <span className="font-mono font-semibold text-slate-800">—</span>
+            <span className="text-slate-700">Extensões reservadas ({pgcaV2Preflight.reservedExtensions})</span>
+            <span className="font-medium text-red-700">Não activar</span>
+          </div>
+        </div>
         <p className="text-[10px] leading-relaxed text-amber-950/80">
           As extensões reservadas não recebem designações inventadas, não aceitam lançamentos e não criam regras contabilísticas. A matriz detalhada e o resultado do preflight ficam disponíveis para revisão documental.
         </p>
