@@ -36,6 +36,13 @@ describe("rótulos de apresentação em português", () => {
     expect(presentationLabel("router")).toBe("Roteador interno");
   });
 
+  it("traduz tipos documentais e estados normativos", () => {
+    expect(presentationLabel("INVOICE")).toBe("Factura");
+    expect(presentationLabel("CREDIT_NOTE")).toBe("Nota de crédito");
+    expect(presentationLabel("DEBIT_NOTE")).toBe("Nota de débito");
+    expect(presentationLabel("PENDING")).toBe("Pendente");
+  });
+
   it("traduz tipos e direcções técnicas conhecidas", () => {
     expect(presentationLabel("SERVICE")).toBe("Serviço");
     expect(presentationLabel("CUSTOMER")).toBe("Cliente");

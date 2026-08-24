@@ -3215,3 +3215,8 @@
 - [x] Reavaliar o estado actual e ordenar a próxima melhoria interna por utilidade operacional
 - [x] Implementar a próxima melhoria interna escolhida com testes e validação visual
 - [x] Traduzir os estados dos mapas normativos PGCA e os tipos de séries/documentos IA sem expor códigos técnicos na interface
+
+
+# Novo ciclo de melhorias internas
+- [x] Reavaliar o estado actual do ERP e seleccionar a próxima melhoria local por utilidade operacional
+- [x] Implementar a melhoria local seleccionada com cobertura de testes e validação visual

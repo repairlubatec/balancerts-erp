@@ -29,3 +29,6 @@ Na verificação do shell desktop em 1280×720, a barra de janelas mantém a nav
 
 
 Na captura da página Balancerts IA em 1280×720, o shell mantém navegação compacta e os textos operacionais visíveis permanecem em português. O painel apresenta claramente IA local, modo offline, custo e fonte normativa, sem alterar a fronteira de confirmação humana.
+
+
+Na verificação conjunta de PGCA e Balancerts IA em 1280×720, os estados apresentados permanecem em português e o shell mantém a densidade de software. O PGCA exibe “Em revisão”, “Contas carregadas”, “Pendentes” e “Movimentos activos”; a área IA conserva os indicadores locais, offline e de custo sem expor códigos técnicos na superfície operacional.
