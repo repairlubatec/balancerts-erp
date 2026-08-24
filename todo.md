@@ -3237,3 +3237,5 @@
 - [x] Confrontar códigos, hierarquia, contas IVA, estados e regras do documento com schema, catálogo PGCA e motor contabilístico actual
 - [ ] Implementar apenas os elementos comprovadamente compatíveis, preservando não invenção, histórico, auditoria e confirmação humana
 - [ ] Criar testes de conformidade e executar a suite completa antes do checkpoint
+- [x] Criar validador não destrutivo do documento anexado, com detecção de duplicações, reservas, secção concatenada e pais ausentes sem escrita no banco
+- [x] Testar o validador com casos reais do anexo e confirmar que não activa contas nem regras

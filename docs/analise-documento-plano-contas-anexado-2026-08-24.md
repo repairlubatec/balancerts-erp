@@ -82,7 +82,7 @@ A exigência do próprio documento de concluir e apresentar uma matriz jurídica
 
 ## 8. Alterações realizadas nesta análise
 
-**Nenhum código, schema, dado, permissão, router, migração ou integração foi alterado nesta fase.** Foram apenas criados os registos de análise e de dependências no projecto. Esta decisão é necessária porque a implementação integral não cumpre ainda os critérios de unicidade, desambiguação, fonte, vigência e aprovação previstos no próprio documento.
+**Nenhum schema, dado, permissão, router, migração ou integração foi alterado.** Foi implementado apenas o validador local não destrutivo `scripts/pgc-document-preflight.mjs`, acompanhado por testes, para analisar o anexo sem escrever no banco, activar contas ou criar regras. Esta é a única implementação compatível nesta fase; a implementação normativa integral continua bloqueada pelos critérios de unicidade, desambiguação, fonte, vigência e aprovação previstos no próprio documento.
 
 ## 9. Próximo passo recomendado
 
