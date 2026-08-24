@@ -6,7 +6,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
+const Home = lazy(() => import("@/pages/Home"));
 const Saadi = lazy(() => import("@/pages/Saadi"));
 const Pgca = lazy(() => import("@/pages/Pgca"));
 
