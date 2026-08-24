@@ -3106,11 +3106,11 @@
 - [x] Validar visualmente, actualizar o TODO e guardar checkpoint.
 
 # Destino isolado para restauro — faixa seleccionada
-- [ ] Disponibilizar RESTORE_DATABASE_URL de uma base MySQL/TiDB isolada, com utilizador restrito.
-- [ ] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino.
-- [ ] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro.
-- [ ] Validar o destino sem contactar ou alterar a base de produção.
-- [ ] Executar restauro não destrutivo e validar módulos apenas após todos os pré-requisitos anteriores estarem comprovados.
+- [ ] Disponibilizar RESTORE_DATABASE_URL de uma base MySQL/TiDB isolada, com utilizador restrito. (EM ESPERA — requer destino externo)
+- [ ] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino. (EM ESPERA — requer destino externo)
+- [ ] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro. (EM ESPERA — requer destino externo)
+- [ ] Validar o destino sem contactar ou alterar a base de produção. (EM ESPERA — requer destino externo)
+- [ ] Executar restauro não destrutivo e validar módulos apenas após todos os pré-requisitos anteriores estarem comprovados. (EM ESPERA — requer destino externo)
 
 # Suspensão temporária do restauro externo
 - [ ] Manter a configuração RESTORE_DATABASE_URL e os parâmetros do destino isolado em espera até existirem credenciais e ambiente externo verificável.
@@ -3251,3 +3251,4 @@
 - [x] Executar suite global e guardar checkpoint da incorporação controlada
 - [x] Corrigir overflow horizontal dos cartões de resumo do painel de staging PGCA em viewport desktop
 - [x] Detalhar no painel de staging PGCA a classificação de cada código repetido e da reserva normativa, mantendo-os bloqueados
+- [ ] Normalizar a marcação de espera das cinco pendências de restauro sem etiqueta explícita, sem as executar (EM ESPERA — requer destino externo)
