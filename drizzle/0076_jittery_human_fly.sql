@@ -1,0 +1,2 @@
+ALTER TABLE `pgcAccounts` ADD `responsibleUserId` int;--> statement-breakpoint
+ALTER TABLE `pgcAccounts` ADD CONSTRAINT `pgcAccounts_responsibleUserId_users_id_fk` FOREIGN KEY (`responsibleUserId`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;

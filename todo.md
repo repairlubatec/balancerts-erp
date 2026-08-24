@@ -3278,3 +3278,11 @@
 - [x] Criar painel superior com gráfico simples da distribuição das 27 pendências externas
 - [x] Criar testes dos novos filtros, estados de carregamento, notificações e métricas gráficas
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# PGCA — filtros interactivos, detalhe e edição inline
+- [x] Tornar as barras do resumo de pendências clicáveis para filtrar a tabela PGCA pelo motivo seleccionado
+- [x] Criar painel lateral de detalhes da conta com histórico completo de acções auditadas
+- [x] Implementar edição inline controlada do estado e do responsável, com auditoria e sem recarregar a página
+- [x] Criar testes dos filtros, painel lateral, histórico e edição inline
+- [x] Executar suite global, validar visualmente e guardar checkpoint

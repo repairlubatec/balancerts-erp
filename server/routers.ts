@@ -334,6 +334,7 @@ import {
   reviewPgcSourceForUser,
   reviewPgcAccountForUser,
   reviewPgcAccountsBatchForUser,
+  updatePgcAccountInlineForUser,
   createPgcMigrationMapForUser,
   listAccountingRulesForUser,
   listPgcAccountsForUser,
@@ -5543,6 +5544,15 @@ export const appRouter = router({
       .mutation(({ ctx, input }) =>
         reviewPgcAccountForUser({ ...input, userId: ctx.user.id })
       ),
+    updateInline: roleProcedure("accounting", "validate")
+      .input(z.object({
+        organizationId: z.number().int().positive(),
+        versionId: z.number().int().positive(),
+        accountId: z.number().int().positive(),
+        validationStatus: z.enum(["CONFIRMED", "INVALID", "DUPLICATE", "MISSING_PARENT"]).optional(),
+        responsibleUserId: z.number().int().positive().nullable().optional(),
+      }).strict())
+      .mutation(({ ctx, input }) => updatePgcAccountInlineForUser({ ...input, userId: ctx.user.id })),
     addAccountDraft: roleProcedure("accounting", "create")
       .input(
         z
@@ -5792,6 +5802,7 @@ export const appRouter = router({
             organizationId: z.number().int().positive(),
             companyId: z.number().int().positive().nullable().optional(),
             actorUserId: z.number().int().positive().optional(),
+            entityId: z.string().trim().min(1).max(80).optional(),
             entityType: z.string().trim().min(1).max(80).optional(),
             action: z.string().trim().min(1).max(80).optional(),
             from: z.coerce.date().optional(),

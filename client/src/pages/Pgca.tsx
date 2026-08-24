@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { skipToken } from "@tanstack/react-query";
@@ -124,6 +125,10 @@ export default function Pgca() {
   const [accountPage, setAccountPage] = useState(1);
   const accountsPerPage = 50;
   const [isExportingCsv, setIsExportingCsv] = useState(false);
+  const [selectedExternalBlocker, setSelectedExternalBlocker] = useState<string | null>(null);
+  const [selectedAccountId, setSelectedAccountId] = useState<number | null>(null);
+  const [inlineStatus, setInlineStatus] = useState<string | undefined>();
+  const [inlineResponsibleId, setInlineResponsibleId] = useState<number | null | undefined>();
   const [selectedAccountIds, setSelectedAccountIds] = useState<number[]>([]);
   const [batchStatus, setBatchStatus] = useState<
     "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"
@@ -138,6 +143,15 @@ export default function Pgca() {
         }
       : skipToken
   );
+  const accountHistoryQuery = trpc.audit.pgcLogs.useQuery(
+    organizationId && selectedAccountId
+      ? { organizationId, entityType: "pgcAccount", entityId: String(selectedAccountId), page: 1, pageSize: 100 }
+      : skipToken
+  );
+  const updateInline = trpc.pgc.updateInline.useMutation({
+    onSuccess: async () => { toast.success("Conta actualizada sem recarregar a página."); await accountsQuery.refetch(); },
+    onError: error => toast.error(normativeErrorLabel(error.message)),
+  });
   const auditsQuery = trpc.pgc.auditRuns.useQuery(
     resolvedCompanyId ? { companyId: resolvedCompanyId } : skipToken
   );
@@ -245,10 +259,12 @@ export default function Pgca() {
   );
 
   const visibleAccounts = accountsQuery.data ?? [];
+  const selectedAccount = visibleAccounts.find(account => account.id === selectedAccountId) ?? null;
   const filteredAccounts = useMemo(() => {
-    const accounts = filterPgcAccountsByStatus(visibleAccounts, statusFilter);
+    const effectiveStatus = selectedExternalBlocker ? "PENDING" : statusFilter;
+    const accounts = filterPgcAccountsByStatus(visibleAccounts, effectiveStatus);
     return sortPgcAccounts(accounts, accountSort);
-  }, [accountSort, statusFilter, visibleAccounts]);
+  }, [accountSort, selectedExternalBlocker, statusFilter, visibleAccounts]);
   const accountPageCount = Math.max(1, Math.ceil(filteredAccounts.length / accountsPerPage));
   const paginatedAccounts = filteredAccounts.slice((accountPage - 1) * accountsPerPage, accountPage * accountsPerPage);
   const selectableAccounts = paginatedAccounts.filter(
@@ -461,7 +477,7 @@ export default function Pgca() {
             </div>
           </CardContent>
         </Card>
-        <PgcaExternalSummaryPanel />
+        <PgcaExternalSummaryPanel selectedLabel={selectedExternalBlocker} onSelectBlocker={label => setSelectedExternalBlocker(current => current === label ? null : label)} />
         <PgcaV2StagingPanel />
         <NormativeConfirmationDashboard />
         <IvaNormativeReviewPanel
@@ -716,6 +732,7 @@ export default function Pgca() {
                         <th className="px-3 py-2">Natureza</th>
                         <th className="px-3 py-2">Lançável</th>
                         <th className="px-3 py-2">Validação</th>
+                        <th className="px-3 py-2">Responsável</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -743,9 +760,7 @@ export default function Pgca() {
                               }
                             />
                           </td>
-                          <td className="px-3 py-2 font-mono font-semibold">
-                            {account.code}
-                          </td>
+                          <td className="px-3 py-2 font-mono font-semibold"><button type="button" className="text-left text-[#1267d6] underline-offset-2 hover:underline" onClick={() => { setSelectedAccountId(account.id); setInlineStatus(account.validationStatus); setInlineResponsibleId(account.responsibleUserId ?? null); }}>{account.code}</button></td>
                           <td className="px-3 py-2">{account.name}</td>
                           <td className="max-w-48 px-3 py-2 text-[10px] text-slate-600"><div className="truncate">{account.createdByUserName ?? "Utilizador não identificado"}</div><div className="truncate text-[9px] text-slate-400">{account.createdByUserEmail ?? "Email não disponível"}</div></td>
                           <td className="px-3 py-2">
@@ -764,6 +779,7 @@ export default function Pgca() {
                           </td>
                           <td className="px-3 py-2">
                             <div className="flex items-center gap-2">
+                              <select aria-label={`Editar estado da conta ${account.code}`} className="h-6 rounded-sm border border-slate-300 bg-white px-1 text-[10px]" value={account.validationStatus} disabled={activeVersion?.status !== "UNDER_REVIEW" || updateInline.isPending} onChange={event => { if (!organizationId || !resolvedVersionId) return; setInlineStatus(event.target.value); updateInline.mutate({ organizationId, versionId: resolvedVersionId, accountId: account.id, validationStatus: event.target.value as "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT" }); }}><option value="NEEDS_NORMATIVE_VALIDATION">Pendente</option><option value="CONFIRMED">Confirmada</option><option value="INVALID">Inválida</option><option value="DUPLICATE">Duplicada</option><option value="MISSING_PARENT">Conta-pai em falta</option></select>
                               <Badge
                                 variant="outline"
                                 className={`rounded-sm text-[10px] ${pgcAccountStatusClass[account.validationStatus] ?? "border-slate-300 bg-slate-50 text-slate-700"}`}
@@ -814,12 +830,13 @@ export default function Pgca() {
                               )}
                             </div>
                           </td>
+                          <td className="px-3 py-2"><Input aria-label={`Editar responsável da conta ${account.code}`} type="number" min="1" className="h-6 w-24 rounded-sm px-1 text-[10px]" value={account.responsibleUserId ?? ""} placeholder="ID" disabled={activeVersion?.status !== "UNDER_REVIEW" || updateInline.isPending} onChange={event => setInlineResponsibleId(event.target.value ? Number(event.target.value) : null)} onBlur={() => { if (!organizationId || !resolvedVersionId || inlineResponsibleId === undefined) return; updateInline.mutate({ organizationId, versionId: resolvedVersionId, accountId: account.id, responsibleUserId: inlineResponsibleId }); }} /></td>
                         </tr>
                       ))}
                       {!filteredAccounts.length && (
                         <tr>
                           <td
-                            colSpan={7}
+                            colSpan={9}
                             className="px-3 py-10 text-center text-slate-500"
                           >
                             {visibleAccounts.length
@@ -1189,6 +1206,18 @@ export default function Pgca() {
             </div>
           </TabsContent>
         </Tabs>
+        <Sheet open={selectedAccountId !== null} onOpenChange={open => { if (!open) setSelectedAccountId(null); }}>
+          <SheetContent side="right" className="w-full overflow-y-auto sm:max-w-xl">
+            <SheetHeader>
+              <SheetTitle>Detalhe da conta {selectedAccount?.code ?? ""}</SheetTitle>
+              <SheetDescription>{selectedAccount?.name ?? "Conta PGCA"}. O histórico é apenas de leitura e respeita o isolamento da organização.</SheetDescription>
+            </SheetHeader>
+            {selectedAccount ? <div className="mt-5 space-y-4 text-xs">
+              <div className="grid grid-cols-2 gap-2 rounded-sm border border-slate-200 bg-slate-50 p-3"><div><span className="text-slate-500">Estado</span><p className="font-semibold">{pgcAccountStatusLabel[selectedAccount.validationStatus] ?? selectedAccount.validationStatus}</p></div><div><span className="text-slate-500">Responsável</span><p className="font-semibold">{selectedAccount.responsibleUserName ?? "Não atribuído"}</p><p className="text-[10px] text-slate-500">{selectedAccount.responsibleUserEmail ?? ""}</p></div><div><span className="text-slate-500">Autoria original</span><p>{selectedAccount.createdByUserName ?? "Não identificado"}</p></div><div><span className="text-slate-500">Natureza</span><p>{natureLabel[selectedAccount.nature] ?? selectedAccount.nature}</p></div></div>
+              <div><h3 className="mb-2 font-semibold text-slate-800">Histórico de acções</h3>{accountHistoryQuery.isLoading ? <p className="text-slate-500">A carregar histórico…</p> : accountHistoryQuery.isError ? <p className="text-red-700">Não foi possível carregar o histórico desta conta.</p> : accountHistoryQuery.data?.items.length ? <div className="space-y-2">{accountHistoryQuery.data.items.map(event => <div key={event.id} className="rounded-sm border border-slate-200 bg-white p-2"><div className="flex items-center justify-between gap-2"><span className="font-medium text-slate-800">{presentationLabel(event.action)}</span><span className="text-[10px] text-slate-500">{new Date(event.createdAt).toLocaleString("pt-PT")}</span></div><p className="mt-1 text-[10px] text-slate-500">{event.actor?.name ?? event.actor?.email ?? "Utilizador não identificado"}</p><p className="mt-1 break-words text-[10px] text-slate-600">{event.afterState ?? "Sem detalhe adicional"}</p></div>)}</div> : <p className="text-slate-500">Ainda não existem acções auditadas para esta conta.</p>}</div>
+            </div> : null}
+          </SheetContent>
+        </Sheet>
         <p className="text-[11px] text-slate-500">
           Utilizador: {user?.name ?? "sessão protegida"} · Fonte normativa deve
           ser confirmada por contabilista responsável antes de activar uma

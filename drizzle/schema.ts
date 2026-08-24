@@ -1606,6 +1606,7 @@ export const pgcAccounts = mysqlTable("pgcAccounts", {
   validationStatus: mysqlEnum("validationStatus", ["CONFIRMED", "NEEDS_NORMATIVE_VALIDATION", "INVALID", "DUPLICATE", "MISSING_PARENT"]).default("NEEDS_NORMATIVE_VALIDATION").notNull(),
   notes: text("notes"),
   createdBy: int("createdBy").notNull(),
+  responsibleUserId: int("responsibleUserId").references(() => users.id),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 }, (table) => ({ versionCodeUnique: uniqueIndex("pgc_accounts_version_code_unique").on(table.versionId, table.code) }));

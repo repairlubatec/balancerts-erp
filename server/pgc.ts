@@ -1,6 +1,6 @@
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { getDb, appendAuditEventForUser, createFileAsset } from "./db";
-import { accountingRules, chartAccounts, companies, fileAssets, fiscalPeriods, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions, users } from "../drizzle/schema";
+import { accountingRules, chartAccounts, companies, fileAssets, fiscalPeriods, organizationMemberships, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions, users } from "../drizzle/schema";
 import { randomUUID } from "node:crypto";
 import { angolaNormativeSources } from "./normative";
 
@@ -237,9 +237,32 @@ export async function listPgcAccountsForUser(input: { userId: number; organizati
   }
   const accounts = await db.select().from(pgcAccounts).where(and(...conditions)).orderBy(pgcAccounts.code).limit(1000);
   const creatorIds = Array.from(new Set(accounts.map(account => account.createdBy)));
-  const creators = creatorIds.length ? await db.select({ id: users.id, name: users.name, email: users.email }).from(users).where(inArray(users.id, creatorIds)) : [];
-  const creatorById = new Map(creators.map(creator => [creator.id, creator]));
-  return accounts.map(account => ({ ...account, createdByUserName: creatorById.get(account.createdBy)?.name ?? null, createdByUserEmail: creatorById.get(account.createdBy)?.email ?? null }));
+  const responsibleIds = Array.from(new Set(accounts.map(account => account.responsibleUserId).filter((id): id is number => id != null)));
+  const userIds = Array.from(new Set([...creatorIds, ...responsibleIds]));
+  const people = userIds.length ? await db.select({ id: users.id, name: users.name, email: users.email }).from(users).where(inArray(users.id, userIds)) : [];
+  const personById = new Map(people.map(person => [person.id, person]));
+  return accounts.map(account => ({ ...account, createdByUserName: personById.get(account.createdBy)?.name ?? null, createdByUserEmail: personById.get(account.createdBy)?.email ?? null, responsibleUserName: account.responsibleUserId ? personById.get(account.responsibleUserId)?.name ?? null : null, responsibleUserEmail: account.responsibleUserId ? personById.get(account.responsibleUserId)?.email ?? null : null }));
+}
+
+export async function updatePgcAccountInlineForUser(input: { userId: number; organizationId: number; versionId: number; accountId: number; validationStatus?: "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"; responsibleUserId?: number | null }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const versionRows = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!versionRows[0] || versionRows[0].version.status !== "UNDER_REVIEW") throw new Error("PGC_VERSION_NOT_REVIEWABLE");
+  const rows = await db.select().from(pgcAccounts).where(and(eq(pgcAccounts.id, input.accountId), eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId))).limit(1);
+  const account = rows[0]; if (!account) throw new Error("PGC_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  if (input.validationStatus === "CONFIRMED") {
+    const confirmed = account.sourceId ? await db.select({ id: pgcSources.id }).from(pgcSources).where(and(eq(pgcSources.id, account.sourceId), eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId), eq(pgcSources.verificationStatus, "CONFIRMED"))).limit(1) : [];
+    if (!confirmed[0]) throw new Error("PGC_ACCOUNT_PRIMARY_SOURCE_REQUIRED");
+  }
+  if (input.responsibleUserId != null) {
+    const responsible = await db.select({ id: users.id }).from(users).innerJoin(organizationMemberships, eq(organizationMemberships.userId, users.id)).where(and(eq(users.id, input.responsibleUserId), eq(organizationMemberships.organizationId, input.organizationId), eq(organizationMemberships.status, "ACTIVE"))).limit(1);
+    if (!responsible[0]) throw new Error("PGC_RESPONSIBLE_USER_NOT_FOUND_OR_FORBIDDEN");
+  }
+  const nextStatus = input.validationStatus ?? account.validationStatus;
+  const nextResponsible = input.responsibleUserId === undefined ? account.responsibleUserId : input.responsibleUserId;
+  await db.update(pgcAccounts).set({ validationStatus: nextStatus, responsibleUserId: nextResponsible }).where(and(eq(pgcAccounts.id, input.accountId), eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId)));
+  await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_ACCOUNT_INLINE_UPDATED", entityType: "pgcAccount", entityId: String(input.accountId), beforeState: JSON.stringify({ validationStatus: account.validationStatus, responsibleUserId: account.responsibleUserId }), afterState: JSON.stringify({ validationStatus: nextStatus, responsibleUserId: nextResponsible }), correlationId: `pgc-account-inline:${input.accountId}:${account.updatedAt.getTime()}` });
+  return { accountId: input.accountId, validationStatus: nextStatus, responsibleUserId: nextResponsible };
 }
 
 export async function auditLegacyChartForUser(input: { userId: number; companyId: number; versionId?: number }) {
