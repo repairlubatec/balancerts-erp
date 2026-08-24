@@ -3193,3 +3193,9 @@
 - [x] Documentar a distinção entre preparação local e evidência externa na matriz operacional
 - [x] Executar smoke test local do empacotamento desktop sem assinatura, sem declarar validação Windows/macOS nem certificado de distribuição
 - [x] Consolidar as 27 pendências externas abertas num registo operacional com critérios de desbloqueio e protecções mantidas
+
+
+# Próxima melhoria interna enquanto dependências externas aguardam
+- [x] Seleccionar a próxima melhoria local prioritária a partir do estado actual do ERP
+- [x] Implementar a melhoria local seleccionada com cobertura de testes e validação visual
+- [x] Auditar e traduzir termos ingleses ainda visíveis na interface através do catálogo central de rótulos, preservando códigos técnicos e eventos armazenados

@@ -14,3 +14,6 @@ A confirmação do AlertDialog do simulador já possui cobertura Vitest para abe
 A captura móvel em 375×812 mantém a barra de menu, os separadores e a janela operacional em formato de software. Os controlos do cabeçalho PGCA passam para linhas empilhadas, permanecem legíveis e não criam um scroll global horizontal visível; os selectores continuam acessíveis dentro da janela.
 
 A validação visual desktop e móvel está concluída para este conjunto de alterações. A alternância de modo escuro foi coberta por teste de componente, incluindo o estado acessível antes e depois da mudança.
+
+
+Na captura da Home em 1280×720, os eventos recentes e os alertas do dashboard aparecem com rótulos em português, incluindo “Referências órfãs do lançamento corrigidas”, “Empresa actualizada”, “Lançamento contabilístico publicado” e “Documento emitido”. O shell desktop mantém a densidade operacional e não mostra os códigos ingleses desses eventos.

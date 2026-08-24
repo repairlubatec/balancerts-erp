@@ -21,6 +21,14 @@ describe("rótulos de apresentação em português", () => {
     expect(presentationLabel("PURCHASE_RECEIPT_REGISTERED")).toBe("Recepção de stock registada");
   });
 
+  it("traduz as acções de auditoria sem expor códigos ingleses", () => {
+    expect(presentationLabel("JOURNAL_ORPHAN_REFERENCES_REPAIRED")).toBe("Referências órfãs do lançamento corrigidas");
+    expect(presentationLabel("JOURNAL_ENTRY_POSTED")).toBe("Lançamento contabilístico publicado");
+    expect(presentationLabel("DOCUMENT_NUMBER_RESERVED")).toBe("Documento Número Reservado");
+    expect(presentationLabel("COMPANY_UPDATED")).toBe("Empresa actualizada");
+    expect(presentationLabel("Journal orphan references repaired")).toBe("Referências órfãs do lançamento corrigidas");
+  });
+
   it("traduz operações e entidades Balancerts IA", () => {
     expect(presentationLabel("CLASSIFICAR_DOCUMENTO")).toBe("Classificação documental");
     expect(presentationLabel("BALANCERTS_IA_SUGGESTION_APPROVED")).toBe("Sugestão Balancerts IA aprovada");
