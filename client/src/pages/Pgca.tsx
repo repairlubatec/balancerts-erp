@@ -38,6 +38,7 @@ import { AccountingRuleFormPanel } from "@/components/AccountingRuleFormPanel";
 import { IvaNormativeReviewPanel } from "@/components/IvaNormativeReviewPanel";
 import { IvaPdfSimulationPanel } from "@/components/IvaPdfSimulationPanel";
 import { PgcCoverageSummary } from "@/components/PgcCoverageSummary";
+import { PgcaV2StagingPanel } from "@/components/PgcaV2StagingPanel";
 import {
   filterPgcAccountsByStatus,
   pgcAccountStatusClass,
@@ -434,6 +435,7 @@ export default function Pgca() {
             </div>
           </CardContent>
         </Card>
+        <PgcaV2StagingPanel />
         <NormativeConfirmationDashboard />
         <IvaNormativeReviewPanel
           organizationId={organizationId}
