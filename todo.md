@@ -3235,9 +3235,17 @@
 # Documento anexado — plano de contas contabilístico angolano
 - [x] Analisar integralmente os 2208 itens do documento e separar requisitos normativos, exemplos e códigos reservados
 - [x] Confrontar códigos, hierarquia, contas IVA, estados e regras do documento com schema, catálogo PGCA e motor contabilístico actual
-- [ ] Implementar apenas os elementos comprovadamente compatíveis, preservando não invenção, histórico, auditoria e confirmação humana
-- [ ] Criar testes de conformidade e executar a suite completa antes do checkpoint
+- [x] Implementar apenas os elementos comprovadamente compatíveis, preservando não invenção, histórico, auditoria e confirmação humana
+- [x] Criar testes de conformidade e executar a suite completa antes do checkpoint
 - [x] Criar validador não destrutivo do documento anexado, com detecção de duplicações, reservas, secção concatenada e pais ausentes sem escrita no banco
 - [x] Testar o validador com casos reais do anexo e confirmar que não activa contas nem regras
 - [x] Gerar matriz de conformidade preliminar do anexo com código, designação, pai, nível, reserva, duplicação e estado de validação
 - [x] Detectar e bloquear no preflight contas genéricas artificiais proibidas pelo documento, como 999, 9999 e OUTROS
+
+
+# Nova versão PGCA anexada — incorporação controlada
+- [x] Analisar integralmente as 856 linhas da nova versão PGCA e separar contas, hierarquia e reservas
+- [x] Confrontar a nova versão com o schema, workflow de confirmação e motor contabilístico actual
+- [x] Preparar incorporação apenas em staging ou catálogo confirmado, sem activar códigos inconformes
+- [x] Criar testes de importação segura, duplicações, pais, reservas e não-activação
+- [x] Executar suite global e guardar checkpoint da incorporação controlada

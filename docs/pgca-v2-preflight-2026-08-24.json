@@ -1,0 +1,523 @@
+{
+  "accountCount": 714,
+  "duplicateCodes": [
+    {
+      "code": "18.1",
+      "lines": [
+        73,
+        74
+      ],
+      "names": [
+        "Imobilizações corpóreas",
+        "Terrenos e recursos naturais"
+      ]
+    },
+    {
+      "code": "18.2",
+      "lines": [
+        75,
+        81
+      ],
+      "names": [
+        "Edifícios e outras construções",
+        "Imobilizações incorpóreas"
+      ]
+    },
+    {
+      "code": "18.3",
+      "lines": [
+        76,
+        87
+      ],
+      "names": [
+        "Equipamento básico",
+        "Investimentos financeiros em imóveis"
+      ]
+    },
+    {
+      "code": "34.5",
+      "lines": [
+        248,
+        252
+      ],
+      "names": [
+        "IVA",
+        "IVA"
+      ]
+    },
+    {
+      "code": "34.6",
+      "lines": [
+        249,
+        255
+      ],
+      "names": [
+        "Certificado de Crédito Fiscal a Compensar",
+        "CERTIFICADO DE CRÉDITO FISCAL A COMPENSAR"
+      ]
+    }
+  ],
+  "missingParents": [
+    {
+      "code": "37.9.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 337,
+      "parentCode": "37.9"
+    }
+  ],
+  "reservedExtensions": [
+    {
+      "code": "11.4.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 24
+    },
+    {
+      "code": "11.5.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 26
+    },
+    {
+      "code": "11.6.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 28
+    },
+    {
+      "code": "11.9.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 30
+    },
+    {
+      "code": "12.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 33
+    },
+    {
+      "code": "12.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 35
+    },
+    {
+      "code": "12.3.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 37
+    },
+    {
+      "code": "12.4.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 39
+    },
+    {
+      "code": "12.9.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 41
+    },
+    {
+      "code": "13.4.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 56
+    },
+    {
+      "code": "13.5.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 58
+    },
+    {
+      "code": "14.7.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 67
+    },
+    {
+      "code": "14.8.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 69
+    },
+    {
+      "code": "14.9.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 71
+    },
+    {
+      "code": "21.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 112
+    },
+    {
+      "code": "21.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 114
+    },
+    {
+      "code": "21.7.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 116
+    },
+    {
+      "code": "21.8.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 118
+    },
+    {
+      "code": "21.9",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 119
+    },
+    {
+      "code": "21.9.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 120
+    },
+    {
+      "code": "22.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 123
+    },
+    {
+      "code": "22.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 125
+    },
+    {
+      "code": "22.3.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 127
+    },
+    {
+      "code": "22.4.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 129
+    },
+    {
+      "code": "22.5.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 131
+    },
+    {
+      "code": "23.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 133
+    },
+    {
+      "code": "23.2",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 134
+    },
+    {
+      "code": "24.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 137
+    },
+    {
+      "code": "24.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 139
+    },
+    {
+      "code": "24.9.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 141
+    },
+    {
+      "code": "25.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 144
+    },
+    {
+      "code": "25.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 146
+    },
+    {
+      "code": "26.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 148
+    },
+    {
+      "code": "26.2",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 149
+    },
+    {
+      "code": "26.9.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 151
+    },
+    {
+      "code": "27.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 154
+    },
+    {
+      "code": "27.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 156
+    },
+    {
+      "code": "27.3.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 158
+    },
+    {
+      "code": "28.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 161
+    },
+    {
+      "code": "28.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 163
+    },
+    {
+      "code": "29.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 165
+    },
+    {
+      "code": "29.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 167
+    },
+    {
+      "code": "29.3.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 169
+    },
+    {
+      "code": "29.4.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 171
+    },
+    {
+      "code": "29.5.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 173
+    },
+    {
+      "code": "29.6.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 175
+    },
+    {
+      "code": "32.8.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 222
+    },
+    {
+      "code": "34.6.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 256
+    },
+    {
+      "code": "36.1.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 318
+    },
+    {
+      "code": "36.1.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 320
+    },
+    {
+      "code": "36.2.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 325
+    },
+    {
+      "code": "36.2.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 327
+    },
+    {
+      "code": "36.3.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 331
+    },
+    {
+      "code": "36.9.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 335
+    },
+    {
+      "code": "37.9.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 337
+    },
+    {
+      "code": "38.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 358
+    },
+    {
+      "code": "38.4.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 367
+    },
+    {
+      "code": "39.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 375
+    },
+    {
+      "code": "39.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 379
+    },
+    {
+      "code": "39.3.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 383
+    },
+    {
+      "code": "39.4.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 387
+    },
+    {
+      "code": "39.9.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 391
+    },
+    {
+      "code": "41.3.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 408
+    },
+    {
+      "code": "45.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 449
+    },
+    {
+      "code": "49.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 463
+    },
+    {
+      "code": "52.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 469
+    },
+    {
+      "code": "52.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 471
+    },
+    {
+      "code": "52.3.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 473
+    },
+    {
+      "code": "59",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 488
+    },
+    {
+      "code": "61.5.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 513
+    },
+    {
+      "code": "63.8.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 553
+    },
+    {
+      "code": "64.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 557
+    },
+    {
+      "code": "64.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 559
+    },
+    {
+      "code": "64.3.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 561
+    },
+    {
+      "code": "71.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 617
+    },
+    {
+      "code": "71.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 619
+    },
+    {
+      "code": "71.3.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 621
+    },
+    {
+      "code": "71.4.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 623
+    },
+    {
+      "code": "71.5.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 625
+    },
+    {
+      "code": "72.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 629
+    },
+    {
+      "code": "72.2.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 631
+    },
+    {
+      "code": "74",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 677
+    },
+    {
+      "code": "75.1.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 682
+    },
+    {
+      "code": "75.2.39.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 714
+    },
+    {
+      "code": "77.3",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 753
+    },
+    {
+      "code": "89.1",
+      "name": "RESERVED_PGC_EXTENSION",
+      "line": 856
+    }
+  ],
+  "prohibitedGenericAccounts": [
+    {
+      "code": "35.1.4",
+      "name": "Outros",
+      "line": 279
+    },
+    {
+      "code": "35.2.4",
+      "name": "Outros",
+      "line": 307
+    }
+  ],
+  "hasConcatenatedContent": false,
+  "documentEndLine": null,
+  "sourceShape": "SINGLE_DOCUMENT",
+  "safeForNormativeImport": false,
+  "safeForActivation": false,
+  "activationBlockers": [
+    "MATRIZ_JURIDICA_E_VALIDACAO_HUMANA_NECESSARIAS",
+    "CODIGOS_DUPLICADOS",
+    "EXTENSOES_RESERVADAS_NAO_MOVIMENTAVEIS",
+    "CONTAS_GENERICAS_PROIBIDAS"
+  ]
+}
