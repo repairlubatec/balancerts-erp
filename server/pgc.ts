@@ -1,6 +1,6 @@
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { getDb, appendAuditEventForUser, createFileAsset } from "./db";
-import { accountingRules, chartAccounts, companies, fileAssets, fiscalPeriods, organizationMemberships, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions, users } from "../drizzle/schema";
+import { accountingRules, auditEvents, chartAccounts, companies, fileAssets, fiscalPeriods, organizationMemberships, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions, users } from "../drizzle/schema";
 import { randomUUID } from "node:crypto";
 import { angolaNormativeSources } from "./normative";
 
@@ -236,15 +236,28 @@ export async function listPgcAccountsForUser(input: { userId: number; organizati
     conditions.push(sql`(${pgcAccounts.code} LIKE ${term} OR ${pgcAccounts.name} LIKE ${term}${userCondition})` as never);
   }
   const accounts = await db.select().from(pgcAccounts).where(and(...conditions)).orderBy(pgcAccounts.code).limit(1000);
+  const accountIds = accounts.map(account => String(account.id));
+  const activityRows = accountIds.length ? await db.select({ entityId: auditEvents.entityId, createdAt: auditEvents.createdAt }).from(auditEvents).where(and(eq(auditEvents.organizationId, input.organizationId), eq(auditEvents.entityType, "pgcAccount"), inArray(auditEvents.entityId, accountIds))).orderBy(desc(auditEvents.id)).limit(2000) : [];
+  const recentByAccount = new Map<string, Date>();
+  for (const activity of activityRows) if (!recentByAccount.has(activity.entityId)) recentByAccount.set(activity.entityId, activity.createdAt);
   const creatorIds = Array.from(new Set(accounts.map(account => account.createdBy)));
   const responsibleIds = Array.from(new Set(accounts.map(account => account.responsibleUserId).filter((id): id is number => id != null)));
   const userIds = Array.from(new Set([...creatorIds, ...responsibleIds]));
   const people = userIds.length ? await db.select({ id: users.id, name: users.name, email: users.email }).from(users).where(inArray(users.id, userIds)) : [];
   const personById = new Map(people.map(person => [person.id, person]));
-  return accounts.map(account => ({ ...account, createdByUserName: personById.get(account.createdBy)?.name ?? null, createdByUserEmail: personById.get(account.createdBy)?.email ?? null, responsibleUserName: account.responsibleUserId ? personById.get(account.responsibleUserId)?.name ?? null : null, responsibleUserEmail: account.responsibleUserId ? personById.get(account.responsibleUserId)?.email ?? null : null }));
+  return accounts.map(account => ({ ...account, createdByUserName: personById.get(account.createdBy)?.name ?? null, createdByUserEmail: personById.get(account.createdBy)?.email ?? null, responsibleUserName: account.responsibleUserId ? personById.get(account.responsibleUserId)?.name ?? null : null, responsibleUserEmail: account.responsibleUserId ? personById.get(account.responsibleUserId)?.email ?? null : null, recentActivityAt: recentByAccount.get(String(account.id)) ?? null }));
 }
 
-export async function updatePgcAccountInlineForUser(input: { userId: number; organizationId: number; versionId: number; accountId: number; validationStatus?: "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"; responsibleUserId?: number | null }) {
+export async function addPgcAccountCommentForUser(input: { userId: number; organizationId: number; versionId: number; accountId: number; comment: string }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const account = await db.select({ id: pgcAccounts.id }).from(pgcAccounts).innerJoin(organizations, eq(pgcAccounts.organizationId, organizations.id)).where(and(eq(pgcAccounts.id, input.accountId), eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!account[0]) throw new Error("PGC_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  const comment = input.comment.trim(); if (!comment) throw new Error("PGC_ACCOUNT_COMMENT_REQUIRED");
+  await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_ACCOUNT_COMMENT_ADDED", entityType: "pgcAccount", entityId: String(input.accountId), beforeState: null, afterState: JSON.stringify({ comment }), correlationId: `pgc-account-comment:${input.accountId}:${Date.now()}` });
+  return { accountId: input.accountId, saved: true } as const;
+}
+
+export async function updatePgcAccountInlineForUser(input: { userId: number; organizationId: number; versionId: number; accountId: number; validationStatus?: "NEEDS_NORMATIVE_VALIDATION" | "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"; responsibleUserId?: number | null }) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   const versionRows = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
   if (!versionRows[0] || versionRows[0].version.status !== "UNDER_REVIEW") throw new Error("PGC_VERSION_NOT_REVIEWABLE");

@@ -6,6 +6,8 @@ import {
   ClipboardCheck,
   FilePlus2,
   Loader2,
+  MessageSquare,
+  Undo2,
   RefreshCw,
   Search,
   ShieldCheck,
@@ -16,6 +18,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -129,6 +132,8 @@ export default function Pgca() {
   const [selectedAccountId, setSelectedAccountId] = useState<number | null>(null);
   const [inlineStatus, setInlineStatus] = useState<string | undefined>();
   const [inlineResponsibleId, setInlineResponsibleId] = useState<number | null | undefined>();
+  const [undoAction, setUndoAction] = useState<{ accountId: number; validationStatus: "NEEDS_NORMATIVE_VALIDATION" | "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"; responsibleUserId: number | null; expiresAt: number } | null>(null);
+  const [commentText, setCommentText] = useState("");
   const [selectedAccountIds, setSelectedAccountIds] = useState<number[]>([]);
   const [batchStatus, setBatchStatus] = useState<
     "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"
@@ -150,6 +155,10 @@ export default function Pgca() {
   );
   const updateInline = trpc.pgc.updateInline.useMutation({
     onSuccess: async () => { toast.success("Conta actualizada sem recarregar a página."); await accountsQuery.refetch(); },
+    onError: error => { setUndoAction(null); toast.error(normativeErrorLabel(error.message)); },
+  });
+  const addComment = trpc.pgc.addComment.useMutation({
+    onSuccess: async () => { setCommentText(""); toast.success("Comentário guardado no histórico da conta."); await accountHistoryQuery.refetch(); },
     onError: error => toast.error(normativeErrorLabel(error.message)),
   });
   const auditsQuery = trpc.pgc.auditRuns.useQuery(
@@ -260,6 +269,18 @@ export default function Pgca() {
 
   const visibleAccounts = accountsQuery.data ?? [];
   const selectedAccount = visibleAccounts.find(account => account.id === selectedAccountId) ?? null;
+  const beginInlineUpdate = (account: typeof visibleAccounts[number], patch: { validationStatus?: "NEEDS_NORMATIVE_VALIDATION" | "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"; responsibleUserId?: number | null }) => {
+    if (!organizationId || !resolvedVersionId) return;
+    setUndoAction({ accountId: account.id, validationStatus: account.validationStatus, responsibleUserId: account.responsibleUserId ?? null, expiresAt: Date.now() + 10000 });
+    window.setTimeout(() => setUndoAction(current => current?.accountId === account.id && current.expiresAt <= Date.now() ? null : current), 10100);
+    updateInline.mutate({ organizationId, versionId: resolvedVersionId, accountId: account.id, ...patch });
+  };
+  const undoInlineUpdate = () => {
+    if (!undoAction || undoAction.expiresAt <= Date.now() || !organizationId || !resolvedVersionId) { setUndoAction(null); return; }
+    updateInline.mutate({ organizationId, versionId: resolvedVersionId, accountId: undoAction.accountId, validationStatus: undoAction.validationStatus, responsibleUserId: undoAction.responsibleUserId });
+    setUndoAction(null);
+    toast.success("Alteração revertida.");
+  };
   const filteredAccounts = useMemo(() => {
     const effectiveStatus = selectedExternalBlocker ? "PENDING" : statusFilter;
     const accounts = filterPgcAccountsByStatus(visibleAccounts, effectiveStatus);
@@ -478,6 +499,7 @@ export default function Pgca() {
           </CardContent>
         </Card>
         <PgcaExternalSummaryPanel selectedLabel={selectedExternalBlocker} onSelectBlocker={label => setSelectedExternalBlocker(current => current === label ? null : label)} />
+        {undoAction ? <div className="flex items-center justify-between gap-2 rounded-sm border border-blue-200 bg-blue-50 px-3 py-2 text-[11px] text-blue-900"><span>Alteração recente guardada. Pode desfazer durante alguns segundos.</span><Button variant="outline" className="h-7 rounded-sm bg-white px-2 text-[10px]" onClick={undoInlineUpdate} disabled={updateInline.isPending}><Undo2 className="mr-1 h-3 w-3" /> Desfazer</Button></div> : null}
         <PgcaV2StagingPanel />
         <NormativeConfirmationDashboard />
         <IvaNormativeReviewPanel
@@ -760,7 +782,7 @@ export default function Pgca() {
                               }
                             />
                           </td>
-                          <td className="px-3 py-2 font-mono font-semibold"><button type="button" className="text-left text-[#1267d6] underline-offset-2 hover:underline" onClick={() => { setSelectedAccountId(account.id); setInlineStatus(account.validationStatus); setInlineResponsibleId(account.responsibleUserId ?? null); }}>{account.code}</button></td>
+                          <td className="px-3 py-2 font-mono font-semibold"><button type="button" className="text-left text-[#1267d6] underline-offset-2 hover:underline" onClick={() => { setSelectedAccountId(account.id); setInlineStatus(account.validationStatus); setInlineResponsibleId(account.responsibleUserId ?? null); }}>{account.code}</button>{account.recentActivityAt && Date.now() - new Date(account.recentActivityAt).getTime() < 7 * 24 * 60 * 60 * 1000 ? <Badge className="ml-2 bg-amber-100 px-1 text-[9px] text-amber-800" title={`Alteração recente em ${new Date(account.recentActivityAt).toLocaleString("pt-PT")}`}><MessageSquare className="mr-1 h-2.5 w-2.5" /> Recente</Badge> : null}</td>
                           <td className="px-3 py-2">{account.name}</td>
                           <td className="max-w-48 px-3 py-2 text-[10px] text-slate-600"><div className="truncate">{account.createdByUserName ?? "Utilizador não identificado"}</div><div className="truncate text-[9px] text-slate-400">{account.createdByUserEmail ?? "Email não disponível"}</div></td>
                           <td className="px-3 py-2">
@@ -779,7 +801,7 @@ export default function Pgca() {
                           </td>
                           <td className="px-3 py-2">
                             <div className="flex items-center gap-2">
-                              <select aria-label={`Editar estado da conta ${account.code}`} className="h-6 rounded-sm border border-slate-300 bg-white px-1 text-[10px]" value={account.validationStatus} disabled={activeVersion?.status !== "UNDER_REVIEW" || updateInline.isPending} onChange={event => { if (!organizationId || !resolvedVersionId) return; setInlineStatus(event.target.value); updateInline.mutate({ organizationId, versionId: resolvedVersionId, accountId: account.id, validationStatus: event.target.value as "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT" }); }}><option value="NEEDS_NORMATIVE_VALIDATION">Pendente</option><option value="CONFIRMED">Confirmada</option><option value="INVALID">Inválida</option><option value="DUPLICATE">Duplicada</option><option value="MISSING_PARENT">Conta-pai em falta</option></select>
+                              <select aria-label={`Editar estado da conta ${account.code}`} className="h-6 rounded-sm border border-slate-300 bg-white px-1 text-[10px]" value={account.validationStatus} disabled={activeVersion?.status !== "UNDER_REVIEW" || updateInline.isPending} onChange={event => { if (!organizationId || !resolvedVersionId) return; setInlineStatus(event.target.value); beginInlineUpdate(account, { validationStatus: event.target.value as "NEEDS_NORMATIVE_VALIDATION" | "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT" }); }}><option value="NEEDS_NORMATIVE_VALIDATION">Pendente</option><option value="CONFIRMED">Confirmada</option><option value="INVALID">Inválida</option><option value="DUPLICATE">Duplicada</option><option value="MISSING_PARENT">Conta-pai em falta</option></select>
                               <Badge
                                 variant="outline"
                                 className={`rounded-sm text-[10px] ${pgcAccountStatusClass[account.validationStatus] ?? "border-slate-300 bg-slate-50 text-slate-700"}`}
@@ -830,7 +852,7 @@ export default function Pgca() {
                               )}
                             </div>
                           </td>
-                          <td className="px-3 py-2"><Input aria-label={`Editar responsável da conta ${account.code}`} type="number" min="1" className="h-6 w-24 rounded-sm px-1 text-[10px]" value={account.responsibleUserId ?? ""} placeholder="ID" disabled={activeVersion?.status !== "UNDER_REVIEW" || updateInline.isPending} onChange={event => setInlineResponsibleId(event.target.value ? Number(event.target.value) : null)} onBlur={() => { if (!organizationId || !resolvedVersionId || inlineResponsibleId === undefined) return; updateInline.mutate({ organizationId, versionId: resolvedVersionId, accountId: account.id, responsibleUserId: inlineResponsibleId }); }} /></td>
+                          <td className="px-3 py-2"><Input aria-label={`Editar responsável da conta ${account.code}`} type="number" min="1" className="h-6 w-24 rounded-sm px-1 text-[10px]" value={account.responsibleUserId ?? ""} placeholder="ID" disabled={activeVersion?.status !== "UNDER_REVIEW" || updateInline.isPending} onChange={event => setInlineResponsibleId(event.target.value ? Number(event.target.value) : null)} onBlur={() => { if (!organizationId || !resolvedVersionId || inlineResponsibleId === undefined) return; beginInlineUpdate(account, { responsibleUserId: inlineResponsibleId }); }} /></td>
                         </tr>
                       ))}
                       {!filteredAccounts.length && (
@@ -1214,7 +1236,7 @@ export default function Pgca() {
             </SheetHeader>
             {selectedAccount ? <div className="mt-5 space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-2 rounded-sm border border-slate-200 bg-slate-50 p-3"><div><span className="text-slate-500">Estado</span><p className="font-semibold">{pgcAccountStatusLabel[selectedAccount.validationStatus] ?? selectedAccount.validationStatus}</p></div><div><span className="text-slate-500">Responsável</span><p className="font-semibold">{selectedAccount.responsibleUserName ?? "Não atribuído"}</p><p className="text-[10px] text-slate-500">{selectedAccount.responsibleUserEmail ?? ""}</p></div><div><span className="text-slate-500">Autoria original</span><p>{selectedAccount.createdByUserName ?? "Não identificado"}</p></div><div><span className="text-slate-500">Natureza</span><p>{natureLabel[selectedAccount.nature] ?? selectedAccount.nature}</p></div></div>
-              <div><h3 className="mb-2 font-semibold text-slate-800">Histórico de acções</h3>{accountHistoryQuery.isLoading ? <p className="text-slate-500">A carregar histórico…</p> : accountHistoryQuery.isError ? <p className="text-red-700">Não foi possível carregar o histórico desta conta.</p> : accountHistoryQuery.data?.items.length ? <div className="space-y-2">{accountHistoryQuery.data.items.map(event => <div key={event.id} className="rounded-sm border border-slate-200 bg-white p-2"><div className="flex items-center justify-between gap-2"><span className="font-medium text-slate-800">{presentationLabel(event.action)}</span><span className="text-[10px] text-slate-500">{new Date(event.createdAt).toLocaleString("pt-PT")}</span></div><p className="mt-1 text-[10px] text-slate-500">{event.actor?.name ?? event.actor?.email ?? "Utilizador não identificado"}</p><p className="mt-1 break-words text-[10px] text-slate-600">{event.afterState ?? "Sem detalhe adicional"}</p></div>)}</div> : <p className="text-slate-500">Ainda não existem acções auditadas para esta conta.</p>}</div>
+              <div><h3 className="mb-2 flex items-center gap-1 font-semibold text-slate-800"><MessageSquare className="h-3.5 w-3.5" /> Comentários e observações</h3><Textarea value={commentText} onChange={event => setCommentText(event.target.value)} placeholder="Escreva uma observação sobre esta conta…" className="min-h-20 text-xs" maxLength={4000} /><Button className="mt-2 h-8 rounded-sm bg-[#1267d6] text-xs" disabled={!organizationId || !resolvedVersionId || !selectedAccountId || !commentText.trim() || addComment.isPending} onClick={() => organizationId && resolvedVersionId && selectedAccountId && addComment.mutate({ organizationId, versionId: resolvedVersionId, accountId: selectedAccountId, comment: commentText.trim() })}>{addComment.isPending ? "A guardar…" : "Guardar comentário"}</Button></div><div><h3 className="mb-2 font-semibold text-slate-800">Histórico de acções</h3>{accountHistoryQuery.isLoading ? <p className="text-slate-500">A carregar histórico…</p> : accountHistoryQuery.isError ? <p className="text-red-700">Não foi possível carregar o histórico desta conta.</p> : accountHistoryQuery.data?.items.length ? <div className="space-y-2">{accountHistoryQuery.data.items.map(event => <div key={event.id} className="rounded-sm border border-slate-200 bg-white p-2"><div className="flex items-center justify-between gap-2"><span className="font-medium text-slate-800">{presentationLabel(event.action)}</span><span className="text-[10px] text-slate-500">{new Date(event.createdAt).toLocaleString("pt-PT")}</span></div><p className="mt-1 text-[10px] text-slate-500">{event.actor?.name ?? event.actor?.email ?? "Utilizador não identificado"}</p><p className="mt-1 break-words text-[10px] text-slate-600">{event.afterState ?? "Sem detalhe adicional"}</p></div>)}</div> : <p className="text-slate-500">Ainda não existem acções auditadas para esta conta.</p>}</div>
             </div> : null}
           </SheetContent>
         </Sheet>

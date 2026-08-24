@@ -3286,3 +3286,11 @@
 - [x] Implementar edição inline controlada do estado e do responsável, com auditoria e sem recarregar a página
 - [x] Criar testes dos filtros, painel lateral, histórico e edição inline
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# PGCA — comentários, desfazer e actividade recente
+- [x] Adicionar comentários auditáveis por conta no painel lateral
+- [x] Implementar desfazer temporário de alterações inline de estado ou responsável
+- [x] Adicionar etiquetas visuais para contas com alterações recentes no histórico
+- [x] Criar testes de comentários, desfazer, actividade recente e permissões
+- [x] Executar suite global, validar visualmente e guardar checkpoint

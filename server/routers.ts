@@ -335,6 +335,7 @@ import {
   reviewPgcAccountForUser,
   reviewPgcAccountsBatchForUser,
   updatePgcAccountInlineForUser,
+  addPgcAccountCommentForUser,
   createPgcMigrationMapForUser,
   listAccountingRulesForUser,
   listPgcAccountsForUser,
@@ -5549,10 +5550,13 @@ export const appRouter = router({
         organizationId: z.number().int().positive(),
         versionId: z.number().int().positive(),
         accountId: z.number().int().positive(),
-        validationStatus: z.enum(["CONFIRMED", "INVALID", "DUPLICATE", "MISSING_PARENT"]).optional(),
+        validationStatus: z.enum(["NEEDS_NORMATIVE_VALIDATION", "CONFIRMED", "INVALID", "DUPLICATE", "MISSING_PARENT"]).optional(),
         responsibleUserId: z.number().int().positive().nullable().optional(),
       }).strict())
       .mutation(({ ctx, input }) => updatePgcAccountInlineForUser({ ...input, userId: ctx.user.id })),
+    addComment: roleProcedure("accounting", "read")
+      .input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), accountId: z.number().int().positive(), comment: z.string().trim().min(1).max(4000) }).strict())
+      .mutation(({ ctx, input }) => addPgcAccountCommentForUser({ ...input, userId: ctx.user.id })),
     addAccountDraft: roleProcedure("accounting", "create")
       .input(
         z
