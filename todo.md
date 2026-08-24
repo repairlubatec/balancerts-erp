@@ -3230,3 +3230,10 @@
 - [x] Isolar a dependência XLSX num segmento de exportação separado, sem alterar os contratos de CSV/XLSX existentes
 - [x] Corrigir rótulos de acessibilidade residuais em inglês detectados no painel PGCA, preservando códigos internos
 - [x] Traduzir categorias técnicas de documentos exibidas no SAADI, mantendo os valores persistidos e os contratos tRPC inalterados
+
+
+# Documento anexado — plano de contas contabilístico angolano
+- [x] Analisar integralmente os 2208 itens do documento e separar requisitos normativos, exemplos e códigos reservados
+- [x] Confrontar códigos, hierarquia, contas IVA, estados e regras do documento com schema, catálogo PGCA e motor contabilístico actual
+- [ ] Implementar apenas os elementos comprovadamente compatíveis, preservando não invenção, histórico, auditoria e confirmação humana
+- [ ] Criar testes de conformidade e executar a suite completa antes do checkpoint
