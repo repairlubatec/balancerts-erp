@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import { lazy, Suspense } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import DashboardLayout from "@/components/DashboardLayout";
 import NotFound from "@/pages/NotFound";
@@ -6,12 +7,21 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
-import Saadi from "./pages/Saadi";
-import Pgca from "./pages/Pgca";
+const Saadi = lazy(() => import("@/pages/Saadi"));
+const Pgca = lazy(() => import("@/pages/Pgca"));
+
+function RouteLoading() {
+  return (
+    <div className="flex min-h-[240px] items-center justify-center bg-[#e8edf2] p-6" role="status" aria-live="polite">
+      <span className="rounded-sm border border-[#bfc9d4] bg-white px-4 py-3 text-xs font-medium text-[#305b88] shadow-sm">A carregar módulo…</span>
+    </div>
+  );
+}
 
 function Router() {
   return (
-    <Switch>
+    <Suspense fallback={<RouteLoading />}>
+      <Switch>
       <Route path="/" component={Home} />
       <Route path="/contabilidade" component={Home} />
       <Route path="/facturacao" component={Home} />
@@ -35,8 +45,9 @@ function Router() {
       <Route path="/pgca" component={Pgca} />
       <Route path="/rh" component={Home} />
       <Route path="/404" component={NotFound} />
-      <Route component={NotFound} />
-    </Switch>
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 

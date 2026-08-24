@@ -3220,3 +3220,9 @@
 # Novo ciclo de melhorias internas
 - [x] Reavaliar o estado actual do ERP e seleccionar a próxima melhoria local por utilidade operacional
 - [x] Implementar a melhoria local seleccionada com cobertura de testes e validação visual
+
+
+# Novo ciclo de sugestões internas
+- [x] Reavaliar o estado actual do ERP e seleccionar a próxima melhoria local por utilidade operacional
+- [x] Implementar a melhoria local seleccionada com cobertura de testes e validação visual
+- [x] Reduzir o bundle inicial com carregamento diferido seguro de PGCA e SAADI, preservando rotas, autenticação e fallback de carregamento

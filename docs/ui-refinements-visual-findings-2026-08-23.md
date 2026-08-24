@@ -32,3 +32,6 @@ Na captura da página Balancerts IA em 1280×720, o shell mantém navegação co
 
 
 Na verificação conjunta de PGCA e Balancerts IA em 1280×720, os estados apresentados permanecem em português e o shell mantém a densidade de software. O PGCA exibe “Em revisão”, “Contas carregadas”, “Pendentes” e “Movimentos activos”; a área IA conserva os indicadores locais, offline e de custo sem expor códigos técnicos na superfície operacional.
+
+
+Na validação das rotas PGCA e SAADI em 1280×720, o carregamento diferido não alterou o shell desktop, a navegação, o contexto da empresa nem a apresentação dos módulos. As páginas abriram com o layout operacional esperado depois do carregamento do respectivo segmento.
