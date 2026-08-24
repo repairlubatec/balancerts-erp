@@ -3239,3 +3239,5 @@
 - [ ] Criar testes de conformidade e executar a suite completa antes do checkpoint
 - [x] Criar validador não destrutivo do documento anexado, com detecção de duplicações, reservas, secção concatenada e pais ausentes sem escrita no banco
 - [x] Testar o validador com casos reais do anexo e confirmar que não activa contas nem regras
+- [x] Gerar matriz de conformidade preliminar do anexo com código, designação, pai, nível, reserva, duplicação e estado de validação
+- [x] Detectar e bloquear no preflight contas genéricas artificiais proibidas pelo documento, como 999, 9999 e OUTROS

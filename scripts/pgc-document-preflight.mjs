@@ -3,6 +3,8 @@ import fs from "node:fs/promises";
 const ACCOUNT_LINE = /^\s*(\d+(?:\.\d+)*)\s+—\s+(.+?)\s*$/u;
 const RESERVED_NAME = "RESERVED_PGC_EXTENSION";
 const DOCUMENT_END = /^FIM DO DOCUMENTO\s*$/u;
+const PROHIBITED_GENERIC_CODES = new Set(["999", "9999"]);
+const PROHIBITED_GENERIC_NAMES = new Set(["OUTROS", "CONTABILIDADE"]);
 
 function parentCodeOf(code) {
   const parts = code.split(".");
@@ -37,6 +39,7 @@ export function analysePgcDocument(text) {
     .map(account => ({ ...account, parentCode: parentCodeOf(account.code) }))
     .filter(account => account.parentCode && !codeSet.has(account.parentCode));
   const reservedExtensions = accounts.filter(account => account.name === RESERVED_NAME);
+  const prohibitedGenericAccounts = accounts.filter(account => PROHIBITED_GENERIC_CODES.has(account.code) || PROHIBITED_GENERIC_NAMES.has(account.name.toUpperCase()));
   const trailingContent = trailingLines.map(line => line.trim()).filter(Boolean);
   const hasConcatenatedContent = trailingContent.length > 0;
 
@@ -45,16 +48,18 @@ export function analysePgcDocument(text) {
     duplicateCodes,
     missingParents,
     reservedExtensions,
+    prohibitedGenericAccounts,
     hasConcatenatedContent,
     documentEndLine: endIndex >= 0 ? endIndex + 1 : null,
     sourceShape: endIndex >= 0 && hasConcatenatedContent ? "CONCATENATED_DOCUMENTS" : "SINGLE_DOCUMENT",
-    safeForNormativeImport: duplicateCodes.length === 0 && !hasConcatenatedContent,
+    safeForNormativeImport: duplicateCodes.length === 0 && !hasConcatenatedContent && prohibitedGenericAccounts.length === 0,
     safeForActivation: false,
     activationBlockers: [
       "MATRIZ_JURIDICA_E_VALIDACAO_HUMANA_NECESSARIAS",
       ...(duplicateCodes.length ? ["CODIGOS_DUPLICADOS"] : []),
       ...(hasConcatenatedContent ? ["DOCUMENTOS_CONCATENADOS"] : []),
       ...(reservedExtensions.length ? ["EXTENSOES_RESERVADAS_NAO_MOVIMENTAVEIS"] : []),
+      ...(prohibitedGenericAccounts.length ? ["CONTAS_GENERICAS_PROIBIDAS"] : []),
     ],
   };
 }
