@@ -3229,3 +3229,4 @@
 - [x] Carregar a página operacional Home de forma diferida com fallback acessível, preservando todos os atalhos e rotas existentes
 - [x] Isolar a dependência XLSX num segmento de exportação separado, sem alterar os contratos de CSV/XLSX existentes
 - [x] Corrigir rótulos de acessibilidade residuais em inglês detectados no painel PGCA, preservando códigos internos
+- [x] Traduzir categorias técnicas de documentos exibidas no SAADI, mantendo os valores persistidos e os contratos tRPC inalterados

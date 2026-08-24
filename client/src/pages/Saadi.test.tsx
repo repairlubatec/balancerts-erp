@@ -12,7 +12,7 @@ vi.mock("@/lib/trpc", () => ({
   },
 }));
 
-import Saadi from "./Saadi";
+import Saadi, { documentCategoryLabel } from "./Saadi";
 
 describe("página SAADI", () => {
   afterEach(() => cleanup());
@@ -22,6 +22,14 @@ describe("página SAADI", () => {
     const selector = screen.getByLabelText("Seleccionar captura de dados para análise") as HTMLSelectElement;
     expect(selector.value).toBe("101");
     expect(screen.getAllByText(/Desactualizado/).length).toBeGreaterThan(0);
+  });
+
+  it("traduz categorias documentais sem alterar os códigos internos", () => {
+    expect(documentCategoryLabel("BALANCO")).toBe("Balanço");
+    expect(documentCategoryLabel("DRE")).toBe("Demonstração de resultados");
+    expect(documentCategoryLabel("FLUXO_CAIXA")).toBe("Fluxo de caixa");
+    expect(documentCategoryLabel("ORCAMENTO")).toBe("Orçamento");
+    expect(documentCategoryLabel("CODIGO_DESCONHECIDO")).toBe("Outro documento");
   });
 
   it("mostra o contexto empresarial e o estado vazio em português", () => {
