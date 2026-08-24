@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -63,7 +63,11 @@ export default function Saadi() {
     activeCompanyId && organizationId && selectedStudyId ? { companyId: activeCompanyId, organizationId, studyId: selectedStudyId } : { companyId: 0, organizationId: 0, studyId: 0 },
     { enabled: Boolean(activeCompanyId && organizationId && selectedStudyId) },
   );
-  const selectedSnapshotId = snapshots.data?.[0]?.id;
+  const [snapshotId, setSnapshotId] = useState<number | undefined>();
+  const selectedSnapshotId = snapshotId ?? snapshots.data?.[0]?.id;
+  useEffect(() => {
+    if (!snapshots.data?.some((snapshot) => snapshot.id === snapshotId)) setSnapshotId(snapshots.data?.[0]?.id);
+  }, [snapshotId, snapshots.data]);
   const [periodId, setPeriodId] = useState("1");
   const [varianceMetric, setVarianceMetric] = useState("resultadoLiquidoRealizado");
   const [projectedValue, setProjectedValue] = useState("0");
@@ -209,7 +213,7 @@ export default function Saadi() {
       <div className="grid gap-4 lg:grid-cols-2">
         <Card className="rounded-sm border-[#bfc9d4] bg-[#fbfcfd] shadow-none">
           <CardHeader className="pb-2"><CardTitle className="text-sm text-[#102a43]">Capturas de dados</CardTitle></CardHeader>
-          <CardContent>{snapshots.isLoading ? <p className="text-xs text-slate-500">A carregar capturas…</p> : !(snapshots.data ?? []).length ? <p className="text-xs text-slate-500">Sem capturas para o estudo seleccionado.</p> : <div className="space-y-2">{(snapshots.data ?? []).map((snapshot) => <div key={snapshot.id} className="rounded border border-[#dbe5f1] bg-white p-2"><div className="flex justify-between text-xs"><span className="font-semibold text-[#102a43]">{snapshotStatusLabel(snapshot.status)}</span><span className="text-slate-500">{snapshot.sourceFingerprint.slice(0, 12)}…</span></div><p className="mt-1 text-[11px] text-slate-500">Chave de repetição segura: {snapshot.idempotencyKey}</p></div>)}</div>}</CardContent>
+          <CardContent>{snapshots.isLoading ? <p className="text-xs text-slate-500">A carregar capturas…</p> : !(snapshots.data ?? []).length ? <p className="text-xs text-slate-500">Sem capturas para o estudo seleccionado.</p> : <div className="space-y-2"><label className="block text-[11px] font-semibold text-[#102a43]">Captura usada nas análises<select aria-label="Seleccionar captura de dados para análise" value={selectedSnapshotId ?? ""} onChange={(event) => setSnapshotId(event.target.value ? Number(event.target.value) : undefined)} className="mt-1 h-8 w-full rounded border border-[#dbe5f1] bg-white px-2 text-xs font-normal"><option value="">Seleccione uma captura</option>{(snapshots.data ?? []).map((snapshot) => <option key={`snapshot-option-${snapshot.id}`} value={snapshot.id}>{snapshotStatusLabel(snapshot.status)} · {snapshot.sourceFingerprint.slice(0, 12)}…</option>)}</select></label>{(snapshots.data ?? []).map((snapshot) => <div key={snapshot.id} className={`rounded border p-2 ${selectedSnapshotId === snapshot.id ? "border-[#1267d6] bg-[#f3f8ff]" : "border-[#dbe5f1] bg-white"}`}><div className="flex justify-between text-xs"><span className="font-semibold text-[#102a43]">{snapshotStatusLabel(snapshot.status)}</span><span className="text-slate-500">{snapshot.sourceFingerprint.slice(0, 12)}…</span></div><p className="mt-1 text-[11px] text-slate-500">Chave de repetição segura: {snapshot.idempotencyKey}</p></div>)}</div>}</CardContent>
         </Card>
 
         <Card className="rounded-sm border-[#bfc9d4] bg-[#fbfcfd] shadow-none">

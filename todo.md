@@ -3199,3 +3199,13 @@
 - [x] Seleccionar a próxima melhoria local prioritária a partir do estado actual do ERP
 - [x] Implementar a melhoria local seleccionada com cobertura de testes e validação visual
 - [x] Auditar e traduzir termos ingleses ainda visíveis na interface através do catálogo central de rótulos, preservando códigos técnicos e eventos armazenados
+
+
+# Frentes internas prioritárias autorizadas
+- [x] Auditar o fluxo de Importar e Novo Lançamento na Contabilidade, incluindo ausência de scroll global
+- [x] Corrigir ou completar Importar e Novo Lançamento com testes de interação e validação visual
+- [x] Auditar e melhorar os fluxos funcionais do SAADI sem alterar as fronteiras de leitura e segurança
+- [x] Reforçar navegação, acessibilidade e comportamento desktop dos módulos prioritários
+- [x] Executar auditoria sistemática de localização nos módulos e fechar regressões encontradas
+- [x] Corrigir o encaminhamento de “Novo registo” na Contabilidade para o formulário real `accounting-posting-form`, sem scroll global
+- [x] Expor uma acção “Importar” directa e acessível para o formulário CSV contabilístico

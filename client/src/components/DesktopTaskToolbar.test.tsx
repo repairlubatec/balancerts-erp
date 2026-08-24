@@ -13,18 +13,21 @@ describe("DesktopTaskToolbar", () => {
     const onSearch = vi.fn();
     const onShortcuts = vi.fn();
     const onNewRecord = vi.fn();
+    const onImport = vi.fn();
 
-    render(<DesktopTaskToolbar eyebrow="Documentos comerciais" title="Facturação" description="Emissão e validação." supportsRecordControls onFilter={onFilter} onSearch={onSearch} onShortcuts={onShortcuts} onNewRecord={onNewRecord} />);
+    render(<DesktopTaskToolbar eyebrow="Documentos comerciais" title="Facturação" description="Emissão e validação." supportsRecordControls onFilter={onFilter} onSearch={onSearch} onShortcuts={onShortcuts} onNewRecord={onNewRecord} newRecordLabel="Novo lançamento" onImport={onImport} />);
 
     expect(screen.getByText("Facturação")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: /Filtrar/ }));
     fireEvent.click(screen.getByRole("button", { name: /Procurar/ }));
     fireEvent.click(screen.getByRole("button", { name: /Atalhos/ }));
-    fireEvent.click(screen.getByRole("button", { name: /Novo registo/ }));
+    fireEvent.click(screen.getByRole("button", { name: /Importar/ }));
+    fireEvent.click(screen.getByRole("button", { name: /Novo lançamento/ }));
 
     expect(onFilter).toHaveBeenCalledTimes(1);
     expect(onSearch).toHaveBeenCalledTimes(1);
     expect(onShortcuts).toHaveBeenCalledTimes(1);
     expect(onNewRecord).toHaveBeenCalledTimes(1);
+    expect(onImport).toHaveBeenCalledTimes(1);
   });
 });

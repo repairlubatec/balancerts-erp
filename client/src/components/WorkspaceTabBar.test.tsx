@@ -18,6 +18,8 @@ describe("WorkspaceTabBar", () => {
     const onSelect = vi.fn();
     render(<WorkspaceTabBar tabs={tabs} activePath="/" onSelect={onSelect} onClose={vi.fn()} onNew={vi.fn()} />);
 
+    expect(screen.getByText(/Janelas · 2 janelas/)).toBeTruthy();
+    expect(screen.queryByText(/Windows ·/)).toBeNull();
     const accountingTab = screen.getByRole("tab", { name: /Contabilidade/ });
     expect(accountingTab?.getAttribute("title")).toContain("Ctrl+2");
     fireEvent.click(accountingTab!);

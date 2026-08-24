@@ -17,3 +17,15 @@ A validação visual desktop e móvel está concluída para este conjunto de alt
 
 
 Na captura da Home em 1280×720, os eventos recentes e os alertas do dashboard aparecem com rótulos em português, incluindo “Referências órfãs do lançamento corrigidas”, “Empresa actualizada”, “Lançamento contabilístico publicado” e “Documento emitido”. O shell desktop mantém a densidade operacional e não mostra os códigos ingleses desses eventos.
+
+
+Na verificação da rota Contabilidade em 1280×720, a barra de comandos aparece antes do contexto financeiro e mostra “Importar” no modo de importação e “Novo lançamento” no modo de novo lançamento. As queries `entry=import` e `entry=new` são reconhecidas pelo shell, com indicação operacional no separador e sem depender de deslocamento para o formulário.
+
+
+Na captura da página SAADI em 1280×720, o módulo mantém a apresentação de software autónomo, o contexto da empresa Repair Lubatec e a indicação de que não altera registos operacionais. A selecção de snapshots é disponibilizada no bloco de capturas quando existem múltiplas fontes, mantendo a escolha separada das consultas de desvios e proveniência.
+
+
+Na verificação do shell desktop em 1280×720, a barra de janelas mantém a navegação compacta e o contador passou a apresentar “Janelas”, sem o termo inglês “Windows”. A rota Contabilidade mostra os comandos Filtrar, Procurar, Atalhos e Importar no topo do conteúdo operacional.
+
+
+Na captura da página Balancerts IA em 1280×720, o shell mantém navegação compacta e os textos operacionais visíveis permanecem em português. O painel apresenta claramente IA local, modo offline, custo e fonte normativa, sem alterar a fronteira de confirmação humana.

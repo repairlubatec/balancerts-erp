@@ -82,7 +82,7 @@ export function WorkspaceTabBar({
         </Button>
         <span className="hidden items-center gap-1 px-1 text-[10px] font-medium uppercase tracking-[0.08em] text-slate-400 xl:flex">
           <PanelTop className="h-3 w-3" />
-          Windows · {tabs.length} janela{tabs.length === 1 ? "" : "s"}
+          Janelas · {tabs.length} janela{tabs.length === 1 ? "" : "s"}
         </span>
       </div>
     </div>
