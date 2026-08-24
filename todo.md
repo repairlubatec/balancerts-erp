@@ -3209,3 +3209,9 @@
 - [x] Executar auditoria sistemática de localização nos módulos e fechar regressões encontradas
 - [x] Corrigir o encaminhamento de “Novo registo” na Contabilidade para o formulário real `accounting-posting-form`, sem scroll global
 - [x] Expor uma acção “Importar” directa e acessível para o formulário CSV contabilístico
+
+
+# Novo ciclo de melhorias sugeridas
+- [x] Reavaliar o estado actual e ordenar a próxima melhoria interna por utilidade operacional
+- [x] Implementar a próxima melhoria interna escolhida com testes e validação visual
+- [x] Traduzir os estados dos mapas normativos PGCA e os tipos de séries/documentos IA sem expor códigos técnicos na interface

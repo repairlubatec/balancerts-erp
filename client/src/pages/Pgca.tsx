@@ -28,6 +28,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { skipToken } from "@tanstack/react-query";
 import { normativeErrorLabel } from "@/lib/normativeErrors";
+import { presentationLabel } from "@/lib/presentationLabels";
 import { normativeBatches } from "@/data/normativeBatches";
 import { NormativeConfirmationDashboard } from "@/components/NormativeConfirmationDashboard";
 import { PgcEvidenceSubmissionPanel } from "@/components/PgcEvidenceSubmissionPanel";
@@ -1124,7 +1125,7 @@ export default function Pgca() {
                         <span className="text-slate-500">{map.reason}</span>
                       </span>
                       <Badge variant="outline" className="rounded-sm">
-                        {map.status}
+                        {presentationLabel(map.status)}
                       </Badge>
                     </div>
                   ))}
