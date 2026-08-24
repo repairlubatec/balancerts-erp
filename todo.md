@@ -3262,3 +3262,11 @@
 - [x] Criar testes dos novos estados, filtros, ordenação, tooltips e bloqueios de activação
 - [x] Executar suite global, verificar visualmente e guardar checkpoint
 - [x] Garantir que a consulta do plano PGCA permite navegar pelas 714 contas reconhecidas sem truncamento indevido
+
+
+# PGCA — aprovação em massa, paginação e exportação
+- [x] Implementar selecção e aprovação documental em massa das 86 extensões reservadas, sem activação normativa
+- [x] Implementar paginação da tabela de contas PGCA com preservação de filtros e ordenação
+- [x] Implementar exportação CSV da lista filtrada de contas e do resumo das pendências externas
+- [x] Criar testes para selecção em massa, paginação, exportação e bloqueios de segurança
+- [x] Executar suite global, validar visualmente e guardar checkpoint

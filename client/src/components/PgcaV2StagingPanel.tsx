@@ -21,15 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { pgcaV2Decision, pgcaV2Preflight } from "@/data/pgcaV2Preflight";
-
-const externalBlockers = [
-  { label: "Restauro isolado", count: 9, reason: "A RESTORE_DATABASE_URL e o destino MySQL/TiDB isolado ainda não foram disponibilizados." },
-  { label: "Windows e instaladores", count: 4, reason: "É necessária uma máquina Windows limpa para validar EXE/MSI e actualizações." },
-  { label: "Assinatura Windows", count: 3, reason: "O certificado e a validação da assinatura de código devem ocorrer fora do ambiente actual." },
-  { label: "Homologação AGT", count: 3, reason: "Faltam credenciais e endpoint oficiais para homologação controlada." },
-  { label: "Integração bancária", count: 3, reason: "Faltam documentação e credenciais dos bancos para integração real." },
-  { label: "Aceitação Repair Lubatec", count: 5, reason: "Falta uma sessão de aceitação com utilizadores e dados anonimizados/controlados." },
-] as const;
+import { pgcaExternalBlockers } from "@/data/pgcaExternalBlockers";
 
 type ConflictDecision = "PENDING" | "EVIDENCE_REQUIRED" | "REJECT_LINE" | "READY_FOR_HUMAN_CONFIRMATION";
 
@@ -40,6 +32,8 @@ export function PgcaV2StagingPanel() {
   const [sortDescending, setSortDescending] = useState(false);
   const [decisions, setDecisions] = useState<Record<string, ConflictDecision>>({});
   const [reservedReviewApproved, setReservedReviewApproved] = useState(false);
+  const reservedExtensionIds = useMemo(() => Array.from({ length: pgcaV2Preflight.reservedExtensions }, (_, index) => `EXT-${String(index + 1).padStart(3, "0")}`), []);
+  const [selectedReserved, setSelectedReserved] = useState<string[]>([]);
 
   const filteredCodes = useMemo(() => {
     return [...pgcaV2Preflight.duplicateCodes]
@@ -52,6 +46,12 @@ export function PgcaV2StagingPanel() {
 
   const setConflictDecision = (code: string, value: ConflictDecision) => {
     setDecisions(current => ({ ...current, [code]: value }));
+  };
+  const allReservedSelected = selectedReserved.length === reservedExtensionIds.length;
+  const toggleReserved = (id: string) => setSelectedReserved(current => current.includes(id) ? current.filter(item => item !== id) : [...current, id]);
+  const approveSelectedReserved = () => {
+    if (!selectedReserved.length) return;
+    setReservedReviewApproved(true);
   };
 
   return (
@@ -98,13 +98,15 @@ export function PgcaV2StagingPanel() {
         </section>
 
         <section className="space-y-2 rounded-sm border border-amber-200 bg-white/70 p-2" aria-labelledby="pgca-reservas-title">
-          <div className="flex flex-wrap items-center justify-between gap-2"><div><h3 id="pgca-reservas-title" className="text-[11px] font-semibold text-slate-800">Revisão em lote das 86 extensões reservadas</h3><p className="text-[10px] text-slate-600">Aprovar esta etapa significa aprovar a revisão documental, nunca criar designações ou regras.</p></div><Button variant="outline" className="h-7 rounded-sm bg-white px-2 text-[10px]" onClick={() => setReservedReviewApproved(true)} disabled={reservedReviewApproved} title="Regista que as extensões foram encaminhadas para confirmação humana, sem as activar.">{reservedReviewApproved ? <CheckCircle2 className="mr-1 h-3.5 w-3.5 text-emerald-600" /> : null}{reservedReviewApproved ? "Revisão aprovada" : "Aprovar revisão em lote"}</Button></div>
+          <div className="flex flex-wrap items-center justify-between gap-2"><div><h3 id="pgca-reservas-title" className="text-[11px] font-semibold text-slate-800">Revisão em lote das 86 extensões reservadas</h3><p className="text-[10px] text-slate-600">Seleccione referências de staging e processe-as em conjunto. Isto aprova apenas a revisão documental.</p></div><div className="flex items-center gap-1.5"><Button variant="outline" className="h-7 rounded-sm bg-white px-2 text-[10px]" onClick={() => setSelectedReserved(allReservedSelected ? [] : reservedExtensionIds)}>{allReservedSelected ? "Limpar selecção" : "Seleccionar as 86"}</Button><Button className="h-7 rounded-sm bg-[#1267d6] px-2 text-[10px]" onClick={approveSelectedReserved} disabled={!selectedReserved.length || reservedReviewApproved} title="Encaminha as extensões seleccionadas para confirmação humana; não as activa.">{reservedReviewApproved ? <CheckCircle2 className="mr-1 h-3.5 w-3.5" /> : null}{reservedReviewApproved ? "Revisão aprovada" : "Aprovar revisão em lote"}</Button></div></div>
+          <div className="flex items-center justify-between rounded-sm border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] text-slate-700"><span>{selectedReserved.length} de {reservedExtensionIds.length} seleccionadas</span><span className="font-medium text-amber-800">Estado: {reservedReviewApproved ? "revisão encaminhada" : "pendente"}</span></div>
+          <div className="max-h-32 overflow-auto rounded-sm border border-amber-100 bg-white p-1" aria-label="Extensões reservadas para selecção">{reservedExtensionIds.map(id => <label key={id} className="inline-flex w-28 items-center gap-1 px-1 py-1 text-[10px] text-slate-700"><input type="checkbox" aria-label={`Seleccionar extensão ${id}`} checked={selectedReserved.includes(id)} onChange={() => toggleReserved(id)} disabled={reservedReviewApproved} /> <span className="font-mono">{id}</span></label>)}</div>
           <div className="flex items-start gap-1.5 rounded-sm border border-red-200 bg-red-50 px-2 py-1.5 text-[10px] text-red-800"><AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" /><span>As extensões continuam sem designação confirmada, sem lançamentos permitidos e sem regras contabilísticas.</span></div>
         </section>
 
         <section className="space-y-2 rounded-sm border border-slate-200 bg-white/70 p-2" aria-labelledby="pgca-pendencias-title">
           <div className="flex items-center justify-between gap-2"><div><h3 id="pgca-pendencias-title" className="text-[11px] font-semibold text-slate-800">Pendências externas</h3><p className="text-[10px] text-slate-600">27 itens mantidos em espera porque exigem recursos ou validação fora do ambiente actual.</p></div><Badge variant="outline" className="rounded-sm border-red-200 bg-red-50 text-[10px] text-red-700" title="Nenhuma destas pendências é concluída automaticamente; cada grupo requer evidência externa verificável."><AlertTriangle className="mr-1 h-3 w-3" aria-hidden="true" /> 27 em espera</Badge></div>
-          <div className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">{externalBlockers.map(blocker => <div key={blocker.label} aria-label={`${blocker.label} (${blocker.count})`} className="flex min-w-0 items-start gap-1.5 rounded-sm border border-slate-200 bg-slate-50 px-2 py-1.5 text-[10px]" title={blocker.reason}><Info className="mt-0.5 h-3 w-3 shrink-0 text-slate-500" aria-hidden="true" /><span className="min-w-0 truncate text-slate-700">{blocker.label} <span className="font-semibold text-red-700">({blocker.count})</span></span></div>)}</div>
+          <div className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">{pgcaExternalBlockers.map(blocker => <div key={blocker.label} aria-label={`${blocker.label} (${blocker.count})`} className="flex min-w-0 items-start gap-1.5 rounded-sm border border-slate-200 bg-slate-50 px-2 py-1.5 text-[10px]" title={blocker.reason}><Info className="mt-0.5 h-3 w-3 shrink-0 text-slate-500" aria-hidden="true" /><span className="min-w-0 truncate text-slate-700">{blocker.label} <span className="font-semibold text-red-700">({blocker.count})</span></span></div>)}</div>
         </section>
         <p className="text-[10px] leading-relaxed text-amber-950/80">As decisões desta interface são rastreáveis como revisão de staging. O catálogo normativo só pode ser activado depois de confirmação da fonte primária, desambiguação dos códigos e validação humana das regras de movimentação.</p>
         <div className="sr-only" aria-live="polite">Estado de incorporação: {decision}. Pendências externas: 27 em espera.</div>

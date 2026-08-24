@@ -22,6 +22,7 @@ describe("PgcaV2StagingPanel", () => {
 
   it("permite aprovar apenas a revisão documental das extensões reservadas", () => {
     render(<PgcaV2StagingPanel />);
+    fireEvent.click(screen.getByRole("checkbox", { name: "Seleccionar extensão EXT-001" }));
     const button = screen.getByRole("button", { name: "Aprovar revisão em lote" });
 
     fireEvent.click(button);

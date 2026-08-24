@@ -45,6 +45,8 @@ import {
   pgcAccountStatusLabel,
 } from "@/lib/pgcAccountStatus";
 import { sortPgcAccounts } from "@/lib/pgcaAccountSorting";
+import { buildPgcaReviewCsv, downloadPgcaReviewCsv } from "@/lib/pgcaReviewExport";
+import { pgcaExternalBlockers } from "@/data/pgcaExternalBlockers";
 
 const statusLabel: Record<string, string> = {
   DRAFT: "Rascunho",
@@ -117,6 +119,8 @@ export default function Pgca() {
   const [accountSort, setAccountSort] = useState<
     "CODE_ASC" | "CODE_DESC" | "NAME_ASC" | "STATUS"
   >("CODE_ASC");
+  const [accountPage, setAccountPage] = useState(1);
+  const accountsPerPage = 50;
   const [selectedAccountIds, setSelectedAccountIds] = useState<number[]>([]);
   const [batchStatus, setBatchStatus] = useState<
     "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"
@@ -242,7 +246,9 @@ export default function Pgca() {
     const accounts = filterPgcAccountsByStatus(visibleAccounts, statusFilter);
     return sortPgcAccounts(accounts, accountSort);
   }, [accountSort, statusFilter, visibleAccounts]);
-  const selectableAccounts = filteredAccounts.filter(
+  const accountPageCount = Math.max(1, Math.ceil(filteredAccounts.length / accountsPerPage));
+  const paginatedAccounts = filteredAccounts.slice((accountPage - 1) * accountsPerPage, accountPage * accountsPerPage);
+  const selectableAccounts = paginatedAccounts.filter(
     account => account.validationStatus !== "CONFIRMED"
   );
   const allVisibleSelected =
@@ -250,6 +256,12 @@ export default function Pgca() {
     selectableAccounts.every(account =>
       selectedAccountIds.includes(account.id)
     );
+  const exportFilteredAccounts = () => {
+    const csv = buildPgcaReviewCsv(filteredAccounts, pgcaExternalBlockers);
+    downloadPgcaReviewCsv(csv);
+    toast.success(`CSV exportado: ${filteredAccounts.length} contas e ${pgcaExternalBlockers.length} grupos de pendências.`);
+  };
+
   const summary = useMemo(() => {
     const accounts = accountsQuery.data ?? [];
     return {
@@ -512,6 +524,7 @@ export default function Pgca() {
                     value={statusFilter}
                     onValueChange={value => {
                       setStatusFilter(value as typeof statusFilter);
+                      setAccountPage(1);
                       setSelectedAccountIds([]);
                     }}
                   >
@@ -528,7 +541,7 @@ export default function Pgca() {
                       <SelectItem value="OTHER">Outros estados</SelectItem>
                     </SelectContent>
                   </Select>
-                  <Select value={accountSort} onValueChange={value => setAccountSort(value as typeof accountSort)}>
+                  <Select value={accountSort} onValueChange={value => { setAccountSort(value as typeof accountSort); setAccountPage(1); }}>
                     <SelectTrigger aria-label="Ordenar contas PGCA" className="h-7 w-36 rounded-sm bg-white text-[11px]"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="CODE_ASC">Código crescente</SelectItem>
@@ -553,11 +566,12 @@ export default function Pgca() {
                     />{" "}
                     Seleccionar pendentes
                   </div>
+                  <Button variant="outline" className="h-7 rounded-sm bg-white px-2 text-[10px]" onClick={exportFilteredAccounts} disabled={!filteredAccounts.length} title="Exporta as contas filtradas e o resumo das pendências externas para CSV">Exportar CSV</Button>
                   <div className="relative w-72">
                     <Search className="absolute left-2 top-2 h-3.5 w-3.5 text-slate-400" />
                     <Input
                       value={search}
-                      onChange={event => setSearch(event.target.value)}
+                      onChange={event => { setSearch(event.target.value); setAccountPage(1); }}
                       placeholder="Pesquisar código ou designação"
                       className="h-7 rounded-sm pl-7 text-xs"
                     />
@@ -694,7 +708,7 @@ export default function Pgca() {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredAccounts.map(account => (
+                      {paginatedAccounts.map(account => (
                         <tr
                           key={account.id}
                           className="border-t border-[#e5e9ee] hover:bg-[#f7fafc]"
@@ -804,6 +818,14 @@ export default function Pgca() {
                       )}
                     </tbody>
                   </table>
+                </div>
+                <div className="flex items-center justify-between border-t border-[#d9e0e7] bg-[#fbfcfd] px-3 py-2 text-[10px] text-slate-600">
+                  <span>Contas {filteredAccounts.length ? (accountPage - 1) * accountsPerPage + 1 : 0}–{Math.min(accountPage * accountsPerPage, filteredAccounts.length)} de {filteredAccounts.length}</span>
+                  <div className="flex items-center gap-1.5">
+                    <Button variant="outline" className="h-7 rounded-sm bg-white px-2 text-[10px]" onClick={() => { setAccountPage(page => Math.max(1, page - 1)); setSelectedAccountIds([]); }} disabled={accountPage <= 1}>Anterior</Button>
+                    <span aria-live="polite">Página {accountPage} de {accountPageCount}</span>
+                    <Button variant="outline" className="h-7 rounded-sm bg-white px-2 text-[10px]" onClick={() => { setAccountPage(page => Math.min(accountPageCount, page + 1)); setSelectedAccountIds([]); }} disabled={accountPage >= accountPageCount}>Seguinte</Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
