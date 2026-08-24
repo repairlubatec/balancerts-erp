@@ -3252,3 +3252,13 @@
 - [x] Corrigir overflow horizontal dos cartões de resumo do painel de staging PGCA em viewport desktop
 - [x] Detalhar no painel de staging PGCA a classificação de cada código repetido e da reserva normativa, mantendo-os bloqueados
 - [x] Normalizar a marcação de espera das cinco pendências de restauro sem etiqueta explícita, sem as executar (EM ESPERA — requer destino externo)
+
+
+# Revisão PGCA e pendências externas — nova interface
+- [x] Criar revisão individual segura para os 5 códigos repetidos, sem permitir invenção ou activação automática
+- [x] Criar revisão em lote segura para as 86 extensões reservadas, exigindo confirmação humana e evidência
+- [x] Adicionar filtros e ordenação à tabela das 714 contas reconhecidas
+- [x] Adicionar indicadores e tooltips explicativos para as 27 pendências externas
+- [x] Criar testes dos novos estados, filtros, ordenação, tooltips e bloqueios de activação
+- [x] Executar suite global, verificar visualmente e guardar checkpoint
+- [x] Garantir que a consulta do plano PGCA permite navegar pelas 714 contas reconhecidas sem truncamento indevido

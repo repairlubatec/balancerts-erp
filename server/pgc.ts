@@ -228,7 +228,7 @@ export async function listPgcAccountsForUser(input: { userId: number; organizati
   if (!access[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
   const conditions = [eq(pgcAccounts.versionId, input.versionId), eq(pgcAccounts.organizationId, input.organizationId)];
   if (input.search?.trim()) conditions.push(sql`(${pgcAccounts.code} LIKE ${`%${input.search.trim()}%`} OR ${pgcAccounts.name} LIKE ${`%${input.search.trim()}%`})` as never);
-  return db.select().from(pgcAccounts).where(and(...conditions)).orderBy(pgcAccounts.code).limit(500);
+  return db.select().from(pgcAccounts).where(and(...conditions)).orderBy(pgcAccounts.code).limit(1000);
 }
 
 export async function auditLegacyChartForUser(input: { userId: number; companyId: number; versionId?: number }) {

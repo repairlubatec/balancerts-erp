@@ -44,6 +44,7 @@ import {
   pgcAccountStatusClass,
   pgcAccountStatusLabel,
 } from "@/lib/pgcAccountStatus";
+import { sortPgcAccounts } from "@/lib/pgcaAccountSorting";
 
 const statusLabel: Record<string, string> = {
   DRAFT: "Rascunho",
@@ -113,6 +114,9 @@ export default function Pgca() {
   const [statusFilter, setStatusFilter] = useState<
     "ALL" | "CONFIRMED" | "PENDING" | "OTHER"
   >("ALL");
+  const [accountSort, setAccountSort] = useState<
+    "CODE_ASC" | "CODE_DESC" | "NAME_ASC" | "STATUS"
+  >("CODE_ASC");
   const [selectedAccountIds, setSelectedAccountIds] = useState<number[]>([]);
   const [batchStatus, setBatchStatus] = useState<
     "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"
@@ -234,10 +238,10 @@ export default function Pgca() {
   );
 
   const visibleAccounts = accountsQuery.data ?? [];
-  const filteredAccounts = filterPgcAccountsByStatus(
-    visibleAccounts,
-    statusFilter
-  );
+  const filteredAccounts = useMemo(() => {
+    const accounts = filterPgcAccountsByStatus(visibleAccounts, statusFilter);
+    return sortPgcAccounts(accounts, accountSort);
+  }, [accountSort, statusFilter, visibleAccounts]);
   const selectableAccounts = filteredAccounts.filter(
     account => account.validationStatus !== "CONFIRMED"
   );
@@ -522,6 +526,15 @@ export default function Pgca() {
                       <SelectItem value="CONFIRMED">Confirmadas</SelectItem>
                       <SelectItem value="PENDING">Pendentes</SelectItem>
                       <SelectItem value="OTHER">Outros estados</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Select value={accountSort} onValueChange={value => setAccountSort(value as typeof accountSort)}>
+                    <SelectTrigger aria-label="Ordenar contas PGCA" className="h-7 w-36 rounded-sm bg-white text-[11px]"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="CODE_ASC">Código crescente</SelectItem>
+                      <SelectItem value="CODE_DESC">Código decrescente</SelectItem>
+                      <SelectItem value="NAME_ASC">Designação A–Z</SelectItem>
+                      <SelectItem value="STATUS">Estado</SelectItem>
                     </SelectContent>
                   </Select>
                   <div className="flex items-center gap-2 rounded-sm border border-[#c7d0da] bg-white px-2 py-1 text-[10px] text-slate-600">
