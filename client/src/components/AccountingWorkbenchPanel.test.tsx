@@ -45,7 +45,7 @@ describe("protótipo do motor contabilístico", () => {
 
     expect(within(table).getByLabelText("Conta confirmada")).toBeTruthy();
     expect(within(table).getAllByLabelText("Conta pendente").length).toBe(2);
-    expect(within(table).getAllByLabelText("Conta bloqueada para posting").length).toBe(2);
+    expect(within(table).getAllByLabelText("Conta bloqueada para lançamento automático").length).toBe(2);
     expect(screen.getByLabelText("Legenda dos estados das contas")).toBeTruthy();
   });
 
@@ -59,7 +59,7 @@ describe("protótipo do motor contabilístico", () => {
     expect(screen.getByText("1 de 1 contas visíveis")).toBeTruthy();
   });
 
-  it("filtra contas pendentes sem alterar a regra de posting", () => {
+  it("filtra contas pendentes sem alterar a regra de lançamento", () => {
     render(<AccountingWorkbenchPanel company={{ id: 10, organizationId: 1 }} periodId={3} />);
     const table = screen.getByRole("table");
 
@@ -67,7 +67,7 @@ describe("protótipo do motor contabilístico", () => {
     expect(within(table).getByText("6131")).toBeTruthy();
     expect(within(table).queryByText("4511")).toBeNull();
     fireEvent.click(within(table).getByText("6131"));
-    expect(screen.getByText(/Não utilizar em posting automático/)).toBeTruthy();
+    expect(screen.getByText(/Não utilizar em lançamento automático/)).toBeTruthy();
   });
 
   it("explica a natureza mista sem inventar regras de movimento", async () => {
@@ -81,12 +81,12 @@ describe("protótipo do motor contabilístico", () => {
     expect(tooltip.textContent).toContain("não têm correspondência integral confirmada na fonte primária");
   });
 
-  it("mantém uma conta pendente fora do posting automático quando seleccionada", () => {
+  it("mantém uma conta pendente fora do lançamento automático quando seleccionada", () => {
     render(<AccountingWorkbenchPanel company={{ id: 10, organizationId: 1 }} periodId={3} />);
 
     fireEvent.click(screen.getByText("6131"));
     expect(screen.getAllByText("Credora").length).toBeGreaterThan(0);
     expect(screen.getByText("Saldo credor")).toBeTruthy();
-    expect(screen.getByText(/Não utilizar em posting automático/)).toBeTruthy();
+    expect(screen.getByText(/Não utilizar em lançamento automático/)).toBeTruthy();
   });
 });

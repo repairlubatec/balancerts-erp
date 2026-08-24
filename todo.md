@@ -3228,3 +3228,4 @@
 - [x] Reduzir o bundle inicial com carregamento diferido seguro de PGCA e SAADI, preservando rotas, autenticação e fallback de carregamento
 - [x] Carregar a página operacional Home de forma diferida com fallback acessível, preservando todos os atalhos e rotas existentes
 - [x] Isolar a dependência XLSX num segmento de exportação separado, sem alterar os contratos de CSV/XLSX existentes
+- [x] Corrigir rótulos de acessibilidade residuais em inglês detectados no painel PGCA, preservando códigos internos
