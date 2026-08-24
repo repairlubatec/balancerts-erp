@@ -5,6 +5,7 @@ import {
   CheckCircle2,
   ClipboardCheck,
   FilePlus2,
+  Loader2,
   RefreshCw,
   Search,
   ShieldCheck,
@@ -39,6 +40,7 @@ import { IvaNormativeReviewPanel } from "@/components/IvaNormativeReviewPanel";
 import { IvaPdfSimulationPanel } from "@/components/IvaPdfSimulationPanel";
 import { PgcCoverageSummary } from "@/components/PgcCoverageSummary";
 import { PgcaV2StagingPanel } from "@/components/PgcaV2StagingPanel";
+import { PgcaExternalSummaryPanel } from "@/components/PgcaExternalSummaryPanel";
 import {
   filterPgcAccountsByStatus,
   pgcAccountStatusClass,
@@ -121,6 +123,7 @@ export default function Pgca() {
   >("CODE_ASC");
   const [accountPage, setAccountPage] = useState(1);
   const accountsPerPage = 50;
+  const [isExportingCsv, setIsExportingCsv] = useState(false);
   const [selectedAccountIds, setSelectedAccountIds] = useState<number[]>([]);
   const [batchStatus, setBatchStatus] = useState<
     "CONFIRMED" | "INVALID" | "DUPLICATE" | "MISSING_PARENT"
@@ -257,9 +260,16 @@ export default function Pgca() {
       selectedAccountIds.includes(account.id)
     );
   const exportFilteredAccounts = () => {
-    const csv = buildPgcaReviewCsv(filteredAccounts, pgcaExternalBlockers);
-    downloadPgcaReviewCsv(csv);
-    toast.success(`CSV exportado: ${filteredAccounts.length} contas e ${pgcaExternalBlockers.length} grupos de pendências.`);
+    setIsExportingCsv(true);
+    try {
+      const csv = buildPgcaReviewCsv(filteredAccounts, pgcaExternalBlockers);
+      downloadPgcaReviewCsv(csv);
+      toast.success(`CSV exportado: ${filteredAccounts.length} contas e ${pgcaExternalBlockers.length} grupos de pendências.`);
+    } catch (error) {
+      toast.error(`Não foi possível gerar o CSV: ${error instanceof Error ? error.message : "erro desconhecido"}.`);
+    } finally {
+      setIsExportingCsv(false);
+    }
   };
 
   const summary = useMemo(() => {
@@ -451,6 +461,7 @@ export default function Pgca() {
             </div>
           </CardContent>
         </Card>
+        <PgcaExternalSummaryPanel />
         <PgcaV2StagingPanel />
         <NormativeConfirmationDashboard />
         <IvaNormativeReviewPanel
@@ -566,13 +577,14 @@ export default function Pgca() {
                     />{" "}
                     Seleccionar pendentes
                   </div>
-                  <Button variant="outline" className="h-7 rounded-sm bg-white px-2 text-[10px]" onClick={exportFilteredAccounts} disabled={!filteredAccounts.length} title="Exporta as contas filtradas e o resumo das pendências externas para CSV">Exportar CSV</Button>
+                  <Button variant="outline" className="h-7 rounded-sm bg-white px-2 text-[10px]" onClick={exportFilteredAccounts} disabled={!filteredAccounts.length || isExportingCsv} title="Exporta as contas filtradas e o resumo das pendências externas para CSV">{isExportingCsv ? <><Loader2 className="mr-1 h-3 w-3 animate-spin" /> A gerar…</> : "Exportar CSV"}</Button>
                   <div className="relative w-72">
                     <Search className="absolute left-2 top-2 h-3.5 w-3.5 text-slate-400" />
                     <Input
                       value={search}
                       onChange={event => { setSearch(event.target.value); setAccountPage(1); }}
-                      placeholder="Pesquisar código ou designação"
+                      placeholder="Pesquisar código, designação, nome ou email"
+                      aria-label="Pesquisa global de contas por código, designação, nome ou email"
                       className="h-7 rounded-sm pl-7 text-xs"
                     />
                   </div>
@@ -646,9 +658,7 @@ export default function Pgca() {
                       });
                     }}
                   >
-                    {reviewAccountsBatch.isPending
-                      ? "A aplicar…"
-                      : "Aplicar revisão"}
+                    {reviewAccountsBatch.isPending ? <><Loader2 className="mr-1 inline h-3 w-3 animate-spin" /> A aplicar…</> : "Aplicar revisão"}
                   </Button>
                   <Button
                     variant="outline"
@@ -701,6 +711,7 @@ export default function Pgca() {
                         </th>
                         <th className="px-3 py-2">Código</th>
                         <th className="px-3 py-2">Designação</th>
+                        <th className="px-3 py-2">Utilizador</th>
                         <th className="px-3 py-2">Tipo</th>
                         <th className="px-3 py-2">Natureza</th>
                         <th className="px-3 py-2">Lançável</th>
@@ -736,6 +747,7 @@ export default function Pgca() {
                             {account.code}
                           </td>
                           <td className="px-3 py-2">{account.name}</td>
+                          <td className="max-w-48 px-3 py-2 text-[10px] text-slate-600"><div className="truncate">{account.createdByUserName ?? "Utilizador não identificado"}</div><div className="truncate text-[9px] text-slate-400">{account.createdByUserEmail ?? "Email não disponível"}</div></td>
                           <td className="px-3 py-2">
                             {accountTypeLabel[account.accountType] ??
                               account.accountType}

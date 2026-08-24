@@ -3270,3 +3270,11 @@
 - [x] Implementar exportação CSV da lista filtrada de contas e do resumo das pendências externas
 - [x] Criar testes para selecção em massa, paginação, exportação e bloqueios de segurança
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Pesquisa global, feedback operacional e resumo de pendências
+- [x] Adicionar pesquisa global na tabela PGCA por nome ou email de utilizador associado
+- [x] Adicionar loading spinner e notificações de sucesso/erro à aprovação em massa e exportação CSV
+- [x] Criar painel superior com gráfico simples da distribuição das 27 pendências externas
+- [x] Criar testes dos novos filtros, estados de carregamento, notificações e métricas gráficas
+- [x] Executar suite global, validar visualmente e guardar checkpoint

@@ -1,6 +1,6 @@
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { getDb, appendAuditEventForUser, createFileAsset } from "./db";
-import { accountingRules, chartAccounts, companies, fileAssets, fiscalPeriods, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions } from "../drizzle/schema";
+import { accountingRules, chartAccounts, companies, fileAssets, fiscalPeriods, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions, users } from "../drizzle/schema";
 import { randomUUID } from "node:crypto";
 import { angolaNormativeSources } from "./normative";
 
@@ -227,8 +227,19 @@ export async function listPgcAccountsForUser(input: { userId: number; organizati
   const access = await db.select({ id: pgcVersions.id }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
   if (!access[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
   const conditions = [eq(pgcAccounts.versionId, input.versionId), eq(pgcAccounts.organizationId, input.organizationId)];
-  if (input.search?.trim()) conditions.push(sql`(${pgcAccounts.code} LIKE ${`%${input.search.trim()}%`} OR ${pgcAccounts.name} LIKE ${`%${input.search.trim()}%`})` as never);
-  return db.select().from(pgcAccounts).where(and(...conditions)).orderBy(pgcAccounts.code).limit(1000);
+  let matchingUserIds: number[] = [];
+  if (input.search?.trim()) {
+    const term = `%${input.search.trim()}%`;
+    const matchingUsers = await db.select({ id: users.id }).from(users).where(sql`(${users.name} LIKE ${term} OR ${users.email} LIKE ${term})`).limit(100);
+    matchingUserIds = matchingUsers.map(user => user.id);
+    const userCondition = matchingUserIds.length ? sql` OR ${pgcAccounts.createdBy} IN (${sql.join(matchingUserIds.map(id => sql`${id}`), sql`, `)})` : sql``;
+    conditions.push(sql`(${pgcAccounts.code} LIKE ${term} OR ${pgcAccounts.name} LIKE ${term}${userCondition})` as never);
+  }
+  const accounts = await db.select().from(pgcAccounts).where(and(...conditions)).orderBy(pgcAccounts.code).limit(1000);
+  const creatorIds = Array.from(new Set(accounts.map(account => account.createdBy)));
+  const creators = creatorIds.length ? await db.select({ id: users.id, name: users.name, email: users.email }).from(users).where(inArray(users.id, creatorIds)) : [];
+  const creatorById = new Map(creators.map(creator => [creator.id, creator]));
+  return accounts.map(account => ({ ...account, createdByUserName: creatorById.get(account.createdBy)?.name ?? null, createdByUserEmail: creatorById.get(account.createdBy)?.email ?? null }));
 }
 
 export async function auditLegacyChartForUser(input: { userId: number; companyId: number; versionId?: number }) {
