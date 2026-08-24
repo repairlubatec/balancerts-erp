@@ -3294,3 +3294,11 @@
 - [x] Adicionar etiquetas visuais para contas com alterações recentes no histórico
 - [x] Criar testes de comentários, desfazer, actividade recente e permissões
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Preparação segura das pendências externas
+- [x] Criar checklist operacional verificável para restauro, Windows, assinatura, AGT, banca e aceitação Repair Lubatec
+- [x] Criar matriz de evidências obrigatórias, responsáveis e critérios de desbloqueio sem executar contactos externos
+- [x] Reforçar no painel PGCA a indicação de dependência externa, pré-requisito em falta e acção segura seguinte
+- [x] Testar a documentação e os indicadores sem alterar dados normativos ou integrações
+- [x] Guardar checkpoint da preparação segura

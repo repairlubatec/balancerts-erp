@@ -18,6 +18,8 @@ describe("PgcaExternalSummaryPanel", () => {
     expect(screen.getByTestId("pgca-external-summary")).toBeTruthy();
     expect(screen.getByText("27")).toBeTruthy();
     expect(screen.getByLabelText(/Restauro isolado: 9 pendências/)).toBeTruthy();
+    expect(screen.getByText(/Destino MySQL\/TiDB isolado/)).toBeTruthy();
+    expect(screen.getByText(/Executar preflight/)).toBeTruthy();
     expect(screen.getByLabelText(/Aceitação Repair Lubatec: 5 pendências/)).toBeTruthy();
   });
 });

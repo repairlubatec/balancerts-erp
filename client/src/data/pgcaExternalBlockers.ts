@@ -1,8 +1,8 @@
 export const pgcaExternalBlockers = [
-  { label: "Restauro isolado", count: 9, reason: "A RESTORE_DATABASE_URL e o destino MySQL/TiDB isolado ainda não foram disponibilizados." },
-  { label: "Windows e instaladores", count: 4, reason: "É necessária uma máquina Windows limpa para validar EXE/MSI e actualizações." },
-  { label: "Assinatura Windows", count: 3, reason: "O certificado e a validação da assinatura de código devem ocorrer fora do ambiente actual." },
-  { label: "Homologação AGT", count: 3, reason: "Faltam credenciais e endpoint oficiais para homologação controlada." },
-  { label: "Integração bancária", count: 3, reason: "Faltam documentação e credenciais dos bancos para integração real." },
-  { label: "Aceitação Repair Lubatec", count: 5, reason: "Falta uma sessão de aceitação com utilizadores e dados anonimizados/controlados." },
+  { label: "Restauro isolado", count: 9, reason: "A RESTORE_DATABASE_URL e o destino MySQL/TiDB isolado ainda não foram disponibilizados.", prerequisite: "Destino MySQL/TiDB isolado, allowlist, fingerprint e atestado ISOLATED.", nextAction: "Executar preflight e restauro não destrutivo apenas no destino verificado." },
+  { label: "Windows e instaladores", count: 4, reason: "É necessária uma máquina Windows limpa para validar EXE/MSI e actualizações.", prerequisite: "Máquina Windows limpa e artefactos versionados.", nextAction: "Testar instalar, actualizar, abrir e desinstalar sem declarar compatibilidade antecipada." },
+  { label: "Assinatura Windows", count: 3, reason: "O certificado e a validação da assinatura de código devem ocorrer fora do ambiente actual.", prerequisite: "Certificado P12/PFX, cadeia de confiança e password por canal seguro.", nextAction: "Assinar fora do repositório e verificar a cadeia no Windows." },
+  { label: "Homologação AGT", count: 3, reason: "Faltam credenciais e endpoint oficiais para homologação controlada.", prerequisite: "Endpoint, credenciais, códigos de software e documentação oficiais.", nextAction: "Homologar no ambiente oficial de testes antes de activar qualquer conector." },
+  { label: "Integração bancária", count: 3, reason: "Faltam documentação e credenciais dos bancos para integração real.", prerequisite: "Documentação, sandbox, credenciais limitadas e permissões do banco.", nextAction: "Testar extractos e reconciliação no sandbox com idempotência e auditoria." },
+  { label: "Aceitação Repair Lubatec", count: 5, reason: "Falta uma sessão de aceitação com utilizadores e dados anonimizados/controlados.", prerequisite: "Sessão autorizada, utilizadores e dados anonimizados/controlados.", nextAction: "Executar os ciclos assinados e registar o resultado por responsável." },
 ] as const;
