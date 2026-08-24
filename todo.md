@@ -3302,3 +3302,12 @@
 - [x] Reforçar no painel PGCA a indicação de dependência externa, pré-requisito em falta e acção segura seguinte
 - [x] Testar a documentação e os indicadores sem alterar dados normativos ou integrações
 - [x] Guardar checkpoint da preparação segura
+
+
+# Auditoria completa do módulo de Contabilidade
+- [x] Inventariar contas PGCA, versões, fontes, estados e regras contabilísticas
+- [x] Confrontar contas reconhecidas, confirmadas, pendentes e bloqueadas com a versão anexada
+- [x] Auditar lançamentos, validações, IVA, exercícios e regras de movimentação
+- [x] Auditar relatórios, filtros, totais, exportações e estados vazios
+- [x] Verificar visualmente o módulo sem scroll global e executar testes direccionados
+- [x] Produzir parecer completo com lacunas, riscos e correcções recomendadas
