@@ -3400,3 +3400,11 @@
 - [x] Mostrar confirmação visual de que a tentativa não publicou lançamento
 - [x] Criar testes de filtro, exportação, isolamento e não-publicação
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Resumo e relatório dos bloqueios PGCA
+- [x] Mostrar contagem e distribuição dos motivos de bloqueio PGCA
+- [x] Adicionar filtros por período e estado de revisão dos bloqueios
+- [x] Exportar relatório PDF resumido dos bloqueios filtrados
+- [x] Criar testes do resumo, filtros, PDF e não-publicação
+- [x] Executar suite global, validar visualmente e guardar checkpoint

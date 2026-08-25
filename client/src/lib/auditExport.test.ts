@@ -53,3 +53,11 @@ describe("exportação CSV dos logs de auditoria", () => {
     expect(csv).toContain("audit-alert-status:27:RESOLVED");
   });
 });
+
+
+it("exporta o motivo de um bloqueio PGCA sem o transformar em lançamento", () => {
+  const csv = buildAuditCsv([{ id: 303, createdAt: "2026-08-25T10:00:00.000Z", action: "PAYMENT_ACCOUNTING_BLOCKED", entityType: "payment", entityId: 19, actorUserId: 8, correlationId: "payment-accounting-19", beforeState: "{\"accounting\":\"PENDING\"}", afterState: "{\"accounting\":\"BLOCKED\",\"reason\":\"PAYMENT_FISCAL_PERIOD_REQUIRED\"}" }]);
+  expect(csv).toContain("Pagamento accounting Bloqueado");
+  expect(csv).toContain("PAYMENT_FISCAL_PERIOD_REQUIRED");
+  expect(csv).not.toContain("POSTED");
+});
