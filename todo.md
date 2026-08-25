@@ -3520,3 +3520,15 @@
 - [x] P1.7 — Validar P1 com Vitest, TypeScript, build e verificação visual antes do checkpoint
 
 > Regra P1: não criar dados de demonstração, não activar PGCA pendente e não declarar homologação AGT sem credenciais e evidência oficial.
+
+# P2 — Controlo, qualidade e aceitação
+
+- [x] P2.1 — Mapear a matriz de controlo, segurança, auditoria e aceitação interna dos fluxos críticos
+- [x] P2.2 — Reforçar autorização server-side e isolamento por organização/empresa nos procedimentos operacionais
+- [x] P2.3 — Consolidar auditoria, idempotência, concorrência, erros estruturados e limites de consulta/exportação
+- [x] P2.4 — Validar os ciclos de Facturação, Contabilidade, Tesouraria, Fecho, Clientes, Stock, Imobilizado e Relatórios em aceitação interna
+- [x] P2.5 — Reforçar a fronteira de leitura BALANCERTS.ERP → SAADI e manter escrita operacional bloqueada
+- [x] P2.6 — Executar suite global, TypeScript, build e verificação visual de P2
+- [x] P2.7 — Guardar checkpoint da P2; manter dependências externas da P1 em espera
+
+> Regra P2: não inventar dados, não activar normativa sem evidência oficial, não declarar homologação AGT, não permitir escrita operacional do SAADI e não marcar dependências externas como concluídas.

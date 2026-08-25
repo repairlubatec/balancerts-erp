@@ -15,7 +15,11 @@ export function permissionKey(module: string, permission: Permission) {
 }
 
 export function can(role: BalancertsRole, module: string, permission: Permission, overrides: readonly string[] = []) {
-  if (overrides.includes("*" ) || overrides.includes(permissionKey(module, permission))) return true;
+  // O wildcard é reservado ao papel administrativo. Overrides por empresa
+  // podem acrescentar permissões específicas, mas nunca transformar um papel
+  // operacional num administrador através de uma única entrada global.
+  if (role === "admin" && overrides.includes("*")) return true;
+  if (overrides.includes(permissionKey(module, permission))) return true;
   const allowed = matrix[role]["*"] ?? matrix[role][module] ?? [];
   return allowed.includes(permission);
 }

@@ -41,4 +41,11 @@ describe("role segregation", () => {
   it("normalises permission overrides for deterministic storage", () => {
     expect(normalizePermissionOverrides([" Treasury:READ ", "treasury:read", "", "accounting:post"])).toEqual(["treasury:read", "accounting:post"]);
   });
+
+  it("não permite que wildcard de empresa eleve um papel operacional", () => {
+    expect(can("contabilista", "treasury", "create", ["*"])).toBe(false);
+    expect(can("financeiro", "documents", "issue", ["*"])).toBe(false);
+    expect(can("admin", "accounting", "post", ["*"])).toBe(true);
+    expect(can("contabilista", "treasury", "create", ["treasury:create"])).toBe(true);
+  });
 });
