@@ -31,3 +31,12 @@ Cada execução deve guardar: identificador de correlação; actor; empresa; amb
 ## Estado actual do BALANCERTS.ERP
 
 O projecto possui validação local, backup real verificado, restauro validado no TiDB isolado, controlos tenant-aware, modelos documentais por empresa e suite global aprovada. Permanecem pendentes apenas as frentes que requerem recursos externos, credenciais oficiais, confirmação humana ou aceitação formal.
+
+
+## Verificação de disponibilidade — 25 de Agosto de 2026
+
+Foi feita uma consulta apenas de leitura ao Gmail associado ao projecto para procurar respostas aos pedidos enviados à AGT sobre chaves/certificados de facturação electrónica e consulta de NIF, bem como informação de bancos, Windows, MSI/EXE e certificados. Foram localizados os pedidos enviados e documentos internos do projecto, mas não foi localizada resposta oficial da AGT, credencial, endpoint bancário, certificado de distribuição ou evidência de máquina Windows. Não foi enviado nenhum email e nenhuma credencial foi alterada.
+
+A verificação do sandbox confirmou que o comando Docker não está instalado neste ambiente. Isto não prova a disponibilidade ou indisponibilidade de Docker no computador do utilizador; por isso, a frente Docker/MySQL local permanece em espera e não deve ser marcada como concluída. O destino TiDB Cloud isolado continua a ser a evidência de restauro validada para esta etapa.
+
+A ausência destes recursos mantém correctamente bloqueadas as tarefas de homologação AGT, integração bancária, assinatura e validação EXE/MSI. A implementação local prossegue apenas com testes não destrutivos, sem activar integrações externas por suposição.
