@@ -4,12 +4,12 @@ import { randomUUID } from "node:crypto";
 type AuditPdfItem = { id: number; createdAt: Date; action: string; entityType: string; entityId: string; actorUserId: number; correlationId: string; beforeState: string | null; afterState: string | null; actor: { id: number | null; name: string | null; email: string | null } | null; companyName: string | null };
 
 export function buildAuditLogsPdf(input: { organizationName: string; companyName?: string | null; emitterName?: string | null; emitterEmail?: string | null; filters: string; items: AuditPdfItem[]; executiveSummary?: { total: number; open: number; reviewed: number; resolved: number; topReason?: string | null; recommendation?: string | null } }) {
-  return new Promise<{ buffer: Buffer; mimeType: "application/pdf" }>((resolve) => {
+  return new Promise<{ buffer: Buffer; mimeType: "application/pdf"; emissionId: string }>((resolve) => {
     const emissionId = randomUUID();
     const pdf = new PDFDocument({ size: "A4", margin: 38, info: { Title: "Logs de Auditoria PGCA", Author: "BALANCERTS.ERP", Subject: "Relatório de alterações e confirmações", Keywords: `emissao:${emissionId}` } });
     const chunks: Buffer[] = [];
     pdf.on("data", (chunk: Buffer) => chunks.push(chunk));
-    pdf.on("end", () => resolve({ buffer: Buffer.concat(chunks), mimeType: "application/pdf" }));
+    pdf.on("end", () => resolve({ buffer: Buffer.concat(chunks), mimeType: "application/pdf", emissionId }));
     pdf.roundedRect(38, 38, 30, 30, 4).fillColor("#1267d6").fill();
     pdf.fillColor("#ffffff").font("Helvetica-Bold").fontSize(18).text("B", 46, 43);
     pdf.fillColor("#102a43").font("Helvetica-Bold").fontSize(17).text("BALANCERTS.ERP", 76, 42);

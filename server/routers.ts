@@ -6102,8 +6102,10 @@ export const appRouter = router({
           } : undefined,
         });
         return {
-          filename: `logs-auditoria-pgc-${input.action === "PAYMENT_ACCOUNTING_BLOCKED" ? "bloqueios-" : ""}${input.auditEventId ? `evento-${input.auditEventId}` : new Date().toISOString().slice(0, 10)}.pdf`,
+          filename: `logs-auditoria-pgc-${input.action === "PAYMENT_ACCOUNTING_BLOCKED" ? "bloqueios-" : ""}${input.auditEventId ? `evento-${input.auditEventId}` : new Date().toISOString().slice(0, 10)}-${pdf.emissionId.slice(0, 8)}.pdf`,
           mimeType: pdf.mimeType,
+          emissionId: pdf.emissionId,
+          filters: input,
           dataBase64: pdf.buffer.toString("base64"),
           eventCount: result.items.length,
           truncated: result.hasMore,

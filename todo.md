@@ -3474,3 +3474,11 @@
 - [x] Incluir identificador único de emissão no PDF
 - [x] Criar testes de exportação, feedback e identificador documental
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Histórico local e repetição de exportações PGCA
+- [x] Manter histórico local das últimas exportações da sessão
+- [x] Permitir copiar o identificador único de emissão
+- [x] Permitir repetir exportação com os mesmos filtros e empresa
+- [x] Criar testes de histórico local, cópia e repetição segura
+- [x] Executar suite global, validar visualmente e guardar checkpoint
