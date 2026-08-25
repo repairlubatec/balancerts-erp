@@ -3538,3 +3538,11 @@
 - [x] P2.10 — Cobrir com testes directos os envelopes, erros estruturados, limites e rejeições de escopo dos relatórios e exportações
 - [x] P2.11 — Cobrir com testes directos a separação entre leitura SAADI e mutações operacionais do BALANCERTS.ERP
 - [x] P2.12 — Rever visualmente estados de carregamento, vazio, erro, bloqueio e confirmação nos postos críticos
+
+# Auditoria independente P0–P2
+
+- [x] AUD-P0 — Confrontar prioridades P0 com código, schema, routers, persistência, testes e UI
+- [x] AUD-P1 — Confrontar Clientes/Fornecedores, Stock, Imobilizado, Relatórios, SAF-T e Definições com evidência executável
+- [x] AUD-P2 — Confrontar controlos, RBAC, isolamento, auditoria, exportações, SAADI, testes e aceitação com evidência executável
+- [x] AUD-VAL — Reexecutar suite, TypeScript, build e revisão visual como evidência independente
+- [x] AUD-PARECER — Produzir classificação final: implementado, parcial, bloqueado, externo ou não comprovado
