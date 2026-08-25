@@ -3320,3 +3320,12 @@
 - [x] Criar simulação de relatórios usando a versão PGCA candidata sem alterar a versão activa
 - [x] Criar testes de guardas, não-activação, importação elegível e simulação
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Assistente PGCA — explicações, progresso e exportação
+- [x] Adicionar tooltips e painel lateral com detalhe dos bloqueios de activação e próximos passos
+- [x] Adicionar checklist e barra de progresso de contas, fontes e regras em falta
+- [x] Adicionar exportação CSV das simulações de balancete e resultados
+- [x] Adicionar exportação PDF das simulações de balancete e resultados
+- [x] Criar testes de acessibilidade, progresso, bloqueios e exportações
+- [x] Executar suite global, validar visualmente e guardar checkpoint
