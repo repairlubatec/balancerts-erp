@@ -3562,7 +3562,7 @@
 
 # Restauro seguro — pré-condições externas
 
-- [ ] RESTORE-01 — Documentar protocolo de restauro não destrutivo e proibição de contacto com produção sem destino isolado
+- [x] RESTORE-01 — Documentar protocolo de restauro não destrutivo e proibição de contacto com produção sem destino isolado
 - [ ] RESTORE-02 — Disponibilizar `RESTORE_DATABASE_URL` de destino MySQL/TiDB não produtivo e utilizador restrito
 - [ ] RESTORE-03 — Disponibilizar `RESTORE_ALLOWED_HOSTS` e fingerprint verificável do destino
 - [ ] RESTORE-04 — Confirmar literalmente `RESTORE_ISOLATION_ATTESTATION=ISOLATED` e aprovação do restauro
@@ -3572,7 +3572,7 @@
 
 # Ambiente local gratuito para restauro seguro
 
-- [ ] LOCAL-RESTORE-01 — Documentar que o MySQL local é apenas homologação e nunca produção
+- [x] LOCAL-RESTORE-01 — Documentar que o MySQL local é apenas homologação e nunca produção
 - [ ] LOCAL-RESTORE-02 — Confirmar disponibilidade de Docker no computador do utilizador
 - [ ] LOCAL-RESTORE-03 — Criar contentor MySQL local com volume separado, porta local e credencial exclusiva
 - [ ] LOCAL-RESTORE-04 — Validar identidade e isolamento do contentor sem executar restauro
@@ -3585,3 +3585,6 @@
 - [x] LOCAL-CONT-03 — Confirmar rotas válidas e fluxos de exportação tenant-aware
 - [x] LOCAL-CONT-04 — Reexecutar suite, TypeScript, build e verificação visual após a continuação local
 - [x] LOCAL-CONT-05 — Corrigir erros de runtime nas consultas normativas: parâmetro `regime` rejeitado e referência incompatível a `organizationAccessCondition` (não reproduzidos após reinício limpo e testes)
+- [x] Configurar credencial RESTORE_DATABASE_URL para o cluster TiDB Cloud isolado, sem armazenar credenciais no código ou no chat
+- [ ] Implementar e testar o fluxo de restauro não destrutivo apontado exclusivamente ao destino isolado
+- [ ] Validar contagens, esquema, integridade e isolamento do restauro sem contactar a base produtiva
