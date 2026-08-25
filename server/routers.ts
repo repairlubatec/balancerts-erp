@@ -355,6 +355,7 @@ import {
   submitPgcVersionForReview,
   validatePgcVersionForUser,
 } from "./pgc-workflow";
+import { suggestPgcBlockerResolution } from "./pgc-ai";
 
 const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) =>
   protectedProcedure.use(async ({ ctx, next, getRawInput }) => {
@@ -5300,6 +5301,27 @@ export const appRouter = router({
       .query(({ ctx, input }) =>
         getPgcActivationReadinessForUser({ ...input, userId: ctx.user.id })
       ),
+    suggestBlockerResolution: roleProcedure("accounting", "read")
+      .input(z.object({
+        organizationId: z.number().int().positive(),
+        versionId: z.number().int().positive(),
+        blocker: z.string().trim().min(1).max(120),
+        blockers: z.array(z.string().trim().min(1).max(120)).max(20),
+        status: z.string().trim().min(1).max(80),
+        accountCount: z.number().int().min(0).max(100000),
+        confirmedAccountCount: z.number().int().min(0).max(100000),
+        sourceCount: z.number().int().min(0).max(10000),
+        confirmedSourceCount: z.number().int().min(0).max(10000),
+        accountingRuleCount: z.number().int().min(0).max(10000),
+        missingOperations: z.array(z.string().trim().min(1).max(120)).max(100),
+      }).strict())
+      .mutation(async ({ input }) => {
+        try {
+          return await suggestPgcBlockerResolution(input);
+        } catch (error) {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: error instanceof Error && error.message === "PGC_AI_SUGGESTION_INVALID" ? error.message : "PGC_AI_SUGGESTION_UNAVAILABLE" });
+        }
+      }),
     createVersion: roleProcedure("accounting", "create")
       .input(
         z

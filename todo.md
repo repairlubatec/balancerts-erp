@@ -3329,3 +3329,13 @@
 - [x] Adicionar exportação PDF das simulações de balancete e resultados
 - [x] Criar testes de acessibilidade, progresso, bloqueios e exportações
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Assistente PGCA — pesquisa, feedback e sugestões IA
+- [x] Adicionar pesquisa na checklist por código, designação e operação
+- [x] Adicionar filtros da checklist por estado concluído, pendente e bloqueado
+- [x] Adicionar estados de carregamento e notificações de sucesso/erro nas exportações CSV e PDF
+- [x] Criar procedimento server-side para sugestão IA consultiva dos bloqueios PGCA
+- [x] Integrar botão de sugestão IA no painel lateral sem executar alterações automáticas
+- [x] Criar testes para pesquisa, filtros, exportações e sugestão IA
+- [x] Executar suite global, validar visualmente e guardar checkpoint
