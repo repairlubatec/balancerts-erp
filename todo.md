@@ -3426,3 +3426,11 @@
 - [x] Incluir resumo executivo dos bloqueios no PDF
 - [x] Criar testes do gráfico, filtros, isolamento e PDF
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Série diária e tabela executiva dos bloqueios PGCA
+- [x] Permitir seleccionar o período directamente no gráfico diário
+- [x] Exportar a série diária de bloqueios para CSV
+- [x] Incluir tabela executiva dos principais motivos no PDF
+- [x] Criar testes de período, CSV, tabela PDF e isolamento
+- [x] Executar suite global, validar visualmente e guardar checkpoint
