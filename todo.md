@@ -3622,7 +3622,7 @@
 - [x] Criar matriz IVA GAP ANALYSIS com estado, evidência de código, fonte legal, problema, acção, prioridade e teste
 - [x] Decidir e documentar a arquitectura fiscal comum reutilizando as estruturas IVA existentes
 - [x] Reforçar o versionamento, vigência, referência jurídica e estados das regras fiscais sem inventar normas
-- [ ] Integrar o resultado fiscal auditado com facturação, compras, contabilidade, tesouraria e relatórios
+- [x] Integrar o resultado fiscal auditado com facturação, compras, contabilidade, tesouraria e relatórios
 - [x] Manter Imposto Industrial, IRT, retenções e restantes impostos como não configurados até auditoria e fontes oficiais
 
 # Motor Fiscal — validação segura

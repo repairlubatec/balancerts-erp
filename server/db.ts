@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
 import { validateFixedAssetLifecycle } from "./fixed-assets";
+import { calculateFiscalResult, validateFiscalInput } from "./fiscal";
 import { and, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
@@ -6322,6 +6323,9 @@ export async function createDraftBusinessDocumentForUser(input: {
     taxRate?: number;
   }>;
   normativeRuleId?: number;
+  normativeRuleVersion?: string;
+  legalReference?: string;
+  calculationHash?: string;
 }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
@@ -6364,8 +6368,9 @@ export async function createDraftBusinessDocumentForUser(input: {
   );
   if (hasLiquidatedIva && !input.normativeRuleId)
     throw new Error("IVA_NORMATIVE_RULE_REQUIRED");
+  let activeNormativeRule: typeof ivaNormativeRules.$inferSelect | undefined;
   if (input.normativeRuleId) {
-    const activeRule = await db
+    const activeRuleRows = await db
       .select({ rule: ivaNormativeRules })
       .from(ivaNormativeRules)
       .where(
@@ -6385,8 +6390,53 @@ export async function createDraftBusinessDocumentForUser(input: {
         )
       )
       .limit(1);
-    if (!activeRule[0])
+    activeNormativeRule = activeRuleRows[0]?.rule;
+    if (!activeNormativeRule)
       throw new Error("IVA_NORMATIVE_RULE_NOT_ACTIVE_OR_FORBIDDEN");
+  }
+  if (activeNormativeRule) {
+    const fiscalRule = {
+      code: activeNormativeRule.code,
+      regime: activeNormativeRule.regime,
+      validFrom: activeNormativeRule.effectiveFrom,
+      validTo: activeNormativeRule.effectiveTo,
+      rate:
+        activeNormativeRule.rate === null
+          ? undefined
+          : Number(activeNormativeRule.rate),
+      evidence: activeNormativeRule.evidenceHash ?? "",
+      legalReference: input.legalReference,
+      version: input.normativeRuleVersion,
+      verificationStatus: activeNormativeRule.verificationStatus,
+    } as const;
+    for (const item of input.items) {
+      const findings = validateFiscalInput({
+        netAmount: item.netAmount,
+        regime: input.ivaRegime,
+        at: new Date(),
+        rule: fiscalRule,
+      });
+      const errors = findings.filter(finding => finding.severity === "ERROR");
+      if (errors.length)
+        throw new Error(
+          `FISCAL_INPUT_INVALID:${errors.map(error => error.code).join(",")}`
+        );
+      const result = calculateFiscalResult({
+        netAmount: item.netAmount,
+        regime: input.ivaRegime,
+        rule: fiscalRule,
+      });
+      if (Math.abs(result.taxAmount - item.taxAmount) > 0.01)
+        throw new Error("FISCAL_TAX_AMOUNT_MISMATCH");
+      if (Math.abs(result.totalAmount - item.totalAmount) > 0.01)
+        throw new Error("FISCAL_TOTAL_AMOUNT_MISMATCH");
+      if (
+        item.taxRate !== undefined &&
+        activeNormativeRule.rate !== null &&
+        Math.abs(item.taxRate - Number(activeNormativeRule.rate)) > 0.0001
+      )
+        throw new Error("FISCAL_TAX_RATE_MISMATCH");
+    }
   }
   if (["NC", "ND"].includes(input.documentType) && !input.correctsDocumentId)
     throw new Error("CORRECTION_ORIGIN_REQUIRED");
@@ -6488,7 +6538,27 @@ export async function createDraftBusinessDocumentForUser(input: {
         totalAmount: item.totalAmount.toFixed(2),
       });
       const itemId = Number(itemResult[0].insertId);
-      if (item.taxAmount > 0 || item.taxType)
+      if (item.taxAmount > 0 || item.taxType) {
+        const fiscalResult = activeNormativeRule
+          ? calculateFiscalResult({
+              netAmount: item.netAmount,
+              regime: input.ivaRegime,
+              rule: {
+                code: activeNormativeRule.code,
+                regime: activeNormativeRule.regime,
+                validFrom: activeNormativeRule.effectiveFrom,
+                validTo: activeNormativeRule.effectiveTo,
+                rate:
+                  activeNormativeRule.rate === null
+                    ? undefined
+                    : Number(activeNormativeRule.rate),
+                evidence: activeNormativeRule.evidenceHash ?? "",
+                legalReference: input.legalReference,
+                version: input.normativeRuleVersion,
+                verificationStatus: activeNormativeRule.verificationStatus,
+              },
+            })
+          : undefined;
         await tx.insert(documentTaxes).values({
           companyId: input.companyId,
           documentId,
@@ -6499,7 +6569,12 @@ export async function createDraftBusinessDocumentForUser(input: {
           baseAmount: item.netAmount.toFixed(2),
           taxAmount: item.taxAmount.toFixed(2),
           normativeRuleId: input.normativeRuleId,
+          normativeRuleVersion:
+            input.normativeRuleVersion ?? fiscalResult?.ruleVersion,
+          legalReference: input.legalReference ?? fiscalResult?.legalReference,
+          calculationHash: input.calculationHash,
         });
+      }
     }
     return { documentId };
   });

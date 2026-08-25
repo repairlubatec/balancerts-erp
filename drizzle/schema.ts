@@ -579,6 +579,9 @@ export const documentTaxes = mysqlTable("documentTaxes", {
   baseAmount: decimal("baseAmount", { precision: 18, scale: 2 }).notNull(),
   taxAmount: decimal("taxAmount", { precision: 18, scale: 2 }).default("0").notNull(),
   normativeRuleId: int("normativeRuleId"),
+  normativeRuleVersion: varchar("normativeRuleVersion", { length: 80 }),
+  legalReference: varchar("legalReference", { length: 512 }),
+  calculationHash: varchar("calculationHash", { length: 64 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 

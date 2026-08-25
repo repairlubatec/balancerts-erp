@@ -4026,6 +4026,9 @@ export const appRouter = router({
           dueDate: z.coerce.date().optional(),
           correctsDocumentId: z.number().int().positive().optional(),
           normativeRuleId: z.number().int().positive().optional(),
+          normativeRuleVersion: z.string().trim().min(1).max(80).optional(),
+          legalReference: z.string().trim().min(1).max(512).optional(),
+          calculationHash: z.string().regex(/^[a-f0-9]{64}$/).optional(),
           items: z
             .array(
               z.object({
