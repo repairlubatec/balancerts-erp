@@ -3593,3 +3593,8 @@
 - [x] Autorizar e preparar exportação read-only da base BALANCERTS.ERP sem mutações
 - [x] Gerar backup SQL comprimido com hash SHA-256 e manifesto de integridade
 - [x] Verificar o backup e mantê-lo separado para restauro exclusivo no TiDB isolado
+
+# Continuação pós-restauro e preparação de aceitação
+- [x] Consolidar evidência pós-restauro exacta por módulo, organização, empresa e período
+- [x] Documentar matriz de aceitação externa com critérios, evidência necessária, responsável e estado
+- [x] Rever e corrigir qualquer erro activo de runtime após o reinício limpo
