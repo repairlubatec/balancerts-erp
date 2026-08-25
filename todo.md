@@ -3609,3 +3609,6 @@
 
 # Qualidade pós-implementação documental
 - [x] Corrigir a contaminação de dados entre testes globais que deixa businessDocuments persistentes nas verificações de Repair Lubatec
+
+# Preparação das dependências externas
+- [x] Criar runbook de aceitação para AGT, Windows, bancos, Docker, confirmação normativa e utilizadores Repair Lubatec
