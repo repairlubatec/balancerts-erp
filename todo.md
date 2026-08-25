@@ -3365,3 +3365,12 @@
 - [x] Cobrir contas mistas e contas normativamente não confirmadas sem inventar regras
 - [x] Criar testes de regras, validações e não-regressão
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Regras de movimentação no Novo Lançamento e simulação
+- [x] Aplicar regra-base de débito/crédito no formulário de Novo Lançamento
+- [x] Mostrar validação imediata da natureza e contrapartida seleccionadas
+- [x] Explicar contas mistas, contas pendentes e incompatibilidades sem inventar regras
+- [x] Reforçar mensagens e estados da simulação PGCA
+- [x] Criar testes de interface, validação e não-regressão
+- [x] Executar suite global, validar visualmente e guardar checkpoint
