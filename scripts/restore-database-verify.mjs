@@ -74,21 +74,34 @@ export function runMysqlRestore({ databaseUrl, backupPath }) {
   const connection = parseMysqlUrl(databaseUrl);
   return new Promise((resolvePromise, reject) => {
     const gunzip = spawn("gzip", ["-dc", backupPath], { stdio: ["ignore", "pipe", "pipe"] });
+    const filter = spawn("sed", ["-e", "/^LOCK TABLES /d", "-e", "/^UNLOCK TABLES;/d"], { stdio: ["pipe", "pipe", "pipe"] });
     const mysql = spawn("mysql", [`--host=${connection.host}`, `--port=${connection.port}`, `--user=${connection.user}`, "--protocol=TCP", "--ssl-mode=REQUIRED", connection.database], { env: { ...process.env, MYSQL_PWD: connection.password }, stdio: ["pipe", "ignore", "pipe"] });
-    gunzip.stdout.pipe(mysql.stdin);
+    gunzip.stdout.pipe(filter.stdin);
+    filter.stdout.pipe(mysql.stdin);
     let stderr = "";
+    const handleStreamError = error => {
+      if (error?.code !== "EPIPE") stderr += `STREAM_ERROR:${error?.message ?? String(error)}`;
+    };
+    gunzip.stdout.on("error", handleStreamError);
+    filter.stdin.on("error", handleStreamError);
+    filter.stdout.on("error", handleStreamError);
+    mysql.stdin.on("error", handleStreamError);
     gunzip.stderr.on("data", chunk => { stderr += chunk.toString(); });
+    filter.stderr.on("data", chunk => { stderr += chunk.toString(); });
     mysql.stderr.on("data", chunk => { stderr += chunk.toString(); });
     let gunzipCode;
+    let filterCode;
     let mysqlCode;
     const finish = () => {
-      if (gunzipCode === undefined || mysqlCode === undefined) return;
-      if (gunzipCode !== 0 || mysqlCode !== 0) reject(new Error(`RESTORE_FAILED:${stderr.trim() || "unknown"}`));
+      if (gunzipCode === undefined || filterCode === undefined || mysqlCode === undefined) return;
+      if (gunzipCode !== 0 || filterCode !== 0 || mysqlCode !== 0) reject(new Error(`RESTORE_FAILED:${stderr.trim() || "unknown"}`));
       else resolvePromise();
     };
     gunzip.on("error", reject);
+    filter.on("error", reject);
     mysql.on("error", reject);
     gunzip.on("close", code => { gunzipCode = code; finish(); });
+    filter.on("close", code => { filterCode = code; finish(); });
     mysql.on("close", code => { mysqlCode = code; finish(); });
   });
 }

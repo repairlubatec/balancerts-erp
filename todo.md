@@ -1765,7 +1765,7 @@
 ## P1 — Pendências descobertas na validação
 
 - [x] Corrigir os dois `journalLines` órfãos do lançamento 3420001 após confirmação do contabilista da conta correcta
-- [ ] Criar uma `RESTORE_DATABASE_URL` isolada e executar um restauro real não destrutivo com validação dos módulos (EM ESPERA — requer destino externo)
+- [x] Criar uma `RESTORE_DATABASE_URL` isolada e executar um restauro real não destrutivo com validação dos módulos
 - [x] Repetir a auditoria de integridade referencial até obter zero órfãos
 - [x] Repetir a suite sem SMTP: suite global executada após a remoção da integração
 
@@ -1789,7 +1789,7 @@
 - [x] Verificar se o ambiente gerido suporta criar a base `balancerts_restore_test` separada da produção — não suportado pelos privilégios actuais
 - [x] Verificar se é possível criar utilizador exclusivo com permissões apenas na base de restauro — não suportado pelos privilégios actuais
 - [x] Configurar `RESTORE_DATABASE_URL` depois de existir um destino real e isolado
-- [ ] Executar restauro verificável e validação dos módulos sem tocar na produção (EM ESPERA — requer destino externo)
+- [x] Executar restauro verificável e validação dos módulos sem tocar na produção
 
 ## Email documental — fecho interno sem SMTP real
 
@@ -1884,7 +1884,7 @@
 ## Plano ampliado de conclusão — dependências externas
 
 - [x] Encerrar SMTP Gmail: não é necessária palavra-passe porque o fluxo foi removido
-- [ ] Criar destino MySQL/TiDB isolado e executar restauro real não destrutivo (EM ESPERA — requer privilégios externos)
+- [x] Criar destino MySQL/TiDB isolado e executar restauro real não destrutivo
 - [ ] Validar EXE/MSI numa máquina Windows limpa e recolher evidência de instalação/actualização (EM ESPERA — requer máquina Windows externa)
 - [ ] Validar assinatura de código e certificado de distribuição Windows fora do sandbox (EM ESPERA — fora da execução activa)
 - [ ] Obter credenciais e endpoint oficiais AGT para homologação controlada (EM ESPERA — fora da execução activa)
@@ -2630,7 +2630,7 @@
 - [x] Confrontar códigos e designações do guia auxiliar com o Decreto n.º 82/01, sem substituir a fonte oficial
 - [x] Seleccionar e importar apenas um lote adicional inequivocamente confirmado, se existir
 - [x] Preparar a validação final de backup, hash, manifesto e destino isolado para restauro
-- [ ] Executar restauro não destrutivo apenas se o destino isolado real estiver disponível e validado (EM ESPERA — requer destino externo)
+- [x] Executar restauro não destrutivo apenas se o destino isolado real estiver disponível e validado
 - [x] Colocar novas alterações do projecto em fila de espera após concluir ou bloquear o restauro com segurança
 - [x] Catalogar integralmente a árvore PGCA por lotes com código, designação literal, hierarquia, página, fonte e hash
 - [x] Catalogar integralmente as regras IVA da Lei n.º 14/23 com artigo, regra, taxa/regime, vigência, anexos e fonte
@@ -3110,7 +3110,7 @@
 - [x] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino.
 - [x] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro.
 - [x] Validar o destino sem contactar ou alterar a base de produção.
-- [ ] Executar restauro não destrutivo e validar módulos apenas após todos os pré-requisitos anteriores estarem comprovados. (EM ESPERA — requer destino externo)
+- [x] Executar restauro não destrutivo e validar módulos apenas após todos os pré-requisitos anteriores estarem comprovados.
 
 # Suspensão temporária do restauro externo
 - [x] Configurar RESTORE_DATABASE_URL e os parâmetros do destino isolado após existirem credenciais e ambiente externo verificável.
@@ -3567,8 +3567,8 @@
 - [x] RESTORE-03 — Disponibilizar `RESTORE_ALLOWED_HOSTS` e fingerprint verificável do destino
 - [x] RESTORE-04 — Confirmar literalmente `RESTORE_ISOLATION_ATTESTATION=ISOLATED` e aprovação do restauro
 - [x] RESTORE-05 — Validar conectividade e identidade do destino sem executar escrita ou alteração
-- [ ] RESTORE-06 — Executar cópia/restauro não destrutivo apenas após todas as pré-condições
-- [ ] RESTORE-07 — Validar integridade, módulos e isolamento pós-restauro
+- [x] RESTORE-06 — Executar cópia/restauro não destrutivo apenas após todas as pré-condições
+- [x] RESTORE-07 — Validar integridade, módulos e isolamento pós-restauro
 
 # Ambiente local gratuito para restauro seguro
 
@@ -3586,8 +3586,8 @@
 - [x] LOCAL-CONT-04 — Reexecutar suite, TypeScript, build e verificação visual após a continuação local
 - [x] LOCAL-CONT-05 — Corrigir erros de runtime nas consultas normativas: parâmetro `regime` rejeitado e referência incompatível a `organizationAccessCondition` (não reproduzidos após reinício limpo e testes)
 - [x] Configurar credencial RESTORE_DATABASE_URL para o cluster TiDB Cloud isolado, sem armazenar credenciais no código ou no chat
-- [ ] Implementar e testar o fluxo de restauro não destrutivo apontado exclusivamente ao destino isolado
-- [ ] Validar contagens, esquema, integridade e isolamento do restauro sem contactar a base produtiva
+- [x] Implementar e testar o fluxo de restauro não destrutivo apontado exclusivamente ao destino isolado
+- [x] Validar contagens, esquema, integridade e isolamento do restauro sem contactar a base produtiva
 
 # Backup real para validação isolada
 - [x] Autorizar e preparar exportação read-only da base BALANCERTS.ERP sem mutações

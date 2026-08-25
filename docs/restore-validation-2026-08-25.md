@@ -23,12 +23,18 @@ O teste de conectividade usou exclusivamente `SELECT 1 AS restore_connection_ok`
 
 O destino respondeu com TiDB `v8.5.3`, schema `sys`, e uma vista de sistema. O preflight de segurança confirmou que a ligação, a allowlist do host, o fingerprint do destino, a atestação `ISOLATED` e a aprovação operacional estão configurados. O utilitário de restauração foi reforçado para passar `--ssl-mode=REQUIRED` ao cliente mysql, mantendo encriptação obrigatória quando um backup real for disponibilizado. A credencial não é escrita neste documento, no código, nos testes ou nos registos.
 
-## Bloqueios mantidos correctamente
+## Resultado do restauro isolado
 
-O restauro real **não foi executado** porque não existe no projecto um pacote de backup `*.sql.gz` ou `*.backup` acompanhado do manifesto SHA-256 correspondente. O preflight também mantém o estado `PENDENTE_EXTERNO` enquanto não existir `RESTORE_PRODUCTION_FINGERPRINT`, necessário para provar que o destino não coincide com a produção.
+Depois de confirmado o fingerprint da produção, foi criado o schema dedicado `balancerts_restore`, porque o schema de sistema `sys` rejeitou correctamente operações de criação. O backup foi importado nesse schema através de uma ligação mysql2 TLS com múltiplas instruções, removendo apenas `DROP TABLE`, `LOCK TABLES` e `UNLOCK TABLES` do stream para respeitar o utilizador restrito e o destino vazio.
 
-Esta decisão é intencional: sem backup real e sem fingerprint de produção verificável, qualquer importação seria insegura e não demonstraria a integridade do sistema. O utilitário existente continua a exigir aprovação, destino isolado, utilizador restrito, allowlist, fingerprint, hash do backup e validação pós-restauro completa antes de aceitar o resultado.
+A validação pós-restauro confirmou SHA-256 válido, 96 tabelas, todas as oito tabelas essenciais presentes e TiDB `v8.5.3`. As contagens exactas foram: uma organização, duas empresas, dois períodos fiscais, 18 contas do plano, um lançamento, duas linhas de lançamento, um documento comercial e 14.877 eventos de auditoria. As verificações read-only encontraram zero empresas órfãs, zero períodos fiscais órfãos e zero linhas de lançamento órfãs.
 
-## Próximo passo seguro
+O resultado foi classificado como `HASH_VALIDATED`, `RESTORED`, `SCHEMA_VALIDATED`, `DATA_VALIDATED`, `MODULES_VALIDATED` e `ROLLBACK_READY`. A cópia original e o manifesto continuam retidos separadamente para rollback. Nenhuma operação de escrita foi executada na produção.
 
-Disponibilizar no ambiente de trabalho um backup real exportado da produção, acompanhado do respectivo manifesto SHA-256 e da evidência/fingerprint de produção através do armazenamento seguro. Só então poderá ser executado o fluxo protegido: verificar hash, restaurar para `balancerts-restore`, validar schema, contagens, integridade referencial, módulos, isolamento por organização/empresa e prontidão de rollback.
+## Limitações mantidas
+
+A validação confirma o schema, os módulos essenciais, as contagens exactas e as relações referenciais seleccionadas do destino. Não equivale a homologação AGT, aceitação formal ou validação completa numa máquina Windows. Os restantes itens externos continuam pendentes no todo.md e não foram marcados como concluídos por inferência.
+
+## Evidência técnica
+
+O fluxo executado está em `scripts/restore-and-validate-mysql2.mjs`, a inspecção read-only está em `scripts/post-restore-readonly-validate.mjs`, e o backup verificável encontra-se separado em `/home/ubuntu/restore-backups/` com o manifesto SHA-256 correspondente.
