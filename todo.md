@@ -3408,3 +3408,11 @@
 - [x] Exportar relatório PDF resumido dos bloqueios filtrados
 - [x] Criar testes do resumo, filtros, PDF e não-publicação
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Acesso e apresentação dos bloqueios PGCA
+- [x] Adicionar acesso rápido do painel principal à auditoria filtrada de bloqueios
+- [x] Enriquecer o PDF com período, totais e distribuição dos motivos
+- [x] Adicionar estados de carregamento, vazio e erro específicos dos bloqueios
+- [x] Criar testes de navegação, PDF e estados de interface
+- [x] Executar suite global, validar visualmente e guardar checkpoint

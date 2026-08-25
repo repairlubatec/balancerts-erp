@@ -198,6 +198,7 @@ function Overview({ activeCompanyId }: { activeCompanyId?: number }) {
     onExportAlertsPdf={downloadDashboardAlertsPdf}
     alertsExportPdfPending={exportDashboardAlertsPdf.isPending}
     onOpenAlert={() => setLocation("/auditoria")}
+    onOpenBlockedAudit={() => setLocation("/auditoria?action=PAYMENT_ACCOUNTING_BLOCKED")}
     actions={desktopActions}
     query={query}
     statusFilter={statusFilter}

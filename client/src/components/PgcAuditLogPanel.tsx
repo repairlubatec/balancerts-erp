@@ -26,7 +26,7 @@ const entityLabel: Record<string, string> = { pgcEvidenceSubmission: "Evidência
 export function PgcAuditLogPanel({ organizationId, companyId, canWriteNotes = false, canManageAlerts = false }: Props) {
   const [actorUserId, setActorUserId] = useState("");
   const [entityType, setEntityType] = useState("");
-  const [action, setAction] = useState("");
+  const [action, setAction] = useState(() => new URLSearchParams(window.location.search).get("action") ?? "");
   const blockedOnly = action === "PAYMENT_ACCOUNTING_BLOCKED";
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");

@@ -6060,6 +6060,15 @@ export const appRouter = router({
             code: "NOT_FOUND",
             message: "EVENTO_AUDITORIA_NAO_ENCONTRADO",
           });
+        const blockedItems = result.items.filter((item) => item.action === "PAYMENT_ACCOUNTING_BLOCKED");
+        const blockedReasons = blockedItems.reduce<Record<string, number>>((counts, item) => {
+          const reason = item.afterState?.match(/"reason":"([^"]+)"/)?.[1] ?? "OUTRO_BLOQUEIO";
+          counts[reason] = (counts[reason] ?? 0) + 1;
+          return counts;
+        }, {});
+        const blockedSummary = input.action === "PAYMENT_ACCOUNTING_BLOCKED"
+          ? `total de bloqueios ${blockedItems.length} · motivos ${Object.entries(blockedReasons).map(([reason, count]) => `${reason}: ${count}`).join(", ") || "sem registos"}`
+          : null;
         const pdf = await buildAuditLogsPdf({
           organizationName: "Organização BALANCERTS.ERP",
           companyName: result.items[0]?.companyName ?? null,
@@ -6078,11 +6087,12 @@ export const appRouter = router({
             input.to
               ? `até ${input.to.toLocaleDateString("pt-PT")}`
               : "sem data final",
+            ...(blockedSummary ? [blockedSummary] : []),
           ].join(" · "),
           items: result.items,
         });
         return {
-          filename: `logs-auditoria-pgc-${input.auditEventId ? `evento-${input.auditEventId}` : new Date().toISOString().slice(0, 10)}.pdf`,
+          filename: `logs-auditoria-pgc-${input.action === "PAYMENT_ACCOUNTING_BLOCKED" ? "bloqueios-" : ""}${input.auditEventId ? `evento-${input.auditEventId}` : new Date().toISOString().slice(0, 10)}.pdf`,
           mimeType: pdf.mimeType,
           dataBase64: pdf.buffer.toString("base64"),
           eventCount: result.items.length,

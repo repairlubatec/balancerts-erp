@@ -77,3 +77,11 @@ describe("filtro de alertas do dashboard principal", () => {
     expect(screen.getByText("A criar PDF…")).toBeTruthy();
   });
 });
+
+
+it("abre a auditoria filtrada de bloqueios PGCA", () => {
+  const onOpenBlockedAudit = vi.fn();
+  render(<DesktopOverviewPanel {...baseProps} alerts={[]} alertFilter="ALL" onAlertFilterChange={vi.fn()} onOpenAlert={vi.fn()} onOpenBlockedAudit={onOpenBlockedAudit} />);
+  fireEvent.click(screen.getByRole("button", { name: "Bloqueios PGCA" }));
+  expect(onOpenBlockedAudit).toHaveBeenCalledTimes(1);
+});

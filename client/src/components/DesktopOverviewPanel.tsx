@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowDownRight, ArrowUpRight, CheckCircle2, ChevronRight, Command, Download, Filter, Info, MoreHorizontal, Plus, Search } from "lucide-react";
+import { AlertTriangle, ArrowDownRight, ArrowUpRight, CheckCircle2, ChevronRight, Command, Download, Filter, Info, MoreHorizontal, Plus, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -34,6 +34,7 @@ type DesktopOverviewPanelProps = {
   onExportAlertsPdf: () => void;
   alertsExportPdfPending: boolean;
   onOpenAlert: (alertId: number) => void;
+  onOpenBlockedAudit?: () => void;
   actions: ActionRow[];
   query: string;
   onQueryChange: (query: string) => void;
@@ -73,6 +74,7 @@ export function DesktopOverviewPanel({
   onExportAlertsPdf,
   alertsExportPdfPending,
   onOpenAlert,
+  onOpenBlockedAudit,
   actions,
   query,
   onQueryChange,
@@ -104,7 +106,7 @@ export function DesktopOverviewPanel({
       <div className="flex flex-wrap items-center gap-1 border-b border-[#aeb8c4] bg-[#e6eaef] px-2 py-1.5 text-[11px]">
         <Button type="button" variant="ghost" size="sm" onClick={onOpenNewCompany} className="h-7 rounded-sm px-2 text-[11px] text-[#1d2a38] hover:bg-white"><Plus className="mr-1.5 h-3.5 w-3.5 text-[#1267d6]" /> Nova empresa</Button>
         <Button type="button" variant="ghost" size="sm" onClick={onOpenCompanies} className="h-7 rounded-sm px-2 text-[11px] text-[#1d2a38] hover:bg-white"><Search className="mr-1.5 h-3.5 w-3.5 text-[#1267d6]" /> Ver todas</Button>
-        <Button type="button" variant="ghost" size="sm" onClick={onOpenAudit} className="h-7 rounded-sm px-2 text-[11px] text-[#1d2a38] hover:bg-white"><MoreHorizontal className="mr-1.5 h-3.5 w-3.5 text-[#1267d6]" /> Actividade</Button>
+        <Button type="button" variant="ghost" size="sm" onClick={onOpenAudit} className="h-7 rounded-sm px-2 text-[11px] text-[#1d2a38] hover:bg-white"><MoreHorizontal className="mr-1.5 h-3.5 w-3.5 text-[#1267d6]" /> Actividade</Button>{onOpenBlockedAudit && <Button type="button" variant="ghost" size="sm" onClick={onOpenBlockedAudit} className="h-7 rounded-sm px-2 text-[11px] text-[#1d2a38] hover:bg-white"><AlertTriangle className="mr-1.5 h-3.5 w-3.5 text-[#b97818]" /> Bloqueios PGCA</Button>}
         <span className="mx-1 h-5 border-l border-[#bdc6d0]" />
         {actions.slice(0, 4).map(({ path, label, icon: Icon }) => <Button key={path} type="button" variant="ghost" size="sm" onClick={() => onOpenAction(path)} className="hidden h-7 rounded-sm px-2 text-[11px] text-[#536273] hover:bg-white lg:inline-flex"><Icon className="mr-1.5 h-3.5 w-3.5" />{label}</Button>)}
         <div className="ml-auto flex items-center gap-1.5"><Command className="h-3.5 w-3.5 text-[#6e7c8b]" /><span className="text-[10px] text-[#6e7c8b]">Ctrl/Cmd+K</span><Button type="button" variant="ghost" size="sm" onClick={() => setAboutOpen(true)} className="h-7 rounded-sm px-2 text-[11px] text-[#536273] hover:bg-white"><Info className="mr-1 h-3.5 w-3.5 text-[#1267d6]" /> Sobre</Button></div>
