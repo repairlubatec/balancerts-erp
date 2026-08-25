@@ -3466,3 +3466,11 @@
 - [x] Incluir data, hora e utilizador emissor no PDF
 - [x] Criar testes do resumo textual, cópia e identificação do emissor
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Exportação e identificação da síntese PGCA
+- [x] Exportar a síntese textual para TXT e CSV
+- [x] Mostrar feedback visual de sucesso ou erro na cópia e exportação
+- [x] Incluir identificador único de emissão no PDF
+- [x] Criar testes de exportação, feedback e identificador documental
+- [x] Executar suite global, validar visualmente e guardar checkpoint

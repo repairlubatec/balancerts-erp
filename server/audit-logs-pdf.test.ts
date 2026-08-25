@@ -9,3 +9,10 @@ describe("relatório PDF dos logs de auditoria", () => {
     expect(result.buffer.length).toBeGreaterThan(900);
   });
 });
+
+  it("gera identificador documental distinto em cada emissão", async () => {
+    const input = { organizationName: "Repair Lubatec", filters: "bloqueios PGCA", items: [] };
+    const first = await buildAuditLogsPdf(input);
+    const second = await buildAuditLogsPdf(input);
+    expect(first.buffer.equals(second.buffer)).toBe(false);
+  });
