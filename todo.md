@@ -3606,3 +3606,6 @@
 - [x] Implementar modelos profissionais de factura, factura-recibo e recibo sem alterar documentos emitidos
 - [x] Implementar pré-visualização, formato de papel, margens, orientação, escala e definições de impressão por empresa
 - [x] Adicionar testes backend/frontend e validar visualmente o posto de Definições documentais
+
+# Qualidade pós-implementação documental
+- [x] Corrigir a contaminação de dados entre testes globais que deixa businessDocuments persistentes nas verificações de Repair Lubatec

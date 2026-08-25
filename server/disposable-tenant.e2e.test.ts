@@ -18,6 +18,7 @@ describe("disposable tenant persisted E2E cycle", () => {
   it("reserves, emits, posts, reconciles, closes and reopens without touching Repair Lubatec", async () => {
     const db = await getDb();
     expect(db).toBeTruthy();
+    const repairDocumentsBefore = await db!.select({ id: businessDocuments.id }).from(businessDocuments).where(and(eq(businessDocuments.companyId, 1), isNull(businessDocuments.archivedAt)));
     await db!.update(fiscalPeriods).set({ status: "OPEN", closedAt: null }).where(and(eq(fiscalPeriods.companyId, TEST_COMPANY_ID), eq(fiscalPeriods.year, 2026), eq(fiscalPeriods.month, 1)));
     const periodRows = await db!.select({ id: fiscalPeriods.id }).from(fiscalPeriods).where(and(eq(fiscalPeriods.companyId, TEST_COMPANY_ID), eq(fiscalPeriods.year, 2026), eq(fiscalPeriods.month, 1)));
     const periodId = periodRows[0]?.id;
@@ -167,8 +168,8 @@ describe("disposable tenant persisted E2E cycle", () => {
       await db!.delete(journalLines).where(eq(journalLines.entryId, orphanEntryId));
       await db!.delete(journalEntries).where(eq(journalEntries.id, orphanEntryId));
       orphanEntryId = undefined;
-      const repairDocuments = await db!.select({ id: businessDocuments.id }).from(businessDocuments).where(and(eq(businessDocuments.companyId, 1), isNull(businessDocuments.archivedAt)));
-      expect(repairDocuments).toEqual([]);
+      const repairDocumentsAfter = await db!.select({ id: businessDocuments.id }).from(businessDocuments).where(and(eq(businessDocuments.companyId, 1), isNull(businessDocuments.archivedAt)));
+      expect(repairDocumentsAfter).toEqual(repairDocumentsBefore);
 
       const recoveryKey = `${correlation}:recovery`;
       await expect(postJournalEntry({ companyId: TEST_COMPANY_ID, periodId: periodId!, sourceDocumentId: 999999, idempotencyKey: recoveryKey, description: "Falha transitória recuperável", createdBy: TEST_USER_ID, lines: [{ accountId: debitAccount!.id, debit: 7, credit: 0, postable: true, validFrom: new Date("2026-01-01") }, { accountId: creditAccount!.id, debit: 0, credit: 7, postable: true, validFrom: new Date("2026-01-01") }] })).rejects.toThrow("SOURCE_DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
