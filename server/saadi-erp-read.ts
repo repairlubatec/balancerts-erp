@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { and, desc, eq, sql } from "drizzle-orm";
-import { businessDocuments, employees, fiscalTaxRecords, payments, pgcAccounts, pgcSources, pgcVersions, purchaseOrders, stockMovements, treasuryTransactions } from "../drizzle/schema";
+import { businessDocuments, companies, employees, fiscalPeriods, fiscalTaxRecords, organizations, payments, pgcAccounts, pgcSources, pgcVersions, purchaseOrders, stockMovements, treasuryTransactions } from "../drizzle/schema";
 import { getBalanceSheetForUserCompany, getCompaniesForUser, getDb, getIncomeStatementForUserCompany, getTrialBalanceForUserCompany } from "./db";
 
 export type SaadiDataClass = "ACTUAL_REALIZED";
@@ -42,16 +42,33 @@ export async function readSaadiOperationalSummary(userId: number, companyId: num
   const { context, organizationId } = await contextFor(userId, companyId);
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
+  const periodRows = periodId === undefined ? [] : await db
+    .select({ period: fiscalPeriods })
+    .from(fiscalPeriods)
+    .innerJoin(companies, eq(fiscalPeriods.companyId, companies.id))
+    .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+    .where(and(eq(fiscalPeriods.id, periodId), eq(fiscalPeriods.companyId, companyId), eq(companies.organizationId, organizationId)))
+    .limit(1);
+  const period = periodRows[0]?.period;
+  if (periodId !== undefined && !period) throw new Error("SAADI_PERIOD_NOT_FOUND_OR_FORBIDDEN");
+  const periodStart = period ? new Date(Date.UTC(period.year, period.month - 1, 1)) : null;
+  const periodEnd = period ? new Date(Date.UTC(period.year, period.month, 0, 23, 59, 59, 999)) : null;
+  const documentScope = periodStart && periodEnd
+    ? sql`COALESCE(${businessDocuments.issuedAt}, ${businessDocuments.createdAt}) >= ${periodStart} AND COALESCE(${businessDocuments.issuedAt}, ${businessDocuments.createdAt}) <= ${periodEnd}`
+    : sql`1 = 1`;
+  const purchaseScope = periodStart && periodEnd
+    ? sql`${purchaseOrders.requestedDate} >= ${periodStart} AND ${purchaseOrders.requestedDate} <= ${periodEnd}`
+    : sql`1 = 1`;
   const [documents, purchases, paymentsSummary, treasury, stock, humanResources, taxes] = await Promise.all([
-    db.select({ total: sql<number>`count(*)`, gross: sql<string>`coalesce(sum(totalAmount), 0)` }).from(businessDocuments).where(eq(businessDocuments.companyId, companyId)),
-    db.select({ total: sql<number>`count(*)` }).from(purchaseOrders).where(and(eq(purchaseOrders.organizationId, organizationId), eq(purchaseOrders.companyId, companyId))),
-    db.select({ total: sql<number>`count(*)`, amount: sql<string>`coalesce(sum(amount), 0)` }).from(payments).where(and(eq(payments.organizationId, organizationId), eq(payments.companyId, companyId))),
-    db.select({ total: sql<number>`count(*)`, amountIn: sql<string>`coalesce(sum(case when direction = 'IN' then amount else 0 end), 0)`, amountOut: sql<string>`coalesce(sum(case when direction = 'OUT' then amount else 0 end), 0)` }).from(treasuryTransactions).where(eq(treasuryTransactions.companyId, companyId)),
-    db.select({ total: sql<number>`count(*)`, quantity: sql<string>`coalesce(sum(quantity), 0)` }).from(stockMovements).where(and(eq(stockMovements.organizationId, organizationId), eq(stockMovements.companyId, companyId))),
+    db.select({ total: sql<number>`count(*)`, gross: sql<string>`coalesce(sum(${businessDocuments.totalAmount}), 0)` }).from(businessDocuments).innerJoin(companies, eq(businessDocuments.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(businessDocuments.companyId, companyId), eq(companies.organizationId, organizationId), documentScope)),
+    db.select({ total: sql<number>`count(*)` }).from(purchaseOrders).where(and(eq(purchaseOrders.organizationId, organizationId), eq(purchaseOrders.companyId, companyId), purchaseScope)),
+    db.select({ total: sql<number>`count(*)`, amount: sql<string>`coalesce(sum(${payments.amount}), 0)` }).from(payments).where(and(eq(payments.organizationId, organizationId), eq(payments.companyId, companyId), periodId === undefined ? sql`1 = 1` : eq(payments.periodId, periodId))),
+    db.select({ total: sql<number>`count(*)`, amountIn: sql<string>`coalesce(sum(case when ${treasuryTransactions.direction} = 'IN' then ${treasuryTransactions.amount} else 0 end), 0)`, amountOut: sql<string>`coalesce(sum(case when ${treasuryTransactions.direction} = 'OUT' then ${treasuryTransactions.amount} else 0 end), 0)` }).from(treasuryTransactions).innerJoin(companies, eq(treasuryTransactions.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(treasuryTransactions.companyId, companyId), eq(companies.organizationId, organizationId), periodId === undefined ? sql`1 = 1` : eq(treasuryTransactions.periodId, periodId))),
+    db.select({ total: sql<number>`count(*)`, quantity: sql<string>`coalesce(sum(${stockMovements.quantity}), 0)` }).from(stockMovements).where(and(eq(stockMovements.organizationId, organizationId), eq(stockMovements.companyId, companyId), periodId === undefined ? sql`1 = 1` : eq(stockMovements.periodId, periodId))),
     db.select({ total: sql<number>`count(*)` }).from(employees).where(and(eq(employees.organizationId, organizationId), eq(employees.companyId, companyId))),
-    db.select({ total: sql<number>`count(*)`, amount: sql<string>`coalesce(sum(taxAmount), 0)` }).from(fiscalTaxRecords).where(and(eq(fiscalTaxRecords.organizationId, organizationId), eq(fiscalTaxRecords.companyId, companyId))),
+    db.select({ total: sql<number>`count(*)`, amount: sql<string>`coalesce(sum(${fiscalTaxRecords.taxAmount}), 0)` }).from(fiscalTaxRecords).where(and(eq(fiscalTaxRecords.organizationId, organizationId), eq(fiscalTaxRecords.companyId, companyId), periodId === undefined ? sql`1 = 1` : eq(fiscalTaxRecords.periodId, periodId))),
   ]);
-  return envelope({ organizationId, companyId, asOf: context.asOf, sourceSystem: "BALANCERTS.ERP", sourceService: "operational-domains.read", sourceVersion: "erp-read-v1", dataClass: "ACTUAL_REALIZED", authority: "ERP", data: { periodId: periodId ?? null, commercial: documents[0] ?? { total: 0, gross: "0" }, purchases: purchases[0] ?? { total: 0 }, treasury: treasury[0] ?? { total: 0, amountIn: "0", amountOut: "0" }, payments: paymentsSummary[0] ?? { total: 0, amount: "0" }, stock: stock[0] ?? { total: 0, quantity: "0" }, humanResources: humanResources[0] ?? { total: 0 }, fiscality: taxes[0] ?? { total: 0, amount: "0" } } });
+  return envelope({ organizationId, companyId, asOf: context.asOf, sourceSystem: "BALANCERTS.ERP", sourceService: "operational-domains.read", sourceVersion: "erp-read-v1", dataClass: "ACTUAL_REALIZED", authority: "ERP", data: { periodId: periodId ?? null, periodScope: periodId === undefined ? "ALL_PERIODS" : { start: periodStart, end: periodEnd }, commercial: documents[0] ?? { total: 0, gross: "0" }, purchases: purchases[0] ?? { total: 0 }, treasury: treasury[0] ?? { total: 0, amountIn: "0", amountOut: "0" }, payments: paymentsSummary[0] ?? { total: 0, amount: "0" }, stock: stock[0] ?? { total: 0, quantity: "0" }, humanResources: { ...(humanResources[0] ?? { total: 0 }), scope: "MASTER_DATA_NOT_PERIODIZED" }, fiscality: taxes[0] ?? { total: 0, amount: "0" } } });
 }
 
 export async function readSaadiPgcNormativeContext(userId: number, companyId: number) {

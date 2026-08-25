@@ -38,7 +38,7 @@ export function FiscalDataToolsPanel({ companyId, organizationId, selectedDocume
     organizationId: organizationId ?? 0,
     companyId: companyId ?? 0,
     kind,
-    rows,
+    limit: 1000,
   };
   const exportEnabled = Boolean(companyId && organizationId);
   const csv = exportsApi.csv.useQuery(exportContext, { enabled: false });

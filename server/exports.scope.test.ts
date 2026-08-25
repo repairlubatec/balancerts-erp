@@ -26,16 +26,19 @@ describe("exportações fiscais com escopo P2", () => {
     vi.spyOn(db, "getCompaniesForUser").mockResolvedValue([
       { company: { id: 12, organizationId: 7 } },
     ] as never);
+    vi.spyOn(db, "getFiscalExportRowsForUser").mockResolvedValue([
+      { documentNumber: "FT 1", totalAmount: "100.00" },
+    ] as never);
 
     const result = await appRouter.createCaller(auditorContext).exports.csv({
       organizationId: 7,
       companyId: 12,
       kind: "documents",
-      rows: [{ numero: "FT 1", total: 100 }],
+      limit: 100,
     });
 
     expect(result.filename).toBe("documents.csv");
-    expect(result.data).toContain("numero");
+    expect(result.data).toContain("documentNumber");
     expect(db.getCompaniesForUser).toHaveBeenCalledWith(63);
   });
 
@@ -47,7 +50,7 @@ describe("exportações fiscais com escopo P2", () => {
         organizationId: 7,
         companyId: 999,
         kind: "documents",
-        rows: [{ numero: "não deve ser exportado" }],
+        limit: 100,
       })
     ).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
@@ -56,15 +59,32 @@ describe("exportações fiscais com escopo P2", () => {
     vi.spyOn(db, "getCompaniesForUser").mockResolvedValue([
       { company: { id: 12, organizationId: 7 } },
     ] as never);
+    vi.spyOn(db, "getFiscalExportRowsForUser").mockResolvedValue([
+      { name: "Cliente" },
+    ] as never);
 
     const result = await appRouter.createCaller(auditorContext).exports.xlsx({
       organizationId: 7,
       companyId: 12,
       kind: "counterparties",
-      rows: [{ nome: "Cliente" }],
+      limit: 100,
     });
 
     expect(result.filename).toBe("counterparties.xlsx");
     expect(result.dataBase64.length).toBeGreaterThan(20);
+  });
+
+  it("rejeita linhas arbitrárias no contrato de exportação", async () => {
+    vi.spyOn(db, "getCompaniesForUser").mockResolvedValue([
+      { company: { id: 12, organizationId: 7 } },
+    ] as never);
+    await expect(
+      appRouter.createCaller(auditorContext).exports.csv({
+        organizationId: 7,
+        companyId: 12,
+        kind: "documents",
+        rows: [{ numero: "não deve ser exportado" }],
+      } as never)
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
   });
 });

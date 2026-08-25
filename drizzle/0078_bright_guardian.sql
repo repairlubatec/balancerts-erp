@@ -1,0 +1,1 @@
+ALTER TABLE `fixedAssets` ADD `accumulatedDepreciation` decimal(18,2) DEFAULT '0' NOT NULL;

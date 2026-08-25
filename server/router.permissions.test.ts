@@ -199,6 +199,7 @@ describe("protected accounting procedures", () => {
 
   it("audits fixed-asset depreciation posting with explicit before and after states", async () => {
     const scope = vi.spyOn(db, "assertAuditScopeForUser").mockResolvedValue(true);
+    vi.spyOn(db, "getFixedAssetDepreciationContextForUser").mockResolvedValue({ assetFound: true, assetIsActive: true, assetIsInService: true, periodIsOpen: true, expenseAccountFound: true, accumulatedAccountFound: true, accountsAreDistinct: true, amountWithinRemaining: true, idempotentEntryId: null });
     const post = vi.spyOn(db, "postJournalEntry").mockResolvedValue({ entryId: 77, idempotent: false });
     const append = vi.spyOn(db, "appendAuditEventForUser").mockResolvedValue({} as never);
     const caller = appRouter.createCaller(contextWithRole("contabilista"));

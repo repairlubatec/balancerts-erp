@@ -527,6 +527,7 @@ export const fixedAssets = mysqlTable("fixedAssets", {
   acquisitionDate: timestamp("acquisitionDate").notNull(),
   inServiceDate: timestamp("inServiceDate"),
   acquisitionCost: decimal("acquisitionCost", { precision: 18, scale: 2 }).notNull(),
+  accumulatedDepreciation: decimal("accumulatedDepreciation", { precision: 18, scale: 2 }).default("0").notNull(),
   residualValue: decimal("residualValue", { precision: 18, scale: 2 }).default("0").notNull(),
   usefulLifeMonths: int("usefulLifeMonths").notNull(),
   status: mysqlEnum("status", ["ACTIVE", "DISPOSED"]).default("ACTIVE").notNull(),

@@ -1,7 +1,7 @@
 import { and, eq, isNull, like } from "drizzle-orm";
 import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
-import { auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, stockMovements } from "../drizzle/schema";
+import { auditEvents, businessDocuments, chartAccounts, companies, documentSeries, fileAssets, fixedAssets, fiscalExercises, fiscalPeriods, journalEntries, journalLines, products, stockMovements } from "../drizzle/schema";
 import { createFileAsset, getDb, getReportsReconciliationForUserCompany, getDocumentAccountingChainForUserCompany, getAuditEventsForUserCompany, postJournalEntry, recordStockMovement, reserveDocumentNumber, transitionBusinessDocument } from "./db";
 
 const TEST_USER_ID = 1;
@@ -33,6 +33,8 @@ describe("disposable tenant persisted E2E cycle", () => {
     let orphanEntryId: number | undefined;
     let recoveryEntryId: number | undefined;
     let movementId: number | undefined;
+    let productId: number | undefined;
+    let assetId: number | undefined;
     let fileId: number | undefined;
     let depreciationEntryId: number | undefined;
     let reversalEntryId: number | undefined;
@@ -64,6 +66,8 @@ describe("disposable tenant persisted E2E cycle", () => {
         expect(() => JSON.parse(event.afterState!)).not.toThrow();
       }
 
+      const productInsert = await db!.insert(products).values({ companyId: TEST_COMPANY_ID, code: "E2E-DISPOSABLE", name: "Artigo E2E descartável", kind: "GOOD", unitCode: "UN", stockManaged: 1, active: 1 });
+      productId = Number(productInsert[0].insertId);
       const reservation = await reserveDocumentNumber({ userId: TEST_USER_ID, companyId: TEST_COMPANY_ID, series: "FT-TEST", documentType: "FT" });
       expect(reservation.formatted).toMatch(/^FT-TEST\/\d{6}$/);
 
@@ -146,7 +150,9 @@ describe("disposable tenant persisted E2E cycle", () => {
       expect(chainBeforeReversal?.entries[0]?.entryId).toBe(entryId);
       const file = await createFileAsset({ userId: TEST_USER_ID, organizationId: TEST_ORGANIZATION_ID, companyId: TEST_COMPANY_ID, storageKey: `${correlation}:file`, filename: "e2e.txt", mimeType: "text/plain", size: 3, sha256: "a".repeat(64) });
       fileId = Number(file.id);
-      const depreciation = await caller.fixedAssets.postDepreciation({ organizationId: TEST_ORGANIZATION_ID, companyId: TEST_COMPANY_ID, periodId: periodId!, assetId: 9001, amount: 10, expenseAccountId: debitAccount!.id, accumulatedDepreciationAccountId: creditAccount!.id, correlationId: `${correlation}:depreciation` });
+      const assetInsert = await db!.insert(fixedAssets).values({ organizationId: TEST_ORGANIZATION_ID, companyId: TEST_COMPANY_ID, code: `${correlation}:asset`, name: "Activo E2E descartável", acquisitionDate: new Date("2026-01-01T00:00:00.000Z"), inServiceDate: new Date("2026-01-01T00:00:00.000Z"), acquisitionCost: "1000.00", accumulatedDepreciation: "0.00", residualValue: "0.00", usefulLifeMonths: 60, status: "ACTIVE", createdBy: TEST_USER_ID });
+      assetId = Number(assetInsert[0].insertId);
+      const depreciation = await caller.fixedAssets.postDepreciation({ organizationId: TEST_ORGANIZATION_ID, companyId: TEST_COMPANY_ID, periodId: periodId!, assetId, amount: 10, expenseAccountId: debitAccount!.id, accumulatedDepreciationAccountId: creditAccount!.id, correlationId: `${correlation}:depreciation` });
       depreciationEntryId = Number(depreciation.entry.entryId);
       const reversal = await caller.reversal.post({ companyId: TEST_COMPANY_ID, periodId: periodId!, originalEntryId: entryId!, reason: "Correcção E2E auditável", idempotencyKey: `${correlation}:reversal`, lines: [{ accountId: debitAccount!.id, debit: 100, credit: 0, currency: "AOA", exchangeRate: 1, postable: true, validFrom: new Date("2026-01-01") }, { accountId: creditAccount!.id, debit: 0, credit: 100, currency: "AOA", exchangeRate: 1, postable: true, validFrom: new Date("2026-01-01") }] });
       reversalEntryId = Number(reversal.entryId);
@@ -187,7 +193,7 @@ describe("disposable tenant persisted E2E cycle", () => {
         ["STOCK_MOVEMENT_RECORDED", "stockMovement", String(movementId)],
         ["PERIOD_REOPEN", "FISCAL_PERIOD", String(periodId)],
         ["FILE_ASSET_REGISTERED", "fileAsset", String(fileId)],
-        ["FIXED_ASSET_DEPRECIATION_POST", "FIXED_ASSET", "9001"],
+        ["FIXED_ASSET_DEPRECIATION_POST", "FIXED_ASSET", String(assetId)],
         ["JOURNAL_ENTRY_REVERSED", "journalEntry", String(reversalEntryId)],
       ] as const;
       for (const [action, entityType, entityId] of requiredAudit) {
@@ -222,6 +228,8 @@ describe("disposable tenant persisted E2E cycle", () => {
       if (entryId) await db!.update(journalEntries).set({ status: "POSTED" }).where(eq(journalEntries.id, entryId));
       if (fileId) await db!.delete(fileAssets).where(eq(fileAssets.id, fileId));
       if (movementId) await db!.delete(stockMovements).where(eq(stockMovements.id, movementId));
+      if (assetId) await db!.delete(fixedAssets).where(eq(fixedAssets.id, assetId));
+      if (productId) await db!.delete(products).where(eq(products.id, productId));
       if (orphanEntryId) {
         await db!.delete(journalLines).where(eq(journalLines.entryId, orphanEntryId));
         await db!.delete(journalEntries).where(eq(journalEntries.id, orphanEntryId));

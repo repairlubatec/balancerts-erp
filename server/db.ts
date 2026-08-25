@@ -96,6 +96,7 @@ import {
   normalizeWarehouseCode,
   validateStockCountLine,
   validateStockMovement,
+  validateStockReferenceScope,
 } from "./operations";
 import { applyReconciliationAdjustment } from "./reconciliation";
 import { assertDocumentMutable, formatDocumentNumber } from "./documents";
@@ -108,6 +109,7 @@ import {
   assertSecondApprover,
   calculatePayrollAmounts,
   parseIrtBrackets,
+  requirePgcPayrollMappings,
 } from "./payroll";
 import { ENV } from "./_core/env";
 import {
@@ -3626,39 +3628,39 @@ export async function postPayrollJournalForUser(input: {
       pgcOperationalByCode.set(normative.code, resolved.operationalAccountId);
     }
   }
-  const operationalId = (code: string, fallback: number) =>
-    pgcOperationalByCode.get(code) ?? fallback;
+  requirePgcPayrollMappings({ hasActiveVersion: Boolean(activePgc[0]), configuredCodes, mappings: pgcOperationalByCode });
+  const operationalId = (code: string) => pgcOperationalByCode.get(code)!;
   const lines = [
     {
-      accountId: operationalId(configuredCodes[0]!, salaryAccount!.id),
+      accountId: operationalId(configuredCodes[0]!),
       debit: Number(run.grossTotal),
       credit: 0,
       postable: true,
       validFrom: new Date(),
     },
     {
-      accountId: operationalId(configuredCodes[1]!, socialExpenseAccount!.id),
+      accountId: operationalId(configuredCodes[1]!),
       debit: Number(run.socialEmployerTotal),
       credit: 0,
       postable: true,
       validFrom: new Date(),
     },
     {
-      accountId: operationalId(configuredCodes[2]!, socialPayableAccount!.id),
+      accountId: operationalId(configuredCodes[2]!),
       debit: 0,
       credit: Number(run.socialEmployeeTotal) + Number(run.socialEmployerTotal),
       postable: true,
       validFrom: new Date(),
     },
     {
-      accountId: operationalId(configuredCodes[3]!, irtPayableAccount!.id),
+      accountId: operationalId(configuredCodes[3]!),
       debit: 0,
       credit: Number(run.irtTotal),
       postable: true,
       validFrom: new Date(),
     },
     {
-      accountId: operationalId(configuredCodes[4]!, netPayableAccount!.id),
+      accountId: operationalId(configuredCodes[4]!),
       debit: 0,
       credit: Number(run.netTotal),
       postable: true,
@@ -4212,7 +4214,7 @@ export async function getFiscalPeriodCloseReadinessForUser(input: {
     { code: "POSTINGS_RECONCILED", label: "Lançamentos reconciliados com o razão", passed: pendingEntries.length === 0, blocking: true },
     { code: "TAX_REGISTER_REVIEWED", label: "Registo fiscal revisto", passed: pendingTaxes.length === 0, blocking: true },
     { code: "BANK_RECONCILED", label: "Caixa e bancos reconciliados", passed: unreconciledTreasury.length === 0, blocking: false },
-    { code: "AUDIT_COMPLETE", label: "Pendências de auditoria revistas", passed: openAudit.length === 0, blocking: false },
+    { code: "AUDIT_COMPLETE", label: "Pendências de auditoria revistas", passed: openAudit.length === 0, blocking: true },
   ];
   return { periodId: input.periodId, companyId: input.companyId, status: current.period.status, ...evaluatePeriodClose(checks), checks };
 }
@@ -4226,65 +4228,91 @@ export async function closeFiscalPeriodForUser(input: {
 }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  const rows = await db
-    .select({
-      period: fiscalPeriods,
-      company: companies,
-      organization: organizations,
-    })
-    .from(fiscalPeriods)
-    .innerJoin(companies, eq(fiscalPeriods.companyId, companies.id))
-    .innerJoin(organizations, eq(companies.organizationId, organizations.id))
-    .where(
-      and(
+  const transition = await db.transaction(async tx => {
+    const rows = await tx
+      .select({
+        period: fiscalPeriods,
+        company: companies,
+        organization: organizations,
+      })
+      .from(fiscalPeriods)
+      .innerJoin(companies, eq(fiscalPeriods.companyId, companies.id))
+      .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+      .where(
+        and(
+          eq(fiscalPeriods.id, input.periodId),
+          eq(fiscalPeriods.companyId, input.companyId),
+          eq(companies.organizationId, input.organizationId),
+          organizationAccessCondition(input.userId)
+        )
+      )
+      .limit(1);
+    const current = rows[0];
+    if (!current) throw new Error("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
+    if (current.period.status === "CLOSED")
+      throw new Error("FISCAL_PERIOD_ALREADY_CLOSED");
+
+    const [pendingDocuments, pendingTaxes, pendingEntries, unreconciledTreasury, openAudit] = await Promise.all([
+      tx.select({ id: businessDocuments.id })
+        .from(businessDocuments)
+        .innerJoin(fiscalTaxRecords, eq(fiscalTaxRecords.businessDocumentId, businessDocuments.id))
+        .where(and(
+          eq(businessDocuments.companyId, input.companyId),
+          eq(fiscalTaxRecords.periodId, input.periodId),
+          inArray(businessDocuments.status, ["DRAFT", "VALIDATED"]),
+        )).limit(1),
+      tx.select({ id: fiscalTaxRecords.id })
+        .from(fiscalTaxRecords)
+        .where(and(
+          eq(fiscalTaxRecords.companyId, input.companyId),
+          eq(fiscalTaxRecords.periodId, input.periodId),
+          inArray(fiscalTaxRecords.status, ["DRAFT", "CALCULATED"]),
+        )).limit(1),
+      tx.select({ id: journalEntries.id })
+        .from(journalEntries)
+        .where(and(
+          eq(journalEntries.companyId, input.companyId),
+          eq(journalEntries.periodId, input.periodId),
+          eq(journalEntries.reviewStatus, "PENDING"),
+        )).limit(1),
+      tx.select({ id: treasuryTransactions.id })
+        .from(treasuryTransactions)
+        .where(and(
+          eq(treasuryTransactions.companyId, input.companyId),
+          eq(treasuryTransactions.periodId, input.periodId),
+          eq(treasuryTransactions.reconciliationStatus, "UNRECONCILED"),
+        )).limit(1),
+      tx.select({ id: auditEventReviewStates.id })
+        .from(auditEventReviewStates)
+        .where(and(
+          eq(auditEventReviewStates.companyId, input.companyId),
+          eq(auditEventReviewStates.status, "OPEN"),
+        )).limit(1),
+    ]);
+    const checks = [
+      { code: "DOCUMENTS_VALIDATED", label: "Documentos do período validados", passed: pendingDocuments.length === 0, blocking: true },
+      { code: "POSTINGS_RECONCILED", label: "Lançamentos reconciliados com o razão", passed: pendingEntries.length === 0, blocking: true },
+      { code: "TAX_REGISTER_REVIEWED", label: "Registo fiscal revisto", passed: pendingTaxes.length === 0, blocking: true },
+      { code: "BANK_RECONCILED", label: "Caixa e bancos reconciliados", passed: unreconciledTreasury.length === 0, blocking: true },
+      { code: "AUDIT_COMPLETE", label: "Pendências de auditoria revistas", passed: openAudit.length === 0, blocking: true },
+    ] satisfies Array<{ code: string; label: string; passed: boolean; blocking: boolean }>;
+    const readiness = evaluatePeriodClose(checks);
+    if (!readiness.canClose)
+      throw new Error(`PERIOD_CLOSE_BLOCKED:${readiness.blockers.map(({ code }) => code).join(",")}`);
+
+    const updated = await tx
+      .update(fiscalPeriods)
+      .set({ status: "CLOSED", closedAt: new Date() })
+      .where(and(
         eq(fiscalPeriods.id, input.periodId),
         eq(fiscalPeriods.companyId, input.companyId),
-        eq(companies.organizationId, input.organizationId),
-        organizationAccessCondition(input.userId)
-      )
-    )
-    .limit(1);
-  const current = rows[0];
-  if (!current) throw new Error("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
-  if (current.period.status === "CLOSED")
-    throw new Error("FISCAL_PERIOD_ALREADY_CLOSED");
-  const readiness = await getFiscalPeriodCloseReadinessForUser(input);
-  if (!readiness.canClose)
-    throw new Error(`PERIOD_CLOSE_BLOCKED:${readiness.blockers.map(({ code }) => code).join(",")}`);
-  const pendingEntries = await db
-    .select({ id: journalEntries.id })
-    .from(journalEntries)
-    .where(
-      and(
-        eq(journalEntries.companyId, input.companyId),
-        eq(journalEntries.periodId, input.periodId),
-        eq(journalEntries.reviewStatus, "PENDING")
-      )
-    )
-    .limit(1);
-  if (pendingEntries[0]) throw new Error("PERIOD_HAS_PENDING_JOURNAL_REVIEWS");
-  const unreconciled = await db
-    .select({ id: treasuryTransactions.id })
-    .from(treasuryTransactions)
-    .where(
-      and(
-        eq(treasuryTransactions.companyId, input.companyId),
-        eq(treasuryTransactions.periodId, input.periodId),
-        eq(treasuryTransactions.reconciliationStatus, "UNRECONCILED")
-      )
-    )
-    .limit(1);
-  if (unreconciled[0])
-    throw new Error("PERIOD_HAS_UNRECONCILED_TREASURY_TRANSACTIONS");
-  await db
-    .update(fiscalPeriods)
-    .set({ status: "CLOSED", closedAt: new Date() })
-    .where(
-      and(
-        eq(fiscalPeriods.id, input.periodId),
-        eq(fiscalPeriods.companyId, input.companyId)
-      )
-    );
+        eq(fiscalPeriods.status, current.period.status),
+      ));
+    if (Number(updated[0]?.affectedRows ?? 0) !== 1)
+      throw new Error("FISCAL_PERIOD_CLOSE_CONCURRENT_CONFLICT");
+    return { from: current.period.status };
+  });
+
   await appendAuditEventForUser({
     organizationId: input.organizationId,
     companyId: input.companyId,
@@ -4292,13 +4320,13 @@ export async function closeFiscalPeriodForUser(input: {
     action: "FISCAL_PERIOD_CLOSED",
     entityType: "fiscalPeriod",
     entityId: String(input.periodId),
-    beforeState: JSON.stringify({ status: current.period.status }),
+    beforeState: JSON.stringify({ status: transition.from }),
     afterState: JSON.stringify({ status: "CLOSED" }),
     correlationId: input.correlationId,
   });
   return {
     periodId: input.periodId,
-    from: current.period.status,
+    from: transition.from,
     to: "CLOSED" as const,
     audited: true,
   };
@@ -4419,10 +4447,30 @@ export async function getFiscalRegisterForUserCompany(
 
 export async function getDocumentsForUserCompany(
   userId: number,
-  companyId: number
+  companyId: number,
+  periodId?: number
 ) {
   const db = await getDb();
   if (!db) return [];
+  let periodFilter = sql`1 = 1`;
+  if (periodId !== undefined) {
+    const periodRows = await db
+      .select({ period: fiscalPeriods })
+      .from(fiscalPeriods)
+      .innerJoin(companies, eq(fiscalPeriods.companyId, companies.id))
+      .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+      .where(and(
+        eq(fiscalPeriods.id, periodId),
+        eq(fiscalPeriods.companyId, companyId),
+        organizationAccessCondition(userId),
+      ))
+      .limit(1);
+    const period = periodRows[0]?.period;
+    if (!period) throw new Error("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
+    const periodStart = new Date(Date.UTC(period.year, period.month - 1, 1));
+    const periodEnd = new Date(Date.UTC(period.year, period.month, 0, 23, 59, 59, 999));
+    periodFilter = sql`COALESCE(${businessDocuments.issuedAt}, ${businessDocuments.createdAt}) >= ${periodStart} AND COALESCE(${businessDocuments.issuedAt}, ${businessDocuments.createdAt}) <= ${periodEnd}`;
+  }
   return db
     .select({ document: businessDocuments })
     .from(businessDocuments)
@@ -4432,7 +4480,8 @@ export async function getDocumentsForUserCompany(
       and(
         organizationAccessCondition(userId),
         eq(companies.id, companyId),
-        isNull(businessDocuments.archivedAt)
+        isNull(businessDocuments.archivedAt),
+        periodFilter,
       )
     )
     .orderBy(desc(businessDocuments.createdAt));
@@ -5063,7 +5112,41 @@ export async function recordStockMovement(input: {
     organizationId: input.organizationId,
     companyId: input.companyId,
   });
+  await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
   const movement = validateStockMovement(input);
+  const productRows = await db
+    .select({ id: products.id })
+    .from(products)
+    .where(and(eq(products.companyId, input.companyId), eq(products.code, input.productCode.trim()), eq(products.active, 1)))
+    .limit(1);
+  let sourceDocumentFound = input.sourceDocumentId === undefined;
+  let journalEntryFound = input.journalEntryId === undefined;
+  let sourceDocumentMatchesJournal = true;
+  if (input.sourceDocumentId !== undefined) {
+    const sourceRows = await db
+      .select({ id: businessDocuments.id })
+      .from(businessDocuments)
+      .where(and(
+        eq(businessDocuments.id, input.sourceDocumentId),
+        eq(businessDocuments.companyId, input.companyId),
+      ))
+      .limit(1);
+    sourceDocumentFound = Boolean(sourceRows[0]);
+  }
+  if (input.journalEntryId !== undefined) {
+    const journalRows = await db
+      .select({ id: journalEntries.id, sourceDocumentId: journalEntries.sourceDocumentId })
+      .from(journalEntries)
+      .where(and(
+        eq(journalEntries.id, input.journalEntryId),
+        eq(journalEntries.companyId, input.companyId),
+        eq(journalEntries.periodId, input.periodId),
+      ))
+      .limit(1);
+    journalEntryFound = Boolean(journalRows[0]);
+    sourceDocumentMatchesJournal = input.sourceDocumentId === undefined || journalRows[0]?.sourceDocumentId === input.sourceDocumentId;
+  }
+  validateStockReferenceScope({ periodFound: true, productFound: Boolean(productRows[0]), sourceDocumentFound, journalEntryFound, sourceDocumentMatchesJournal });
   if (input.warehouseId) {
     const warehouse = await db
       .select({ id: warehouses.id })
@@ -5131,6 +5214,13 @@ export async function transferStockBetweenWarehousesForUser(input: {
     organizationId: input.organizationId,
     companyId: input.companyId,
   });
+  await assertFiscalPeriodForUserCompany({ actorUserId: input.userId, companyId: input.companyId, periodId: input.periodId });
+  const productRows = await db
+    .select({ id: products.id })
+    .from(products)
+    .where(and(eq(products.companyId, input.companyId), eq(products.code, input.productCode.trim()), eq(products.active, 1)))
+    .limit(1);
+  validateStockReferenceScope({ periodFound: true, productFound: Boolean(productRows[0]), sourceDocumentFound: true, journalEntryFound: true, sourceDocumentMatchesJournal: true });
   const transfer = buildStockTransfer(input);
   const existingTransfer = await db
     .select({ id: stockMovements.id, type: stockMovements.type })
@@ -5161,6 +5251,7 @@ export async function transferStockBetweenWarehousesForUser(input: {
     .where(
       and(
         eq(warehouses.companyId, input.companyId),
+        eq(warehouses.organizationId, input.organizationId),
         eq(warehouses.active, 1),
         sql`${warehouses.id} in (${input.fromWarehouseId}, ${input.toWarehouseId})`
       )
@@ -5172,6 +5263,7 @@ export async function transferStockBetweenWarehousesForUser(input: {
     .from(stockMovements)
     .where(
       and(
+        eq(stockMovements.organizationId, input.organizationId),
         eq(stockMovements.companyId, input.companyId),
         eq(stockMovements.warehouseId, transfer.fromWarehouseId),
         eq(stockMovements.productCode, transfer.productCode)
@@ -6713,6 +6805,149 @@ export async function createFixedAssetForUser(input: {
   return { id };
 }
 
+export async function getFiscalExportRowsForUser(input: {
+  userId: number;
+  organizationId: number;
+  companyId: number;
+  kind: "counterparties" | "products" | "documents";
+  search?: string;
+  limit?: number;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const limit = Math.min(Math.max(input.limit ?? 1000, 1), 5000);
+  const search = input.search?.trim() || null;
+  if (input.kind === "counterparties") {
+    const rows = await db.select({ counterparty: counterparties })
+      .from(counterparties)
+      .innerJoin(companies, eq(counterparties.companyId, companies.id))
+      .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+      .where(and(
+        eq(counterparties.organizationId, input.organizationId),
+        eq(counterparties.companyId, input.companyId),
+        organizationAccessCondition(input.userId),
+        search ? sql`(${counterparties.name} LIKE ${`%${search}%`} OR ${counterparties.taxId} LIKE ${`%${search}%`})` : sql`1 = 1`,
+      )).limit(limit);
+    return rows.map(({ counterparty }) => ({ ...counterparty, createdAt: counterparty.createdAt.toISOString() }));
+  }
+  if (input.kind === "products") {
+    const rows = await db.select({ product: products })
+      .from(products)
+      .innerJoin(companies, eq(products.companyId, companies.id))
+      .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+      .where(and(
+        eq(products.companyId, input.companyId),
+        eq(companies.organizationId, input.organizationId),
+        organizationAccessCondition(input.userId),
+        search ? sql`(${products.code} LIKE ${`%${search}%`} OR ${products.name} LIKE ${`%${search}%`})` : sql`1 = 1`,
+      )).limit(limit);
+    return rows.map(({ product }) => ({ ...product, createdAt: product.createdAt.toISOString() }));
+  }
+  const rows = await db.select({ document: businessDocuments })
+    .from(businessDocuments)
+    .innerJoin(companies, eq(businessDocuments.companyId, companies.id))
+    .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+    .where(and(
+      eq(businessDocuments.companyId, input.companyId),
+      eq(companies.organizationId, input.organizationId),
+      organizationAccessCondition(input.userId),
+      search ? sql`(${businessDocuments.documentNumber} LIKE ${`%${search}%`} OR ${businessDocuments.customerName} LIKE ${`%${search}%`})` : sql`1 = 1`,
+    )).limit(limit);
+  return rows.map(({ document }) => ({ ...document, createdAt: document.createdAt.toISOString(), issuedAt: document.issuedAt?.toISOString() ?? null, dueDate: document.dueDate?.toISOString() ?? null, archivedAt: document.archivedAt?.toISOString() ?? null }));
+}
+
+export async function getFixedAssetDepreciationContextForUser(input: {
+  userId: number;
+  organizationId: number;
+  companyId: number;
+  periodId: number;
+  assetId: number;
+  amount: number;
+  expenseAccountId: number;
+  accumulatedDepreciationAccountId: number;
+  correlationId: string;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const [assetRows, periodRows, accountRows, existingEntryRows] = await Promise.all([
+    db.select({ asset: fixedAssets })
+      .from(fixedAssets)
+      .innerJoin(companies, eq(fixedAssets.companyId, companies.id))
+      .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+      .where(and(
+        eq(fixedAssets.id, input.assetId),
+        eq(fixedAssets.companyId, input.companyId),
+        eq(fixedAssets.organizationId, input.organizationId),
+        organizationAccessCondition(input.userId),
+      )).limit(1),
+    db.select({ period: fiscalPeriods })
+      .from(fiscalPeriods)
+      .innerJoin(companies, eq(fiscalPeriods.companyId, companies.id))
+      .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+      .where(and(
+        eq(fiscalPeriods.id, input.periodId),
+        eq(fiscalPeriods.companyId, input.companyId),
+        organizationAccessCondition(input.userId),
+      )).limit(1),
+    db.select({ account: chartAccounts })
+      .from(chartAccounts)
+      .where(and(
+        eq(chartAccounts.companyId, input.companyId),
+        inArray(chartAccounts.id, [input.expenseAccountId, input.accumulatedDepreciationAccountId]),
+      )),
+    db.select({ id: journalEntries.id })
+      .from(journalEntries)
+      .where(and(eq(journalEntries.idempotencyKey, input.correlationId), eq(journalEntries.companyId, input.companyId)))
+      .limit(1),
+  ]);
+  const asset = assetRows[0]?.asset;
+  const period = periodRows[0]?.period;
+  const periodStart = period ? new Date(Date.UTC(period.year, period.month - 1, 1)) : null;
+  const periodEnd = period ? new Date(Date.UTC(period.year, period.month, 0, 23, 59, 59, 999)) : null;
+  const validAccountRows = accountRows.filter(({ account }) =>
+    account.postable === 1 &&
+    (!periodStart || account.validFrom.getTime() <= periodEnd!.getTime()) &&
+    (!periodEnd || account.validTo === null || account.validTo.getTime() >= periodStart!.getTime())
+  );
+  const remaining = asset
+    ? Number(asset.acquisitionCost) - Number(asset.accumulatedDepreciation) - Number(asset.residualValue)
+    : -1;
+  return {
+    assetFound: Boolean(asset),
+    assetIsActive: asset?.status === "ACTIVE",
+    assetIsInService: Boolean(asset?.inServiceDate),
+    periodIsOpen: period?.status === "OPEN" || period?.status === "REOPENED",
+    expenseAccountFound: validAccountRows.some(({ account }) => account.id === input.expenseAccountId),
+    accumulatedAccountFound: validAccountRows.some(({ account }) => account.id === input.accumulatedDepreciationAccountId),
+    accountsAreDistinct: input.expenseAccountId !== input.accumulatedDepreciationAccountId,
+    amountWithinRemaining: Number.isFinite(input.amount) && input.amount > 0 && remaining >= input.amount - 0.0000001,
+    idempotentEntryId: existingEntryRows[0]?.id ?? null,
+  };
+}
+
+export async function updateFixedAssetAccumulatedDepreciationForUser(input: {
+  userId: number;
+  organizationId: number;
+  companyId: number;
+  assetId: number;
+  amount: number;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const updated = await db.update(fixedAssets)
+    .set({ accumulatedDepreciation: sql`${fixedAssets.accumulatedDepreciation} + ${input.amount.toFixed(2)}` })
+    .where(and(
+      eq(fixedAssets.id, input.assetId),
+      eq(fixedAssets.companyId, input.companyId),
+      eq(fixedAssets.organizationId, input.organizationId),
+      eq(fixedAssets.status, "ACTIVE"),
+      sql`${fixedAssets.accumulatedDepreciation} + ${input.amount.toFixed(2)} <= ${fixedAssets.acquisitionCost} - ${fixedAssets.residualValue}`,
+    ));
+  if (Number(updated[0]?.affectedRows ?? 0) !== 1)
+    throw new Error("FIXED_ASSET_DEPRECIATION_ACCUMULATED_UPDATE_FAILED");
+  return true as const;
+}
+
 export async function getPaymentsForUserCompany(
   userId: number,
   companyId: number
@@ -7660,7 +7895,7 @@ export async function getSaftLocalExportForUserCompany(
   const [accounts, journal, documents] = await Promise.all([
     getChartAccountsForUserCompany(userId, companyId),
     getJournalForUserCompany(userId, companyId, period.id),
-    getDocumentsForUserCompany(userId, companyId),
+    getDocumentsForUserCompany(userId, companyId, period.id),
   ]);
   const saftAccounts: SaftAoAccount[] = accounts.map(({ account }) => ({
     id: account.id,
@@ -7894,6 +8129,7 @@ export async function postJournalEntry(input: {
   description: string;
   createdBy: number;
   reviewRequired?: boolean;
+  fixedAssetUpdate?: { organizationId: number; assetId: number; amount: number };
   accountingRuleOperation?: string;
   accountingRuleDocumentType?: string;
   lines: (JournalLineInput & { currency?: string; exchangeRate?: number })[];
@@ -8149,6 +8385,19 @@ export async function postJournalEntry(input: {
         exchangeRate: (line.exchangeRate ?? 1).toFixed(8),
       }))
     );
+    if (input.fixedAssetUpdate) {
+      const updatedAsset = await tx.update(fixedAssets)
+        .set({ accumulatedDepreciation: sql`${fixedAssets.accumulatedDepreciation} + ${input.fixedAssetUpdate.amount.toFixed(2)}` })
+        .where(and(
+          eq(fixedAssets.id, input.fixedAssetUpdate.assetId),
+          eq(fixedAssets.companyId, input.companyId),
+          eq(fixedAssets.organizationId, input.fixedAssetUpdate.organizationId),
+          eq(fixedAssets.status, "ACTIVE"),
+          sql`${fixedAssets.accumulatedDepreciation} + ${input.fixedAssetUpdate.amount.toFixed(2)} <= ${fixedAssets.acquisitionCost} - ${fixedAssets.residualValue}`,
+        ));
+      if (Number(updatedAsset[0]?.affectedRows ?? 0) !== 1)
+        throw new Error("FIXED_ASSET_DEPRECIATION_ACCUMULATED_UPDATE_FAILED");
+    }
     if (input.reversalOfEntryId !== undefined)
       await tx
         .update(journalEntries)

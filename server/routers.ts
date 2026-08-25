@@ -171,6 +171,9 @@ import {
   getFixedAssetsForUserCompany,
   createFixedAssetForUser,
   updateFixedAssetForUser,
+  getFixedAssetDepreciationContextForUser,
+  updateFixedAssetAccumulatedDepreciationForUser,
+  getFiscalExportRowsForUser,
   getStockBalancesForUserCompany,
   createStockCountForUser,
   listStockCountsForUserCompany,
@@ -254,6 +257,7 @@ import { calculateStraightLineDepreciation } from "./fixed-assets";
 import {
   buildDepreciationAudit,
   buildDepreciationPosting,
+  validateDepreciationPostingReferences,
 } from "./fixed-assets-posting";
 import {
   buildReopenAudit,
@@ -4065,7 +4069,8 @@ export const appRouter = router({
             organizationId: z.number().int().positive(),
             companyId: z.number().int().positive(),
             kind: z.enum(["counterparties", "products", "documents"]),
-            rows: z.array(z.record(z.string(), z.unknown())).max(10000),
+            search: z.string().trim().max(120).optional(),
+            limit: z.number().int().positive().max(5000).optional(),
           })
           .strict()
       )
@@ -4075,10 +4080,11 @@ export const appRouter = router({
           input.organizationId,
           input.companyId
         );
+        const rows = await getFiscalExportRowsForUser({ ...input, userId: ctx.user.id });
         return {
           filename: `${input.kind}.csv`,
           mimeType: "text/csv; charset=utf-8",
-          data: exportFiscalCsv(input.rows),
+          data: exportFiscalCsv(rows),
         };
       }),
     xlsx: roleProcedure("documents", "read")
@@ -4088,7 +4094,8 @@ export const appRouter = router({
             organizationId: z.number().int().positive(),
             companyId: z.number().int().positive(),
             kind: z.enum(["counterparties", "products", "documents"]),
-            rows: z.array(z.record(z.string(), z.unknown())).max(10000),
+            search: z.string().trim().max(120).optional(),
+            limit: z.number().int().positive().max(5000).optional(),
           })
           .strict()
       )
@@ -4098,13 +4105,14 @@ export const appRouter = router({
           input.organizationId,
           input.companyId
         );
+        const rows = await getFiscalExportRowsForUser({ ...input, userId: ctx.user.id });
         return {
           filename: `${input.kind}.xlsx`,
           mimeType:
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
           dataBase64: exportFiscalWorkbook(
             input.kind as FiscalImportKind,
-            input.rows
+            rows
           ).toString("base64"),
         };
       }),
@@ -4745,10 +4753,19 @@ export const appRouter = router({
           organizationId: input.organizationId,
           companyId: input.companyId,
         });
+        const context = await getFixedAssetDepreciationContextForUser({
+          ...input,
+          userId: ctx.user.id,
+          correlationId: input.correlationId,
+        });
         const posting = buildDepreciationPosting({
           ...input,
           depreciationAmount: input.amount,
         });
+        if (context.idempotentEntryId) {
+          return { posting, entry: { entryId: context.idempotentEntryId, idempotent: true }, audited: true, idempotent: true };
+        }
+        validateDepreciationPostingReferences(context);
         const entry = await postJournalEntry({
           companyId: input.companyId,
           periodId: input.periodId,
@@ -4757,12 +4774,15 @@ export const appRouter = router({
           accountingRuleOperation: "DEPRECIACAO",
           accountingRuleDocumentType: "IMOBILIZADO",
           createdBy: ctx.user.id,
+          fixedAssetUpdate: { organizationId: input.organizationId, assetId: input.assetId, amount: input.amount },
           lines: posting.lines.map(line => ({
             ...line,
             postable: true,
             validFrom: new Date(),
           })),
         });
+        if (!("entryId" in entry))
+          return { posting, entry, audited: true, idempotent: true };
         await appendAuditEventForUser(
           buildDepreciationAudit({
             organizationId: input.organizationId,
@@ -4774,7 +4794,7 @@ export const appRouter = router({
             correlationId: input.correlationId,
           })
         );
-        return { posting, entry, audited: true };
+        return { posting, entry, audited: true, idempotent: false };
       }),
   }),
   inventory: router({

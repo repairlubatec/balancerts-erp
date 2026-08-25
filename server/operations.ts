@@ -25,3 +25,18 @@ export function validateStockMovement(input: { quantity: number; unitCost: numbe
   if (!Number.isFinite(input.unitCost) || input.unitCost < 0) throw new Error("STOCK_UNIT_COST_INVALID");
   return { ...input, quantity: Number(input.quantity.toFixed(4)), unitCost: Number(input.unitCost.toFixed(4)) };
 }
+
+export function validateStockReferenceScope(input: {
+  periodFound: boolean;
+  productFound: boolean;
+  sourceDocumentFound: boolean;
+  journalEntryFound: boolean;
+  sourceDocumentMatchesJournal: boolean;
+}) {
+  if (!input.periodFound) throw new Error("STOCK_PERIOD_NOT_FOUND_OR_FORBIDDEN");
+  if (!input.productFound) throw new Error("STOCK_PRODUCT_NOT_FOUND_OR_FORBIDDEN");
+  if (!input.sourceDocumentFound) throw new Error("STOCK_SOURCE_DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+  if (!input.journalEntryFound) throw new Error("STOCK_JOURNAL_ENTRY_NOT_FOUND_OR_FORBIDDEN");
+  if (!input.sourceDocumentMatchesJournal) throw new Error("STOCK_SOURCE_JOURNAL_MISMATCH");
+  return true as const;
+}

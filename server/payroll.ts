@@ -45,6 +45,18 @@ export function assertSecondApprover(preparedBy: number, approverId: number) {
   if (preparedBy === approverId) throw new Error("PAYROLL_ACCOUNTING_SECOND_APPROVER_REQUIRED");
 }
 
+export function requirePgcPayrollMappings(input: {
+  hasActiveVersion: boolean;
+  configuredCodes: readonly (string | null)[];
+  mappings: ReadonlyMap<string, number>;
+}) {
+  if (!input.hasActiveVersion)
+    throw new Error("PAYROLL_PGC_ACTIVE_VERSION_REQUIRED");
+  if (input.configuredCodes.some((code) => !code || !input.mappings.get(code)))
+    throw new Error("PAYROLL_PGC_OPERATIONAL_MAPPING_REQUIRED");
+  return true as const;
+}
+
 export function calculatePayrollAmounts(input: { grossAmount: number; socialEmployeeRate: number; socialEmployerRate: number; irtBrackets: IrtBracket[] }) {
   if (!Number.isFinite(input.grossAmount) || input.grossAmount < 0) throw new Error("GROSS_AMOUNT_INVALID");
   if (![input.socialEmployeeRate, input.socialEmployerRate].every((rate) => Number.isFinite(rate) && rate >= 0 && rate <= 100)) throw new Error("SOCIAL_RATE_INVALID");

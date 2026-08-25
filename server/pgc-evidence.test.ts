@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildPgcMovementSimulation, validateAccountingRuleDraft, validatePgcBatchAccountStatuses, validatePgcBatchReviewSelection, validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata, validatePgcMovementSimulationInput } from "./pgc";
+import { buildPgcMovementSimulation, requirePgcSimulationAccounts, validateAccountingRuleDraft, validatePgcBatchAccountStatuses, validatePgcBatchReviewSelection, validatePgcEvidenceReviewDecision, validatePgcEvidenceSubmissionMetadata, validatePgcMovementSimulationInput } from "./pgc";
 
 const validInput = {
   classCode: "2",
@@ -102,6 +102,12 @@ describe("simulador seguro de regras de movimentação PGCA", () => {
     expect(result.levels[1].status).toBe("BLOCKED");
     expect(result.canPost).toBe(false);
     expect(result.levels[1].checks.some((check) => check.code === "DEBIT_CONFIRMED" && check.status === "BLOCKED")).toBe(true);
+  });
+
+  it("rejeita contas ausentes sem criar fallback sintético", () => {
+    expect(() => requirePgcSimulationAccounts({ id: 1 }, undefined)).toThrow("PGC_SIMULATION_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+    expect(() => requirePgcSimulationAccounts(undefined, { id: 2 })).toThrow("PGC_SIMULATION_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+    expect(requirePgcSimulationAccounts({ id: 1 }, { id: 2 })).toEqual({ debitAccount: { id: 1 }, creditAccount: { id: 2 } });
   });
 
   it("recusa contas iguais, valor inválido e taxa IVA fora do intervalo", () => {

@@ -3546,3 +3546,16 @@
 - [x] AUD-P2 — Confrontar controlos, RBAC, isolamento, auditoria, exportações, SAADI, testes e aceitação com evidência executável
 - [x] AUD-VAL — Reexecutar suite, TypeScript, build e revisão visual como evidência independente
 - [x] AUD-PARECER — Produzir classificação final: implementado, parcial, bloqueado, externo ou não comprovado
+
+# Correcções prioritárias da auditoria P0–P2
+
+- [x] FIX-01 — Remover ou tornar fail-closed os fallbacks operacionais do PGCA quando não existe mapeamento confirmado
+- [x] FIX-02 — Fazer o fecho bloquear auditoria aberta e proteger a verificação de prontidão contra concorrência
+- [x] FIX-03 — Validar referências de período, documento e lançamento nos movimentos e transferências de Stock
+- [x] FIX-04 — Validar activo, escopo, estado, contas e valor depreciável antes do posting de Imobilizado e persistir acumulado
+- [x] FIX-05 — Fazer exportadores CSV/XLSX carregarem dados persistentes no servidor a partir de filtros
+- [x] FIX-06 — Restringir SAF-T local ao período seleccionado e completar campos derivados da persistência
+- [x] FIX-07 — Aplicar o período a todas as agregações do resumo operacional SAADI
+- [x] FIX-08 — Reexecutar testes específicos após cada grupo e suite integral no final
+- [x] FIX-09 — Guardar checkpoint final das correcções com pendências externas da P1 ainda separadas
+- [x] FIX-10 — Verificar a rota/navegação de Facturação; a rota válida é `/facturacao` e `/faturacao` era apenas um endereço de teste inválido

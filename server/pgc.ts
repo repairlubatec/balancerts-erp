@@ -472,6 +472,12 @@ export function buildPgcMovementSimulation(ctx: { debitAccount: { id: number; co
   };
 }
 
+export function requirePgcSimulationAccounts<T extends { id: number }>(debitAccount: T | undefined, creditAccount: T | undefined) {
+  if (!debitAccount || !creditAccount)
+    throw new Error("PGC_SIMULATION_ACCOUNT_NOT_FOUND_OR_FORBIDDEN");
+  return { debitAccount, creditAccount };
+}
+
 export async function simulatePgcMovementForUser(input: PgcMovementSimulationInput) {
   validatePgcMovementSimulationInput(input);
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
@@ -480,9 +486,9 @@ export async function simulatePgcMovementForUser(input: PgcMovementSimulationInp
   const versionRows = await db.select().from(pgcVersions).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId))).limit(1);
   const version = versionRows[0]; if (!version) throw new Error("PGC_SIMULATION_VERSION_NOT_FOUND_OR_FORBIDDEN");
   const accountRows = await db.select({ id: pgcAccounts.id, code: pgcAccounts.code, name: pgcAccounts.name, nature: pgcAccounts.nature, validationStatus: pgcAccounts.validationStatus, acceptsEntries: pgcAccounts.acceptsEntries, active: pgcAccounts.active }).from(pgcAccounts).where(and(eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId), inArray(pgcAccounts.id, [input.debitAccountId, input.creditAccountId])));
-  const debitAccount = accountRows.find((account) => account.id === input.debitAccountId); const creditAccount = accountRows.find((account) => account.id === input.creditAccountId);
-  const fallbackAccount = (id: number) => ({ id, code: `ID-${id}`, name: "Conta não encontrada", nature: "NOT_APPLICABLE", validationStatus: "NOT_CONFIRMED", acceptsEntries: 0, active: 0 });
-  const resolvedDebit = debitAccount ?? fallbackAccount(input.debitAccountId); const resolvedCredit = creditAccount ?? fallbackAccount(input.creditAccountId);
+  const debitAccount = accountRows.find((account) => account.id === input.debitAccountId);
+  const creditAccount = accountRows.find((account) => account.id === input.creditAccountId);
+  const { debitAccount: resolvedDebit, creditAccount: resolvedCredit } = requirePgcSimulationAccounts(debitAccount, creditAccount);
   const ruleRows = await db.select({ id: accountingRules.id, operation: accountingRules.operation, documentType: accountingRules.documentType, priority: accountingRules.priority }).from(accountingRules).where(and(eq(accountingRules.organizationId, input.organizationId), eq(accountingRules.versionId, input.versionId), eq(accountingRules.active, 1), eq(accountingRules.operation, input.operation.trim()), sql`(${accountingRules.companyId} IS NULL OR ${accountingRules.companyId} = ${input.companyId})`, eq(accountingRules.debitAccountId, input.debitAccountId), eq(accountingRules.creditAccountId, input.creditAccountId), sql`(${accountingRules.effectiveFrom} <= ${input.transactionDate})`, sql`(${accountingRules.effectiveTo} IS NULL OR ${accountingRules.effectiveTo} >= ${input.transactionDate})`)).orderBy(accountingRules.priority).limit(20);
   const rule = ruleRows.find((candidate) => !candidate.documentType || candidate.documentType === (input.documentType?.trim() || null)) ?? null;
   const period = await db.select({ status: fiscalPeriods.status }).from(fiscalPeriods).where(and(eq(fiscalPeriods.companyId, input.companyId), eq(fiscalPeriods.year, input.transactionDate.getUTCFullYear()), eq(fiscalPeriods.month, input.transactionDate.getUTCMonth() + 1))).limit(1);

@@ -5,10 +5,10 @@ vi.mock("./db", () => ({
   getTrialBalanceForUserCompany: vi.fn(async () => [{ accountCode: "4511", debit: 100, credit: 0 }]),
   getIncomeStatementForUserCompany: vi.fn(async () => ({ revenue: 1000, expenses: 400 })),
   getBalanceSheetForUserCompany: vi.fn(async () => ({ assets: 2000, liabilities: 500 })),
-  getDb: vi.fn(async () => ({ select: () => ({ from: () => ({ where: () => ({ orderBy: () => ({ limit: async () => [] }) }) }) }) })),
+  getDb: vi.fn(async () => ({ select: () => ({ from() { return this; }, innerJoin() { return this; }, where() { return this; }, orderBy() { return this; }, limit: async () => [], then: (resolve: (value: unknown[]) => unknown) => Promise.resolve([]).then(resolve) }) })),
 }));
 
-import { readSaadiAccountingSummary, readSaadiCompanyContext, readSaadiPgcNormativeContext } from "./saadi-erp-read";
+import { readSaadiAccountingSummary, readSaadiCompanyContext, readSaadiOperationalSummary, readSaadiPgcNormativeContext } from "./saadi-erp-read";
 
 describe("adaptador de leitura ERP para SAADI", () => {
   it("devolve contexto ERP classificado como realizado e com hash", async () => {
@@ -30,6 +30,10 @@ describe("adaptador de leitura ERP para SAADI", () => {
     expect(result.data.confirmedOnly).toBe(true);
     expect(result.data.available).toBe(false);
     expect(result.data.accounts).toEqual([]);
+  });
+
+  it("rejeita período SAADI inexistente ou fora do escopo antes das agregações", async () => {
+    await expect(readSaadiOperationalSummary(7, 20, 999)).rejects.toThrow("SAADI_PERIOD_NOT_FOUND_OR_FORBIDDEN");
   });
 
   it("reutiliza os três relatórios contabilísticos sem escrever no ERP", async () => {
