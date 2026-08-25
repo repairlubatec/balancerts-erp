@@ -3374,3 +3374,12 @@
 - [x] Reforçar mensagens e estados da simulação PGCA
 - [x] Criar testes de interface, validação e não-regressão
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Reforço do fluxo operacional e relatórios simulados
+- [x] Mostrar regra esperada junto de cada linha de débito e crédito no lançamento operacional
+- [x] Bloquear contas PGCA pendentes ou sem regra confirmada no lançamento operacional
+- [x] Apresentar mensagens detalhadas de incompatibilidade e próximos passos
+- [x] Acrescentar explicações de natureza e bloqueios nos relatórios simulados
+- [x] Criar testes do fluxo operacional, relatórios e não-regressão
+- [x] Executar suite global, validar visualmente e guardar checkpoint
