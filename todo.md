@@ -3442,3 +3442,11 @@
 - [x] Acrescentar recomendação operacional informativa ao PDF
 - [x] Criar testes de picos, navegação por data, recomendação e não-publicação
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Acessibilidade e revisão humana dos bloqueios PGCA
+- [x] Tornar a série diária acessível por teclado e texto alternativo
+- [x] Adicionar tooltips com data, total e motivo dominante
+- [x] Incluir nota de revisão humana obrigatória no PDF
+- [x] Criar testes de acessibilidade, tooltips e nota de não-automação
+- [x] Executar suite global, validar visualmente e guardar checkpoint

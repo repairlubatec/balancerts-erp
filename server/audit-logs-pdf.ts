@@ -23,7 +23,8 @@ export function buildAuditLogsPdf(input: { organizationName: string; companyName
       pdf.fillColor("#333333").font("Helvetica").fontSize(8.5).text(`Foram identificados ${summary.total} bloqueios PGCA no período seleccionado. Em aberto: ${summary.open} · Revistos: ${summary.reviewed} · Resolvidos: ${summary.resolved}.`, 50, pdf.y - 28, { width: 495 });
       if (summary.topReason) pdf.text(`Motivo mais frequente: ${summary.topReason}.`, 50, pdf.y - 12, { width: 495 });
       if (summary.recommendation) pdf.text(`Recomendação operacional: ${summary.recommendation}`, 50, pdf.y + 3, { width: 495 });
-      pdf.y += summary.recommendation ? 32 : 18;
+      pdf.fillColor("#7c2d12").font("Helvetica-Bold").fontSize(8).text("Nota: esta recomendação é exclusivamente informativa, não activa regras nem publica lançamentos e requer revisão humana.", 50, pdf.y + 18, { width: 495 });
+      pdf.y += summary.recommendation ? 48 : 34;
     }
     pdf.moveDown(0.5);
     if (!input.items.length) pdf.font("Helvetica").fontSize(9).fillColor("#333333").text("Não existem eventos para os filtros seleccionados.");
