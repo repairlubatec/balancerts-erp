@@ -3311,3 +3311,12 @@
 - [x] Auditar relatórios, filtros, totais, exportações e estados vazios
 - [x] Verificar visualmente o módulo sem scroll global e executar testes direccionados
 - [x] Produzir parecer completo com lacunas, riscos e correcções recomendadas
+
+
+# Assistente de activação segura PGCA-82-01
+- [x] Auditar e expor no assistente os bloqueios reais da PGCA-82-01
+- [x] Criar revisão visual das contas pendentes e elegibilidade de importação sem activar inconformes
+- [x] Criar configuração controlada das regras contabilísticas inactivas com cobertura obrigatória
+- [x] Criar simulação de relatórios usando a versão PGCA candidata sem alterar a versão activa
+- [x] Criar testes de guardas, não-activação, importação elegível e simulação
+- [x] Executar suite global, validar visualmente e guardar checkpoint

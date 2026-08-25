@@ -45,6 +45,8 @@ import { IvaPdfSimulationPanel } from "@/components/IvaPdfSimulationPanel";
 import { PgcCoverageSummary } from "@/components/PgcCoverageSummary";
 import { PgcaV2StagingPanel } from "@/components/PgcaV2StagingPanel";
 import { PgcaExternalSummaryPanel } from "@/components/PgcaExternalSummaryPanel";
+import { PgcActivationAssistant } from "@/components/PgcActivationAssistant";
+import { PgcReportSimulationPanel } from "@/components/PgcReportSimulationPanel";
 import {
   filterPgcAccountsByStatus,
   pgcAccountStatusClass,
@@ -501,6 +503,20 @@ export default function Pgca() {
         <PgcaExternalSummaryPanel selectedLabel={selectedExternalBlocker} onSelectBlocker={label => setSelectedExternalBlocker(current => current === label ? null : label)} />
         {undoAction ? <div className="flex items-center justify-between gap-2 rounded-sm border border-blue-200 bg-blue-50 px-3 py-2 text-[11px] text-blue-900"><span>Alteração recente guardada. Pode desfazer durante alguns segundos.</span><Button variant="outline" className="h-7 rounded-sm bg-white px-2 text-[10px]" onClick={undoInlineUpdate} disabled={updateInline.isPending}><Undo2 className="mr-1 h-3 w-3" /> Desfazer</Button></div> : null}
         <PgcaV2StagingPanel />
+        <PgcActivationAssistant
+          organizationId={organizationId}
+          companyId={resolvedCompanyId}
+          versionId={resolvedVersionId}
+          accounts={(accountsQuery.data ?? []) as Array<{ id: number; code: string; name: string; validationStatus: string; acceptsEntries: number }>}
+          onChanged={() => { void versionsQuery.refetch(); void accountsQuery.refetch(); void rulesQuery.refetch(); }}
+        />
+        <PgcReportSimulationPanel
+          companyId={resolvedCompanyId}
+          periodId={undefined}
+          versionCode={activeVersion?.code}
+          versionStatus={activeVersion?.status}
+          accounts={(accountsQuery.data ?? []) as Array<{ code: string; name: string }>}
+        />
         <NormativeConfirmationDashboard />
         <IvaNormativeReviewPanel
           organizationId={organizationId}

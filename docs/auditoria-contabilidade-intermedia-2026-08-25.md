@@ -26,3 +26,8 @@ A verificação visual não prova, por si só, que os mapas cubram todos os movi
 É necessário confrontar a lista de 714 contas em staging com as 27 contas PGCA persistidas e as 18 contas operacionais, confirmar se os 714 registos foram apenas pré-análise ou se existe um processo de importação ainda não aplicado, e verificar se os relatórios permitem seleccionar explicitamente o exercício/período em todos os mapas. Também é necessário testar exportações com dados reais persistidos, limites de listagem, estados vazios e rastreabilidade dos relatórios.
 
 Até à conclusão destas verificações, a conclusão provisória é: **relatórios funcionais para o conjunto persistido e reconciliado; plano PGCA ainda não completamente incorporado nem activo**.
+
+
+## Verificação visual do assistente de activação
+
+A captura desktop da rota `/pgca` confirmou a presença do cabeçalho de Contabilidade Normativa, dos comandos de envio, validação e activação, e do painel de distribuição das 27 pendências externas com pré-requisito e próxima acção. Nessa captura, os selectores de empresa e versão ainda apresentavam o estado de carregamento/seleção vazia e os contadores mostravam zero; isto é compatível com a captura antes da resolução dos dados tRPC e deve ser confirmado com os dados carregados antes da entrega visual final. A interface não apresentou corte horizontal no viewport capturado. A suite global posterior aprovou 142 ficheiros e 555 testes.
