@@ -3391,3 +3391,12 @@
 - [x] Registar tentativas bloqueadas de contabilização em auditoria
 - [x] Criar testes de bloqueio, auditoria e não-publicação
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Auditoria dos bloqueios PGCA
+- [x] Mostrar eventos PAYMENT_ACCOUNTING_BLOCKED no histórico de auditoria
+- [x] Adicionar filtro de auditoria específico para bloqueios PGCA
+- [x] Exportar o histórico filtrado de bloqueios para CSV
+- [x] Mostrar confirmação visual de que a tentativa não publicou lançamento
+- [x] Criar testes de filtro, exportação, isolamento e não-publicação
+- [x] Executar suite global, validar visualmente e guardar checkpoint
