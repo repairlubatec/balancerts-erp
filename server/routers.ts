@@ -252,7 +252,7 @@ import {
   validateBalancedEntry,
   validateDocumentTransition,
 } from "./accounting";
-import { calculateFiscalResult, calculateIva, validateFiscalInput } from "./fiscal";
+import { calculateFiscalResult, calculateIva, getFiscalTaxCoverage, validateFiscalInput } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
 import { calculateWeightedAverage } from "./inventory";
 import { calculateStraightLineDepreciation } from "./fixed-assets";
@@ -3696,6 +3696,8 @@ export const appRouter = router({
       ),
   }),
   fiscal: router({
+    taxCoverage: roleProcedure("fiscal", "read")
+      .query(() => getFiscalTaxCoverage()),
     calculateIva: roleProcedure("fiscal", "validate")
       .input(
         z.object({

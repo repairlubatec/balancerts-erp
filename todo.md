@@ -3630,3 +3630,12 @@
 - [x] Expor no registo fiscal a proveniência persistida por documento: IDs de regras, versões e referências jurídicas, com consulta tenant-aware e teste de reconciliação
 - [x] Apresentar na interface de Fiscalidade o registo fiscal documental com proveniência de regra, versão e referência jurídica
 - [x] Rever visualmente a Fiscalidade e confirmar o painel documental, o estado de proveniência ausente e o overflow interno sem scroll global
+
+## Revisão integral do Motor Fiscal — impostos angolanos
+- [x] Inventariar no código todos os tipos de imposto, regras, regimes, retenções, declarações e integrações actualmente suportados
+- [x] Mapear os impostos necessários ao ERP por operação, sujeito, base, taxa, retenção, apuramento, declaração e fonte normativa
+- [x] Classificar cada imposto como implementado, parcial, não configurado ou bloqueado por fonte oficial, sem activar taxas presumidas
+- [x] Identificar lacunas de modelo persistente e contratos do Motor Fiscal para suportar impostos adicionais com isolamento multi-tenant
+- [x] Implementar apenas melhorias locais verificáveis do Motor Fiscal e manter fail-closed para impostos sem regras activas/evidência
+- [x] Criar testes e documentação do mapa integral de cobertura fiscal antes de qualquer activação normativa
+- [x] Apresentar no posto Fiscalidade o estado de cobertura de cada imposto e as capacidades ainda em falta

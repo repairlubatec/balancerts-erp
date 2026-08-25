@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { activeFiscalRule, calculateIva } from "./fiscal";
+import { activeFiscalRule, calculateIva, getFiscalTaxCoverage } from "./fiscal";
 
 const at = new Date("2026-01-15");
 
@@ -87,6 +87,17 @@ describe("resultado fiscal comum", () => {
 });
 
 import { validateFiscalInput } from "./fiscal";
+
+describe("catálogo integral de cobertura fiscal", () => {
+  it("mapeia os impostos angolanos institucionais sem activar regras não configuradas", () => {
+    const coverage = getFiscalTaxCoverage();
+    expect(coverage.map((tax) => tax.code)).toEqual(["IVA", "INDUSTRIAL", "IRT", "IAC", "IS", "IP", "SISA", "IEC", "IVM"]);
+    expect(coverage.find((tax) => tax.code === "IVA")?.status).toBe("IMPLEMENTADO_PARCIAL");
+    expect(coverage.filter((tax) => tax.code !== "IVA").every((tax) => tax.status === "NAO_CONFIGURADO")).toBe(true);
+    expect(coverage.every((tax) => tax.sourceUrls.length > 0)).toBe(true);
+    expect(coverage.find((tax) => tax.code === "IRT")?.missingCapabilities).toContain("Grupos A/B/C");
+  });
+});
 
 describe("validação fiscal comum", () => {
   it("classifica regra ausente, base inválida e não inventa uma taxa", () => {

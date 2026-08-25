@@ -127,3 +127,104 @@ export function calculateFiscalResult(input: { netAmount: number; regime: IvaReg
     validationErrors: [],
   };
 }
+
+
+export type FiscalTaxCoverageStatus = "IMPLEMENTADO_PARCIAL" | "PERSISTENCIA_APENAS" | "NAO_CONFIGURADO";
+
+export type FiscalTaxCoverage = {
+  code: "IVA" | "INDUSTRIAL" | "IRT" | "IAC" | "IS" | "IP" | "SISA" | "IEC" | "IVM";
+  name: string;
+  status: FiscalTaxCoverageStatus;
+  supportedOperations: string[];
+  missingCapabilities: string[];
+  sourceUrls: string[];
+};
+
+/**
+ * Catálogo de cobertura técnica, deliberadamente sem taxas. A presença de um
+ * código no schema de fiscalTaxRecords não significa que o respectivo imposto
+ * esteja parametrizado ou apto a calcular/entregar declarações.
+ */
+export const fiscalTaxCoverage: readonly FiscalTaxCoverage[] = [
+  {
+    code: "IVA",
+    name: "Imposto sobre o Valor Acrescentado",
+    status: "IMPLEMENTADO_PARCIAL",
+    supportedOperations: ["facturação", "compras", "registo fiscal documental", "reconciliação"],
+    missingCapabilities: ["declaração/submissão oficial AGT", "cobertura integral de regimes e excepções"],
+    sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-o-valor-acrescentado"],
+  },
+  {
+    code: "INDUSTRIAL",
+    name: "Imposto Industrial",
+    status: "NAO_CONFIGURADO",
+    supportedOperations: [],
+    missingCapabilities: ["matéria colectável por regime", "provisional sobre vendas", "declaração anual", "regras de isenção e taxas versionadas"],
+    sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-industrial"],
+  },
+  {
+    code: "IRT",
+    name: "Imposto Sobre os Rendimentos do Trabalho",
+    status: "NAO_CONFIGURADO",
+    supportedOperations: [],
+    missingCapabilities: ["folha salarial", "Grupos A/B/C", "deduções e não sujeição", "retenção e declaração"],
+    sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-rendimentos-do-trabalho"],
+  },
+  {
+    code: "IAC",
+    name: "Imposto sobre a Aplicação de Capitais",
+    status: "NAO_CONFIGURADO",
+    supportedOperations: [],
+    missingCapabilities: ["Secções A/B", "rendimentos de capitais", "retenção/liquidação", "isenções e declaração"],
+    sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-aplicacao-de-capitais"],
+  },
+  {
+    code: "IS",
+    name: "Imposto de Selo",
+    status: "NAO_CONFIGURADO",
+    supportedOperations: [],
+    missingCapabilities: ["tabela de actos e operações", "valores absolutos/percentuais", "sujeito passivo e interesse económico", "declaração anual"],
+    sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-de-selo"],
+  },
+  {
+    code: "IP",
+    name: "Imposto Predial",
+    status: "NAO_CONFIGURADO",
+    supportedOperations: [],
+    missingCapabilities: ["cadastro e avaliação de imóveis", "detenção/renda/transmissão", "isenções", "liquidação e calendário próprios"],
+    sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-predial-urbano"],
+  },
+  {
+    code: "SISA",
+    name: "Imposto sobre Sucessões e Doações",
+    status: "NAO_CONFIGURADO",
+    supportedOperations: [],
+    missingCapabilities: ["transmissões gratuitas", "beneficiário e grau de relação", "UCF e escalões", "processo de liquidação"],
+    sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-sucessoes-e-doacoes"],
+  },
+  {
+    code: "IEC",
+    name: "Imposto Especial de Consumo",
+    status: "NAO_CONFIGURADO",
+    supportedOperations: [],
+    missingCapabilities: ["classificação de produtos", "incidência e taxas por produto", "importação/produção", "declaração"],
+    sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-especial-de-consumo"],
+  },
+  {
+    code: "IVM",
+    name: "Impostos sobre os Veículos Motorizados",
+    status: "NAO_CONFIGURADO",
+    supportedOperations: [],
+    missingCapabilities: ["cadastro de veículos", "liquidação e selo", "regras por veículo", "calendário e integração AGT"],
+    sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/impostos-sobre-veiculos-motorizados"],
+  },
+];
+
+export function getFiscalTaxCoverage() {
+  return fiscalTaxCoverage.map((tax) => ({
+    ...tax,
+    supportedOperations: [...tax.supportedOperations],
+    missingCapabilities: [...tax.missingCapabilities],
+    sourceUrls: [...tax.sourceUrls],
+  }));
+}
