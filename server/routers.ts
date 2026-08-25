@@ -6072,6 +6072,8 @@ export const appRouter = router({
         const pdf = await buildAuditLogsPdf({
           organizationName: "Organização BALANCERTS.ERP",
           companyName: result.items[0]?.companyName ?? null,
+          emitterName: ctx.user.name ?? null,
+          emitterEmail: ctx.user.email ?? null,
           filters: [
             input.auditEventId
               ? `evento #${input.auditEventId}`

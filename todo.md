@@ -3458,3 +3458,11 @@
 - [x] Incluir filtros aplicados e período analisado na rastreabilidade do PDF
 - [x] Criar testes de legenda, limpeza temporal e rastreabilidade
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Síntese acessível e emissor do relatório PGCA
+- [x] Adicionar resumo textual alternativo da evolução diária dos bloqueios
+- [x] Permitir copiar a síntese dos filtros e métricas para partilha interna
+- [x] Incluir data, hora e utilizador emissor no PDF
+- [x] Criar testes do resumo textual, cópia e identificação do emissor
+- [x] Executar suite global, validar visualmente e guardar checkpoint

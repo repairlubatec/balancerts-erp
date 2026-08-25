@@ -2,7 +2,7 @@ import PDFDocument from "pdfkit";
 
 type AuditPdfItem = { id: number; createdAt: Date; action: string; entityType: string; entityId: string; actorUserId: number; correlationId: string; beforeState: string | null; afterState: string | null; actor: { id: number | null; name: string | null; email: string | null } | null; companyName: string | null };
 
-export function buildAuditLogsPdf(input: { organizationName: string; companyName?: string | null; filters: string; items: AuditPdfItem[]; executiveSummary?: { total: number; open: number; reviewed: number; resolved: number; topReason?: string | null; recommendation?: string | null } }) {
+export function buildAuditLogsPdf(input: { organizationName: string; companyName?: string | null; emitterName?: string | null; emitterEmail?: string | null; filters: string; items: AuditPdfItem[]; executiveSummary?: { total: number; open: number; reviewed: number; resolved: number; topReason?: string | null; recommendation?: string | null } }) {
   return new Promise<{ buffer: Buffer; mimeType: "application/pdf" }>((resolve) => {
     const pdf = new PDFDocument({ size: "A4", margin: 38, info: { Title: "Logs de Auditoria PGCA", Author: "BALANCERTS.ERP", Subject: "Relatório de alterações e confirmações" } });
     const chunks: Buffer[] = [];
@@ -15,6 +15,7 @@ export function buildAuditLogsPdf(input: { organizationName: string; companyName
     pdf.moveDown(0.25).font("Helvetica").fontSize(9).fillColor("#5f6d7b").text(`${input.organizationName}${input.companyName ? ` · ${input.companyName}` : ""}`);
     pdf.text(`Filtros: ${input.filters}`);
     pdf.text(`Emitido em: ${new Date().toLocaleString("pt-PT")} · ${input.items.length} eventos incluídos`);
+    pdf.text(`Emissor: ${input.emitterName || "Utilizador autenticado"}${input.emitterEmail ? ` · ${input.emitterEmail}` : ""}`);
     pdf.moveDown(0.25).font("Helvetica-Bold").fillColor("#102a43").fontSize(8.5).text("Rastreabilidade da consulta");
     pdf.font("Helvetica").fillColor("#5f6d7b").fontSize(8).text(`Organização/empresa: ${input.organizationName}${input.companyName ? ` / ${input.companyName}` : ""} · Filtros aplicados: ${input.filters} · Total incluído: ${input.items.length}`);
     pdf.moveDown(0.6).strokeColor("#bfc9d4").moveTo(38, pdf.y).lineTo(557, pdf.y).stroke();
