@@ -3559,3 +3559,29 @@
 - [x] FIX-08 — Reexecutar testes específicos após cada grupo e suite integral no final
 - [x] FIX-09 — Guardar checkpoint final das correcções com pendências externas da P1 ainda separadas
 - [x] FIX-10 — Verificar a rota/navegação de Facturação; a rota válida é `/facturacao` e `/faturacao` era apenas um endereço de teste inválido
+
+# Restauro seguro — pré-condições externas
+
+- [ ] RESTORE-01 — Documentar protocolo de restauro não destrutivo e proibição de contacto com produção sem destino isolado
+- [ ] RESTORE-02 — Disponibilizar `RESTORE_DATABASE_URL` de destino MySQL/TiDB não produtivo e utilizador restrito
+- [ ] RESTORE-03 — Disponibilizar `RESTORE_ALLOWED_HOSTS` e fingerprint verificável do destino
+- [ ] RESTORE-04 — Confirmar literalmente `RESTORE_ISOLATION_ATTESTATION=ISOLATED` e aprovação do restauro
+- [ ] RESTORE-05 — Validar conectividade e identidade do destino sem executar escrita ou alteração
+- [ ] RESTORE-06 — Executar cópia/restauro não destrutivo apenas após todas as pré-condições
+- [ ] RESTORE-07 — Validar integridade, módulos e isolamento pós-restauro
+
+# Ambiente local gratuito para restauro seguro
+
+- [ ] LOCAL-RESTORE-01 — Documentar que o MySQL local é apenas homologação e nunca produção
+- [ ] LOCAL-RESTORE-02 — Confirmar disponibilidade de Docker no computador do utilizador
+- [ ] LOCAL-RESTORE-03 — Criar contentor MySQL local com volume separado, porta local e credencial exclusiva
+- [ ] LOCAL-RESTORE-04 — Validar identidade e isolamento do contentor sem executar restauro
+- [ ] LOCAL-RESTORE-05 — Restaurar apenas uma cópia não produtiva e validar integridade
+
+# Continuação local sem restauro
+
+- [x] LOCAL-CONT-01 — Executar validações adicionais apenas na base de desenvolvimento actual, sem importar dados
+- [x] LOCAL-CONT-02 — Rever estados de erro, carregamento, vazio e permissões nos módulos críticos
+- [x] LOCAL-CONT-03 — Confirmar rotas válidas e fluxos de exportação tenant-aware
+- [x] LOCAL-CONT-04 — Reexecutar suite, TypeScript, build e verificação visual após a continuação local
+- [x] LOCAL-CONT-05 — Corrigir erros de runtime nas consultas normativas: parâmetro `regime` rejeitado e referência incompatível a `organizationAccessCondition` (não reproduzidos após reinício limpo e testes)
