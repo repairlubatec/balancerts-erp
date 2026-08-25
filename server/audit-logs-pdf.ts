@@ -2,7 +2,7 @@ import PDFDocument from "pdfkit";
 
 type AuditPdfItem = { id: number; createdAt: Date; action: string; entityType: string; entityId: string; actorUserId: number; correlationId: string; beforeState: string | null; afterState: string | null; actor: { id: number | null; name: string | null; email: string | null } | null; companyName: string | null };
 
-export function buildAuditLogsPdf(input: { organizationName: string; companyName?: string | null; filters: string; items: AuditPdfItem[]; executiveSummary?: { total: number; open: number; reviewed: number; resolved: number; topReason?: string | null } }) {
+export function buildAuditLogsPdf(input: { organizationName: string; companyName?: string | null; filters: string; items: AuditPdfItem[]; executiveSummary?: { total: number; open: number; reviewed: number; resolved: number; topReason?: string | null; recommendation?: string | null } }) {
   return new Promise<{ buffer: Buffer; mimeType: "application/pdf" }>((resolve) => {
     const pdf = new PDFDocument({ size: "A4", margin: 38, info: { Title: "Logs de Auditoria PGCA", Author: "BALANCERTS.ERP", Subject: "Relatório de alterações e confirmações" } });
     const chunks: Buffer[] = [];
@@ -22,7 +22,8 @@ export function buildAuditLogsPdf(input: { organizationName: string; companyName
       pdf.fillColor("#102a43").font("Helvetica-Bold").fontSize(10).text("Resumo executivo", 50, pdf.y - 45);
       pdf.fillColor("#333333").font("Helvetica").fontSize(8.5).text(`Foram identificados ${summary.total} bloqueios PGCA no período seleccionado. Em aberto: ${summary.open} · Revistos: ${summary.reviewed} · Resolvidos: ${summary.resolved}.`, 50, pdf.y - 28, { width: 495 });
       if (summary.topReason) pdf.text(`Motivo mais frequente: ${summary.topReason}.`, 50, pdf.y - 12, { width: 495 });
-      pdf.y += 18;
+      if (summary.recommendation) pdf.text(`Recomendação operacional: ${summary.recommendation}`, 50, pdf.y + 3, { width: 495 });
+      pdf.y += summary.recommendation ? 32 : 18;
     }
     pdf.moveDown(0.5);
     if (!input.items.length) pdf.font("Helvetica").fontSize(9).fillColor("#333333").text("Não existem eventos para os filtros seleccionados.");

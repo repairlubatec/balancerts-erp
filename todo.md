@@ -3434,3 +3434,11 @@
 - [x] Incluir tabela executiva dos principais motivos no PDF
 - [x] Criar testes de período, CSV, tabela PDF e isolamento
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Picos e recomendações dos bloqueios PGCA
+- [x] Destacar no gráfico os dias com maior concentração de bloqueios
+- [x] Abrir directamente os eventos ao seleccionar uma data do gráfico
+- [x] Acrescentar recomendação operacional informativa ao PDF
+- [x] Criar testes de picos, navegação por data, recomendação e não-publicação
+- [x] Executar suite global, validar visualmente e guardar checkpoint

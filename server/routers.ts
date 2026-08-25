@@ -6096,6 +6096,7 @@ export const appRouter = router({
             reviewed: blockedItems.filter((item) => item.reviewStatus === "REVIEWED").length,
             resolved: blockedItems.filter((item) => item.reviewStatus === "RESOLVED").length,
             topReason: Object.entries(blockedReasons).sort(([, a], [, b]) => b - a)[0]?.[0] ?? null,
+            recommendation: (() => { const reason = Object.entries(blockedReasons).sort(([, a], [, b]) => b - a)[0]?.[0]; if (!reason) return "Rever os eventos bloqueados e confirmar as evidências normativas antes de qualquer activação."; if (reason.includes("PERIOD")) return "Confirmar o período fiscal e a sua associação à empresa antes de repetir a operação."; if (reason.includes("ACCOUNT")) return "Rever a confirmação, natureza e regra de movimentação da conta antes de repetir a operação."; if (reason.includes("AMOUNT")) return "Validar o montante, moeda e limites da operação com o contabilista responsável."; return "Rever o motivo detalhado, reunir a evidência necessária e obter aprovação humana."; })(),
           } : undefined,
         });
         return {
