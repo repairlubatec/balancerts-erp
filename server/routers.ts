@@ -6090,6 +6090,13 @@ export const appRouter = router({
             ...(blockedSummary ? [blockedSummary] : []),
           ].join(" · "),
           items: result.items,
+          executiveSummary: input.action === "PAYMENT_ACCOUNTING_BLOCKED" ? {
+            total: blockedItems.length,
+            open: blockedItems.filter((item) => (item.reviewStatus ?? "OPEN") === "OPEN").length,
+            reviewed: blockedItems.filter((item) => item.reviewStatus === "REVIEWED").length,
+            resolved: blockedItems.filter((item) => item.reviewStatus === "RESOLVED").length,
+            topReason: Object.entries(blockedReasons).sort(([, a], [, b]) => b - a)[0]?.[0] ?? null,
+          } : undefined,
         });
         return {
           filename: `logs-auditoria-pgc-${input.action === "PAYMENT_ACCOUNTING_BLOCKED" ? "bloqueios-" : ""}${input.auditEventId ? `evento-${input.auditEventId}` : new Date().toISOString().slice(0, 10)}.pdf`,

@@ -3416,3 +3416,13 @@
 - [x] Adicionar estados de carregamento, vazio e erro específicos dos bloqueios
 - [x] Criar testes de navegação, PDF e estados de interface
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Evolução e relatório dos bloqueios PGCA
+- [x] Adicionar gráfico interactivo da evolução diária dos bloqueios PGCA
+- [x] Adicionar pesquisa por utilizador na tabela de auditoria
+- [x] Adicionar filtros de intervalo de datas na tabela de auditoria
+- [x] Incluir logótipo da empresa no PDF de bloqueios
+- [x] Incluir resumo executivo dos bloqueios no PDF
+- [x] Criar testes do gráfico, filtros, isolamento e PDF
+- [x] Executar suite global, validar visualmente e guardar checkpoint
