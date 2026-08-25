@@ -252,7 +252,7 @@ import {
   validateBalancedEntry,
   validateDocumentTransition,
 } from "./accounting";
-import { calculateFiscalResult, calculateIva } from "./fiscal";
+import { calculateFiscalResult, calculateIva, validateFiscalInput } from "./fiscal";
 import { reconcileBankMovements } from "./reconciliation";
 import { calculateWeightedAverage } from "./inventory";
 import { calculateStraightLineDepreciation } from "./fixed-assets";
@@ -3708,6 +3708,26 @@ export const appRouter = router({
         })
       )
       .mutation(({ input }) => calculateIva(input)),
+    validateFiscalInput: roleProcedure("fiscal", "validate")
+      .input(
+        z.object({
+          netAmount: z.number(),
+          regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]),
+          at: z.coerce.date(),
+          rule: z.object({
+            code: z.string().min(1),
+            regime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]),
+            validFrom: z.coerce.date(),
+            validTo: z.coerce.date().nullable().optional(),
+            rate: z.number().nonnegative().optional(),
+            evidence: z.string().min(1),
+            legalReference: z.string().min(1).optional(),
+            version: z.string().min(1).optional(),
+            verificationStatus: z.enum(["PENDING", "HUMAN_APPROVED", "ACTIVE", "SUPERSEDED", "REJECTED"]).optional(),
+          }).optional(),
+        })
+      )
+      .query(({ input }) => validateFiscalInput(input)),
     calculateFiscalResult: roleProcedure("fiscal", "validate")
       .input(
         z.object({

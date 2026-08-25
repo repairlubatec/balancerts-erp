@@ -3624,3 +3624,6 @@
 - [x] Reforçar o versionamento, vigência, referência jurídica e estados das regras fiscais sem inventar normas
 - [ ] Integrar o resultado fiscal auditado com facturação, compras, contabilidade, tesouraria e relatórios
 - [x] Manter Imposto Industrial, IRT, retenções e restantes impostos como não configurados até auditoria e fontes oficiais
+
+# Motor Fiscal — validação segura
+- [x] Implementar validação comum de entrada fiscal para regime, taxa, vigência, estado e regra inexistente, com classificação erro/aviso/informação

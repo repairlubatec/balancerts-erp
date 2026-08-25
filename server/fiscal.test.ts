@@ -85,3 +85,32 @@ describe("resultado fiscal comum", () => {
     expect(result.validationErrors).toEqual([]);
   });
 });
+
+import { validateFiscalInput } from "./fiscal";
+
+describe("validação fiscal comum", () => {
+  it("classifica regra ausente, base inválida e não inventa uma taxa", () => {
+    const findings = validateFiscalInput({ netAmount: -1, regime: "GERAL", at: new Date("2026-01-01") });
+    expect(findings.map((finding) => finding.code)).toEqual(expect.arrayContaining(["FISCAL_BASE_INVALID", "FISCAL_RULE_MISSING"]));
+    expect(findings.every((finding) => finding.severity === "ERROR")).toBe(true);
+  });
+
+  it("classifica a referência jurídica ausente como aviso e detecta regra fora de vigência", () => {
+    const findings = validateFiscalInput({
+      netAmount: 100,
+      regime: "GERAL",
+      at: new Date("2027-01-01"),
+      rule: {
+        code: "IVA-GER",
+        regime: "GERAL",
+        validFrom: new Date("2026-01-01"),
+        validTo: new Date("2026-12-31"),
+        rate: 0.14,
+        evidence: "fonte pendente",
+        verificationStatus: "ACTIVE",
+      },
+    });
+    expect(findings.find((finding) => finding.code === "FISCAL_RULE_EXPIRED_OR_NOT_YET_VALID")?.severity).toBe("ERROR");
+    expect(findings.find((finding) => finding.code === "FISCAL_RULE_LEGAL_REFERENCE_REQUIRED")?.severity).toBe("WARNING");
+  });
+});

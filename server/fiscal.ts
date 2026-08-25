@@ -50,6 +50,47 @@ export function validateFiscalRuleSet(rules: FiscalRule[]) {
   return { valid: errors.length === 0, errors: Array.from(new Set(errors)) };
 }
 
+export type FiscalValidationFinding = {
+  code: string;
+  severity: "ERROR" | "WARNING" | "INFO";
+  message: string;
+};
+
+export function validateFiscalInput(input: {
+  netAmount: number;
+  regime: IvaRegime;
+  at: Date;
+  rule?: FiscalRule;
+}): FiscalValidationFinding[] {
+  const findings: FiscalValidationFinding[] = [];
+  if (!Number.isFinite(input.netAmount) || input.netAmount < 0) {
+    findings.push({ code: "FISCAL_BASE_INVALID", severity: "ERROR", message: "A base tributável deve ser um valor numérico não negativo." });
+  }
+  if (!input.rule) {
+    findings.push({ code: "FISCAL_RULE_MISSING", severity: "ERROR", message: "Não existe regra fiscal aplicável configurada." });
+    return findings;
+  }
+  if (input.rule.regime !== input.regime) {
+    findings.push({ code: "FISCAL_RULE_REGIME_MISMATCH", severity: "ERROR", message: "O regime da regra não corresponde ao regime da operação." });
+  }
+  if (input.rule.verificationStatus && input.rule.verificationStatus !== "ACTIVE") {
+    findings.push({ code: "FISCAL_RULE_NOT_ACTIVE", severity: "ERROR", message: "A regra fiscal ainda não está activa." });
+  }
+  if (input.rule.validFrom > input.at || (input.rule.validTo && input.rule.validTo < input.at)) {
+    findings.push({ code: "FISCAL_RULE_EXPIRED_OR_NOT_YET_VALID", severity: "ERROR", message: "A regra fiscal não está vigente na data da operação." });
+  }
+  if (input.regime !== "EXCLUSAO" && input.rule.rate === undefined) {
+    findings.push({ code: "FISCAL_RULE_RATE_REQUIRED", severity: "ERROR", message: "A regra não tem taxa configurada para este regime." });
+  }
+  if (!input.rule.legalReference) {
+    findings.push({ code: "FISCAL_RULE_LEGAL_REFERENCE_REQUIRED", severity: "WARNING", message: "A referência jurídica explícita da regra requer validação." });
+  }
+  if (input.regime === "EXCLUSAO" && input.rule.rate !== undefined) {
+    findings.push({ code: "FISCAL_RATE_IGNORED_FOR_EXCLUSION", severity: "INFO", message: "A taxa configurada não é aplicada no regime de exclusão." });
+  }
+  return findings;
+}
+
 export type FiscalCalculationResult = {
   netAmount: number;
   taxAmount: number;
