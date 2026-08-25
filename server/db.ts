@@ -11450,6 +11450,10 @@ export async function getIvaReadinessForUser(input: {
         createdAt: normativeSources.createdAt,
       })
       .from(normativeSources)
+      .innerJoin(
+        organizations,
+        eq(normativeSources.organizationId, organizations.id)
+      )
       .where(
         and(
           eq(normativeSources.organizationId, input.organizationId),

@@ -3612,3 +3612,7 @@
 
 # Preparação das dependências externas
 - [x] Criar runbook de aceitação para AGT, Windows, bancos, Docker, confirmação normativa e utilizadores Repair Lubatec
+
+# Correcções de runtime pós-restauro
+- [x] Corrigir a consulta de fontes normativas para usar apenas relações e colunas realmente disponíveis no escopo SQL
+- [x] Alinhar o input frontend de complianceCalendar com o contrato tRPC actual, removendo campos rejeitados
