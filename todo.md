@@ -3482,3 +3482,18 @@
 - [x] Permitir repetir exportação com os mesmos filtros e empresa
 - [x] Criar testes de histórico local, cópia e repetição segura
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Prioridades críticas autorizadas — execução sequencial
+- [x] P0.1 — Remover fallbacks e dados demonstrativos residuais da interface, com estados explícitos de carregamento, vazio e erro
+- [x] P0.2 — Fechar a incorporação segura do PGCA-82-01, reconciliando staging, fontes, hierarquia, duplicados e extensões reservadas sem inventar contas
+- [ ] P0.3 — Confirmar e activar regras de movimentação contabilística apenas após evidência normativa e aprovação humana
+- [ ] P0.4 — Completar os fluxos de Facturação e Documentos, incluindo linhas, clientes, IVA, séries, estados, emissão e contabilização
+- [ ] P0.5 — Concluir os postos de trabalho de Contabilidade e Tesouraria, incluindo lançamentos, pagamentos, recebimentos, reconciliação e estornos
+- [ ] P0.6 — Implementar Fecho real de período, bloqueios, evidência, autorização e reabertura auditada
+- [ ] Validar cada prioridade com testes Vitest, TypeScript, build e verificação visual antes do checkpoint correspondente
+- [ ] Rever o TODO completo e guardar checkpoint final das seis prioridades concluídas ou explicitamente bloqueadas por dependência normativa externa
+
+> Nota: nenhuma conta, regra, taxa ou classificação normativa será inventada. Elementos sem fonte primária confirmada permanecem em revisão e não movimentáveis.
+
+# Fim das prioridades críticas autorizadas

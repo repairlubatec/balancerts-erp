@@ -13,6 +13,26 @@ const labels: Record<string, string> = {
     "A conta não está no estado correcto para revisão.",
   PGC_VERSION_ACCOUNTING_RULE_COVERAGE_INCOMPLETE:
     "A versão não cobre todas as operações contabilísticas obrigatórias.",
+  PGC_VERSION_HAS_DUPLICATE_CODES:
+    "A versão contém códigos PGCA duplicados.",
+  PGC_VERSION_HAS_ACCOUNTS_WITHOUT_SOURCE:
+    "Existem contas PGCA sem fonte normativa associada.",
+  PGC_VERSION_HAS_MISSING_PARENTS:
+    "Existem contas PGCA com relação pai em falta ou irresolúvel.",
+  PGC_VERSION_HAS_ROOT_PARENTS:
+    "Existe uma classe PGCA de nível raiz com pai inválido.",
+  PGC_VERSION_HAS_SELF_PARENTS:
+    "Existe uma auto-relação hierárquica numa conta PGCA.",
+  PGC_VERSION_HAS_NON_EXTENDABLE_PARENTS:
+    "Existe uma conta filha ligada a um pai que não aceita descendentes.",
+  PGC_VERSION_HAS_CROSS_CLASS_PARENTS:
+    "Existe uma relação pai-filho entre classes PGCA diferentes.",
+  PGC_VERSION_HAS_INVALID_LEVELS:
+    "Existem níveis hierárquicos PGCA incoerentes.",
+  PGC_VERSION_HAS_GROUPS_WITH_MOVEMENTS:
+    "Existe um grupo PGCA configurado indevidamente para receber movimentos.",
+  PGC_VERSION_HAS_MOVEMENT_CHILDREN:
+    "Existe uma conta movimentável PGCA configurada indevidamente com descendentes.",
   IVA_NORMATIVE_RULE_REQUIRED:
     "Indique uma regra IVA confirmada e activa para liquidar imposto.",
   IVA_NORMATIVE_RULE_NOT_ACTIVE_OR_FORBIDDEN:

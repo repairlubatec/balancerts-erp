@@ -100,6 +100,16 @@ const readinessBlockerLabel: Record<string, string> = {
     "Não existem regras contabilísticas activas",
   PGC_VERSION_ACCOUNTING_RULE_COVERAGE_INCOMPLETE:
     "Falta cobertura de uma ou mais operações",
+  PGC_VERSION_HAS_DUPLICATE_CODES: "Existem códigos duplicados",
+  PGC_VERSION_HAS_ACCOUNTS_WITHOUT_SOURCE: "Existem contas sem fonte associada",
+  PGC_VERSION_HAS_MISSING_PARENTS: "Existem pais hierárquicos em falta",
+  PGC_VERSION_HAS_ROOT_PARENTS: "Existe classe com pai inválido",
+  PGC_VERSION_HAS_SELF_PARENTS: "Existe auto-relação hierárquica",
+  PGC_VERSION_HAS_NON_EXTENDABLE_PARENTS: "Existe pai não extensível",
+  PGC_VERSION_HAS_CROSS_CLASS_PARENTS: "Existe pai de classe diferente",
+  PGC_VERSION_HAS_INVALID_LEVELS: "Existem níveis hierárquicos inválidos",
+  PGC_VERSION_HAS_GROUPS_WITH_MOVEMENTS: "Existe grupo movimentável",
+  PGC_VERSION_HAS_MOVEMENT_CHILDREN: "Existe conta movimentável com descendentes",
 };
 
 export default function Pgca() {

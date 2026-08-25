@@ -20,13 +20,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { pgcaV2Decision, pgcaV2Preflight } from "@/data/pgcaV2Preflight";
+import { getPgcaV2PreflightBlockers, pgcaV2Decision, pgcaV2Preflight } from "@/data/pgcaV2Preflight";
 import { pgcaExternalBlockers } from "@/data/pgcaExternalBlockers";
 
 type ConflictDecision = "PENDING" | "EVIDENCE_REQUIRED" | "REJECT_LINE" | "READY_FOR_HUMAN_CONFIRMATION";
 
 export function PgcaV2StagingPanel() {
   const decision = pgcaV2Decision();
+  const preflightBlockers = getPgcaV2PreflightBlockers();
+  const preflightBlockerLabels: Record<string, string> = {
+    DUPLICATE_CODES: "Códigos repetidos na matriz",
+    RESERVED_EXTENSIONS: "Extensões reservadas sem confirmação",
+    SOURCE_DOCUMENT_INCOMPLETE: "Documento-fonte sem fecho verificável",
+    NORMATIVE_IMPORT_NOT_SAFE: "Importação normativa não segura",
+    ACTIVATION_NOT_SAFE: "Activação normativa não segura",
+  };
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<"ALL" | "PENDING" | "RESOLVED">("ALL");
   const [sortDescending, setSortDescending] = useState(false);
@@ -73,6 +81,7 @@ export function PgcaV2StagingPanel() {
           <Summary label="Extensões reservadas" value={pgcaV2Preflight.reservedExtensions} danger />
           <Summary label="Documento concatenado" value="Não" good />
         </div>
+        <section className="rounded-sm border border-red-200 bg-red-50/70 p-2" aria-label="Bloqueios do preflight PGCA"><div className="flex items-center gap-1.5 text-[10px] font-semibold text-red-800"><AlertTriangle className="h-3.5 w-3.5" aria-hidden="true" /> Bloqueios determinísticos do preflight</div><div className="mt-1 flex flex-wrap gap-1.5">{preflightBlockers.map(blocker => <Badge key={blocker} variant="outline" className="rounded-sm border-red-200 bg-white text-[9px] text-red-800">{preflightBlockerLabels[blocker]}</Badge>)}</div><p className="mt-1 text-[10px] text-red-800">Estes bloqueios são informativos e não podem ser ultrapassados por decisões locais ou por IA.</p></section>
         <div className="grid gap-2 md:grid-cols-[1fr_auto] md:items-center">
           <div className="rounded-sm border border-amber-200 bg-white/70 px-2 py-1.5 text-[10px] text-slate-700"><span className="font-semibold">Códigos a desambiguar:</span>{" "}<span className="font-mono">{pgcaV2Preflight.duplicateCodes.join(", ")}</span></div>
           <div className="flex items-center gap-1.5 text-[10px] font-semibold text-red-700"><AlertTriangle className="h-3.5 w-3.5" aria-hidden="true" /> Importação normativa e activação bloqueadas</div>

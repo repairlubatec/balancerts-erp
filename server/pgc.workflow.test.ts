@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAccountingRuleCoverage, getPgcReadinessBlockers } from "./pgc-workflow";
+import { getAccountingRuleCoverage, getPgcReadinessBlockers, getPgcStructuralBlockers } from "./pgc-workflow";
 import { accountingRuleOperationCandidates } from "./accounting-rule-operations";
 
 describe("PGCA activation readiness", () => {
@@ -33,6 +33,21 @@ describe("PGCA activation readiness", () => {
 
   it("bloqueia activação com regras parciais", () => {
     expect(getPgcReadinessBlockers({ status: "VALIDATED", accountCount: 20, confirmedAccountCount: 20, sourceCount: 1, confirmedSourceCount: 1, accountingRuleCount: 2, accountingRuleOperations: ["COMPRAS", "VENDAS"] })).toContain("PGC_VERSION_ACCOUNTING_RULE_COVERAGE_INCOMPLETE");
+  });
+
+  it("bloqueia estrutura PGCA sem fonte, pai ou compatibilidade de grupo", () => {
+    const blockers = getPgcStructuralBlockers([
+      { id: 1, code: "4", classCode: "4", parentId: null, parentCode: null, level: 1, accountType: "CLASS", acceptsEntries: 0, acceptsChildren: 1, sourceId: 10 },
+      { id: 2, code: "4.1", classCode: "4", parentId: null, parentCode: null, level: 2, accountType: "GROUP", acceptsEntries: 1, acceptsChildren: 0, sourceId: null },
+    ]);
+    expect(blockers).toEqual(expect.arrayContaining(["PGC_VERSION_HAS_ACCOUNTS_WITHOUT_SOURCE", "PGC_VERSION_HAS_MISSING_PARENTS", "PGC_VERSION_HAS_GROUPS_WITH_MOVEMENTS"]));
+  });
+
+  it("aceita uma hierarquia confirmada e coerente", () => {
+    expect(getPgcStructuralBlockers([
+      { id: 1, code: "4", classCode: "4", parentId: null, parentCode: null, level: 1, accountType: "CLASS", acceptsEntries: 0, acceptsChildren: 1, sourceId: 10 },
+      { id: 2, code: "4.1", classCode: "4", parentId: 1, parentCode: "4", level: 2, accountType: "MOVEMENT", acceptsEntries: 1, acceptsChildren: 0, sourceId: 10 },
+    ])).toEqual([]);
   });
 
   it("resolve candidatos canónicos para operações importadas", () => {
