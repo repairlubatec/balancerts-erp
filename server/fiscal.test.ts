@@ -29,3 +29,59 @@ describe("Angola IVA rule engine", () => {
     expect(() => calculateIva({ netAmount: 1000, regime: "SIMPLIFICADO", rule: simplified })).toThrow("FISCAL_RULE_RATE_REQUIRED");
   });
 });
+
+describe("validação de versões fiscais", () => {
+  const version = (overrides: Partial<Parameters<typeof calculateIva>[0]["rule"]> = {}) => ({
+    code: "IVA-GERAL",
+    regime: "GERAL" as const,
+    validFrom: new Date("2026-01-01T00:00:00.000Z"),
+    validTo: new Date("2026-06-30T23:59:59.999Z"),
+    rate: 0.14,
+    evidence: "Lei 14/23, artigo validado",
+    verificationStatus: "ACTIVE" as const,
+    ...overrides,
+  });
+
+  it("resolve a versão mais recente vigente e activa", () => {
+    const selected = activeFiscalRule(
+      [version(), version({ validFrom: new Date("2026-07-01T00:00:00.000Z"), validTo: null, rate: 0.15 })],
+      "GERAL",
+      new Date("2026-08-25T00:00:00.000Z"),
+    );
+    expect(selected?.rate).toBe(0.15);
+  });
+
+  it("detecta sobreposição e vigência inválida sem inventar correcções", async () => {
+    const { validateFiscalRuleSet } = await import("./fiscal");
+    const result = validateFiscalRuleSet([
+      version({ validTo: new Date("2026-08-31T23:59:59.999Z") }),
+      version({ validFrom: new Date("2026-08-01T00:00:00.000Z"), validTo: null }),
+      version({ code: "IVA-INVALIDA", validFrom: new Date("2026-09-02T00:00:00.000Z"), validTo: new Date("2026-09-01T00:00:00.000Z") }),
+    ]);
+    expect(result.valid).toBe(false);
+    expect(result.errors).toEqual(expect.arrayContaining(["FISCAL_RULE_OVERLAP:IVA-GERAL:GERAL", "FISCAL_RULE_INVALID_VIGENCY:IVA-INVALIDA"]));
+  });
+});
+
+import { calculateFiscalResult } from "./fiscal";
+
+describe("resultado fiscal comum", () => {
+  it("devolve identificação da regra e avisa quando falta referência jurídica explícita", () => {
+    const result = calculateFiscalResult({
+      netAmount: 1000,
+      regime: "GERAL",
+      rule: {
+        code: "IVA-GER-2026",
+        regime: "GERAL",
+        validFrom: new Date("2026-01-01"),
+        rate: 0.14,
+        evidence: "fonte-confirmada",
+        version: "2026.1",
+        verificationStatus: "ACTIVE",
+      },
+    });
+    expect(result).toMatchObject({ taxType: "IVA", taxBase: 1000, ruleId: "IVA-GER-2026", ruleVersion: "2026.1", legalReference: null, taxAmount: 140 });
+    expect(result.warnings).toContain("FISCAL_RULE_LEGAL_REFERENCE_REQUIRED");
+    expect(result.validationErrors).toEqual([]);
+  });
+});
