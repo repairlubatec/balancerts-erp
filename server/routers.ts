@@ -4649,6 +4649,7 @@ export const appRouter = router({
           code: z.string().min(1),
           name: z.string().min(2),
           acquisitionDate: z.coerce.date(),
+          inServiceDate: z.coerce.date().optional(),
           acquisitionCost: z.number().nonnegative(),
           residualValue: z.number().nonnegative().optional(),
           usefulLifeMonths: z.number().int().positive(),
@@ -4663,9 +4664,13 @@ export const appRouter = router({
           companyId: z.number().int().positive(),
           assetId: z.number().int().positive(),
           name: z.string().min(2).optional(),
+          inServiceDate: z.coerce.date().optional(),
           residualValue: z.number().nonnegative().optional(),
           usefulLifeMonths: z.number().int().positive().optional(),
           status: z.enum(["ACTIVE", "DISPOSED"]).optional(),
+          disposalDate: z.coerce.date().optional(),
+          disposalProceeds: z.number().nonnegative().optional(),
+          disposalReason: z.string().max(255).optional(),
         })
       )
       .mutation(({ ctx, input }) =>

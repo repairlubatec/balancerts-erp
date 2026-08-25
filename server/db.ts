@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
+import { validateFixedAssetLifecycle } from "./fixed-assets";
 import { and, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
@@ -6548,9 +6549,13 @@ export async function updateFixedAssetForUser(input: {
   companyId: number;
   assetId: number;
   name?: string;
+  inServiceDate?: Date;
   residualValue?: number;
   usefulLifeMonths?: number;
   status?: "ACTIVE" | "DISPOSED";
+  disposalDate?: Date;
+  disposalProceeds?: number;
+  disposalReason?: string;
 }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
@@ -6568,10 +6573,32 @@ export async function updateFixedAssetForUser(input: {
     )
     .limit(1);
   if (!rows[0]) throw new Error("FIXED_ASSET_NOT_FOUND_OR_FORBIDDEN");
+  const current = rows[0].asset;
+  const nextLifecycle = {
+    acquisitionDate: current.acquisitionDate,
+    inServiceDate: input.inServiceDate ?? current.inServiceDate,
+    status: input.status ?? current.status,
+    disposalDate: input.disposalDate ?? current.disposalDate,
+    disposalProceeds: input.disposalProceeds ?? Number(current.disposalProceeds),
+    disposalReason: input.disposalReason ?? current.disposalReason,
+  };
+  validateFixedAssetLifecycle(nextLifecycle);
+  const nextAsset = {
+    ...current,
+    ...(input.name === undefined ? {} : { name: input.name }),
+    ...(input.inServiceDate === undefined ? {} : { inServiceDate: input.inServiceDate }),
+    ...(input.residualValue === undefined ? {} : { residualValue: input.residualValue.toFixed(2) }),
+    ...(input.usefulLifeMonths === undefined ? {} : { usefulLifeMonths: input.usefulLifeMonths }),
+    status: nextLifecycle.status,
+    disposalDate: nextLifecycle.disposalDate,
+    disposalProceeds: Number(nextLifecycle.disposalProceeds ?? 0).toFixed(2),
+    disposalReason: nextLifecycle.disposalReason ?? null,
+  };
   await db
     .update(fixedAssets)
     .set({
       ...(input.name === undefined ? {} : { name: input.name }),
+      ...(input.inServiceDate === undefined ? {} : { inServiceDate: input.inServiceDate }),
       ...(input.residualValue === undefined
         ? {}
         : { residualValue: input.residualValue.toFixed(2) }),
@@ -6579,6 +6606,9 @@ export async function updateFixedAssetForUser(input: {
         ? {}
         : { usefulLifeMonths: input.usefulLifeMonths }),
       ...(input.status === undefined ? {} : { status: input.status }),
+      ...(input.disposalDate === undefined ? {} : { disposalDate: input.disposalDate }),
+      ...(input.disposalProceeds === undefined ? {} : { disposalProceeds: input.disposalProceeds.toFixed(2) }),
+      ...(input.disposalReason === undefined ? {} : { disposalReason: input.disposalReason }),
     })
     .where(eq(fixedAssets.id, input.assetId));
   await appendAuditEventForUser({
@@ -6592,7 +6622,7 @@ export async function updateFixedAssetForUser(input: {
     entityType: "fixedAsset",
     entityId: String(input.assetId),
     beforeState: JSON.stringify(rows[0].asset),
-    afterState: JSON.stringify({ ...rows[0].asset, ...input }),
+    afterState: JSON.stringify(nextAsset),
     correlationId: `fixed-asset:${input.assetId}`,
   });
   return { id: input.assetId, status: input.status ?? rows[0].asset.status };
@@ -6626,6 +6656,7 @@ export async function createFixedAssetForUser(input: {
   code: string;
   name: string;
   acquisitionDate: Date;
+  inServiceDate?: Date;
   acquisitionCost: number;
   residualValue?: number;
   usefulLifeMonths: number;
@@ -6645,12 +6676,14 @@ export async function createFixedAssetForUser(input: {
     )
     .limit(1);
   if (!company[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  validateFixedAssetLifecycle({ acquisitionDate: input.acquisitionDate, inServiceDate: input.inServiceDate, status: "ACTIVE" });
   const inserted = await db.insert(fixedAssets).values({
     organizationId: input.organizationId,
     companyId: input.companyId,
     code: input.code,
     name: input.name,
     acquisitionDate: input.acquisitionDate,
+    inServiceDate: input.inServiceDate,
     acquisitionCost: input.acquisitionCost.toFixed(2),
     residualValue: (input.residualValue ?? 0).toFixed(2),
     usefulLifeMonths: input.usefulLifeMonths,
@@ -6668,9 +6701,12 @@ export async function createFixedAssetForUser(input: {
     afterState: JSON.stringify({
       code: input.code,
       name: input.name,
+      acquisitionDate: input.acquisitionDate,
+      inServiceDate: input.inServiceDate ?? null,
       acquisitionCost: input.acquisitionCost,
       residualValue: input.residualValue ?? 0,
       usefulLifeMonths: input.usefulLifeMonths,
+      status: "ACTIVE",
     }),
     correlationId: `fixed-asset:${id}`,
   });

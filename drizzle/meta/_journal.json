@@ -540,6 +540,13 @@
       "when": 1787610049276,
       "tag": "0076_jittery_human_fly",
       "breakpoints": true
+    },
+    {
+      "idx": 77,
+      "version": "5",
+      "when": 1787646833243,
+      "tag": "0077_rich_tana_nile",
+      "breakpoints": true
     }
   ]
 }

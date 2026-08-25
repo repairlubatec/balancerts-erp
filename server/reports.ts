@@ -189,7 +189,16 @@ export function buildSaftReadiness(input: SaftCoverageInput) {
   if (input.productCount === 0) missing.push("MASTERFILES_PRODUCTS");
   if (input.taxRuleCount === 0) missing.push("MASTERFILES_TAX_TABLES");
   const ready = missing.length === 0;
-  return { format: "SAFTAO1.01_01", schemaVersion: SAFT_AO_SCHEMA_VERSION, namespace: SAFT_AO_NAMESPACE, ready, missing, exportBlockedReason: ready ? "AGT_VALIDATION_REQUIRED" : "MISSING_REQUIRED_ENTITIES", submissionEligible: false as const };
+  const counts = {
+    accounts: input.accountCount,
+    journalEntries: input.journalEntryCount,
+    documents: input.documentCount,
+    customers: input.customerCount,
+    suppliers: input.supplierCount,
+    products: input.productCount,
+    taxRules: input.taxRuleCount,
+  };
+  return { format: "SAFTAO1.01_01", schemaVersion: SAFT_AO_SCHEMA_VERSION, namespace: SAFT_AO_NAMESPACE, ready, missing, counts, exportBlockedReason: ready ? "AGT_VALIDATION_REQUIRED" : "MISSING_REQUIRED_ENTITIES", submissionEligible: false as const };
 }
 
 
