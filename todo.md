@@ -3347,3 +3347,12 @@
 - [x] Manter histórico consultivo local das sugestões geradas por bloqueio
 - [x] Reforçar testes de autorização e garantir ausência de mutações automáticas
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Histórico consultivo IA PGCA — exportação, comparação e revisão
+- [x] Exportar o histórico consultivo IA para CSV
+- [x] Exportar o histórico consultivo IA para PDF
+- [x] Comparar sugestões geradas para o mesmo bloqueio
+- [x] Permitir marcar uma sugestão como revista ou descartada sem alterar dados normativos
+- [x] Criar testes de exportação, comparação, estados de revisão e não-mutação
+- [x] Executar suite global, validar visualmente e guardar checkpoint
