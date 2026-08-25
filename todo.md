@@ -3497,3 +3497,14 @@
 > Nota: nenhuma conta, regra, taxa ou classificação normativa será inventada. Elementos sem fonte primária confirmada permanecem em revisão e não movimentáveis.
 
 # Fim das prioridades críticas autorizadas
+
+
+# Reverificação após interrupção eléctrica
+- [x] Reverificar P0.1 no software e confirmar ausência de fallbacks ou dados demonstrativos
+- [x] Reverificar P0.2 no software e confirmar staging PGCA-82-01 seguro e bloqueios normativos explícitos
+- [x] Reverificar P0.3 no software e confirmar regras de movimentação dependentes de evidência e aprovação humana
+- [x] Reverificar P0.4 no software e confirmar Facturação/Documentos com séries persistidas e ciclo documental
+- [x] Reverificar P0.5 no software e confirmar postos de Contabilidade/Tesouraria e actualização após operações
+- [x] Reverificar P0.6 no software e confirmar prontidão server-side, fecho persistente e reabertura auditada
+- [x] Reexecutar suite global, TypeScript, build e verificação visual após a interrupção eléctrica
+- [x] Marcar apenas os itens efectivamente confirmados e guardar novo checkpoint

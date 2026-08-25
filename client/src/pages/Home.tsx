@@ -274,8 +274,7 @@ function DefinitionsLaunchPanel() {
 function ClosingChecklistPanel({ company, period }: { company?: { id: number; organizationId: number }; period?: { id: number; year: number; month: number; status: "OPEN" | "CLOSING" | "CLOSED" | "REOPENED" } }) {
   const utils = trpc.useUtils();
   const evaluate = trpc.closing.evaluate.useMutation();
-  const closingApi = trpc.closing as typeof trpc.closing & { readiness?: { useQuery?: (...args: any[]) => any } };
-  const readiness = closingApi.readiness?.useQuery ? closingApi.readiness.useQuery(company && period && period.status !== "CLOSED" ? { organizationId: company.organizationId, companyId: company.id, periodId: period.id } : skipToken, { enabled: Boolean(company && period && period.status !== "CLOSED") }) : { data: undefined, isLoading: false, isFetching: false, refetch: async () => ({ data: undefined }) };
+  const readiness = trpc.closing.readiness.useQuery(company && period && period.status !== "CLOSED" ? { organizationId: company.organizationId, companyId: company.id, periodId: period.id } : skipToken, { enabled: Boolean(company && period && period.status !== "CLOSED") });
   const [checks, setChecks] = useState([
     { code: "DOCUMENTS_VALIDATED", label: "Documentos do período validados", passed: false, blocking: true },
     { code: "POSTINGS_RECONCILED", label: "Lançamentos reconciliados com o razão", passed: false, blocking: true },
@@ -287,11 +286,12 @@ function ClosingChecklistPanel({ company, period }: { company?: { id: number; or
   const [feedback, setFeedback] = useState<string | null>(null);
   const [reopenReason, setReopenReason] = useState("");
   const [reopenDialogOpen, setReopenDialogOpen] = useState(false);
+  const readinessSignature = readiness.data ? `${readiness.data.canClose}:${JSON.stringify(readiness.data.checks)}` : "";
   useEffect(() => {
     if (!readiness.data) return;
     setChecks(readiness.data.checks);
     setCanClose(readiness.data.canClose);
-  }, [readiness.data]);
+  }, [readinessSignature]);
   const close = trpc.closing.close.useMutation({ onSuccess: async () => { await utils.companies.periods.invalidate({ companyId: company?.id ?? 0 }); setFeedback("Período fechado e auditado."); }, onError: (error) => setFeedback(`Fecho bloqueado: ${userFacingError(error.message)}`) });
   const reopen = trpc.closing.reopen.useMutation({ onSuccess: async () => { await utils.companies.periods.invalidate({ companyId: company?.id ?? 0 }); setReopenDialogOpen(false); setReopenReason(""); setFeedback("Período reaberto e auditado."); }, onError: (error) => setFeedback(`Reabertura bloqueada: ${userFacingError(error.message)}`) });
   const submit = async () => {
