@@ -3356,3 +3356,12 @@
 - [x] Permitir marcar uma sugestão como revista ou descartada sem alterar dados normativos
 - [x] Criar testes de exportação, comparação, estados de revisão e não-mutação
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Regras de movimentação contabilística — Activo, Passivo e Capital próprio
+- [x] Parametrizar regras-base de débito/crédito por natureza de conta
+- [x] Reforçar validação de lançamentos e bloquear incompatibilidades não permitidas
+- [x] Explicar regras e excepções PGCA na interface e no simulador
+- [x] Cobrir contas mistas e contas normativamente não confirmadas sem inventar regras
+- [x] Criar testes de regras, validações e não-regressão
+- [x] Executar suite global, validar visualmente e guardar checkpoint

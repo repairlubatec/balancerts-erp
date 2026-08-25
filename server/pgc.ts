@@ -3,6 +3,7 @@ import { getDb, appendAuditEventForUser, createFileAsset } from "./db";
 import { accountingRules, auditEvents, chartAccounts, companies, fileAssets, fiscalPeriods, organizationMemberships, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions, users } from "../drizzle/schema";
 import { randomUUID } from "node:crypto";
 import { angolaNormativeSources } from "./normative";
+import { getAccountingMovementRule, validateDirectionalMovement } from "../shared/accountingMovementRules";
 
 export type PgcAccountDraft = {
   code: string;
@@ -442,13 +443,14 @@ export function buildPgcMovementSimulation(ctx: { debitAccount: { id: number; co
     { code: "DOUBLE_ENTRY", label: "Partida dobrada definida", status: "PASS" as const, detail: `${ctx.debitAccount.code} a débito e ${ctx.creditAccount.code} a crédito` },
     { code: "OPERATION_IDENTIFIED", label: "Operação identificada", status: "PASS" as const, detail: ctx.input.operation.trim() },
   ];
-  const debitCompatible = ctx.debitAccount.nature === "DEBIT" || ctx.debitAccount.nature === "MIXED";
-  const creditCompatible = ctx.creditAccount.nature === "CREDIT" || ctx.creditAccount.nature === "MIXED";
+  const movement = validateDirectionalMovement({ debitNature: ctx.debitAccount.nature, creditNature: ctx.creditAccount.nature, hasConfirmedRule: Boolean(ctx.rule) });
+  const debitCompatible = movement.debitCompatible;
+  const creditCompatible = movement.creditCompatible;
   const normativeChecks = [
     { code: "VERSION_ACTIVE", label: "Versão PGCA activa", status: ctx.versionStatus === "ACTIVE" ? "PASS" as const : "BLOCKED" as const, detail: ctx.versionStatus === "ACTIVE" ? "Versão activa" : `Versão em estado ${ctx.versionStatus}` },
     { code: "DEBIT_CONFIRMED", label: "Conta a débito confirmada e lançável", status: ctx.debitAccount.validationStatus === "CONFIRMED" && ctx.debitAccount.acceptsEntries === 1 && ctx.debitAccount.active === 1 ? "PASS" as const : "BLOCKED" as const, detail: `${ctx.debitAccount.code} — ${ctx.debitAccount.name}` },
     { code: "CREDIT_CONFIRMED", label: "Conta a crédito confirmada e lançável", status: ctx.creditAccount.validationStatus === "CONFIRMED" && ctx.creditAccount.acceptsEntries === 1 && ctx.creditAccount.active === 1 ? "PASS" as const : "BLOCKED" as const, detail: `${ctx.creditAccount.code} — ${ctx.creditAccount.name}` },
-    { code: "NATURE_COMPATIBLE", label: "Natureza das contas compatível", status: debitCompatible && creditCompatible ? "PASS" as const : "BLOCKED" as const, detail: `Débito ${ctx.debitAccount.nature}; crédito ${ctx.creditAccount.nature}` },
+    { code: "NATURE_COMPATIBLE", label: "Natureza das contas compatível", status: movement.ok ? "PASS" as const : "BLOCKED" as const, detail: `${getAccountingMovementRule(ctx.debitAccount.nature).explanation} ${movement.reason}` },
     { code: "ACCOUNTING_RULE", label: "Regra contabilística confirmada encontrada", status: ctx.rule ? "PASS" as const : "BLOCKED" as const, detail: ctx.rule ? `Regra #${ctx.rule.id}, prioridade ${ctx.rule.priority}` : "Nenhuma regra activa corresponde à operação e às contas" },
   ];
   const operationalChecks = [
