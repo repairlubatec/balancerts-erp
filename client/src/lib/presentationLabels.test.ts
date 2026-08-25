@@ -43,6 +43,13 @@ describe("rótulos de apresentação em português", () => {
     expect(presentationLabel("PENDING")).toBe("Pendente");
   });
 
+  it("traduz os novos tipos de imposto catalogados", () => {
+    expect(presentationLabel("IS")).toBe("Imposto de Selo");
+    expect(presentationLabel("IP")).toBe("Imposto Predial");
+    expect(presentationLabel("SISA")).toBe("Sucessões e Doações");
+    expect(presentationLabel("IVM")).toBe("Impostos sobre Veículos Motorizados");
+  });
+
   it("traduz tipos e direcções técnicas conhecidas", () => {
     expect(presentationLabel("SERVICE")).toBe("Serviço");
     expect(presentationLabel("CUSTOMER")).toBe("Cliente");

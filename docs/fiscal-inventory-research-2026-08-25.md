@@ -29,7 +29,7 @@ A página oficial [Imposto sobre a Aplicação de Capitais (IAC)](https://portal
 
 ## Implicação para o modelo
 
-O Motor Fiscal actual suporta apenas o cálculo comum de IVA (`taxType: "IVA"`) embora o schema já enumere `IAC`, `INDUSTRIAL`, `IRT`, `IEC`, `RETENCAO` e `OUTRO` em `fiscalTaxRecords`. Portanto, esses valores são actualmente **catálogo de persistência**, não motores fiscais concluídos. O próximo passo seguro é criar um contrato fiscal comum por tipo de imposto, com base, taxa/regra, direcção, retenção, vigência, fonte e obrigação declarativa, mantendo cada imposto em estado `NÃO CONFIGURADO` até as regras primárias serem catalogadas e confirmadas.
+O Motor Fiscal actual suporta apenas o cálculo comum de IVA (`taxType: "IVA"`). O schema enumera `IAC`, `INDUSTRIAL`, `IRT`, `IEC`, `IS`, `IP`, `SISA`, `IVM`, `RETENCAO` e `OUTRO` em `fiscalTaxRecords`; estes valores são actualmente **catálogo de persistência**, não motores fiscais concluídos. O próximo passo seguro é criar um contrato fiscal comum por tipo de imposto, com base, taxa/regra, direcção, retenção, vigência, fonte e obrigação declarativa, mantendo cada imposto em estado `NÃO CONFIGURADO` até as regras primárias serem catalogadas e confirmadas.
 
 [3]: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-industrial — Portal do Contribuinte, Imposto Industrial.  
 [4]: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-aplicacao-de-capitais — Portal do Contribuinte, Imposto sobre a Aplicação de Capitais.
@@ -85,7 +85,7 @@ A página de detalhe IVA do Portal do Contribuinte não devolveu conteúdo na ex
 | Imposto Industrial (II) | `fiscalTaxRecords.taxType` aceita `INDUSTRIAL`; não existe cálculo versionado específico | Persistência apenas / não configurado | Matéria colectável por regime, custos/ajustes, provisional sobre vendas, declaração, prazos e regras por actividade |
 | IRT | `fiscalTaxRecords.taxType` aceita `IRT`; existe infraestrutura de recursos humanos/folha, mas o Motor Fiscal não calcula IRT | Persistência apenas / não configurado | Grupos A/B/C, remunerações, deduções, não sujeição, escalões/tabela, retenção e declarações |
 | IAC | `fiscalTaxRecords.taxType` aceita `IAC`; não existe cálculo específico por Secção A/B | Persistência apenas / não configurado | Categorias de rendimento, titular/substituto, isenções, taxas por facto, retenção, pagamento e declaração |
-| Imposto de Selo (IS) | Não existe código `IS` no enum de `fiscalTaxRecords`; existe apenas `OUTRO` | Não configurado | Catálogo da tabela anexa, acto/operação tributável, sujeito passivo, interesse económico, valor/taxa e declaração |
+| Imposto de Selo (IS) | `fiscalTaxRecords.taxType` aceita `IS`; não existe cálculo versionado específico | Persistência apenas / não configurado | Catálogo da tabela anexa, acto/operação tributável, sujeito passivo, interesse económico, valor/taxa e declaração |
 | Imposto Predial (IP) | Não existe cálculo ou cadastro fiscal de imóveis no Motor Fiscal | Não configurado | Imóveis, avaliação/matriz, detenção, renda, transmissão, isenções, contratos e calendário |
 | SISA | Não existe cálculo ou entidade própria de sucessões/doações | Não configurado | Transmissão gratuita, beneficiário, grau de relação, UCF, escalões, liquidação e notificação |
 | IEC | Não existe detalhe de produto/classificação ou cálculo específico; a rota oficial não respondeu nesta consulta | Não configurado | Legislação/tabela confirmada, produto, importação/produção, base, taxa, isenção e declaração |

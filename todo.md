@@ -3640,3 +3640,4 @@
 - [x] Criar testes e documentação do mapa integral de cobertura fiscal antes de qualquer activação normativa
 - [x] Apresentar no posto Fiscalidade o estado de cobertura de cada imposto e as capacidades ainda em falta
 - [x] Alargar de forma aditiva os códigos persistidos de imposto para IS, IP, SISA e IVM, sem activar cálculo ou taxas não confirmadas
+- [x] Apresentar IS, IP, SISA e IVM com rótulos portugueses no sub-registo fiscal e cobrir os rótulos com teste unitário
