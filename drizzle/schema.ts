@@ -664,7 +664,7 @@ export const fiscalTaxRecords = mysqlTable("fiscalTaxRecords", {
   periodId: int("periodId").notNull(),
   businessDocumentId: int("businessDocumentId"),
   journalEntryId: int("journalEntryId"),
-  taxType: mysqlEnum("taxType", ["IVA", "IAC", "INDUSTRIAL", "IRT", "IEC", "RETENCAO", "OUTRO"]).notNull(),
+  taxType: mysqlEnum("taxType", ["IVA", "IAC", "INDUSTRIAL", "IRT", "IEC", "IS", "IP", "SISA", "IVM", "RETENCAO", "OUTRO"]).notNull(),
   direction: mysqlEnum("direction", ["OUTPUT", "INPUT", "WITHHELD"]).notNull(),
   regime: varchar("regime", { length: 40 }),
   taxCode: varchar("taxCode", { length: 64 }),

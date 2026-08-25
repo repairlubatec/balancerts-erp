@@ -9496,7 +9496,7 @@ export async function createFiscalTaxRecordForUser(input: {
   organizationId: number;
   companyId: number;
   periodId: number;
-  taxType: "IVA" | "IAC" | "INDUSTRIAL" | "IRT" | "IEC" | "RETENCAO" | "OUTRO";
+  taxType: "IVA" | "IAC" | "INDUSTRIAL" | "IRT" | "IEC" | "IS" | "IP" | "SISA" | "IVM" | "RETENCAO" | "OUTRO";
   direction: "OUTPUT" | "INPUT" | "WITHHELD";
   regime?: string;
   taxCode?: string;
@@ -9571,7 +9571,7 @@ export async function listFiscalTaxRecordsForUser(input: {
   userId: number;
   companyId: number;
   periodId?: number;
-  taxType?: "IVA" | "IAC" | "INDUSTRIAL" | "IRT" | "IEC" | "RETENCAO" | "OUTRO";
+  taxType?: "IVA" | "IAC" | "INDUSTRIAL" | "IRT" | "IEC" | "IS" | "IP" | "SISA" | "IVM" | "RETENCAO" | "OUTRO";
 }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");

@@ -1,0 +1,1 @@
+ALTER TABLE `fiscalTaxRecords` MODIFY COLUMN `taxType` enum('IVA','IAC','INDUSTRIAL','IRT','IEC','IS','IP','SISA','IVM','RETENCAO','OUTRO') NOT NULL;

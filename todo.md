@@ -3639,3 +3639,4 @@
 - [x] Implementar apenas melhorias locais verificáveis do Motor Fiscal e manter fail-closed para impostos sem regras activas/evidência
 - [x] Criar testes e documentação do mapa integral de cobertura fiscal antes de qualquer activação normativa
 - [x] Apresentar no posto Fiscalidade o estado de cobertura de cada imposto e as capacidades ainda em falta
+- [x] Alargar de forma aditiva os códigos persistidos de imposto para IS, IP, SISA e IVM, sem activar cálculo ou taxas não confirmadas
