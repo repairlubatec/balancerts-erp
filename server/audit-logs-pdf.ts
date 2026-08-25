@@ -15,6 +15,8 @@ export function buildAuditLogsPdf(input: { organizationName: string; companyName
     pdf.moveDown(0.25).font("Helvetica").fontSize(9).fillColor("#5f6d7b").text(`${input.organizationName}${input.companyName ? ` · ${input.companyName}` : ""}`);
     pdf.text(`Filtros: ${input.filters}`);
     pdf.text(`Emitido em: ${new Date().toLocaleString("pt-PT")} · ${input.items.length} eventos incluídos`);
+    pdf.moveDown(0.25).font("Helvetica-Bold").fillColor("#102a43").fontSize(8.5).text("Rastreabilidade da consulta");
+    pdf.font("Helvetica").fillColor("#5f6d7b").fontSize(8).text(`Organização/empresa: ${input.organizationName}${input.companyName ? ` / ${input.companyName}` : ""} · Filtros aplicados: ${input.filters} · Total incluído: ${input.items.length}`);
     pdf.moveDown(0.6).strokeColor("#bfc9d4").moveTo(38, pdf.y).lineTo(557, pdf.y).stroke();
     if (input.executiveSummary) {
       const summary = input.executiveSummary;

@@ -3450,3 +3450,11 @@
 - [x] Incluir nota de revisão humana obrigatória no PDF
 - [x] Criar testes de acessibilidade, tooltips e nota de não-automação
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Legenda e rastreabilidade dos bloqueios PGCA
+- [x] Adicionar legenda acessível para estados e picos do gráfico
+- [x] Adicionar botão para limpar a selecção temporal e voltar à visão completa
+- [x] Incluir filtros aplicados e período analisado na rastreabilidade do PDF
+- [x] Criar testes de legenda, limpeza temporal e rastreabilidade
+- [x] Executar suite global, validar visualmente e guardar checkpoint
