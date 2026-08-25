@@ -74,7 +74,7 @@ export function runMysqlRestore({ databaseUrl, backupPath }) {
   const connection = parseMysqlUrl(databaseUrl);
   return new Promise((resolvePromise, reject) => {
     const gunzip = spawn("gzip", ["-dc", backupPath], { stdio: ["ignore", "pipe", "pipe"] });
-    const mysql = spawn("mysql", [`--host=${connection.host}`, `--port=${connection.port}`, `--user=${connection.user}`, "--protocol=TCP", connection.database], { env: { ...process.env, MYSQL_PWD: connection.password }, stdio: ["pipe", "ignore", "pipe"] });
+    const mysql = spawn("mysql", [`--host=${connection.host}`, `--port=${connection.port}`, `--user=${connection.user}`, "--protocol=TCP", "--ssl-mode=REQUIRED", connection.database], { env: { ...process.env, MYSQL_PWD: connection.password }, stdio: ["pipe", "ignore", "pipe"] });
     gunzip.stdout.pipe(mysql.stdin);
     let stderr = "";
     gunzip.stderr.on("data", chunk => { stderr += chunk.toString(); });

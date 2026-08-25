@@ -21,7 +21,7 @@ Foi preparado um destino TiDB Cloud separado para validação de restauro do BAL
 
 O teste de conectividade usou exclusivamente `SELECT 1 AS restore_connection_ok` e terminou com sucesso. A verificação adicional executou apenas consultas de leitura a `DATABASE()`, `CURRENT_USER()`, `@@version` e `information_schema.tables`. Não foram executados `INSERT`, `UPDATE`, `DELETE`, `DROP`, `CREATE`, importações ou comandos de restauro.
 
-O destino respondeu com TiDB `v8.5.3`, schema `sys`, e uma vista de sistema. O preflight de segurança confirmou que a ligação, a allowlist do host, o fingerprint do destino, a atestação `ISOLATED` e a aprovação operacional estão configurados. A credencial não é escrita neste documento, no código, nos testes ou nos registos.
+O destino respondeu com TiDB `v8.5.3`, schema `sys`, e uma vista de sistema. O preflight de segurança confirmou que a ligação, a allowlist do host, o fingerprint do destino, a atestação `ISOLATED` e a aprovação operacional estão configurados. O utilitário de restauração foi reforçado para passar `--ssl-mode=REQUIRED` ao cliente mysql, mantendo encriptação obrigatória quando um backup real for disponibilizado. A credencial não é escrita neste documento, no código, nos testes ou nos registos.
 
 ## Bloqueios mantidos correctamente
 
