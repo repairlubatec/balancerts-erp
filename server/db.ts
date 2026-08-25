@@ -1171,16 +1171,38 @@ export async function postPaymentAccountingForUser(input: {
     )
     .limit(1);
   const current = rows[0];
+  const recordBlockedAttempt = async (reason: string, details: Record<string, unknown>) => {
+    if (!current) return;
+    await appendAuditEventForUser({
+      organizationId: input.organizationId,
+      companyId: input.companyId,
+      actorUserId: input.userId,
+      action: "PAYMENT_ACCOUNTING_BLOCKED",
+      entityType: "payment",
+      entityId: String(input.paymentId),
+      beforeState: JSON.stringify({ accounting: "PENDING" }),
+      afterState: JSON.stringify({ accounting: "BLOCKED", reason, ...details }),
+      correlationId: input.idempotencyKey,
+    });
+  };
   if (!current) throw new Error("PAYMENT_NOT_FOUND_OR_FORBIDDEN");
-  if (current.payment.approvalStatus !== "APPROVED")
+  if (current.payment.approvalStatus !== "APPROVED") {
+    await recordBlockedAttempt("PAYMENT_ACCOUNTING_APPROVAL_REQUIRED", { approvalStatus: current.payment.approvalStatus });
     throw new Error("PAYMENT_ACCOUNTING_APPROVAL_REQUIRED");
-  if (!current.payment.periodId)
+  }
+  if (!current.payment.periodId) {
+    await recordBlockedAttempt("PAYMENT_FISCAL_PERIOD_REQUIRED", {});
     throw new Error("PAYMENT_FISCAL_PERIOD_REQUIRED");
+  }
   const amount = Number(current.payment.amount);
-  if (!Number.isFinite(amount) || amount <= 0)
+  if (!Number.isFinite(amount) || amount <= 0) {
+    await recordBlockedAttempt("PAYMENT_AMOUNT_INVALID", { amount: current.payment.amount });
     throw new Error("PAYMENT_AMOUNT_INVALID");
+  }
   const receipt = current.payment.direction === "RECEIPT";
-  const entry = await postJournalEntryWithPgcAccountsForUser({
+  let entry;
+  try {
+    entry = await postJournalEntryWithPgcAccountsForUser({
     userId: input.userId,
     organizationId: input.organizationId,
     companyId: input.companyId,
@@ -1209,7 +1231,14 @@ export async function postPaymentAccountingForUser(input: {
           },
           { pgcAccountId: input.cashPgcAccountId, debit: 0, credit: amount },
         ],
-  });
+    });
+  } catch (error) {
+    await recordBlockedAttempt(error instanceof Error ? error.message : "PAYMENT_ACCOUNTING_BLOCKED", {
+      cashPgcAccountId: input.cashPgcAccountId,
+      counterpartyPgcAccountId: input.counterpartyPgcAccountId,
+    });
+    throw error;
+  }
   await appendAuditEventForUser({
     organizationId: input.organizationId,
     companyId: input.companyId,

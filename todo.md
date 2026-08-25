@@ -3383,3 +3383,11 @@
 - [x] Acrescentar explicações de natureza e bloqueios nos relatórios simulados
 - [x] Criar testes do fluxo operacional, relatórios e não-regressão
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Pré-validação e auditoria de bloqueios PGCA
+- [x] Mostrar pré-validação visível antes da contabilização PGCA
+- [x] Adicionar tooltips com motivo do bloqueio e próximo passo
+- [x] Registar tentativas bloqueadas de contabilização em auditoria
+- [x] Criar testes de bloqueio, auditoria e não-publicação
+- [x] Executar suite global, validar visualmente e guardar checkpoint
