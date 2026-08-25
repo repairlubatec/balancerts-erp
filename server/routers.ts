@@ -2224,6 +2224,10 @@ export const appRouter = router({
           series: z.string().trim().min(1).max(32),
           documentType: z.string().trim().min(1).max(32),
           ivaRegime: z.enum(["GERAL", "SIMPLIFICADO", "EXCLUSAO"]),
+          normativeRuleId: z.number().int().positive().optional(),
+          normativeRuleVersion: z.string().trim().min(1).max(80).optional(),
+          legalReference: z.string().trim().min(1).max(512).optional(),
+          calculationHash: z.string().regex(/^[a-f0-9]{64}$/).optional(),
         })
       )
       .mutation(async ({ ctx, input }) => {

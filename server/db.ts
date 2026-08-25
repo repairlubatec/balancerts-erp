@@ -6089,6 +6089,10 @@ export async function convertPurchaseReceiptToSupplierDraftForUser(input: {
   series: string;
   documentType: string;
   ivaRegime: "GERAL" | "SIMPLIFICADO" | "EXCLUSAO";
+  normativeRuleId?: number;
+  normativeRuleVersion?: string;
+  legalReference?: string;
+  calculationHash?: string;
 }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
@@ -6182,6 +6186,10 @@ export async function convertPurchaseReceiptToSupplierDraftForUser(input: {
       counterpartyId: context.supplier.id,
       counterpartyType: "SUPPLIER",
       ivaRegime: input.ivaRegime,
+      normativeRuleId: input.normativeRuleId,
+      normativeRuleVersion: input.normativeRuleVersion,
+      legalReference: input.legalReference,
+      calculationHash: input.calculationHash,
       currency: context.order.currency,
       items,
     });
