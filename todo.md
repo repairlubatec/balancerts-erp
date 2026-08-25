@@ -3339,3 +3339,11 @@
 - [x] Integrar botão de sugestão IA no painel lateral sem executar alterações automáticas
 - [x] Criar testes para pesquisa, filtros, exportações e sugestão IA
 - [x] Executar suite global, validar visualmente e guardar checkpoint
+
+
+# Sugestões IA PGCA — confiança, evidências e histórico
+- [x] Apresentar nível de confiança e fundamentação da sugestão IA
+- [x] Melhorar a apresentação das evidências necessárias e avisos de risco
+- [x] Manter histórico consultivo local das sugestões geradas por bloqueio
+- [x] Reforçar testes de autorização e garantir ausência de mutações automáticas
+- [x] Executar suite global, validar visualmente e guardar checkpoint
