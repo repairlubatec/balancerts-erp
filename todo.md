@@ -3629,3 +3629,4 @@
 - [x] Implementar validação comum de entrada fiscal para regime, taxa, vigência, estado e regra inexistente, com classificação erro/aviso/informação
 - [x] Expor no registo fiscal a proveniência persistida por documento: IDs de regras, versões e referências jurídicas, com consulta tenant-aware e teste de reconciliação
 - [x] Apresentar na interface de Fiscalidade o registo fiscal documental com proveniência de regra, versão e referência jurídica
+- [x] Rever visualmente a Fiscalidade e confirmar o painel documental, o estado de proveniência ausente e o overflow interno sem scroll global
