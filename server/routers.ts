@@ -57,6 +57,7 @@ import {
   createFiscalExerciseForUser,
   createFiscalPeriodForUser,
   closeFiscalPeriodForUser,
+  getFiscalPeriodCloseReadinessForUser,
   reopenFiscalPeriodForUser,
   getDocumentSeriesForUserCompany,
   createDocumentSeriesForUser,
@@ -4558,6 +4559,9 @@ export const appRouter = router({
       ),
   }),
   closing: router({
+    readiness: roleProcedure("close", "close")
+      .input(z.object({ organizationId: z.number().int().positive(), companyId: z.number().int().positive(), periodId: z.number().int().positive() }))
+      .query(({ ctx, input }) => getFiscalPeriodCloseReadinessForUser({ ...input, userId: ctx.user.id })),
     evaluate: roleProcedure("close", "close")
       .input(
         z.object({

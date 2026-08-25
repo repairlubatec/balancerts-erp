@@ -116,6 +116,7 @@ import {
   type IARequest,
 } from "./balancerts-ia/providers";
 import { evaluateIvaReadiness } from "./normative";
+import { evaluatePeriodClose } from "./closing";
 import { accountingRuleOperationCandidates } from "./accounting-rule-operations";
 import {
   evaluateAuditReviewTransition,
@@ -4151,6 +4152,70 @@ export async function getExercisesForUserCompany(
     .orderBy(desc(fiscalExercises.year));
 }
 
+export async function getFiscalPeriodCloseReadinessForUser(input: {
+  userId: number;
+  organizationId: number;
+  companyId: number;
+  periodId: number;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const rows = await db
+    .select({ period: fiscalPeriods, company: companies, organization: organizations })
+    .from(fiscalPeriods)
+    .innerJoin(companies, eq(fiscalPeriods.companyId, companies.id))
+    .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+    .where(and(
+      eq(fiscalPeriods.id, input.periodId),
+      eq(fiscalPeriods.companyId, input.companyId),
+      eq(companies.organizationId, input.organizationId),
+      organizationAccessCondition(input.userId),
+    ))
+    .limit(1);
+  const current = rows[0];
+  if (!current) throw new Error("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
+  if (current.period.status === "CLOSED") throw new Error("FISCAL_PERIOD_ALREADY_CLOSED");
+
+  const [pendingDocuments, pendingTaxes, pendingEntries, unreconciledTreasury, openAudit] = await Promise.all([
+    db.select({ id: businessDocuments.id })
+      .from(businessDocuments)
+      .innerJoin(fiscalTaxRecords, eq(fiscalTaxRecords.businessDocumentId, businessDocuments.id))
+      .where(and(
+        eq(businessDocuments.companyId, input.companyId),
+        eq(fiscalTaxRecords.periodId, input.periodId),
+        inArray(businessDocuments.status, ["DRAFT", "VALIDATED"]),
+      )).limit(1),
+    db.select({ id: fiscalTaxRecords.id })
+      .from(fiscalTaxRecords)
+      .where(and(
+        eq(fiscalTaxRecords.companyId, input.companyId),
+        eq(fiscalTaxRecords.periodId, input.periodId),
+        inArray(fiscalTaxRecords.status, ["DRAFT", "CALCULATED"]),
+      )).limit(1),
+    db.select({ id: journalEntries.id })
+      .from(journalEntries)
+      .where(and(eq(journalEntries.companyId, input.companyId), eq(journalEntries.periodId, input.periodId), eq(journalEntries.reviewStatus, "PENDING")))
+      .limit(1),
+    db.select({ id: treasuryTransactions.id })
+      .from(treasuryTransactions)
+      .where(and(eq(treasuryTransactions.companyId, input.companyId), eq(treasuryTransactions.periodId, input.periodId), eq(treasuryTransactions.reconciliationStatus, "UNRECONCILED")))
+      .limit(1),
+    db.select({ id: auditEventReviewStates.id })
+      .from(auditEventReviewStates)
+      .where(and(eq(auditEventReviewStates.companyId, input.companyId), eq(auditEventReviewStates.status, "OPEN")))
+      .limit(1),
+  ]);
+
+  const checks: Array<{ code: string; label: string; passed: boolean; blocking: boolean }> = [
+    { code: "DOCUMENTS_VALIDATED", label: "Documentos do período validados", passed: pendingDocuments.length === 0, blocking: true },
+    { code: "POSTINGS_RECONCILED", label: "Lançamentos reconciliados com o razão", passed: pendingEntries.length === 0, blocking: true },
+    { code: "TAX_REGISTER_REVIEWED", label: "Registo fiscal revisto", passed: pendingTaxes.length === 0, blocking: true },
+    { code: "BANK_RECONCILED", label: "Caixa e bancos reconciliados", passed: unreconciledTreasury.length === 0, blocking: false },
+    { code: "AUDIT_COMPLETE", label: "Pendências de auditoria revistas", passed: openAudit.length === 0, blocking: false },
+  ];
+  return { periodId: input.periodId, companyId: input.companyId, status: current.period.status, ...evaluatePeriodClose(checks), checks };
+}
+
 export async function closeFiscalPeriodForUser(input: {
   userId: number;
   organizationId: number;
@@ -4182,6 +4247,9 @@ export async function closeFiscalPeriodForUser(input: {
   if (!current) throw new Error("FISCAL_PERIOD_NOT_FOUND_OR_FORBIDDEN");
   if (current.period.status === "CLOSED")
     throw new Error("FISCAL_PERIOD_ALREADY_CLOSED");
+  const readiness = await getFiscalPeriodCloseReadinessForUser(input);
+  if (!readiness.canClose)
+    throw new Error(`PERIOD_CLOSE_BLOCKED:${readiness.blockers.map(({ code }) => code).join(",")}`);
   const pendingEntries = await db
     .select({ id: journalEntries.id })
     .from(journalEntries)

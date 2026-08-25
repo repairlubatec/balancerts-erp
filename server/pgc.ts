@@ -4,6 +4,7 @@ import { accountingRules, auditEvents, chartAccounts, companies, fileAssets, fis
 import { randomUUID } from "node:crypto";
 import { angolaNormativeSources } from "./normative";
 import { getAccountingMovementRule, validateDirectionalMovement } from "../shared/accountingMovementRules";
+import { normalizeAccountingRuleOperation } from "./accounting-rule-operations";
 
 export type PgcAccountDraft = {
   code: string;
@@ -339,6 +340,7 @@ export function validateAccountingRuleDraft(input: { operation: string; debitAcc
 export async function createAccountingRuleForUser(input: { userId: number; organizationId: number; versionId: number; companyId?: number; operation: string; documentType?: string; debitAccountId: number; creditAccountId: number; ivaAccountId?: number; nature?: string; costCenterCode?: string; priority?: number; effectiveFrom: Date; effectiveTo?: Date | null; sourceId?: number; notes?: string }) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   validateAccountingRuleDraft(input);
+  const normalizedOperation = normalizeAccountingRuleOperation(input.operation);
   const version = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
   if (!version[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
   if (version[0].version.status === "ARCHIVED" || version[0].version.status === "SUPERSEDED") throw new Error("PGC_VERSION_NOT_EDITABLE");
@@ -352,10 +354,10 @@ export async function createAccountingRuleForUser(input: { userId: number; organ
   if (!debit || !["DEBIT", "MIXED"].includes(debit.nature)) throw new Error("PGC_RULE_DEBIT_NATURE_INVALID");
   if (!credit || !["CREDIT", "MIXED"].includes(credit.nature)) throw new Error("PGC_RULE_CREDIT_NATURE_INVALID");
   if (input.ivaAccountId && accounts.find((account) => account.id === input.ivaAccountId)?.iva !== 1) throw new Error("PGC_RULE_IVA_ACCOUNT_INVALID");
-  const result = await db.insert(accountingRules).values({ organizationId: input.organizationId, companyId: input.companyId ?? null, versionId: input.versionId, operation: input.operation.trim(), documentType: input.documentType?.trim() || null, debitAccountId: input.debitAccountId, creditAccountId: input.creditAccountId, ivaAccountId: input.ivaAccountId ?? null, nature: input.nature?.trim() || null, costCenterCode: input.costCenterCode?.trim() || null, priority: input.priority ?? 100, effectiveFrom: input.effectiveFrom, effectiveTo: input.effectiveTo ?? null, sourceId: input.sourceId ?? null, active: 1, notes: input.notes?.trim() || null, createdBy: input.userId });
+  const result = await db.insert(accountingRules).values({ organizationId: input.organizationId, companyId: input.companyId ?? null, versionId: input.versionId, operation: normalizedOperation, documentType: input.documentType?.trim() || null, debitAccountId: input.debitAccountId, creditAccountId: input.creditAccountId, ivaAccountId: input.ivaAccountId ?? null, nature: input.nature?.trim() || null, costCenterCode: input.costCenterCode?.trim() || null, priority: input.priority ?? 100, effectiveFrom: input.effectiveFrom, effectiveTo: input.effectiveTo ?? null, sourceId: input.sourceId ?? null, active: 1, notes: input.notes?.trim() || null, createdBy: input.userId });
   const id = Number(result[0].insertId);
-  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId ?? null, actorUserId: input.userId, action: "ACCOUNTING_RULE_CREATED", entityType: "accountingRule", entityId: String(id), beforeState: null, afterState: JSON.stringify(input), correlationId: `accounting-rule:${id}` });
-  return { id, active: true };
+  await appendAuditEventForUser({ organizationId: input.organizationId, companyId: input.companyId ?? null, actorUserId: input.userId, action: "ACCOUNTING_RULE_CREATED", entityType: "accountingRule", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...input, operation: normalizedOperation, humanApprovalRequired: true }), correlationId: `accounting-rule:${id}` });
+  return { id, active: true, operation: normalizedOperation, humanApprovalRequired: true as const };
 }
 
 export async function listAccountingRulesForUser(input: { userId: number; organizationId: number; versionId: number; companyId?: number }) {

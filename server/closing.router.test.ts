@@ -11,6 +11,26 @@ const context: TrpcContext = {
 
 afterEach(() => vi.restoreAllMocks());
 
+describe("closing.readiness integration", () => {
+  it("obtém a prontidão real com o escopo do utilizador autenticado", async () => {
+    const readiness = vi.spyOn(db, "getFiscalPeriodCloseReadinessForUser").mockResolvedValue({
+      periodId: 9,
+      companyId: 8,
+      status: "OPEN",
+      canClose: false,
+      blockers: [{ code: "DOCUMENTS_VALIDATED", label: "Documentos do período validados", passed: false, blocking: true }],
+      completed: 4,
+      total: 5,
+      checks: [],
+    });
+    const caller = appRouter.createCaller(context);
+    const result = await caller.closing.readiness({ organizationId: 7, companyId: 8, periodId: 9 });
+    expect(result.canClose).toBe(false);
+    expect(result.blockers[0]?.code).toBe("DOCUMENTS_VALIDATED");
+    expect(readiness).toHaveBeenCalledWith({ userId: 41, organizationId: 7, companyId: 8, periodId: 9 });
+  });
+});
+
 describe("closing.validateReopen integration", () => {
   it("persists an audited reopen event with actor and correlation", async () => {
     const scope = vi.spyOn(db, "assertAuditScopeForUser").mockResolvedValue(true);
