@@ -390,6 +390,21 @@ export const documentSeries = mysqlTable("documentSeries", {
   companyCodeTypeUnique: uniqueIndex("document_series_company_code_type_unique").on(table.companyId, table.code, table.documentType),
 }));
 
+export const documentPresentationSettings = mysqlTable("documentPresentationSettings", {
+  id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId").notNull().unique(),
+  logoFileAssetId: int("logoFileAssetId"),
+  invoiceTemplate: varchar("invoiceTemplate", { length: 40 }).default("CORPORATIVO_A4").notNull(),
+  receiptTemplate: varchar("receiptTemplate", { length: 40 }).default("CORPORATIVO_A4").notNull(),
+  paperSize: mysqlEnum("paperSize", ["A4", "A5", "TALAO_80MM"]).default("A4").notNull(),
+  orientation: mysqlEnum("orientation", ["PORTRAIT", "LANDSCAPE"]).default("PORTRAIT").notNull(),
+  marginMm: int("marginMm").default(12).notNull(),
+  scalePercent: int("scalePercent").default(100).notNull(),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export const businessDocuments = mysqlTable("businessDocuments", {
   id: int("id").autoincrement().primaryKey(),
   companyId: int("companyId").notNull(),
@@ -1253,6 +1268,7 @@ export type Company = typeof companies.$inferSelect;
 export type FiscalPeriod = typeof fiscalPeriods.$inferSelect;
 export type JournalEntry = typeof journalEntries.$inferSelect;
 export type BusinessDocument = typeof businessDocuments.$inferSelect;
+export type DocumentPresentationSettings = typeof documentPresentationSettings.$inferSelect;
 export type SaadiStudy = typeof saadiStudies.$inferSelect;
 export type SaadiSnapshot = typeof saadiSnapshots.$inferSelect;
 export type SaadiVersion = typeof saadiVersions.$inferSelect;

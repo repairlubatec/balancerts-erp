@@ -43,6 +43,7 @@ import {
   counterparties,
   documentItems,
   documentSeries,
+  documentPresentationSettings,
   documentTaxes,
   fileAssets,
   fileAssetVersions,
@@ -8474,6 +8475,12 @@ export async function getFiscalDocumentPdfDataForUser(input: {
     )
     .limit(1);
   if (!rows[0]) throw new Error("DOCUMENT_NOT_FOUND_OR_FORBIDDEN");
+  const presentationRows = await db
+    .select({ settings: documentPresentationSettings, logo: fileAssets })
+    .from(documentPresentationSettings)
+    .leftJoin(fileAssets, eq(documentPresentationSettings.logoFileAssetId, fileAssets.id))
+    .where(eq(documentPresentationSettings.companyId, input.companyId))
+    .limit(1);
   const items = await db
     .select({ item: documentItems })
     .from(documentItems)
@@ -8484,7 +8491,7 @@ export async function getFiscalDocumentPdfDataForUser(input: {
       )
     )
     .orderBy(documentItems.lineNumber);
-  return { ...rows[0], items: items.map(({ item }) => item) };
+  return { ...rows[0], items: items.map(({ item }) => item), presentation: presentationRows[0] ?? null };
 }
 
 export async function createDocumentImportBatchForUser(input: {
@@ -11780,4 +11787,85 @@ export async function getAgtReadinessForUserCompany(
     activeSignatureKey: Boolean(activeKey),
     blockers,
   };
+}
+
+
+export async function getDocumentPresentationSettingsForUserCompany(input: { userId: number; companyId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const scope = await db
+    .select({ company: companies, organization: organizations })
+    .from(companies)
+    .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+    .where(and(eq(companies.id, input.companyId), organizationAccessCondition(input.userId)))
+    .limit(1);
+  const company = scope[0];
+  if (!company) throw new Error("Empresa não autorizada");
+  const rows = await db
+    .select({ settings: documentPresentationSettings, logo: fileAssets })
+    .from(documentPresentationSettings)
+    .leftJoin(fileAssets, eq(documentPresentationSettings.logoFileAssetId, fileAssets.id))
+    .where(eq(documentPresentationSettings.companyId, input.companyId))
+    .limit(1);
+  return rows[0] ?? { settings: null, logo: null };
+}
+
+export async function saveDocumentPresentationSettingsForUser(input: {
+  userId: number;
+  companyId: number;
+  invoiceTemplate: string;
+  receiptTemplate: string;
+  paperSize: "A4" | "A5" | "TALAO_80MM";
+  orientation: "PORTRAIT" | "LANDSCAPE";
+  marginMm: number;
+  scalePercent: number;
+  logoFileAssetId?: number | null;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const scope = await db
+    .select({ company: companies, organization: organizations })
+    .from(companies)
+    .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+    .where(and(eq(companies.id, input.companyId), organizationAccessCondition(input.userId)))
+    .limit(1);
+  const company = scope[0];
+  if (!company) throw new Error("Empresa não autorizada");
+  if (input.logoFileAssetId) {
+    const logo = await db.select({ id: fileAssets.id }).from(fileAssets).where(and(eq(fileAssets.id, input.logoFileAssetId), eq(fileAssets.companyId, input.companyId), eq(fileAssets.organizationId, company.organization.id))).limit(1);
+    if (!logo[0]) throw new Error("Logótipo não pertence à empresa seleccionada");
+  }
+  const marginMm = Math.min(40, Math.max(0, Math.trunc(input.marginMm)));
+  const scalePercent = Math.min(150, Math.max(50, Math.trunc(input.scalePercent)));
+  await db.insert(documentPresentationSettings).values({
+    companyId: input.companyId,
+    logoFileAssetId: input.logoFileAssetId ?? null,
+    invoiceTemplate: input.invoiceTemplate,
+    receiptTemplate: input.receiptTemplate,
+    paperSize: input.paperSize,
+    orientation: input.orientation,
+    marginMm,
+    scalePercent,
+    createdBy: input.userId,
+  }).onDuplicateKeyUpdate({ set: {
+    logoFileAssetId: input.logoFileAssetId ?? null,
+    invoiceTemplate: input.invoiceTemplate,
+    receiptTemplate: input.receiptTemplate,
+    paperSize: input.paperSize,
+    orientation: input.orientation,
+    marginMm,
+    scalePercent,
+  } });
+  await appendAuditEventForUser({
+    organizationId: company.organization.id,
+    companyId: input.companyId,
+    actorUserId: input.userId,
+    action: "DOCUMENT_PRESENTATION_SETTINGS_UPDATED",
+    entityType: "documentPresentationSettings",
+    entityId: String(input.companyId),
+    beforeState: null,
+    afterState: JSON.stringify({ invoiceTemplate: input.invoiceTemplate, receiptTemplate: input.receiptTemplate, paperSize: input.paperSize, orientation: input.orientation, marginMm, scalePercent, logoFileAssetId: input.logoFileAssetId ?? null }),
+    correlationId: `document-settings:${input.companyId}`,
+  });
+  return getDocumentPresentationSettingsForUserCompany({ userId: input.userId, companyId: input.companyId });
 }

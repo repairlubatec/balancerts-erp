@@ -60,6 +60,8 @@ import {
   getFiscalPeriodCloseReadinessForUser,
   reopenFiscalPeriodForUser,
   getDocumentSeriesForUserCompany,
+  getDocumentPresentationSettingsForUserCompany,
+  saveDocumentPresentationSettingsForUser,
   createDocumentSeriesForUser,
   getAuditEventsForUserCompany,
   getExercisesForUserCompany,
@@ -3817,7 +3819,18 @@ export const appRouter = router({
           companyId: input.companyId,
           documentId: input.documentId,
         });
+        let logoBuffer: Buffer | undefined;
+        if (data.presentation?.logo?.storageKey && ["image/png", "image/jpeg"].includes(data.presentation.logo.mimeType)) {
+          try {
+            const signedLogoUrl = await storageGetSignedUrl(data.presentation.logo.storageKey);
+            const logoResponse = await fetch(signedLogoUrl, { signal: AbortSignal.timeout(3000) });
+            if (logoResponse.ok) logoBuffer = Buffer.from(await logoResponse.arrayBuffer());
+          } catch {
+            logoBuffer = undefined;
+          }
+        }
         const result = await buildFiscalDocumentPdf({
+          presentation: data.presentation?.settings ? { logoBuffer, paperSize: data.presentation.settings.paperSize, orientation: data.presentation.settings.orientation, marginMm: data.presentation.settings.marginMm, scalePercent: data.presentation.settings.scalePercent } : logoBuffer ? { logoBuffer } : undefined,
           company: {
             name: data.company.name,
             nif: data.company.nif,
@@ -3907,6 +3920,21 @@ export const appRouter = router({
       .query(({ ctx, input }) =>
         getDocumentSeriesForUserCompany(ctx.user.id, input.companyId)
       ),
+    presentationSettings: roleProcedure("documents", "read")
+      .input(z.object({ companyId: z.number().int().positive() }))
+      .query(({ ctx, input }) => getDocumentPresentationSettingsForUserCompany({ userId: ctx.user.id, companyId: input.companyId })),
+    savePresentationSettings: roleProcedure("documents", "validate")
+      .input(z.object({
+        companyId: z.number().int().positive(),
+        invoiceTemplate: z.enum(["CORPORATIVO_A4", "MINIMAL_A4", "COMPACTO_A5"]),
+        receiptTemplate: z.enum(["CORPORATIVO_A4", "MINIMAL_A4", "COMPACTO_A5"]),
+        paperSize: z.enum(["A4", "A5", "TALAO_80MM"]),
+        orientation: z.enum(["PORTRAIT", "LANDSCAPE"]),
+        marginMm: z.number().int().min(0).max(40),
+        scalePercent: z.number().int().min(50).max(150),
+        logoFileAssetId: z.number().int().positive().nullable().optional(),
+      }))
+      .mutation(({ ctx, input }) => saveDocumentPresentationSettingsForUser({ ...input, userId: ctx.user.id })),
     createSeries: roleProcedure("documents", "create")
       .input(
         z.object({
@@ -4315,6 +4343,21 @@ export const appRouter = router({
           description: input.description,
           reference: input.reference,
         });
+      }),
+    registerCompanyLogo: roleProcedure("documents", "validate")
+      .input(z.object({
+        organizationId: z.number().int().positive(),
+        companyId: z.number().int().positive(),
+        filename: z.string().min(1).max(255),
+        mimeType: z.enum(["image/png", "image/jpeg"]),
+        dataBase64: z.string().min(1).max(7_000_000),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const data = Buffer.from(input.dataBase64, "base64");
+        if (data.length === 0 || data.length > 5 * 1024 * 1024) throw new TRPCError({ code: "BAD_REQUEST", message: "O logótipo deve ter entre 1 byte e 5 MB." });
+        const prepared = prepareTenantFile({ ...input, userId: ctx.user.id, data });
+        const uploaded = await storagePut(`company-logos/${input.companyId}/${prepared.sha256}-${prepared.filename}`, data, input.mimeType);
+        return createFileAsset({ ...prepared, userId: ctx.user.id, organizationId: input.organizationId, companyId: input.companyId, storageKey: uploaded.key, category: "OUTRO", description: "Logótipo oficial da empresa", reference: `company-logo:${input.companyId}` });
       }),
     list: roleProcedure("documents", "read")
       .input(

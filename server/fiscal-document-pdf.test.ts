@@ -18,4 +18,16 @@ describe("fiscal preparation PDF", () => {
     const imageCount = (result.buffer.toString("latin1").match(/\/Subtype \/Image/g) ?? []).length;
     expect(imageCount).toBeGreaterThanOrEqual(2);
   });
+
+  it("applies persisted paper presentation settings without changing document semantics", async () => {
+    const result = await buildFiscalDocumentPdf({
+      company: { name: "Repair Lubatec", nif: "5001121871" },
+      document: { documentNumber: "RECIBO/PREVISUALIZACAO", documentType: "RC", status: "DRAFT", currency: "AOA", ivaRegime: "EXCLUSAO", netAmount: "0.00", taxAmount: "0.00", totalAmount: "0.00" },
+      lines: [],
+      presentation: { paperSize: "A5", orientation: "LANDSCAPE", marginMm: 8, scalePercent: 90 },
+    });
+    expect(result.buffer.subarray(0, 5).toString()).toBe("%PDF-");
+    expect(result.certified).toBe(false);
+    expect(result.hash).toMatch(/^[a-f0-9]{64}$/);
+  });
 });

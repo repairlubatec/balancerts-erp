@@ -3598,3 +3598,11 @@
 - [x] Consolidar evidência pós-restauro exacta por módulo, organização, empresa e período
 - [x] Documentar matriz de aceitação externa com critérios, evidência necessária, responsável e estado
 - [x] Rever e corrigir qualquer erro activo de runtime após o reinício limpo
+
+# Definições documentais e impressão
+- [x] Criar configuração persistente por empresa para modelos de facturas e recibos
+- [x] Permitir upload seguro de logótipo por empresa com armazenamento S3 e ACL tenant-aware
+- [x] Aplicar automaticamente o logótipo nos documentos novos e nas pré-visualizações
+- [x] Implementar modelos profissionais de factura, factura-recibo e recibo sem alterar documentos emitidos
+- [x] Implementar pré-visualização, formato de papel, margens, orientação, escala e definições de impressão por empresa
+- [x] Adicionar testes backend/frontend e validar visualmente o posto de Definições documentais

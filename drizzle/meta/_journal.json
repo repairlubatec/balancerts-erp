@@ -554,6 +554,13 @@
       "when": 1787651873901,
       "tag": "0078_bright_guardian",
       "breakpoints": true
+    },
+    {
+      "idx": 79,
+      "version": "5",
+      "when": 1787667603853,
+      "tag": "0079_wealthy_psynapse",
+      "breakpoints": true
     }
   ]
 }
