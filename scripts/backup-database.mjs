@@ -45,7 +45,7 @@ export function runMysqldump({ databaseUrl, outputPath, consistentSnapshot = tru
   const connection = parseMysqlUrl(databaseUrl);
   const consistencyArgs = consistentSnapshot ? ["--single-transaction"] : ["--skip-lock-tables"];
   return new Promise((resolvePromise, reject) => {
-    const child = spawn("mysqldump", [`--host=${connection.host}`, `--port=${connection.port}`, `--user=${connection.user}`, "--protocol=TCP", ...consistencyArgs, "--routines", "--triggers", "--hex-blob", "--set-gtid-purged=OFF", connection.database], { env: { ...process.env, MYSQL_PWD: connection.password }, stdio: ["ignore", "pipe", "pipe"] });
+    const child = spawn("mysqldump", [`--host=${connection.host}`, `--port=${connection.port}`, `--user=${connection.user}`, "--protocol=TCP", "--ssl-mode=REQUIRED", ...consistencyArgs, "--routines", "--triggers", "--hex-blob", "--set-gtid-purged=OFF", connection.database], { env: { ...process.env, MYSQL_PWD: connection.password }, stdio: ["ignore", "pipe", "pipe"] });
     const output = createWriteStream(outputPath);
     const gzip = spawn("gzip", [], { stdio: ["pipe", "pipe", "pipe"] });
     child.stdout.pipe(gzip.stdin);

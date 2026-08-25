@@ -3588,3 +3588,8 @@
 - [x] Configurar credencial RESTORE_DATABASE_URL para o cluster TiDB Cloud isolado, sem armazenar credenciais no código ou no chat
 - [ ] Implementar e testar o fluxo de restauro não destrutivo apontado exclusivamente ao destino isolado
 - [ ] Validar contagens, esquema, integridade e isolamento do restauro sem contactar a base produtiva
+
+# Backup real para validação isolada
+- [x] Autorizar e preparar exportação read-only da base BALANCERTS.ERP sem mutações
+- [x] Gerar backup SQL comprimido com hash SHA-256 e manifesto de integridade
+- [x] Verificar o backup e mantê-lo separado para restauro exclusivo no TiDB isolado
