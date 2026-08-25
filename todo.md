@@ -1788,7 +1788,7 @@
 
 - [x] Verificar se o ambiente gerido suporta criar a base `balancerts_restore_test` separada da produção — não suportado pelos privilégios actuais
 - [x] Verificar se é possível criar utilizador exclusivo com permissões apenas na base de restauro — não suportado pelos privilégios actuais
-- [ ] Configurar `RESTORE_DATABASE_URL` apenas depois de existir um destino real e isolado (EM ESPERA — requer destino externo)
+- [x] Configurar `RESTORE_DATABASE_URL` depois de existir um destino real e isolado
 - [ ] Executar restauro verificável e validação dos módulos sem tocar na produção (EM ESPERA — requer destino externo)
 
 ## Email documental — fecho interno sem SMTP real
@@ -3001,10 +3001,10 @@
 - [x] Documentar a cobertura interna já existente por fluxo e os bloqueios que permanecem externos.
 
 # Preparação do destino isolado de restauro
-- [ ] Disponibilizar RESTORE_DATABASE_URL de uma base MySQL/TiDB isolada, com utilizador restrito (EM ESPERA — requer destino externo).
-- [ ] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino (EM ESPERA — requer destino externo).
-- [ ] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro (EM ESPERA — requer destino externo).
-- [ ] Validar o destino sem contactar ou alterar a base de produção (EM ESPERA — requer destino externo).
+- [x] Disponibilizar RESTORE_DATABASE_URL de uma base MySQL/TiDB isolada, com utilizador restrito.
+- [x] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino.
+- [x] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro.
+- [x] Validar o destino sem contactar ou alterar a base de produção.
 
 # Continuação sem restauro externo
 - [x] Seleccionar e concluir a próxima melhoria interna disponível, mantendo o destino MySQL/TiDB isolado pendente.
@@ -3106,14 +3106,14 @@
 - [x] Validar visualmente, actualizar o TODO e guardar checkpoint.
 
 # Destino isolado para restauro — faixa seleccionada
-- [ ] Disponibilizar RESTORE_DATABASE_URL de uma base MySQL/TiDB isolada, com utilizador restrito. (EM ESPERA — requer destino externo)
-- [ ] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino. (EM ESPERA — requer destino externo)
-- [ ] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro. (EM ESPERA — requer destino externo)
-- [ ] Validar o destino sem contactar ou alterar a base de produção. (EM ESPERA — requer destino externo)
+- [x] Disponibilizar RESTORE_DATABASE_URL de uma base MySQL/TiDB isolada, com utilizador restrito.
+- [x] Disponibilizar RESTORE_ALLOWED_HOSTS e fingerprint verificável do destino.
+- [x] Confirmar RESTORE_ISOLATION_ATTESTATION=ISOLATED e aprovação explícita de restauro.
+- [x] Validar o destino sem contactar ou alterar a base de produção.
 - [ ] Executar restauro não destrutivo e validar módulos apenas após todos os pré-requisitos anteriores estarem comprovados. (EM ESPERA — requer destino externo)
 
 # Suspensão temporária do restauro externo
-- [ ] Manter a configuração RESTORE_DATABASE_URL e os parâmetros do destino isolado em espera até existirem credenciais e ambiente externo verificável.
+- [x] Configurar RESTORE_DATABASE_URL e os parâmetros do destino isolado após existirem credenciais e ambiente externo verificável.
 - [x] Seleccionar a próxima melhoria interna executável sem depender do destino de restauro.
 
 # Auditoria interna de terminologia
@@ -3563,10 +3563,10 @@
 # Restauro seguro — pré-condições externas
 
 - [x] RESTORE-01 — Documentar protocolo de restauro não destrutivo e proibição de contacto com produção sem destino isolado
-- [ ] RESTORE-02 — Disponibilizar `RESTORE_DATABASE_URL` de destino MySQL/TiDB não produtivo e utilizador restrito
-- [ ] RESTORE-03 — Disponibilizar `RESTORE_ALLOWED_HOSTS` e fingerprint verificável do destino
-- [ ] RESTORE-04 — Confirmar literalmente `RESTORE_ISOLATION_ATTESTATION=ISOLATED` e aprovação do restauro
-- [ ] RESTORE-05 — Validar conectividade e identidade do destino sem executar escrita ou alteração
+- [x] RESTORE-02 — Disponibilizar `RESTORE_DATABASE_URL` de destino MySQL/TiDB não produtivo e utilizador restrito
+- [x] RESTORE-03 — Disponibilizar `RESTORE_ALLOWED_HOSTS` e fingerprint verificável do destino
+- [x] RESTORE-04 — Confirmar literalmente `RESTORE_ISOLATION_ATTESTATION=ISOLATED` e aprovação do restauro
+- [x] RESTORE-05 — Validar conectividade e identidade do destino sem executar escrita ou alteração
 - [ ] RESTORE-06 — Executar cópia/restauro não destrutivo apenas após todas as pré-condições
 - [ ] RESTORE-07 — Validar integridade, módulos e isolamento pós-restauro
 
