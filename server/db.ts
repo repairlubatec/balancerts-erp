@@ -6865,9 +6865,12 @@ export async function updateCounterpartyForUser(input: {
   companyId: number;
   counterpartyId: number;
   name?: string;
+  taxId?: string;
   email?: string;
   phone?: string;
   address?: string;
+  municipality?: string;
+  province?: string;
   paymentTermsDays?: number;
   creditLimit?: number;
   preferredCurrency?: string;
@@ -6911,9 +6914,12 @@ export async function updateCounterpartyForUser(input: {
     .update(counterparties)
     .set({
       name: input.name,
+      taxId: input.taxId,
       email: input.email,
       phone: input.phone,
       address: input.address,
+      municipality: input.municipality,
+      province: input.province,
       paymentTermsDays: input.paymentTermsDays,
       creditLimit:
         input.creditLimit === undefined

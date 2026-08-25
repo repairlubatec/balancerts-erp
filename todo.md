@@ -3508,3 +3508,15 @@
 - [x] Reverificar P0.6 no software e confirmar prontidão server-side, fecho persistente e reabertura auditada
 - [x] Reexecutar suite global, TypeScript, build e verificação visual após a interrupção eléctrica
 - [x] Marcar apenas os itens efectivamente confirmados e guardar novo checkpoint
+
+
+# P1 — Fechar as operações principais
+- [x] P1.1 — Completar Clientes e Fornecedores com ficha, pesquisa, detalhe, histórico, saldos e integração documental
+- [x] P1.2 — Completar Stock com armazéns, inventário, entradas, saídas, transferências, valorização e reconciliação
+- [ ] P1.3 — Completar Imobilizado com aquisição, entrada em uso, depreciação, baixa, alienação e mapa de activos
+- [ ] P1.4 — Fechar Relatórios principais e auxiliares com filtros, reconciliação e percurso de origem
+- [ ] P1.5 — Fechar SAF-T readiness com contagens persistentes reais e estados claramente distinguidos de homologação AGT
+- [ ] P1.6 — Consolidar Definições e parâmetros operacionais por organização, empresa, exercício, período, IVA, moeda e séries
+- [ ] P1.7 — Validar P1 com Vitest, TypeScript, build e verificação visual antes do checkpoint
+
+> Regra P1: não criar dados de demonstração, não activar PGCA pendente e não declarar homologação AGT sem credenciais e evidência oficial.
