@@ -3532,3 +3532,9 @@
 - [x] P2.7 — Guardar checkpoint da P2; manter dependências externas da P1 em espera
 
 > Regra P2: não inventar dados, não activar normativa sem evidência oficial, não declarar homologação AGT, não permitir escrita operacional do SAADI e não marcar dependências externas como concluídas.
+
+- [x] P2.8 — Auditar e limitar todas as exportações CSV, XLSX, PDF e downloads por empresa, papel e volume
+- [x] P2.9 — Criar checklist técnico de aceitação dos ciclos completos com critérios de entrada, saída e não-regressão
+- [x] P2.10 — Cobrir com testes directos os envelopes, erros estruturados, limites e rejeições de escopo dos relatórios e exportações
+- [x] P2.11 — Cobrir com testes directos a separação entre leitura SAADI e mutações operacionais do BALANCERTS.ERP
+- [x] P2.12 — Rever visualmente estados de carregamento, vazio, erro, bloqueio e confirmação nos postos críticos

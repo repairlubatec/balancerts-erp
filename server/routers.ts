@@ -376,6 +376,24 @@ const roleProcedure = (module: string, permission: Parameters<typeof can>[2]) =>
     return next();
   });
 
+const assertCompanyOrganizationScope = async (
+  userId: number,
+  organizationId: number,
+  companyId: number
+) => {
+  const authorizedCompanies = await getCompaniesForUser(userId);
+  const authorized = authorizedCompanies.some(
+    ({ company }) =>
+      company.id === companyId && company.organizationId === organizationId
+  );
+  if (!authorized) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Empresa não autorizada no contexto da organização.",
+    });
+  }
+};
+
 export const appRouter = router({
   system: systemRouter,
   auth: router({
@@ -4042,32 +4060,54 @@ export const appRouter = router({
   exports: router({
     csv: roleProcedure("documents", "read")
       .input(
-        z.object({
-          kind: z.enum(["counterparties", "products", "documents"]),
-          rows: z.array(z.record(z.string(), z.unknown())).max(10000),
-        })
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            kind: z.enum(["counterparties", "products", "documents"]),
+            rows: z.array(z.record(z.string(), z.unknown())).max(10000),
+          })
+          .strict()
       )
-      .query(({ input }) => ({
-        filename: `${input.kind}.csv`,
-        mimeType: "text/csv; charset=utf-8",
-        data: exportFiscalCsv(input.rows),
-      })),
+      .query(async ({ ctx, input }) => {
+        await assertCompanyOrganizationScope(
+          ctx.user.id,
+          input.organizationId,
+          input.companyId
+        );
+        return {
+          filename: `${input.kind}.csv`,
+          mimeType: "text/csv; charset=utf-8",
+          data: exportFiscalCsv(input.rows),
+        };
+      }),
     xlsx: roleProcedure("documents", "read")
       .input(
-        z.object({
-          kind: z.enum(["counterparties", "products", "documents"]),
-          rows: z.array(z.record(z.string(), z.unknown())).max(10000),
-        })
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            companyId: z.number().int().positive(),
+            kind: z.enum(["counterparties", "products", "documents"]),
+            rows: z.array(z.record(z.string(), z.unknown())).max(10000),
+          })
+          .strict()
       )
-      .query(({ input }) => ({
-        filename: `${input.kind}.xlsx`,
-        mimeType:
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        dataBase64: exportFiscalWorkbook(
-          input.kind as FiscalImportKind,
-          input.rows
-        ).toString("base64"),
-      })),
+      .query(async ({ ctx, input }) => {
+        await assertCompanyOrganizationScope(
+          ctx.user.id,
+          input.organizationId,
+          input.companyId
+        );
+        return {
+          filename: `${input.kind}.xlsx`,
+          mimeType:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          dataBase64: exportFiscalWorkbook(
+            input.kind as FiscalImportKind,
+            input.rows
+          ).toString("base64"),
+        };
+      }),
     validateImport: roleProcedure("documents", "create")
       .input(
         z.object({
