@@ -110,6 +110,31 @@ describe("reconciliable reports", () => {
     expect(buildDocumentOriginReconciliation([], [{ entryId: 11, sourceDocumentId: 999 }])).toMatchObject({ orphanJournalEntryIds: [11], reconciled: false });
   });
 
+  it("preserves fiscal rule provenance per document", () => {
+    const result = buildFiscalRegister([
+      {
+        documentId: 9,
+        documentNumber: "FT/000009",
+        issueDate: new Date("2026-01-09"),
+        customerNif: "5001121872",
+        status: "ISSUED",
+        ivaRegime: "GERAL",
+        netAmount: 100,
+        taxAmount: 14,
+        totalAmount: 114,
+        normativeRuleIds: [4],
+        normativeRuleVersions: ["2026-01-01"],
+        legalReferences: ["Lei n.º 14/23, artigo 19.º"],
+      },
+    ]);
+    expect(result.entries[0]).toMatchObject({
+      normativeRuleIds: [4],
+      normativeRuleVersions: ["2026-01-01"],
+      legalReferences: ["Lei n.º 14/23, artigo 19.º"],
+    });
+    expect(result.reconciled).toBe(true);
+  });
+
   it("reconciles income statement and balance sheet", () => {
     const lines = [
       { accountCode: "11.1", accountName: "Caixa", debit: 120, credit: 0 },

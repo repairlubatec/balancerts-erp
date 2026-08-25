@@ -112,6 +112,9 @@ export type FiscalRegisterRow = {
   netAmount: number;
   taxAmount: number;
   totalAmount: number;
+  normativeRuleIds?: number[];
+  normativeRuleVersions?: string[];
+  legalReferences?: string[];
 };
 
 export function buildFiscalRegister(rows: FiscalRegisterRow[]) {

@@ -82,3 +82,30 @@ Este relatório foi elaborado a partir do documento **Motor Fiscal** fornecido p
 Após a auditoria, o serviço fiscal passou a resolver a versão activa mais recente por regime e data, ignorando regras não activas. Foi acrescentada validação determinística de códigos, evidência, vigência inválida e sobreposição de versões. O resultado fiscal comum passou a expor `taxType`, `taxBase`, `ruleId`, `ruleVersion`, `legalReference`, `warnings` e `validationErrors`; quando não existe referência jurídica explícita, o motor emite um aviso e não inventa uma referência.
 
 Foi também disponibilizado o procedimento protegido `fiscal.calculateFiscalResult`, mantendo o contrato histórico `fiscal.calculateIva` para compatibilidade. Esta extensão não activa taxas novas, não altera documentos emitidos e não transforma a auditoria parcial do IVA em conformidade integral. A integração completa por operação, apuramento, dedução, regularizações, declarações e AGT continua condicionada às fontes e evidências indicadas na matriz.
+
+
+## Actualização de integração documental — 25 de Agosto de 2026
+
+A criação de rascunhos de documentos comerciais passou a reutilizar o Motor Fiscal comum por linha documental. Quando existe IVA liquidado, a regra normativa deve ser indicada e é aceite apenas se pertencer à organização da empresa, estiver no regime solicitado, tiver estado `ACTIVE` e estiver vigente na data da operação. A base, taxa, imposto e total fornecidos pelo cliente são comparados com o cálculo determinístico; divergências bloqueiam a operação.
+
+A mesma validação é usada pela conversão de recepções de compras em documentos de fornecedor. O contrato aceita `normativeRuleId`, `normativeRuleVersion`, `legalReference` e `calculationHash` de forma explícita, sem seleccionar uma regra ou uma taxa por inferência. Os metadados são persistidos em `documentTaxes`, juntamente com a referência à regra, quando disponível.
+
+O `reports.fiscalRegister` passou a devolver, por documento, os IDs de regras, versões e referências jurídicas persistidos nos impostos. A consulta continua limitada pela empresa autorizada e os totais/reconciliação permanecem baseados nos valores documentais persistidos. A migration `0080_acoustic_drax.sql` é aditiva e foi aplicada com sucesso; não altera nem apaga dados históricos.
+
+A cobertura foi validada pela suite global de 151 ficheiros e 596 testes, TypeScript sem erros e build de produção aprovado. Esta extensão melhora a rastreabilidade operacional, mas não declara como concluídos os gaps de dedução, regularização, apuramento integral, declarações ou integração AGT identificados acima.
+
+## Estado externo verificado
+
+A consulta de correio realizada em 25 de Agosto de 2026 encontrou os pedidos enviados à AGT sobre chaves/certificados de facturação electrónica e consulta de NIF, mas não encontrou resposta oficial nem credenciais. Também não foram encontrados documentos utilizáveis de bancos, ambiente Windows ou certificado de distribuição. Estas dependências continuam correctamente em espera e não foram activadas por suposição.
+
+## Referência técnica da extensão
+
+- `server/fiscal.ts`: cálculo e validação fiscal comuns.
+- `server/db.ts`: validação na criação documental, conversão de compras e consulta de proveniência do registo fiscal.
+- `server/routers.ts`: contratos tRPC com validação dos metadados normativos.
+- `drizzle/schema.ts`: campos opcionais de rastreabilidade em `documentTaxes`.
+- `drizzle/0080_acoustic_drax.sql`: migration aditiva aplicada.
+- `server/reports.ts`: linhas do registo fiscal com proveniência normativa opcional.
+- `server/reports.test.ts`: cobertura de preservação de IDs, versões e referências jurídicas.
+
+> Limite de conformidade: a existência destes campos e validações não substitui a confirmação humana das fontes primárias nem a homologação oficial. Regras sem evidência adequada continuam bloqueadas ou não configuradas.

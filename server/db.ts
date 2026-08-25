@@ -4432,18 +4432,57 @@ export async function getFiscalRegisterForUserCompany(
       )
     )
     .orderBy(businessDocuments.issuedAt, businessDocuments.id);
+  const documentIds = rows.map(({ document }) => document.id);
+  const taxes = documentIds.length
+    ? await db
+        .select({ tax: documentTaxes })
+        .from(documentTaxes)
+        .where(
+          and(
+            eq(documentTaxes.companyId, companyId),
+            inArray(documentTaxes.documentId, documentIds)
+          )
+        )
+    : [];
+  const taxProvenance = new Map<
+    number,
+    { ruleIds: number[]; versions: string[]; references: string[] }
+  >();
+  for (const { tax } of taxes) {
+    const current = taxProvenance.get(tax.documentId) ?? {
+      ruleIds: [],
+      versions: [],
+      references: [],
+    };
+    if (tax.normativeRuleId && !current.ruleIds.includes(tax.normativeRuleId))
+      current.ruleIds.push(tax.normativeRuleId);
+    if (
+      tax.normativeRuleVersion &&
+      !current.versions.includes(tax.normativeRuleVersion)
+    )
+      current.versions.push(tax.normativeRuleVersion);
+    if (tax.legalReference && !current.references.includes(tax.legalReference))
+      current.references.push(tax.legalReference);
+    taxProvenance.set(tax.documentId, current);
+  }
   return buildFiscalRegister(
-    rows.map(({ document }) => ({
-      documentId: document.id,
-      documentNumber: document.documentNumber,
-      issueDate: document.issuedAt ?? document.createdAt,
-      customerNif: null,
-      status: document.status,
-      ivaRegime: document.ivaRegime,
-      netAmount: Number(document.netAmount),
-      taxAmount: Number(document.taxAmount),
-      totalAmount: Number(document.totalAmount),
-    }))
+    rows.map(({ document }) => {
+      const provenance = taxProvenance.get(document.id);
+      return {
+        documentId: document.id,
+        documentNumber: document.documentNumber,
+        issueDate: document.issuedAt ?? document.createdAt,
+        customerNif: null,
+        status: document.status,
+        ivaRegime: document.ivaRegime,
+        netAmount: Number(document.netAmount),
+        taxAmount: Number(document.taxAmount),
+        totalAmount: Number(document.totalAmount),
+        normativeRuleIds: provenance?.ruleIds,
+        normativeRuleVersions: provenance?.versions,
+        legalReferences: provenance?.references,
+      };
+    })
   );
 }
 
