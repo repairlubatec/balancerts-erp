@@ -2545,7 +2545,7 @@
 - [x] Implementar banco de regras contabilísticas sem códigos hardcoded
 - [x] Integrar o novo PGC com IVA, compras, vendas, stock, tesouraria, salários, imobilizado e relatórios
 - [x] Integrar o novo PGC como fonte oficial do Balancerts IA e do SAADI
-- [ ] Implementar migração segura, backup, rollback e preservação de históricos (EM ESPERA — depende de destino isolado)
+- [x] Implementar migração segura, backup, rollback e preservação de históricos através do destino TiDB isolado
 - [x] Criar administração do PGC com RBAC, histórico e fontes normativas
 - [ ] Executar testes contabilísticos completos e aceitação controlada sem activar dados não validados (EM ESPERA — requer dados/sessão de aceitação)
 
