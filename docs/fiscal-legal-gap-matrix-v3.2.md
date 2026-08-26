@@ -142,3 +142,19 @@ A Lei n.º 17/19 foi inserida na cadeia histórica sem substituir a Lei n.º 7/1
 | Entrada em vigor | p. 25, artigo 4.º: 1 de Julho de 2019 | `VISUALLY_CONFIRMED` | Marco histórico; não determina sozinho o regime operacional actual |
 
 A Lei n.º 7/19 completa a fonte inicial da cadeia `Lei 7/19 → Lei 17/19 → DP 180/19 → DE 134/19 → Lei 14/23`. O exemplar também contém o início da Lei n.º 8/19, mantida fora desta classificação.
+
+
+## Actualização de 26-08-2026 — CGT e páginas institucionais adicionais
+
+| Área | Evidência obtida | Lacuna/bloqueio | Estado seguro |
+|---|---|---|---|
+| Legislação geral — CGT base | Lei n.º 21/14, PDF de 38 páginas, SHA-256 `205431275264aea954a307ddb39007fa3c8cb6e29852f25d58e742016afe3175`; conferência visual pp. 1–3 e 36–38; aprovação do CGT, revogação do código anterior, vigência em 01-01-2015 e disposições finais | Falta conferência visual integral e mapeamento completo de artigos, remissões e legislação complementar | `OPEN — HIGH`; evidência `VISUALLY_CONFIRMED` apenas no escopo indicado |
+| Legislação geral — alteração CGT | Lei n.º 21/20, PDF de 14 páginas, SHA-256 `39d9a82850eadc65a507703f948b0a1f516c9d23eac1f899dc4e9ea58d2ae0e4`; conferência visual pp. 1–3 e 13–14; alterações, aditamentos, revogações e entrada em vigor | Falta mapear todos os artigos alterados/aditados para dependências do motor e validar diplomas posteriores | `OPEN — HIGH`; evidência `VISUALLY_CONFIRMED` apenas no escopo indicado |
+| Imposto Industrial | Página oficial apresenta incidência, regimes, taxas operacionais de 25%, 10%, 35% e pagamento provisório de 2% | Código completo, diplomas alteradores, tabelas/modelos e vigência devem ser confirmados por PDFs primários | `OPEN — HIGH`; `SOURCE_CANDIDATE` |
+| IRT | Página oficial apresenta grupos A/B/C, regras de matéria colectável, taxas B/C de 25% e 6,5% e prazos | Tabela do Grupo A, código consolidado, deduções, isenções, modelos e alterações posteriores ainda exigem fontes primárias | `OPEN — HIGH`; `SOURCE_CANDIDATE` |
+| Imposto Predial | Página oficial apresenta incidência, isenções, matéria colectável, taxas operacionais e prazos | Código, tabela integral, regulamentos, modelos e alterações posteriores ainda não estão fechados | `OPEN — HIGH`; `SOURCE_CANDIDATE` |
+| Imposto do Selo | Página oficial remete as taxas para a tabela anexa e apresenta incidência, isenções, pagamento e declaração anual | A tabela anexa, alterações, modelos e vigência são indispensáveis; a página não basta para calcular | `OPEN — CRITICAL`; `SOURCE_CANDIDATE` |
+
+### Regra de activação
+
+Nenhum valor publicado nas páginas institucionais foi convertido em regra activa. O CGT foi integrado no registo como diploma transversal de procedimento e garantias, mas a activação permanece condicionada à cobertura documental e aprovação humana exigidas pelo modelo fail-closed.

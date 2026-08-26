@@ -3806,4 +3806,12 @@
 - [x] Extrair o texto e localizar artigos, anexos, taxas, vigência e disposições transitórias.
 - [x] Conferir visualmente os artigos e anexos materiais apenas onde legíveis.
 - [x] Completar a cadeia Lei 7/19 → Lei 17/19 → DP 180/19 → DE 134/19 → Lei 14/23 na matriz V3.2.
-- [ ] Executar testes e guardar checkpoint sem activar automaticamente regras fiscais.
+- [x] Executar testes e guardar checkpoint sem activar automaticamente regras fiscais.
+
+## Validação do Código Geral Tributário e fontes fiscais adicionais
+
+- [x] Inventariar os PDFs da Lei n.º 21/14 e Lei n.º 21/20 com MIME, páginas, tamanho, produtor e SHA-256.
+- [x] Extrair e conferir o Código Geral Tributário e a alteração de 2020, incluindo artigos, vigência, revogações e disposições relevantes.
+- [x] Classificar os links oficiais de Imposto Industrial, IRT, Imposto Predial e Imposto do Selo como fontes operacionais, sem os tratar como tabelas normativas completas.
+- [x] Actualizar o registo de fontes e a matriz de lacunas V3.2, distinguindo diplomas primários, páginas institucionais e materiais auxiliares.
+- [x] Executar testes e guardar checkpoint sem activar automaticamente taxas ou regras fiscais.

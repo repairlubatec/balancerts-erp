@@ -212,3 +212,24 @@ O estado passou para **`VISUALLY_CONFIRMED` no escopo das páginas 2–4**. A Le
 **Páginas visualmente confirmadas:** pp. 10–14 e 21–25, incluindo taxa geral de 14%, imposto cativo, direito à dedução, obrigações declarativas, facturação, organização contabilística, regime de caixa, modelos, penalidades, Anexos I–IV e entrada em vigor.
 
 O estado documental passou para **`VISUALLY_CONFIRMED` no escopo das páginas revistas**. As páginas 25 e outros pontos do exemplar mostram o início de diplomas seguintes, incluindo a Lei n.º 8/19; esses conteúdos foram excluídos para preservar a separação de fontes. Nenhuma regra foi activada automaticamente.
+
+
+## Lei n.º 21/14 — Código Geral Tributário
+
+**Ficheiro anexado:** `/home/ubuntu/upload/legislacao_outros_lei_21-14-codigo_geral_tributario.pdf`  
+**Integridade:** PDF 1.5, 38 páginas, A4, 5 304 223 bytes, produtor `GPL Ghostscript 9.18`, autor/metadado `Jurisnet`, SHA-256 `205431275264aea954a307ddb39007fa3c8cb6e29852f25d58e742016afe3175`.  
+**Classificação:** diploma-base que aprova o Código Geral Tributário. O Diário da República visível é I Série n.º 192, de 22 de Outubro de 2014.  
+**Conferência visual:** pp. 1–3 e 36–38; confirmados o acto de aprovação, a revogação do código anterior, a entrada em vigor em 1 de Janeiro de 2015 e as disposições finais do Código, incluindo o artigo 229.º.  
+**Estado seguro:** `VISUALLY_CONFIRMED` no escopo das páginas revistas; cobertura integral de artigos e relações legislativas permanece `A CONSOLIDAR`. Não activa por si só taxas específicas de impostos.
+
+## Lei n.º 21/20 — alteração ao Código Geral Tributário
+
+**Ficheiro anexado:** `/home/ubuntu/upload/legislacao_outros_lei_21_20_alteracao_ao_codigo_geral_tributario.pdf`  
+**Integridade:** PDF 1.5, 14 páginas, A4, 1 641 629 bytes, produtor `GPL Ghostscript 9.18`, autor/metadado `Jurisnet`, SHA-256 `39d9a82850eadc65a507703f948b0a1f516c9d23eac1f899dc4e9ea58d2ae0e4`.  
+**Classificação:** diploma alterador e aditivo do Código Geral Tributário aprovado pela Lei n.º 21/14 e anteriormente alterado pela Lei n.º 18/17. O Diário da República visível é I Série n.º 101, de 9 de Julho de 2020.  
+**Conferência visual:** pp. 1–3 e 13–14; confirmados o artigo 1.º com a lista de artigos alterados, o artigo 2.º com os artigos aditados, o artigo 3.º de revogação e o artigo 5.º de entrada em vigor na data da publicação.  
+**Estado seguro:** `VISUALLY_CONFIRMED` no escopo das páginas revistas; cobertura integral e mapeamento de dependências permanecem `A CONSOLIDAR`. Não activa por si só taxas específicas de impostos.
+
+## Páginas institucionais do Portal do Contribuinte
+
+As páginas oficiais de Imposto Industrial, IRT, Imposto Predial e Imposto do Selo foram consultadas no navegador e registadas em [portal-contribuinte-fiscal-sources-2026-08-26.md](./portal-contribuinte-fiscal-sources-2026-08-26.md). São referências institucionais operacionais e não substituem os códigos, tabelas anexas, diplomas alteradores e provas de vigência. Os valores apresentados permanecem `SOURCE_CANDIDATE`/`A CONSOLIDAR` até à confirmação da fonte primária correspondente.
