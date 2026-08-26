@@ -111,3 +111,13 @@ Estas fontes são classificadas como `GUIA INSTITUCIONAL / REFERÊNCIA OPERACION
 | Regra de segurança | Não tratar estes itens como taxas permanentes. Exigir artigo, condição, vigência e expiração; manter bloqueados até conferência humana do PDF. |
 
 A Circular declara revogar a Circular n.º 01/GACA/GJ/AGT/2025 e a Circular n.º 019/GJ/AGT/2024 e aplicação imediata. Estes efeitos temporais serão tratados como camada normativa datada, nunca como substituição do Código do IVA, do Código do II ou do PGCA-82-01.
+
+
+## 10. Circulares AGT 09 e 12 de 2026
+
+| Diploma | Função | Estado | Tratamento seguro |
+|---|---|---|---|
+| Circular n.º 09 GACA/GJ/AGT/2026 | Sentido e alcance do n.º 3 do artigo 41.º da lei do OGE 2026 | `A CONSOLIDAR — PDF image-only` | Não activar sem conferência visual e determinação exacta do efeito sobre obrigações/taxas. |
+| Circular n.º 12/AGT/2026 | Esclarecimento sobre aproveitamento útil e efectivo de prédios rústicos agrícolas/pecuários para efeitos de isenção do IP | `A CONSOLIDAR — OCR` | Tratar como critério interpretativo e documental, não como nova taxa ou isenção autónoma. |
+
+A Circular 12 exige, entre outros elementos, prova por títulos de concessão, planos de exploração, registos de produção, relatórios técnicos ou licenças sectoriais, e prevê efeitos diferenciados para áreas parcialmente aproveitadas. Estes requisitos só podem entrar no fluxo de validação do IP após conferência visual do PDF institucional.
