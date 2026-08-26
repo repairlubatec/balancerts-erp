@@ -3782,4 +3782,12 @@
 - [x] Extrair o texto integral e localizar contas IVA, regras de contabilização, anexos e vigência.
 - [x] Conferir visualmente as contas 34.5, 34.6, 63.5, 75.3.1.2 e regras relevantes apenas onde legíveis.
 - [x] Actualizar o registo de fontes e a matriz V3.2, mantendo o DP 180/19 como camada separada do PGCA-base.
-- [ ] Executar testes e guardar checkpoint sem activar automaticamente contas ou regras.
+- [x] Executar testes e guardar checkpoint sem activar automaticamente contas ou regras.
+
+## Validação do Decreto Executivo n.º 134/19 — modelos declarativos IVA
+
+- [x] Inventariar o DE 134/19 anexado com MIME, páginas, tamanho, produtor e SHA-256.
+- [x] Extrair o conteúdo e localizar artigos, modelos, anexos, campos e instruções declarativas.
+- [x] Conferir visualmente os modelos e regras relevantes apenas onde legíveis.
+- [x] Actualizar o registo V3.2 e a matriz, mantendo o diploma como camada declarativa separada.
+- [ ] Executar testes e guardar checkpoint sem activar automaticamente regras fiscais.

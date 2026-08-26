@@ -516,3 +516,29 @@ A página 11 continua o anexo e confirma **4645 — IVA a pagar** e **4646 — I
 ## Regressão após integração documental do DP 180/19
 
 Foram executados os testes direccionados de fontes normativas, composição PGCA, validação/workflow PGCA, assistente e readiness IVA e exportação normativa. Resultado: **9 ficheiros de teste aprovados e 60 testes aprovados**. O DP 180/19 foi tratado apenas como evidência documental/camada normativa; nenhuma conta ou regra foi activada automaticamente.
+
+
+## Conferência visual — modelos declarativos do IVA no Decreto Executivo n.º 134/19 (páginas 4–8)
+
+As páginas 4–8 do Decreto Executivo n.º 134/19 confirmam visualmente que o diploma é materialmente orientado para **modelos declarativos e formulários operacionais do IVA**, e não para a criação de novas contas contabilísticas. As páginas 4 e 5 apresentam o **Modelo 06 — Declaração de Início, Alteração e Cessação de Actividade**, com campos de identificação do sujeito passivo, enquadramento do regime, contabilista organizado, morada, contactos, actividade económica, indicadores de operações e secções de assinatura. A presença de opções como direito à dedução, operações mistas e obrigação de cativar o IVA confirma que o modelo tem impacto operacional na parametrização fiscal, mas não equivale por si só a uma regra executável sem mapeamento jurídico controlado.
+
+A página 6 confirma a **Declaração Periódica — Modelo 7**, com quadros de identificação, apuramento do imposto, operações sujeitas/isentas, dedução e imposto a pagar ou recuperar. As páginas 7 e 8 mostram os **Anexos de Clientes e de Fornecedores ao Modelo 7**, contendo colunas para identificação fiscal, nome ou designação social, número e data de factura ou documento equivalente, valor tributável, IVA suportado/liquidado, taxa aplicável e campos de apuramento. Estes anexos confirmam que o diploma fornece a estrutura documental que o ERP deve suportar para exportação, preenchimento e rastreabilidade declarativa.
+
+O escopo visual destas páginas permite classificar o DE 134/19 como **camada declarativa do IVA**, complementar à Lei n.º 14/23 e ao DP 180/19. Não há fundamento, nestas páginas, para activar taxas, contas ou lógicas de lançamento automático; o valor jurídico aqui confirmado é o dos **modelos, campos e obrigações formais de submissão**.
+
+
+## Conferência visual — regularização, restituição e regime transitório no Decreto Executivo n.º 134/19 (páginas 12–15)
+
+As páginas 12–15 do Decreto Executivo n.º 134/19 confirmam visualmente a parte mais operacional do diploma. A página 12 apresenta o formulário de **Regularização de Créditos de Cobrança Duvidosa e Incobráveis (artigo 49.º do Código do IVA)**, com campos para tipo de crédito, número do pedido de regularização, identificação do sujeito passivo, relação das facturas ou documentos equivalentes, fundamentação do pedido, identificação do contabilista, documentos anexos e identificação do representante legal. Isto demonstra que o diploma exige um suporte documental e declarativo específico para regularizações de IVA baseadas em créditos duvidosos ou incobráveis.
+
+A página 13 mostra as **Instruções de Preenchimento do Pedido de Regularização do IVA** e, na metade inferior, o **Pedido de Restituição do IVA — Representações Diplomáticas, Consulares e Organismos Internacionais**. As instruções confirmam, com suficiente clareza, que devem ser indicados número do pedido, identificação do requerente, relação das facturas e documentos equivalentes, valor tributável, valor do IVA liquidado, valor do IVA a regularizar, contabilista certificado e documentação anexa como extractos contabilísticos e parecer técnico. O formulário de restituição confirma campos para período, referência, identificação do beneficiário, relação de facturas e confirmação de actividade diplomática ou consular.
+
+A página 14 confirma a **Declaração do Regime Transitório do IVA**, identificada como declaração referida no número 4 do artigo 4.º da lei que aprova o CIVA. O modelo inclui tipo e período da declaração, sector de actividade, apuramento do imposto devido por operações sujeitas e isentas, valor tributável, taxa, imposto devido e um quadro final de imposto a pagar ao Estado ou crédito a reportar, incluindo uma linha visível de **dedução do IVA suportado (4%)**.
+
+A página 15 confirma o **Mapa de Fornecedores — Regime Transitório & Regime de Não Sujeição**, referido no número 4 do artigo 4.º da Lei que aprova o Código do IVA e no número 2 do artigo 64.2 do CIVA. O formulário contém campos de período da declaração, regime de tributação, identificação do contribuinte e relação detalhada de facturas e documentos equivalentes em que suportou IVA. A metade inferior da mesma página já pertence ao **Decreto Executivo n.º 135/19**, o que comprova que o PDF anexado contém a edição do Diário da República com mais de um diploma e que, nesta validação, o escopo relevante do DE 134/19 termina materialmente antes do novo decreto visível na folha.
+
+Estas páginas permitem confirmar que o DE 134/19 é uma **camada declarativa e procedimental** do IVA, essencial para modelar formulários, exportações e recolha documental no ERP. Não criam, por si sós, novas contas contabilísticas nem autorizam activação automática de regras fiscais materiais.
+
+## Regressão após integração documental do DE 134/19
+
+Foram executados os testes direccionados de fontes normativas, composição PGCA, validação/workflow PGCA, assistentes IVA e exportações. Resultado: **10 ficheiros de teste aprovados e 62 testes aprovados**. O DE 134/19 permanece uma camada declarativa/procedimental; nenhum parâmetro fiscal ou regra de lançamento foi activado automaticamente.

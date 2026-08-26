@@ -99,3 +99,17 @@ A separação entre **Resultados/IVA do plano-base** e **camada IVA posterior** 
 | Anexo II 4640–4647 | DP 180/19, pp. 10–11: IVA suportado, dedutível, liquidado, regularizações, apuramento, a pagar, a recuperar e reembolsos | `VISUALLY_CONFIRMED` no escopo pp. 10–11 | Confirmar se a nomenclatura anexa é aplicável ao âmbito actual do ERP antes de parametrizar |
 
 A prova do DP 180/19 fecha a existência documental da camada contabilística IVA, mas **não autoriza activação automática**. O estado de governação permanece dependente da cadeia normativa consolidada, dos anexos e da aprovação humana formal.
+
+
+## Decreto Executivo n.º 134/19 — camada declarativa e procedimental
+
+| Elemento | Evidência primária visual | Estado | Limite de activação |
+|---|---|---|---|
+| Modelo 06 | DE 134/19, pp. 4–5: início, alteração e cessação de actividade; regime, sujeito passivo, contabilista e opções de IVA | `VISUALLY_CONFIRMED` no escopo revisto | Suporta formulários e validações, não cria regras de lançamento |
+| Declaração Periódica Modelo 7 | DE 134/19, p. 6: identificação, operações, dedução, apuramento, imposto a pagar/recuperar | `VISUALLY_CONFIRMED` no escopo revisto | Requer mapeamento integral dos campos e versões vigentes |
+| Anexos de Clientes e Fornecedores | DE 134/19, pp. 7–8: NIF, documentos, valores tributáveis, IVA e taxas | `VISUALLY_CONFIRMED` no escopo revisto | Não activar exportação oficial sem validar formato e canal AGT |
+| Regularização de créditos | DE 134/19, pp. 12–13: créditos duvidosos/incobráveis, facturas, contabilista, anexos e parecer | `VISUALLY_CONFIRMED` no escopo revisto | Requer validação dos requisitos do artigo 49.º do CIVA |
+| Restituição do IVA | DE 134/19, p. 13: representações diplomáticas, consulares e organismos internacionais | `VISUALLY_CONFIRMED` no escopo revisto | Não activar fluxo sem requisitos externos e elegibilidade confirmados |
+| Regime transitório | DE 134/19, pp. 14–15: declaração transitória, dedução, mapa de fornecedores e não sujeição | `VISUALLY_CONFIRMED` no escopo revisto | Distinguir regime histórico/transitório da operação corrente |
+
+O PDF contém o início do Decreto Executivo n.º 135/19 na metade inferior da página 15; esse conteúdo foi excluído da classificação do DE 134/19 para evitar mistura de diplomas.

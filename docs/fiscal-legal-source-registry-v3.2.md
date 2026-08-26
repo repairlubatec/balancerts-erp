@@ -182,3 +182,13 @@ A republicação integral do Código do IVA nas páginas 44–45 confirma o arti
 **Páginas visualmente confirmadas:** pp. 8–11, incluindo 34.5.4–34.5.9, 34.6, 63.5, 75.3.1.2 e o Anexo II com 4640–4647.
 
 O estado documental passou de `SOURCE_CANDIDATE` para **`VISUALLY_CONFIRMED` no escopo das páginas 8–11**. A aprovação operacional das regras no motor permanece condicionada à conferência da cadeia completa, vigência aplicável, anexos/modelos e aprovação formal prevista pelo fluxo fail-closed.
+
+
+## Decreto Executivo n.º 134/19 — modelos declarativos do IVA
+
+**Ficheiro anexado:** `/home/ubuntu/upload/decreto-executivo-n-o-134-19-de-10-de-junho_ministerio-das-financas_lex-ao.pdf`  
+**Integridade:** PDF 1.3, 15 páginas, A4, 772 633 bytes, produtor `FPDF 1.7`, autor/metadado `Jurisnet`, SHA-256 `640cdb4674f0159c85ee4182525245ee3f6dc02e2cc584a7ec6d3a04895e9bee`.  
+**Classificação:** diploma declarativo/procedimental do IVA, relacionado com a Lei n.º 14/23, o DP 180/19 e a cadeia histórica, sem substituir o PGCA-base.  
+**Páginas visualmente confirmadas:** pp. 4–8 e 12–15, incluindo Modelo 06, Declaração Periódica Modelo 7, anexos de clientes/fornecedores, regularização de créditos duvidosos/incobráveis, pedidos de restituição, declaração de regime transitório e mapa de fornecedores.
+
+O estado documental foi actualizado para **`VISUALLY_CONFIRMED` no escopo das páginas revistas**. A classificação não autoriza activar taxas, contas ou regras de lançamento; apenas suporta a modelação controlada de formulários, campos, anexos e trilhos documentais.
