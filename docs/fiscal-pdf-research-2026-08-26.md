@@ -557,3 +557,31 @@ O PDF anexado contém ainda o início da **Lei n.º 18/19** na parte inferior da
 ## Regressão após integração documental da Lei n.º 17/19
 
 Foram executados os testes direccionados de fontes normativas, composição PGCA/IVA, validação e workflow PGCA, assistentes IVA e exportações. Resultado: **10 ficheiros de teste aprovados e 62 testes aprovados**. A Lei n.º 17/19 permanece uma camada de alteração versionada; nenhuma regra fiscal foi activada automaticamente.
+
+
+## Conferência visual — Lei n.º 7/19 (páginas 10–14)
+
+As páginas 10–14 da Lei n.º 7/19 confirmam visualmente disposições centrais do Código do IVA original. A página 10 mostra o **artigo 19.º — Taxa do imposto**, estabelecendo de forma legível que **a taxa do imposto é de 14% (catorze por cento)** e que a taxa aplicável é a que vigora no momento em que o imposto se torna exigível. Na mesma página surgem os artigos **20.º — Competência para a liquidação** e **21.º — Imposto cativo**, confirmando que certas entidades, incluindo o Estado, bens públicos e organismos identificados na norma, devem cativar a totalidade ou parte do imposto constante da factura ou documento equivalente, com referência expressa a percentagens diferenciadas para comunicações electrónicas e telecomunicações.
+
+As páginas 11 e 12 confirmam o **direito à dedução** e respectivas limitações, incluindo os artigos **23.º — Condições para o exercício do direito à dedução**, **24.º — Exclusões do direito à dedução**, **25.º — Exclusão do direito à dedução das operações petrolíferas**, **26.º — Regime de reembolso**, **27.º — Dedução parcial**, **28.º — Operações de seguros**, **29.º — Responsabilidade pelo pagamento do imposto** e **30.º — Pagamento do imposto**. O conteúdo visível demonstra que o diploma original já definia, de forma estruturada, o apuramento do imposto dedutível, exclusões objectivas e mecanismos de reembolso, pelo que qualquer parametrização futura no ERP deve respeitar o encadeamento temporal com as alterações posteriores, sem assumir que o texto de 2019 permaneceu integralmente vigente após a Lei n.º 17/19 e a Lei n.º 14/23.
+
+As páginas 13 e 14 confirmam as **obrigações dos sujeitos passivos**, incluindo os artigos **31.º — Pagamento do imposto cativo**, **32.º — Obrigações dos sujeitos passivos**, **33.º — Sujeitos passivos não residentes**, **34.º — Emissão de facturas ou documentos equivalentes**, **35.º — Repercussão do imposto**, **36.º — Mercadorias enviadas à consignação**, **37.º — Conservação de documentos** e **38.º — Organização da contabilidade**. O artigo 31.º mostra a obrigação de submissão por transmissão electrónica de dados do anexo da declaração periódica correspondente às operações sujeitas ao imposto cativo. O artigo 32.º confirma, entre outras obrigações, a entrega mensal da declaração periódica e dos anexos relevantes. O artigo 38.º estabelece deveres de organização contabilística suficientes para o cálculo e controlo inequívoco dos elementos necessários ao apuramento do imposto.
+
+Estas páginas confirmam que a Lei n.º 7/19 serve como **base material original do CIVA**, incluindo taxa geral de 14%, imposto cativo, dedução, declaração periódica, facturação e obrigações contabilísticas. Contudo, a utilização operacional destas regras no BALANCERTS.ERP continua dependente da consolidação temporal com a Lei n.º 17/19, o DP 180/19, o DE 134/19 e a Lei n.º 14/23.
+
+
+## Conferência visual — Lei n.º 7/19 (páginas 21–25)
+
+As páginas 21–25 da Lei n.º 7/19 confirmam visualmente a parte final do Código do IVA original, incluindo regime de caixa, exigibilidade, penalidades, disposições finais e anexos. A página 21 mostra o **artigo 67.º — Facto gerador e exigibilidade** no contexto do regime de caixa e o **artigo 69.º — Emissão de facturas ou documentos equivalentes**, deixando claro que as facturas emitidas neste regime devem conter menção específica ao IVA — Regime de Caixa e seguir o regime jurídico de facturas e documentos equivalentes.
+
+A página 22 confirma o **Capítulo XI — Penalidades**, com o **artigo 70.º — Penalizações**, e as **Disposições Finais**, incluindo os **artigos 71.º a 74.º**. O artigo 73.º estabelece que os **modelos declarativos** previstos no Código são aprovados por acto próprio do Titular do Poder Executivo, e o artigo 74.º enumera os anexos integrantes do Código. Esta confirmação liga materialmente a Lei n.º 7/19 ao Decreto Executivo n.º 134/19 como diploma declarativo posterior e separado.
+
+As páginas 22, 23 e 24 contêm os **Anexos I e II**, com tabelas legais de bens alimentares essenciais e produtos petrolíferos isentos, respectivamente. Os quadros exibem classificações pautais e designações exactas, confirmando que tais listas pertencem ao diploma-base e devem ser tratadas no ERP como tabelas normativas com origem e vigência rastreáveis. A página 25 contém o **Anexo III**, relativo a operações financeiras e de crédito abrangidas, e o **Anexo IV**, com o símbolo do IVA.
+
+A mesma página 25 confirma o **artigo 4.º — Entrada em vigor**, segundo o qual a Lei entra em vigor em **1 de Julho de 2019**. Também se verifica que o exemplar do Diário da República prossegue imediatamente com a **Lei n.º 8/19**, que aprova o Código do Imposto Especial de Consumo. Esse conteúdo foi excluído do escopo da Lei n.º 7/19 para evitar mistura de diplomas distintos no mesmo ficheiro.
+
+Estas páginas completam a leitura visual dirigida da Lei n.º 7/19 como **diploma-base original do CIVA**, confirmando a ligação com os modelos declarativos aprováveis por acto executivo, os anexos legais e a entrada em vigor inicial de 1 de Julho de 2019. A activação operacional continua dependente da consolidação temporal com a Lei n.º 17/19, o DP 180/19, o DE 134/19 e a republicação pela Lei n.º 14/23.
+
+## Regressão após integração documental da Lei n.º 7/19
+
+Foram executados os testes direccionados da cadeia normativa PGCA/IVA, composição e validação PGCA, assistentes IVA e exportações. Resultado: **10 ficheiros de teste aprovados e 62 testes aprovados**. A Lei n.º 7/19 permanece como fonte-base versionada do CIVA; nenhuma taxa ou regra foi activada automaticamente fora da governação fail-closed.

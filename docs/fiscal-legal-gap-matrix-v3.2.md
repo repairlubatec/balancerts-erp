@@ -127,3 +127,18 @@ O PDF contém o início do Decreto Executivo n.º 135/19 na metade inferior da p
 | Conteúdo de Lei 18/19 | p. 4, parte inferior: início de diploma distinto | Excluído | Não misturar na fonte Lei 17/19 |
 
 A Lei n.º 17/19 foi inserida na cadeia histórica sem substituir a Lei n.º 7/19 nem a Lei n.º 14/23. A activação material continua sujeita à consolidação temporal e à aprovação formal.
+
+
+## Lei n.º 7/19 — diploma-base original do CIVA
+
+| Elemento | Evidência primária visual | Estado | Limite de activação |
+|---|---|---|---|
+| Taxa geral | p. 10, artigo 19.º: 14% e taxa do momento da exigibilidade | `VISUALLY_CONFIRMED` no escopo revisto | Deve ser confrontada com alterações/republicação e vigência corrente |
+| Imposto cativo | pp. 10 e 13: artigo 21.º e obrigações de submissão do anexo | `VISUALLY_CONFIRMED` no escopo revisto | Requer todas as entidades, percentagens e excepções mapeadas |
+| Dedução e exclusões | pp. 11–12: artigos 22.º a 28.º | `VISUALLY_CONFIRMED` no escopo revisto | Requer composição temporal e regras DP 180/19 |
+| Obrigações e facturação | pp. 13–14: artigos 31.º a 38.º | `VISUALLY_CONFIRMED` no escopo revisto | Não activar submissão AGT sem contrato/formato oficial corrente |
+| Regime de caixa | p. 21: artigos 67.º e 69.º | `VISUALLY_CONFIRMED` no escopo revisto | Distinguir regime especial das operações gerais |
+| Modelos e anexos | pp. 22–25: artigos 73.º–74.º e Anexos I–IV | `VISUALLY_CONFIRMED` no escopo revisto | Importar integralmente tabelas e modelos com versionamento |
+| Entrada em vigor | p. 25, artigo 4.º: 1 de Julho de 2019 | `VISUALLY_CONFIRMED` | Marco histórico; não determina sozinho o regime operacional actual |
+
+A Lei n.º 7/19 completa a fonte inicial da cadeia `Lei 7/19 → Lei 17/19 → DP 180/19 → DE 134/19 → Lei 14/23`. O exemplar também contém o início da Lei n.º 8/19, mantida fora desta classificação.

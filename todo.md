@@ -3798,4 +3798,12 @@
 - [x] Extrair o texto e localizar artigos de alteração, anexos, vigência e revogações.
 - [x] Conferir visualmente os artigos materiais e a entrada em vigor apenas onde legíveis.
 - [x] Actualizar a cadeia Lei 7/19 → Lei 17/19 → DP 180/19 → DE 134/19 → Lei 14/23 na matriz V3.2.
+- [x] Executar testes e guardar checkpoint sem activar automaticamente regras fiscais.
+
+## Validação da Lei n.º 7/19 — Código original do IVA
+
+- [x] Inventariar a Lei n.º 7/19 anexada com MIME, páginas, tamanho, produtor e SHA-256.
+- [x] Extrair o texto e localizar artigos, anexos, taxas, vigência e disposições transitórias.
+- [x] Conferir visualmente os artigos e anexos materiais apenas onde legíveis.
+- [x] Completar a cadeia Lei 7/19 → Lei 17/19 → DP 180/19 → DE 134/19 → Lei 14/23 na matriz V3.2.
 - [ ] Executar testes e guardar checkpoint sem activar automaticamente regras fiscais.

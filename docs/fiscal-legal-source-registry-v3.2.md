@@ -202,3 +202,13 @@ O estado documental foi actualizado para **`VISUALLY_CONFIRMED` no escopo das p�
 **Páginas visualmente confirmadas:** pp. 2–4, incluindo artigos 5.º, 6.º, 9.º, 10.º, 12.º, 14.º, 18.º, 21.º, 22.º, 23.º, 31.º, 33.º e 4.º de entrada em vigor, além do Anexo I.
 
 O estado passou para **`VISUALLY_CONFIRMED` no escopo das páginas 2–4**. A Lei n.º 18/19 visível na parte inferior da página 4 foi excluída do escopo. A lei não foi interpretada como autorização para activar taxas ou regras sem o encadeamento completo e a aprovação prevista.
+
+
+## Lei n.º 7/19 — Código original do IVA
+
+**Ficheiro anexado:** `/home/ubuntu/upload/lei-n-o-7-19-de-24-de-abril_assembleia-nacional_lex-ao.pdf`  
+**Integridade:** PDF 1.5, 25 páginas, A4, 3 031 622 bytes, produtor `GPL Ghostscript 9.18`, autor/metadado `Jurisnet`, SHA-256 `d5d9ad9846a2ec0079b1a5dc44e429571358aec7e8b31b24446caa3bc4aebb84`.  
+**Classificação:** diploma-base original do Código do IVA, com entrada em vigor inicial em 1 de Julho de 2019, posteriormente sujeito às camadas de alteração e republicação identificadas no corpus V3.2.  
+**Páginas visualmente confirmadas:** pp. 10–14 e 21–25, incluindo taxa geral de 14%, imposto cativo, direito à dedução, obrigações declarativas, facturação, organização contabilística, regime de caixa, modelos, penalidades, Anexos I–IV e entrada em vigor.
+
+O estado documental passou para **`VISUALLY_CONFIRMED` no escopo das páginas revistas**. As páginas 25 e outros pontos do exemplar mostram o início de diplomas seguintes, incluindo a Lei n.º 8/19; esses conteúdos foram excluídos para preservar a separação de fontes. Nenhuma regra foi activada automaticamente.
