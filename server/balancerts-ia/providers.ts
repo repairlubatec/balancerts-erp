@@ -1,7 +1,7 @@
 export type IATask = "classificar" | "preencher_rascunho" | "autocomplete" | "sugerir" | "analisar_documento" | "assistente" | "detectar_duplicado";
 
 export type IARequest = { task: IATask; input: string; context?: Record<string, unknown> };
-export type IAResult = { provider: "local" | "regras_locais"; model: string; content: string; confidence?: number; responseMs: number };
+export type IAResult = { provider: "local"; model: string; content: string; confidence?: number; responseMs: number };
 export type IAConfig = { localEnabled: boolean; localBaseUrl: string; localPort: number; localModel: string; azureEnabled?: boolean; azureEndpoint?: string | null; azureDeployment?: string | null; openaiEnabled?: boolean; openaiModel?: string };
 
 export interface IAProvider { readonly id: "local"; readonly model: string; isAvailable(): Promise<boolean>; execute(request: IARequest): Promise<IAResult>; }
@@ -41,17 +41,16 @@ export class LocalRulesProvider implements IAProvider {
 
 export class AIRouter {
   constructor(private readonly config: IAConfig) {}
-  providers() { return { local: new LocalAIProvider(this.config), rules: new LocalRulesProvider() }; }
+  providers() { return { local: new LocalAIProvider(this.config) }; }
   async status() {
     const providers = this.providers();
     const localRuntime = this.config.localEnabled && await providers.local.isAvailable();
-    return { local: localRuntime, azure: false, openai: false, internet: false, mode: localRuntime ? "IA_LOCAL" : "REGRAS_LOCAIS" as const, custoPorDocumento: 0, apiPagaNecessaria: false };
+    return { local: localRuntime, azure: false, openai: false, internet: false, mode: localRuntime ? "IA_LOCAL" : "INDISPONIVEL" as const, custoPorDocumento: 0, apiPagaNecessaria: false };
   }
   async execute(request: IARequest) {
-    if (this.config.localEnabled) {
-      const runtime = this.providers().local;
-      if (await runtime.isAvailable()) { try { return await runtime.execute(request); } catch { /* fallback local determinístico */ } }
-    }
-    return this.providers().rules.execute(request);
+    if (!this.config.localEnabled) throw new Error("IA_NAO_CONFIGURADA");
+    const runtime = this.providers().local;
+    if (!(await runtime.isAvailable())) throw new Error("IA_LOCAL_INDISPONIVEL");
+    return runtime.execute(request);
   }
 }

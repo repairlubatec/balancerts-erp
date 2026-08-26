@@ -3650,3 +3650,8 @@
 - [x] Executar testes de não regressão do IVA, testes estruturais e testes de integridade do Motor Fiscal
 - [x] Produzir relatório V2 com preservado, implementado, preparado, impostos não configurados, evidência necessária, testes, bloqueios, estado final e reversibilidade
 - [x] Criar uma guarda técnica de activação fiscal que exija evidência, vigência, testes, ausência de bloqueios e homologação quando aplicável
+
+## Continuação local — dependências externas adiadas para a fase final
+- [x] Rever as pendências locais de fiscalidade, contabilidade, relatórios e segurança e concluir as que não dependem de recursos externos
+- [x] Executar validação local completa dos fluxos críticos, isolamento multi-tenant e ausência de fallbacks demonstrativos
+- [x] Actualizar a documentação de estado, separando entregas locais concluídas das dependências externas adiadas

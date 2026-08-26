@@ -6,17 +6,17 @@ const baseConfig: IAConfig = { localEnabled: true, localBaseUrl: "http://127.0.0
 describe("Balancerts IA providers", () => {
   it("marca offline quando nenhum provider está disponível", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")));
-    await expect(new AIRouter(baseConfig).status()).resolves.toMatchObject({ local: false, azure: false, openai: false, internet: false, mode: "REGRAS_LOCAIS" });
+    await expect(new AIRouter(baseConfig).status()).resolves.toMatchObject({ local: false, azure: false, openai: false, internet: false, mode: "INDISPONIVEL" });
     vi.unstubAllGlobals();
   });
 
-  it("não consulta providers pagos e funciona com regras locais desactivadas", async () => {
+  it("não consulta providers pagos e rejeita execução quando a IA local está desactivada", async () => {
     const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => ({}) });
     vi.stubGlobal("fetch", fetchMock);
-    await new AIRouter({ ...baseConfig, localEnabled: false, azureEnabled: false, openaiEnabled: false }).status();
+    const router = new AIRouter({ ...baseConfig, localEnabled: false, azureEnabled: false, openaiEnabled: false });
+    await router.status();
     expect(fetchMock).not.toHaveBeenCalled();
-    const result = await new AIRouter({ ...baseConfig, localEnabled: false, azureEnabled: false, openaiEnabled: false }).execute({ task: "classificar", input: "factura" });
-    expect(result).toMatchObject({ provider: "local", model: "regras-locais-v1" });
+    await expect(router.execute({ task: "classificar", input: "factura" })).rejects.toThrow("IA_NAO_CONFIGURADA");
     vi.unstubAllGlobals();
   });
 

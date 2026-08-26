@@ -40,3 +40,9 @@ Foi feita uma consulta apenas de leitura ao Gmail associado ao projecto para pro
 A verificação do sandbox confirmou que o comando Docker não está instalado neste ambiente. Isto não prova a disponibilidade ou indisponibilidade de Docker no computador do utilizador; por isso, a frente Docker/MySQL local permanece em espera e não deve ser marcada como concluída. O destino TiDB Cloud isolado continua a ser a evidência de restauro validada para esta etapa.
 
 A ausência destes recursos mantém correctamente bloqueadas as tarefas de homologação AGT, integração bancária, assinatura e validação EXE/MSI. A implementação local prossegue apenas com testes não destrutivos, sem activar integrações externas por suposição.
+
+## Separação de escopo — continuação local e fase externa final
+
+Por decisão de continuidade, a execução corrente trata exclusivamente tarefas locais verificáveis: revisão e endurecimento do Motor Fiscal, preservação documental, contabilidade, relatórios, segurança, isolamento multi-tenant, testes e remoção de fallbacks demonstrativos. As frentes Windows/EXE-MSI, assinatura de código, AGT, bancos, Docker no computador do utilizador e aceitação externa ficam adiadas para uma fase final própria.
+
+Este adiamento não altera o estado de segurança: as integrações externas permanecem desactivadas ou em espera, nenhuma homologação é inferida e nenhuma regra fiscal sem diploma primário confirmado é activada. A fase final deverá começar a partir de um checkpoint local aprovado e conservar a mesma ordem de pré-condições, evidências e reversibilidade descrita neste runbook.
