@@ -335,3 +335,7 @@ O build apresenta apenas avisos de optimização sobre chunks superiores a 500 k
 ## Cobertura técnica do registo legal
 
 A revisão do schema confirmou que o ERP já dispõe de estruturas persistentes para `normativeSources`, `normativeSourceRelations`, `ivaNormativeRules`, `ivaAccountMappings` e `pgcNormativeLayers`, com URL, hash, paginação, vigência, estado de verificação e relações temporais. Assim, a auditoria V3.2 pode continuar a utilizar o modelo existente sem criar tabelas duplicadas. O estado documental continua separado do estado `ACTIVE`, e as novas fontes devem entrar como `PENDING`/`OCR_REVIEWED` até aprovação adequada.
+
+## Verificação read-only da persistência
+
+Foram executadas consultas read-only à tabela `normativeSources` para inventariar fontes, estados, vigência, paginação e hashes, e uma agregação por organização/estado. Ambas concluíram com ligação ao MySQL/TiDB, sem inserções, actualizações ou alterações de schema. A verificação não altera o princípio de que documentos novos devem entrar em estado pendente e só podem alcançar `ACTIVE` após a governação normativa prevista.
