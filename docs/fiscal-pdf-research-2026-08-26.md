@@ -299,3 +299,9 @@ A página Lex.AO do Decreto Presidencial n.º 312/18 confirma que aprova o Regim
 A página Lex.AO do Decreto Presidencial n.º 71/25 confirma que estabelece o novo Regime Jurídico das Facturas, incluindo emissão, rectificação, anulação, conservação, arquivo e documentos fiscalmente relevantes, publicado no Diário da República I Série n.º 52 de 20 de Março de 2025, pág. 11902. O objecto consultado confirma que revoga o DP n.º 292/18 e o DP n.º 144/23, bem como legislação contrária, e derroga os n.os 1 e 5 do artigo 2.º do DP n.º 312/18.
 
 A consequência para o ERP é temporal: DP 292/18 e DP 144/23 ficam preservados como histórico; DP 312/18 permanece apenas na parte não derrogada; DP 71/25 é o regime actual de facturação a consolidar. Nenhuma implementação automática de requisitos foi activada nesta etapa.
+
+## IEJ/sectorial — confirmação da Lei n.º 17/24
+
+A página de localização Lex.AO confirma a Lei n.º 17/24, de 28 de Outubro de 2024, publicada no Diário da República I Série n.º 206, pág. 12128. O diploma aprova a Lei da Actividade de Jogos, define regras de autorização, exploração, regulação e fiscalização e revoga a Lei n.º 5/16, de 17 de Maio. O próprio preâmbulo refere a necessidade de um sistema fiscal especial para o sector, mas a página consultada não substitui a identificação dos artigos fiscais, regulamentação e modelos aplicáveis.
+
+No ERP, a Lei 17/24 fica `A CONSOLIDAR` na camada IEJ/sectorial. Não deve ser convertida automaticamente em taxas ou regras contabilísticas sem os diplomas fiscais complementares, tabelas e modelos oficiais.

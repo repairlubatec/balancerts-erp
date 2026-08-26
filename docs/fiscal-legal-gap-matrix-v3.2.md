@@ -56,3 +56,8 @@ A correcção normativa mais relevante é que o Decreto Presidencial n.º 92/25 
 A Circular AGT 01/GACA/GJ/AGT/2026 foi obtida como PDF institucional, mas é image-only e o seu texto foi extraído por OCR. A matriz passa a exigir confirmação visual dos seguintes pontos antes de qualquer activação: condições do IVA de 5% para equipamentos industriais, limiares dos regimes de IVA, isenção de IRT indicada, dedutibilidade agrícola/pecuária, isenções de IVA/IS em plataformas digitais, regras de perdão de juros e restrições aos benefícios em reinvestimento.
 
 Cada ponto deve ser registado como regra temporal de 2026, com artigo, condição, data inicial, data final ou evento de cessação, prioridade face ao Código e referência à Circular. Nenhum destes candidatos altera actualmente o resultado do motor fiscal.
+
+
+## IEJ — actualização normativa
+
+A Lei n.º 17/24, de 28 de Outubro, substitui a Lei n.º 5/16 no plano sectorial da actividade de jogos. A lacuna permanece aberta quanto ao sistema fiscal especial referido no preâmbulo: faltam identificar, obter e validar os artigos fiscais, regulamentos, tabelas e modelos que possam alimentar o motor. A lei sectorial, isoladamente, não autoriza a criação de taxas IEJ.

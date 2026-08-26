@@ -133,3 +133,12 @@ A Circular 12 exige, entre outros elementos, prova por títulos de concessão, p
 | DP n.º 71/25 | `A CONSOLIDAR` — novo Regime Jurídico das Facturas | Base temporal actual para facturas, documentos relevantes, arquivo, facturação electrónica e auto-facturação, pendente de mapeamento integral. |
 
 A cadeia não é uma substituição simples: exige determinar o que o DP 71/25 revoga, o que derroga do DP 312/18 e quais procedimentos AGT posteriores complementam o regime.
+
+
+## 12. IEJ e actividade de jogos
+
+| Fonte | Confirmação | Estado | Regra de activação |
+|---|---|---|---|
+| [Lex.AO — Lei n.º 17/24, de 28 de Outubro](https://lex.ao/docs/assembleia-nacional/2024/lei-n-o-17-24-de-28-de-outubro/) | Aprova a Lei da Actividade de Jogos; publicada no DR I Série n.º 206, pág. 12128; revoga a Lei n.º 5/16. | `A CONSOLIDAR` | Usar como base sectorial. Exigir regulamentação fiscal, tabelas, modelos e artigos específicos antes de criar regras IEJ no motor. |
+
+A menção a um sistema fiscal especial no preâmbulo não é, por si só, uma taxa ou regra de liquidação parametrizável.
