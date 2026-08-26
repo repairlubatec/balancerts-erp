@@ -3889,3 +3889,14 @@
 - [ ] Activar apenas as taxas e regras comprovadas, com aprovação normativa e auditoria append-only.
 - [x] Testar cálculo, posting fiscal e emissão oficial depois de qualquer activação elegível, sem executar operações produtivas irreversíveis.
 - [x] Documentar a decisão final de activação ou bloqueio e publicar checkpoint versionado.
+
+# Revisão PGCA e regras contabilísticas — nova implementação
+
+- [x] Criar interface de revisão paginada para visualizar as 765 contas PGCA pendentes com código, designação, hierarquia, natureza, movimento e motivo do bloqueio.
+- [x] Implementar selecção e aprovação em lote apenas para contas elegíveis, com confirmação, resultado parcial e auditoria por conta.
+- [x] Criar formulário interactivo para definir regras contabilísticas PGCA com operação, débito, crédito, IVA, natureza, vigência e fonte.
+- [x] Implementar validação fail-closed das regras e activação apenas quando contas, fontes, vigência e versão forem elegíveis.
+- [x] Expor endpoints tRPC tenant-aware para listar, confirmar em lote, criar, actualizar e activar regras PGCA.
+- [x] Integrar a interface na página PGCA com pesquisa, filtros, paginação, estados de loading/erro/sucesso e painel de detalhe.
+- [x] Criar testes Vitest para revisão, aprovação em lote, regras, permissões, auditoria e bloqueios de activação.
+- [x] Validar TypeScript, build, suite completa, interface e guardar checkpoint publicado.

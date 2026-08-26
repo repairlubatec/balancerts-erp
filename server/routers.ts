@@ -338,6 +338,7 @@ import {
   addPgcSourceForUser,
   auditLegacyChartForUser,
   createAccountingRuleForUser,
+  activateAccountingRuleForUser,
   listPgcSourcesForUser,
   registerPendingNormativeSourcesForUser,
   reviewPgcSourceForUser,
@@ -5954,6 +5955,9 @@ export const appRouter = router({
       .mutation(({ ctx, input }) =>
         reviewPgcAccountsBatchForUser({ ...input, userId: ctx.user.id })
       ),
+    activateAccountingRule: roleProcedure("accounting", "validate")
+      .input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), ruleId: z.number().int().positive() }).strict())
+      .mutation(({ ctx, input }) => activateAccountingRuleForUser({ ...input, userId: ctx.user.id })),
     accountingRules: roleProcedure("accounting", "read")
       .input(
         z

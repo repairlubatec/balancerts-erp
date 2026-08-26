@@ -40,6 +40,7 @@ import { PgcEvidenceSubmissionPanel } from "@/components/PgcEvidenceSubmissionPa
 import { PgcMovementSimulatorPanel } from "@/components/PgcMovementSimulatorPanel";
 import { PgcAuditLogPanel } from "@/components/PgcAuditLogPanel";
 import { AccountingRuleFormPanel } from "@/components/AccountingRuleFormPanel";
+import { AccountingRuleActivationPanel } from "@/components/AccountingRuleActivationPanel";
 import { IvaNormativeReviewPanel } from "@/components/IvaNormativeReviewPanel";
 import { IvaPdfSimulationPanel } from "@/components/IvaPdfSimulationPanel";
 import { PgcCoverageSummary } from "@/components/PgcCoverageSummary";
@@ -548,6 +549,7 @@ export default function Pgca() {
           accounts={accountsQuery.data ?? []}
         />
         {user?.role === "admin" || user?.role === "contabilista" ? (
+          <>
           <AccountingRuleFormPanel
             organizationId={organizationId}
             companyId={resolvedCompanyId}
@@ -555,6 +557,14 @@ export default function Pgca() {
             accounts={accountsQuery.data ?? []}
             sources={sourcesQuery.data ?? []}
           />
+          <AccountingRuleActivationPanel
+            organizationId={organizationId}
+            versionId={resolvedVersionId}
+            versionStatus={activeVersion?.status}
+            rules={rulesQuery.data ?? []}
+            accounts={(accountsQuery.data ?? []).map(account => ({ id: account.id, code: account.code, name: account.name }))}
+          />
+          </>
         ) : null}
         {(user?.role === "admin" ||
           user?.role === "auditor" ||

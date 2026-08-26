@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getAccountingRuleCoverage, getPgcReadinessBlockers, getPgcStructuralBlockers } from "./pgc-workflow";
 import { accountingRuleOperationCandidates } from "./accounting-rule-operations";
+import { validateAccountingRuleDraft } from "./pgc";
 
 describe("PGCA activation readiness", () => {
   it("blocks an under-review partial version without accounting rules", () => {
@@ -53,5 +54,13 @@ describe("PGCA activation readiness", () => {
   it("resolve candidatos canónicos para operações importadas", () => {
     expect(accountingRuleOperationCandidates(" COMPRA ")).toEqual(["COMPRA", "COMPRAS"]);
     expect(accountingRuleOperationCandidates("VENDA")).toEqual(["VENDA", "VENDAS"]);
+  });
+
+  it("rejeita rascunho de regra sem fonte normativa", () => {
+    expect(() => validateAccountingRuleDraft({ operation: "COMPRAS", debitAccountId: 1, creditAccountId: 2, effectiveFrom: new Date("2026-01-01T00:00:00Z") })).toThrow("PGC_RULE_SOURCE_REQUIRED");
+  });
+
+  it("aceita rascunho de regra com contas, fonte e vigência coerentes", () => {
+    expect(validateAccountingRuleDraft({ operation: "COMPRAS", debitAccountId: 1, creditAccountId: 2, sourceId: 3, effectiveFrom: new Date("2026-01-01T00:00:00Z"), effectiveTo: new Date("2026-12-31T00:00:00Z") })).toBe(true);
   });
 });
