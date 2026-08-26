@@ -153,3 +153,7 @@ A menção a um sistema fiscal especial no preâmbulo não é, por si só, uma t
 | Guia IVM | Link institucional exposto no portal AGT | `REFERÊNCIA OPERACIONAL` | Não substituir o Código/tabelas do IVM; exigir fonte normativa para cálculos. |
 
 Estes materiais são úteis para a camada de controlo e alertas de obrigações, mas permanecem separados da camada de diplomas, tabelas e regras activáveis.
+
+## 14. Verificação dos materiais AGT 2026
+
+Os PDFs do Calendário Fiscal 2026 e da Folha Tributária n.º 94 foram obtidos do repositório institucional e verificados tecnicamente. Permanecem na categoria `REFERÊNCIA OPERACIONAL/EXPLICATIVA`, sem autoridade autónoma para alterar taxas, isenções ou regras de liquidação.

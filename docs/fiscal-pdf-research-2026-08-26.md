@@ -311,3 +311,13 @@ No ERP, a Lei 17/24 fica `A CONSOLIDAR` na camada IEJ/sectorial. Não deve ser c
 A consulta às páginas institucionais AGT de legislação expôs materiais directos que devem ser mantidos no corpus de controlo, sem os confundir com diplomas normativos. Foram localizados o [Calendário Fiscal 2026](https://www.ucm.minfin.gov.ao/cs/groups/public/documents/document/aw41/mziw/~edisp/minfin5320492.pdf), a [Folha Tributária n.º 94 — Junho de 2026](https://www.ucm.minfin.gov.ao/cs/groups/public/documents/document/aw42/nzm5/~edisp/minfin6739845.pdf), o guia IVM e materiais de consulta pública. A página institucional de legislação fiscal também expõe o ecossistema oficial, mas o conteúdo dos índices dinâmicos não deve ser interpretado como versão consolidada de todos os códigos.
 
 O Calendário Fiscal e a Folha Tributária são referências operacionais/explicativas. Devem servir para localizar obrigações e actualizações, mas não substituem leis, decretos, tabelas ou modelos oficiais com força normativa.
+
+## Materiais AGT 2026 descarregados e verificados
+
+Foram descarregados directamente do repositório institucional AGT/MINFIN: `calendario-fiscal-2026-agt.pdf` — application/pdf, 3 páginas, SHA-256 `5d39349938d62bbb9114c33acffe3ca05bed2381fe572c95d04bfdcb7ad80148`; e `folha-tributaria-94-junho-2026-agt.pdf` — application/pdf, 34 páginas, SHA-256 `87e9ee4ba1085d655f3ea7661919538112f0b4db646370d2e6cf7a5df80003fb`.
+
+A classificação mantém-se `REFERÊNCIA OPERACIONAL/EXPLICATIVA`: estes materiais apoiam calendários, comunicação e localização de actualizações, mas não substituem os diplomas normativos, tabelas ou modelos exigidos para activar regras fiscais.
+
+## Regressão após actualização documental
+
+A suite do projecto foi executada depois dos novos registos AGT e dos downloads institucionais: 153 ficheiros de teste passaram e 610 testes passaram. Não foram alterados os motores de cálculo, regras de contas, schema ou procedimentos de activação.
