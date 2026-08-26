@@ -336,3 +336,8 @@ Foram descarregados para análise, sem execução de regras no ERP, quatro fiche
 | `lei-27-22.pdf` | 3 | `f9f97619cab6eaab3e03e10d69bba4fe14e4132eef8fb59a1da181def9169e20` | Identifica Lei n.º 27/22, alteração do artigo 73.º do CII, taxa de 6,5% e vigência em 1-01-2023 | Secundário; taxa bloqueada |
 
 O OCR integral foi preservado em `/tmp/legal-candidates-ocr/`. A obtenção destes ficheiros melhora a identificação e a preparação documental, mas não satisfaz o requisito de evidência primária institucional integral. Não foi feita confirmação humana nem activação normativa.
+
+
+| Lei n.º 28/20 — candidato IRT | 25 páginas | SHA-256 `db464c65f7d7c48b5df1ac6c41088c665a15627d23effe674dc5fe700dd9ec2b` | PDF alojado em `files.lex.ao`; metadados `Jurisnet`/`GPL Ghostscript 9.18`; OCR identifica revogações da Lei 9/19 e Lei 28/19, grupos A/B/C, alteração de tabela e taxas de 6,5%/25% | Secundário; não activar |
+
+O OCR integral foi preservado em `/tmp/legal-candidates-ocr/lei-28-20/ocr.txt`. A Lei n.º 28/20 foi acrescentada à ficha técnica do IRT, mas nenhuma taxa, grupo ou regra salarial foi activada.
