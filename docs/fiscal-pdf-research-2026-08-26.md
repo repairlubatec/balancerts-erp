@@ -105,3 +105,8 @@ A pesquisa também localizou o calendário fiscal oficial 2026: https://portaldo
 URL: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-valor-acrescentado
 
 A página oficial apresenta regimes de tributação, incidência subjectiva e regras operacionais. Também mantém texto histórico sobre regime transitório e não sujeição; esse conteúdo não foi automaticamente tratado como regime actual, pois deve ser confrontado com a Lei n.º 14/23 e alterações posteriores. Para o ERP, a página é fonte operacional de orientação, enquanto a regra material deve apontar para o diploma consolidado e respectivos diplomas de alteração.
+
+
+### Tentativa de obtenção do PDF primário
+
+Foi aberta a página Lex.AO do Decreto Executivo n.º 134/19 e deslocada até ao fim, onde aparece `DOWNLOAD — Para descarregar o PDF do diploma oficial clique aqui`. O controlo não ficou exposto como elemento interactivo separado no My Browser e não foi possível obter um href directo sem recorrer a análise de HTML fora da página. O ficheiro não foi descarregado. O diploma permanece `PDF_PRIMARIO_PENDENTE`; a página Lex.AO fica apenas como link de localização/conferência.
