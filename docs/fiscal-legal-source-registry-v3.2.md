@@ -240,3 +240,24 @@ As páginas oficiais de Imposto Industrial, IRT, Imposto Predial e Imposto do Se
 A biblioteca oficial `https://portaldocontribuinte.minfin.gov.ao/legislacao` foi consultada. O catálogo enumera, entre outros, a Lei n.º 21/20 e a Lei n.º 21/14 para o CGT; a Lei n.º 20/20 para o Imposto Predial; as Leis n.º 26/20 e 19/14 e o DP n.º 194/20 para o Imposto Industrial; as Leis n.º 28/20 e 18/14 e o DP n.º 194/20 para o IRT; a Lei n.º 24/20 para o Imposto sobre Veículos Motorizados; as Leis n.º 8/19 e 18/19 para o IEC; e as Leis n.º 7/19 e 17/19 e o DE n.º 134/19 para o IVA.
 
 O catálogo confirma a existência institucional dos itens e orienta a recolha; não substitui a cópia integral de cada diploma, as suas tabelas/anexos e a conferência de vigência. Os itens sem PDF primário íntegro anexado permanecem `A CONSOLIDAR`/`SOURCE_CANDIDATE`.
+
+
+## 13. Actualização — Lei n.º 27/22 e cadeia do Imposto Industrial
+
+A pesquisa encontrou a **Lei n.º 27/22, de 22 de Agosto**, identificada no Diário da República I Série n.º 159 e descrita como alteração ao Código do Imposto Industrial. A localização secundária transcreve que altera o artigo 73.º do Código aprovado pela Lei n.º 19/14, já alterado pela Lei n.º 26/20, e fixa a entrada em vigor em 1 de Janeiro de 2023. A edição oficial do Diário da República consultada confirma no índice a existência da Lei n.º 27/22 como diploma que altera o Código do Imposto Industrial.
+
+Esta lei deve ser inserida entre a Lei n.º 26/20 e as regras posteriores do OGE/circulares na cadeia do II. A taxa de 6,5% indicada no texto localizado não será activada: é necessário obter o diploma integral legível, conferir o artigo 73.º completo, determinar o âmbito exacto dos números e alíneas mantidos por remissão e fechar a vigência com as alterações posteriores.
+
+**Estado seguro:** `A CONSOLIDAR / PDF PRIMÁRIO A PRESERVAR`.  
+**Fonte institucional:** [Diário da República — I Série n.º 159, 22 de Agosto de 2022](https://www.ucm.minfin.gov.ao/cs/groups/public/documents/document/aw4z/mzew/~edisp/minfin3310128.pdf).  
+**Fonte de localização:** [Lex.AO — Lei n.º 27/22](https://lex.ao/docs/assembleia-nacional/2022/lei-n-o-27-22-de-22-de-agosto/).
+
+
+### Evidência local adicional — Diário da República I Série n.º 159
+
+Foi preservado o PDF institucional `diario-republica-i-serie-159-2022-08-22.pdf` obtido do domínio `ucm.minfin.gov.ao`, com 20 páginas, produtor GPL Ghostscript 9.18, 2 467 426 bytes e SHA-256 `4fc7fcf6c1b889196d44bfd0b089a6dd1e820de1ea2f3628cfa8522fde2f7dbd`. O PDF é image-only; o OCR local encontrou a referência do índice “Lei n.º 27/22: Que altera o Código de Imposto Industrial” e a ocorrência do artigo 73.º. A localização exacta do articulado deve continuar a ser conferida visualmente página a página antes de activar a taxa ou qualquer regra do artigo 73.º.
+
+
+### Limite verificado do PDF institucional da Lei n.º 27/22
+
+A conferência visual das páginas 19–20 do PDF institucional mostra que a Lei n.º 27/22 começa apenas no final da página oficial 6070. O ficheiro termina nessa mesma página, imediatamente após o preâmbulo e a fórmula de aprovação, sem disponibilizar o artigo 1.º completo, o artigo 73.º integral, eventuais números/alíneas alterados ou o artigo 3.º de entrada em vigor. Portanto, embora o PDF institucional confirme o índice e a publicação do diploma, **não é uma cópia integral utilizável para parametrização**. A Lei n.º 27/22 permanece `A CONSOLIDAR`; a transcrição Lex.AO continua apenas fonte de localização/comparação até existir o texto primário integral.

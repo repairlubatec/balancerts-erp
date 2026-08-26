@@ -106,9 +106,9 @@ A Lei n.º 14/25 e a Circular n.º 01/GACA/GJ/AGT/2026 foram catalogadas como fo
 
 ### P4 — Configurar Imposto Industrial
 
-**Diplomas:** Lei n.º 19/14 → Lei n.º 4/19 quando aplicável → Lei n.º 26/20; DE n.º 83/19; DP n.º 194/20; regras de reintegrações/amortizações, provisões, preços de transferência e autofacturação.  
-**Dependências:** código consolidado, regimes geral/simplificado, matéria colectável, taxas, provisório, dedutibilidade, isenções, declarações, modelos e prazos.  
-**Impacto:** cálculo do imposto da empresa, declarações Modelo 1/2, relatórios e lançamentos fiscais.
+**Diplomas:** Lei n.º 19/14 → Lei n.º 4/19 quando aplicável → Lei n.º 26/20 → Lei n.º 27/22; DE n.º 83/19; DP n.º 194/20; regras de reintegrações/amortizações, provisões, preços de transferência e autofacturação.  
+**Dependências:** código consolidado, regimes geral/simplificado, matéria colectável, taxas — incluindo o alcance exacto da alteração do artigo 73.º pela Lei n.º 27/22 —, provisório, dedutibilidade, isenções, declarações, modelos e prazos.  
+**Impacto:** cálculo do imposto da empresa, declarações Modelo 1/2, relatórios e lançamentos fiscais. A Lei n.º 27/22 foi identificada e ligada à cadeia, mas o PDF institucional consultado termina no início do diploma; o artigo 73.º completo e a regra de 6,5% permanecem bloqueados até ser obtido o texto primário integral.
 
 ### P5 — Configurar IRT e integrar com Recursos Humanos
 
@@ -175,7 +175,7 @@ Também não foram tratados como leis fiscais autónomas o XSD SAF-T, o catálog
 | 6 | Facturação | DP 71/25 + relação histórica DP 292/18/312/18 | Prioridade alta; consolidação pendente |
 | 7 | SAF-T | XSD AO + regras AGT | Validação estrutural implementada; sem homologação externa |
 | 8 | OGE/circulares anuais | Lei 14/25 + Circulares AGT 01, 09, 12/2026 | Camada temporal a consolidar |
-| 9 | Imposto Industrial | Lei 19/14 → Lei 26/20 + regulamentação | Pendente de configuração jurídica |
+| 9 | Imposto Industrial | Lei 19/14 → Lei 26/20 → Lei 27/22 + regulamentação | Pendente de configuração jurídica |
 | 10 | IRT/RH | Lei 18/14 → Lei 28/20 + tabelas | Pendente de configuração jurídica |
 | 11 | Imposto do Selo | DLP 3/14 + tabela anexa | Pendente de tabela e configuração |
 | 12 | Imposto Predial | Lei 20/20 + DP 191/21 | Pendente de cadastro, tabela e configuração |

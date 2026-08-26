@@ -3825,3 +3825,13 @@
 - [x] Definir prioridades e dependências entre diplomas implementados, camadas bloqueadas e fontes primárias em falta.
 - [x] Actualizar o mapa documental V3.2 com a ordem normativa operacional e os critérios de não aplicabilidade.
 - [x] Rever o resultado contra o estado fail-closed e testes existentes.
+
+## Execução autónoma da ordem P1–P13
+
+- [x] Reconsolidar o estado técnico e documental de P1–P13 a partir dos relatórios V3.2 e do anexo do utilizador.
+- [ ] Pesquisar fontes primárias oficiais que possam fechar pendências directamente aplicáveis ao ERP, sem adoptar cópias secundárias como evidência final.
+- [x] Implementar apenas melhorias seguras de catálogo, versionamento, readiness, validação e rastreabilidade; manter cálculos/regras bloqueados quando faltar prova.
+- [x] Executar QA direccionado e confirmar que o fail-closed continua a rejeitar posting, emissão e cálculo não validados.
+- [x] Actualizar os documentos V3.2 e o mapa de execução com o resultado e as pendências não executáveis.
+
+- [x] Incorporar a Lei n.º 27/22 na cadeia do Imposto Industrial e manter a taxa de 6,5% bloqueada até validação do diploma integral e alterações posteriores.
