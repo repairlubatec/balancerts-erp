@@ -291,3 +291,8 @@ Os resultados do motor de pesquisa da Imprensa Nacional associam a Lei n.º 20/2
 ### Lei n.º 28/20 — verificação final do catálogo
 
 A URL oficial consultada `https://www.imprensanacional.gov.ao/index.php?id=105&serie=1&page=551` apresenta a I Série n.º 115 de 30 de Julho de 2020 e resultados de actos não fiscais; o conteúdo extraído não contém a Lei n.º 28/20 nem um link directo para o seu PDF. O sumário da Lei n.º 28/20 foi confirmado apenas pelo snippet do motor de pesquisa e não por texto integral nesta página. Estado mantido: `CATALOGUE_REFERENCE`, não `PRIMARY_PDF`.
+
+
+### DLP n.º 3/14 — resultado oficial não correspondente
+
+A URL devolvida pela pesquisa oficial para o Decreto Legislativo Presidencial n.º 3/14 (`https://www.imprensanacional.gov.ao/index.php?id=105&serie=1&page=1021`) foi aberta e extraída. O conteúdo efectivo corresponde ao Diário da República I Série n.º 20, de 13 de Fevereiro de 2015, com despachos e decretos de 2015; não contém o DLP n.º 3/14 nem a tabela do Imposto do Selo. O resultado de pesquisa/snippet foi, portanto, classificado como indexação não confirmada. O DLP n.º 3/14 continua sem PDF primário integral validado.
