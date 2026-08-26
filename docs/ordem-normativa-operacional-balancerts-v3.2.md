@@ -219,3 +219,10 @@ O anexo recebido nesta execução reproduz a ordem P1–P13, as dependências e 
 A implementação do workflow PGCA foi revista directamente no servidor. A validação só aceita uma versão em `UNDER_REVIEW` quando todas as contas estão `CONFIRMED`, todas as fontes estão `CONFIRMED`, não existem bloqueadores estruturais e a cobertura contabilística está completa. A activação só aceita uma versão `VALIDATED` e recalcula o readiness antes de substituir a versão activa. Não existe atalho seguro para forçar o estado `ACTIVE`.
 
 Enquanto existirem contas pendentes, fontes não confirmadas, códigos/níveis/pais inconsistentes ou operações sem regras contabilísticas, o resultado correcto é `BLOCKED`. A fila de revisão humana está preparada, mas a confirmação exige evidência primária, página, hash e decisão auditada. Não foi executada activação nesta ronda.
+
+
+## Decisão de elegibilidade — Lei n.º 27/22 fornecida pelo utilizador
+
+A Lei n.º 27/22 foi inventariada, comparada byte-a-byte com o candidato anterior e conferida visualmente. O artigo 1.º confirma a alteração do artigo 73.º do Código do Imposto Industrial, incluindo a taxa de 6,5% sobre a matéria colectável, e o artigo 3.º confirma a entrada em vigor em 1 de Janeiro de 2023.
+
+**Decisão:** conteúdo material confirmado; activação não elegível. A alteração foi ligada à cadeia Lei n.º 19/14 → Lei n.º 26/20 → Lei n.º 27/22, mas a taxa de 6,5% continua bloqueada para cálculo, posting, facturação e relatórios oficiais. Permanecem necessários o fecho integral do CII e diplomas regulamentares, a cobertura das regras dependentes do artigo 73.º, a aprovação normativa explícita e readiness sem bloqueadores. O sistema permite apenas consulta, revisão e simulação rotuladas.
