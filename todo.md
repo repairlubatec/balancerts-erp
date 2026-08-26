@@ -3736,4 +3736,15 @@
 - [x] Ler integralmente o documento V3.2 e estruturar os requisitos do corpus legislativo
 - [x] Comparar os requisitos com a implementação actual sem alterar o sistema
 - [x] Avaliar fontes, vigência, riscos e lacunas normativas
-- [ ] Redigir e entregar o relatório preliminar para aprovação antes de implementar
+- [x] Redigir e entregar o relatório preliminar para aprovação antes de implementar
+
+
+## Pesquisa de PDFs legais para auditoria fiscal — 2026-08-26
+
+- [x] Definir o pacote documental prioritário PGCA, IVA, impostos, facturação e SAF-T
+- [x] Pesquisar índices oficiais do Portal do Contribuinte, AGT e Imprensa Nacional
+- [x] Confirmar títulos, datas, publicações e conteúdo dos diplomas centrais através de fontes de localização
+- [x] Registar links oficiais e separar PDF primário confirmado de referência operacional/secundária
+- [x] Redigir lista de nomes, links e instruções para obtenção/anexo dos PDFs
+- [ ] Obter e validar os PDFs primários integrais dos diplomas que os portais não expuseram directamente
+- [ ] Guardar checkpoint da documentação recolhida
