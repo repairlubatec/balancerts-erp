@@ -3817,3 +3817,11 @@
 - [x] Executar testes e guardar checkpoint sem activar automaticamente taxas ou regras fiscais.
 
 - [x] Corrigir a consulta normativa.ivaAccounts para não enviar a chave regime quando não houver filtro, eliminando o erro tRPC 400 e validar o carregamento do módulo.
+
+## Ordem normativa operacional do BALANCERTS.ERP
+
+- [x] Inventariar e ordenar os diplomas já incorporados por componente do ERP e cadeia temporal.
+- [x] Filtrar as pendências normativas mantendo apenas as que afectam contabilidade, facturação, fiscalidade, SAF-T, fecho ou auditoria.
+- [x] Definir prioridades e dependências entre diplomas implementados, camadas bloqueadas e fontes primárias em falta.
+- [x] Actualizar o mapa documental V3.2 com a ordem normativa operacional e os critérios de não aplicabilidade.
+- [x] Rever o resultado contra o estado fail-closed e testes existentes.
