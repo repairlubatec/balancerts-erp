@@ -3767,3 +3767,11 @@
 - [x] Conferir visualmente contas, naturezas, regras de movimento, artigos, taxas e vigência apenas onde a evidência for legível.
 - [x] Actualizar o registo V3.2 e as matrizes com os hashes e páginas confirmadas, sem activar regras não aprovadas.
 - [x] Executar testes de validação e guardar checkpoint da revisão dos PDFs anexados.
+
+## Conferência visual integral por lotes — Decreto n.º 82/01
+
+- [x] Preparar e indexar as páginas dos lotes Activo/Tesouraria, Capital Próprio/Passivo e Resultados/IVA.
+- [ ] Conferir visualmente o lote Activo/Tesouraria, registando código, designação, natureza e movimento apenas quando legíveis.
+- [ ] Conferir visualmente o lote Capital Próprio/Passivo, registando código, designação, natureza e movimento apenas quando legíveis.
+- [ ] Conferir visualmente o lote Resultados/IVA e confrontar as contas IVA posteriores sem misturar o diploma-base com o DP 180/19.
+- [ ] Actualizar a matriz V3.2, executar testes e guardar checkpoint por lote, mantendo a activação global bloqueada.

@@ -1,0 +1,854 @@
+# Índice de Conferência Visual — PGCA-82-01
+
+Documento: Decreto n.º 82/01 anexado; OCR utilizado apenas para localizar candidatos. A confirmação material exige visualização da página original.
+
+| Lote | Páginas candidatas | Termos/localização |
+|---|---|---|
+| Activo/Tesouraria | 4–18, 26–35, 69–73 | classes e contas de caixa, bancos, clientes, imobilizado, natureza e movimento |
+| Capital Próprio/Passivo | 19–25, 36–43, 69–73 | capital, reservas, resultados transitados, fornecedores, empréstimos, pessoal e encargos |
+| Resultados/IVA | 44–68, 74–97 | proveitos, custos, impostos, contas de resultados e notas explicativas |
+
+## Ocorrências OCR para selecção de páginas
+
+- Página OCR 01: Nacional — U£E, em Luanda, Caixa Pastal | À q º «enc Kz 1738000] 3º sgne de depóuro prévia à efecinge na Tesourana
+- Página OCR 03: ciadores, fornecedores. chentes, Governo € seus departa-
+- Página OCR 03: Balanço e da Demonstração de Resultados, u Demonstra-
+- Página OCR 03: ção de Fluxos de Caixa, destinada à proporcionar informa-
+- Página OCR 03: de disponibilidade
+- Página OCR 03: correspondentes amortizações c provisões,
+- Página OCR 03: de Resultados por Natureza:
+- Página OCR 03: resultados por natureza for igualmente alterada
+- Página OCR 03: Obrigatonedade de apresentação dos resultados financeiros
+- Página OCR 03: segregados dos resultados operacionais da empresa
+- Página OCR 03: sobre os resultados relativos a actividades correntes e à
+- Página OCR 03: Alteração do conteúdo dos resultados extraordinários
+- Página OCR 04: de Resultados por Funções:
+- Página OCR 04: resultados por funções fot igualmente alterada, embora a
+- Página OCR 04: sua elaboração tenha natureza facultativa
+- Página OCR 04: Obrigatoriedade de apresentação dos resultados finan-
+- Página OCR 04: cerros segregados dos resultados operacionais da
+- Página OCR 04: Obrigatoriedade de apresentação, fora dos resultados
+- Página OCR 04: correntes, dos resultados em operações em desconti-
+- Página OCR 04: Alteração do conteúdo dos resultados extraordinários
+- Página OCR 04: estrutura de apresentação das contas Os resultados das
+- Página OCR 04: alterações nas classes podem resumir-se da seguinte forma
+- Página OCR 04: Classe Novo I'lano Antigo Plano
+- Página OCR 04: Classe | Meias Fixos e Investimentos | Meios Monetanos
+- Página OCR 04: Classe 2 Emstências Terceiros
+- Página OCR 04: Classe 3 Tercesros Existência»
+- Página OCR 04: Classe 4 Meios Monetánios Mociws Fixos
+- Página OCR 04: Classe 5 | Capital e Reservas Capital Social, Fundos,
+- Página OCR 04: Reservas & Provisões
+- Página OCR 04: Classe 6 | Proveitos por Natwezu Custos por Natureza
+- Página OCR 04: Classe 7 Custos por Natureza Proventos par Namreza
+- Página OCR 04: Classe 8 Resultados Resultados Financeiros
+- Página OCR 04: tica, recomenda-se que a Demonstração de Resultados por
+- Página OCR 04: de Resultados por Natureza
+- Página OCR 04: forma de organização das classes, quer em quadro, quer em
+- Página OCR 04: têm quaisquer regras sobre o conteúdo e movimentação de
+- Página OCR 04: Restrição ao mínimo das regras de movimentação das
+- Página OCR 05: Demonstração de Resultados e poderem ser
+- Página OCR 05: Fluxos de Caixa Contudo, recomenda-se a sua
+- Página OCR 06: Fornecedores e
+- Página OCR 06: como cliente
+- Página OCR 06: entidade em gerar caixa e
+- Página OCR 06: equivalentes de caixa no
+- Página OCR 06: cros fuluros e fluxos de caixa
+- Página OCR 07: caixa « partir dos recursos básicos existentes
+- Página OCR 07: Desempenho Demanstração de Resultados
+- Página OCR 07: transacções de capital ou distmbui-
+- Página OCR 07: gão de resultados a accionistas
+- Página OCR 07: Fluxos de Caixa
+- Página OCR 08: A demonstração de resultados por natureza ou, em
+- Página OCR 08: sua substituição, à demonstração de resultados por
+- Página OCR 08: A demonstração de fluxas de caixa elaborada pelo
+- Página OCR 08: demonstração de fluxos de caixa elaborada
+- Página OCR 08: apropriada da situação financeira e dos resultados
+- Página OCR 08: O balanço é consutuído pelas seguintes classes
+- Página OCR 08: uma entidade como resultado de acontecimentos
+- Página OCR 09: 3 — DEMONSTRAÇÃO DE RESULTADOS
+- Página OCR 09: A Demonstração de resultados é uma demonstração
+- Página OCR 09: resultado forrado num deterrunado período de aperações
+- Página OCR 09: . A Demonstração de resultados é constituída pelas
+- Página OCR 09: 4 Estruturas seguntes classes
+- Página OCR 09: Balanço em Valores expressos em participantes no Capital Próprio
+- Página OCR 09: Activos não correntes; participantes no Capital Próprio
+- Página OCR 09: Imobilizações corpóreas 4
+- Página OCR 09: Qutras activos financeiros 3 A estrutura da Demonstração de resultados deve
+- Página OCR 09: deva em — À — | — Demonstração de resultados em Valores expressos em
+- Página OCR 09: CAPITAL PRÓPRIO E PASSIVO pese pr
+- Página OCR 09: Capital próprio. Vendas 2
+- Página OCR 09: Capital R Prestações de serviço B
+- Página OCR 09: Reservas 13 Quiros provertas operacionais zu o
+- Página OCR 09: Resultados transitados 14 Vênações nos produtos acabados e produtos
+- Página OCR 09: Resultados do exercício em vias de fabnco 25
+- Página OCR 09: Provisões para pensões m da q [meet —
+- Página OCR 09: Provisões para quiros niscos € encargos 18 ee rc à
+- Página OCR 09: Outros paésireus não correntes a Resultados de films é associadas 32
+- Página OCR 09: — | ——) | Resultados não operacionais 3
+- Página OCR 09: Empréstimos de curto prazo 20 Resultados inudos das actrvadad ——| ——
+- Página OCR 09: Total do cupetol próprio e passivo Resultados liquidos de exereícso [e | m—
+- Página OCR 10: Modelo dz Demonstração de Resultados Fluxos resultantes das Fluxos resultantes da aquisição
+- Página OCR 10: Demonstração de resultados em Valores expressos em cad
+- Página OCR 10: Vendas n composição do capital próprio e
+- Página OCR 10: o ps cai A estrutura da Demonstração de Fluxos de caixa deve
+- Página OCR 10: Resultados operacionais: Estes modelos contêm a formação mínima que deverá
+- Página OCR 10: Resultados financeiros 5 ser relatada e deverá ser ido em conta que
+- Página OCR 10: Resultados de filsais e associadas 32 As linhas a tracejado relativas a resultados extraord!-
+- Página OCR 10: Resultados não operacianas 3 nários deverão ser substituídas por destgnação
+- Página OCR 10: Resultados antes de impostos apropriadas
+- Página OCR 10: Resultados lpusdos cs actryiiades correntes
+- Página OCR 10: Madelo de Demonstração de Fluxos de Caixa
+- Página OCR 10: Resultados de operações em desconhnuação (método directo)
+- Página OCR 10: i indo cedia 4 Demonstração de Fluxos de caixa para o exercício findo em
+- Página OCR 10: Resultados líquidos do exercício O Exercícios
+- Página OCR 10: 4 — DEMONSTRAÇÃO DE FLUXOS DE CAIXA
+- Página OCR 10: A Demonstração de Fluxos de caixa é uma demons-
+- Página OCR 10: caixa mostra, por actividades
+- Página OCR 10: As fontes de caixa c equivalentes de caixa a que a
+- Página OCR 10: Assim, a Demonstração de Fluxos de caixa tem as
+- Página OCR 10: Recebimentos (de caixa) de clientes
+- Página OCR 10: Pagamentos (de caixa) à fornecedores e
+- Página OCR 10: Caixa gerada pelas operações
+- Página OCR 10: Finxos de caixa antes da rubrica
+- Página OCR 10: Caixa líquida proveniente das acnvidades
+- Página OCR 10: Fluxo de caixa das achvadades de mrrestmento
+- Página OCR 10: Imobilizações corpéreas
+- Página OCR 10: Imobilszações mcorpóreas
+- Página OCR 11: Fluxos de caixa antes da rubrica
+- Página OCR 11: Momento ra das petondades de fan Fluxo de carza antes de resultados nas
+- Página OCR 11: Aumentos de capital, prestações suple-
+- Página OCR 11: Reduções do capital é pres suplement
+- Página OCR 11: Fluxos de caixa antes da mbrica
+- Página OCR 11: Aumento líquido de caixa E seus equivalentes
+- Página OCR 11: Caixa € seus equivalentes no início da período
+- Página OCR 11: Modelo de Demonstração de Fluxos de Caixa
+- Página OCR 11: Demonsiração de fluxos de caixa para o exercício findo em
+- Página OCR 11: Resultado Liquido ames dos impostos c das
+- Página OCR 11: Resultados financeiros
+- Página OCR 11: Resultados extraordinários
+- Página OCR 11: Resultados operacionais antes das
+- Página OCR 11: Caixa liquida usada nas actividades de
+- Página OCR 11: Aumentos de capital, prestações suple-
+- Página OCR 11: Fluxos de caixa antes da rubrica
+- Página OCR 11: Caixa líquida usada nas actividades de
+- Página OCR 11: Caixa e seus equivalentes no início do periodo
+- Página OCR 12: da Demonstração de Resultados c da Demonstração de
+- Página OCR 12: Fluxos de caixa c acerca dos rmscos é incertezas que
+- Página OCR 12: da Demonstração de resultados
+- Página OCR 12: elaborar à demonstração de resultados por natureza
+- Página OCR 12: de Resultados por funções, as notas 22 a 31 deverão ser
+- Página OCR 12: Demonstração de resultados possa ser venficada
+- Página OCR 12: tados preparada é a por natureza
+- Página OCR 12: 4 — Imobilizado corpóreo
+- Página OCR 12: 12 — Capital
+- Página OCR 12: 13 — Reservas
+- Página OCR 12: 14 — Resultados transrtados
+- Página OCR 12: 18 — Provisões para outros fiscos e encargos
+- Página OCR 12: Notas à demonstração de resultados:
+- Página OCR 12: 31 — Resultados financeiros
+- Página OCR 12: 32 — Resultados de filsais e associadas
+- Página OCR 12: 33 — Resultados não operacionais
+- Página OCR 12: 34 — Resultados extraordinários
+- Página OCR 13: eos resultados das operações:
+- Página OCR 13: Notas sobre a demonstração de fluxos de caixa:
+- Página OCR 13: 47 — Carxa é equivalentes de caixa
+- Página OCR 13: 48 — Operações não efectuadas por caixa e seus equi-
+- Página OCR 13: demonstração de fluxos de caixa
+- Página OCR 13: Natureza dos índices usados para determunar
+- Página OCR 13: Imobilizações ncorpóreas
+- Página OCR 14: Natureza dos índices usados para determmar
+- Página OCR 14: Para o reconhecimento em resultados no ou
+- Página OCR 14: Provisões para outros riscos e encargos
+- Página OCR 15: Para o reconhecimento em resultados no ou
+- Página OCR 15: (resultado cantabrlísuco corrigido para efertos
+- Página OCR 15: Natureza das alterações que deveram ser efectuadas na
+- Página OCR 16: 4, Imobilização corpórea:
+- Página OCR 16: Imobilizado em curso
+- Página OCR 16: Adiant por conta de imobil corp
+- Página OCR 16: 44 Movimentos, ocorridos durante o exercício, nas
+- Página OCR 16: de empréstimos) capitalizados
+- Página OCR 16: ia eb nes. Outras imobilizações corpóreas
+- Página OCR 16: Imobilizado em curso
+- Página OCR 16: 43 Movimentos, ocorridos durante o exercício, no
+- Página OCR 16: Imobilizado em curso
+- Página OCR 16: imobilizado em curso
+- Página OCR 17: 47 Compronussos assumidos para aquisição de imobi- 5 3 Movimentos, ocomdos durante o exercício, nas
+- Página OCR 17: 5. Imobilizado incorpóreo:
+- Página OCR 17: Outras mobilizações incorporeas Partes de capital (bj
+- Página OCR 17: Deserever u natureza (x) Partes de capital em subsidiárias
+- Página OCR 17: 5 2 Movimentos, ocorndos durante o exercício, no Sea emprego não for e (qe relato, uidicar quem é a empreso-mãe,
+- Página OCR 18: 62 Movimentos, ocorridos durante O exercício, nas
+- Página OCR 18: provisões
+- Página OCR 18: Partes de capital
+- Página OCR 18: Partes de capital
+- Página OCR 18: Partes de capital
+- Página OCR 18: Contangências € compromissos de capital
+- Página OCR 18: Contmgências e compromussos de capital
+- Página OCR 18: 7 2 Movimentos, ocorridos durante o exercício, nos
+- Página OCR 18: 7 3 Movimentos, acordos durante O exercício, nas
+- Página OCR 18: provisões
+- Página OCR 19: Reconhecidos em resultados | por
+- Página OCR 19: (b) Não foram reconhecidos cm resultados por se refennem a
+- Página OCR 19: 8 2 Movimentos, ocomdos durante o exercício, nas Custos Facto-
+- Página OCR 19: provisões ridos | Facta- | ração
+- Página OCR 20: Devodorrs — vendas de imobilizado! Efectuar o preenchimento da quadro seguinte
+- Página OCR 20: 92 Movimentos, ocorridos durante a exercício, nas
+- Página OCR 20: provisões Enumerar as restantes sub-rubricas
+- Página OCR 20: Clientes — títulos a receber 12. Capital:
+- Página OCR 20: Estado 12 1 Composição e movimento no período
+- Página OCR 20: 10. Disponibilidades:
+- Página OCR 20: Capital
+- Página OCR 20: 12.2 Capital
+- Página OCR 20: cus em bancos Efectuar o preenchimento do quadro seguinte
+- Página OCR 20: Provisões ( à )
+- Página OCR 20: 10 2 Movimentos, ocorridos durante o exercício, nas torcial | (o) (b) |nuições | 47,
+- Página OCR 20: provisões
+- Página OCR 20: Provisões para tímlos negociávens (ia) Aumentos de capital
+- Página OCR 20: Provisões para outras aplicações de] Indicar q forma como se realizou q captiul socual
+- Página OCR 20: : ——— ee] (b) Capital subserito e sunda não realizado
+- Página OCR 21: tc) Composição do capital após aumento, nó caso da entidade se tratar
+- Página OCR 21: 13. Reservas:
+- Página OCR 21: Reserva legal fa)
+- Página OCR 21: Reservas de reavaliação (b)
+- Página OCR 21: Reservas com fins especims fc)
+- Página OCR 21: Reservas livres | iininad
+- Página OCR 21: fa) Reservas legus
+- Página OCR 21: A reserva legal for construída ao abrigo do arigo 191" do Código
+- Página OCR 21: Comercial 6 só pode ser usada para aumentar q capital ou cobnr
+- Página OCR 21: prejuízos depois de todas ar restantes reservas ce terem esgotado
+- Página OCR 21: Indiear q natureza, objectivos é restrições de distribuição
+- Página OCR 21: relunvas a outras reservas legais
+- Página OCR 21: (b) Reservas de reavaliação
+- Página OCR 21: As reservas de reavaliação foram cnadas da segunte forma
+- Página OCR 21: para aumentar o capital ou cobrir prejuízos acumulados até
+- Página OCR 21: usadas para aumentar o capital ou cobnr prejuizos eepmy-
+- Página OCR 21: fc) Reservas com fins cspixiais
+- Página OCR 21: Indicas à natureza, objectivos e restrições de distribuição para cada
+- Página OCR 21: um dos tipos de reservas
+- Página OCR 21: 14. Resultados transitados:
+- Página OCR 21: Transferência dos resultados do|
+- Página OCR 21: Aplicação de resultados (a)
+- Página OCR 21: Outros movimentos
+- Página OCR 21: (a) Aplicação de resultados,
+- Página OCR 21: Reserva legal
+- Página OCR 21: Reservas com fins especraus
+- Página OCR 21: Reservas livres
+- Página OCR 21: indicar a natureza de cada mov
+- Página OCR 21: ndaçar a natureza das políucas
+- Página OCR 22: 15 2 Movimentos ocormdos durante o exercício
+- Página OCR 22: 17. Provisões para pensões:
+- Página OCR 22: 17 1 Movimentos, ccomidos durante o exercício, nestas
+- Página OCR 22: provisões
+- Página OCR 22: Provisões para pensões
+- Página OCR 22: 17 2 Activos afectos a estas provisões
+- Página OCR 22: 18. Provisões para outros riscos e encargos:
+- Página OCR 22: IR 1 Movimentos, ocomdos durante à exercício, nestas
+- Página OCR 22: provisões
+- Página OCR 22: Provisões para acxdentea de trabalhos
+- Página OCR 22: Provisões para garantias dadas a
+- Página OCR 22: Provistes para outros nscos é encar-|
+- Página OCR 22: Descrever a natureza
+- Página OCR 22: Adiantamentos de clientes
+- Página OCR 23: 20 1 Composição e movimentos no período Eid rolune
+- Página OCR 23: Empréstimos por obrigações. NOTAS À Demonstração DE RESULTADOS
+- Página OCR 24: Natureza do subsídio
+- Página OCR 24: Natureza do subsío
+- Página OCR 25: Descrever a natureza do subsídio
+- Página OCR 25: 31. Resultados financeiros: 33. Resultados não operacionais:
+- Página OCR 25: Rendimentos de pariscipações de capital Ganhos em mobilizações
+- Página OCR 25: Reposição de provisões (a) Correções relativas a exercícios
+- Página OCR 25: Não realizadas Provisões
+- Página OCR 25: Provisões para aplicações financesras Denidis sacobrévesr
+- Página OCR 25: Diferenças de câmbio desfavoráveis 34, Resultados extraordinários:
+- Página OCR 25: 32. Resultados de filiais é ussociadas: Expropnações
+- Página OCR 26: Resultado contabilísico
+- Página OCR 26: Lucros levados & reservas e reinves-
+- Página OCR 26: reconhemdo em resultados transitados
+- Página OCR 26: Impasto sobre os resultados correntes
+- Página OCR 26: Imposto sobre os resultados extraordt-
+- Página OCR 26: A POSIÇÃO FINANCEIRA E OS RESULTADOS
+- Página OCR 26: A natureza das contingências
+- Página OCR 26: A natureza dos eventos
+- Página OCR 26: Natureza do auxílio de que a empresa tenha benc-
+- Página OCR 26: Natureza do relacionamento existente
+- Página OCR 27: NOTAS À DEMONSTRAÇÃO DE FLUXOS 47, Caixa e equivalentes de caixa
+- Página OCR 27: DE CAIXA
+- Página OCR 27: nentes de carxa é seus equivalentes imobilizáveis
+- Página OCR 27: dos componentes de caixa & seus equivalentes foram
+- Página OCR 27: Natureza das alterações que deveriam ser
+- Página OCR 27: Equivalentes de caixa
+- Página OCR 27: Diferenças de câmbio de caixa € equiva-
+- Página OCR 27: lentes de caixa
+- Página OCR 27: Cara e equivalentes de caixa (aetuait-
+- Página OCR 27: Caixa e equivalentes de cana cedidos (3
+- Página OCR 27: de caixa cedidas
+- Página OCR 27: Caixa € equivalentes de caixa adquindos (ts)
+- Página OCR 27: Fiuxo de carxa da aquisição, liquda da caixa é equrvalen-
+- Página OCR 27: 48. Operações não efectuadas por caixa é seus
+- Página OCR 27: Conversão de dívidas em capital
+- Página OCR 27: «da demonstração dos fluxos de caixa:
+- Página OCR 28: Representar fidedignamente os resultados e a posição
+- Página OCR 28: resultado ou efeito pré-determmado,
+- Página OCR 29: demonstração de resultados na base do relacionamento
+- Página OCR 29: tamanha e da natureza de cada item avaliados nas circuns-
+- Página OCR 29: líquido de amortizações s provisões não é considerada uma
+- Página OCR 29: no resultado das suas operações
+- Página OCR 29: e à natureza das alterações que deveriam ser
+- Página OCR 29: DAS CLASSES DAS DEMONSTRA-
+- Página OCR 29: e na Demonstração de resultados um elemento que satisFa-
+- Página OCR 29: ça a detinição de uma classe e as condições para o seu
+- Página OCR 30: Um elemento que satisfaça a definição de uma classe
+- Página OCR 30: A mter-relação entre as classes siguifica que um
+- Página OCR 30: nhecimento de uma dada classe automaticamente requer o
+- Página OCR 30: reconhecimento de uma outra classe
+- Página OCR 30: como um custo na demonstração de resultados
+- Página OCR 30: 2.1 — Imobilizações corpóreas:
+- Página OCR 30: regra geral é a devolução por parte dos clientes
+- Página OCR 30: 2.2 — Imobilizações incorpóreas:
+- Página OCR 31: Tenham uma natureza de realizável a médio e longo
+- Página OCR 31: Valorização de capital, ou outros benefícios tais
+- Página OCR 31: de resultados quando
+- Página OCR 32: resultados líquidos do período corrente, excepto se reum-
+- Página OCR 32: reconhecida nos resultados transitados de exercícios
+- Página OCR 32: resultado de novas informações, de mais experiência ou de
+- Página OCR 32: desenvolvimentos subsequentes Dada a sua natureza, a
+- Página OCR 32: desta alteração devem ser reconhecidos nos resultados
+- Página OCR 32: Caso a quantia do ajustamento u efectuar em Resultados
+- Página OCR 32: nos Resultados do exercício, devendo ser feita a divulgação
+- Página OCR 33: resultados quando
+- Página OCR 33: tenham natureza credora, devem ser reconhecidos, com as
+- Página OCR 33: reconhecimento dos de natureza devedora
+- Página OCR 33: Se em resultado de tal acréscimo o custo ajustado do
+- Página OCR 33: tração de resultados na período em que surjam as diferen-
+- Página OCR 33: Como reservas especiais a serem reconhecidas nos
+- Página OCR 33: resultados apenas no período em que o invest-
+- Página OCR 34: Se em resultado de tal alteração o custo ajustado
+- Página OCR 34: Se em resultado de tal acréscimo o custo ajustado do
+- Página OCR 34: demanstração de resultados
+- Página OCR 35: Valor descontado dos futuros fluxos de caixa
+- Página OCR 35: tado dos tuturos influxos líquidos de caixa que se espera
+- Página OCR 35: tado dos futuros extluxos líguidos, de caixa que se espera
+- Página OCR 35: Durante o período em que à imobilizado se encontrar
+- Página OCR 35: Durante c período em que o imobilizado se encon-
+- Página OCR 36: 2.3 — Imobilizações incorpóreas:
+- Página OCR 36: pondentes provisões ou amortizações destinadas a garantir
+- Página OCR 37: As provisões aplicáveis aos restantes investimentos
+- Página OCR 37: de natureza semelhante
+- Página OCR 37: Desde que os resultados se aproximem dos do custo
+- Página OCR 38: ser reconhecidos através da criação de uma provisão para
+- Página OCR 39: coma um gasto, através da criação de uma provisão para
+- Página OCR 39: Custos de movimentar os materiais € os activos fixos
+- Página OCR 39: Custos especificamente debitáveis a
+- Página OCR 39: constituição de uma provisão para créditos de
+- Página OCR 40: tração de resultados, se daí resultar um passtvo não
+- Página OCR 40: 21 Classe O — Contas de Ordem
+- Página OCR 40: Esta classe é de uso facultativo
+- Página OCR 40: 22 Classes 1 a8— Contabilidade Geral
+- Página OCR 40: Essas classes são de uso obrigatório sempre que existam
+- Página OCR 40: factos ou acontecimentos que pela sua natureza devam
+- Página OCR 40: rubricas constantes de cada uma das classes, sob pena de
+- Página OCR 40: As hnhas em branco constantes destas classes podem
+- Página OCR 40: 2 3 Classe 9— Contabilidade Analítica
+- Página OCR 40: Esta classe é de uso facultativo o qual dependerá da
+- Página OCR 41: 11 Imobilzzações corpóreas
+- Página OCR 41: 14 Imobilizações em curso
+- Página OCR 41: 19 Provisões para investimentos financeiros
+- Página OCR 41: 11 IMOBILIZAÇÕES CORPÓREAS
+- Página OCR 41: 11.9 Outras imobilizações corpóreas
+- Página OCR 41: t2 IMOBILIZAÇÕES INCORPÓREAS
+- Página OCR 41: 12.9 Outras imobilizações incorpóreas
+- Página OCR 42: 1311 Partes de capital
+- Página OCR 42: 1321 Partes de capital
+- Página OCR 42: 133.1 Partes de capital
+- Página OCR 42: 14 IMOBILIZAÇÕES EM CURSO
+- Página OCR 42: 147 Adiantamentos par conta de imobilizado
+- Página OCR 42: 14.8 Adiantamentos por conta de imobilizado
+- Página OCR 42: 18.1 Imobilizações corpóreas
+- Página OCR 42: 18 9 Outras imobilizações corpóreas
+- Página OCR 42: 18 2 Imobilizações incorpóreas
+- Página OCR 42: 19 PROVISÕES PARA INVESTIMENTOS
+- Página OCR 43: 1921 Partes de capital
+- Página OCR 43: [931 Partes de capital
+- Página OCR 43: 1941 Partes de capital
+- Página OCR 43: 29 Provisão para depreciação de exis-
+- Página OCR 44: 29 PROVISÃO PARA DEPRECIAÇÃO DE
+- Página OCR 45: 3 Clientes
+- Página OCR 45: 38 Provisões para cobranças duvidosas
+- Página OCR 45: 39 Provisões para Quiros riscos € encargos
+- Página OCR 45: 31 CLIENTES
+- Página OCR 45: 3] 2 Clientes — títulos a receber
+- Página OCR 45: 31 3 Clientes — títulos descontados
+- Página OCR 45: 319 Clientes — saldos credores
+- Página OCR 45: 32 FORNECEDORES
+- Página OCR 45: 32 | Fornecedores — correntes
+- Página OCR 45: 32 2 Fornecedores — títulos a pagar
+- Página OCR 45: 328 Fornecedores — facturas em recepção e confe-
+- Página OCR 45: 329 Fornecedores - saldos devedores
+- Página OCR 45: 3114 Banco
+- Página OCR 47: 362 Pessoal — participação nos resultados
+- Página OCR 47: 372 Vendas de imobilizado
+- Página OCR 48: 3764 Diferenças de câmbio favoráveis rever- 384 Provisões pídívidas do pessoal
+- Página OCR 48: 389 Provisões para ontros saldos a receber
+- Página OCR 48: cias da empresa 3891 Vendas imobilizado
+- Página OCR 48: 39 PROVISÕES PARA OUTROS RISCOS E
+- Página OCR 48: 391 Provisões para pensões
+- Página OCR 48: 38 PROVISÕES PARA COBRANÇAS DUVI-
+- Página OCR 48: DOSAS 392 Provisões para processos judiciais em curso
+- Página OCR 48: 38 1 Provisões para clientes 3921
+- Página OCR 48: 393 Provisões para acidentes de trabalho
+- Página OCR 48: 3812 Cliente — títulos a receber 394 Provisões para ga x aclientes
+- Página OCR 48: 3813 Clientes — cobrança duvidosa
+- Página OCR 48: 38121 Grupo 399 Provisões para outros riscos e encargos
+- Página OCR 48: 382 Provisões para saldos devedores de fornece- +=METOS MONETÁRIOS
+- Página OCR 48: 45 Caixa
+- Página OCR 48: 383 Provisões p/participantes e participadas 44
+- Página OCR 48: 3832 Participadas 49 Provisões para aplicações de tesouraria
+- Página OCR 49: 4211 Banco
+- Página OCR 49: 4212 Banco
+- Página OCR 49: 4221 Banco
+- Página OCR 49: 4222 Banco
+- Página OCR 49: 4312 Banco
+- Página OCR 49: 432 Banco
+- Página OCR 49: 4322 Banco a
+- Página OCR 49: 4411 Banco .
+- Página OCR 49: 4412 Banco .
+- Página OCR 49: 4421 Banco .
+- Página OCR 49: 4422 Banco .
+- Página OCR 49: 45 CAIXA
+- Página OCR 49: 4511 Caixa
+- Página OCR 49: 48 1 Banco
+- Página OCR 49: 482 Banco
+- Página OCR 50: 49 PROVISÕES PARA APLICAÇÕES DE TESOU-
+- Página OCR 50: 492 Outras aplicações de tesouraria
+- Página OCR 50: 5-—CAPITAL E RESERVAS
+- Página OCR 50: 51. Capital
+- Página OCR 50: 55 Reservas legas
+- Página OCR 50: 56 Reservas de reavaliação
+- Página OCR 50: S7 Reservas com fins especiais
+- Página OCR 50: 58 Reservas livres
+- Página OCR 50: 51 CAPITAL
+- Página OCR 50: 55 RESERVAS LEGAIS
+- Página OCR 50: 56 RESERVAS DE REAVALIAÇÃO
+- Página OCR 50: 57 RESERVAS COM FINS ESPECIAIS
+- Página OCR 50: 58 RESERVAS LIVRES
+- Página OCR 50: 6-PROVEITOS E GANHOS POR NATUREZA
+- Página OCR 51: 619 Transferência para resultados operacionais
+- Página OCR 51: 629 Transferência para resultados operacionais
+- Página OCR 51: 639 Transferência para resultados operacionais
+- Página OCR 51: 649 Transferência para resultados operacionais
+- Página OCR 51: 65 1 Para imobilizado
+- Página OCR 51: 659 Transferência para resultados operacionais
+- Página OCR 52: 66 1 5 De aplicações de tesouraria
+- Página OCR 52: 66 5 Rendimento de participações de capital
+- Página OCR 52: 667 Reposição de provisões
+- Página OCR 52: 6672 Aplicações de tesouraria
+- Página OCR 52: 67 | Rendimento de participações de capital
+- Página OCR 52: 679 Transferência para resultados em filiais e
+- Página OCR 52: 68 1 Reposição de provisões
+- Página OCR 52: 68 1 2 2 Clientes — títulos a receber
+- Página OCR 52: 68 123 Clientes — cobrança duvidosa
+- Página OCR 53: 68 22 Imobilizações incarpóreas
+- Página OCR 53: 68 3 Ganhos em imobilizações
+- Página OCR 53: 68 19 Transferência para resultados não opera-
+- Página OCR 53: 699 Transferência para resultados extraordiná-
+- Página OCR 53: 7-CUSTOS E PERDAS POR NATUREZA
+- Página OCR 54: 71.9 Transferência para resultados operacionais
+- Página OCR 54: 72.9 Transferência para resultados operacionais
+- Página OCR 54: 73 2 Imobilizações incorpóreas
+- Página OCR 55: 739 Transferência para resultados operacionais
+- Página OCR 55: 75.9 Transferência para resultados operacionais
+- Página OCR 56: 765 Provisões para aplicações financeiras
+- Página OCR 56: 765 2 Aplicações de tesourana
+- Página OCR 56: 769 Transferência para resultados financeiros
+- Página OCR 56: 779 Transferência para resultados financeiros
+- Página OCR 56: 78 1 Provisões do exercício
+- Página OCR 56: 78 22 Imobilizações Incorpóreas
+- Página OCR 57: 783 Perdas em imobilizações
+- Página OCR 57: 78 19 Transferência para resultados não opera-
+- Página OCR 57: 799 Transferência para resultados extraordi-
+- Página OCR 57: 8 -RESULTADOS
+- Página OCR 57: 81 Resultados trapsitados
+- Página OCR 57: 82 Resultados operacionais
+- Página OCR 57: 83 Resultados financeiros
+- Página OCR 57: 84 Resultados em fibais e associadas
+- Página OCR 57: 85 Resultados não operacionas
+- Página OCR 57: 86 Resultados extraordinários
+- Página OCR 57: 88 Resultado líquido do exercício
+- Página OCR 57: 81. RESULTADOS TRANSITADOS
+- Página OCR 57: 81 11 Resultado do ano
+- Página OCR 57: 8112 Aplicação de resultados
+- Página OCR 57: Bt21 Resultado do ano
+- Página OCR 57: 8122 Apheação de resultados
+- Página OCR 58: 82. RESULTADOS OPERACIONAIS
+- Página OCR 58: 82.19 Transferência para resultados líquidos
+- Página OCR 58: &3. RESULTADOS FINANCEIROS
+- Página OCR 58: 83.9 Transferência para resultados líquidos
+- Página OCR 58: 84. RESULTADOS FINANCEIROS EM FILI-
+- Página OCR 58: 84 9 Transferência para resultados liquidos
+- Página OCR 58: 85. RESULTADOS NÃO OPERACIONAIS
+- Página OCR 58: 85 9 Transferência para resultados líquidos
+- Página OCR 58: 86 RESULTADOS EXTRAORDINÁRIOS
+- Página OCR 58: 869 Transferência para resultados líquidos
+- Página OCR 58: 87 1 Imposto sobre as resultados correntes
+- Página OCR 58: 87 2 Imposto sobre as resultados extraordinários
+- Página OCR 58: 87 9 Transferência para resultados líquidos
+- Página OCR 58: B8. RESULTADOS LÍQUIDOS DO EXERCÍCIO
+- Página OCR 58: 88 1 Resultados operacionais
+- Página OCR 58: 88 2 Resultados financeiros gerais
+- Página OCR 58: 88 3 Resultados em filiais e associadas
+- Página OCR 58: 88 4 Resultados não operacionats
+- Página OCR 58: 88 5 Emposto sobre os resultados correntes
+- Página OCR 58: 88 6 Resultados extraordinários
+- Página OCR 58: 88 7 Imposto sabre os resultados extraordinários
+- Página OCR 58: 889 Transferência para resultados transitados
+- Página OCR 58: 899 Transferência para resultados transitados
+- Página OCR 58: regras de movimentação de contas c outras de natureza
+- Página OCR 59: 3 — Imobilizações corpóreas:
+- Página OCR 59: rubrica os custos de desbravamento, movimentação de
+- Página OCR 59: desta natureza afectos a tais actividades devem ser contabi-
+- Página OCR 59: Um único dispêndio, relativo a um úmco imobilizado
+- Página OCR 60: Os sobressalentes poncipais e equpamentos de reserva
+- Página OCR 60: resultados se tiverem sido feitos para restaurar ou manter
+- Página OCR 60: sido consideradas, devem ser capitalizados desde que a
+- Página OCR 60: cidos como um gasto na Demonstração de resultados por se
+- Página OCR 60: evidência de valor de mercado por ferça da natureza
+- Página OCR 60: A vala útil de um imobilizado é
+- Página OCR 61: teconhecidas como perdas na Demonstração de resultados
+- Página OCR 61: Demonstração de resultados, consoante o apropriado
+- Página OCR 62: 4 — Imobilizações incorpóreas:
+- Página OCR 62: destgnadamente as despesas com aumento de capital,
+- Página OCR 63: cular ou a uma necessidade do cliente como parte
+- Página OCR 63: imobilizado incorpóreo os custos de investigação e
+- Página OCR 64: Esta conta deverá ser movimentada da seguinte torma
+- Página OCR 65: Esta rubrica destina-se à registar os bens de natureza
+- Página OCR 65: Provisão para depreciação de exsiências (conta 29)
+- Página OCR 65: A maioria dos sub-produtos, pela sua natureza, são
+- Página OCR 67: nhecidos na Demonstração de resultados nos
+- Página OCR 67: como um custo na Demonstração de resultados,
+- Página OCR 67: através da criação de uma provisão para deprecia-
+- Página OCR 68: Para mais ou para menos, em resultado de acordos
+- Página OCR 68: cliente ou de uma tercerra parte, o reembolso de
+- Página OCR 68: exemplo, de demoras causades pelos clientes, de
+- Página OCR 68: O cliente os acerte
+- Página OCR 68: efectuada Dependendo da natureza do contrato os métodos
+- Página OCR 69: clientes € por estes aceites
+- Página OCR 69: Clientes — títulos descontados (conta 3! 3)
+- Página OCR 69: Esta conta tem natureza credora e desuna-se a registar
+- Página OCR 69: letra reflectida em Clientes — títulos a receber para
+- Página OCR 69: a conta Clientes — correntes
+- Página OCR 69: que a responsabilidade da entidade perante o banco se
+- Página OCR 69: Clientes — Saldos credores — Embalagens a devolver
+- Página OCR 69: Esta conta, de natureza credora, regista o valor das
+- Página OCR 69: Por contrapartida da respectiva conta de clientes —
+- Página OCR 69: cliente
+- Página OCR 69: Clientes — Saldos credores — Material à consignação
+- Página OCR 69: Esta conta, de natureza credora, é criada por contra-
+- Página OCR 69: partida da respectiva conta de clientes — correntes e regis-
+- Página OCR 69: ta o valor dos bens enviados à constgnação para os clientes
+- Página OCR 70: Por contrapartida da respectsva conta de Clientes —
+- Página OCR 70: fornecedores e acettes pela entidade
+- Página OCR 70: momento, us dívidas a fornecedores não vencidas que se
+- Página OCR 70: conta de Fornecedores — corrente
+- Página OCR 70: ser transferidas para as respectivas contas de Fornecedores
+- Página OCR 70: Fornecedores-Sutdos devedores — Embulagens «a
+- Página OCR 70: embalagens enviadas pelos fornecedores por virem a
+- Página OCR 70: devolvidas ao fornecedor Esta conta será saldada da
+- Página OCR 70: Por contrapartida da respecttva conta de fornecedores
+- Página OCR 70: -— correntes, na data da devolução ao fornecedor
+- Página OCR 70: Fornecedores-Saldos devedores — Material à consig-
+- Página OCR 70: Esta conta, de natureza devedora, É criada por contra-
+- Página OCR 70: partida da respectiva conta de Fornecedores — correntes e
+- Página OCR 70: Por contrapartida da respectsva conta de fornecedores
+- Página OCR 70: fornecedor por não terem sido vendidos
+- Página OCR 70: em capital
+- Página OCR 70: Esta conta, de natureza credora, destina-se a registar a
+- Página OCR 71: Esta conta, de natureza devedora, destina-se a registar o
+- Página OCR 71: Estas contas, de natureza devedora, destinam-se a
+- Página OCR 71: registar, por contrapartida da conta Sl Capital, as subscn-
+- Página OCR 71: ções de capital efectuadas por terceiros Estas contas serão
+- Página OCR 71: Estas contas, de natureza devedora, destinam-se a
+- Página OCR 71: Estas contas, de natureza credora, destinam-se a
+- Página OCR 71: registar, por contrapartida da conta 8! Resultados transt-
+- Página OCR 71: Estas contas, de natureza credora, destinam-se a regis-
+- Página OCR 71: subscrições de capital efectuadas em outras empresas Estas
+- Página OCR 71: Estas contas, de natureza credora, destinam-se a regis-
+- Página OCR 71: Estas contas, de natureza devedora, destinam-se à
+- Página OCR 71: Esta conta, de natureza credora, destina-se a registar e
+- Página OCR 72: Pessoal — Participação nos resultados (conta 36 2)
+- Página OCR 72: Esta conta, de natureza credora, destina-se a registar e
+- Página OCR 72: controlar os resultados atribuídos a órgãos sociuis e uo
+- Página OCR 72: ta 8! Resultados transitados, os valores líquidos a pagar e
+- Página OCR 72: Esta conta, de natureza devedora, destma-se a registar
+- Página OCR 72: Esta conta, de natureza credora, destina-se a registar as
+- Página OCR 72: respecitvas contas de imobilizado, os valores em dívida
+- Página OCR 72: Esta conta, de natureza devedora, destina-se a registar
+- Página OCR 72: contas de resultados respectivas, 08 valores facturados &
+- Página OCR 72: Esta conta, de natureza devedora, serve de contrapartida
+- Página OCR 72: Esta conta, de natureza devedora, destina-se a registar
+- Página OCR 72: Para um maior controlo dos movimentos à inclmr nesta
+- Página OCR 72: reza devedora e outra de natureza credora, destinadas à
+- Página OCR 72: do valor já transferido para resultados em exercícios
+- Página OCR 72: Esta conta, de natureza credora, serve de contrapartida
+- Página OCR 72: Esta conta, de natureza credora, destina-se a segistas 05
+- Página OCR 73: cidos como proveitos esta conta deverá ser debitada por
+- Página OCR 73: Para um maior controlo dos movimentos à incluir nesta
+- Página OCR 73: reza credora € outra de natureza devedora, destinadas a
+- Página OCR 73: do valor já transfendo para resultados em exercícios subse-
+- Página OCR 73: amortizações do imobilizado a que os subsídios se referem,
+- Página OCR 73: Esta conta, de natureza credora, destina-se à registar as
+- Página OCR 73: sendo a sua movimentação idêntica a qualquer outra conta
+- Página OCR 73: sua natureza, poderão ter saldo devedor ou credor Estão
+- Página OCR 73: Subsídios recebidos que sejam de natureza reembol-
+- Página OCR 73: classe 3
+- Página OCR 73: Provisões para cobranças duvidosas (conta 38)
+- Página OCR 73: Esta conta, de natureza credora, destma-se a registar as
+- Página OCR 73: As provisões são criadas por contrapartida das corres-
+- Página OCR 73: Provisões para outros riscos e encargos (conta 39)
+- Página OCR 73: Esta conta, de natureza credora, destina-se a registar as
+- Página OCR 73: perdas previsíveis associadas a riscos de natureza especi-
+- Página OCR 73: As provisões são criadas por contrapartida das corres-
+- Página OCR 73: Provisões para pensões (conta 39 1)
+- Página OCR 73: Esta provisão pode ter como suporte um funda afecto, a
+- Página OCR 73: Provisões para garantias dados a chentes (conta 39 4)
+- Página OCR 74: Os meios monetários representam disponibilidades
+- Página OCR 74: imediatas de tesouraria, quer em dinheiro, quer em valores,
+- Página OCR 74: para aplicação de excedentes de tesouraria e que são
+- Página OCR 74: Caixa (conta 45)
+- Página OCR 75: Caixa — Valures a depositar (conta 45 2)
+- Página OCR 75: levantados do banco com o objectivo de fazer face à
+- Página OCR 75: do banco
+- Página OCR 75: Caixa — Conta transitória (conta 43)
+- Página OCR 75: Provisões para aplicações de tesouraria (conta 49)
+- Página OCR 75: A provisão é constituída por contrapartida da correspon-
+- Página OCR 75: Caixa — Fundo fixo (conta 45 1)
+- Página OCR 75: Esta conta deverá ser debitada por contrapartida de
+- Página OCR 75: Bancos, tendo por base um cheque passado à ordem do
+- Página OCR 75: responsável pela caixa e um vale assinado por este,
+- Página OCR 75: Caixa — valores destinados a pagamentos específicos,
+- Página OCR 75: da caixa, confirmando a recepção e a responsainl-
+- Página OCR 75: Esta conta será creditada apenas quando
+- Página OCR 75: O responsável pela caixa mudar
+- Página OCR 75: sável pela caixa a partr dessa data
+- Página OCR 75: meios monetários desta caixa deverão ser registados à
+- Página OCR 75: Bancos, se for passado um cheque à ordem do respon-
+- Página OCR 75: Caixa — valores destinados a pagamentos específicos,
+- Página OCR 75: se forem entregues ao responsável pela caixa
+- Página OCR 75: Os valores em caixa, compostos por meios monetários e
+- Página OCR 75: 9 — Capital e reservas:
+- Página OCR 75: O capital nommnal subscrito das empresas sob a forma
+- Página OCR 75: O capital imicsal e as dotações de capital das empresas
+- Página OCR 76: O capital inicial, o adquindo e armda as operações de
+- Página OCR 76: natureza financeira com o respectivo proprietário no
+- Página OCR 76: O capital das cooperanvas
+- Página OCR 76: ser regularizada por contrapartida de reservas quando se
+- Página OCR 76: ser regulanzada por contrapartida de reservas quando se
+- Página OCR 76: Esta conta destina-se a registar as prestações de capital
+- Página OCR 76: Reservas Legais (consa 55)
+- Página OCR 76: Esta conta destina-se a registar as reservas que devam
+- Página OCR 76: Reservas de Reavaliação -— legais (conta 56 1)
+- Página OCR 76: legais específicos e será movimentada de acordo com as
+- Página OCR 76: Reservas de Reavaliação — autónomas — avaliação
+- Página OCR 76: malterável até que a conta Reservas de Reavaltação —
+- Página OCR 76: Estas reservas não podem pois ser utilizadas para
+- Página OCR 76: aumentar capital, para cobnr prejuízos ou para distribuição
+- Página OCR 76: Reservas de Reavaliação — autónomas — realização
+- Página OCR 76: contabilizadas na conta Reservas de Reavaliação —
+- Página OCR 76: resultado de
+- Página OCR 76: Esta conta, de natureza devedora, deve ser
+- Página OCR 76: Criada por contrapartida da conta 53 Reservas livres
+- Página OCR 77: Anulada por contrapartida da conta Reservas de Reava-
+- Página OCR 77: Reservas com fins especiais (conta 57)
+- Página OCR 77: Esta conta destina-se a registar reservas afecias a um
+- Página OCR 77: no capital próprio
+- Página OCR 78: natureza de bens devolvidos
+- Página OCR 78: natureza de bens devolvidos.
+- Página OCR 78: cliente não ficar satisfeito Neste caso q rédito deve
+- Página OCR 79: O processo de instalação seja simples por natureza é
+- Página OCR 79: natureza e qualidade dos bens
+- Página OCR 80: deverão ser desenvolvidas por natureza de serviços
+- Página OCR 80: geiro deverão ser desenvolvidas por natureza de serviços
+- Página OCR 80: por natureza de serviços prestados
+- Página OCR 80: os serviços executados Dependendo da natureza da
+- Página OCR 80: de clientes reflectem os serviços executados
+- Página OCR 81: do cliente
+- Página OCR 81: Numa base que reflicta a tempestividade, natureza e
+- Página OCR 81: que os debitadas a não sócios
+- Página OCR 82: tados, por natureza, nas respectivas contas de
+- Página OCR 82: O efeito líquido dos movimentos refendos dá, obvia-
+- Página OCR 82: Debitada, pelo valor das extstências iniciais de produtos
+- Página OCR 82: Creditada, pelo valor das existências finais de produtos
+- Página OCR 82: e registados, por natureza, nas respeçhvas contas de custos
+- Página OCR 82: Estes trabalhos podem desunar-se ao seu imobilizado
+- Página OCR 82: ou podem referir-se a situações que, pela sua natureza,
+- Página OCR 82: que não sejam de imputar a imobilizado ou & existências
+- Página OCR 82: que não sejam de imputar a imobilizado ou a existências e
+- Página OCR 82: natureza, quer constem da factura, quer sejam atmbuídos
+- Página OCR 83: participação de capital (conta 66 5)
+- Página OCR 83: capital e que não sejam subsidiárias nem associadas
+- Página OCR 83: sub-contas creditadas pelo produto da venda e amorti-
+- Página OCR 83: debitadas pelos custos correspondentes
+- Página OCR 83: Proveltos e ganhos financeiros — redução de provisões
+- Página OCR 83: dos riscos, em cada espécie de provisão, entre dois
+- Página OCR 83: períodos contabilísticos consecutivos, que seja de natureza
+- Página OCR 83: criadas — rendimentos de participação de capital
+- Página OCR 83: mentos de natureza corrente que tenham carácter não
+- Página OCR 83: natureza credora
+- Página OCR 83: ção de provisões (conta 68 1)
+- Página OCR 83: dos nscos, em cada espécie de provisão (de natureza finan-
+- Página OCR 83: sub-contas creditadas pelo produto da venda e amort-
+- Página OCR 83: zações respectivas e debitadas pelas custos correspon-
+- Página OCR 83: efeitos não puderam ser reconhecidos nos resultados transi-
+- Página OCR 83: Sempre que eventos desta natureza origmem simulta-
+- Página OCR 83: natureza credora
+- Página OCR 84: mento a detentores de investimentos em capital próprio
+- Página OCR 84: detenções de capital, como remuneração do capital
+- Página OCR 84: detentores de investimentos em capital próprio represen-
+- Página OCR 84: de capital, como remuneração do capital investido
+- Página OCR 84: os recebimentos de caixa futuros esperados durante a vida
+- Página OCR 84: predominantemente a clientes fora da entidade
+- Página OCR 84: esta conta será movimentada ao longa do ano sempre que
+- Página OCR 85: esta conta será movimentada, apenas no termo Sã
+- Página OCR 85: Esta rubrica destina-se a registar os prémios da natureza
+- Página OCR 85: imobilizado corpóreo e incorpóreo atribuíveis ao exercício
+- Página OCR 85: manutenção dos elementos do activo imobilizado e que não
+- Página OCR 85: natureza
+- Página OCR 85: actrvo imobilizado corpóreo
+- Página OCR 86: Contudo, se os encargos da natureza acima referida
+- Página OCR 86: à manutenção dos elementos do activa imobilizado e que
+- Página OCR 86: que não sejam de imputar a imobilizado ou a existências
+- Página OCR 86: de activos que não sejam de imputar a imobilizado on à
+- Página OCR 86: natureza, quer constem da factura, quer sejam atribuídos
+- Página OCR 86: sub-contas creditadas pelo produto da venda e amortiza-
+- Página OCR 86: debitadas pelos custos correspondentes
+- Página OCR 86: Esta conta destina-se a registar operações de natureza
+- Página OCR 87: natureza devedora
+- Página OCR 87: Outros custos e perdas não operacionais — Provisões
+- Página OCR 87: provisão para pagamento de pensões (acumuladas na
+- Página OCR 87: natureza extraordinária e não devam por Isso ser registadas
+- Página OCR 87: Da alienação de imobilizações, sendo as respectivas
+- Página OCR 87: sub-contas creditadas pelo produto da venda e
+- Página OCR 87: amortizações respectivas e debitadas pelos custos
+- Página OCR 87: De abates de imobilizado, sendo as respectivas sub-
+- Página OCR 87: -contas creditadas pelas amortizações respectivas e
+- Página OCR 87: cujos efeitos não puderam ser reconhecidos nos resultados
+- Página OCR 87: Sempre que eventos desta natureza onginem simulta-
+- Página OCR 87: tiver natureza devedora
+- Página OCR 88: 15 — Resultados:
+- Página OCR 88: Resultados transtiados (conta 81)
+- Página OCR 88: Esta conta é uulizada para registar os resultados Jíqui-
+- Página OCR 88: anterior Será movimentada subsequentemente de acordo
+- Página OCR 88: não o resultado do exercício
+- Página OCR 88: Resultados operacionais (conta 82)
+- Página OCR 88: contas 6] a65e 7a 75 por forma a apurar os resultados
+- Página OCR 88: denominadas transferência para resultados operacionais
+- Página OCR 88: Resultados financeiros (conta 83)
+- Página OCR 88: contas 66 e 76 por forma a apurar os resultados financeiros
+- Página OCR 88: transferência para resultados financeiros
+- Página OCR 88: Resultados em filiais e associadas (conta 84)
+- Página OCR 88: contas 67 e 77 por forma a apurar os resultados em filiais &
+- Página OCR 88: denominadas transferência para resultados em filiais e
+- Página OCR 88: Resultados não operacionais (conta 85)
+- Página OCR 88: contas 68 e 78 por forma a apurar os resultados não opera-
+- Página OCR 88: nadas transferência para resultados não operacionais
+- Página OCR 89: Resultados extraordinários (conta 86)
+- Página OCR 89: contas 69 e 79 por forma a apurar os resultados extraordi-
+- Página OCR 89: transferência para resultados extraordinários
+- Página OCR 89: Resultado Hquido do exercício (conta 88)
+- Página OCR 89: a 87 por forma a determinar os resultados líquidos do
+- Página OCR 89: transferência para resultados líquidos
+- Página OCR 89: transfendo para a conta 81 Resultados transitados
+- Página OCR 89: Esta conta é debitada, por crédito das sub-contas da
+- Página OCR 89: nos termos legais e estatutários, por conta dos resultados
+- Página OCR 89: transferido pare e conta 81 Resultados transitados
+- Página OCR 89: natureza, são aproximações que podem necessitar revisão à
+- Página OCR 89: sobre os lucros relacionada com resultados líquidos
+- Página OCR 89: resultados correntes e a parte relativa a resultados extraor-
+- Página OCR 89: Resultado contabilístico
+- Página OCR 89: Resultado contabilísico é 0 resultado global pos:tivo ou
+- Página OCR 89: na determumação do resultado líquido do período
+- Página OCR 89: umposto sobre os lucros e o resultado contabilística que é
+- Página OCR 90: Repartição do unposto sobre os resultados do exercício
+- Página OCR 90: Resultados correntes
+- Página OCR 90: Resultados extraordmários
+- Página OCR 90: Resultados dos efeitos da correcção de erros funda-
+- Página OCR 90: efectuadas na conta de resultados transitados não
+- Página OCR 91: Estes acontecimentos podem ter as seguintes naturezas
+- Página OCR 91: falência de um cliente e que ocorra após a data de
+- Página OCR 91: Deterroração nos resultados operacionais & na posição
+- Página OCR 91: Perda de um chente ou fornecedor importante que não
+- Página OCR 93: Um simples cltente, fornecedor, cancessor de privilé-
+- Página OCR 93: definidos para a natureza das transacções que estejam em
+- Página OCR 93: Natureza do relacionamento existente.
+- Página OCR 93: Contribuições de capital em dinheiro ou em espécie
+- Página OCR 93: 21 — Fluxos de caixa:
+- Página OCR 93: Fluxos de caixa são entradas (recebimentos, influxos) e
+- Página OCR 94: Caixa, compreende o dinheiro em carxa e em depósitos
+- Página OCR 94: Equivalentes de caixa são Investimentos a curto prazo
+- Página OCR 94: os futuros fluxos de caixa operacionais”
+- Página OCR 94: Resultados, e
+- Página OCR 94: Fluxos de caixa
+- Página OCR 94: incluídos em equivalentes de caixa
+- Página OCR 94: mento e de novas entradas de capital
+- Página OCR 94: sição do capital próprio e nos empréstimos pedidos pela
+- Página OCR 94: 212 Relato dos fluxos de caixa das actividades
+- Página OCR 94: Os fluxos de caixa das actividades operacionais podem
+- Página OCR 94: Método directo, segundo o qual os finxos de caixa são
+- Página OCR 94: princepais classes de recebimentos e das principais
+- Página OCR 94: classes de pagamentos
+- Página OCR 94: classes de recebimentos e das principais classes de
+- Página OCR 94: tração de resultados através da vanação dos sal-
+- Página OCR 94: Método indirecto, segundo os fluxos de caixa são
+- Página OCR 94: relatados partindo do resultado líguido e
+- Página OCR 94: Operações de natureza que não seja caixa
+- Página OCR 94: fluxo de caixa assoctado
+- Página OCR 94: caixa futuros, que não são possíveis de efectuar
+- Página OCR 95: Recebimentos (de caixa) provenientes da venda de bens
+- Página OCR 95: Recebimentos (de caixa) provenientes de royalties,
+- Página OCR 95: Pagamentos (de caixa) a fornecedores de bens e servr-
+- Página OCR 95: Pagamentos (de caixa) a empregados ou por conta
+- Página OCR 95: Recebimentos (de caixa) e Pagamentos (de caixa) de
+- Página OCR 95: reclamações, anuidades € outros movimentos
+- Página OCR 95: Pagamentos (de caixa) ou restituições de impostos, a
+- Página OCR 95: Recebimentos (de caixa) e Pagamentos (de caixa) de
+- Página OCR 95: Fluxos de caixa provenientes da compra e venda de
+- Página OCR 95: Os fluxos de caixa das actividades de investimento
+- Página OCR 95: devem telatar separadamente as principais classes dos
+- Página OCR 95: recebimentos brutos (de caixa) e as principais classes dos
+- Página OCR 95: pagamentos brutos (de caixa), excepto se puderem ser
+- Página OCR 95: Exemplos de fluxos de caixa das acnvidades de investr-
+- Página OCR 95: veis (incluado custos de desenvolvimento capitali-
+- Página OCR 95: Recebimentos (de caixa) por vendas de activos fixos
+- Página OCR 95: Pagamentos (de caixa) para aquisição de investimentos
+- Página OCR 95: (11) equivalentes de caixa
+- Página OCR 95: Recebimentos (de caixa) de vendas de investimentos
+- Página OCR 95: Adrantamentos de caixa e emprésumos feitos a outras
+- Página OCR 95: Recebimentos (de caixa) provementes de reembolso de
+- Página OCR 95: Os fluxos de caixa das achvidades de financiamento
+- Página OCR 95: devem relatar separadamente as principais classes dos
+- Página OCR 95: recebimentos brutos (de caixa) é as principais classes dos
+- Página OCR 95: pagamentos brutos (de caixa), excepto se puderem ser
+- Página OCR 95: ou de outros instrumentos de capital próprio
+- Página OCR 95: Pagumentos (de caixa) a detentores para adquinr ou
+- Página OCR 95: Entradas de caixa vindas da emissão de certificados de
+- Página OCR 95: Reembolsos (de caixa) de quanuas de empréstimos
+- Página OCR 95: mente cama um equivalente de caixa quando tiver um
+- Página OCR 95: Os fluxos de caixa das actividades operacionais, de
+- Página OCR 95: Recebimentos e pagamentos (de caixa) por conta de
+- Página OCR 95: clientes quando o fluxo de carxa reflicia as acttvi-
+- Página OCR 96: Recebimentos e pagamentos (de caixa) das rubricas
+- Página OCR 96: não requeiram o uso de caixa ou equivalentes de caixa
+- Página OCR 96: devem ser excluídas da demonstração de fluxos de caixa
+- Página OCR 96: capital
+- Página OCR 96: Conversão de dívidas em capital
+- Página OCR 96: Movimentos entre elementos que constituam camxa e
+- Página OCR 96: Estes movimentos por norma fazem parte da gestão de
+- Página OCR 96: devem ser exciuídos do Ambito de fluxos de caixa
+- Página OCR 96: bancários fazem parte da gestão de caixa da entidade o que
+- Página OCR 96: de caixa pelo que devem ser excluídas das actividades
+- Página OCR 96: digam respesto a caixa e equivalentes de caixa, estas
+- Página OCR 96: forma a conciltar os saldos unmciais e finais de caixa € seus
+- Página OCR 96: equivalentes com os fluxos de caixa apurados
+- Página OCR 96: Os fluxos de caixa associados a tais rubricas devem ser
+- Página OCR 96: Os fluxos de caixa provententes de impostos sobre os
+- Página OCR 96: fluxos de caixa são mustas vezes de identificação smprati-
