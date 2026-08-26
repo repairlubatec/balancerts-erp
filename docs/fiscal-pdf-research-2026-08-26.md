@@ -321,3 +321,7 @@ A classificação mantém-se `REFERÊNCIA OPERACIONAL/EXPLICATIVA`: estes materi
 ## Regressão após actualização documental
 
 A suite do projecto foi executada depois dos novos registos AGT e dos downloads institucionais: 153 ficheiros de teste passaram e 610 testes passaram. Não foram alterados os motores de cálculo, regras de contas, schema ou procedimentos de activação.
+
+## Limitação de obtenção do PDF da Lei n.º 17/24
+
+A página Lex.AO consultada fornece o texto e os metadados da Lei n.º 17/24, mas a extracção do HTML não expôs um URL PDF directo identificável. A página permanece como fonte secundária de localização; o PDF primário institucional integral continua pendente e a lei não pode ser tratada como evidência primária final.
