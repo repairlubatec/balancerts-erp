@@ -3766,4 +3766,4 @@
 - [x] Extrair e preservar o texto integral dos dois PDFs, identificando páginas sem camada de texto.
 - [ ] Conferir visualmente contas, naturezas, regras de movimento, artigos, taxas e vigência apenas onde a evidência for legível.
 - [x] Actualizar o registo V3.2 e as matrizes com os hashes e páginas confirmadas, sem activar regras não aprovadas.
-- [ ] Executar testes de validação e guardar checkpoint da revisão dos PDFs anexados.
+- [x] Executar testes de validação e guardar checkpoint da revisão dos PDFs anexados.
