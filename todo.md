@@ -3829,7 +3829,7 @@
 ## Execução autónoma da ordem P1–P13
 
 - [x] Reconsolidar o estado técnico e documental de P1–P13 a partir dos relatórios V3.2 e do anexo do utilizador.
-- [ ] Pesquisar fontes primárias oficiais que possam fechar pendências directamente aplicáveis ao ERP, sem adoptar cópias secundárias como evidência final.
+- [x] Pesquisar fontes primárias oficiais que possam fechar pendências directamente aplicáveis ao ERP, sem adoptar cópias secundárias como evidência final.
 - [x] Implementar apenas melhorias seguras de catálogo, versionamento, readiness, validação e rastreabilidade; manter cálculos/regras bloqueados quando faltar prova.
 - [x] Executar QA direccionado e confirmar que o fail-closed continua a rejeitar posting, emissão e cálculo não validados.
 - [x] Actualizar os documentos V3.2 e o mapa de execução com o resultado e as pendências não executáveis.
