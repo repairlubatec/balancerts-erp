@@ -113,3 +113,17 @@ A prova do DP 180/19 fecha a existência documental da camada contabilística IV
 | Regime transitório | DE 134/19, pp. 14–15: declaração transitória, dedução, mapa de fornecedores e não sujeição | `VISUALLY_CONFIRMED` no escopo revisto | Distinguir regime histórico/transitório da operação corrente |
 
 O PDF contém o início do Decreto Executivo n.º 135/19 na metade inferior da página 15; esse conteúdo foi excluído da classificação do DE 134/19 para evitar mistura de diplomas.
+
+
+## Lei n.º 17/19 — alteração e Anexo I do IVA
+
+| Elemento | Evidência primária visual | Estado | Limite de activação |
+|---|---|---|---|
+| Alterações ao CIVA | Lei n.º 17/19, pp. 2–3: artigos 5.º, 6.º, 9.º, 10.º, 12.º, 14.º, 18.º, 21.º, 22.º, 23.º e 31.º | `VISUALLY_CONFIRMED` no escopo revisto | Requer composição temporal com Lei 7/19, DP 180/19, DE 134/19 e Lei 14/23 |
+| Imposto cativo | p. 3, artigo 21.º: exclusões de operações e sujeitos/serviços expressamente visíveis | `VISUALLY_CONFIRMED` no escopo revisto | Não activar regras de cativo sem mapear todas as condições e excepções |
+| Direito à dedução | p. 3, artigos 22.º e 23.º: âmbito e condições do direito à dedução | `VISUALLY_CONFIRMED` no escopo revisto | Requer confrontação com contas e procedimentos do DP 180/19 |
+| Entrada em vigor | p. 4, artigo 4.º: 1 de Outubro de 2019 | `VISUALLY_CONFIRMED` | Usar como marco temporal da camada, não como activação actual isolada |
+| Anexo I | p. 4: classificação pautal de bens alimentares essenciais | `VISUALLY_CONFIRMED` no escopo revisto | Exige importação exacta de todos os códigos/descritivos e ligação às regras de taxa |
+| Conteúdo de Lei 18/19 | p. 4, parte inferior: início de diploma distinto | Excluído | Não misturar na fonte Lei 17/19 |
+
+A Lei n.º 17/19 foi inserida na cadeia histórica sem substituir a Lei n.º 7/19 nem a Lei n.º 14/23. A activação material continua sujeita à consolidação temporal e à aprovação formal.

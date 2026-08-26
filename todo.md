@@ -3790,4 +3790,12 @@
 - [x] Extrair o conteúdo e localizar artigos, modelos, anexos, campos e instruções declarativas.
 - [x] Conferir visualmente os modelos e regras relevantes apenas onde legíveis.
 - [x] Actualizar o registo V3.2 e a matriz, mantendo o diploma como camada declarativa separada.
+- [x] Executar testes e guardar checkpoint sem activar automaticamente regras fiscais.
+
+## Validação da Lei n.º 17/19 — alteração do IVA
+
+- [x] Inventariar a Lei n.º 17/19 anexada com MIME, páginas, tamanho, produtor e SHA-256.
+- [x] Extrair o texto e localizar artigos de alteração, anexos, vigência e revogações.
+- [x] Conferir visualmente os artigos materiais e a entrada em vigor apenas onde legíveis.
+- [x] Actualizar a cadeia Lei 7/19 → Lei 17/19 → DP 180/19 → DE 134/19 → Lei 14/23 na matriz V3.2.
 - [ ] Executar testes e guardar checkpoint sem activar automaticamente regras fiscais.

@@ -542,3 +542,18 @@ Estas páginas permitem confirmar que o DE 134/19 é uma **camada declarativa e 
 ## Regressão após integração documental do DE 134/19
 
 Foram executados os testes direccionados de fontes normativas, composição PGCA, validação/workflow PGCA, assistentes IVA e exportações. Resultado: **10 ficheiros de teste aprovados e 62 testes aprovados**. O DE 134/19 permanece uma camada declarativa/procedimental; nenhum parâmetro fiscal ou regra de lançamento foi activado automaticamente.
+
+
+## Conferência visual — Lei n.º 17/19 (páginas 2–4)
+
+As páginas 2–4 do PDF anexado confirmam visualmente que a Lei n.º 17/19 altera a Lei n.º 7/19, de 24 de Abril, que aprova o Código do IVA. A página 2 mostra alterações aos artigos **5.º — Transmissão de bens**, **6.º — Actualização do cadastro**, **9.º — Imposto de Consumo incorporado nas mercadorias adquiridas**, e inicia alterações à Lei do Código do IVA relativas a **artigo 10.º — Local das prestações de serviços**, **artigo 12.º — Transmissões de bens e prestações de serviços isentas** e **artigo 14.º — Importações isentas**. O conteúdo confirma que a lei opera por alteração de artigos existentes e não como um código autónomo substitutivo.
+
+A página 3 confirma alterações aos artigos **18.º — Valor tributável nas importações**, **21.º — Imposto cativo**, **22.º — Âmbito do direito à dedução**, **23.º — Condições para o exercício do direito à dedução** e **31.º — Pagamento do imposto cativo**. Entre as regras visualmente legíveis, destaca-se o artigo 21.º, que exclui do imposto cativo determinadas transmissões de bens, serviços bancários, consumo de água e energia, serviços de hotelaria/restauração, serviços adquiridos em caixas de pagamento automático e indemnizações de seguro, sem que esta lista seja convertida automaticamente em parametrização do ERP.
+
+A página 4 confirma o **artigo 33.º — Dúvidas e omissões**, o **artigo 4.º — Entrada em vigor**, que fixa a entrada em vigor da presente lei em **1 de Outubro de 2019**, e o **Anexo I**, referido na alínea a) do n.º 1 do artigo 12.º, com classificação pautal e designação de bens alimentares essenciais. O anexo contém, entre outros, leite, feijão, arroz, farinhas, óleo alimentar, açúcar e sal, com códigos pautais e descrições que devem ser tratados como tabela legal de bens abrangidos, não como lista inventada pelo ERP.
+
+O PDF anexado contém ainda o início da **Lei n.º 18/19** na parte inferior da página 4. Esse conteúdo foi excluído da classificação da Lei n.º 17/19 para evitar mistura de diplomas publicados no mesmo exemplar do Diário da República.
+
+## Regressão após integração documental da Lei n.º 17/19
+
+Foram executados os testes direccionados de fontes normativas, composição PGCA/IVA, validação e workflow PGCA, assistentes IVA e exportações. Resultado: **10 ficheiros de teste aprovados e 62 testes aprovados**. A Lei n.º 17/19 permanece uma camada de alteração versionada; nenhuma regra fiscal foi activada automaticamente.

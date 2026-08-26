@@ -192,3 +192,13 @@ O estado documental passou de `SOURCE_CANDIDATE` para **`VISUALLY_CONFIRMED` no 
 **Páginas visualmente confirmadas:** pp. 4–8 e 12–15, incluindo Modelo 06, Declaração Periódica Modelo 7, anexos de clientes/fornecedores, regularização de créditos duvidosos/incobráveis, pedidos de restituição, declaração de regime transitório e mapa de fornecedores.
 
 O estado documental foi actualizado para **`VISUALLY_CONFIRMED` no escopo das páginas revistas**. A classificação não autoriza activar taxas, contas ou regras de lançamento; apenas suporta a modelação controlada de formulários, campos, anexos e trilhos documentais.
+
+
+## Lei n.º 17/19 — alteração do Código do IVA
+
+**Ficheiro anexado:** `/home/ubuntu/upload/lei-n-o-17-19-de-13-de-agosto_assembleia-nacional_lex-ao.pdf`  
+**Integridade:** PDF 1.5, 4 páginas, A4, 584 511 bytes, produtor `GPL Ghostscript 9.18`, autor/metadado `Jurisnet`, SHA-256 `2bebb5e34348ac701d5892f473454bc6e983ebc4b7c57824c9806fced37b1cec`.  
+**Classificação:** diploma de alteração da Lei n.º 7/19, relacionado temporalmente com o DP 180/19, o DE 134/19 e a republicação pela Lei n.º 14/23.  
+**Páginas visualmente confirmadas:** pp. 2–4, incluindo artigos 5.º, 6.º, 9.º, 10.º, 12.º, 14.º, 18.º, 21.º, 22.º, 23.º, 31.º, 33.º e 4.º de entrada em vigor, além do Anexo I.
+
+O estado passou para **`VISUALLY_CONFIRMED` no escopo das páginas 2–4**. A Lei n.º 18/19 visível na parte inferior da página 4 foi excluída do escopo. A lei não foi interpretada como autorização para activar taxas ou regras sem o encadeamento completo e a aprovação prevista.
