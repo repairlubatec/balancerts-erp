@@ -202,3 +202,8 @@ Também não foram tratados como leis fiscais autónomas o XSD SAF-T, o catálog
 - `docs/fiscal-legal-source-registry-v3.2.md`
 - `docs/fiscal-legal-gap-matrix-v3.2.md`
 - `docs/fiscal-legal-item-classification-v3.2.md`
+
+
+## 6. Verificação de qualidade da execução autónoma
+
+Após a inclusão documental da Lei n.º 27/22 e a actualização da ordem normativa, a suite integral do projecto aprovou **153 ficheiros e 611 testes**. A verificação direccionada de PGCA, composição normativa, IVA, readiness e simulação de relatórios aprovou 28 testes. Estes resultados confirmam que a alteração documental não activa automaticamente taxas, regras, posting, emissão fiscal ou a versão PGCA; os bloqueios continuam dependentes de evidência e confirmação elegíveis.
