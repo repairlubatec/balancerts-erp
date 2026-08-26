@@ -3729,3 +3729,11 @@
 - [x] Implementar composição versionada PGCA-82-01 + camada IVA 2019 por diploma e vigência
 - [x] Validar dados, isolamento global/tenant e interface do catálogo composto
 - [x] Testar, documentar, guardar checkpoint e reportar estado
+
+
+## Relatório preliminar da Auditoria Legislativa Fiscal V3.2
+
+- [x] Ler integralmente o documento V3.2 e estruturar os requisitos do corpus legislativo
+- [x] Comparar os requisitos com a implementação actual sem alterar o sistema
+- [x] Avaliar fontes, vigência, riscos e lacunas normativas
+- [ ] Redigir e entregar o relatório preliminar para aprovação antes de implementar
