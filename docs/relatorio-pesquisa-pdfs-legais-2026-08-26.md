@@ -60,3 +60,18 @@ Depois de receber os PDFs, o processo será: registar nome oficial, entidade, da
 ## 6. Conclusão
 
 **Não é correcto substituir o PGCA-82-01 por um PDF informal chamado “PGCA actualizado com IVA”.** O pacote jurídico deve manter o Decreto n.º 82/01 como plano canónico e relacionar diplomas posteriores por camada, vigência e proveniência. Nesta pesquisa foram confirmados links institucionais de localização e referências de publicação, mas os PDFs primários dos diplomas centrais ainda devem ser anexados ou obtidos directamente da Imprensa Nacional/Diário da República para fechar a prova documental.
+
+
+## 7. PDFs descarregados para apoio à análise
+
+Foram descarregadas cópias PDF a partir do domínio secundário `files.lex.ao` para `/home/ubuntu/upload/legal-pdfs-2026-08-26/`. A integridade técnica foi verificada com `file` e `pdfinfo`; os hashes abaixo permitem comparação posterior. Estes ficheiros não foram classificados como publicações oficiais primárias.
+
+| Ficheiro | Páginas | SHA-256 | Estatuto |
+|---|---:|---|---|
+| lei-7-19-lexao.pdf | 25 | `d5d9ad9846a2ec0079b1a5dc44e429571358aec7e8b31b24446caa3bc4aebb84` | Cópia secundária para análise |
+| lei-17-19-lexao.pdf | 4 | `2bebb5e34348ac701d5892f473454bc6e983ebc4b7c57824c9806fced37b1cec` | Cópia secundária para análise |
+| decreto-presidencial-180-19-lexao.pdf | 12 | `af395bc8407848bd4148b9ea873bd8b7bd20df138e1f9bb5b1bbf088a028d9be` | Cópia secundária para análise |
+| decreto-executivo-134-19-lexao.pdf | 15 | `640cdb4674f0159c85ee4182525245ee3f6dc02e2cc584a7ec6d3a04895e9bee` | Cópia secundária para análise |
+| lei-14-23-lexao.pdf | 77 | `ff9a541f2d710290d0c5216817e6a1d6b36f0d6314edc62fabbe518773c35148d4` | Cópia secundária para análise |
+
+A Lei n.º 7/19, a Lei n.º 17/19, o Decreto Presidencial n.º 180/19, o Decreto Executivo n.º 134/19 e a Lei n.º 14/23 estão agora disponíveis localmente para comparação textual e visual. A classificação de fonte primária permanece pendente até confronto com o Diário da República/Imprensa Nacional ou PDF oficial institucional.
