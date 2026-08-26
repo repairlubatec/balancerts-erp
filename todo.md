@@ -3719,4 +3719,13 @@
 - [x] Auditar o relatório anterior e remover a associação indevida das pendências exclusivamente à Repair Lubatec
 - [x] Classificar cada pendência como global do software, específica de empresa/tenant ou dependência externa
 - [x] Reformular o relatório com a disponibilidade normativa para todas as empresas cadastradas
-- [ ] Validar, guardar checkpoint e entregar o relatório reformulado
+- [x] Validar, guardar checkpoint e entregar o relatório reformulado
+
+
+## Integração global PGCA e camada IVA 2019
+
+- [x] Reabrir salvaguardas, schema e fluxo de importação global do PGCA
+- [x] Importar idempotentemente as 765 entradas como estrutura PGCA-82-01 em revisão, sem naturezas inventadas
+- [x] Implementar composição versionada PGCA-82-01 + camada IVA 2019 por diploma e vigência
+- [x] Validar dados, isolamento global/tenant e interface do catálogo composto
+- [x] Testar, documentar, guardar checkpoint e reportar estado

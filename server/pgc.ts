@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, lte, sql } from "drizzle-orm";
 import { getDb, appendAuditEventForUser, createFileAsset } from "./db";
 import { accountingRules, auditEvents, chartAccounts, companies, fileAssets, fiscalPeriods, organizationMemberships, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcNormativeLayers, pgcSources, pgcVersions, users } from "../drizzle/schema";
 import { randomUUID } from "node:crypto";
@@ -153,6 +153,27 @@ export async function listPgcNormativeLayersForUser(input: { userId: number; org
   const access = await db.select({ id: pgcVersions.id }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
   if (!access[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
   return db.select({ layer: pgcNormativeLayers, source: pgcSources }).from(pgcNormativeLayers).innerJoin(pgcSources, eq(pgcNormativeLayers.sourceId, pgcSources.id)).where(and(eq(pgcNormativeLayers.organizationId, input.organizationId), eq(pgcNormativeLayers.baseVersionId, input.versionId))).orderBy(pgcNormativeLayers.effectiveFrom, pgcNormativeLayers.id).limit(100);
+}
+
+export async function getComposedPgcCatalogForUser(input: { userId: number; organizationId: number; versionId: number; asOf?: Date }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const asOf = input.asOf ?? new Date();
+  const access = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!access[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  const [accounts, layers] = await Promise.all([
+    db.select().from(pgcAccounts).where(and(eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId), lte(pgcAccounts.validFrom, asOf), sql`(${pgcAccounts.validTo} IS NULL OR ${pgcAccounts.validTo} > ${asOf})`)).orderBy(pgcAccounts.code).limit(5000),
+    db.select({ layer: pgcNormativeLayers, source: pgcSources }).from(pgcNormativeLayers).innerJoin(pgcSources, eq(pgcNormativeLayers.sourceId, pgcSources.id)).where(and(eq(pgcNormativeLayers.organizationId, input.organizationId), eq(pgcNormativeLayers.baseVersionId, input.versionId), lte(pgcNormativeLayers.effectiveFrom, asOf), sql`(${pgcNormativeLayers.effectiveTo} IS NULL OR ${pgcNormativeLayers.effectiveTo} > ${asOf})`)).orderBy(pgcNormativeLayers.effectiveFrom, pgcNormativeLayers.id).limit(100),
+  ]);
+  const activeLayers = layers.filter(({ layer, source }) => layer.status === "CONFIRMED" && source.verificationStatus === "CONFIRMED");
+  return {
+    asOf,
+    baseVersion: access[0].version,
+    accounts,
+    layers: layers.map(({ layer, source }) => ({ ...layer, source, appliedForPosting: layer.status === "CONFIRMED" && source.verificationStatus === "CONFIRMED" })),
+    activeLayerCount: activeLayers.length,
+    pendingLayerCount: layers.length - activeLayers.length,
+    postingReady: access[0].version.status === "ACTIVE" && activeLayers.length === layers.length && accounts.every((account) => account.validationStatus === "CONFIRMED"),
+  };
 }
 
 export async function reviewPgcSourceForUser(input: { userId: number; organizationId: number; versionId: number; sourceId: number; verificationStatus: "CONFIRMED" | "CONFLICT" | "REJECTED"; conflictNote?: string }) {

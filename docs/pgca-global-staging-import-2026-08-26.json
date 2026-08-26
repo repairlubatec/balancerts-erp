@@ -1,0 +1,13 @@
+{
+  "versionId": 1,
+  "organizationId": 1,
+  "versionStatus": "UNDER_REVIEW",
+  "sourceId": 1,
+  "packageHash": "43c4558e1bf175fa197a6ffef3dad4cc28dc1abf130d4c91c62914dab010048d",
+  "packageCount": 776,
+  "insertedCount": 0,
+  "preservedCount": 776,
+  "confirmedBeforeImport": 27,
+  "validationStatus": "NEEDS_NORMATIVE_VALIDATION",
+  "activationChanged": false
+}
