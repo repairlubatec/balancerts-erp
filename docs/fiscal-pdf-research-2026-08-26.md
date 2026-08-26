@@ -271,3 +271,15 @@ O IS é descrito como incidente sobre actos, contratos, documentos, títulos, li
 A página do IEC confirma incidência sobre bens do Código, produção/importação/introdução no consumo, base de cálculo por custo de produção/valor aduaneiro/valor de mercado e taxas apenas pelas tabelas anexas. Isto é coerente com a cadeia Lei 8/19 → Lei 18/19, mas não fecha alterações posteriores.
 
 A página do IVM confirma as categorias de veículos, isenções, critérios de matéria colectável e pagamento de Janeiro a Junho. Apresenta valores fixos nas tabelas operacionais do portal; por segurança, esses valores devem ser cruzados com as tabelas anexas da Lei n.º 24/20 e eventuais ajustes OGE antes de se tornarem regras do motor.
+
+## PDFs institucionais AGT 2026 obtidos
+
+Foram obtidos directamente do repositório institucional `ucm.minfin.gov.ao` três documentos associados pela página oficial de Circulares da AGT: `circular-01-gaca-gj-agt-2026.pdf` — 9 páginas, SHA-256 `744ff21a4ce718b3070de2228683d091927ecb424a498e267b6eb37152133e49`; `circular-09-gaca-gj-agt-2026-oge.pdf` — 2 páginas, SHA-256 `1418a81cd8fb821bfecf543e1b7a3da5a71ffb422c650146d6248dbf5124b29f`; e `circular-12-agt-2026-imposto-predial.pdf` — 3 páginas, SHA-256 `b63c8010ebda996eb8f0458082af19b4d37ea928945b6f42be69c3e9e427b216`.
+
+Os três ficheiros respondem como `application/pdf`. A classificação é `FONTE INSTITUCIONAL OBTIDA / A CONSOLIDAR`: ainda é necessário ler integralmente o texto, confirmar o objecto e mapear qualquer efeito sobre taxas, obrigações, calendários ou modelos. Nenhum conteúdo foi activado no motor.
+
+## Leitura OCR da Circular AGT 01/GACA/GJ/AGT/2026
+
+A Circular de 5 de Janeiro de 2026 foi obtida do repositório institucional AGT, mas é image-only; o texto abaixo resulta de OCR e deve ser confrontado visualmente antes de qualquer parametrização. O OCR identifica medidas ligadas ao OGE 2026, incluindo: submissão electrónica das declarações do Imposto Industrial por regimes geral e simplificado; referência a isenção de IRT até ao limite de Kz 150.000,00 para rendimentos de trabalhadores por conta de outrem; benefício de dedução de custos para sectores agrícola e pecuário nos termos descritos; IVA reduzido a 5% para importação/transmissão de equipamentos industriais pelo fabricante sob condições documentais; limiares de Kz 25.000.000,00 para regime de exclusão e Kz 350.000.000,00 para regime simplificado do IVA; regras de situação tributária regularizada; isenções de IVA e IS para transacções por plataformas de pagamentos digitais autorizadas pelo BNA; restrições a benefícios fiscais em reinvestimento; e perdão de juros com condições e exclusões temporais específicas.
+
+A Circular revoga expressamente a Circular n.º 01/GACA/GJ/AGT/2025 e a Circular n.º 019/GJ/AGT/2024, e declara aplicação imediata. Por serem medidas temporais do exercício 2026, não devem ser codificadas como taxas estruturais permanentes. Devem ser modeladas, se aprovadas, como regras versionadas com vigência, condições, evidência, artigo e data de expiração.

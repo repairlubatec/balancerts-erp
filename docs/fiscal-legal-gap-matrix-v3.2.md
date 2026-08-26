@@ -49,3 +49,10 @@ A matriz não autoriza activar o PGCA, IVA, taxas ou modelos. O comportamento co
 A classificação detalhada por pasta/área encontra-se em [fiscal-legal-item-classification-v3.2.md](./fiscal-legal-item-classification-v3.2.md). Foram acrescentadas evidências institucionais para OGE 2026, IAC, Imposto do Selo, IEC e IVM. A matriz mantém como lacunas os PDFs primários integrais, anexos/tabelas, alterações posteriores e prova de vigência quando não estão fechados.
 
 A correcção normativa mais relevante é que o Decreto Presidencial n.º 92/25 foi retirado da cadeia de facturação e classificado como Estatuto Orgânico da AGT. A cadeia de facturação continua a exigir análise própria do Decreto Presidencial n.º 71/25 e dos diplomas complementares.
+
+
+## Circular AGT 01/2026 — lacunas temporais adicionadas
+
+A Circular AGT 01/GACA/GJ/AGT/2026 foi obtida como PDF institucional, mas é image-only e o seu texto foi extraído por OCR. A matriz passa a exigir confirmação visual dos seguintes pontos antes de qualquer activação: condições do IVA de 5% para equipamentos industriais, limiares dos regimes de IVA, isenção de IRT indicada, dedutibilidade agrícola/pecuária, isenções de IVA/IS em plataformas digitais, regras de perdão de juros e restrições aos benefícios em reinvestimento.
+
+Cada ponto deve ser registado como regra temporal de 2026, com artigo, condição, data inicial, data final ou evento de cessação, prioridade face ao Código e referência à Circular. Nenhum destes candidatos altera actualmente o resultado do motor fiscal.

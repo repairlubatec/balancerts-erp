@@ -97,3 +97,17 @@ A localização institucional não equivale a validação do conteúdo do asset.
 | IVM | [Portal do Contribuinte — IVM](https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-veiculos-motorizados) | Categorias, isenções, critérios e tabelas operacionais de valores fixos. | Confrontar integralmente a Lei n.º 24/20, anexos e ajustes OGE antes de activação. |
 
 Estas fontes são classificadas como `GUIA INSTITUCIONAL / REFERÊNCIA OPERACIONAL`. Servem para descobrir escopo e obrigações, mas não substituem o diploma, a tabela anexa, a versão consolidada ou a prova de vigência exigida pelo motor.
+
+
+## 9. Circular AGT 01/GACA/GJ/AGT/2026
+
+| Elemento | Registo |
+|---|---|
+| Fonte | [AGT — Circulares 2026](https://agt.minfin.gov.ao/PortalAGT/#!/legislacao/circulares#collapse2398) |
+| PDF | `circular-01-gaca-gj-agt-2026.pdf` — 9 páginas; SHA-256 `744ff21a4ce718b3070de2228683d091927ecb424a498e267b6eb37152133e49` |
+| Data/objecto identificado | 5 de Janeiro de 2026; medidas tributárias relacionadas com o OGE 2026 |
+| Estado | `A CONSOLIDAR — OCR, exige conferência visual` |
+| Efeitos candidatos | IVA 5% para equipamentos industriais sob condições; limiares IVA; IRT; II; IS/IVA em plataformas digitais; benefícios fiscais; perdão de juros |
+| Regra de segurança | Não tratar estes itens como taxas permanentes. Exigir artigo, condição, vigência e expiração; manter bloqueados até conferência humana do PDF. |
+
+A Circular declara revogar a Circular n.º 01/GACA/GJ/AGT/2025 e a Circular n.º 019/GJ/AGT/2024 e aplicação imediata. Estes efeitos temporais serão tratados como camada normativa datada, nunca como substituição do Código do IVA, do Código do II ou do PGCA-82-01.
