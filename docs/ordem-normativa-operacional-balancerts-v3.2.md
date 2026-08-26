@@ -235,3 +235,17 @@ Os PDFs fornecidos pelo utilizador de Lei n.º 19/14, Lei n.º 28/20, DLP n.º 3
 O resultado é **conteúdo material visualmente confirmado** para os quatro diplomas. A proveniência continua marcada como cópia hospedada em Lex/Jurisnet; por isso, os documentos não são apresentados como descarga institucional independente. A confirmação melhora o corpus e permite revisão técnica das cadeias II/IRT/IS/IP, mas não autoriza activar taxas, tabelas ou cálculos automaticamente.
 
 A decisão operacional é: manter II, IRT, IS e IP em estado de catálogo confirmado/parametrização condicionada; manter bloqueados cálculo legal, posting fiscal, emissão oficial e relatórios fiscais até fechar alterações posteriores, vigência corrente, modelos, tabelas aplicáveis e aprovação normativa explícita. O fail-closed permanece obrigatório.
+
+
+## Decisão de promoção após recepção dos quatro PDFs — 26-08-2026
+
+A conferência dos quatro PDFs permite promover **o conteúdo documental** de Lei n.º 19/14, Lei n.º 28/20, DLP n.º 3/14 e Lei n.º 20/20 para o catálogo de fontes em revisão e para a fila de validação técnica. Não permite promover automaticamente as respectivas taxas, tabelas ou regras de cálculo para produção.
+
+| Componente | Conteúdo que pode avançar | O que continua bloqueado |
+|---|---|---|
+| II | Catálogo do CII, artigo 73.º de base e relação documental com Lei n.º 26/20/27/22 | Taxa de 6,5%, dedutibilidade, regimes, modelos e cálculo produtivo até fechar a cadeia e aprovação |
+| IRT | Catálogo da Lei n.º 28/20, grupos A/B/C, tabelas e vigência do diploma | Tabelas correntes, retenções produtivas, modelos e cálculo salarial oficial |
+| IS | Código republicado, Anexo A e verbas/taxas para revisão | Tabela corrente consolidada, alterações posteriores e cálculo produtivo |
+| IP | Código, taxas-base, liquidação e obrigações | Cadastro/avaliação, alterações posteriores, modelos e cálculo produtivo |
+
+Esta decisão separa a **confirmação do conteúdo do documento fornecido** da **autorização jurídica e operacional de cálculo**. O servidor deve continuar a devolver bloqueio para operações que dependam de fonte confirmada, regra activa, versão PGCA activa, vigência corrente ou aprovação normativa. A activação explícita não foi executada.
