@@ -296,3 +296,43 @@ A URL oficial consultada `https://www.imprensanacional.gov.ao/index.php?id=105&s
 ### DLP n.º 3/14 — resultado oficial não correspondente
 
 A URL devolvida pela pesquisa oficial para o Decreto Legislativo Presidencial n.º 3/14 (`https://www.imprensanacional.gov.ao/index.php?id=105&serie=1&page=1021`) foi aberta e extraída. O conteúdo efectivo corresponde ao Diário da República I Série n.º 20, de 13 de Fevereiro de 2015, com despachos e decretos de 2015; não contém o DLP n.º 3/14 nem a tabela do Imposto do Selo. O resultado de pesquisa/snippet foi, portanto, classificado como indexação não confirmada. O DLP n.º 3/14 continua sem PDF primário integral validado.
+
+
+### Fontes de localização encontradas — não activadas
+
+Foram consultadas páginas Lex Angola e um PDF Galille para localizar diplomas que o catálogo oficial não expôs integralmente:
+
+- Lei n.º 20/20, de 9 de Julho — página Lex: https://lex.ao/docs/assembleia-nacional/2020/lei-n-o-20-20-de-09-de-julho/. A página reproduz a aprovação do Código do Imposto Predial, o artigo 8.º sobre entrada em vigor 30 dias após publicação e o artigo 5.º sobre revogações; permanece fonte secundária de localização.
+- Decreto Legislativo Presidencial n.º 3/14, de 21 de Outubro — página Lex: https://lex.ao/docs/presidente-da-republica/2014/decreto-legislativo-presidencial-n-o-3-14-de-21-de-outubro/. A página reproduz a revisão/republicação do Código do Imposto de Selo e a entrada em vigor na data da publicação; permanece fonte secundária de localização.
+- Lei n.º 19/14, de 22 de Outubro — PDF de localização Galille: https://www.galille.ao/biblioteca/contabilidade/uploads/pdf_1716.pdf. O texto extraído identifica o Código do Imposto Industrial, o artigo 4.º transitório, revogações e entrada em vigor a 1 de Janeiro de 2015; permanece cópia não institucional e não autoriza activação.
+- Lei n.º 26/20, de 20 de Julho — página Lex: https://lex.ao/docs/assembleia-nacional/2020/lei-n-o-26-20-de-20-de-julho/. A página confirma que altera numerosos artigos do CII, incluindo o artigo 73.º; permanece fonte secundária até confronto com PDF institucional integral.
+
+Estes materiais podem orientar a procura e a comparação, mas não substituem o PDF primário do Diário da República/MINFIN/AGT. Nenhuma taxa, tabela ou regra foi activada com base neles.
+
+
+### Localizações Lex com descarga associada — evidência ainda não primária
+
+A consulta às páginas Lex Angola identificou links de download para PDFs que a plataforma descreve como diplomas oficiais, mas que estão alojados em `files.lex.ao`, não no repositório institucional MINFIN/AGT/Imprensa Nacional. Foram registados apenas para comparação e posterior conferência:
+
+| Diploma | Localização encontrada | Conteúdo verificável | Estado |
+|---|---|---|---|
+| Lei n.º 19/14 | https://lex.ao/docs/assembleia-nacional/2014/lei-n-o-19-14-de-22-de-outubro/ | Código do Imposto Industrial; entrada em vigor em 1-01-2015; revogações e regime transitório no articulado extraído | Fonte de localização secundária |
+| DLP n.º 3/14 | https://lex.ao/docs/presidente-da-republica/2014/decreto-legislativo-presidencial-n-o-3-14-de-21-de-outubro/ | Revisão e republicação do Código do Imposto de Selo; revoga o DLP 6/11; entrada em vigor na publicação | Fonte de localização secundária |
+| Lei n.º 20/20 | https://lex.ao/docs/assembleia-nacional/2020/lei-n-o-20-20-de-09-de-julho/ | Código do Imposto Predial; artigo 5.º sobre revogações; artigo 8.º com entrada em vigor 30 dias após publicação | Fonte de localização secundária |
+| Lei n.º 27/22 | https://lex.ao/docs/assembleia-nacional/2022/lei-n-o-27-22-de-22-de-agosto/ | Alteração exclusiva do artigo 73.º do CII; taxa indicada de 6,5%; entrada em vigor em 1-01-2023 | Fonte de localização secundária; não activada |
+
+Os PDFs associados não foram tratados como confirmação primária porque a origem do ficheiro é a infraestrutura Lex. A taxa de 6,5%, embora reproduzida na página de Lei n.º 27/22, permanece bloqueada no ERP até haver confirmação integral no Diário da República ou fonte institucional equivalente.
+
+
+### Auditoria técnica dos PDFs candidatos descarregados — 26-08-2026
+
+Foram descarregados para análise, sem execução de regras no ERP, quatro ficheiros disponibilizados por `files.lex.ao`. A conferência técnica confirmou que o conteúdo corresponde aos diplomas anunciados e que os documentos são digitalizações completas legíveis por OCR; contudo, os metadados identificam `Author: Jurisnet` e `Producer: GPL Ghostscript 9.18`, com datas de criação em 2023, não uma edição directamente emitida pelo Diário da República. Assim, são cópias de localização secundárias.
+
+| Ficheiro | Páginas | SHA-256 | Confirmação OCR | Estado |
+|---|---:|---|---|---|
+| `lei-19-14.pdf` | 19 | `ce79dac281609f0c8a684f7811ac93e77609a9f741b6c352cfcf817dee23d196` | Identifica Lei n.º 19/14, Código do Imposto Industrial, artigo 7.º e entrada em vigor | Secundário; não activar |
+| `lei-20-20.pdf` | 10 | `0c38176f9919866bc47913eb56a511cbc0d7f0c03a103c2606f8fcb197cab255` | Identifica Lei n.º 20/20, Código do Imposto Predial, revogações e artigo 8.º | Secundário; não activar |
+| `dlp-3-14.pdf` | 11 | `dc49e1c574e103a24c501d9b9b7b6b65c92f61f2d3a4eb012cf90d82f3508f83` | Identifica DLP n.º 3/14, revisão/republicação do Código do Imposto de Selo, artigo 5.º e tabela | Secundário; não activar |
+| `lei-27-22.pdf` | 3 | `f9f97619cab6eaab3e03e10d69bba4fe14e4132eef8fb59a1da181def9169e20` | Identifica Lei n.º 27/22, alteração do artigo 73.º do CII, taxa de 6,5% e vigência em 1-01-2023 | Secundário; taxa bloqueada |
+
+O OCR integral foi preservado em `/tmp/legal-candidates-ocr/`. A obtenção destes ficheiros melhora a identificação e a preparação documental, mas não satisfaz o requisito de evidência primária institucional integral. Não foi feita confirmação humana nem activação normativa.
