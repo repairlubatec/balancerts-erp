@@ -130,11 +130,13 @@ export function calculateFiscalResult(input: { netAmount: number; regime: IvaReg
 
 
 export type FiscalTaxCoverageStatus = "IMPLEMENTADO_PARCIAL" | "PERSISTENCIA_APENAS" | "NAO_CONFIGURADO";
+export type FiscalConfigurationState = "NÃO CONFIGURADO" | "EM CONFIGURAÇÃO" | "CONFIGURADO" | "VALIDADO" | "HOMOLOGAÇÃO PENDENTE" | "ATIVO";
 
 export type FiscalTaxCoverage = {
   code: "IVA" | "INDUSTRIAL" | "IRT" | "IAC" | "IS" | "IP" | "SISA" | "IEC" | "IVM";
   name: string;
   status: FiscalTaxCoverageStatus;
+  configurationState: FiscalConfigurationState;
   supportedOperations: string[];
   missingCapabilities: string[];
   sourceUrls: string[];
@@ -150,6 +152,7 @@ export const fiscalTaxCoverage: readonly FiscalTaxCoverage[] = [
     code: "IVA",
     name: "Imposto sobre o Valor Acrescentado",
     status: "IMPLEMENTADO_PARCIAL",
+    configurationState: "HOMOLOGAÇÃO PENDENTE",
     supportedOperations: ["facturação", "compras", "registo fiscal documental", "reconciliação"],
     missingCapabilities: ["declaração/submissão oficial AGT", "cobertura integral de regimes e excepções"],
     sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-o-valor-acrescentado"],
@@ -158,6 +161,7 @@ export const fiscalTaxCoverage: readonly FiscalTaxCoverage[] = [
     code: "INDUSTRIAL",
     name: "Imposto Industrial",
     status: "NAO_CONFIGURADO",
+    configurationState: "NÃO CONFIGURADO",
     supportedOperations: [],
     missingCapabilities: ["matéria colectável por regime", "provisional sobre vendas", "declaração anual", "regras de isenção e taxas versionadas"],
     sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-industrial"],
@@ -166,6 +170,7 @@ export const fiscalTaxCoverage: readonly FiscalTaxCoverage[] = [
     code: "IRT",
     name: "Imposto Sobre os Rendimentos do Trabalho",
     status: "NAO_CONFIGURADO",
+    configurationState: "NÃO CONFIGURADO",
     supportedOperations: [],
     missingCapabilities: ["folha salarial", "Grupos A/B/C", "deduções e não sujeição", "retenção e declaração"],
     sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-rendimentos-do-trabalho"],
@@ -174,6 +179,7 @@ export const fiscalTaxCoverage: readonly FiscalTaxCoverage[] = [
     code: "IAC",
     name: "Imposto sobre a Aplicação de Capitais",
     status: "NAO_CONFIGURADO",
+    configurationState: "NÃO CONFIGURADO",
     supportedOperations: [],
     missingCapabilities: ["Secções A/B", "rendimentos de capitais", "retenção/liquidação", "isenções e declaração"],
     sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-aplicacao-de-capitais"],
@@ -182,6 +188,7 @@ export const fiscalTaxCoverage: readonly FiscalTaxCoverage[] = [
     code: "IS",
     name: "Imposto de Selo",
     status: "NAO_CONFIGURADO",
+    configurationState: "NÃO CONFIGURADO",
     supportedOperations: [],
     missingCapabilities: ["tabela de actos e operações", "valores absolutos/percentuais", "sujeito passivo e interesse económico", "declaração anual"],
     sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-de-selo"],
@@ -190,6 +197,7 @@ export const fiscalTaxCoverage: readonly FiscalTaxCoverage[] = [
     code: "IP",
     name: "Imposto Predial",
     status: "NAO_CONFIGURADO",
+    configurationState: "NÃO CONFIGURADO",
     supportedOperations: [],
     missingCapabilities: ["cadastro e avaliação de imóveis", "detenção/renda/transmissão", "isenções", "liquidação e calendário próprios"],
     sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-predial-urbano"],
@@ -198,6 +206,7 @@ export const fiscalTaxCoverage: readonly FiscalTaxCoverage[] = [
     code: "SISA",
     name: "Imposto sobre Sucessões e Doações",
     status: "NAO_CONFIGURADO",
+    configurationState: "NÃO CONFIGURADO",
     supportedOperations: [],
     missingCapabilities: ["transmissões gratuitas", "beneficiário e grau de relação", "UCF e escalões", "processo de liquidação"],
     sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-sucessoes-e-doacoes"],
@@ -206,6 +215,7 @@ export const fiscalTaxCoverage: readonly FiscalTaxCoverage[] = [
     code: "IEC",
     name: "Imposto Especial de Consumo",
     status: "NAO_CONFIGURADO",
+    configurationState: "NÃO CONFIGURADO",
     supportedOperations: [],
     missingCapabilities: ["classificação de produtos", "incidência e taxas por produto", "importação/produção", "declaração"],
     sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-especial-de-consumo"],
@@ -214,6 +224,7 @@ export const fiscalTaxCoverage: readonly FiscalTaxCoverage[] = [
     code: "IVM",
     name: "Impostos sobre os Veículos Motorizados",
     status: "NAO_CONFIGURADO",
+    configurationState: "NÃO CONFIGURADO",
     supportedOperations: [],
     missingCapabilities: ["cadastro de veículos", "liquidação e selo", "regras por veículo", "calendário e integração AGT"],
     sourceUrls: ["https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/impostos-sobre-veiculos-motorizados"],

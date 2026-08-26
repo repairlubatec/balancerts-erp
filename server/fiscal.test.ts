@@ -93,7 +93,9 @@ describe("catálogo integral de cobertura fiscal", () => {
     const coverage = getFiscalTaxCoverage();
     expect(coverage.map((tax) => tax.code)).toEqual(["IVA", "INDUSTRIAL", "IRT", "IAC", "IS", "IP", "SISA", "IEC", "IVM"]);
     expect(coverage.find((tax) => tax.code === "IVA")?.status).toBe("IMPLEMENTADO_PARCIAL");
+    expect(coverage.find((tax) => tax.code === "IVA")?.configurationState).toBe("HOMOLOGAÇÃO PENDENTE");
     expect(coverage.filter((tax) => tax.code !== "IVA").every((tax) => tax.status === "NAO_CONFIGURADO")).toBe(true);
+    expect(coverage.filter((tax) => tax.code !== "IVA").every((tax) => tax.configurationState === "NÃO CONFIGURADO")).toBe(true);
     expect(coverage.every((tax) => tax.sourceUrls.length > 0)).toBe(true);
     expect(coverage.find((tax) => tax.code === "IRT")?.missingCapabilities).toContain("Grupos A/B/C");
   });
