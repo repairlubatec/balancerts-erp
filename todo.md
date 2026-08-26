@@ -3755,7 +3755,7 @@
 - [x] Normalizar a lista de documentos adicionais e separar diplomas de tabelas/modelos
 - [x] Pesquisar nas fontes oficiais OGE 2026, Circular AGT 01/2026 e os conjuntos II/IRT/IVA/IP/IVM/IEC/IAC/IS/CGT/benefícios/SAF-T/CEOC/IEJ/IVRM
 - [x] Descarregar os PDFs públicos acessíveis e verificar tipo, páginas e SHA-256
-- [ ] Classificar cada item por confirmado, a consolidar, PDF oficial a localizar ou histórico
+- [x] Classificar cada item por confirmado, a consolidar, PDF oficial a localizar ou histórico
 - [x] Actualizar o relatório documental e guardar checkpoint
 
 - [x] Consolidar o registo de fontes legais V3.2 e a matriz de lacunas com os PDFs adicionais, mantendo o estado fail-closed e sem activar taxas/regras sem fonte primária confirmada.
