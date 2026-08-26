@@ -3646,7 +3646,7 @@
 - [x] Fixar o checkpoint actual como versão de referência e preservar a configuração anterior
 - [x] Auditar estados fiscais, vigência, versão, evidência jurídica, auditoria e reversibilidade sem alterar o IVA
 - [x] Verificar que nenhum imposto não configurado tem regra material activa, taxa presumida ou cálculo automático
-- [ ] Confirmar a rastreabilidade de cada regra aplicável até diploma, artigo, vigência e validação
+- [x] Confirmar a rastreabilidade de cada regra aplicável até diploma, artigo, vigência e validação
 - [x] Executar testes de não regressão do IVA, testes estruturais e testes de integridade do Motor Fiscal
 - [x] Produzir relatório V2 com preservado, implementado, preparado, impostos não configurados, evidência necessária, testes, bloqueios, estado final e reversibilidade
 - [x] Criar uma guarda técnica de activação fiscal que exija evidência, vigência, testes, ausência de bloqueios e homologação quando aplicável

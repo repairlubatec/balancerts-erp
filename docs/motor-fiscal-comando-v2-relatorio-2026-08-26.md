@@ -15,7 +15,7 @@ Também foram preservadas as tabelas e os contratos dos restantes módulos. A ex
 
 Foi introduzido no catálogo de cobertura um estado formal V2 separado do estado técnico de cobertura. Foi também criada uma guarda pura de activação que exige fundamento legal, vigência activa, estado VALIDADO, testes aprovados, ausência de bloqueios críticos e homologação concluída quando aplicável; a guarda não altera nem activa automaticamente qualquer imposto. O IVA fica identificado como `HOMOLOGAÇÃO PENDENTE`, porque existe implementação local mas ainda falta submissão/homologação externa e cobertura integral das obrigações AGT. II, IRT, IAC, IS, IP, SISA, IEC e IVM ficam em `NÃO CONFIGURADO`.
 
-O catálogo passou a exibir esses estados no posto Fiscalidade. O painel distingue **Cobertura técnica** de **Estado V2**, para impedir que uma tabela, enum, interface ou código parcial seja confundido com configuração fiscal activa. O relatório fiscal e a interface continuam a mostrar a proveniência normativa quando existe e a ausência de evidência quando não existe.
+O catálogo passou a exibir esses estados no posto Fiscalidade. O painel distingue **Cobertura técnica** de **Estado V2**, para impedir que uma tabela, enum, interface ou código parcial seja confundido com configuração fiscal activa. O relatório fiscal e a interface continuam a mostrar a proveniência normativa quando existe e a ausência de evidência quando não existe. O resultado runtime passou a preservar opcionalmente artigo, página e hash da evidência, além de diploma/referência, versão e vigência, sem preencher campos ausentes por inferência.
 
 Foram mantidos os códigos persistentes `IS`, `IP`, `SISA` e `IVM`, com rótulos portugueses, mas sem cálculo automático, taxa, base, isenção, dedução, prazo ou obrigação presumida.
 
@@ -50,7 +50,7 @@ As páginas institucionais consultadas ajudam a delimitar o âmbito, mas não su
 
 ## F. Testes
 
-A validação desta execução concluiu com **152 ficheiros de teste e 603 testes aprovados**, incluindo testes do Motor Fiscal, catálogo integral, integração da Home/Fiscalidade, registo fiscal, rótulos portugueses e não regressão dos módulos existentes. O TypeScript terminou sem erros e o build de produção foi concluído.
+A validação desta execução concluiu com **152 ficheiros de teste e 603 testes aprovados**; a última execução global ocorreu depois da guarda de activação e a prova específica de proveniência foi ampliada para artigo, página e hash. A suite inclui testes do Motor Fiscal, catálogo integral, integração da Home/Fiscalidade, registo fiscal, rótulos portugueses e não regressão dos módulos existentes. O TypeScript terminou sem erros e o build de produção foi concluído.
 
 Os testes confirmam que o IVA continua a calcular apenas com regra activa e compatível, que regras pendentes não são usadas, que todos os nove impostos institucionais estão catalogados e que o estado V2 não activa cálculos materiais para impostos sem configuração.
 

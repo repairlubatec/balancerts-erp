@@ -77,10 +77,13 @@ describe("resultado fiscal comum", () => {
         rate: 0.14,
         evidence: "fonte-confirmada",
         version: "2026.1",
+        article: "19.º",
+        evidencePage: 12,
+        evidenceHash: "a".repeat(64),
         verificationStatus: "ACTIVE",
       },
     });
-    expect(result).toMatchObject({ taxType: "IVA", taxBase: 1000, ruleId: "IVA-GER-2026", ruleVersion: "2026.1", legalReference: null, taxAmount: 140 });
+    expect(result).toMatchObject({ taxType: "IVA", taxBase: 1000, ruleId: "IVA-GER-2026", ruleVersion: "2026.1", legalReference: null, article: "19.º", evidencePage: 12, evidenceHash: "a".repeat(64), taxAmount: 140 });
     expect(result.warnings).toContain("FISCAL_RULE_LEGAL_REFERENCE_REQUIRED");
     expect(result.validationErrors).toEqual([]);
   });

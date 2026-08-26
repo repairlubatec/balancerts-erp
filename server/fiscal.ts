@@ -8,6 +8,9 @@ export type FiscalRule = {
   rate?: number;
   evidence: string;
   legalReference?: string;
+  article?: string;
+  evidencePage?: number;
+  evidenceHash?: string;
   version?: string;
   verificationStatus?: "PENDING" | "HUMAN_APPROVED" | "ACTIVE" | "SUPERSEDED" | "REJECTED";
 };
@@ -100,6 +103,9 @@ export type FiscalCalculationResult = {
   ruleId: string;
   ruleVersion: string;
   legalReference: string | null;
+  article: string | null;
+  evidencePage: number | null;
+  evidenceHash: string | null;
   warnings: string[];
   validationErrors: string[];
 };
@@ -123,6 +129,9 @@ export function calculateFiscalResult(input: { netAmount: number; regime: IvaReg
     ruleId: input.rule.code,
     ruleVersion: input.rule.version ?? input.rule.validFrom.toISOString().slice(0, 10),
     legalReference: input.rule.legalReference ?? null,
+    article: input.rule.article ?? null,
+    evidencePage: input.rule.evidencePage ?? null,
+    evidenceHash: input.rule.evidenceHash ?? null,
     warnings,
     validationErrors: [],
   };
