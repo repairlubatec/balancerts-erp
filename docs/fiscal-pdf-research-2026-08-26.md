@@ -325,3 +325,9 @@ A suite do projecto foi executada depois dos novos registos AGT e dos downloads 
 ## Limitação de obtenção do PDF da Lei n.º 17/24
 
 A página Lex.AO consultada fornece o texto e os metadados da Lei n.º 17/24, mas a extracção do HTML não expôs um URL PDF directo identificável. A página permanece como fonte secundária de localização; o PDF primário institucional integral continua pendente e a lei não pode ser tratada como evidência primária final.
+
+## Revisão final de qualidade e fail-closed
+
+A verificação final confirmou TypeScript sem erros e build de produção concluído. A inspecção estática do guard de activação confirma que `canActivatePgcVersion` só retorna verdadeiro quando `readiness.ready === true` e a lista de `blockers` está vazia. Os estados `NEEDS_NORMATIVE_VALIDATION` e `SOURCE_CANDIDATE` continuam tratados como não activáveis. A suite de regressão mantém 153 ficheiros e 610 testes aprovados.
+
+O build apresenta apenas avisos de optimização sobre chunks superiores a 500 kB; não há erro de compilação. A pendência documental de PDFs primários não expostos permanece aberta e impede qualquer fecho normativo total.
