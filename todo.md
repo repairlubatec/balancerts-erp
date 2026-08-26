@@ -3657,3 +3657,8 @@
 - [x] Actualizar a documentação de estado, separando entregas locais concluídas das dependências externas adiadas
 - [x] Normalizar as origens de extracção documental para distinguir runtime local de extracção heurística local, sem rótulos de fallback ou dados demonstrativos
 - [x] Rever visualmente o posto Fiscalidade após a continuação local e confirmar estados externos explicitamente visíveis
+
+## Entregáveis solicitados — PGCA, impostos e apresentação SAF-T
+- [x] Preparar procedimento prático e seguro para activar o PGCA da Repair Lubatec sem alterar dados emitidos
+- [x] Preparar matriz de configuração fiscal e códigos de isenção baseada em fontes verificáveis e com estados de validação
+- [x] Criar apresentação sobre os ficheiros SAF-T e a distinção entre validação estrutural, fiscal, contabilística e homologação

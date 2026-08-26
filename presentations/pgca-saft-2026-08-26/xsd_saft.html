@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <title>O que é o XSD SAF-T AO</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: sans-serif; background: #dfe4ea; color: #334155; }
+        .slide-container { width: 1280px; min-height: 720px; background: #f4f5f7; padding-top: 60px; padding-left: 80px; padding-right: 80px; position: relative; }
+        .kicker { font-family: 'Courier New', monospace; font-weight: 700; font-size: 14px; color: #0284c7; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .title { font-family: sans-serif; font-weight: 900; font-size: 48px; color: #0f172a; letter-spacing: -1.5px; margin-bottom: 40px; line-height: 1.1; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .tech-specs { border-top: 1px solid #94a3b8; padding-top: 24px; }
+        .spec-row { border-bottom: 1px solid #cbd5e1; padding: 16px 0; display: flex; justify-content: space-between; font-family: 'Courier New', monospace; font-size: 15px; }
+        .spec-label { font-weight: 900; color: #0f172a; font-family: sans-serif; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+        .structure-box { border: 1px solid #94a3b8; background: #fff; padding: 30px; }
+        .structure-title { font-weight: 900; font-size: 18px; color: #0f172a; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; }
+        .tag { background: #e2e8f0; border: 1px solid #94a3b8; padding: 6px 12px; font-family: 'Courier New', monospace; font-size: 14px; font-weight: 700; color: #0f172a; }
+        .validation-note { margin-top: 30px; padding: 20px; background: #0f172a; color: #f4f5f7; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.5; }
+        .validation-note b { color: #7dd3fc; font-family: sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="kicker">ESPECIFICAÇÃO TÉCNICA / 03</div>
+        <h1 class="title">O que é o XSD SAF-T AO</h1>
+        
+        <div class="grid">
+            <div class="tech-specs">
+                <div class="spec-row">
+                    <span class="spec-label">Namespace</span>
+                    <span>urn:OECD:StandardAuditFile-Tax:AO_1.01_01</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Versão Técnica</span>
+                    <span>1.01_01</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Formato</span>
+                    <span>XML Schema Definition (XSD)</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Estado</span>
+                    <span>Development (Out 2024)</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Integridade</span>
+                    <span>SHA-256 Verificado</span>
+                </div>
+            </div>
+
+            <div class="structure-box">
+                <h2 class="structure-title">Estrutura de Validação</h2>
+                <ul class="tag-list">
+                    <li class="tag">&lt;Header&gt;</li>
+                    <li class="tag">&lt;MasterFiles&gt;</li>
+                    <li class="tag">&lt;GeneralLedgerAccounts&gt;</li>
+                    <li class="tag">&lt;Customer&gt;</li>
+                    <li class="tag">&lt;Supplier&gt;</li>
+                    <li class="tag">&lt;Product&gt;</li>
+                    <li class="tag">&lt;TaxTable&gt;</li>
+                    <li class="tag">&lt;GeneralLedgerEntries&gt;</li>
+                    <li class="tag">&lt;SourceDocuments&gt;</li>
+                </ul>
+                
+                <div class="validation-note">
+                    <b>Âmbito da Validação</b>
+                    Garante que o XML tem a estrutura, tipos de dados e relações de unicidade exigidas pela AGT. Não valida a veracidade contabilística nem activa o plano PGCA.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

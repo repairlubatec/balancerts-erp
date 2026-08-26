@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "title": "PGCA, impostos e SAF-T AO",
+    "created": 1787729873.58,
+    "last_updated": 1787730035.506,
+    "total_slides": 8
+  },
+  "slides": [
+    {
+      "id": "titulo",
+      "state": "edited",
+      "pageNum": 1
+    },
+    {
+      "id": "bloqueio_pgca",
+      "state": "edited",
+      "pageNum": 2
+    },
+    {
+      "id": "ativacao_pgca",
+      "state": "edited",
+      "pageNum": 3
+    },
+    {
+      "id": "xsd_saft",
+      "state": "edited",
+      "pageNum": 4
+    },
+    {
+      "id": "zip_saft",
+      "state": "edited",
+      "pageNum": 5
+    },
+    {
+      "id": "matriz_impostos",
+      "state": "edited",
+      "pageNum": 6
+    },
+    {
+      "id": "camadas_validacao",
+      "state": "edited",
+      "pageNum": 7
+    },
+    {
+      "id": "conclusao",
+      "state": "edited",
+      "pageNum": 8
+    }
+  ],
+  "outline": [
+    {
+      "id": "titulo",
+      "title": "PGCA, impostos e SAF-T AO",
+      "summary": "Análise dos ficheiros SAF-T, passos de activação do PGCA e separação das camadas de validação."
+    },
+    {
+      "id": "bloqueio_pgca",
+      "title": "A mensagem vermelha do PGCA",
+      "summary": "Explica por que razão o sistema bloqueia lançamentos e por que o XSD não activa o plano.",
+      "image_plan": "/home/ubuntu/upload/pasted_file_78Wnnb_image.png - Shows the exact ERP UI with the red error message for PGCA blocking"
+    },
+    {
+      "id": "ativacao_pgca",
+      "title": "Como activar o PGCA da Repair Lubatec",
+      "summary": "Sequência controlada para associar, validar, aprovar e activar o plano no contexto empresa/período."
+    },
+    {
+      "id": "xsd_saft",
+      "title": "O que é o XSD SAF-T AO",
+      "summary": "Mostra namespace, versão, estrutura e limites da validação estrutural XML."
+    },
+    {
+      "id": "zip_saft",
+      "title": "O que o ZIP acrescenta",
+      "summary": "Resume documentação, exemplos, isenções e diplomas do pacote, distinguindo referência técnica de certificação."
+    },
+    {
+      "id": "matriz_impostos",
+      "title": "Matriz segura de impostos e isenções",
+      "summary": "Apresenta o estado do IVA e dos demais impostos, sem activar taxas presumidas."
+    },
+    {
+      "id": "camadas_validacao",
+      "title": "Quatro camadas de validação",
+      "summary": "Distingue validação estrutural, dados/reconciliação, fiscal/contabilística e externa."
+    },
+    {
+      "id": "conclusao",
+      "title": "Conclusão e próximos passos",
+      "summary": "Resume o que está resolvido, o que falta e a decisão segura de não activar por inferência."
+    }
+  ]
+}

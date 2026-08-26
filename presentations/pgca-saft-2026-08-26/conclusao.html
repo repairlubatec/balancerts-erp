@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conclusão e Próximos Passos</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #dfe4ea; font-family: sans-serif; color: #334155; }
+        .slide-container { width: 1280px; min-height: 720px; background: #f4f5f7; position: relative; display: flex; flex-direction: column; }
+        .header { padding-top: 60px; padding-left: 80px; padding-right: 80px; }
+        .kicker { font-family: 'Courier New', monospace; font-weight: 700; font-size: 14px; color: #0284c7; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .title { font-family: sans-serif; font-weight: 900; font-size: 48px; color: #0f172a; letter-spacing: -1px; }
+        /* Reduced vertical paddings/gaps to avoid overflow */
+        .content-grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding-top: 12px; padding-left: 80px; padding-right: 80px; }
+        .zone { border-top: 1px solid #94a3b8; padding-top: 8px; }
+        .zone-title { font-family: sans-serif; font-weight: 900; font-size: 20px; color: #0f172a; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .zone-title i { color: #0284c7; font-size: 16px; }
+        .list-item { font-family: 'Courier New', monospace; font-size: 16px; line-height: 1.5; margin-bottom: 8px; padding-left: 24px; position: relative; }
+        .list-item::before { content: '>'; position: absolute; left: 0; color: #0284c7; font-weight: 700; }
+        .summary-box { margin-top: 16px; background: #0f172a; color: #f4f5f7; padding: 16px; border-left: 6px solid #0284c7; }
+        .summary-text { font-family: 'Courier New', monospace; font-size: 18px; line-height: 1.6; }
+        .footer-bar { height: 60px; border-top: 1px solid #94a3b8; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; font-family: 'Courier New', monospace; font-size: 12px; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <p class="kicker">Síntese Executiva / 08</p>
+            <h1 class="title">Conclusão e próximos passos</h1>
+        </div>
+
+        <div class="content-grid">
+            <div class="zone">
+                <h2 class="zone-title">O que está resolvido</h2>
+                <div class="list-item">Anexos integrados como base de validação estrutural e referência de isenções.</div>
+                <div class="list-item">Separação clara entre preparação local, regras activas e homologação externa.</div>
+                <div class="list-item">Motor Fiscal preparado para transportar artigo, página e hash de evidência.</div>
+                <div class="list-item">Diagnóstico do bloqueio PGCA identificado como estado de governação.</div>
+            </div>
+            <div class="zone">
+                <h2 class="zone-title">O que falta concluir</h2>
+                <div class="list-item">Confirmar contas/regras legíveis e anexar evidência primária do Decreto 82/01.</div>
+                <div class="list-item">Executar checklist de validação e aprovar versão PGCA para a Repair Lubatec.</div>
+                <div class="list-item">Eliminar valores de reserva no SAF-T e preencher dados reais de produção.</div>
+                <div class="list-item">Concluir etapa externa: credenciais, endpoint e certificação AGT.</div>
+            </div>
+        </div>
+
+        <div style="padding: 0 80px 20px 80px;">
+            <div class="summary-box">
+                <p class="summary-text">
+                    <strong>DECISÃO SEGURA:</strong> O sistema permanece em modo fail-closed. Não serão activadas taxas, isenções ou planos de contas por inferência. O desbloqueio operacional exige a validação formal da cadeia normativa e a decisão de aprovação autorizada.
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bar">
+            <span>BALANCERTS.ERP — MOTOR FISCAL</span>
+            <span>26 AGOSTO 2026</span>
+            <span>CONFIDENCIAL</span>
+        </div>
+    </div>
+</body>
+</html>

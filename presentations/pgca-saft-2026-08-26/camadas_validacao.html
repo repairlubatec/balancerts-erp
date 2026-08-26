@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <title>Quatro camadas de validação</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #dfe4ea; font-family: sans-serif; color: #334155; }
+        .slide-container { width: 1280px; min-height: 720px; background: #f4f5f7; padding-top: 60px; padding-left: 80px; padding-right: 80px; position: relative; }
+        .kicker { font-family: 'Courier New', monospace; font-weight: 700; font-size: 14px; color: #0284c7; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .title { font-family: sans-serif; font-weight: 900; font-size: 48px; color: #0f172a; letter-spacing: -1.5px; margin-bottom: 40px; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid #94a3b8; background: #fff; }
+        .column { padding: 32px 24px; border-right: 1px solid #94a3b8; min-height: 379px; display: flex; flex-direction: column; }
+        .column:last-child { border-right: none; }
+        .icon-box { width: 48px; height: 48px; background: #0f172a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 24px; }
+        .col-title { font-family: sans-serif; font-weight: 900; font-size: 18px; color: #0f172a; text-transform: uppercase; margin-bottom: 16px; min-height: 44px; }
+        .col-content { font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.5; color: #475569; }
+        .col-content b { color: #0284c7; display: block; margin-bottom: 8px; }
+        .warning-box { margin-top: 8px; border-top: 4px solid #0284c7; background: #0f172a; color: #f4f5f7; padding: 11px; font-family: 'Courier New', monospace; font-size: 15px; }
+        .warning-box strong { color: #7dd3fc; font-family: sans-serif; font-weight: 900; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="kicker">ARQUITECTURA DE CONFIANÇA / 07</div>
+        <h1 class="title">Quatro camadas<br>de validação</h1>
+        
+        <div class="grid">
+            <div class="column">
+                <div class="icon-box"><i class="fas fa-code"></i></div>
+                <h2 class="col-title">1. Estrutural (XML)</h2>
+                <div class="col-content">
+                    <b>Conformidade XSD</b>
+                    Verifica se o ficheiro XML respeita o esquema oficial SAF-T AO 1.01_01, tipos de dados e obrigatoriedade de campos.
+                </div>
+            </div>
+            <div class="column">
+                <div class="icon-box"><i class="fas fa-database"></i></div>
+                <h2 class="col-title">2. Dados e Reconciliação</h2>
+                <div class="col-content">
+                    <b>Integridade Interna</b>
+                    Garante que NIF, contas, saldos, clientes e documentos estão completos, coerentes e reconciliados entre si.
+                </div>
+            </div>
+            <div class="column">
+                <div class="icon-box"><i class="fas fa-balance-scale"></i></div>
+                <h2 class="col-title">3. Fiscal e Contabilística</h2>
+                <div class="col-content">
+                    <b>Normativa PGCA/IVA</b>
+                    Valida a regra aplicada, vigência, taxa, isenção, natureza da conta e rastreabilidade até ao diploma primário.
+                </div>
+            </div>
+            <div class="column">
+                <div class="icon-box"><i class="fas fa-certificate"></i></div>
+                <h2 class="col-title">4. Externa (AGT)</h2>
+                <div class="col-content">
+                    <b>Homologação Oficial</b>
+                    Envolve credenciais, endpoint, certificado de software e a aceitação final do pacote pela autoridade tributária.
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <strong>Independência de Resultados</strong>
+            Um ficheiro pode ser estruturalmente válido (Camada 1) mas ser fiscalmente incorrecto ou rejeitado por falta de homologação (Camadas 3 e 4). O sistema bloqueia o avanço se qualquer camada falhar.
+        </div>
+    </div>
+</body>
+</html>

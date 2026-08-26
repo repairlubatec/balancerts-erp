@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <title>O que o ZIP acrescenta</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container { width: 1280px; min-height: 720px; background: #F4F5F7; font-family: sans-serif; color: #334155; position: relative; display: flex; flex-direction: column; }
+        .header { padding-top: 60px; padding-left: 80px; padding-right: 80px; }
+        .kicker { font-family: monospace; font-weight: 700; font-size: 14px; color: #0284C7; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .title { font-family: sans-serif; font-weight: 900; font-size: 48px; color: #0F172A; letter-spacing: -1px; line-height: 1.1; }
+        .content-grid { flex: 1; display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; padding-top: 40px; border-top: 1px solid #94A3B8; margin-top: 40px; }
+        .zone { border-right: 1px solid #94A3B8; padding: 20px 30px; }
+        .zone:last-child { border-right: none; }
+        .zone-title { font-family: sans-serif; font-weight: 900; font-size: 12px; color: #0F172A; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; border-bottom: 2px solid #0284C7; padding-bottom: 8px; display: inline-block; }
+        .data-list { font-family: monospace; font-size: 14px; line-height: 1.6; list-style: none; }
+        .data-list li { margin-bottom: 12px; padding-left: 15px; position: relative; }
+        .data-list li::before { content: ">"; position: absolute; left: 0; color: #0284C7; font-weight: 700; }
+        .table-wrap { grid-column: span 3; }
+        .legis-wrap { grid-column: span 3; }
+        .warning-bar { background: #0F172A; color: #F4F5F7; padding: 25px 80px; font-family: monospace; font-size: 15px; line-height: 1.4; }
+        .warning-bar b { color: #0284C7; font-family: sans-serif; font-weight: 900; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; margin-right: 15px; }
+        .tag { display: inline-block; background: #E2E8F0; color: #475569; padding: 2px 6px; font-size: 10px; font-weight: 700; margin-left: 5px; vertical-align: middle; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <p class="kicker">Análise de Recursos / 05</p>
+            <h1 class="title">O que o pacote ZIP<br>SAF-T AO acrescenta</h1>
+        </div>
+
+        <div class="content-grid">
+            <div class="zone table-wrap">
+                <h2 class="zone-title">Componentes Técnicos</h2>
+                <ul class="data-list">
+                    <li>XSD Oficial (v1.01_01) <span class="tag">ESTRUTURA</span></li>
+                    <li>Exemplos XML (PurchaseInvoices) <span class="tag">REFERÊNCIA</span></li>
+                    <li>TaxExemptions.json (v2.0.0) <span class="tag">ISENÇÕES</span></li>
+                    <li>README de implementação <span class="tag">DOCS</span></li>
+                    <li>Ficheiros de configuração (.yml)</li>
+                </ul>
+            </div>
+            <div class="zone legis-wrap">
+                <h2 class="zone-title">Legislação Incluída (PDF)</h2>
+                <ul class="data-list">
+                    <li>Decreto Presidencial n.º 312/18</li>
+                    <li>Decreto Executivo n.º 317/20</li>
+                    <li>Decreto Presidencial n.º 71/25</li>
+                    <li>Decreto Executivo n.º 683/25</li>
+                    <li>Guia de certificação ASSOFT</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="warning-bar">
+            <p><b>Limites do Pacote</b> Este ZIP é um repositório de referência técnica e normativa. Não contém credenciais de acesso, endpoints de produção, certificados de assinatura de código ou o número de validação oficial atribuído pela AGT ao BALANCERTS.ERP.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz segura de impostos e isenções</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #dfe4ea; color: #334155; }
+        .slide-container { width: 1280px; min-height: 720px; background: #f4f5f7; padding-top: 60px; padding-left: 80px; padding-right: 80px; position: relative; }
+        .kicker { font-family: 'Courier New', monospace; font-weight: 700; font-size: 14px; color: #0284c7; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+        .title { font-family: sans-serif; font-weight: 900; font-size: 48px; color: #0f172a; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; }
+        table { width: 100%; border-collapse: collapse; border: 1px solid #94a3b8; font-family: 'Courier New', monospace; font-size: 16px; }
+        th { background: #0f172a; color: #f4f5f7; text-align: left; padding: 8px; font-family: Arial, sans-serif; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid #94a3b8; }
+        td { padding: 8px 12px; border: 1px solid #94a3b8; line-height: 1.4; vertical-align: top; }
+        tr:nth-child(even) { background: #e9edf2; }
+        .status-tag { display: inline-block; padding: 4px 8px; font-weight: 900; font-size: 12px; border-radius: 0; text-transform: uppercase; margin-bottom: 2px; }
+        .status-partial { background: #0284c7; color: #fff; }
+        .status-none { background: #94a3b8; color: #fff; }
+        .principle { margin-top: 12px; border-top: 4px solid #0284c7; padding-top: 20px; font-family: 'Courier New', monospace; font-size: 18px; color: #0f172a; }
+        .principle strong { font-family: Arial, sans-serif; font-weight: 900; text-transform: uppercase; font-size: 14px; color: #0284c7; display: block; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="kicker">CONFIGURAÇÃO FISCAL / 06</div>
+        <h1 class="title">Matriz segura de impostos<br>e isenções</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Camada</th>
+                    <th style="width: 35%;">Estado seguro no ERP</th>
+                    <th style="width: 40%;">Regra de utilização</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>IVA</strong></td>
+                    <td><span class="status-tag status-partial">Integrado / Pendente</span><br>Cálculo técnico activo; homologação em espera.</td>
+                    <td>Usar apenas regras versionadas, com vigência válida e evidência associada.</td>
+                </tr>
+                <tr>
+                    <td><strong>II, IRT, IAC</strong></td>
+                    <td><span class="status-tag status-none">Identificados</span><br>Mapeados no motor; cálculo inactivo.</td>
+                    <td>Bloquear cálculo automático até confirmação de diploma e regra primária.</td>
+                </tr>
+                <tr>
+                    <td><strong>IS, IP, SISA, IEC, IVM</strong></td>
+                    <td><span class="status-tag status-none">Persistência apenas</span><br>Códigos disponíveis para registo manual.</td>
+                    <td>Permitir identificação documental, mas impedir liquidação automática.</td>
+                </tr>
+                <tr>
+                    <td><strong>Isenções SAF-T</strong></td>
+                    <td><span class="status-tag status-partial">Referência</span><br>Códigos do pacote técnico disponíveis.</td>
+                    <td>Validar código, motivo e artigo na legislação vigente antes de activar.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="principle">
+            <strong>Princípio Operacional</strong>
+            Persistir um código ou motivo não significa activar uma obrigação fiscal. O sistema mantém-se fail-closed para proteger a integridade jurídica da empresa.
+        </div>
+    </div>
+</body>
+</html>
