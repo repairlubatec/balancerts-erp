@@ -121,3 +121,15 @@ A Circular declara revogar a Circular n.º 01/GACA/GJ/AGT/2025 e a Circular n.º
 | Circular n.º 12/AGT/2026 | Esclarecimento sobre aproveitamento útil e efectivo de prédios rústicos agrícolas/pecuários para efeitos de isenção do IP | `A CONSOLIDAR — OCR` | Tratar como critério interpretativo e documental, não como nova taxa ou isenção autónoma. |
 
 A Circular 12 exige, entre outros elementos, prova por títulos de concessão, planos de exploração, registos de produção, relatórios técnicos ou licenças sectoriais, e prevê efeitos diferenciados para áreas parcialmente aproveitadas. Estes requisitos só podem entrar no fluxo de validação do IP após conferência visual do PDF institucional.
+
+
+## 11. Cadeia temporal de facturação e submissão electrónica
+
+| Diploma | Estado temporal | Tratamento no ERP |
+|---|---|---|
+| DP n.º 292/18 | `HISTÓRICO` — revogado pelo DP 71/25 | Preservar para auditoria de documentos antigos; não usar para novas emissões. |
+| DP n.º 144/23 | `HISTÓRICO` — revogado pelo DP 71/25 | Preservar para rastreabilidade; não usar como regime actual de auto-facturação. |
+| DP n.º 312/18 | `A CONSOLIDAR` — regime de submissão electrónica; n.os 1 e 5 do artigo 2.º derrogados pelo DP 71/25 | Aplicar apenas após delimitar a parte não derrogada e a compatibilidade com SAF-T/relatórios. |
+| DP n.º 71/25 | `A CONSOLIDAR` — novo Regime Jurídico das Facturas | Base temporal actual para facturas, documentos relevantes, arquivo, facturação electrónica e auto-facturação, pendente de mapeamento integral. |
+
+A cadeia não é uma substituição simples: exige determinar o que o DP 71/25 revoga, o que derroga do DP 312/18 e quais procedimentos AGT posteriores complementam o regime.

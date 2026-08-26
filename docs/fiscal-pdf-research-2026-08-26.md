@@ -291,3 +291,11 @@ A Circular n.º 09 GACA/GJ/AGT/2026 está associada pelo índice oficial ao sent
 A Circular n.º 12/AGT/2026, de 17 de Junho de 2026, é um esclarecimento sobre o Imposto Predial aplicável a prédios rústicos destinados à exploração agrícola e pecuária. O OCR identifica que a isenção do artigo 4.º, n.º 1, alínea f), do Código do Imposto Predial depende de aproveitamento útil e efectivo; enumera áreas/instalações elegíveis; exclui edificações sem conexão funcional comprovada; exige documentos como títulos de concessão, planos de exploração, registos de produção, relatórios técnicos ou licenças sectoriais; limita a isenção parcial à área com aproveitamento; restringe o critério, no caso de vários prédios rústicos, a um dos prédios; e declara entrada imediata em vigor.
 
 A Circular 12 não deve ser codificada como nova isenção autónoma: é uma interpretação administrativa condicionada do Código do Imposto Predial. Deve ser modelada, se aprovada após conferência visual, como orientação/critério de elegibilidade com documentos probatórios, não como taxa.
+
+## Facturação/SAF-T — confirmação da cadeia DP 312/18 → DP 71/25
+
+A página Lex.AO do Decreto Presidencial n.º 312/18 confirma que aprova o Regime Jurídico de Submissão Electrónica dos Elementos Contabilísticos dos Contribuintes, publicado no Diário da República I Série n.º 189 de 21 de Dezembro de 2018, pág. 5548. O diploma abrange facturação, contabilização e inventariação e contém regras de processamento/validação electrónica.
+
+A página Lex.AO do Decreto Presidencial n.º 71/25 confirma que estabelece o novo Regime Jurídico das Facturas, incluindo emissão, rectificação, anulação, conservação, arquivo e documentos fiscalmente relevantes, publicado no Diário da República I Série n.º 52 de 20 de Março de 2025, pág. 11902. O objecto consultado confirma que revoga o DP n.º 292/18 e o DP n.º 144/23, bem como legislação contrária, e derroga os n.os 1 e 5 do artigo 2.º do DP n.º 312/18.
+
+A consequência para o ERP é temporal: DP 292/18 e DP 144/23 ficam preservados como histórico; DP 312/18 permanece apenas na parte não derrogada; DP 71/25 é o regime actual de facturação a consolidar. Nenhuma implementação automática de requisitos foi activada nesta etapa.
