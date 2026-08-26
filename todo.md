@@ -3844,3 +3844,11 @@
 - [x] Preparar a fila de confirmação humana literal para as contas/regras PGCA e IVA elegíveis.
 - [ ] Executar activação explícita apenas se todos os bloqueadores e confirmações exigidos forem satisfeitos.
 - [x] Executar QA final, documentar o resultado e manter abertas as lacunas não elegíveis.
+
+## Validação do PDF fornecido — Lei n.º 27/22
+
+- [x] Inventariar o PDF fornecido e comparar hash, páginas, metadados e conteúdo com o candidato Lex já descarregado.
+- [x] Conferir visualmente o preâmbulo, artigo 73.º, taxa, entrada em vigor e publicação no PDF fornecido.
+- [x] Actualizar a cadeia II e a matriz V3.2 apenas se o documento for materialmente coincidente e suficientemente autenticável.
+- [x] Avaliar se a Lei n.º 27/22 desbloqueia a taxa de 6,5% ou se continuam a faltar requisitos de activação.
+- [x] Executar QA final e guardar o resultado sem activar PGCA/II por inferência.

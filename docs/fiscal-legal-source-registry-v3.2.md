@@ -346,3 +346,19 @@ O OCR integral foi preservado em `/tmp/legal-candidates-ocr/lei-28-20/ocr.txt`. 
 ### Pesquisa por edição do Diário da República — resultado sem PDF institucional
 
 Foi repetida a pesquisa por número de série e página dos diplomas candidatos — Lei n.º 20/20, Lei n.º 28/20 e DLP n.º 3/14. Não foi encontrado um PDF integral autenticável alojado no MINFIN, AGT ou Imprensa Nacional. O único resultado adicional relevante foi uma newsletter jurídica de 2014 que apenas referencia o DLP n.º 3/14, sem substituir o Diário da República. As cópias Lex/Jurisnet continuam classificadas como fontes secundárias de localização.
+
+
+### Conferência visual do PDF fornecido — Lei n.º 27/22
+
+O PDF fornecido pelo utilizador é byte-a-byte idêntico ao candidato anteriormente descarregado: SHA-256 `f9f97619cab6eaab3e03e10d69bba4fe14e4132eef8fb59a1da181def9169e20`, 3 páginas, autor `Jurisnet`, produtor `GPL Ghostscript 9.18`.
+
+A conferência visual das páginas 1–3 confirmou que a página 1 é a capa/sumário do Diário da República, I Série n.º 159, de 22 de Agosto de 2022, e que a página 2 inicia a Lei n.º 27/22. Na página 3, o artigo 1.º altera o artigo 73.º do Código do Imposto Industrial, aprovado pela Lei n.º 19/14, com alterações da Lei n.º 26/20; o n.º 1 passa a indicar taxa de 6,5% sobre a matéria colectável apurada nos termos do artigo anterior. O artigo 3.º fixa a entrada em vigor em 1 de Janeiro de 2023.
+
+O documento confirma materialmente a existência, o objecto, a taxa e a vigência da Lei n.º 27/22, mas a cadeia de autenticidade continua limitada porque o ficheiro disponível é uma cópia alojada pela Lex e os metadados são secundários. A taxa de 6,5% permanece bloqueada até serem satisfeitos os critérios de fonte primária/autenticidade definidos no corpus V3.2 e a aprovação normativa explícita.
+
+
+### Reclassificação controlada da Lei n.º 27/22 após PDF fornecido
+
+A Lei n.º 27/22 foi fornecida directamente pelo utilizador e o ficheiro é byte-a-byte idêntico ao PDF previamente obtido. A revisão visual confirma que contém a reprodução das páginas relevantes do Diário da República, incluindo identificação da I Série n.º 159, de 22 de Agosto de 2022, e o articulado integral da própria Lei n.º 27/22 nas páginas 2–3. Por isso, a evidência material do diploma passa de `SOURCE_CANDIDATE` para `VISUALLY_CONFIRMED_PRIMARY_CONTENT`, com a ressalva de proveniência `HOSTED_COPY_LEX`.
+
+Esta reclassificação não significa que a taxa de 6,5% esteja activa. A taxa só pode ser usada no cálculo depois de a cadeia do Imposto Industrial estar completa, a regra ser versionada, o responsável normativo aprovar explicitamente a alteração e o workflow de readiness ficar sem bloqueadores. A Lei n.º 27/22 confirma o texto do artigo 73.º e a vigência em 1-01-2023; não substitui a validação integral do CII, da Lei n.º 26/20, das tabelas, regimes e regras de cálculo.

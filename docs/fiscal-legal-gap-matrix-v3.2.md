@@ -169,3 +169,10 @@ Nenhum valor publicado nas páginas institucionais foi convertido em regra activ
 | Modelos fiscais | Página oficial de formulários enumera modelos de II, IRT, IS e IP | Necessário descarregar cada ficheiro, verificar hash, campos, versão e vigência antes de exportar pelo ERP | `OPEN — HIGH` |
 
 As fontes auxiliares reforçam a localização e a cronologia, mas não fecham as lacunas críticas de tabelas, taxas e modelos. O motor permanece fail-closed.
+
+
+### Lei n.º 27/22 — actualização após PDF fornecido pelo utilizador
+
+O PDF fornecido tem 3 páginas, é byte-a-byte idêntico ao candidato Lex e foi conferido visualmente. A página 3 confirma a alteração do artigo 73.º do Código do Imposto Industrial, a taxa de 6,5% sobre a matéria colectável e a entrada em vigor em 1 de Janeiro de 2023. A evidência do conteúdo do diploma fica `VISUALLY_CONFIRMED_PRIMARY_CONTENT`, com proveniência `HOSTED_COPY_LEX`.
+
+A confirmação não fecha o CII completo nem as alterações e tabelas associadas. Permanecem obrigatórios a validação integral da cadeia do Imposto Industrial, a cobertura das regras dependentes, o registo de aprovação normativa e o readiness sem bloqueadores. A taxa de 6,5% continua `BLOCKED` para cálculo, facturação, posting e relatórios oficiais.
