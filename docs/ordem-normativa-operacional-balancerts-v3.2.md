@@ -212,3 +212,10 @@ Após a inclusão documental da Lei n.º 27/22 e a actualização da ordem norma
 ## 7. Anexo `pasted_content_9.txt`
 
 O anexo recebido nesta execução reproduz a ordem P1–P13, as dependências e os bloqueios já registados. Não contém URLs novas, PDFs, artigos, tabelas, hashes ou outra evidência primária adicional. Foi utilizado como confirmação dos requisitos operacionais, não como fonte normativa. A ausência de novos documentos não altera a ordem, os estados ou os bloqueios definidos neste mapa.
+
+
+## Guarda de activação verificada — 26-08-2026
+
+A implementação do workflow PGCA foi revista directamente no servidor. A validação só aceita uma versão em `UNDER_REVIEW` quando todas as contas estão `CONFIRMED`, todas as fontes estão `CONFIRMED`, não existem bloqueadores estruturais e a cobertura contabilística está completa. A activação só aceita uma versão `VALIDATED` e recalcula o readiness antes de substituir a versão activa. Não existe atalho seguro para forçar o estado `ACTIVE`.
+
+Enquanto existirem contas pendentes, fontes não confirmadas, códigos/níveis/pais inconsistentes ou operações sem regras contabilísticas, o resultado correcto é `BLOCKED`. A fila de revisão humana está preparada, mas a confirmação exige evidência primária, página, hash e decisão auditada. Não foi executada activação nesta ronda.
