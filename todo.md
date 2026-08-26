@@ -3868,3 +3868,15 @@
 - [x] Actualizar a proveniência e os estados V3.2 sem transformar nomenclatura do ficheiro em prova institucional.
 - [x] Reavaliar os bloqueios de taxas, regras, PGCA/IVA e activação explícita.
 - [x] Executar QA e guardar checkpoint da revalidação.
+
+# Calendário Fiscal 2026 — nova implementação
+
+- [x] Catalogar o PDF `minfin5320492.pdf` como fonte operacional do Calendário Fiscal 2026, mantendo a origem e as limitações de legibilidade.
+- [x] Modelar obrigações fiscais versionadas por ano, regime, sector, imposto, periodicidade e fonte.
+- [x] Persistir checklist fiscal por empresa, período e obrigação, com estados pendente, em curso, concluído, vencido e bloqueado.
+- [x] Implementar alertas determinísticos por proximidade do vencimento e por atraso, sem timers em processo e sem inventar prazos.
+- [x] Expor consultas e mutações tRPC protegidas para calendário, checklist e confirmação de conclusão.
+- [x] Integrar o calendário na área de Fiscalidade com interface de software sem scroll global, filtros, pesquisa, resumo e detalhe da obrigação.
+- [x] Manter fail-closed para obrigações condicionais, prazos relativos ou linhas cuja fonte não esteja suficientemente confirmada.
+- [x] Criar testes Vitest para derivação de datas, estados de alerta, isolamento por empresa e bloqueio de obrigações não confirmadas.
+- [x] Validar a interface no navegador, executar TypeScript, build e suite completa, e guardar checkpoint publicado.

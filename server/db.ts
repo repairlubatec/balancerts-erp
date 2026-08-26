@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
 import { validateFixedAssetLifecycle } from "./fixed-assets";
+import { buildFiscalCalendar2026, FISCAL_CALENDAR_2026_DEFINITIONS } from "./tax-compliance";
 import { calculateFiscalResult, validateFiscalInput } from "./fiscal";
 import { and, desc, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
@@ -30,6 +31,8 @@ import {
   bankStatementImports,
   bankStatementLines,
   fiscalTaxRecords,
+  fiscalCalendarObligations,
+  fiscalChecklistItems,
   openingBalances,
   accountingAdjustments,
   chartAccounts,
@@ -11998,4 +12001,103 @@ export async function saveDocumentPresentationSettingsForUser(input: {
     correlationId: `document-settings:${input.companyId}`,
   });
   return getDocumentPresentationSettingsForUserCompany({ userId: input.userId, companyId: input.companyId });
+}
+
+
+export async function syncFiscalCalendar2026Catalog() {
+  const database = await getDb();
+  if (!database) throw new Error("Database unavailable");
+  const existing = await database
+    .select({ id: fiscalCalendarObligations.id, code: fiscalCalendarObligations.code })
+    .from(fiscalCalendarObligations)
+    .where(eq(fiscalCalendarObligations.year, 2026));
+  const known = new Set(existing.map((row) => row.code));
+  const missing = FISCAL_CALENDAR_2026_DEFINITIONS.filter((definition) => !known.has(definition.code));
+  if (missing.length) {
+    await database.insert(fiscalCalendarObligations).values(
+      missing.map((definition) => ({
+        year: 2026,
+        code: definition.code,
+        tax: definition.tax,
+        title: definition.title,
+        sector: definition.sector,
+        regime: definition.regime,
+        periodicity: definition.periodicity,
+        deadlineType: definition.deadlineType,
+        deadlineDaysByMonth: definition.deadlineDaysByMonth,
+        relativeDays: definition.relativeDays ?? null,
+        sourceReference: definition.sourceReference,
+        sourcePage: definition.sourcePage,
+        sourceStatus: definition.sourceStatus,
+        active: 1,
+      }))
+    );
+  }
+  return database.select().from(fiscalCalendarObligations).where(eq(fiscalCalendarObligations.year, 2026));
+}
+
+export async function getFiscalCalendarForUserCompany(input: { userId: number; companyId: number; year: number; regime?: string; sector?: string; today?: Date }) {
+  const database = await getDb();
+  if (!database) throw new Error("Database unavailable");
+  const scope = await database
+    .select({ organizationId: organizations.id })
+    .from(companies)
+    .innerJoin(organizations, eq(companies.organizationId, organizations.id))
+    .where(and(eq(companies.id, input.companyId), organizationAccessCondition(input.userId)))
+    .limit(1);
+  if (!scope[0]) throw new Error("COMPANY_NOT_FOUND_OR_FORBIDDEN");
+  const definitions = input.year === 2026 ? await syncFiscalCalendar2026Catalog() : [];
+  const selected = definitions.filter((definition) => definition.active && (!input.regime || definition.regime === input.regime || definition.regime === "GERAL_E_SIMPLIFICADO") && (!input.sector || definition.sector === input.sector));
+  const entries = buildFiscalCalendar2026({ year: input.year, regime: input.regime, sector: input.sector as never, today: input.today, definitions: selected as never });
+  const fixedEntries = entries.filter((entry) => entry.dueDate);
+  for (const entry of fixedEntries) {
+    const obligation = selected.find((item) => item.code === entry.code);
+    if (!obligation) continue;
+    const period = await database.select({ id: fiscalPeriods.id }).from(fiscalPeriods).where(and(eq(fiscalPeriods.companyId, input.companyId), eq(fiscalPeriods.year, input.year), eq(fiscalPeriods.month, entry.month))).limit(1);
+    await database.insert(fiscalChecklistItems).values({
+      organizationId: scope[0].organizationId,
+      companyId: input.companyId,
+      fiscalPeriodId: period[0]?.id ?? null,
+      obligationId: obligation.id,
+      dueDate: new Date(`${entry.dueDate}T00:00:00.000Z`),
+      status: obligation.sourceStatus === "CONFIRMED" ? "PENDING" : "BLOCKED",
+    }).onDuplicateKeyUpdate({ set: { updatedAt: new Date() } });
+  }
+  const checklist = await database
+    .select({ item: fiscalChecklistItems, obligation: fiscalCalendarObligations })
+    .from(fiscalChecklistItems)
+    .innerJoin(fiscalCalendarObligations, eq(fiscalChecklistItems.obligationId, fiscalCalendarObligations.id))
+    .where(and(eq(fiscalChecklistItems.companyId, input.companyId), eq(fiscalCalendarObligations.year, input.year)))
+    .orderBy(fiscalChecklistItems.dueDate, fiscalCalendarObligations.code);
+  const checklistView = checklist.map(({ item, obligation }) => {
+    const calendarEntry = entries.find((entry) => entry.code === obligation.code && (!item.dueDate || entry.dueDate === item.dueDate.toISOString().slice(0, 10)));
+    const effectiveStatus = item.status === "PENDING" && calendarEntry?.alert === "OVERDUE" ? "OVERDUE" : item.status;
+    return {
+      ...item,
+      status: effectiveStatus,
+      dueDate: item.dueDate,
+      obligation: { ...obligation, alert: calendarEntry?.alert ?? "BLOCKED", daysUntilDue: calendarEntry?.daysUntilDue ?? null, dueDate: calendarEntry?.dueDate ?? null },
+      sourceStatus: obligation.sourceStatus,
+    };
+  });
+  return {
+    companyId: input.companyId,
+    year: input.year,
+    source: input.year === 2026 ? "minfin5320492.pdf" : null,
+    entries,
+    checklist: checklistView,
+    summary: { total: checklistView.length, pending: checklistView.filter((item) => item.status === "PENDING").length, blocked: checklistView.filter((item) => item.status === "BLOCKED").length, completed: checklistView.filter((item) => item.status === "COMPLETED").length, overdue: checklistView.filter((item) => item.status === "OVERDUE").length },
+  };
+}
+
+export async function updateFiscalChecklistItemForUser(input: { userId: number; companyId: number; itemId: number; status: "PENDING" | "IN_PROGRESS" | "COMPLETED"; notes?: string }) {
+  const database = await getDb();
+  if (!database) throw new Error("Database unavailable");
+  const rows = await database.select({ item: fiscalChecklistItems, obligation: fiscalCalendarObligations, organizationId: organizations.id }).from(fiscalChecklistItems).innerJoin(fiscalCalendarObligations, eq(fiscalChecklistItems.obligationId, fiscalCalendarObligations.id)).innerJoin(companies, eq(fiscalChecklistItems.companyId, companies.id)).innerJoin(organizations, eq(companies.organizationId, organizations.id)).where(and(eq(fiscalChecklistItems.id, input.itemId), eq(fiscalChecklistItems.companyId, input.companyId), organizationAccessCondition(input.userId))).limit(1);
+  if (!rows[0]) throw new Error("FISCAL_CHECKLIST_ITEM_NOT_FOUND_OR_FORBIDDEN");
+  if (rows[0].obligation.sourceStatus !== "CONFIRMED" && input.status !== "PENDING") throw new Error("FISCAL_CHECKLIST_SOURCE_NOT_CONFIRMED");
+  const nextStatus = rows[0].obligation.sourceStatus === "CONFIRMED" ? input.status : "BLOCKED";
+  await database.update(fiscalChecklistItems).set({ status: nextStatus, notes: input.notes?.trim() || null, completedBy: nextStatus === "COMPLETED" ? input.userId : null, completedAt: nextStatus === "COMPLETED" ? new Date() : null }).where(eq(fiscalChecklistItems.id, input.itemId));
+  await appendAuditEventForUser({ organizationId: rows[0].organizationId, companyId: input.companyId, actorUserId: input.userId, action: "FISCAL_CHECKLIST_UPDATED", entityType: "fiscalChecklistItem", entityId: String(input.itemId), beforeState: JSON.stringify({ status: rows[0].item.status, notes: rows[0].item.notes }), afterState: JSON.stringify({ status: nextStatus, notes: input.notes?.trim() || null }), correlationId: `fiscal-checklist:${input.itemId}:${nextStatus}` });
+  return { itemId: input.itemId, status: nextStatus, blocked: nextStatus === "BLOCKED" };
 }

@@ -1731,3 +1731,49 @@ export const accountingRules = mysqlTable("accountingRules", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
+
+
+/** Obrigações operacionais versionadas a partir do Calendário Fiscal 2026. */
+export const fiscalCalendarObligations = mysqlTable("fiscalCalendarObligations", {
+  id: int("id").autoincrement().primaryKey(),
+  year: int("year").notNull(),
+  code: varchar("code", { length: 120 }).notNull(),
+  tax: varchar("tax", { length: 40 }).notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  sector: varchar("sector", { length: 40 }).notNull(),
+  regime: varchar("regime", { length: 60 }).notNull(),
+  periodicity: varchar("periodicity", { length: 40 }).notNull(),
+  deadlineType: mysqlEnum("deadlineType", ["FIXED_DAY", "RELATIVE_DAYS", "NEXT_MONTH", "ANNIVERSARY", "CONDITIONAL"]).notNull(),
+  deadlineDaysByMonth: json("deadlineDaysByMonth").$type<number[] | null>(),
+  relativeDays: int("relativeDays"),
+  sourceReference: varchar("sourceReference", { length: 255 }).notNull(),
+  sourcePage: int("sourcePage"),
+  sourceStatus: mysqlEnum("sourceStatus", ["CONFIRMED", "PENDING_REVIEW", "BLOCKED"]).default("PENDING_REVIEW").notNull(),
+  active: int("active").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  yearCodeUnique: uniqueIndex("fiscal_calendar_year_code_unique").on(table.year, table.code),
+  yearRegimeIndex: index("fiscal_calendar_year_regime_idx").on(table.year, table.regime),
+}));
+
+/** Estado operacional por empresa e obrigação; nunca substitui a confirmação normativa. */
+export const fiscalChecklistItems = mysqlTable("fiscalChecklistItems", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  companyId: int("companyId").notNull().references(() => companies.id),
+  fiscalExerciseId: int("fiscalExerciseId").references(() => fiscalExercises.id),
+  fiscalPeriodId: int("fiscalPeriodId").references(() => fiscalPeriods.id),
+  obligationId: int("obligationId").notNull().references(() => fiscalCalendarObligations.id),
+  dueDate: timestamp("dueDate"),
+  status: mysqlEnum("status", ["PENDING", "IN_PROGRESS", "COMPLETED", "OVERDUE", "BLOCKED"]).default("PENDING").notNull(),
+  notes: text("notes"),
+  completedBy: int("completedBy").references(() => users.id),
+  completedAt: timestamp("completedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  companyObligationDateUnique: uniqueIndex("fiscal_checklist_company_obligation_date_unique").on(table.companyId, table.obligationId, table.dueDate),
+  companyDueDateIndex: index("fiscal_checklist_company_due_date_idx").on(table.companyId, table.dueDate),
+  companyStatusIndex: index("fiscal_checklist_company_status_idx").on(table.companyId, table.status),
+}));

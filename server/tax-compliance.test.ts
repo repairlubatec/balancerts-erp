@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildAgtComplianceCalendar, validateAgtFiscalRecord } from "./tax-compliance";
+import { buildAgtComplianceCalendar, buildFiscalCalendar2026, validateAgtFiscalRecord } from "./tax-compliance";
 
 describe("AGT compliance calendar", () => {
   it("builds the 2026 IVA Geral calendar with monthly declaration and SAF-T entries", () => {
@@ -44,5 +44,19 @@ describe("AGT compliance calendar", () => {
   it("clamps configured deadlines to the actual month length", () => {
     const entries = buildAgtComplianceCalendar({ year: 2028, definitions: [{ code: "TEST", tax: "IVA", title: "Teste", regime: "GERAL", deadlineDaysByMonth: [31, 31], source: "fixture" }] });
     expect(entries.map((entry) => entry.dueDate)).toEqual(["2028-01-31", "2028-02-29"]);
+  });
+
+  it("builds the 2026 operational calendar fail-closed from the supplied source", () => {
+    const entries = buildFiscalCalendar2026({ year: 2026, regime: "GERAL", today: new Date("2026-01-01T00:00:00.000Z") });
+    expect(entries.length).toBeGreaterThan(24);
+    expect(entries.find((entry) => entry.code === "IVA_GERAL_DECLARACAO" && entry.month === 1)).toMatchObject({ dueDate: "2026-01-15", alert: "BLOCKED", sourceStatus: "PENDING_REVIEW" });
+    expect(entries.find((entry) => entry.code === "IRT_PAGAMENTO_5_DIAS")).toMatchObject({ dueDate: null, deadlineType: "RELATIVE_DAYS", alert: "BLOCKED" });
+  });
+
+  it("filters the fiscal calendar by sector and keeps relative deadlines without invented dates", () => {
+    const entries = buildFiscalCalendar2026({ year: 2026, sector: "NAO_PETROLIFERO", today: new Date("2026-08-26T00:00:00.000Z") });
+    expect(entries.every((entry) => entry.sector === "NAO_PETROLIFERO")).toBe(true);
+    expect(entries.filter((entry) => entry.deadlineType === "RELATIVE_DAYS").every((entry) => entry.dueDate === null)).toBe(true);
+    expect(entries.some((entry) => entry.alert === "OVERDUE")).toBe(false);
   });
 });

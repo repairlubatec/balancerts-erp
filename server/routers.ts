@@ -201,6 +201,8 @@ import {
   createFiscalTaxRecordForUser,
   listFiscalTaxRecordsForUser,
   getFiscalObligationsForUserCompany,
+  getFiscalCalendarForUserCompany,
+  updateFiscalChecklistItemForUser,
   createOpeningBalanceForUser,
   listOpeningBalancesForUser,
   reviewOpeningBalanceForUser,
@@ -3841,6 +3843,26 @@ export const appRouter = router({
       .query(({ ctx, input }) =>
         getFiscalObligationsForUserCompany({ ...input, userId: ctx.user.id })
       ),
+    calendar: roleProcedure("fiscal", "read")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          year: z.number().int().min(2025).max(2100),
+          regime: z.string().max(60).optional(),
+          sector: z.enum(["NAO_PETROLIFERO", "PETROLIFERO", "MINEIRO"]).optional(),
+        })
+      )
+      .query(({ ctx, input }) => getFiscalCalendarForUserCompany({ ...input, userId: ctx.user.id })),
+    updateChecklist: roleProcedure("fiscal", "create")
+      .input(
+        z.object({
+          companyId: z.number().int().positive(),
+          itemId: z.number().int().positive(),
+          status: z.enum(["PENDING", "IN_PROGRESS", "COMPLETED"]),
+          notes: z.string().trim().max(2000).optional(),
+        })
+      )
+      .mutation(({ ctx, input }) => updateFiscalChecklistItemForUser({ ...input, userId: ctx.user.id })),
   }),
   documents: router({
     generateAgtQr: roleProcedure("documents", "read")
