@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { activeFiscalRule, calculateIva, getFiscalTaxCoverage } from "./fiscal";
+import { activeFiscalRule, calculateIva, getFiscalTaxCoverage, validateFiscalActivation } from "./fiscal";
 
 const at = new Date("2026-01-15");
 
@@ -98,6 +98,29 @@ describe("catálogo integral de cobertura fiscal", () => {
     expect(coverage.filter((tax) => tax.code !== "IVA").every((tax) => tax.configurationState === "NÃO CONFIGURADO")).toBe(true);
     expect(coverage.every((tax) => tax.sourceUrls.length > 0)).toBe(true);
     expect(coverage.find((tax) => tax.code === "IRT")?.missingCapabilities).toContain("Grupos A/B/C");
+  });
+});
+
+describe("guarda de activação V2", () => {
+  const validInput = {
+    configurationState: "VALIDADO" as const,
+    hasLegalBasis: true,
+    hasActiveVigency: true,
+    testsPassed: true,
+    hasCriticalBlocks: false,
+    homologationRequired: false,
+    homologationComplete: false,
+  };
+
+  it("bloqueia a activação quando falta qualquer critério crítico", () => {
+    const result = validateFiscalActivation({ ...validInput, hasLegalBasis: false, homologationRequired: true });
+    expect(result.allowed).toBe(false);
+    expect(result.reasons).toEqual(expect.arrayContaining(["FISCAL_ACTIVATION_LEGAL_BASIS_REQUIRED", "FISCAL_ACTIVATION_HOMOLOGATION_REQUIRED"]));
+  });
+
+  it("autoriza somente uma configuração validada e sem bloqueios", () => {
+    expect(validateFiscalActivation(validInput)).toEqual({ allowed: true, reasons: [] });
+    expect(validateFiscalActivation({ ...validInput, homologationRequired: true, homologationComplete: true })).toEqual({ allowed: true, reasons: [] });
   });
 });
 

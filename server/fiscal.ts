@@ -132,6 +132,27 @@ export function calculateFiscalResult(input: { netAmount: number; regime: IvaReg
 export type FiscalTaxCoverageStatus = "IMPLEMENTADO_PARCIAL" | "PERSISTENCIA_APENAS" | "NAO_CONFIGURADO";
 export type FiscalConfigurationState = "NÃO CONFIGURADO" | "EM CONFIGURAÇÃO" | "CONFIGURADO" | "VALIDADO" | "HOMOLOGAÇÃO PENDENTE" | "ATIVO";
 
+export type FiscalActivationInput = {
+  configurationState: FiscalConfigurationState;
+  hasLegalBasis: boolean;
+  hasActiveVigency: boolean;
+  testsPassed: boolean;
+  hasCriticalBlocks: boolean;
+  homologationRequired: boolean;
+  homologationComplete: boolean;
+};
+
+export function validateFiscalActivation(input: FiscalActivationInput) {
+  const reasons: string[] = [];
+  if (!input.hasLegalBasis) reasons.push("FISCAL_ACTIVATION_LEGAL_BASIS_REQUIRED");
+  if (!input.hasActiveVigency) reasons.push("FISCAL_ACTIVATION_VALID_VIGENCY_REQUIRED");
+  if (input.configurationState !== "VALIDADO") reasons.push("FISCAL_ACTIVATION_VALIDATED_STATE_REQUIRED");
+  if (!input.testsPassed) reasons.push("FISCAL_ACTIVATION_TESTS_REQUIRED");
+  if (input.hasCriticalBlocks) reasons.push("FISCAL_ACTIVATION_CRITICAL_BLOCKS_PRESENT");
+  if (input.homologationRequired && !input.homologationComplete) reasons.push("FISCAL_ACTIVATION_HOMOLOGATION_REQUIRED");
+  return { allowed: reasons.length === 0, reasons };
+}
+
 export type FiscalTaxCoverage = {
   code: "IVA" | "INDUSTRIAL" | "IRT" | "IAC" | "IS" | "IP" | "SISA" | "IEC" | "IVM";
   name: string;

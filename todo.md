@@ -3649,3 +3649,4 @@
 - [ ] Confirmar a rastreabilidade de cada regra aplicável até diploma, artigo, vigência e validação
 - [x] Executar testes de não regressão do IVA, testes estruturais e testes de integridade do Motor Fiscal
 - [x] Produzir relatório V2 com preservado, implementado, preparado, impostos não configurados, evidência necessária, testes, bloqueios, estado final e reversibilidade
+- [x] Criar uma guarda técnica de activação fiscal que exija evidência, vigência, testes, ausência de bloqueios e homologação quando aplicável

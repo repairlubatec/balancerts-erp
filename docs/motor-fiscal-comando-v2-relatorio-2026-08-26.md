@@ -13,7 +13,7 @@ Também foram preservadas as tabelas e os contratos dos restantes módulos. A ex
 
 ## B. Implementado nesta execução
 
-Foi introduzido no catálogo de cobertura um estado formal V2 separado do estado técnico de cobertura. O IVA fica identificado como `HOMOLOGAÇÃO PENDENTE`, porque existe implementação local mas ainda falta submissão/homologação externa e cobertura integral das obrigações AGT. II, IRT, IAC, IS, IP, SISA, IEC e IVM ficam em `NÃO CONFIGURADO`.
+Foi introduzido no catálogo de cobertura um estado formal V2 separado do estado técnico de cobertura. Foi também criada uma guarda pura de activação que exige fundamento legal, vigência activa, estado VALIDADO, testes aprovados, ausência de bloqueios críticos e homologação concluída quando aplicável; a guarda não altera nem activa automaticamente qualquer imposto. O IVA fica identificado como `HOMOLOGAÇÃO PENDENTE`, porque existe implementação local mas ainda falta submissão/homologação externa e cobertura integral das obrigações AGT. II, IRT, IAC, IS, IP, SISA, IEC e IVM ficam em `NÃO CONFIGURADO`.
 
 O catálogo passou a exibir esses estados no posto Fiscalidade. O painel distingue **Cobertura técnica** de **Estado V2**, para impedir que uma tabela, enum, interface ou código parcial seja confundido com configuração fiscal activa. O relatório fiscal e a interface continuam a mostrar a proveniência normativa quando existe e a ausência de evidência quando não existe.
 
@@ -50,7 +50,7 @@ As páginas institucionais consultadas ajudam a delimitar o âmbito, mas não su
 
 ## F. Testes
 
-A validação desta execução concluiu com **152 ficheiros de teste e 601 testes aprovados**, incluindo testes do Motor Fiscal, catálogo integral, integração da Home/Fiscalidade, registo fiscal, rótulos portugueses e não regressão dos módulos existentes. O TypeScript terminou sem erros e o build de produção foi concluído.
+A validação desta execução concluiu com **152 ficheiros de teste e 603 testes aprovados**, incluindo testes do Motor Fiscal, catálogo integral, integração da Home/Fiscalidade, registo fiscal, rótulos portugueses e não regressão dos módulos existentes. O TypeScript terminou sem erros e o build de produção foi concluído.
 
 Os testes confirmam que o IVA continua a calcular apenas com regra activa e compatível, que regras pendentes não são usadas, que todos os nove impostos institucionais estão catalogados e que o estado V2 não activa cálculos materiais para impostos sem configuração.
 
@@ -77,7 +77,7 @@ Nenhum imposto novo foi colocado em `ATIVO`. A sequência obrigatória permanece
 
 ## I. Versão e reversibilidade
 
-A versão anterior de referência é o checkpoint `b9b858b7`. A alteração desta execução é uma extensão V2 do catálogo e da apresentação dos estados, sem substituição da lógica IVA. A versão é reversível através do histórico de checkpoints; a reversão elimina apenas a extensão de estado/apresentação desta execução e mantém a configuração anterior do IVA e os dados persistidos conforme o checkpoint escolhido.
+A versão anterior de referência é o checkpoint `b9b858b7`. A versão de trabalho V2 inclui os estados formais de cobertura e a guarda de activação controlada, preservando a configuração anterior. A alteração desta execução é uma extensão V2 do catálogo e da apresentação dos estados, sem substituição da lógica IVA. A versão é reversível através do histórico de checkpoints; a reversão elimina apenas a extensão de estado/apresentação desta execução e mantém a configuração anterior do IVA e os dados persistidos conforme o checkpoint escolhido.
 
 Não houve `DROP`, eliminação de dados, sobrescrita irreversível de regra ou alteração retroactiva de documento emitido. A migration dos códigos de persistência foi aditiva e os testes confirmaram a integridade dos contratos.
 
