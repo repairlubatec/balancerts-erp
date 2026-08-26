@@ -85,3 +85,15 @@ A ausência de texto extraível nos PDFs secundários não invalida a sua preser
 | Medidas tributárias 2026 | Circular n.º 01 GACA/GJ/AGT/2026 | Listada no índice do Portal do Contribuinte e nas imagens do utilizador; PDF directo ainda não confirmado | `PDF OFICIAL A LOCALIZAR` | Obter circular e anexos; mapear apenas alterações expressas |
 
 A localização institucional não equivale a validação do conteúdo do asset. O motor fiscal deve continuar a usar apenas versões normativas aprovadas e não deve alterar taxas por referência ao OGE até o confronto documental estar fechado.
+
+
+## 8. Páginas institucionais de âmbito operacional
+
+| Área | Fonte institucional | Conteúdo confirmado | Limitação de activação |
+|---|---|---|---|
+| IAC | [Portal do Contribuinte — IAC](https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-aplicacao-de-capitais) | Secções A/B, incidência, liquidação, obrigação declarativa e indicação operacional de 5%, 10% e 15%. | Ligar ao DLP n.º 2/14 e alterações vigentes; não activar apenas com a página-resumo. |
+| IS | [Portal do Contribuinte — IS](https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-de-selo) | Incidência por tabela anexa, sujeitos passivos, pagamento no mês seguinte e declaração anual. | Tabela anexa e alterações/OGE ainda exigem fonte primária e mapeamento. |
+| IEC | [Portal do Contribuinte — IEC](https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-especial-consumos) | Incidência sobre bens, produção/importação, base tributável e remissão para tabelas do Código. | Cadeia Lei 8/19 → Lei 18/19 ainda precisa de alterações posteriores e anexos completos. |
+| IVM | [Portal do Contribuinte — IVM](https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-veiculos-motorizados) | Categorias, isenções, critérios e tabelas operacionais de valores fixos. | Confrontar integralmente a Lei n.º 24/20, anexos e ajustes OGE antes de activação. |
+
+Estas fontes são classificadas como `GUIA INSTITUCIONAL / REFERÊNCIA OPERACIONAL`. Servem para descobrir escopo e obrigações, mas não substituem o diploma, a tabela anexa, a versão consolidada ou a prova de vigência exigida pelo motor.

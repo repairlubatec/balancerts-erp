@@ -42,3 +42,10 @@ A matriz não autoriza activar o PGCA, IVA, taxas ou modelos. O comportamento co
 [3]: https://portaldocontribuinte.minfin.gov.ao/legislacao "Portal do Contribuinte — Legislação"
 [4]: https://lex.ao/docs/presidente-da-republica/2025/decreto-presidencial-n-o-71-25-de-20-de-marco/ "Lex.AO — Decreto Presidencial n.º 71/25"
 [5]: https://lex.ao/docs/assembleia-nacional/2019/lei-n-o-8-19-de-24-de-abril/ "Lex.AO — Lei n.º 8/19"
+
+
+## Actualização de 26-08-2026 — classificação adicional
+
+A classificação detalhada por pasta/área encontra-se em [fiscal-legal-item-classification-v3.2.md](./fiscal-legal-item-classification-v3.2.md). Foram acrescentadas evidências institucionais para OGE 2026, IAC, Imposto do Selo, IEC e IVM. A matriz mantém como lacunas os PDFs primários integrais, anexos/tabelas, alterações posteriores e prova de vigência quando não estão fechados.
+
+A correcção normativa mais relevante é que o Decreto Presidencial n.º 92/25 foi retirado da cadeia de facturação e classificado como Estatuto Orgânico da AGT. A cadeia de facturação continua a exigir análise própria do Decreto Presidencial n.º 71/25 e dos diplomas complementares.

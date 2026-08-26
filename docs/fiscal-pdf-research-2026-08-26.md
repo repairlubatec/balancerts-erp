@@ -261,3 +261,13 @@ O documento é uma edição extensa e deve ser indexado para localizar os artigo
 ## Indexação inicial do OGE 2026
 
 O PDF institucional `lei-14-25-oge-2026-minfin.pdf` possui camada de texto extraível, 773 páginas e foi indexado localmente. A pesquisa textual encontrou referências a benefícios fiscais, política fiscal e várias áreas tributárias, mas a amostra contém também ocorrências genéricas de termos como «consumo» e «taxas». Por isso, o índice deve ser refinado por artigos, capítulos, anexos e páginas do diploma antes de concluir qualquer alteração de taxa ou regra. O OGE continua como fonte obtida, mas não como conjunto de regras já activadas.
+
+## Páginas oficiais do Portal do Contribuinte — IAC, IS, IEC e IVM
+
+As páginas institucionais consultadas confirmam o âmbito operacional dos quatro impostos, mas não substituem os diplomas e tabelas primários. O IAC é apresentado por Secções A e B, com taxas indicadas de 5%, 10% e 15%, regras de liquidação e obrigação declarativa anual; estes valores continuam a exigir ligação ao DLP n.º 2/14 e alterações vigentes antes de activação calculatória.
+
+O IS é descrito como incidente sobre actos, contratos, documentos, títulos, livros, papéis, operações e factos previstos na tabela anexa ao Código ou em leis especiais. A página remete a taxa para a tabela anexa, confirma pagamento até ao fim do mês seguinte e declaração anual até ao último dia útil de Março; não existe base segura para substituir a tabela por valores inferidos.
+
+A página do IEC confirma incidência sobre bens do Código, produção/importação/introdução no consumo, base de cálculo por custo de produção/valor aduaneiro/valor de mercado e taxas apenas pelas tabelas anexas. Isto é coerente com a cadeia Lei 8/19 → Lei 18/19, mas não fecha alterações posteriores.
+
+A página do IVM confirma as categorias de veículos, isenções, critérios de matéria colectável e pagamento de Janeiro a Junho. Apresenta valores fixos nas tabelas operacionais do portal; por segurança, esses valores devem ser cruzados com as tabelas anexas da Lei n.º 24/20 e eventuais ajustes OGE antes de se tornarem regras do motor.
