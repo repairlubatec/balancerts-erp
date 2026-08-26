@@ -1,0 +1,3638 @@
+{
+  "version": "1.0",
+  "title": "Plano Geral de Contabilidade - Angola",
+  "description": "Angolan General Accounting Plan",
+  "source": "Decreto nº 82/01 de 16 de Novembro",
+  "classes": [
+    {
+      "code": "1",
+      "name": "Meios fixos e investimentos",
+      "description": "Fixed assets and investments",
+      "accounts": [
+        {
+          "code": "11",
+          "name": "Imobilizações corpóreas",
+          "description": "Tangible fixed assets",
+          "children": [
+            {
+              "code": "11.1",
+              "name": "Terrenos e recursos naturais",
+              "children": [
+                {
+                  "code": "11.1.1",
+                  "name": "Terrenos em bruto"
+                },
+                {
+                  "code": "11.1.2",
+                  "name": "Terrenos com arranjos"
+                },
+                {
+                  "code": "11.1.3",
+                  "name": "Subsolos"
+                },
+                {
+                  "code": "11.1.4",
+                  "name": "Terrenos com edifícios",
+                  "children": [
+                    {
+                      "code": "11.1.4.1",
+                      "name": "Relativos a edifícios industriais"
+                    },
+                    {
+                      "code": "11.1.4.2",
+                      "name": "Relativos a edifícios administrativos e comerciais"
+                    },
+                    {
+                      "code": "11.1.4.3",
+                      "name": "Relativos a outros edifícios"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "11.2",
+              "name": "Edifícios e outras construções",
+              "description": "Buildings and other structures",
+              "children": [
+                {
+                  "code": "11.2.1",
+                  "name": "Edifícios",
+                  "children": [
+                    {
+                      "code": "11.2.1.1",
+                      "name": "Integrados em conjuntos industriais"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "11.3",
+              "name": "Equipamento básico",
+              "description": "Basic equipment"
+            },
+            {
+              "code": "11.4",
+              "name": "Equipamento de carga e transporte",
+              "description": "Loading and transport equipment"
+            },
+            {
+              "code": "11.5",
+              "name": "Equipamento administrativo",
+              "description": "Administrative equipment"
+            },
+            {
+              "code": "11.6",
+              "name": "Taras e vasilhame",
+              "description": "Containers and packaging"
+            },
+            {
+              "code": "11.9",
+              "name": "Outras imobilizações corpóreas",
+              "description": "Other tangible fixed assets"
+            }
+          ]
+        },
+        {
+          "code": "12",
+          "name": "Imobilizações incorpóreas",
+          "description": "Intangible fixed assets",
+          "children": [
+            {
+              "code": "12.1",
+              "name": "Trespasses",
+              "description": "Goodwill"
+            },
+            {
+              "code": "12.2",
+              "name": "Despesas de investigação e desenvolvimento",
+              "description": "Research and development expenses"
+            },
+            {
+              "code": "12.3",
+              "name": "Propriedade industrial e outros direitos e contratos",
+              "description": "Industrial property and other rights"
+            },
+            {
+              "code": "12.4",
+              "name": "Despesas de constituição",
+              "description": "Incorporation expenses"
+            },
+            {
+              "code": "12.9",
+              "name": "Outras imobilizações incorpóreas",
+              "description": "Other intangible assets"
+            }
+          ]
+        },
+        {
+          "code": "13",
+          "name": "Investimentos Financeiros",
+          "description": "Financial investments",
+          "children": [
+            {
+              "code": "13.1",
+              "name": "Empresas subsidiárias",
+              "description": "Subsidiary companies",
+              "children": [
+                {
+                  "code": "13.1.1",
+                  "name": "Partes de capital"
+                },
+                {
+                  "code": "13.1.2",
+                  "name": "Obrigações e títulos de participação"
+                },
+                {
+                  "code": "13.1.3",
+                  "name": "Empréstimos"
+                }
+              ]
+            },
+            {
+              "code": "13.2",
+              "name": "Empresas associadas",
+              "description": "Associated companies",
+              "children": [
+                {
+                  "code": "13.2.1",
+                  "name": "Partes de capital"
+                },
+                {
+                  "code": "13.2.2",
+                  "name": "Obrigações e títulos de participação"
+                },
+                {
+                  "code": "13.2.3",
+                  "name": "Empréstimos"
+                }
+              ]
+            },
+            {
+              "code": "13.3",
+              "name": "Outras empresas",
+              "description": "Other companies",
+              "children": [
+                {
+                  "code": "13.3.1",
+                  "name": "Partes de capital"
+                },
+                {
+                  "code": "13.3.2",
+                  "name": "Obrigações e títulos de participação"
+                },
+                {
+                  "code": "13.3.3",
+                  "name": "Empréstimos"
+                }
+              ]
+            },
+            {
+              "code": "13.4",
+              "name": "Investimentos em imóveis",
+              "description": "Real estate investments"
+            },
+            {
+              "code": "13.5",
+              "name": "Fundos",
+              "description": "Funds"
+            },
+            {
+              "code": "13.9",
+              "name": "Outros investimentos Financeiros",
+              "description": "Other financial investments",
+              "children": [
+                {
+                  "code": "13.9.1",
+                  "name": "Diamantes"
+                },
+                {
+                  "code": "13.9.2",
+                  "name": "Ouro"
+                },
+                {
+                  "code": "13.9.3",
+                  "name": "Depósitos bancários"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "14",
+          "name": "Imobilizações em Curso",
+          "description": "Work in progress",
+          "children": [
+            {
+              "code": "14.1",
+              "name": "Obra em curso"
+            },
+            {
+              "code": "14.2",
+              "name": "Obra em curso"
+            },
+            {
+              "code": "14.7",
+              "name": "Adiantamentos por conta de imobilizado corpóreo"
+            },
+            {
+              "code": "14.8",
+              "name": "Adiantamentos por conta de imobilizado incorpóreo"
+            },
+            {
+              "code": "14.9",
+              "name": "Adiantamentos por conta de investimentos financeiros"
+            }
+          ]
+        },
+        {
+          "code": "18",
+          "name": "Amortizações Acumuladas",
+          "description": "Accumulated depreciation",
+          "children": [
+            {
+              "code": "18.1",
+              "name": "Imobilizações corpóreas",
+              "children": [
+                {
+                  "code": "18.1.1",
+                  "name": "Terrenos e recursos naturais"
+                },
+                {
+                  "code": "18.1.2",
+                  "name": "Edifícios e outras construções"
+                },
+                {
+                  "code": "18.1.3",
+                  "name": "Equipamento básico"
+                },
+                {
+                  "code": "18.1.4",
+                  "name": "Equipamento de carga e transporte"
+                },
+                {
+                  "code": "18.1.5",
+                  "name": "Equipamento administrativo"
+                },
+                {
+                  "code": "18.1.6",
+                  "name": "Taras e vasilhame"
+                },
+                {
+                  "code": "18.1.9",
+                  "name": "Outras imobilizações corpóreas"
+                }
+              ]
+            },
+            {
+              "code": "18.2",
+              "name": "Imobilizações incorpóreas",
+              "children": [
+                {
+                  "code": "18.2.1",
+                  "name": "Trespasses"
+                },
+                {
+                  "code": "18.2.2",
+                  "name": "Despesas de investigação e desenvolvimento"
+                },
+                {
+                  "code": "18.2.3",
+                  "name": "Propriedade industrial e outros direitos e contratos"
+                },
+                {
+                  "code": "18.2.4",
+                  "name": "Despesas de constituição"
+                },
+                {
+                  "code": "18.2.9",
+                  "name": "Outras imobilizações incorpóreas"
+                }
+              ]
+            },
+            {
+              "code": "18.3",
+              "name": "Investimentos financeiros em imóveis",
+              "children": [
+                {
+                  "code": "18.3.1",
+                  "name": "Terrenos e recursos naturais"
+                },
+                {
+                  "code": "18.3.2",
+                  "name": "Edifícios e outras construções"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "19",
+          "name": "Provisões para investimentos financeiros",
+          "description": "Provisions for financial investments",
+          "children": [
+            {
+              "code": "19.1",
+              "name": "Empresas subsidiárias",
+              "children": [
+                {
+                  "code": "19.1.1",
+                  "name": "Partes de capital"
+                },
+                {
+                  "code": "19.1.2",
+                  "name": "Obrigações e títulos de participação"
+                },
+                {
+                  "code": "19.1.3",
+                  "name": "Empréstimos"
+                }
+              ]
+            },
+            {
+              "code": "19.2",
+              "name": "Empresas associadas",
+              "children": [
+                {
+                  "code": "19.2.1",
+                  "name": "Partes de capital"
+                },
+                {
+                  "code": "19.2.2",
+                  "name": "Obrigações e títulos de participação"
+                },
+                {
+                  "code": "19.2.3",
+                  "name": "Empréstimos"
+                }
+              ]
+            },
+            {
+              "code": "19.3",
+              "name": "Outras empresas",
+              "children": [
+                {
+                  "code": "19.3.1",
+                  "name": "Partes de capital"
+                },
+                {
+                  "code": "19.3.2",
+                  "name": "Obrigações e títulos de participação"
+                },
+                {
+                  "code": "19.3.3",
+                  "name": "Empréstimos"
+                }
+              ]
+            },
+            {
+              "code": "19.4",
+              "name": "Fundos",
+              "children": [
+                {
+                  "code": "19.4.1",
+                  "name": "Partes de capital"
+                }
+              ]
+            },
+            {
+              "code": "19.9",
+              "name": "Outros investimentos financeiros",
+              "children": [
+                {
+                  "code": "19.9.1",
+                  "name": "Diamantes"
+                },
+                {
+                  "code": "19.9.2",
+                  "name": "Ouro"
+                },
+                {
+                  "code": "19.9.3",
+                  "name": "Depósitos bancários"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "2",
+      "name": "Existências",
+      "description": "Inventories",
+      "accounts": [
+        {
+          "code": "21",
+          "name": "Compras",
+          "description": "Purchases",
+          "children": [
+            {
+              "code": "21.1",
+              "name": "Matérias-primas, subsidiárias e de consumo"
+            },
+            {
+              "code": "21.2",
+              "name": "Mercadorias"
+            },
+            {
+              "code": "21.7",
+              "name": "Devoluções de compras"
+            },
+            {
+              "code": "21.8",
+              "name": "Descontos e abatimentos em compras"
+            }
+          ]
+        },
+        {
+          "code": "22",
+          "name": "Matérias-primas, subsidiárias e de consumo",
+          "description": "Raw materials and consumables",
+          "children": [
+            {
+              "code": "22.1",
+              "name": "Matérias-primas"
+            },
+            {
+              "code": "22.2",
+              "name": "Matérias subsidiárias"
+            },
+            {
+              "code": "22.3",
+              "name": "Materiais diversos"
+            },
+            {
+              "code": "22.4",
+              "name": "Embalagens de consumo"
+            },
+            {
+              "code": "22.5",
+              "name": "Outros materiais"
+            }
+          ]
+        },
+        {
+          "code": "23",
+          "name": "Produtos e trabalhos em curso",
+          "description": "Work in progress"
+        },
+        {
+          "code": "24",
+          "name": "Produtos acabados e intermédios",
+          "description": "Finished and intermediate products",
+          "children": [
+            {
+              "code": "24.1",
+              "name": "Produtos acabados"
+            },
+            {
+              "code": "24.2",
+              "name": "Produtos intermédios"
+            },
+            {
+              "code": "24.9",
+              "name": "Em poder de terceiros"
+            }
+          ]
+        },
+        {
+          "code": "25",
+          "name": "Sub-produtos, desperdícios, resíduos e refugos",
+          "description": "By-products and waste",
+          "children": [
+            {
+              "code": "25.1",
+              "name": "Sub-produtos"
+            },
+            {
+              "code": "25.2",
+              "name": "Desperdícios, resíduos e refugos"
+            }
+          ]
+        },
+        {
+          "code": "26",
+          "name": "Mercadorias",
+          "description": "Goods",
+          "children": [
+            {
+              "code": "26.9",
+              "name": "Em poder de terceiros"
+            }
+          ]
+        },
+        {
+          "code": "27",
+          "name": "Matérias-primas, mercadorias e outros materiais em trânsito",
+          "description": "Materials in transit",
+          "children": [
+            {
+              "code": "27.1",
+              "name": "Matérias-primas"
+            },
+            {
+              "code": "27.2",
+              "name": "Outros materiais"
+            },
+            {
+              "code": "27.3",
+              "name": "Mercadorias"
+            }
+          ]
+        },
+        {
+          "code": "28",
+          "name": "Adiantamentos por conta de compras",
+          "description": "Purchase advances",
+          "children": [
+            {
+              "code": "28.1",
+              "name": "Matérias-primas e outros materiais"
+            },
+            {
+              "code": "28.2",
+              "name": "Mercadorias"
+            }
+          ]
+        },
+        {
+          "code": "29",
+          "name": "Provisão para depreciação de existências",
+          "description": "Provisions for inventory depreciation",
+          "children": [
+            {
+              "code": "29.2",
+              "name": "Matérias-primas subsidiárias e de consumo"
+            },
+            {
+              "code": "29.3",
+              "name": "Produtos e trabalhos em curso"
+            },
+            {
+              "code": "29.4",
+              "name": "Produtos acabados e intermédios"
+            },
+            {
+              "code": "29.5",
+              "name": "Sub-produtos, desperdícios, resíduos e refugos"
+            },
+            {
+              "code": "29.6",
+              "name": "Mercadorias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "3",
+      "name": "Terceiros",
+      "description": "Third parties",
+      "accounts": [
+        {
+          "code": "31",
+          "name": "Clientes",
+          "description": "Customers",
+          "children": [
+            {
+              "code": "31.1",
+              "name": "Clientes – correntes",
+              "children": [
+                {
+                  "code": "31.1.1",
+                  "name": "Grupo",
+                  "children": [
+                    {
+                      "code": "31.1.1.1",
+                      "name": "Subsidiárias"
+                    },
+                    {
+                      "code": "31.1.1.2",
+                      "name": "Associadas"
+                    }
+                  ]
+                },
+                {
+                  "code": "31.1.2",
+                  "name": "Não grupo",
+                  "children": [
+                    {
+                      "code": "31.1.2.1",
+                      "name": "Nacionais"
+                    },
+                    {
+                      "code": "31.1.2.2",
+                      "name": "Estrangeiros"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "31.2",
+              "name": "Clientes – títulos a receber",
+              "children": [
+                {
+                  "code": "31.2.1",
+                  "name": "Grupo",
+                  "children": [
+                    {
+                      "code": "31.2.1.1",
+                      "name": "Subsidiárias"
+                    },
+                    {
+                      "code": "31.2.1.2",
+                      "name": "Associadas"
+                    }
+                  ]
+                },
+                {
+                  "code": "31.2.2",
+                  "name": "Não grupo",
+                  "children": [
+                    {
+                      "code": "31.2.2.1",
+                      "name": "Nacionais"
+                    },
+                    {
+                      "code": "31.2.2.2",
+                      "name": "Estrangeiros"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "31.3",
+              "name": "Clientes – títulos descontados",
+              "children": [
+                {
+                  "code": "31.3.1",
+                  "name": "Grupo",
+                  "children": [
+                    {
+                      "code": "31.3.1.1",
+                      "name": "Subsidiárias"
+                    },
+                    {
+                      "code": "31.3.1.2",
+                      "name": "Associadas"
+                    }
+                  ]
+                },
+                {
+                  "code": "31.3.2",
+                  "name": "Não grupo",
+                  "children": [
+                    {
+                      "code": "31.3.2.1",
+                      "name": "Nacionais"
+                    },
+                    {
+                      "code": "31.3.2.2",
+                      "name": "Estrangeiros"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "31.8",
+              "name": "Clientes de cobrança duvidosa",
+              "children": [
+                {
+                  "code": "31.8.1",
+                  "name": "Clientes – correntes"
+                },
+                {
+                  "code": "31.8.2",
+                  "name": "Clientes – títulos"
+                }
+              ]
+            },
+            {
+              "code": "31.9",
+              "name": "Clientes - saldos credores",
+              "children": [
+                {
+                  "code": "31.9.1",
+                  "name": "Adiantamentos"
+                },
+                {
+                  "code": "31.9.2",
+                  "name": "Embalagens a devolver"
+                },
+                {
+                  "code": "31.9.3",
+                  "name": "Material à consignação"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "32",
+          "name": "Fornecedores",
+          "description": "Suppliers",
+          "children": [
+            {
+              "code": "32.1",
+              "name": "Fornecedores – correntes",
+              "children": [
+                {
+                  "code": "32.1.1",
+                  "name": "Grupo",
+                  "children": [
+                    {
+                      "code": "32.1.1.1",
+                      "name": "Subsidiárias"
+                    },
+                    {
+                      "code": "32.1.1.2",
+                      "name": "Associadas"
+                    }
+                  ]
+                },
+                {
+                  "code": "32.1.2",
+                  "name": "Não grupo",
+                  "children": [
+                    {
+                      "code": "32.1.2.1",
+                      "name": "Nacionais"
+                    },
+                    {
+                      "code": "32.1.2.2",
+                      "name": "Estrangeiros"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "32.2",
+              "name": "Fornecedores – títulos a pagar",
+              "children": [
+                {
+                  "code": "32.2.1",
+                  "name": "Grupo",
+                  "children": [
+                    {
+                      "code": "32.2.1.1",
+                      "name": "Subsidiárias"
+                    },
+                    {
+                      "code": "32.2.1.2",
+                      "name": "Associadas"
+                    }
+                  ]
+                },
+                {
+                  "code": "32.2.2",
+                  "name": "Não grupo",
+                  "children": [
+                    {
+                      "code": "32.2.2.1",
+                      "name": "Nacionais"
+                    },
+                    {
+                      "code": "32.2.2.2",
+                      "name": "Estrangeiros"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "32.8",
+              "name": "Fornecedores – facturas em recepção e conferência"
+            },
+            {
+              "code": "32.9",
+              "name": "Fornecedores – saldos devedores",
+              "children": [
+                {
+                  "code": "32.9.1",
+                  "name": "Adiantamentos"
+                },
+                {
+                  "code": "32.9.2",
+                  "name": "Embalagens a devolver"
+                },
+                {
+                  "code": "32.9.3",
+                  "name": "Material à consignação"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "33",
+          "name": "Empréstimos",
+          "description": "Loans",
+          "children": [
+            {
+              "code": "33.1",
+              "name": "Empréstimos bancários",
+              "children": [
+                {
+                  "code": "33.1.1",
+                  "name": "Moeda nacional",
+                  "children": [
+                    {
+                      "code": "33.1.1.1",
+                      "name": "Banco ___"
+                    }
+                  ]
+                },
+                {
+                  "code": "33.1.2",
+                  "name": "Moeda estrangeira",
+                  "children": [
+                    {
+                      "code": "33.1.2.1",
+                      "name": "Banco ___"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "33.2",
+              "name": "Empréstimos por obrigações",
+              "children": [
+                {
+                  "code": "33.2.1",
+                  "name": "Convertíveis",
+                  "children": [
+                    {
+                      "code": "33.2.1.1",
+                      "name": "Entidade ___"
+                    }
+                  ]
+                },
+                {
+                  "code": "33.2.2",
+                  "name": "Não convertíveis",
+                  "children": [
+                    {
+                      "code": "33.2.2.1",
+                      "name": "Entidade ___"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "33.3",
+              "name": "Empréstimos por títulos de participação",
+              "children": [
+                {
+                  "code": "33.3.1",
+                  "name": "Entidade ___"
+                }
+              ]
+            },
+            {
+              "code": "33.9",
+              "name": "Outros empréstimos obtidos",
+              "children": [
+                {
+                  "code": "33.9.1",
+                  "name": "Entidade ___"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "34",
+          "name": "Estado",
+          "description": "Government",
+          "children": [
+            {
+              "code": "34.1",
+              "name": "Imposto sobre os lucros"
+            },
+            {
+              "code": "34.2",
+              "name": "Imposto de produção e consumo"
+            },
+            {
+              "code": "34.3",
+              "name": "Imposto de rendimento de trabalho"
+            },
+            {
+              "code": "34.4",
+              "name": "Imposto de circulação"
+            },
+            {
+              "code": "34.5",
+              "name": "IVA",
+              "children": [
+                {
+                  "code": "34.5.1",
+                  "name": "IVA suportado",
+                  "children": [
+                    {
+                      "code": "34.5.1.1",
+                      "name": "Existências"
+                    },
+                    {
+                      "code": "34.5.1.2",
+                      "name": "Meios fixos e investimentos"
+                    },
+                    {
+                      "code": "34.5.1.3",
+                      "name": "Outros bens e serviços"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.2",
+                  "name": "IVA dedutível",
+                  "children": [
+                    {
+                      "code": "34.5.2.1",
+                      "name": "Existências"
+                    },
+                    {
+                      "code": "34.5.2.2",
+                      "name": "Meios fixos e investimentos"
+                    },
+                    {
+                      "code": "34.5.2.3",
+                      "name": "Outros bens e serviços"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.3",
+                  "name": "IVA liquidado",
+                  "children": [
+                    {
+                      "code": "34.5.3.1",
+                      "name": "Operações gerais"
+                    },
+                    {
+                      "code": "34.5.3.2",
+                      "name": "Operações abrangidas pelo regime de IVA de caixa"
+                    },
+                    {
+                      "code": "34.5.3.3",
+                      "name": "Autoconsumo e operações gratuitas"
+                    },
+                    {
+                      "code": "34.5.3.4",
+                      "name": "Operações especiais"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.4",
+                  "name": "IVA regularizações",
+                  "children": [
+                    {
+                      "code": "34.5.4.1",
+                      "name": "Mensais a favor do sujeito passivo"
+                    },
+                    {
+                      "code": "34.5.4.2",
+                      "name": "Mensais a favor do Estado"
+                    },
+                    {
+                      "code": "34.5.4.3",
+                      "name": "Anual por cálculo do pró rata definitivo"
+                    },
+                    {
+                      "code": "34.5.4.4",
+                      "name": "Outras regularizações anuais"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.5",
+                  "name": "IVA apuramento",
+                  "children": [
+                    {
+                      "code": "34.5.5.1",
+                      "name": "Apuramento do regime de IVA normal"
+                    },
+                    {
+                      "code": "34.5.5.2",
+                      "name": "Apuramento do regime de IVA de caixa"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.6",
+                  "name": "IVA a pagar",
+                  "children": [
+                    {
+                      "code": "34.5.6.1",
+                      "name": "IVA a pagar de apuramento"
+                    },
+                    {
+                      "code": "34.5.6.2",
+                      "name": "IVA a pagar de cativo"
+                    },
+                    {
+                      "code": "34.5.6.3",
+                      "name": "IVA a pagar de liquidações oficiosas"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.7",
+                  "name": "IVA a recuperar",
+                  "children": [
+                    {
+                      "code": "34.5.7.1",
+                      "name": "IVA a recuperar de apuramentos"
+                    },
+                    {
+                      "code": "34.5.7.2",
+                      "name": "IVA a recuperar de cativo"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.8",
+                  "name": "IVA reembolsos pedidos",
+                  "children": [
+                    {
+                      "code": "34.5.8.1",
+                      "name": "Reembolsos pedidos"
+                    },
+                    {
+                      "code": "34.5.8.2",
+                      "name": "Reembolsos deferidos"
+                    },
+                    {
+                      "code": "34.5.8.3",
+                      "name": "Reembolsos indeferidos"
+                    },
+                    {
+                      "code": "34.5.8.4",
+                      "name": "Reembolsos reclamados, recorridos ou impugnados"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.9",
+                  "name": "IVA Liquidações oficiosas"
+                }
+              ]
+            },
+            {
+              "code": "34.6",
+              "name": "Certificado de crédito fiscal a compensar"
+            },
+            {
+              "code": "34.8",
+              "name": "Subsídios a preços"
+            },
+            {
+              "code": "34.9",
+              "name": "Outros impostos"
+            }
+          ]
+        },
+        {
+          "code": "35",
+          "name": "Entidades participantes e participadas",
+          "description": "Participating entities",
+          "children": [
+            {
+              "code": "35.1",
+              "name": "Entidades participantes",
+              "children": [
+                {
+                  "code": "35.1.1",
+                  "name": "Estado",
+                  "children": [
+                    {
+                      "code": "35.1.1.1",
+                      "name": "c/subscrição"
+                    },
+                    {
+                      "code": "35.1.1.2",
+                      "name": "c/adiantamentos sobre lucros"
+                    },
+                    {
+                      "code": "35.1.1.3",
+                      "name": "c/lucros"
+                    },
+                    {
+                      "code": "35.1.1.4",
+                      "name": "Empréstimos"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.1.2",
+                  "name": "Empresas do grupo – subsidiárias",
+                  "children": [
+                    {
+                      "code": "35.1.2.1",
+                      "name": "c/subscrição"
+                    },
+                    {
+                      "code": "35.1.2.2",
+                      "name": "c/adiantamentos sobre lucros"
+                    },
+                    {
+                      "code": "35.1.2.3",
+                      "name": "c/lucros"
+                    },
+                    {
+                      "code": "35.1.2.4",
+                      "name": "Empréstimos"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.1.3",
+                  "name": "Empresas do grupo – associadas",
+                  "children": [
+                    {
+                      "code": "35.1.3.1",
+                      "name": "c/subscrição"
+                    },
+                    {
+                      "code": "35.1.3.2",
+                      "name": "c/adiantamentos sobre lucros"
+                    },
+                    {
+                      "code": "35.1.3.3",
+                      "name": "c/lucros"
+                    },
+                    {
+                      "code": "35.1.3.4",
+                      "name": "Empréstimos"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.1.4",
+                  "name": "Outros",
+                  "children": [
+                    {
+                      "code": "35.1.4.1",
+                      "name": "c/subscrição"
+                    },
+                    {
+                      "code": "35.1.4.2",
+                      "name": "c/adiantamentos sobre lucros"
+                    },
+                    {
+                      "code": "35.1.4.3",
+                      "name": "c/lucros"
+                    },
+                    {
+                      "code": "35.1.4.4",
+                      "name": "Empréstimos"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "35.2",
+              "name": "Entidades participadas",
+              "children": [
+                {
+                  "code": "35.2.1",
+                  "name": "Estado",
+                  "children": [
+                    {
+                      "code": "35.2.1.1",
+                      "name": "c/subscrição"
+                    },
+                    {
+                      "code": "35.2.1.2",
+                      "name": "c/adiantamentos sobre lucros"
+                    },
+                    {
+                      "code": "35.2.1.3",
+                      "name": "c/lucros"
+                    },
+                    {
+                      "code": "35.2.1.4",
+                      "name": "Empréstimos"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.2.2",
+                  "name": "Empresas do grupo – subsidiárias",
+                  "children": [
+                    {
+                      "code": "35.2.2.1",
+                      "name": "c/subscrição"
+                    },
+                    {
+                      "code": "35.2.2.2",
+                      "name": "c/adiantamentos sobre lucros"
+                    },
+                    {
+                      "code": "35.2.2.3",
+                      "name": "c/lucros"
+                    },
+                    {
+                      "code": "35.2.2.4",
+                      "name": "Empréstimos"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.2.3",
+                  "name": "Empresas do grupo – associadas",
+                  "children": [
+                    {
+                      "code": "35.2.3.1",
+                      "name": "c/subscrição"
+                    },
+                    {
+                      "code": "35.2.3.2",
+                      "name": "c/adiantamentos sobre lucros"
+                    },
+                    {
+                      "code": "35.2.3.3",
+                      "name": "c/lucros"
+                    },
+                    {
+                      "code": "35.2.3.4",
+                      "name": "Empréstimos"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.2.4",
+                  "name": "Outros",
+                  "children": [
+                    {
+                      "code": "35.2.4.1",
+                      "name": "c/subscrição"
+                    },
+                    {
+                      "code": "35.2.4.2",
+                      "name": "c/adiantamentos sobre lucros"
+                    },
+                    {
+                      "code": "35.2.4.3",
+                      "name": "c/lucros"
+                    },
+                    {
+                      "code": "35.2.4.4",
+                      "name": "Empréstimos"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "36",
+          "name": "Pessoal",
+          "description": "Personnel",
+          "children": [
+            {
+              "code": "36.1",
+              "name": "Pessoal – remunerações",
+              "children": [
+                {
+                  "code": "36.1.1",
+                  "name": "Órgãos sociais"
+                },
+                {
+                  "code": "36.1.2",
+                  "name": "Empregados"
+                }
+              ]
+            },
+            {
+              "code": "36.2",
+              "name": "Pessoal – participação nos resultados",
+              "children": [
+                {
+                  "code": "36.2.1",
+                  "name": "Órgãos sociais"
+                },
+                {
+                  "code": "36.2.2",
+                  "name": "Empregados"
+                }
+              ]
+            },
+            {
+              "code": "36.3",
+              "name": "Pessoal – adiantamentos"
+            },
+            {
+              "code": "36.9",
+              "name": "Pessoal – outros"
+            }
+          ]
+        },
+        {
+          "code": "37",
+          "name": "Outros valores a receber e a pagar",
+          "description": "Other receivables and payables",
+          "children": [
+            {
+              "code": "37.1",
+              "name": "Compras de imobilizado",
+              "children": [
+                {
+                  "code": "37.1.1",
+                  "name": "Corpóreo"
+                },
+                {
+                  "code": "37.1.2",
+                  "name": "Incorpóreo"
+                },
+                {
+                  "code": "37.1.3",
+                  "name": "Financeiro"
+                }
+              ]
+            },
+            {
+              "code": "37.2",
+              "name": "Vendas de imobilizado",
+              "children": [
+                {
+                  "code": "37.2.1",
+                  "name": "Corpóreo"
+                },
+                {
+                  "code": "37.2.2",
+                  "name": "Incorpóreo"
+                },
+                {
+                  "code": "37.2.3",
+                  "name": "Financeiro"
+                }
+              ]
+            },
+            {
+              "code": "37.3",
+              "name": "Proveitos a facturar",
+              "children": [
+                {
+                  "code": "37.3.1",
+                  "name": "Vendas"
+                },
+                {
+                  "code": "37.3.2",
+                  "name": "Prestações de serviço"
+                },
+                {
+                  "code": "37.3.3",
+                  "name": "Juros"
+                }
+              ]
+            },
+            {
+              "code": "37.4",
+              "name": "Encargos a repartir por períodos futuros",
+              "children": [
+                {
+                  "code": "37.4.1",
+                  "name": "Descontos de emissão de obrigações"
+                },
+                {
+                  "code": "37.4.2",
+                  "name": "Descontos de emissão de títulos de participação"
+                }
+              ]
+            },
+            {
+              "code": "37.5",
+              "name": "Encargos a pagar",
+              "children": [
+                {
+                  "code": "37.5.1",
+                  "name": "Remunerações"
+                },
+                {
+                  "code": "37.5.2",
+                  "name": "Juros"
+                }
+              ]
+            },
+            {
+              "code": "37.6",
+              "name": "Proveitos a repartir por períodos futuros",
+              "children": [
+                {
+                  "code": "37.6.1",
+                  "name": "Prémios de emissão de obrigações"
+                },
+                {
+                  "code": "37.6.2",
+                  "name": "Prémios de emissão de títulos de participação"
+                },
+                {
+                  "code": "37.6.3",
+                  "name": "Subsídios para investimento"
+                },
+                {
+                  "code": "37.6.4",
+                  "name": "Diferenças de câmbio favoráveis reversíveis"
+                }
+              ]
+            },
+            {
+              "code": "37.7",
+              "name": "Contas transitórias",
+              "children": [
+                {
+                  "code": "37.7.1",
+                  "name": "Transacções entre a sede e as dependências da empresa"
+                }
+              ]
+            },
+            {
+              "code": "37.9",
+              "name": "Outros valores a receber e a pagar"
+            }
+          ]
+        },
+        {
+          "code": "38",
+          "name": "Provisões para cobranças duvidosas",
+          "description": "Provisions for doubtful debts",
+          "children": [
+            {
+              "code": "38.1",
+              "name": "Provisões para clientes",
+              "children": [
+                {
+                  "code": "38.1.1",
+                  "name": "Clientes – correntes",
+                  "children": [
+                    {
+                      "code": "38.1.1.1",
+                      "name": "Grupo"
+                    },
+                    {
+                      "code": "38.1.1.2",
+                      "name": "Não grupo"
+                    }
+                  ]
+                },
+                {
+                  "code": "38.1.2",
+                  "name": "Cliente – títulos a receber",
+                  "children": [
+                    {
+                      "code": "38.1.2.1",
+                      "name": "Grupo"
+                    },
+                    {
+                      "code": "38.1.2.2",
+                      "name": "Não grupo"
+                    }
+                  ]
+                },
+                {
+                  "code": "38.1.3",
+                  "name": "Clientes – cobrança duvidosa",
+                  "children": [
+                    {
+                      "code": "38.1.3.1",
+                      "name": "Grupo"
+                    },
+                    {
+                      "code": "38.1.3.2",
+                      "name": "Não grupo"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "38.2",
+              "name": "Provisões para saldos devedores de fornecedores"
+            },
+            {
+              "code": "38.3",
+              "name": "Provisões p/participantes e participadas",
+              "children": [
+                {
+                  "code": "38.3.1",
+                  "name": "Participantes"
+                },
+                {
+                  "code": "38.3.2",
+                  "name": "Participadas"
+                }
+              ]
+            },
+            {
+              "code": "38.4",
+              "name": "Provisões p/dívidas do pessoal"
+            },
+            {
+              "code": "38.9",
+              "name": "Provisões para outros saldos a receber",
+              "children": [
+                {
+                  "code": "38.9.1",
+                  "name": "Vendas imobilizado"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "39",
+          "name": "Provisões para outros riscos e encargos",
+          "description": "Provisions for other risks and charges",
+          "children": [
+            {
+              "code": "39.1",
+              "name": "Provisões para pensões"
+            },
+            {
+              "code": "39.2",
+              "name": "Provisões para processos judiciais em curso"
+            },
+            {
+              "code": "39.3",
+              "name": "Provisões para acidentes de trabalho"
+            },
+            {
+              "code": "39.4",
+              "name": "Provisões para garantias dadas a clientes"
+            },
+            {
+              "code": "39.9",
+              "name": "Provisões para outros riscos e encargos"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "4",
+      "name": "Meios monetários",
+      "description": "Monetary assets",
+      "accounts": [
+        {
+          "code": "41",
+          "name": "Títulos negociáveis",
+          "description": "Marketable securities",
+          "children": [
+            {
+              "code": "41.1",
+              "name": "Acções",
+              "children": [
+                {
+                  "code": "41.1.1",
+                  "name": "Empresas do grupo"
+                },
+                {
+                  "code": "41.1.2",
+                  "name": "Associadas"
+                },
+                {
+                  "code": "41.1.3",
+                  "name": "Outras empresas"
+                }
+              ]
+            },
+            {
+              "code": "41.2",
+              "name": "Obrigações",
+              "children": [
+                {
+                  "code": "41.2.1",
+                  "name": "Empresas do grupo"
+                },
+                {
+                  "code": "41.2.2",
+                  "name": "Associadas"
+                },
+                {
+                  "code": "41.2.3",
+                  "name": "Outras empresas"
+                }
+              ]
+            },
+            {
+              "code": "41.3",
+              "name": "Títulos da dívida pública"
+            }
+          ]
+        },
+        {
+          "code": "42",
+          "name": "Depósitos a prazo",
+          "description": "Time deposits",
+          "children": [
+            {
+              "code": "42.1",
+              "name": "Moeda nacional",
+              "children": [
+                {
+                  "code": "42.1.1",
+                  "name": "Banco ___"
+                },
+                {
+                  "code": "42.1.2",
+                  "name": "Banco ___"
+                }
+              ]
+            },
+            {
+              "code": "42.2",
+              "name": "Moeda estrangeira",
+              "children": [
+                {
+                  "code": "42.2.1",
+                  "name": "Banco ___"
+                },
+                {
+                  "code": "42.2.2",
+                  "name": "Banco ___"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "43",
+          "name": "Depósitos à ordem",
+          "description": "Demand deposits",
+          "children": [
+            {
+              "code": "43.1",
+              "name": "Moeda nacional",
+              "children": [
+                {
+                  "code": "43.1.1",
+                  "name": "Banco ___"
+                },
+                {
+                  "code": "43.1.2",
+                  "name": "Banco ___"
+                }
+              ]
+            },
+            {
+              "code": "43.2",
+              "name": "Moeda estrangeira",
+              "children": [
+                {
+                  "code": "43.2.1",
+                  "name": "Banco ___"
+                },
+                {
+                  "code": "43.2.2",
+                  "name": "Banco ___"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "44",
+          "name": "Outros depósitos",
+          "description": "Other deposits",
+          "children": [
+            {
+              "code": "44.1",
+              "name": "Moeda nacional",
+              "children": [
+                {
+                  "code": "44.1.1",
+                  "name": "Banco ___"
+                },
+                {
+                  "code": "44.1.2",
+                  "name": "Banco ___"
+                }
+              ]
+            },
+            {
+              "code": "44.2",
+              "name": "Moeda estrangeira",
+              "children": [
+                {
+                  "code": "44.2.1",
+                  "name": "Banco ___"
+                },
+                {
+                  "code": "44.2.2",
+                  "name": "Banco ___"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "45",
+          "name": "Caixa",
+          "description": "Cash",
+          "children": [
+            {
+              "code": "45.1",
+              "name": "Fundo fixo",
+              "children": [
+                {
+                  "code": "45.1.1",
+                  "name": "Caixa ___"
+                },
+                {
+                  "code": "45.1.2",
+                  "name": "Caixa ___"
+                }
+              ]
+            },
+            {
+              "code": "45.2",
+              "name": "Valores para depositar"
+            },
+            {
+              "code": "45.3",
+              "name": "Valores destinados a pagamentos específicos",
+              "children": [
+                {
+                  "code": "45.3.1",
+                  "name": "Salários"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "48",
+          "name": "Conta transitória",
+          "description": "Transit account",
+          "children": [
+            {
+              "code": "48.1",
+              "name": "Banco ___"
+            },
+            {
+              "code": "48.2",
+              "name": "Banco ___"
+            }
+          ]
+        },
+        {
+          "code": "49",
+          "name": "Provisões para aplicações de tesouraria",
+          "description": "Provisions for treasury investments",
+          "children": [
+            {
+              "code": "49.1",
+              "name": "Títulos negociáveis",
+              "children": [
+                {
+                  "code": "49.1.1",
+                  "name": "Acções"
+                },
+                {
+                  "code": "49.1.2",
+                  "name": "Obrigações"
+                },
+                {
+                  "code": "49.1.3",
+                  "name": "Títulos da dívida pública"
+                }
+              ]
+            },
+            {
+              "code": "49.2",
+              "name": "Outras aplicações de tesouraria"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "5",
+      "name": "Capital e reservas",
+      "description": "Equity",
+      "accounts": [
+        {
+          "code": "51",
+          "name": "Capital",
+          "description": "Capital"
+        },
+        {
+          "code": "52",
+          "name": "Acções/quotas próprias",
+          "description": "Own shares/quotas",
+          "children": [
+            {
+              "code": "52.1",
+              "name": "Valor nominal"
+            },
+            {
+              "code": "52.2",
+              "name": "Descontos"
+            },
+            {
+              "code": "52.3",
+              "name": "Prémios"
+            }
+          ]
+        },
+        {
+          "code": "53",
+          "name": "Prémios de emissão",
+          "description": "Share premium"
+        },
+        {
+          "code": "54",
+          "name": "Prestações suplementares",
+          "description": "Supplementary contributions"
+        },
+        {
+          "code": "55",
+          "name": "Reservas legais",
+          "description": "Legal reserves"
+        },
+        {
+          "code": "56",
+          "name": "Reservas de reavaliação",
+          "description": "Revaluation reserves",
+          "children": [
+            {
+              "code": "56.1",
+              "name": "Legais",
+              "children": [
+                {
+                  "code": "56.1.1",
+                  "name": "Decreto-Lei n.º ___"
+                },
+                {
+                  "code": "56.1.2",
+                  "name": "Decreto-Lei n.º ___"
+                }
+              ]
+            },
+            {
+              "code": "56.2",
+              "name": "Autónomas",
+              "children": [
+                {
+                  "code": "56.2.1",
+                  "name": "Avaliação"
+                },
+                {
+                  "code": "56.2.2",
+                  "name": "Realização"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "57",
+          "name": "Reservas com fins especiais",
+          "description": "Special purpose reserves"
+        },
+        {
+          "code": "58",
+          "name": "Reservas livres",
+          "description": "Free reserves"
+        }
+      ]
+    },
+    {
+      "code": "6",
+      "name": "Proveitos e ganhos por natureza",
+      "description": "Income and gains by nature",
+      "accounts": [
+        {
+          "code": "61",
+          "name": "Vendas",
+          "description": "Sales",
+          "children": [
+            {
+              "code": "61.1",
+              "name": "Produtos acabados e intermédios",
+              "children": [
+                {
+                  "code": "61.1.1",
+                  "name": "Mercado nacional"
+                },
+                {
+                  "code": "61.1.2",
+                  "name": "Mercado estrangeiro"
+                }
+              ]
+            },
+            {
+              "code": "61.2",
+              "name": "Sub-produtos, desperdícios, resíduos e refugos",
+              "children": [
+                {
+                  "code": "61.2.1",
+                  "name": "Mercado nacional"
+                },
+                {
+                  "code": "61.2.2",
+                  "name": "Mercado estrangeiro"
+                }
+              ]
+            },
+            {
+              "code": "61.3",
+              "name": "Mercadorias",
+              "children": [
+                {
+                  "code": "61.3.1",
+                  "name": "Mercado nacional"
+                },
+                {
+                  "code": "61.3.2",
+                  "name": "Mercado estrangeiro"
+                }
+              ]
+            },
+            {
+              "code": "61.4",
+              "name": "Embalagens de consumo",
+              "children": [
+                {
+                  "code": "61.4.1",
+                  "name": "Mercado nacional"
+                },
+                {
+                  "code": "61.4.2",
+                  "name": "Mercado estrangeiro"
+                }
+              ]
+            },
+            {
+              "code": "61.5",
+              "name": "Subsídios a preços"
+            },
+            {
+              "code": "61.7",
+              "name": "Devoluções",
+              "children": [
+                {
+                  "code": "61.7.1",
+                  "name": "Mercado nacional"
+                },
+                {
+                  "code": "61.7.2",
+                  "name": "Mercado estrangeiro"
+                }
+              ]
+            },
+            {
+              "code": "61.8",
+              "name": "Descontos e abatimentos",
+              "children": [
+                {
+                  "code": "61.8.1",
+                  "name": "Mercado nacional"
+                },
+                {
+                  "code": "61.8.2",
+                  "name": "Mercado estrangeiro"
+                }
+              ]
+            },
+            {
+              "code": "61.9",
+              "name": "Transferência para resultados operacionais"
+            }
+          ]
+        },
+        {
+          "code": "62",
+          "name": "Prestações de serviço",
+          "description": "Services",
+          "children": [
+            {
+              "code": "62.1",
+              "name": "Serviços principais",
+              "children": [
+                {
+                  "code": "62.1.1",
+                  "name": "Mercado nacional"
+                },
+                {
+                  "code": "62.1.2",
+                  "name": "Mercado estrangeiro"
+                }
+              ]
+            },
+            {
+              "code": "62.2",
+              "name": "Serviços secundários",
+              "children": [
+                {
+                  "code": "62.2.1",
+                  "name": "Mercado nacional"
+                },
+                {
+                  "code": "62.2.2",
+                  "name": "Mercado estrangeiro"
+                }
+              ]
+            },
+            {
+              "code": "62.8",
+              "name": "Descontos e abatimentos",
+              "children": [
+                {
+                  "code": "62.8.1",
+                  "name": "Mercado nacional"
+                },
+                {
+                  "code": "62.8.2",
+                  "name": "Mercado estrangeiro"
+                }
+              ]
+            },
+            {
+              "code": "62.9",
+              "name": "Transferência para resultados operacionais"
+            }
+          ]
+        },
+        {
+          "code": "63",
+          "name": "Outros proveitos operacionais",
+          "description": "Other operating income",
+          "children": [
+            {
+              "code": "63.1",
+              "name": "Serviços suplementares",
+              "children": [
+                {
+                  "code": "63.1.1",
+                  "name": "Aluguer de equipamento"
+                },
+                {
+                  "code": "63.1.2",
+                  "name": "Cedência de pessoal"
+                },
+                {
+                  "code": "63.1.3",
+                  "name": "Cedência de energia"
+                },
+                {
+                  "code": "63.1.4",
+                  "name": "Estudos, projectos e assistência técnica"
+                }
+              ]
+            },
+            {
+              "code": "63.2",
+              "name": "Royalties"
+            },
+            {
+              "code": "63.3",
+              "name": "Subsídios à exploração"
+            },
+            {
+              "code": "63.4",
+              "name": "Subsídios a investimento"
+            },
+            {
+              "code": "63.5",
+              "name": "IVA"
+            },
+            {
+              "code": "63.8",
+              "name": "Outros proveitos e ganhos operacionais"
+            },
+            {
+              "code": "63.9",
+              "name": "Transferência para resultados operacionais"
+            }
+          ]
+        },
+        {
+          "code": "64",
+          "name": "Variação nos inventários de produtos acabados e de produção em curso",
+          "description": "Change in finished goods and work in progress",
+          "children": [
+            {
+              "code": "64.1",
+              "name": "Produtos e trabalhos em curso"
+            },
+            {
+              "code": "64.2",
+              "name": "Produtos acabados"
+            },
+            {
+              "code": "64.3",
+              "name": "Produtos intermédios"
+            },
+            {
+              "code": "64.9",
+              "name": "Transferência para resultados operacionais"
+            }
+          ]
+        },
+        {
+          "code": "65",
+          "name": "Trabalhos para a própria empresa",
+          "description": "Work for own entity",
+          "children": [
+            {
+              "code": "65.1",
+              "name": "Para imobilizado",
+              "children": [
+                {
+                  "code": "65.1.1",
+                  "name": "Corpóreo"
+                },
+                {
+                  "code": "65.1.2",
+                  "name": "Incorpóreo"
+                },
+                {
+                  "code": "65.1.3",
+                  "name": "Financeiro"
+                },
+                {
+                  "code": "65.1.4",
+                  "name": "Em curso"
+                }
+              ]
+            },
+            {
+              "code": "65.2",
+              "name": "Para encargos a repartir por exercícios futuros"
+            },
+            {
+              "code": "65.9",
+              "name": "Transferência para resultados operacionais"
+            }
+          ]
+        },
+        {
+          "code": "66",
+          "name": "Proveitos e ganhos financeiros gerais",
+          "description": "General financial income and gains",
+          "children": [
+            {
+              "code": "66.1",
+              "name": "Juros",
+              "children": [
+                {
+                  "code": "66.1.1",
+                  "name": "De investimentos financeiros",
+                  "children": [
+                    {
+                      "code": "66.1.1.1",
+                      "name": "Obrigações"
+                    },
+                    {
+                      "code": "66.1.1.3",
+                      "name": "Títulos de participação"
+                    },
+                    {
+                      "code": "66.1.1.4",
+                      "name": "Empréstimos"
+                    },
+                    {
+                      "code": "66.1.1.9",
+                      "name": "Outros"
+                    }
+                  ]
+                },
+                {
+                  "code": "66.1.2",
+                  "name": "De mora relativos a dívidas de terceiros",
+                  "children": [
+                    {
+                      "code": "66.1.2.1",
+                      "name": "Dívidas recebidas a prestações"
+                    },
+                    {
+                      "code": "66.1.2.2",
+                      "name": "De empréstimos a terceiros"
+                    }
+                  ]
+                },
+                {
+                  "code": "66.1.4",
+                  "name": "Desconto de títulos"
+                },
+                {
+                  "code": "66.1.5",
+                  "name": "De aplicações de tesouraria"
+                }
+              ]
+            },
+            {
+              "code": "66.2",
+              "name": "Diferenças de câmbio favoráveis",
+              "children": [
+                {
+                  "code": "66.2.1",
+                  "name": "Realizadas"
+                },
+                {
+                  "code": "66.2.2",
+                  "name": "Não realizadas"
+                }
+              ]
+            },
+            {
+              "code": "66.3",
+              "name": "Descontos de pronto pagamento obtidos"
+            },
+            {
+              "code": "66.4",
+              "name": "Rendimentos de investimentos em imóveis"
+            },
+            {
+              "code": "66.5",
+              "name": "Rendimento de participações de capital",
+              "children": [
+                {
+                  "code": "66.5.1",
+                  "name": "Acções, quotas em outras empresas"
+                },
+                {
+                  "code": "66.5.2",
+                  "name": "Acções, quotas incluídas nos fundos"
+                },
+                {
+                  "code": "66.5.3",
+                  "name": "Acções, quotas incluídas nos títulos negociáveis"
+                }
+              ]
+            },
+            {
+              "code": "66.6",
+              "name": "Ganhos na alienação de aplicações financeiras",
+              "children": [
+                {
+                  "code": "66.6.1",
+                  "name": "Investimentos financeiros",
+                  "children": [
+                    {
+                      "code": "66.6.1.1",
+                      "name": "Subsidiárias"
+                    },
+                    {
+                      "code": "66.6.1.2",
+                      "name": "Associadas"
+                    },
+                    {
+                      "code": "66.6.1.3",
+                      "name": "Outras empresas"
+                    },
+                    {
+                      "code": "66.6.1.4",
+                      "name": "Imóveis"
+                    },
+                    {
+                      "code": "66.6.1.5",
+                      "name": "Fundos"
+                    },
+                    {
+                      "code": "66.6.1.9",
+                      "name": "Outros investimentos"
+                    }
+                  ]
+                },
+                {
+                  "code": "66.6.2",
+                  "name": "Títulos negociáveis"
+                }
+              ]
+            },
+            {
+              "code": "66.7",
+              "name": "Reposição de provisões",
+              "children": [
+                {
+                  "code": "66.7.1",
+                  "name": "Investimentos financeiros",
+                  "children": [
+                    {
+                      "code": "66.7.1.1",
+                      "name": "Subsidiárias"
+                    },
+                    {
+                      "code": "66.7.1.2",
+                      "name": "Associadas"
+                    },
+                    {
+                      "code": "66.7.1.3",
+                      "name": "Outras empresas"
+                    },
+                    {
+                      "code": "66.7.1.4",
+                      "name": "Fundos"
+                    },
+                    {
+                      "code": "66.7.1.9",
+                      "name": "Outros investimentos"
+                    }
+                  ]
+                },
+                {
+                  "code": "66.7.2",
+                  "name": "Aplicações de tesouraria",
+                  "children": [
+                    {
+                      "code": "66.7.2.1",
+                      "name": "Títulos negociáveis"
+                    },
+                    {
+                      "code": "66.7.2.2",
+                      "name": "Depósitos a prazo"
+                    },
+                    {
+                      "code": "66.7.2.3",
+                      "name": "Outros depósitos"
+                    },
+                    {
+                      "code": "66.7.2.9",
+                      "name": "Outros investimentos"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "66.9",
+              "name": "Transferência para resultados financeiros"
+            }
+          ]
+        },
+        {
+          "code": "67",
+          "name": "Proveitos e ganhos financeiros em filiais e associadas",
+          "description": "Financial income from subsidiaries and associates",
+          "children": [
+            {
+              "code": "67.1",
+              "name": "Rendimento de participações de capital",
+              "children": [
+                {
+                  "code": "67.1.1",
+                  "name": "Subsidiárias"
+                },
+                {
+                  "code": "67.1.2",
+                  "name": "Associadas"
+                }
+              ]
+            },
+            {
+              "code": "67.9",
+              "name": "Transferência para resultados em filiais e associadas"
+            }
+          ]
+        },
+        {
+          "code": "68",
+          "name": "Outros proveitos e ganhos não operacionais",
+          "description": "Other non-operating income",
+          "children": [
+            {
+              "code": "68.1",
+              "name": "Reposição de provisões",
+              "children": [
+                {
+                  "code": "68.1.1",
+                  "name": "Existências",
+                  "children": [
+                    {
+                      "code": "68.1.1.1",
+                      "name": "Matérias-primas subsidiárias e de consumo"
+                    },
+                    {
+                      "code": "68.1.1.2",
+                      "name": "Produtos e trabalhos em curso"
+                    },
+                    {
+                      "code": "68.1.1.3",
+                      "name": "Produtos acabados e intermédios"
+                    },
+                    {
+                      "code": "68.1.1.4",
+                      "name": "Sub-produtos, desperdícios, resíduos e refugos"
+                    },
+                    {
+                      "code": "68.1.1.5",
+                      "name": "Mercadorias"
+                    }
+                  ]
+                },
+                {
+                  "code": "68.1.2",
+                  "name": "Cobranças duvidosas",
+                  "children": [
+                    {
+                      "code": "68.1.2.1",
+                      "name": "Clientes"
+                    },
+                    {
+                      "code": "68.1.2.2",
+                      "name": "Clientes – títulos a receber"
+                    },
+                    {
+                      "code": "68.1.2.3",
+                      "name": "Clientes – cobrança duvidosa"
+                    },
+                    {
+                      "code": "68.1.2.4",
+                      "name": "Saldos devedores de fornecedores"
+                    },
+                    {
+                      "code": "68.1.2.5",
+                      "name": "Participantes e participadas"
+                    },
+                    {
+                      "code": "68.1.2.6",
+                      "name": "Dívidas do Pessoal"
+                    },
+                    {
+                      "code": "68.1.2.9",
+                      "name": "Outros saldos a receber"
+                    }
+                  ]
+                },
+                {
+                  "code": "68.1.3",
+                  "name": "Riscos e encargos",
+                  "children": [
+                    {
+                      "code": "68.1.3.1",
+                      "name": "Pensões"
+                    },
+                    {
+                      "code": "68.1.3.2",
+                      "name": "Processos judiciais em curso"
+                    },
+                    {
+                      "code": "68.1.3.3",
+                      "name": "Acidentes de trabalho"
+                    },
+                    {
+                      "code": "68.1.3.4",
+                      "name": "Garantias dadas a clientes"
+                    },
+                    {
+                      "code": "68.1.3.9",
+                      "name": "Outros riscos e encargos"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "68.2",
+              "name": "Anulação de amortizações extraordinárias",
+              "children": [
+                {
+                  "code": "68.2.1",
+                  "name": "Imobilizações corpóreas"
+                },
+                {
+                  "code": "68.2.2",
+                  "name": "Imobilizações incorpóreas"
+                }
+              ]
+            },
+            {
+              "code": "68.3",
+              "name": "Ganhos em imobilizações",
+              "children": [
+                {
+                  "code": "68.3.1",
+                  "name": "Venda de imobilizações corpóreas"
+                },
+                {
+                  "code": "68.3.2",
+                  "name": "Venda de imobilizações incorpóreas"
+                }
+              ]
+            },
+            {
+              "code": "68.4",
+              "name": "Ganhos em existências",
+              "children": [
+                {
+                  "code": "68.4.1",
+                  "name": "Sobras"
+                }
+              ]
+            },
+            {
+              "code": "68.5",
+              "name": "Recuperação de dívidas"
+            },
+            {
+              "code": "68.6",
+              "name": "Benefícios de penalidades contratuais"
+            },
+            {
+              "code": "68.8",
+              "name": "Descontinuidade de operações"
+            },
+            {
+              "code": "68.9",
+              "name": "Alterações de políticas contabilísticas"
+            },
+            {
+              "code": "68.10",
+              "name": "Correcções relativas a exercícios anteriores",
+              "children": [
+                {
+                  "code": "68.10.1",
+                  "name": "Estimativa impostos"
+                },
+                {
+                  "code": "68.10.2",
+                  "name": "Restituição de impostos"
+                }
+              ]
+            },
+            {
+              "code": "68.11",
+              "name": "Outros ganhos e perdas não operacionais",
+              "children": [
+                {
+                  "code": "68.11.1",
+                  "name": "Donativos"
+                }
+              ]
+            },
+            {
+              "code": "68.19",
+              "name": "Transferência para resultados não operacionais"
+            }
+          ]
+        },
+        {
+          "code": "69",
+          "name": "Proveitos e ganhos extraordinários",
+          "description": "Extraordinary income and gains",
+          "children": [
+            {
+              "code": "69.1",
+              "name": "Ganhos resultantes de catástrofes naturais"
+            },
+            {
+              "code": "69.2",
+              "name": "Ganhos resultantes de convulsões políticas"
+            },
+            {
+              "code": "69.3",
+              "name": "Ganhos resultantes de expropriações"
+            },
+            {
+              "code": "69.4",
+              "name": "Ganhos resultantes de sinistros"
+            },
+            {
+              "code": "69.5",
+              "name": "Subsídios"
+            },
+            {
+              "code": "69.6",
+              "name": "Anulação de passivos não exigíveis"
+            },
+            {
+              "code": "69.9",
+              "name": "Transferência para resultados extraordinários"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "7",
+      "name": "Custos e perdas por natureza",
+      "description": "Costs and losses by nature",
+      "accounts": [
+        {
+          "code": "71",
+          "name": "Custo das existências vendidas",
+          "description": "Cost of goods sold",
+          "children": [
+            {
+              "code": "71.1",
+              "name": "Matérias-primas"
+            },
+            {
+              "code": "71.2",
+              "name": "Matérias subsidiárias"
+            },
+            {
+              "code": "71.3",
+              "name": "Materiais diversos"
+            },
+            {
+              "code": "71.4",
+              "name": "Embalagens de consumo"
+            },
+            {
+              "code": "71.5",
+              "name": "Outros materiais"
+            },
+            {
+              "code": "71.9",
+              "name": "Transferência para resultados operacionais"
+            }
+          ]
+        },
+        {
+          "code": "72",
+          "name": "Custos com o pessoal",
+          "description": "Personnel costs",
+          "children": [
+            {
+              "code": "72.1",
+              "name": "Remunerações – Órgãos sociais"
+            },
+            {
+              "code": "72.2",
+              "name": "Remunerações – Pessoal"
+            },
+            {
+              "code": "72.3",
+              "name": "Pensões",
+              "children": [
+                {
+                  "code": "72.3.1",
+                  "name": "Órgãos sociais"
+                },
+                {
+                  "code": "72.3.2",
+                  "name": "Pessoal"
+                }
+              ]
+            },
+            {
+              "code": "72.4",
+              "name": "Prémios para pensões",
+              "children": [
+                {
+                  "code": "72.4.1",
+                  "name": "Órgãos sociais"
+                },
+                {
+                  "code": "72.4.2",
+                  "name": "Pessoal"
+                }
+              ]
+            },
+            {
+              "code": "72.5",
+              "name": "Encargos sobre remunerações",
+              "children": [
+                {
+                  "code": "72.5.1",
+                  "name": "Órgãos sociais"
+                },
+                {
+                  "code": "72.5.2",
+                  "name": "Pessoal"
+                }
+              ]
+            },
+            {
+              "code": "72.6",
+              "name": "Seguros de acidentes de trabalho e doenças profissionais",
+              "children": [
+                {
+                  "code": "72.6.1",
+                  "name": "Órgãos sociais"
+                },
+                {
+                  "code": "72.6.2",
+                  "name": "Pessoal"
+                }
+              ]
+            },
+            {
+              "code": "72.7",
+              "name": "Formação",
+              "children": [
+                {
+                  "code": "72.7.1",
+                  "name": "Órgãos sociais"
+                },
+                {
+                  "code": "72.7.2",
+                  "name": "Pessoal"
+                }
+              ]
+            },
+            {
+              "code": "72.8",
+              "name": "Outras despesas com o pessoal",
+              "children": [
+                {
+                  "code": "72.8.1",
+                  "name": "Órgãos sociais"
+                },
+                {
+                  "code": "72.8.2",
+                  "name": "Pessoal"
+                }
+              ]
+            },
+            {
+              "code": "72.9",
+              "name": "Transferência para resultados operacionais"
+            }
+          ]
+        },
+        {
+          "code": "73",
+          "name": "Amortizações do exercício",
+          "description": "Depreciation for the period",
+          "children": [
+            {
+              "code": "73.1",
+              "name": "Imobilizações corpóreas",
+              "children": [
+                {
+                  "code": "73.1.2",
+                  "name": "Edifícios e outras construções"
+                },
+                {
+                  "code": "73.1.3",
+                  "name": "Equipamento básico"
+                },
+                {
+                  "code": "73.1.4",
+                  "name": "Equipamento de carga e transporte"
+                },
+                {
+                  "code": "73.1.5",
+                  "name": "Equipamento administrativo"
+                },
+                {
+                  "code": "73.1.6",
+                  "name": "Taras e vasilhame"
+                },
+                {
+                  "code": "73.1.9",
+                  "name": "Outras imobilizações corpóreas"
+                }
+              ]
+            },
+            {
+              "code": "73.2",
+              "name": "Imobilizações incorpóreas",
+              "children": [
+                {
+                  "code": "73.2.1",
+                  "name": "Trespasses"
+                },
+                {
+                  "code": "73.2.2",
+                  "name": "Despesas de investigação e desenvolvimento"
+                },
+                {
+                  "code": "73.2.3",
+                  "name": "Propriedade industrial e outros direitos e contratos"
+                },
+                {
+                  "code": "73.2.4",
+                  "name": "Despesas de constituição"
+                },
+                {
+                  "code": "73.2.9",
+                  "name": "Outras imobilizações incorpóreas"
+                }
+              ]
+            },
+            {
+              "code": "73.9",
+              "name": "Transferência para resultados operacionais"
+            }
+          ]
+        },
+        {
+          "code": "75",
+          "name": "Outros custos e perdas operacionais",
+          "description": "Other operating costs and losses",
+          "children": [
+            {
+              "code": "75.1",
+              "name": "Sub-contratos"
+            },
+            {
+              "code": "75.2",
+              "name": "Fornecimentos e serviços de terceiros",
+              "children": [
+                {
+                  "code": "75.2.11",
+                  "name": "Água"
+                },
+                {
+                  "code": "75.2.12",
+                  "name": "Electricidade"
+                },
+                {
+                  "code": "75.2.13",
+                  "name": "Combustíveis e outros fluídos"
+                },
+                {
+                  "code": "75.2.14",
+                  "name": "Conservação e reparação"
+                },
+                {
+                  "code": "75.2.15",
+                  "name": "Material de protecção segurança e conforto"
+                },
+                {
+                  "code": "75.2.16",
+                  "name": "Ferramentas e utensílios de desgaste rápido"
+                },
+                {
+                  "code": "75.2.17",
+                  "name": "Material de escritório"
+                },
+                {
+                  "code": "75.2.18",
+                  "name": "Livros e documentação técnica"
+                },
+                {
+                  "code": "75.2.19",
+                  "name": "Outros fornecimentos"
+                },
+                {
+                  "code": "75.2.20",
+                  "name": "Comunicação"
+                },
+                {
+                  "code": "75.2.21",
+                  "name": "Rendas e alugueres"
+                },
+                {
+                  "code": "75.2.22",
+                  "name": "Seguros"
+                },
+                {
+                  "code": "75.2.23",
+                  "name": "Deslocações e estadas"
+                },
+                {
+                  "code": "75.2.24",
+                  "name": "Despesas de representação"
+                },
+                {
+                  "code": "75.2.26",
+                  "name": "Conservação e reparação"
+                },
+                {
+                  "code": "75.2.27",
+                  "name": "Vigilância e segurança"
+                },
+                {
+                  "code": "75.2.28",
+                  "name": "Limpeza, higiene e conforto"
+                },
+                {
+                  "code": "75.2.29",
+                  "name": "Publicidade e propaganda"
+                },
+                {
+                  "code": "75.2.30",
+                  "name": "Contencioso e notariado"
+                },
+                {
+                  "code": "75.2.31",
+                  "name": "Comissões a intermediários"
+                },
+                {
+                  "code": "75.2.32",
+                  "name": "Assistência técnica",
+                  "children": [
+                    {
+                      "code": "75.2.32.1",
+                      "name": "Estrangeira"
+                    },
+                    {
+                      "code": "75.2.32.2",
+                      "name": "Nacional"
+                    }
+                  ]
+                },
+                {
+                  "code": "75.2.33",
+                  "name": "Trabalhos executados no exterior"
+                },
+                {
+                  "code": "75.2.34",
+                  "name": "Honorários e avenças"
+                },
+                {
+                  "code": "75.2.35",
+                  "name": "Royalties"
+                },
+                {
+                  "code": "75.2.39",
+                  "name": "Outros serviços"
+                }
+              ]
+            },
+            {
+              "code": "75.3",
+              "name": "Impostos",
+              "children": [
+                {
+                  "code": "75.3.1",
+                  "name": "Indirectos",
+                  "children": [
+                    {
+                      "code": "75.3.1.1",
+                      "name": "Imposto de selo"
+                    },
+                    {
+                      "code": "75.3.1.2",
+                      "name": "IVA"
+                    },
+                    {
+                      "code": "75.3.1.9",
+                      "name": "Outros impostos"
+                    }
+                  ]
+                },
+                {
+                  "code": "75.3.2",
+                  "name": "Directos",
+                  "children": [
+                    {
+                      "code": "75.3.2.1",
+                      "name": "Imposto de capitais"
+                    },
+                    {
+                      "code": "75.3.2.2",
+                      "name": "Contribuição predial"
+                    },
+                    {
+                      "code": "75.3.2.9",
+                      "name": "Outros impostos"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "75.4",
+              "name": "Despesas confidênciais"
+            },
+            {
+              "code": "75.5",
+              "name": "Quotizações"
+            },
+            {
+              "code": "75.6",
+              "name": "Ofertas e Amostras de existências"
+            },
+            {
+              "code": "75.8",
+              "name": "Outros custos e perdas operacionais"
+            },
+            {
+              "code": "75.9",
+              "name": "Transferências para resultados operacionais"
+            }
+          ]
+        },
+        {
+          "code": "76",
+          "name": "Custos e perdas financeiros gerais",
+          "description": "General financial costs and losses",
+          "children": [
+            {
+              "code": "76.1",
+              "name": "Juros",
+              "children": [
+                {
+                  "code": "76.1.1",
+                  "name": "De empréstimos",
+                  "children": [
+                    {
+                      "code": "76.1.1.1",
+                      "name": "Bancários"
+                    },
+                    {
+                      "code": "76.1.1.2",
+                      "name": "Obrigações"
+                    },
+                    {
+                      "code": "76.1.1.3",
+                      "name": "Títulos de participação"
+                    }
+                  ]
+                },
+                {
+                  "code": "76.1.2",
+                  "name": "De descobertos bancários"
+                },
+                {
+                  "code": "76.1.3",
+                  "name": "De mora relativos a dívidas a terceiros"
+                },
+                {
+                  "code": "76.1.4",
+                  "name": "De desconto de títulos"
+                }
+              ]
+            },
+            {
+              "code": "76.2",
+              "name": "Diferenças de câmbio desfavoráveis",
+              "children": [
+                {
+                  "code": "76.2.1",
+                  "name": "Realizadas"
+                },
+                {
+                  "code": "76.2.2",
+                  "name": "Não realizadas"
+                }
+              ]
+            },
+            {
+              "code": "76.3",
+              "name": "Descontos de pronto pagamento concedidos"
+            },
+            {
+              "code": "76.4",
+              "name": "Amortizações de investimentos em imóveis"
+            },
+            {
+              "code": "76.5",
+              "name": "Provisões para aplicações financeiras",
+              "children": [
+                {
+                  "code": "76.5.1",
+                  "name": "Investimentos financeiros",
+                  "children": [
+                    {
+                      "code": "76.5.1.1",
+                      "name": "Subsidiárias"
+                    },
+                    {
+                      "code": "76.5.1.2",
+                      "name": "Associadas"
+                    },
+                    {
+                      "code": "76.5.1.3",
+                      "name": "Outras empresas"
+                    },
+                    {
+                      "code": "76.5.1.4",
+                      "name": "Fundos"
+                    },
+                    {
+                      "code": "76.5.1.9",
+                      "name": "Outros investimentos"
+                    }
+                  ]
+                },
+                {
+                  "code": "76.5.2",
+                  "name": "Aplicações de tesouraria",
+                  "children": [
+                    {
+                      "code": "76.5.2.1",
+                      "name": "Títulos negociáveis"
+                    },
+                    {
+                      "code": "76.5.2.2",
+                      "name": "Depósitos a prazo"
+                    },
+                    {
+                      "code": "76.5.2.3",
+                      "name": "Outros depósitos"
+                    },
+                    {
+                      "code": "76.5.2.9",
+                      "name": "Outros"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "76.6",
+              "name": "Perdas na alienação de aplicações financeiras",
+              "children": [
+                {
+                  "code": "76.6.1",
+                  "name": "Investimentos financeiros",
+                  "children": [
+                    {
+                      "code": "76.6.1.1",
+                      "name": "Subsidiárias"
+                    },
+                    {
+                      "code": "76.6.1.2",
+                      "name": "Associadas"
+                    },
+                    {
+                      "code": "76.6.1.3",
+                      "name": "Outras empresas"
+                    },
+                    {
+                      "code": "76.6.1.4",
+                      "name": "Fundos"
+                    },
+                    {
+                      "code": "76.6.1.9",
+                      "name": "Outros investimentos"
+                    }
+                  ]
+                },
+                {
+                  "code": "76.6.2",
+                  "name": "Aplicações de títulos negociáveis"
+                }
+              ]
+            },
+            {
+              "code": "76.7",
+              "name": "Serviços bancários"
+            },
+            {
+              "code": "76.9",
+              "name": "Transferência para resultados financeiros"
+            }
+          ]
+        },
+        {
+          "code": "77",
+          "name": "Custos e perdas financeiros em filiais e associadas",
+          "description": "Financial costs in subsidiaries and associates",
+          "children": [
+            {
+              "code": "77.9",
+              "name": "Transferência para resultados financeiros"
+            }
+          ]
+        },
+        {
+          "code": "78",
+          "name": "Outros custos e perdas não operacionais",
+          "description": "Other non-operating costs and losses",
+          "children": [
+            {
+              "code": "78.1",
+              "name": "Provisões do exercício",
+              "children": [
+                {
+                  "code": "78.1.1",
+                  "name": "Existências",
+                  "children": [
+                    {
+                      "code": "78.1.1.1",
+                      "name": "Matérias-primas subsidiárias e de consumo"
+                    },
+                    {
+                      "code": "78.1.1.2",
+                      "name": "Produtos e trabalhos em curso"
+                    },
+                    {
+                      "code": "78.1.1.3",
+                      "name": "Produtos acabados e intermédios"
+                    },
+                    {
+                      "code": "78.1.1.4",
+                      "name": "Sub-produtos, desperdícios, resíduos e refugos"
+                    },
+                    {
+                      "code": "78.1.1.5",
+                      "name": "Mercadorias"
+                    }
+                  ]
+                },
+                {
+                  "code": "78.1.2",
+                  "name": "Cobranças Duvidosas",
+                  "children": [
+                    {
+                      "code": "78.1.2.1",
+                      "name": "Clientes"
+                    },
+                    {
+                      "code": "78.1.2.2",
+                      "name": "Clientes – títulos a receber"
+                    },
+                    {
+                      "code": "78.1.2.3",
+                      "name": "Clientes – cobrança duvidosa"
+                    },
+                    {
+                      "code": "78.1.2.4",
+                      "name": "Saldos devedores de fornecedores"
+                    },
+                    {
+                      "code": "78.1.2.5",
+                      "name": "Participantes e participadas"
+                    },
+                    {
+                      "code": "78.1.2.6",
+                      "name": "Dívidas do pessoal"
+                    },
+                    {
+                      "code": "78.1.2.9",
+                      "name": "Outros saldos a receber"
+                    }
+                  ]
+                },
+                {
+                  "code": "78.1.3",
+                  "name": "Riscos e encargos",
+                  "children": [
+                    {
+                      "code": "78.1.3.1",
+                      "name": "Pensões"
+                    },
+                    {
+                      "code": "78.1.3.2",
+                      "name": "Processos judiciais em curso"
+                    },
+                    {
+                      "code": "78.1.3.3",
+                      "name": "Acidentes de trabalho"
+                    },
+                    {
+                      "code": "78.1.3.4",
+                      "name": "Garantias dadas a clientes"
+                    },
+                    {
+                      "code": "78.1.3.9",
+                      "name": "Outros riscos e encargos"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "78.2",
+              "name": "Amortizações extraordinárias",
+              "children": [
+                {
+                  "code": "78.2.1",
+                  "name": "Imobilizações Corpóreas"
+                },
+                {
+                  "code": "78.2.2",
+                  "name": "Imobilizações Incorpóreas"
+                }
+              ]
+            },
+            {
+              "code": "78.3",
+              "name": "Perdas em imobilizações",
+              "children": [
+                {
+                  "code": "78.3.1",
+                  "name": "Venda de imobilizações corpóreas"
+                },
+                {
+                  "code": "78.3.2",
+                  "name": "Venda de imobilizações incorpóreas"
+                },
+                {
+                  "code": "78.3.3",
+                  "name": "Abates"
+                },
+                {
+                  "code": "78.3.9",
+                  "name": "Outras"
+                }
+              ]
+            },
+            {
+              "code": "78.4",
+              "name": "Perdas em existências",
+              "children": [
+                {
+                  "code": "78.4.1",
+                  "name": "Quebras"
+                }
+              ]
+            },
+            {
+              "code": "78.5",
+              "name": "Dívidas incobráveis"
+            },
+            {
+              "code": "78.6",
+              "name": "Multas e penalidades contratuais",
+              "children": [
+                {
+                  "code": "78.6.1",
+                  "name": "Fiscais"
+                },
+                {
+                  "code": "78.6.2",
+                  "name": "Não fiscais"
+                },
+                {
+                  "code": "78.6.3",
+                  "name": "Penalidades contratuais"
+                }
+              ]
+            },
+            {
+              "code": "78.7",
+              "name": "Custos de reestruturação"
+            },
+            {
+              "code": "78.8",
+              "name": "Descontinuidade de operações"
+            },
+            {
+              "code": "78.9",
+              "name": "Alterações de políticas contabilísticas"
+            },
+            {
+              "code": "78.10",
+              "name": "Correcções relativas a exercícios anteriores",
+              "children": [
+                {
+                  "code": "78.10.1",
+                  "name": "Estimativa impostos"
+                }
+              ]
+            },
+            {
+              "code": "78.11",
+              "name": "Outros custos e perdas não operacionais",
+              "children": [
+                {
+                  "code": "78.11.1",
+                  "name": "Donativos"
+                },
+                {
+                  "code": "78.11.2",
+                  "name": "Reembolso de subsídios à exploração"
+                },
+                {
+                  "code": "78.11.3",
+                  "name": "Reembolso de subsídios a investimentos"
+                }
+              ]
+            },
+            {
+              "code": "78.19",
+              "name": "Transferência para resultados não operacionais"
+            }
+          ]
+        },
+        {
+          "code": "79",
+          "name": "Custos e perdas extraordinárias",
+          "description": "Extraordinary costs and losses",
+          "children": [
+            {
+              "code": "79.1",
+              "name": "Perdas resultantes de catástrofes naturais"
+            },
+            {
+              "code": "79.2",
+              "name": "Perdas resultantes de convulsões políticas"
+            },
+            {
+              "code": "79.3",
+              "name": "Perdas resultantes de expropriações"
+            },
+            {
+              "code": "79.4",
+              "name": "Perdas resultantes de sinistros"
+            },
+            {
+              "code": "79.9",
+              "name": "Transferência para resultados extraordinários"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "8",
+      "name": "Resultados",
+      "description": "Results",
+      "accounts": [
+        {
+          "code": "81",
+          "name": "Resultados transitados",
+          "description": "Retained earnings",
+          "children": [
+            {
+              "code": "81.1",
+              "name": "Ano____",
+              "children": [
+                {
+                  "code": "81.1.1",
+                  "name": "Resultado do ano"
+                },
+                {
+                  "code": "81.1.2",
+                  "name": "Aplicação de resultados"
+                },
+                {
+                  "code": "81.1.3",
+                  "name": "Correcções de erros fundamentais, no exercício seguinte"
+                },
+                {
+                  "code": "81.1.4",
+                  "name": "Efeito das alterações de políticas contabilísticas"
+                },
+                {
+                  "code": "81.1.5",
+                  "name": "Imposto relativo a correcções de erros fundamentais e alterações de políticas contabilísticas"
+                }
+              ]
+            },
+            {
+              "code": "81.2",
+              "name": "Ano____",
+              "children": [
+                {
+                  "code": "81.2.1",
+                  "name": "Resultado do ano"
+                },
+                {
+                  "code": "81.2.2",
+                  "name": "Aplicação de resultados"
+                },
+                {
+                  "code": "81.2.3",
+                  "name": "Correcções de erros fundamentais, no exercício seguinte"
+                },
+                {
+                  "code": "81.2.4",
+                  "name": "Efeito das alterações de políticas contabilísticas"
+                },
+                {
+                  "code": "81.2.5",
+                  "name": "Imposto relativo a correcções de erros fundamentais e alterações de políticas contabilísticas"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "82",
+          "name": "Resultados operacionais",
+          "description": "Operating results",
+          "children": [
+            {
+              "code": "82.1",
+              "name": "Vendas"
+            },
+            {
+              "code": "82.2",
+              "name": "Prestações de serviço"
+            },
+            {
+              "code": "82.3",
+              "name": "Outros proveitos operacionais"
+            },
+            {
+              "code": "82.4",
+              "name": "Variação nos inventários de produtos acabados e produtos em vias de fabrico"
+            },
+            {
+              "code": "82.5",
+              "name": "Trabalhos para a própria empresa"
+            },
+            {
+              "code": "82.6",
+              "name": "Custo das mercadorias vendidas e das matérias consumidas"
+            },
+            {
+              "code": "82.7",
+              "name": "Custos com o pessoal"
+            },
+            {
+              "code": "82.8",
+              "name": "Amortizações do exercício"
+            },
+            {
+              "code": "82.9",
+              "name": "Outros custos operacionais"
+            },
+            {
+              "code": "82.19",
+              "name": "Transferência para resultados líquidos"
+            }
+          ]
+        },
+        {
+          "code": "83",
+          "name": "Resultados financeiros",
+          "description": "Financial results",
+          "children": [
+            {
+              "code": "83.1",
+              "name": "Proveitos e ganhos financeiros gerais"
+            },
+            {
+              "code": "83.2",
+              "name": "Custos e perdas financeiros gerais"
+            },
+            {
+              "code": "83.9",
+              "name": "Transferência para resultados líquidos"
+            }
+          ]
+        },
+        {
+          "code": "84",
+          "name": "Resultados financeiros em filiais e associadas",
+          "description": "Results from subsidiaries and associates",
+          "children": [
+            {
+              "code": "84.1",
+              "name": "Proveitos e ganhos em filiais e associadas"
+            },
+            {
+              "code": "84.2",
+              "name": "Custos e perdas em filiais e associadas"
+            },
+            {
+              "code": "84.9",
+              "name": "Transferência para resultados líquidos"
+            }
+          ]
+        },
+        {
+          "code": "85",
+          "name": "Resultados não operacionais",
+          "description": "Non-operating results",
+          "children": [
+            {
+              "code": "85.1",
+              "name": "Proveitos e ganhos não operacionais"
+            },
+            {
+              "code": "85.2",
+              "name": "Custos e perdas não operacionais"
+            },
+            {
+              "code": "85.9",
+              "name": "Transferência para resultados líquidos"
+            }
+          ]
+        },
+        {
+          "code": "86",
+          "name": "Resultados extraordinários",
+          "description": "Extraordinary results",
+          "children": [
+            {
+              "code": "86.1",
+              "name": "Proveitos e ganhos extraordinários"
+            },
+            {
+              "code": "86.2",
+              "name": "Custos e perdas extraordinários"
+            }
+          ]
+        },
+        {
+          "code": "87",
+          "name": "Imposto sobre os lucros",
+          "description": "Income tax"
+        },
+        {
+          "code": "88",
+          "name": "Resultado líquido do exercício",
+          "description": "Net income for the period"
+        },
+        {
+          "code": "89",
+          "name": "Dividendos antecipados",
+          "description": "Advanced dividends"
+        }
+      ]
+    },
+    {
+      "code": "9",
+      "name": "Contabilidade Analítica",
+      "description": "Management accounting (optional use)",
+      "optional": true,
+      "note": "Uso facultativo. Recomendado para empresas industriais.",
+      "accounts": []
+    }
+  ]
+}

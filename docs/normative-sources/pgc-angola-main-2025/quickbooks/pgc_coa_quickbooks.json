@@ -1,0 +1,5172 @@
+{
+  "version": "1.0",
+  "title": "Plano Geral de Contabilidade - Angola",
+  "description": "Angolan General Accounting Plan",
+  "source": "Decreto nº 82/01 de 16 de Novembro",
+  "classes": [
+    {
+      "code": "1",
+      "name": "Meios fixos e investimentos",
+      "description": "Fixed assets and investments",
+      "accounts": [
+        {
+          "code": "11",
+          "name": "Imobilizações corpóreas",
+          "description": "Tangible fixed assets",
+          "type": "Ativos imobilizados",
+          "detailType": "Outros ativos imobilizados",
+          "children": [
+            {
+              "code": "11.1",
+              "name": "Terrenos e recursos naturais",
+              "type": "Ativos imobilizados",
+              "detailType": "Terreno",
+              "children": [
+                {
+                  "code": "11.1.1",
+                  "name": "Terrenos em bruto",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Terreno"
+                },
+                {
+                  "code": "11.1.2",
+                  "name": "Terrenos com arranjos",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Terreno"
+                },
+                {
+                  "code": "11.1.3",
+                  "name": "Subsolos",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Ativos esgotáveis"
+                },
+                {
+                  "code": "11.1.4",
+                  "name": "Terrenos com edifícios",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Terreno",
+                  "children": [
+                    {
+                      "code": "11.1.4.1",
+                      "name": "Relativos a edifícios industriais",
+                      "type": "Ativos imobilizados",
+                      "detailType": "Terreno"
+                    },
+                    {
+                      "code": "11.1.4.2",
+                      "name": "Relativos a edifícios administrativos e comerciais",
+                      "type": "Ativos imobilizados",
+                      "detailType": "Terreno"
+                    },
+                    {
+                      "code": "11.1.4.3",
+                      "name": "Relativos a outros edifícios",
+                      "type": "Ativos imobilizados",
+                      "detailType": "Terreno"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "11.2",
+              "name": "Edifícios e outras construções",
+              "description": "Buildings and other structures",
+              "type": "Ativos imobilizados",
+              "detailType": "Prédios",
+              "children": [
+                {
+                  "code": "11.2.1",
+                  "name": "Edifícios",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Prédios",
+                  "children": [
+                    {
+                      "code": "11.2.1.1",
+                      "name": "Integrados em conjuntos industriais",
+                      "type": "Ativos imobilizados",
+                      "detailType": "Prédios"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "11.3",
+              "name": "Equipamento básico",
+              "description": "Basic equipment",
+              "type": "Ativos imobilizados",
+              "detailType": "Máquinas e equipamentos"
+            },
+            {
+              "code": "11.4",
+              "name": "Equipamento de carga e transporte",
+              "description": "Loading and transport equipment",
+              "type": "Ativos imobilizados",
+              "detailType": "Veículos"
+            },
+            {
+              "code": "11.5",
+              "name": "Equipamento administrativo",
+              "description": "Administrative equipment",
+              "type": "Ativos imobilizados",
+              "detailType": "Móveis e utensílios"
+            },
+            {
+              "code": "11.6",
+              "name": "Taras e vasilhame",
+              "description": "Containers and packaging",
+              "type": "Ativos imobilizados",
+              "detailType": "Outros ativos imobilizados"
+            },
+            {
+              "code": "11.9",
+              "name": "Outras imobilizações corpóreas",
+              "description": "Other tangible fixed assets",
+              "type": "Ativos imobilizados",
+              "detailType": "Outros ativos imobilizados"
+            }
+          ]
+        },
+        {
+          "code": "12",
+          "name": "Imobilizações incorpóreas",
+          "description": "Intangible fixed assets",
+          "type": "Ativos não circulantes",
+          "detailType": "Ativos intangíveis",
+          "children": [
+            {
+              "code": "12.1",
+              "name": "Trespasses",
+              "description": "Goodwill",
+              "type": "Ativos não circulantes",
+              "detailType": "Ágio"
+            },
+            {
+              "code": "12.2",
+              "name": "Despesas de investigação e desenvolvimento",
+              "description": "Research and development expenses",
+              "type": "Ativos não circulantes",
+              "detailType": "Ativos intangíveis"
+            },
+            {
+              "code": "12.3",
+              "name": "Propriedade industrial e outros direitos e contratos",
+              "description": "Industrial property and other rights",
+              "type": "Ativos não circulantes",
+              "detailType": "Ativos intangíveis"
+            },
+            {
+              "code": "12.4",
+              "name": "Despesas de constituição",
+              "description": "Incorporation expenses",
+              "type": "Ativos não circulantes",
+              "detailType": "Custos de organização"
+            },
+            {
+              "code": "12.9",
+              "name": "Outras imobilizações incorpóreas",
+              "description": "Other intangible assets",
+              "type": "Ativos não circulantes",
+              "detailType": "Outros ativos não circulantes"
+            }
+          ]
+        },
+        {
+          "code": "13",
+          "name": "Investimentos Financeiros",
+          "description": "Financial investments",
+          "type": "Ativos não circulantes",
+          "detailType": "Investimentos de longo prazo",
+          "children": [
+            {
+              "code": "13.1",
+              "name": "Empresas subsidiárias",
+              "description": "Subsidiary companies",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo",
+              "children": [
+                {
+                  "code": "13.1.1",
+                  "name": "Partes de capital",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "13.1.2",
+                  "name": "Obrigações e títulos de participação",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "13.1.3",
+                  "name": "Empréstimos",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                }
+              ]
+            },
+            {
+              "code": "13.2",
+              "name": "Empresas associadas",
+              "description": "Associated companies",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo",
+              "children": [
+                {
+                  "code": "13.2.1",
+                  "name": "Partes de capital",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "13.2.2",
+                  "name": "Obrigações e títulos de participação",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "13.2.3",
+                  "name": "Empréstimos",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                }
+              ]
+            },
+            {
+              "code": "13.3",
+              "name": "Outras empresas",
+              "description": "Other companies",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo",
+              "children": [
+                {
+                  "code": "13.3.1",
+                  "name": "Partes de capital",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "13.3.2",
+                  "name": "Obrigações e títulos de participação",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "13.3.3",
+                  "name": "Empréstimos",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                }
+              ]
+            },
+            {
+              "code": "13.4",
+              "name": "Investimentos em imóveis",
+              "description": "Real estate investments",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo"
+            },
+            {
+              "code": "13.5",
+              "name": "Fundos",
+              "description": "Funds",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo"
+            },
+            {
+              "code": "13.9",
+              "name": "Outros investimentos Financeiros",
+              "description": "Other financial investments",
+              "type": "Ativos não circulantes",
+              "detailType": "Outros ativos não circulantes",
+              "children": [
+                {
+                  "code": "13.9.1",
+                  "name": "Diamantes",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Outros ativos não circulantes"
+                },
+                {
+                  "code": "13.9.2",
+                  "name": "Ouro",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Outros ativos não circulantes"
+                },
+                {
+                  "code": "13.9.3",
+                  "name": "Depósitos bancários",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "14",
+          "name": "Imobilizações em Curso",
+          "description": "Work in progress",
+          "type": "Ativos imobilizados",
+          "detailType": "Outros ativos imobilizados",
+          "children": [
+            {
+              "code": "14.1",
+              "name": "Obra em curso",
+              "type": "Ativos imobilizados",
+              "detailType": "Outros ativos imobilizados"
+            },
+            {
+              "code": "14.2",
+              "name": "Obra em curso",
+              "type": "Ativos imobilizados",
+              "detailType": "Outros ativos imobilizados"
+            },
+            {
+              "code": "14.7",
+              "name": "Adiantamentos por conta de imobilizado corpóreo",
+              "type": "Ativos imobilizados",
+              "detailType": "Outros ativos imobilizados"
+            },
+            {
+              "code": "14.8",
+              "name": "Adiantamentos por conta de imobilizado incorpóreo",
+              "type": "Ativos não circulantes",
+              "detailType": "Ativos intangíveis"
+            },
+            {
+              "code": "14.9",
+              "name": "Adiantamentos por conta de investimentos financeiros",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo"
+            }
+          ]
+        },
+        {
+          "code": "18",
+          "name": "Amortizações Acumuladas",
+          "description": "Accumulated depreciation",
+          "type": "Ativos imobilizados",
+          "detailType": "Depreciação acumulada em ativos imobilizados.",
+          "children": [
+            {
+              "code": "18.1",
+              "name": "Imobilizações corpóreas",
+              "type": "Ativos imobilizados",
+              "detailType": "Depreciação acumulada em ativos imobilizados.",
+              "children": [
+                {
+                  "code": "18.1.1",
+                  "name": "Terrenos e recursos naturais",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Exaustão acumulada"
+                },
+                {
+                  "code": "18.1.2",
+                  "name": "Edifícios e outras construções",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Depreciação acumulada em ativos imobilizados."
+                },
+                {
+                  "code": "18.1.3",
+                  "name": "Equipamento básico",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Depreciação acumulada em ativos imobilizados."
+                },
+                {
+                  "code": "18.1.4",
+                  "name": "Equipamento de carga e transporte",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Depreciação acumulada em ativos imobilizados."
+                },
+                {
+                  "code": "18.1.5",
+                  "name": "Equipamento administrativo",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Depreciação acumulada em ativos imobilizados."
+                },
+                {
+                  "code": "18.1.6",
+                  "name": "Taras e vasilhame",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Depreciação acumulada em ativos imobilizados."
+                },
+                {
+                  "code": "18.1.9",
+                  "name": "Outras imobilizações corpóreas",
+                  "type": "Ativos imobilizados",
+                  "detailType": "Depreciação acumulada em ativos imobilizados."
+                }
+              ]
+            },
+            {
+              "code": "18.2",
+              "name": "Imobilizações incorpóreas",
+              "type": "Ativos não circulantes",
+              "detailType": "Amortização acumulada de ativos não circulantes",
+              "children": [
+                {
+                  "code": "18.2.1",
+                  "name": "Trespasses",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Amortização acumulada de ativos não circulantes"
+                },
+                {
+                  "code": "18.2.2",
+                  "name": "Despesas de investigação e desenvolvimento",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Amortização acumulada de ativos não circulantes"
+                },
+                {
+                  "code": "18.2.3",
+                  "name": "Propriedade industrial e outros direitos e contratos",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Amortização acumulada de ativos não circulantes"
+                },
+                {
+                  "code": "18.2.4",
+                  "name": "Despesas de constituição",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Amortização acumulada de ativos não circulantes"
+                },
+                {
+                  "code": "18.2.9",
+                  "name": "Outras imobilizações incorpóreas",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Amortização acumulada de ativos não circulantes"
+                }
+              ]
+            },
+            {
+              "code": "18.3",
+              "name": "Investimentos financeiros em imóveis",
+              "type": "Ativos não circulantes",
+              "detailType": "Amortização acumulada de ativos não circulantes",
+              "children": [
+                {
+                  "code": "18.3.1",
+                  "name": "Terrenos e recursos naturais",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Amortização acumulada de ativos não circulantes"
+                },
+                {
+                  "code": "18.3.2",
+                  "name": "Edifícios e outras construções",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Amortização acumulada de ativos não circulantes"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "19",
+          "name": "Provisões para investimentos financeiros",
+          "description": "Provisions for financial investments",
+          "type": "Ativos não circulantes",
+          "detailType": "Investimentos de longo prazo",
+          "children": [
+            {
+              "code": "19.1",
+              "name": "Empresas subsidiárias",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo",
+              "children": [
+                {
+                  "code": "19.1.1",
+                  "name": "Partes de capital",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "19.1.2",
+                  "name": "Obrigações e títulos de participação",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "19.1.3",
+                  "name": "Empréstimos",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                }
+              ]
+            },
+            {
+              "code": "19.2",
+              "name": "Empresas associadas",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo",
+              "children": [
+                {
+                  "code": "19.2.1",
+                  "name": "Partes de capital",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "19.2.2",
+                  "name": "Obrigações e títulos de participação",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "19.2.3",
+                  "name": "Empréstimos",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                }
+              ]
+            },
+            {
+              "code": "19.3",
+              "name": "Outras empresas",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo",
+              "children": [
+                {
+                  "code": "19.3.1",
+                  "name": "Partes de capital",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "19.3.2",
+                  "name": "Obrigações e títulos de participação",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "19.3.3",
+                  "name": "Empréstimos",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                }
+              ]
+            },
+            {
+              "code": "19.4",
+              "name": "Fundos",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo",
+              "children": [
+                {
+                  "code": "19.4.1",
+                  "name": "Partes de capital",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                }
+              ]
+            },
+            {
+              "code": "19.9",
+              "name": "Outros investimentos financeiros",
+              "type": "Ativos não circulantes",
+              "detailType": "Investimentos de longo prazo",
+              "children": [
+                {
+                  "code": "19.9.1",
+                  "name": "Diamantes",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "19.9.2",
+                  "name": "Ouro",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                },
+                {
+                  "code": "19.9.3",
+                  "name": "Depósitos bancários",
+                  "type": "Ativos não circulantes",
+                  "detailType": "Investimentos de longo prazo"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "2",
+      "name": "Existências",
+      "description": "Inventories",
+      "accounts": [
+        {
+          "code": "21",
+          "name": "Compras",
+          "description": "Purchases",
+          "type": "Ativos circulantes",
+          "detailType": "Estoque",
+          "children": [
+            {
+              "code": "21.1",
+              "name": "Matérias-primas, subsidiárias e de consumo",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "21.2",
+              "name": "Mercadorias",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "21.7",
+              "name": "Devoluções de compras",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "21.8",
+              "name": "Descontos e abatimentos em compras",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            }
+          ]
+        },
+        {
+          "code": "22",
+          "name": "Matérias-primas, subsidiárias e de consumo",
+          "description": "Raw materials and consumables",
+          "type": "Ativos circulantes",
+          "detailType": "Estoque",
+          "children": [
+            {
+              "code": "22.1",
+              "name": "Matérias-primas",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "22.2",
+              "name": "Matérias subsidiárias",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "22.3",
+              "name": "Materiais diversos",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "22.4",
+              "name": "Embalagens de consumo",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "22.5",
+              "name": "Outros materiais",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            }
+          ]
+        },
+        {
+          "code": "23",
+          "name": "Produtos e trabalhos em curso",
+          "description": "Work in progress",
+          "type": "Ativos circulantes",
+          "detailType": "Estoque"
+        },
+        {
+          "code": "24",
+          "name": "Produtos acabados e intermédios",
+          "description": "Finished and intermediate products",
+          "type": "Ativos circulantes",
+          "detailType": "Estoque",
+          "children": [
+            {
+              "code": "24.1",
+              "name": "Produtos acabados",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "24.2",
+              "name": "Produtos intermédios",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "24.9",
+              "name": "Em poder de terceiros",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            }
+          ]
+        },
+        {
+          "code": "25",
+          "name": "Sub-produtos, desperdícios, resíduos e refugos",
+          "description": "By-products and waste",
+          "type": "Ativos circulantes",
+          "detailType": "Estoque",
+          "children": [
+            {
+              "code": "25.1",
+              "name": "Sub-produtos",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "25.2",
+              "name": "Desperdícios, resíduos e refugos",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            }
+          ]
+        },
+        {
+          "code": "26",
+          "name": "Mercadorias",
+          "description": "Goods",
+          "type": "Ativos circulantes",
+          "detailType": "Estoque",
+          "children": [
+            {
+              "code": "26.9",
+              "name": "Em poder de terceiros",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            }
+          ]
+        },
+        {
+          "code": "27",
+          "name": "Matérias-primas, mercadorias e outros materiais em trânsito",
+          "description": "Materials in transit",
+          "type": "Ativos circulantes",
+          "detailType": "Estoque",
+          "children": [
+            {
+              "code": "27.1",
+              "name": "Matérias-primas",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "27.2",
+              "name": "Outros materiais",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "27.3",
+              "name": "Mercadorias",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            }
+          ]
+        },
+        {
+          "code": "28",
+          "name": "Adiantamentos por conta de compras",
+          "description": "Purchase advances",
+          "type": "Ativos circulantes",
+          "detailType": "Adiantamentos em dinheiro a funcionários",
+          "children": [
+            {
+              "code": "28.1",
+              "name": "Matérias-primas e outros materiais",
+              "type": "Ativos circulantes",
+              "detailType": "Adiantamentos em dinheiro a funcionários"
+            },
+            {
+              "code": "28.2",
+              "name": "Mercadorias",
+              "type": "Ativos circulantes",
+              "detailType": "Adiantamentos em dinheiro a funcionários"
+            }
+          ]
+        },
+        {
+          "code": "29",
+          "name": "Provisão para depreciação de existências",
+          "description": "Provisions for inventory depreciation",
+          "type": "Ativos circulantes",
+          "detailType": "Estoque",
+          "children": [
+            {
+              "code": "29.2",
+              "name": "Matérias-primas subsidiárias e de consumo",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "29.3",
+              "name": "Produtos e trabalhos em curso",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "29.4",
+              "name": "Produtos acabados e intermédios",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "29.5",
+              "name": "Sub-produtos, desperdícios, resíduos e refugos",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            },
+            {
+              "code": "29.6",
+              "name": "Mercadorias",
+              "type": "Ativos circulantes",
+              "detailType": "Estoque"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "3",
+      "name": "Terceiros",
+      "description": "Third parties",
+      "accounts": [
+        {
+          "code": "31",
+          "name": "Clientes",
+          "description": "Customers",
+          "type": "Contas a receber (C/R)",
+          "detailType": "Contas a Receber (C/R)",
+          "children": [
+            {
+              "code": "31.1",
+              "name": "Clientes – correntes",
+              "type": "Contas a receber (C/R)",
+              "detailType": "Contas a Receber (C/R)",
+              "children": [
+                {
+                  "code": "31.1.1",
+                  "name": "Grupo",
+                  "type": "Contas a receber (C/R)",
+                  "detailType": "Contas a Receber (C/R)",
+                  "children": [
+                    {
+                      "code": "31.1.1.1",
+                      "name": "Subsidiárias",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    },
+                    {
+                      "code": "31.1.1.2",
+                      "name": "Associadas",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    }
+                  ]
+                },
+                {
+                  "code": "31.1.2",
+                  "name": "Não grupo",
+                  "type": "Contas a receber (C/R)",
+                  "detailType": "Contas a Receber (C/R)",
+                  "children": [
+                    {
+                      "code": "31.1.2.1",
+                      "name": "Nacionais",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    },
+                    {
+                      "code": "31.1.2.2",
+                      "name": "Estrangeiros",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "31.2",
+              "name": "Clientes – títulos a receber",
+              "type": "Contas a receber (C/R)",
+              "detailType": "Contas a Receber (C/R)",
+              "children": [
+                {
+                  "code": "31.2.1",
+                  "name": "Grupo",
+                  "type": "Contas a receber (C/R)",
+                  "detailType": "Contas a Receber (C/R)",
+                  "children": [
+                    {
+                      "code": "31.2.1.1",
+                      "name": "Subsidiárias",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    },
+                    {
+                      "code": "31.2.1.2",
+                      "name": "Associadas",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    }
+                  ]
+                },
+                {
+                  "code": "31.2.2",
+                  "name": "Não grupo",
+                  "type": "Contas a receber (C/R)",
+                  "detailType": "Contas a Receber (C/R)",
+                  "children": [
+                    {
+                      "code": "31.2.2.1",
+                      "name": "Nacionais",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    },
+                    {
+                      "code": "31.2.2.2",
+                      "name": "Estrangeiros",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "31.3",
+              "name": "Clientes – títulos descontados",
+              "type": "Contas a receber (C/R)",
+              "detailType": "Contas a Receber (C/R)",
+              "children": [
+                {
+                  "code": "31.3.1",
+                  "name": "Grupo",
+                  "type": "Contas a receber (C/R)",
+                  "detailType": "Contas a Receber (C/R)",
+                  "children": [
+                    {
+                      "code": "31.3.1.1",
+                      "name": "Subsidiárias",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    },
+                    {
+                      "code": "31.3.1.2",
+                      "name": "Associadas",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    }
+                  ]
+                },
+                {
+                  "code": "31.3.2",
+                  "name": "Não grupo",
+                  "type": "Contas a receber (C/R)",
+                  "detailType": "Contas a Receber (C/R)",
+                  "children": [
+                    {
+                      "code": "31.3.2.1",
+                      "name": "Nacionais",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    },
+                    {
+                      "code": "31.3.2.2",
+                      "name": "Estrangeiros",
+                      "type": "Contas a receber (C/R)",
+                      "detailType": "Contas a Receber (C/R)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "31.8",
+              "name": "Clientes de cobrança duvidosa",
+              "type": "Ativos circulantes",
+              "detailType": "Provisão para créditos de liquidação duvidosa",
+              "children": [
+                {
+                  "code": "31.8.1",
+                  "name": "Clientes – correntes",
+                  "type": "Ativos circulantes",
+                  "detailType": "Provisão para créditos de liquidação duvidosa"
+                },
+                {
+                  "code": "31.8.2",
+                  "name": "Clientes – títulos",
+                  "type": "Ativos circulantes",
+                  "detailType": "Provisão para créditos de liquidação duvidosa"
+                }
+              ]
+            },
+            {
+              "code": "31.9",
+              "name": "Clientes - saldos credores",
+              "type": "Passivos circulantes",
+              "detailType": "Outros passivos circulantes",
+              "children": [
+                {
+                  "code": "31.9.1",
+                  "name": "Adiantamentos",
+                  "type": "Passivos circulantes",
+                  "detailType": "Contas fiduciárias do cliente - passivo"
+                },
+                {
+                  "code": "31.9.2",
+                  "name": "Embalagens a devolver",
+                  "type": "Passivos circulantes",
+                  "detailType": "Outros passivos circulantes"
+                },
+                {
+                  "code": "31.9.3",
+                  "name": "Material à consignação",
+                  "type": "Passivos circulantes",
+                  "detailType": "Outros passivos circulantes"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "32",
+          "name": "Fornecedores",
+          "description": "Suppliers",
+          "type": "Contas a pagar (C/P)",
+          "detailType": "Contas a pagar (C/P)",
+          "children": [
+            {
+              "code": "32.1",
+              "name": "Fornecedores – correntes",
+              "type": "Contas a pagar (C/P)",
+              "detailType": "Contas a pagar (C/P)",
+              "children": [
+                {
+                  "code": "32.1.1",
+                  "name": "Grupo",
+                  "type": "Contas a pagar (C/P)",
+                  "detailType": "Contas a pagar (C/P)",
+                  "children": [
+                    {
+                      "code": "32.1.1.1",
+                      "name": "Subsidiárias",
+                      "type": "Contas a pagar (C/P)",
+                      "detailType": "Contas a pagar (C/P)"
+                    },
+                    {
+                      "code": "32.1.1.2",
+                      "name": "Associadas",
+                      "type": "Contas a pagar (C/P)",
+                      "detailType": "Contas a pagar (C/P)"
+                    }
+                  ]
+                },
+                {
+                  "code": "32.1.2",
+                  "name": "Não grupo",
+                  "type": "Contas a pagar (C/P)",
+                  "detailType": "Contas a pagar (C/P)",
+                  "children": [
+                    {
+                      "code": "32.1.2.1",
+                      "name": "Nacionais",
+                      "type": "Contas a pagar (C/P)",
+                      "detailType": "Contas a pagar (C/P)"
+                    },
+                    {
+                      "code": "32.1.2.2",
+                      "name": "Estrangeiros",
+                      "type": "Contas a pagar (C/P)",
+                      "detailType": "Contas a pagar (C/P)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "32.2",
+              "name": "Fornecedores – títulos a pagar",
+              "type": "Contas a pagar (C/P)",
+              "detailType": "Contas a pagar (C/P)",
+              "children": [
+                {
+                  "code": "32.2.1",
+                  "name": "Grupo",
+                  "type": "Contas a pagar (C/P)",
+                  "detailType": "Contas a pagar (C/P)",
+                  "children": [
+                    {
+                      "code": "32.2.1.1",
+                      "name": "Subsidiárias",
+                      "type": "Contas a pagar (C/P)",
+                      "detailType": "Contas a pagar (C/P)"
+                    },
+                    {
+                      "code": "32.2.1.2",
+                      "name": "Associadas",
+                      "type": "Contas a pagar (C/P)",
+                      "detailType": "Contas a pagar (C/P)"
+                    }
+                  ]
+                },
+                {
+                  "code": "32.2.2",
+                  "name": "Não grupo",
+                  "type": "Contas a pagar (C/P)",
+                  "detailType": "Contas a pagar (C/P)",
+                  "children": [
+                    {
+                      "code": "32.2.2.1",
+                      "name": "Nacionais",
+                      "type": "Contas a pagar (C/P)",
+                      "detailType": "Contas a pagar (C/P)"
+                    },
+                    {
+                      "code": "32.2.2.2",
+                      "name": "Estrangeiros",
+                      "type": "Contas a pagar (C/P)",
+                      "detailType": "Contas a pagar (C/P)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "32.8",
+              "name": "Fornecedores – facturas em recepção e conferência",
+              "type": "Contas a pagar (C/P)",
+              "detailType": "Contas a pagar (C/P)"
+            },
+            {
+              "code": "32.9",
+              "name": "Fornecedores – saldos devedores",
+              "type": "Ativos circulantes",
+              "detailType": "Outros ativos circulantes",
+              "children": [
+                {
+                  "code": "32.9.1",
+                  "name": "Adiantamentos",
+                  "type": "Ativos circulantes",
+                  "detailType": "Adiantamentos em dinheiro a funcionários"
+                },
+                {
+                  "code": "32.9.2",
+                  "name": "Embalagens a devolver",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes"
+                },
+                {
+                  "code": "32.9.3",
+                  "name": "Material à consignação",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "33",
+          "name": "Empréstimos",
+          "description": "Loans",
+          "type": "Passivos circulantes",
+          "detailType": "Empréstimo a pagar",
+          "children": [
+            {
+              "code": "33.1",
+              "name": "Empréstimos bancários",
+              "type": "Passivos circulantes",
+              "detailType": "Empréstimo a pagar",
+              "children": [
+                {
+                  "code": "33.1.1",
+                  "name": "Moeda nacional",
+                  "type": "Passivos circulantes",
+                  "detailType": "Empréstimo a pagar",
+                  "children": [
+                    {
+                      "code": "33.1.1.1",
+                      "name": "Banco ___",
+                      "type": "Passivos circulantes",
+                      "detailType": "Empréstimo a pagar"
+                    }
+                  ]
+                },
+                {
+                  "code": "33.1.2",
+                  "name": "Moeda estrangeira",
+                  "type": "Passivos circulantes",
+                  "detailType": "Empréstimo a pagar",
+                  "children": [
+                    {
+                      "code": "33.1.2.1",
+                      "name": "Banco ___",
+                      "type": "Passivos circulantes",
+                      "detailType": "Empréstimo a pagar"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "33.2",
+              "name": "Empréstimos por obrigações",
+              "type": "Passivos não circulantes",
+              "detailType": "Títulos a pagar",
+              "children": [
+                {
+                  "code": "33.2.1",
+                  "name": "Convertíveis",
+                  "type": "Passivos não circulantes",
+                  "detailType": "Títulos a pagar",
+                  "children": [
+                    {
+                      "code": "33.2.1.1",
+                      "name": "Entidade ___",
+                      "type": "Passivos não circulantes",
+                      "detailType": "Títulos a pagar"
+                    }
+                  ]
+                },
+                {
+                  "code": "33.2.2",
+                  "name": "Não convertíveis",
+                  "type": "Passivos não circulantes",
+                  "detailType": "Títulos a pagar",
+                  "children": [
+                    {
+                      "code": "33.2.2.1",
+                      "name": "Entidade ___",
+                      "type": "Passivos não circulantes",
+                      "detailType": "Títulos a pagar"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "33.3",
+              "name": "Empréstimos por títulos de participação",
+              "type": "Passivos não circulantes",
+              "detailType": "Títulos a pagar",
+              "children": [
+                {
+                  "code": "33.3.1",
+                  "name": "Entidade ___",
+                  "type": "Passivos não circulantes",
+                  "detailType": "Títulos a pagar"
+                }
+              ]
+            },
+            {
+              "code": "33.9",
+              "name": "Outros empréstimos obtidos",
+              "type": "Passivos circulantes",
+              "detailType": "Empréstimo a pagar",
+              "children": [
+                {
+                  "code": "33.9.1",
+                  "name": "Entidade ___",
+                  "type": "Passivos circulantes",
+                  "detailType": "Empréstimo a pagar"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "34",
+          "name": "Estado",
+          "description": "Government",
+          "type": "Passivos circulantes",
+          "detailType": "obrigação tributária corrente",
+          "children": [
+            {
+              "code": "34.1",
+              "name": "Imposto sobre os lucros",
+              "type": "Passivos circulantes",
+              "detailType": "Imposto de renda a pagar"
+            },
+            {
+              "code": "34.2",
+              "name": "Imposto de produção e consumo",
+              "type": "Passivos circulantes",
+              "detailType": "Impostos sobre vendas e serviços a pagar"
+            },
+            {
+              "code": "34.3",
+              "name": "Imposto de rendimento de trabalho",
+              "type": "Passivos circulantes",
+              "detailType": "Passivos da folha de pagamento"
+            },
+            {
+              "code": "34.4",
+              "name": "Imposto de circulação",
+              "type": "Passivos circulantes",
+              "detailType": "obrigação tributária corrente"
+            },
+            {
+              "code": "34.5",
+              "name": "IVA",
+              "type": "Passivos circulantes",
+              "detailType": "Impostos sobre vendas e serviços a pagar",
+              "children": [
+                {
+                  "code": "34.5.1",
+                  "name": "IVA suportado",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes",
+                  "children": [
+                    {
+                      "code": "34.5.1.1",
+                      "name": "Existências",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    },
+                    {
+                      "code": "34.5.1.2",
+                      "name": "Meios fixos e investimentos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    },
+                    {
+                      "code": "34.5.1.3",
+                      "name": "Outros bens e serviços",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.2",
+                  "name": "IVA dedutível",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes",
+                  "children": [
+                    {
+                      "code": "34.5.2.1",
+                      "name": "Existências",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    },
+                    {
+                      "code": "34.5.2.2",
+                      "name": "Meios fixos e investimentos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    },
+                    {
+                      "code": "34.5.2.3",
+                      "name": "Outros bens e serviços",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.3",
+                  "name": "IVA liquidado",
+                  "type": "Passivos circulantes",
+                  "detailType": "Impostos sobre vendas e serviços a pagar",
+                  "children": [
+                    {
+                      "code": "34.5.3.1",
+                      "name": "Operações gerais",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    },
+                    {
+                      "code": "34.5.3.2",
+                      "name": "Operações abrangidas pelo regime de IVA de caixa",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    },
+                    {
+                      "code": "34.5.3.3",
+                      "name": "Autoconsumo e operações gratuitas",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    },
+                    {
+                      "code": "34.5.3.4",
+                      "name": "Operações especiais",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.4",
+                  "name": "IVA regularizações",
+                  "type": "Passivos circulantes",
+                  "detailType": "Impostos sobre vendas e serviços a pagar",
+                  "children": [
+                    {
+                      "code": "34.5.4.1",
+                      "name": "Mensais a favor do sujeito passivo",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    },
+                    {
+                      "code": "34.5.4.2",
+                      "name": "Mensais a favor do Estado",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    },
+                    {
+                      "code": "34.5.4.3",
+                      "name": "Anual por cálculo do pró rata definitivo",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    },
+                    {
+                      "code": "34.5.4.4",
+                      "name": "Outras regularizações anuais",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.5",
+                  "name": "IVA apuramento",
+                  "type": "Passivos circulantes",
+                  "detailType": "Impostos sobre vendas e serviços a pagar",
+                  "children": [
+                    {
+                      "code": "34.5.5.1",
+                      "name": "Apuramento do regime de IVA normal",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    },
+                    {
+                      "code": "34.5.5.2",
+                      "name": "Apuramento do regime de IVA de caixa",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.6",
+                  "name": "IVA a pagar",
+                  "type": "Passivos circulantes",
+                  "detailType": "Impostos sobre vendas e serviços a pagar",
+                  "children": [
+                    {
+                      "code": "34.5.6.1",
+                      "name": "IVA a pagar de apuramento",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    },
+                    {
+                      "code": "34.5.6.2",
+                      "name": "IVA a pagar de cativo",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    },
+                    {
+                      "code": "34.5.6.3",
+                      "name": "IVA a pagar de liquidações oficiosas",
+                      "type": "Passivos circulantes",
+                      "detailType": "Impostos sobre vendas e serviços a pagar"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.7",
+                  "name": "IVA a recuperar",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes",
+                  "children": [
+                    {
+                      "code": "34.5.7.1",
+                      "name": "IVA a recuperar de apuramentos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    },
+                    {
+                      "code": "34.5.7.2",
+                      "name": "IVA a recuperar de cativo",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.8",
+                  "name": "IVA reembolsos pedidos",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes",
+                  "children": [
+                    {
+                      "code": "34.5.8.1",
+                      "name": "Reembolsos pedidos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    },
+                    {
+                      "code": "34.5.8.2",
+                      "name": "Reembolsos deferidos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    },
+                    {
+                      "code": "34.5.8.3",
+                      "name": "Reembolsos indeferidos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    },
+                    {
+                      "code": "34.5.8.4",
+                      "name": "Reembolsos reclamados, recorridos ou impugnados",
+                      "type": "Ativos circulantes",
+                      "detailType": "Outros ativos circulantes"
+                    }
+                  ]
+                },
+                {
+                  "code": "34.5.9",
+                  "name": "IVA Liquidações oficiosas",
+                  "type": "Passivos circulantes",
+                  "detailType": "Impostos sobre vendas e serviços a pagar"
+                }
+              ]
+            },
+            {
+              "code": "34.6",
+              "name": "Certificado de crédito fiscal a compensar",
+              "type": "Ativos circulantes",
+              "detailType": "Outros ativos circulantes"
+            },
+            {
+              "code": "34.8",
+              "name": "Subsídios a preços",
+              "type": "Ativos circulantes",
+              "detailType": "Outros ativos circulantes"
+            },
+            {
+              "code": "34.9",
+              "name": "Outros impostos",
+              "type": "Passivos circulantes",
+              "detailType": "obrigação tributária corrente"
+            }
+          ]
+        },
+        {
+          "code": "35",
+          "name": "Entidades participantes e participadas",
+          "description": "Participating entities",
+          "type": "Ativos circulantes",
+          "detailType": "Investimentos - Outros",
+          "children": [
+            {
+              "code": "35.1",
+              "name": "Entidades participantes",
+              "type": "Ativos circulantes",
+              "detailType": "Investimentos - Outros",
+              "children": [
+                {
+                  "code": "35.1.1",
+                  "name": "Estado",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros",
+                  "children": [
+                    {
+                      "code": "35.1.1.1",
+                      "name": "c/subscrição",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.1.2",
+                      "name": "c/adiantamentos sobre lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.1.3",
+                      "name": "c/lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.1.4",
+                      "name": "Empréstimos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Empréstimos para terceiros"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.1.2",
+                  "name": "Empresas do grupo – subsidiárias",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros",
+                  "children": [
+                    {
+                      "code": "35.1.2.1",
+                      "name": "c/subscrição",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.2.2",
+                      "name": "c/adiantamentos sobre lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.2.3",
+                      "name": "c/lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.2.4",
+                      "name": "Empréstimos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Empréstimos para terceiros"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.1.3",
+                  "name": "Empresas do grupo – associadas",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros",
+                  "children": [
+                    {
+                      "code": "35.1.3.1",
+                      "name": "c/subscrição",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.3.2",
+                      "name": "c/adiantamentos sobre lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.3.3",
+                      "name": "c/lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.3.4",
+                      "name": "Empréstimos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Empréstimos para terceiros"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.1.4",
+                  "name": "Outros",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros",
+                  "children": [
+                    {
+                      "code": "35.1.4.1",
+                      "name": "c/subscrição",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.4.2",
+                      "name": "c/adiantamentos sobre lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.4.3",
+                      "name": "c/lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.1.4.4",
+                      "name": "Empréstimos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Empréstimos para terceiros"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "35.2",
+              "name": "Entidades participadas",
+              "type": "Ativos circulantes",
+              "detailType": "Investimentos - Outros",
+              "children": [
+                {
+                  "code": "35.2.1",
+                  "name": "Estado",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros",
+                  "children": [
+                    {
+                      "code": "35.2.1.1",
+                      "name": "c/subscrição",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.1.2",
+                      "name": "c/adiantamentos sobre lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.1.3",
+                      "name": "c/lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.1.4",
+                      "name": "Empréstimos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Empréstimos para terceiros"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.2.2",
+                  "name": "Empresas do grupo – subsidiárias",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros",
+                  "children": [
+                    {
+                      "code": "35.2.2.1",
+                      "name": "c/subscrição",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.2.2",
+                      "name": "c/adiantamentos sobre lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.2.3",
+                      "name": "c/lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.2.4",
+                      "name": "Empréstimos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Empréstimos para terceiros"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.2.3",
+                  "name": "Empresas do grupo – associadas",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros",
+                  "children": [
+                    {
+                      "code": "35.2.3.1",
+                      "name": "c/subscrição",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.3.2",
+                      "name": "c/adiantamentos sobre lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.3.3",
+                      "name": "c/lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.3.4",
+                      "name": "Empréstimos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Empréstimos para terceiros"
+                    }
+                  ]
+                },
+                {
+                  "code": "35.2.4",
+                  "name": "Outros",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros",
+                  "children": [
+                    {
+                      "code": "35.2.4.1",
+                      "name": "c/subscrição",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.4.2",
+                      "name": "c/adiantamentos sobre lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.4.3",
+                      "name": "c/lucros",
+                      "type": "Ativos circulantes",
+                      "detailType": "Investimentos - Outros"
+                    },
+                    {
+                      "code": "35.2.4.4",
+                      "name": "Empréstimos",
+                      "type": "Ativos circulantes",
+                      "detailType": "Empréstimos para terceiros"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "36",
+          "name": "Pessoal",
+          "description": "Personnel",
+          "type": "Passivos circulantes",
+          "detailType": "Passivos da folha de pagamento",
+          "children": [
+            {
+              "code": "36.1",
+              "name": "Pessoal – remunerações",
+              "type": "Passivos circulantes",
+              "detailType": "Passivos da folha de pagamento",
+              "children": [
+                {
+                  "code": "36.1.1",
+                  "name": "Órgãos sociais",
+                  "type": "Passivos circulantes",
+                  "detailType": "Passivos da folha de pagamento"
+                },
+                {
+                  "code": "36.1.2",
+                  "name": "Empregados",
+                  "type": "Passivos circulantes",
+                  "detailType": "Passivos da folha de pagamento"
+                }
+              ]
+            },
+            {
+              "code": "36.2",
+              "name": "Pessoal – participação nos resultados",
+              "type": "Passivos circulantes",
+              "detailType": "Passivos da folha de pagamento",
+              "children": [
+                {
+                  "code": "36.2.1",
+                  "name": "Órgãos sociais",
+                  "type": "Passivos circulantes",
+                  "detailType": "Passivos da folha de pagamento"
+                },
+                {
+                  "code": "36.2.2",
+                  "name": "Empregados",
+                  "type": "Passivos circulantes",
+                  "detailType": "Passivos da folha de pagamento"
+                }
+              ]
+            },
+            {
+              "code": "36.3",
+              "name": "Pessoal – adiantamentos",
+              "type": "Ativos circulantes",
+              "detailType": "Adiantamentos em dinheiro a funcionários"
+            },
+            {
+              "code": "36.9",
+              "name": "Pessoal – outros",
+              "type": "Passivos circulantes",
+              "detailType": "Outros passivos circulantes"
+            }
+          ]
+        },
+        {
+          "code": "37",
+          "name": "Outros valores a receber e a pagar",
+          "description": "Other receivables and payables",
+          "type": "Ativos circulantes",
+          "detailType": "Outros ativos circulantes",
+          "children": [
+            {
+              "code": "37.1",
+              "name": "Compras de imobilizado",
+              "type": "Passivos circulantes",
+              "detailType": "Outros passivos circulantes",
+              "children": [
+                {
+                  "code": "37.1.1",
+                  "name": "Corpóreo",
+                  "type": "Passivos circulantes",
+                  "detailType": "Outros passivos circulantes"
+                },
+                {
+                  "code": "37.1.2",
+                  "name": "Incorpóreo",
+                  "type": "Passivos circulantes",
+                  "detailType": "Outros passivos circulantes"
+                },
+                {
+                  "code": "37.1.3",
+                  "name": "Financeiro",
+                  "type": "Passivos circulantes",
+                  "detailType": "Outros passivos circulantes"
+                }
+              ]
+            },
+            {
+              "code": "37.2",
+              "name": "Vendas de imobilizado",
+              "type": "Ativos circulantes",
+              "detailType": "Outros ativos circulantes",
+              "children": [
+                {
+                  "code": "37.2.1",
+                  "name": "Corpóreo",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes"
+                },
+                {
+                  "code": "37.2.2",
+                  "name": "Incorpóreo",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes"
+                },
+                {
+                  "code": "37.2.3",
+                  "name": "Financeiro",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes"
+                }
+              ]
+            },
+            {
+              "code": "37.3",
+              "name": "Proveitos a facturar",
+              "type": "Ativos circulantes",
+              "detailType": "Outros ativos circulantes",
+              "children": [
+                {
+                  "code": "37.3.1",
+                  "name": "Vendas",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes"
+                },
+                {
+                  "code": "37.3.2",
+                  "name": "Prestações de serviço",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes"
+                },
+                {
+                  "code": "37.3.3",
+                  "name": "Juros",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes"
+                }
+              ]
+            },
+            {
+              "code": "37.4",
+              "name": "Encargos a repartir por períodos futuros",
+              "type": "Ativos circulantes",
+              "detailType": "Despesas pagas antecipadamente",
+              "children": [
+                {
+                  "code": "37.4.1",
+                  "name": "Descontos de emissão de obrigações",
+                  "type": "Ativos circulantes",
+                  "detailType": "Despesas pagas antecipadamente"
+                },
+                {
+                  "code": "37.4.2",
+                  "name": "Descontos de emissão de títulos de participação",
+                  "type": "Ativos circulantes",
+                  "detailType": "Despesas pagas antecipadamente"
+                }
+              ]
+            },
+            {
+              "code": "37.5",
+              "name": "Encargos a pagar",
+              "type": "Passivos circulantes",
+              "detailType": "Obrigações acumuladas",
+              "children": [
+                {
+                  "code": "37.5.1",
+                  "name": "Remunerações",
+                  "type": "Passivos circulantes",
+                  "detailType": "Passivos da folha de pagamento"
+                },
+                {
+                  "code": "37.5.2",
+                  "name": "Juros",
+                  "type": "Passivos circulantes",
+                  "detailType": "Obrigações acumuladas"
+                }
+              ]
+            },
+            {
+              "code": "37.6",
+              "name": "Proveitos a repartir por períodos futuros",
+              "type": "Passivos circulantes",
+              "detailType": "Outros passivos circulantes",
+              "children": [
+                {
+                  "code": "37.6.1",
+                  "name": "Prémios de emissão de obrigações",
+                  "type": "Passivos circulantes",
+                  "detailType": "Outros passivos circulantes"
+                },
+                {
+                  "code": "37.6.2",
+                  "name": "Prémios de emissão de títulos de participação",
+                  "type": "Passivos circulantes",
+                  "detailType": "Outros passivos circulantes"
+                },
+                {
+                  "code": "37.6.3",
+                  "name": "Subsídios para investimento",
+                  "type": "Passivos circulantes",
+                  "detailType": "Outros passivos circulantes"
+                },
+                {
+                  "code": "37.6.4",
+                  "name": "Diferenças de câmbio favoráveis reversíveis",
+                  "type": "Passivos circulantes",
+                  "detailType": "Outros passivos circulantes"
+                }
+              ]
+            },
+            {
+              "code": "37.7",
+              "name": "Contas transitórias",
+              "type": "Ativos circulantes",
+              "detailType": "Outros ativos circulantes",
+              "children": [
+                {
+                  "code": "37.7.1",
+                  "name": "Transacções entre a sede e as dependências da empresa",
+                  "type": "Ativos circulantes",
+                  "detailType": "Outros ativos circulantes"
+                }
+              ]
+            },
+            {
+              "code": "37.9",
+              "name": "Outros valores a receber e a pagar",
+              "type": "Ativos circulantes",
+              "detailType": "Outros ativos circulantes"
+            }
+          ]
+        },
+        {
+          "code": "38",
+          "name": "Provisões para cobranças duvidosas",
+          "description": "Provisions for doubtful debts",
+          "type": "Ativos circulantes",
+          "detailType": "Provisão para créditos de liquidação duvidosa",
+          "children": [
+            {
+              "code": "38.1",
+              "name": "Provisões para clientes",
+              "type": "Ativos circulantes",
+              "detailType": "Provisão para créditos de liquidação duvidosa",
+              "children": [
+                {
+                  "code": "38.1.1",
+                  "name": "Clientes – correntes",
+                  "type": "Ativos circulantes",
+                  "detailType": "Provisão para créditos de liquidação duvidosa",
+                  "children": [
+                    {
+                      "code": "38.1.1.1",
+                      "name": "Grupo",
+                      "type": "Ativos circulantes",
+                      "detailType": "Provisão para créditos de liquidação duvidosa"
+                    },
+                    {
+                      "code": "38.1.1.2",
+                      "name": "Não grupo",
+                      "type": "Ativos circulantes",
+                      "detailType": "Provisão para créditos de liquidação duvidosa"
+                    }
+                  ]
+                },
+                {
+                  "code": "38.1.2",
+                  "name": "Cliente – títulos a receber",
+                  "type": "Ativos circulantes",
+                  "detailType": "Provisão para créditos de liquidação duvidosa",
+                  "children": [
+                    {
+                      "code": "38.1.2.1",
+                      "name": "Grupo",
+                      "type": "Ativos circulantes",
+                      "detailType": "Provisão para créditos de liquidação duvidosa"
+                    },
+                    {
+                      "code": "38.1.2.2",
+                      "name": "Não grupo",
+                      "type": "Ativos circulantes",
+                      "detailType": "Provisão para créditos de liquidação duvidosa"
+                    }
+                  ]
+                },
+                {
+                  "code": "38.1.3",
+                  "name": "Clientes – cobrança duvidosa",
+                  "type": "Ativos circulantes",
+                  "detailType": "Provisão para créditos de liquidação duvidosa",
+                  "children": [
+                    {
+                      "code": "38.1.3.1",
+                      "name": "Grupo",
+                      "type": "Ativos circulantes",
+                      "detailType": "Provisão para créditos de liquidação duvidosa"
+                    },
+                    {
+                      "code": "38.1.3.2",
+                      "name": "Não grupo",
+                      "type": "Ativos circulantes",
+                      "detailType": "Provisão para créditos de liquidação duvidosa"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "38.2",
+              "name": "Provisões para saldos devedores de fornecedores",
+              "type": "Ativos circulantes",
+              "detailType": "Provisão para créditos de liquidação duvidosa"
+            },
+            {
+              "code": "38.3",
+              "name": "Provisões p/participantes e participadas",
+              "type": "Ativos circulantes",
+              "detailType": "Provisão para créditos de liquidação duvidosa",
+              "children": [
+                {
+                  "code": "38.3.1",
+                  "name": "Participantes",
+                  "type": "Ativos circulantes",
+                  "detailType": "Provisão para créditos de liquidação duvidosa"
+                },
+                {
+                  "code": "38.3.2",
+                  "name": "Participadas",
+                  "type": "Ativos circulantes",
+                  "detailType": "Provisão para créditos de liquidação duvidosa"
+                }
+              ]
+            },
+            {
+              "code": "38.4",
+              "name": "Provisões p/dívidas do pessoal",
+              "type": "Ativos circulantes",
+              "detailType": "Provisão para créditos de liquidação duvidosa"
+            },
+            {
+              "code": "38.9",
+              "name": "Provisões para outros saldos a receber",
+              "type": "Ativos circulantes",
+              "detailType": "Provisão para créditos de liquidação duvidosa",
+              "children": [
+                {
+                  "code": "38.9.1",
+                  "name": "Vendas imobilizado",
+                  "type": "Ativos circulantes",
+                  "detailType": "Provisão para créditos de liquidação duvidosa"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "39",
+          "name": "Provisões para outros riscos e encargos",
+          "description": "Provisions for other risks and charges",
+          "type": "Passivos circulantes",
+          "detailType": "Obrigações acumuladas",
+          "children": [
+            {
+              "code": "39.1",
+              "name": "Provisões para pensões",
+              "type": "Passivos circulantes",
+              "detailType": "Obrigações acumuladas"
+            },
+            {
+              "code": "39.2",
+              "name": "Provisões para processos judiciais em curso",
+              "type": "Passivos circulantes",
+              "detailType": "Obrigações acumuladas"
+            },
+            {
+              "code": "39.3",
+              "name": "Provisões para acidentes de trabalho",
+              "type": "Passivos circulantes",
+              "detailType": "Obrigações acumuladas"
+            },
+            {
+              "code": "39.4",
+              "name": "Provisões para garantias dadas a clientes",
+              "type": "Passivos circulantes",
+              "detailType": "Obrigações acumuladas"
+            },
+            {
+              "code": "39.9",
+              "name": "Provisões para outros riscos e encargos",
+              "type": "Passivos circulantes",
+              "detailType": "Obrigações acumuladas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "4",
+      "name": "Meios monetários",
+      "description": "Monetary assets",
+      "accounts": [
+        {
+          "code": "41",
+          "name": "Títulos negociáveis",
+          "description": "Marketable securities",
+          "type": "Ativos circulantes",
+          "detailType": "Investimentos - Outros",
+          "children": [
+            {
+              "code": "41.1",
+              "name": "Acções",
+              "type": "Ativos circulantes",
+              "detailType": "Investimentos - Outros",
+              "children": [
+                {
+                  "code": "41.1.1",
+                  "name": "Empresas do grupo",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros"
+                },
+                {
+                  "code": "41.1.2",
+                  "name": "Associadas",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros"
+                },
+                {
+                  "code": "41.1.3",
+                  "name": "Outras empresas",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros"
+                }
+              ]
+            },
+            {
+              "code": "41.2",
+              "name": "Obrigações",
+              "type": "Ativos circulantes",
+              "detailType": "Investimentos - Outros",
+              "children": [
+                {
+                  "code": "41.2.1",
+                  "name": "Empresas do grupo",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros"
+                },
+                {
+                  "code": "41.2.2",
+                  "name": "Associadas",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros"
+                },
+                {
+                  "code": "41.2.3",
+                  "name": "Outras empresas",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros"
+                }
+              ]
+            },
+            {
+              "code": "41.3",
+              "name": "Títulos da dívida pública",
+              "type": "Ativos circulantes",
+              "detailType": "Investimentos - Outros"
+            }
+          ]
+        },
+        {
+          "code": "42",
+          "name": "Depósitos a prazo",
+          "description": "Time deposits",
+          "type": "Caixa e equivalentes-caixa",
+          "detailType": "Banco",
+          "children": [
+            {
+              "code": "42.1",
+              "name": "Moeda nacional",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Banco",
+              "children": [
+                {
+                  "code": "42.1.1",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                },
+                {
+                  "code": "42.1.2",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                }
+              ]
+            },
+            {
+              "code": "42.2",
+              "name": "Moeda estrangeira",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Banco",
+              "children": [
+                {
+                  "code": "42.2.1",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                },
+                {
+                  "code": "42.2.2",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "43",
+          "name": "Depósitos à ordem",
+          "description": "Demand deposits",
+          "type": "Caixa e equivalentes-caixa",
+          "detailType": "Banco",
+          "children": [
+            {
+              "code": "43.1",
+              "name": "Moeda nacional",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Banco",
+              "children": [
+                {
+                  "code": "43.1.1",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                },
+                {
+                  "code": "43.1.2",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                }
+              ]
+            },
+            {
+              "code": "43.2",
+              "name": "Moeda estrangeira",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Banco",
+              "children": [
+                {
+                  "code": "43.2.1",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                },
+                {
+                  "code": "43.2.2",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "44",
+          "name": "Outros depósitos",
+          "description": "Other deposits",
+          "type": "Caixa e equivalentes-caixa",
+          "detailType": "Banco",
+          "children": [
+            {
+              "code": "44.1",
+              "name": "Moeda nacional",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Banco",
+              "children": [
+                {
+                  "code": "44.1.1",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                },
+                {
+                  "code": "44.1.2",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                }
+              ]
+            },
+            {
+              "code": "44.2",
+              "name": "Moeda estrangeira",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Banco",
+              "children": [
+                {
+                  "code": "44.2.1",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                },
+                {
+                  "code": "44.2.2",
+                  "name": "Banco ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Banco"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "45",
+          "name": "Caixa",
+          "description": "Cash",
+          "type": "Caixa e equivalentes-caixa",
+          "detailType": "Dinheiro em caixa",
+          "children": [
+            {
+              "code": "45.1",
+              "name": "Fundo fixo",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Dinheiro em caixa",
+              "children": [
+                {
+                  "code": "45.1.1",
+                  "name": "Caixa ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Dinheiro em caixa"
+                },
+                {
+                  "code": "45.1.2",
+                  "name": "Caixa ___",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Dinheiro em caixa"
+                }
+              ]
+            },
+            {
+              "code": "45.2",
+              "name": "Valores para depositar",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Fundos não depositados"
+            },
+            {
+              "code": "45.3",
+              "name": "Valores destinados a pagamentos específicos",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Dinheiro em caixa",
+              "children": [
+                {
+                  "code": "45.3.1",
+                  "name": "Salários",
+                  "type": "Caixa e equivalentes-caixa",
+                  "detailType": "Dinheiro em caixa"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "48",
+          "name": "Conta transitória",
+          "description": "Transit account",
+          "type": "Caixa e equivalentes-caixa",
+          "detailType": "Banco",
+          "children": [
+            {
+              "code": "48.1",
+              "name": "Banco ___",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Banco"
+            },
+            {
+              "code": "48.2",
+              "name": "Banco ___",
+              "type": "Caixa e equivalentes-caixa",
+              "detailType": "Banco"
+            }
+          ]
+        },
+        {
+          "code": "49",
+          "name": "Provisões para aplicações de tesouraria",
+          "description": "Provisions for treasury investments",
+          "type": "Ativos circulantes",
+          "detailType": "Investimentos - Outros",
+          "children": [
+            {
+              "code": "49.1",
+              "name": "Títulos negociáveis",
+              "type": "Ativos circulantes",
+              "detailType": "Investimentos - Outros",
+              "children": [
+                {
+                  "code": "49.1.1",
+                  "name": "Acções",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros"
+                },
+                {
+                  "code": "49.1.2",
+                  "name": "Obrigações",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros"
+                },
+                {
+                  "code": "49.1.3",
+                  "name": "Títulos da dívida pública",
+                  "type": "Ativos circulantes",
+                  "detailType": "Investimentos - Outros"
+                }
+              ]
+            },
+            {
+              "code": "49.2",
+              "name": "Outras aplicações de tesouraria",
+              "type": "Ativos circulantes",
+              "detailType": "Investimentos - Outros"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "5",
+      "name": "Capital e reservas",
+      "description": "Equity",
+      "accounts": [
+        {
+          "code": "51",
+          "name": "Capital",
+          "description": "Capital",
+          "type": "Capital do proprietário",
+          "detailType": "Capital social"
+        },
+        {
+          "code": "52",
+          "name": "Acções/quotas próprias",
+          "description": "Own shares/quotas",
+          "type": "Capital do proprietário",
+          "detailType": "Ações em tesouraria",
+          "children": [
+            {
+              "code": "52.1",
+              "name": "Valor nominal",
+              "type": "Capital do proprietário",
+              "detailType": "Ações em tesouraria"
+            },
+            {
+              "code": "52.2",
+              "name": "Descontos",
+              "type": "Capital do proprietário",
+              "detailType": "Ações em tesouraria"
+            },
+            {
+              "code": "52.3",
+              "name": "Prémios",
+              "type": "Capital do proprietário",
+              "detailType": "Ações em tesouraria"
+            }
+          ]
+        },
+        {
+          "code": "53",
+          "name": "Prémios de emissão",
+          "description": "Share premium",
+          "type": "Capital do proprietário",
+          "detailType": "Capital integralizado ou excedente"
+        },
+        {
+          "code": "54",
+          "name": "Prestações suplementares",
+          "description": "Supplementary contributions",
+          "type": "Capital do proprietário",
+          "detailType": "Contribuições de sócios"
+        },
+        {
+          "code": "55",
+          "name": "Reservas legais",
+          "description": "Legal reserves",
+          "type": "Capital do proprietário",
+          "detailType": "Lucros acumulados"
+        },
+        {
+          "code": "56",
+          "name": "Reservas de reavaliação",
+          "description": "Revaluation reserves",
+          "type": "Capital do proprietário",
+          "detailType": "Outros rendimentos abrangentes",
+          "children": [
+            {
+              "code": "56.1",
+              "name": "Legais",
+              "type": "Capital do proprietário",
+              "detailType": "Outros rendimentos abrangentes",
+              "children": [
+                {
+                  "code": "56.1.1",
+                  "name": "Decreto-Lei n.º ___",
+                  "type": "Capital do proprietário",
+                  "detailType": "Outros rendimentos abrangentes"
+                },
+                {
+                  "code": "56.1.2",
+                  "name": "Decreto-Lei n.º ___",
+                  "type": "Capital do proprietário",
+                  "detailType": "Outros rendimentos abrangentes"
+                }
+              ]
+            },
+            {
+              "code": "56.2",
+              "name": "Autónomas",
+              "type": "Capital do proprietário",
+              "detailType": "Outros rendimentos abrangentes",
+              "children": [
+                {
+                  "code": "56.2.1",
+                  "name": "Avaliação",
+                  "type": "Capital do proprietário",
+                  "detailType": "Outros rendimentos abrangentes"
+                },
+                {
+                  "code": "56.2.2",
+                  "name": "Realização",
+                  "type": "Capital do proprietário",
+                  "detailType": "Outros rendimentos abrangentes"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "57",
+          "name": "Reservas com fins especiais",
+          "description": "Special purpose reserves",
+          "type": "Capital do proprietário",
+          "detailType": "Lucros acumulados"
+        },
+        {
+          "code": "58",
+          "name": "Reservas livres",
+          "description": "Free reserves",
+          "type": "Capital do proprietário",
+          "detailType": "Lucros acumulados"
+        }
+      ]
+    },
+    {
+      "code": "6",
+      "name": "Proveitos e ganhos por natureza",
+      "description": "Income and gains by nature",
+      "accounts": [
+        {
+          "code": "61",
+          "name": "Vendas",
+          "description": "Sales",
+          "type": "Receita",
+          "detailType": "Receita de venda de produtos",
+          "children": [
+            {
+              "code": "61.1",
+              "name": "Produtos acabados e intermédios",
+              "type": "Receita",
+              "detailType": "Receita de venda de produtos",
+              "children": [
+                {
+                  "code": "61.1.1",
+                  "name": "Mercado nacional",
+                  "type": "Receita",
+                  "detailType": "Vendas - varejo"
+                },
+                {
+                  "code": "61.1.2",
+                  "name": "Mercado estrangeiro",
+                  "type": "Receita",
+                  "detailType": "Vendas - atacado"
+                }
+              ]
+            },
+            {
+              "code": "61.2",
+              "name": "Sub-produtos, desperdícios, resíduos e refugos",
+              "type": "Receita",
+              "detailType": "Receita de venda de produtos",
+              "children": [
+                {
+                  "code": "61.2.1",
+                  "name": "Mercado nacional",
+                  "type": "Receita",
+                  "detailType": "Receita de venda de produtos"
+                },
+                {
+                  "code": "61.2.2",
+                  "name": "Mercado estrangeiro",
+                  "type": "Receita",
+                  "detailType": "Receita de venda de produtos"
+                }
+              ]
+            },
+            {
+              "code": "61.3",
+              "name": "Mercadorias",
+              "type": "Receita",
+              "detailType": "Receita de venda de produtos",
+              "children": [
+                {
+                  "code": "61.3.1",
+                  "name": "Mercado nacional",
+                  "type": "Receita",
+                  "detailType": "Vendas - varejo"
+                },
+                {
+                  "code": "61.3.2",
+                  "name": "Mercado estrangeiro",
+                  "type": "Receita",
+                  "detailType": "Vendas - atacado"
+                }
+              ]
+            },
+            {
+              "code": "61.4",
+              "name": "Embalagens de consumo",
+              "type": "Receita",
+              "detailType": "Receita de venda de produtos",
+              "children": [
+                {
+                  "code": "61.4.1",
+                  "name": "Mercado nacional",
+                  "type": "Receita",
+                  "detailType": "Receita de venda de produtos"
+                },
+                {
+                  "code": "61.4.2",
+                  "name": "Mercado estrangeiro",
+                  "type": "Receita",
+                  "detailType": "Receita de venda de produtos"
+                }
+              ]
+            },
+            {
+              "code": "61.5",
+              "name": "Subsídios a preços",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            },
+            {
+              "code": "61.7",
+              "name": "Devoluções",
+              "type": "Receita",
+              "detailType": "Descontos/reembolsos concedidos",
+              "children": [
+                {
+                  "code": "61.7.1",
+                  "name": "Mercado nacional",
+                  "type": "Receita",
+                  "detailType": "Descontos/reembolsos concedidos"
+                },
+                {
+                  "code": "61.7.2",
+                  "name": "Mercado estrangeiro",
+                  "type": "Receita",
+                  "detailType": "Descontos/reembolsos concedidos"
+                }
+              ]
+            },
+            {
+              "code": "61.8",
+              "name": "Descontos e abatimentos",
+              "type": "Receita",
+              "detailType": "Descontos/reembolsos concedidos",
+              "children": [
+                {
+                  "code": "61.8.1",
+                  "name": "Mercado nacional",
+                  "type": "Receita",
+                  "detailType": "Descontos/reembolsos concedidos"
+                },
+                {
+                  "code": "61.8.2",
+                  "name": "Mercado estrangeiro",
+                  "type": "Receita",
+                  "detailType": "Descontos/reembolsos concedidos"
+                }
+              ]
+            },
+            {
+              "code": "61.9",
+              "name": "Transferência para resultados operacionais",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            }
+          ]
+        },
+        {
+          "code": "62",
+          "name": "Prestações de serviço",
+          "description": "Services",
+          "type": "Receita",
+          "detailType": "Lucro de serviços/comissão",
+          "children": [
+            {
+              "code": "62.1",
+              "name": "Serviços principais",
+              "type": "Receita",
+              "detailType": "Lucro de serviços/comissão",
+              "children": [
+                {
+                  "code": "62.1.1",
+                  "name": "Mercado nacional",
+                  "type": "Receita",
+                  "detailType": "Lucro de serviços/comissão"
+                },
+                {
+                  "code": "62.1.2",
+                  "name": "Mercado estrangeiro",
+                  "type": "Receita",
+                  "detailType": "Lucro de serviços/comissão"
+                }
+              ]
+            },
+            {
+              "code": "62.2",
+              "name": "Serviços secundários",
+              "type": "Receita",
+              "detailType": "Lucro de serviços/comissão",
+              "children": [
+                {
+                  "code": "62.2.1",
+                  "name": "Mercado nacional",
+                  "type": "Receita",
+                  "detailType": "Lucro de serviços/comissão"
+                },
+                {
+                  "code": "62.2.2",
+                  "name": "Mercado estrangeiro",
+                  "type": "Receita",
+                  "detailType": "Lucro de serviços/comissão"
+                }
+              ]
+            },
+            {
+              "code": "62.8",
+              "name": "Descontos e abatimentos",
+              "type": "Receita",
+              "detailType": "Descontos/reembolsos concedidos",
+              "children": [
+                {
+                  "code": "62.8.1",
+                  "name": "Mercado nacional",
+                  "type": "Receita",
+                  "detailType": "Descontos/reembolsos concedidos"
+                },
+                {
+                  "code": "62.8.2",
+                  "name": "Mercado estrangeiro",
+                  "type": "Receita",
+                  "detailType": "Descontos/reembolsos concedidos"
+                }
+              ]
+            },
+            {
+              "code": "62.9",
+              "name": "Transferência para resultados operacionais",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            }
+          ]
+        },
+        {
+          "code": "63",
+          "name": "Outros proveitos operacionais",
+          "description": "Other operating income",
+          "type": "Receita",
+          "detailType": "Outros rendimentos primários",
+          "children": [
+            {
+              "code": "63.1",
+              "name": "Serviços suplementares",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários",
+              "children": [
+                {
+                  "code": "63.1.1",
+                  "name": "Aluguer de equipamento",
+                  "type": "Receita",
+                  "detailType": "Outros rendimentos primários"
+                },
+                {
+                  "code": "63.1.2",
+                  "name": "Cedência de pessoal",
+                  "type": "Receita",
+                  "detailType": "Outros rendimentos primários"
+                },
+                {
+                  "code": "63.1.3",
+                  "name": "Cedência de energia",
+                  "type": "Receita",
+                  "detailType": "Outros rendimentos primários"
+                },
+                {
+                  "code": "63.1.4",
+                  "name": "Estudos, projectos e assistência técnica",
+                  "type": "Receita",
+                  "detailType": "Outros rendimentos primários"
+                }
+              ]
+            },
+            {
+              "code": "63.2",
+              "name": "Royalties",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            },
+            {
+              "code": "63.3",
+              "name": "Subsídios à exploração",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            },
+            {
+              "code": "63.4",
+              "name": "Subsídios a investimento",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            },
+            {
+              "code": "63.5",
+              "name": "IVA",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            },
+            {
+              "code": "63.8",
+              "name": "Outros proveitos e ganhos operacionais",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            },
+            {
+              "code": "63.9",
+              "name": "Transferência para resultados operacionais",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            }
+          ]
+        },
+        {
+          "code": "64",
+          "name": "Variação nos inventários de produtos acabados e de produção em curso",
+          "description": "Change in finished goods and work in progress",
+          "type": "Receita",
+          "detailType": "Outros rendimentos primários",
+          "children": [
+            {
+              "code": "64.1",
+              "name": "Produtos e trabalhos em curso",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            },
+            {
+              "code": "64.2",
+              "name": "Produtos acabados",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            },
+            {
+              "code": "64.3",
+              "name": "Produtos intermédios",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            },
+            {
+              "code": "64.9",
+              "name": "Transferência para resultados operacionais",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            }
+          ]
+        },
+        {
+          "code": "65",
+          "name": "Trabalhos para a própria empresa",
+          "description": "Work for own entity",
+          "type": "Receita",
+          "detailType": "Outros rendimentos primários",
+          "children": [
+            {
+              "code": "65.1",
+              "name": "Para imobilizado",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários",
+              "children": [
+                {
+                  "code": "65.1.1",
+                  "name": "Corpóreo",
+                  "type": "Receita",
+                  "detailType": "Outros rendimentos primários"
+                },
+                {
+                  "code": "65.1.2",
+                  "name": "Incorpóreo",
+                  "type": "Receita",
+                  "detailType": "Outros rendimentos primários"
+                },
+                {
+                  "code": "65.1.3",
+                  "name": "Financeiro",
+                  "type": "Receita",
+                  "detailType": "Outros rendimentos primários"
+                },
+                {
+                  "code": "65.1.4",
+                  "name": "Em curso",
+                  "type": "Receita",
+                  "detailType": "Outros rendimentos primários"
+                }
+              ]
+            },
+            {
+              "code": "65.2",
+              "name": "Para encargos a repartir por exercícios futuros",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            },
+            {
+              "code": "65.9",
+              "name": "Transferência para resultados operacionais",
+              "type": "Receita",
+              "detailType": "Outros rendimentos primários"
+            }
+          ]
+        },
+        {
+          "code": "66",
+          "name": "Proveitos e ganhos financeiros gerais",
+          "description": "General financial income and gains",
+          "type": "Outros lucros",
+          "detailType": "Outra receita de investimento",
+          "children": [
+            {
+              "code": "66.1",
+              "name": "Juros",
+              "type": "Outros lucros",
+              "detailType": "Receita de juros",
+              "children": [
+                {
+                  "code": "66.1.1",
+                  "name": "De investimentos financeiros",
+                  "type": "Outros lucros",
+                  "detailType": "Receita de juros",
+                  "children": [
+                    {
+                      "code": "66.1.1.1",
+                      "name": "Obrigações",
+                      "type": "Outros lucros",
+                      "detailType": "Receita de juros"
+                    },
+                    {
+                      "code": "66.1.1.3",
+                      "name": "Títulos de participação",
+                      "type": "Outros lucros",
+                      "detailType": "Receita de juros"
+                    },
+                    {
+                      "code": "66.1.1.4",
+                      "name": "Empréstimos",
+                      "type": "Outros lucros",
+                      "detailType": "Receita de juros"
+                    },
+                    {
+                      "code": "66.1.1.9",
+                      "name": "Outros",
+                      "type": "Outros lucros",
+                      "detailType": "Receita de juros"
+                    }
+                  ]
+                },
+                {
+                  "code": "66.1.2",
+                  "name": "De mora relativos a dívidas de terceiros",
+                  "type": "Outros lucros",
+                  "detailType": "Receita de juros",
+                  "children": [
+                    {
+                      "code": "66.1.2.1",
+                      "name": "Dívidas recebidas a prestações",
+                      "type": "Outros lucros",
+                      "detailType": "Receita de juros"
+                    },
+                    {
+                      "code": "66.1.2.2",
+                      "name": "De empréstimos a terceiros",
+                      "type": "Outros lucros",
+                      "detailType": "Receita de juros"
+                    }
+                  ]
+                },
+                {
+                  "code": "66.1.4",
+                  "name": "Desconto de títulos",
+                  "type": "Outros lucros",
+                  "detailType": "Outra receita de investimento"
+                },
+                {
+                  "code": "66.1.5",
+                  "name": "De aplicações de tesouraria",
+                  "type": "Outros lucros",
+                  "detailType": "Outra receita de investimento"
+                }
+              ]
+            },
+            {
+              "code": "66.2",
+              "name": "Diferenças de câmbio favoráveis",
+              "type": "Outros lucros",
+              "detailType": "Outros lucros operacionais",
+              "children": [
+                {
+                  "code": "66.2.1",
+                  "name": "Realizadas",
+                  "type": "Outros lucros",
+                  "detailType": "Outros lucros operacionais"
+                },
+                {
+                  "code": "66.2.2",
+                  "name": "Não realizadas",
+                  "type": "Outros lucros",
+                  "detailType": "Outros lucros operacionais"
+                }
+              ]
+            },
+            {
+              "code": "66.3",
+              "name": "Descontos de pronto pagamento obtidos",
+              "type": "Outros lucros",
+              "detailType": "Outros lucros operacionais"
+            },
+            {
+              "code": "66.4",
+              "name": "Rendimentos de investimentos em imóveis",
+              "type": "Outros lucros",
+              "detailType": "Outra receita de investimento"
+            },
+            {
+              "code": "66.5",
+              "name": "Rendimento de participações de capital",
+              "type": "Outros lucros",
+              "detailType": "Receita de dividendos",
+              "children": [
+                {
+                  "code": "66.5.1",
+                  "name": "Acções, quotas em outras empresas",
+                  "type": "Outros lucros",
+                  "detailType": "Receita de dividendos"
+                },
+                {
+                  "code": "66.5.2",
+                  "name": "Acções, quotas incluídas nos fundos",
+                  "type": "Outros lucros",
+                  "detailType": "Receita de dividendos"
+                },
+                {
+                  "code": "66.5.3",
+                  "name": "Acções, quotas incluídas nos títulos negociáveis",
+                  "type": "Outros lucros",
+                  "detailType": "Receita de dividendos"
+                }
+              ]
+            },
+            {
+              "code": "66.6",
+              "name": "Ganhos na alienação de aplicações financeiras",
+              "type": "Outros lucros",
+              "detailType": "Outra receita de investimento",
+              "children": [
+                {
+                  "code": "66.6.1",
+                  "name": "Investimentos financeiros",
+                  "type": "Outros lucros",
+                  "detailType": "Outra receita de investimento",
+                  "children": [
+                    {
+                      "code": "66.6.1.1",
+                      "name": "Subsidiárias",
+                      "type": "Outros lucros",
+                      "detailType": "Outra receita de investimento"
+                    },
+                    {
+                      "code": "66.6.1.2",
+                      "name": "Associadas",
+                      "type": "Outros lucros",
+                      "detailType": "Outra receita de investimento"
+                    },
+                    {
+                      "code": "66.6.1.3",
+                      "name": "Outras empresas",
+                      "type": "Outros lucros",
+                      "detailType": "Outra receita de investimento"
+                    },
+                    {
+                      "code": "66.6.1.4",
+                      "name": "Imóveis",
+                      "type": "Outros lucros",
+                      "detailType": "Outra receita de investimento"
+                    },
+                    {
+                      "code": "66.6.1.5",
+                      "name": "Fundos",
+                      "type": "Outros lucros",
+                      "detailType": "Outra receita de investimento"
+                    },
+                    {
+                      "code": "66.6.1.9",
+                      "name": "Outros investimentos",
+                      "type": "Outros lucros",
+                      "detailType": "Outra receita de investimento"
+                    }
+                  ]
+                },
+                {
+                  "code": "66.6.2",
+                  "name": "Títulos negociáveis",
+                  "type": "Outros lucros",
+                  "detailType": "Outra receita de investimento"
+                }
+              ]
+            },
+            {
+              "code": "66.7",
+              "name": "Reposição de provisões",
+              "type": "Outros lucros",
+              "detailType": "Outros lucros operacionais",
+              "children": [
+                {
+                  "code": "66.7.1",
+                  "name": "Investimentos financeiros",
+                  "type": "Outros lucros",
+                  "detailType": "Outros lucros operacionais",
+                  "children": [
+                    {
+                      "code": "66.7.1.1",
+                      "name": "Subsidiárias",
+                      "type": "Outros lucros",
+                      "detailType": "Outros lucros operacionais"
+                    },
+                    {
+                      "code": "66.7.1.2",
+                      "name": "Associadas",
+                      "type": "Outros lucros",
+                      "detailType": "Outros lucros operacionais"
+                    },
+                    {
+                      "code": "66.7.1.3",
+                      "name": "Outras empresas",
+                      "type": "Outros lucros",
+                      "detailType": "Outros lucros operacionais"
+                    },
+                    {
+                      "code": "66.7.1.4",
+                      "name": "Fundos",
+                      "type": "Outros lucros",
+                      "detailType": "Outros lucros operacionais"
+                    },
+                    {
+                      "code": "66.7.1.9",
+                      "name": "Outros investimentos",
+                      "type": "Outros lucros",
+                      "detailType": "Outros lucros operacionais"
+                    }
+                  ]
+                },
+                {
+                  "code": "66.7.2",
+                  "name": "Aplicações de tesouraria",
+                  "type": "Outros lucros",
+                  "detailType": "Outros lucros operacionais",
+                  "children": [
+                    {
+                      "code": "66.7.2.1",
+                      "name": "Títulos negociáveis",
+                      "type": "Outros lucros",
+                      "detailType": "Outros lucros operacionais"
+                    },
+                    {
+                      "code": "66.7.2.2",
+                      "name": "Depósitos a prazo",
+                      "type": "Outros lucros",
+                      "detailType": "Outros lucros operacionais"
+                    },
+                    {
+                      "code": "66.7.2.3",
+                      "name": "Outros depósitos",
+                      "type": "Outros lucros",
+                      "detailType": "Outros lucros operacionais"
+                    },
+                    {
+                      "code": "66.7.2.9",
+                      "name": "Outros investimentos",
+                      "type": "Outros lucros",
+                      "detailType": "Outros lucros operacionais"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "66.9",
+              "name": "Transferência para resultados financeiros",
+              "type": "Outros lucros",
+              "detailType": "Outros lucros operacionais"
+            }
+          ]
+        },
+        {
+          "code": "67",
+          "name": "Proveitos e ganhos financeiros em filiais e associadas",
+          "description": "Financial income from subsidiaries and associates",
+          "type": "Outros lucros",
+          "detailType": "Outra receita de investimento",
+          "children": [
+            {
+              "code": "67.1",
+              "name": "Rendimento de participações de capital",
+              "type": "Outros lucros",
+              "detailType": "Receita de dividendos",
+              "children": [
+                {
+                  "code": "67.1.1",
+                  "name": "Subsidiárias",
+                  "type": "Outros lucros",
+                  "detailType": "Receita de dividendos"
+                },
+                {
+                  "code": "67.1.2",
+                  "name": "Associadas",
+                  "type": "Outros lucros",
+                  "detailType": "Receita de dividendos"
+                }
+              ]
+            },
+            {
+              "code": "67.9",
+              "name": "Transferência para resultados em filiais e associadas",
+              "type": "Outros lucros",
+              "detailType": "Outra receita de investimento"
+            }
+          ]
+        },
+        {
+          "code": "68",
+          "name": "Outros proveitos e ganhos não operacionais",
+          "description": "Other non-operating income",
+          "type": "Outros lucros",
+          "detailType": "Outras receitas diversas",
+          "children": [
+            {
+              "code": "68.1",
+              "name": "Reposição de provisões",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas",
+              "children": [
+                {
+                  "code": "68.1.1",
+                  "name": "Existências",
+                  "type": "Outros lucros",
+                  "detailType": "Outras receitas diversas",
+                  "children": [
+                    {
+                      "code": "68.1.1.1",
+                      "name": "Matérias-primas subsidiárias e de consumo",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.1.2",
+                      "name": "Produtos e trabalhos em curso",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.1.3",
+                      "name": "Produtos acabados e intermédios",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.1.4",
+                      "name": "Sub-produtos, desperdícios, resíduos e refugos",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.1.5",
+                      "name": "Mercadorias",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    }
+                  ]
+                },
+                {
+                  "code": "68.1.2",
+                  "name": "Cobranças duvidosas",
+                  "type": "Outros lucros",
+                  "detailType": "Outras receitas diversas",
+                  "children": [
+                    {
+                      "code": "68.1.2.1",
+                      "name": "Clientes",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.2.2",
+                      "name": "Clientes – títulos a receber",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.2.3",
+                      "name": "Clientes – cobrança duvidosa",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.2.4",
+                      "name": "Saldos devedores de fornecedores",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.2.5",
+                      "name": "Participantes e participadas",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.2.6",
+                      "name": "Dívidas do Pessoal",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.2.9",
+                      "name": "Outros saldos a receber",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    }
+                  ]
+                },
+                {
+                  "code": "68.1.3",
+                  "name": "Riscos e encargos",
+                  "type": "Outros lucros",
+                  "detailType": "Outras receitas diversas",
+                  "children": [
+                    {
+                      "code": "68.1.3.1",
+                      "name": "Pensões",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.3.2",
+                      "name": "Processos judiciais em curso",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.3.3",
+                      "name": "Acidentes de trabalho",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.3.4",
+                      "name": "Garantias dadas a clientes",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    },
+                    {
+                      "code": "68.1.3.9",
+                      "name": "Outros riscos e encargos",
+                      "type": "Outros lucros",
+                      "detailType": "Outras receitas diversas"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "68.2",
+              "name": "Anulação de amortizações extraordinárias",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas",
+              "children": [
+                {
+                  "code": "68.2.1",
+                  "name": "Imobilizações corpóreas",
+                  "type": "Outros lucros",
+                  "detailType": "Outras receitas diversas"
+                },
+                {
+                  "code": "68.2.2",
+                  "name": "Imobilizações incorpóreas",
+                  "type": "Outros lucros",
+                  "detailType": "Outras receitas diversas"
+                }
+              ]
+            },
+            {
+              "code": "68.3",
+              "name": "Ganhos em imobilizações",
+              "type": "Outros lucros",
+              "detailType": "Perdas na alienação de ativos",
+              "children": [
+                {
+                  "code": "68.3.1",
+                  "name": "Venda de imobilizações corpóreas",
+                  "type": "Outros lucros",
+                  "detailType": "Perdas na alienação de ativos"
+                },
+                {
+                  "code": "68.3.2",
+                  "name": "Venda de imobilizações incorpóreas",
+                  "type": "Outros lucros",
+                  "detailType": "Perdas na alienação de ativos"
+                }
+              ]
+            },
+            {
+              "code": "68.4",
+              "name": "Ganhos em existências",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas",
+              "children": [
+                {
+                  "code": "68.4.1",
+                  "name": "Sobras",
+                  "type": "Outros lucros",
+                  "detailType": "Outras receitas diversas"
+                }
+              ]
+            },
+            {
+              "code": "68.5",
+              "name": "Recuperação de dívidas",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            },
+            {
+              "code": "68.6",
+              "name": "Benefícios de penalidades contratuais",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            },
+            {
+              "code": "68.8",
+              "name": "Descontinuidade de operações",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            },
+            {
+              "code": "68.9",
+              "name": "Alterações de políticas contabilísticas",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            },
+            {
+              "code": "68.10",
+              "name": "Correcções relativas a exercícios anteriores",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas",
+              "children": [
+                {
+                  "code": "68.10.1",
+                  "name": "Estimativa impostos",
+                  "type": "Outros lucros",
+                  "detailType": "Outras receitas diversas"
+                },
+                {
+                  "code": "68.10.2",
+                  "name": "Restituição de impostos",
+                  "type": "Outros lucros",
+                  "detailType": "Outras receitas diversas"
+                }
+              ]
+            },
+            {
+              "code": "68.11",
+              "name": "Outros ganhos e perdas não operacionais",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas",
+              "children": [
+                {
+                  "code": "68.11.1",
+                  "name": "Donativos",
+                  "type": "Outros lucros",
+                  "detailType": "Outras receitas diversas"
+                }
+              ]
+            },
+            {
+              "code": "68.19",
+              "name": "Transferência para resultados não operacionais",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            }
+          ]
+        },
+        {
+          "code": "69",
+          "name": "Proveitos e ganhos extraordinários",
+          "description": "Extraordinary income and gains",
+          "type": "Outros lucros",
+          "detailType": "Outras receitas diversas",
+          "children": [
+            {
+              "code": "69.1",
+              "name": "Ganhos resultantes de catástrofes naturais",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            },
+            {
+              "code": "69.2",
+              "name": "Ganhos resultantes de convulsões políticas",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            },
+            {
+              "code": "69.3",
+              "name": "Ganhos resultantes de expropriações",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            },
+            {
+              "code": "69.4",
+              "name": "Ganhos resultantes de sinistros",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            },
+            {
+              "code": "69.5",
+              "name": "Subsídios",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            },
+            {
+              "code": "69.6",
+              "name": "Anulação de passivos não exigíveis",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            },
+            {
+              "code": "69.9",
+              "name": "Transferência para resultados extraordinários",
+              "type": "Outros lucros",
+              "detailType": "Outras receitas diversas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "7",
+      "name": "Custos e perdas por natureza",
+      "description": "Costs and losses by nature",
+      "accounts": [
+        {
+          "code": "71",
+          "name": "Custo das existências vendidas",
+          "description": "Cost of goods sold",
+          "type": "Custo de mercadorias vendidas",
+          "detailType": "Suprimentos e materiais - CMV",
+          "children": [
+            {
+              "code": "71.1",
+              "name": "Matérias-primas",
+              "type": "Custo de mercadorias vendidas",
+              "detailType": "Suprimentos e materiais - CMV"
+            },
+            {
+              "code": "71.2",
+              "name": "Matérias subsidiárias",
+              "type": "Custo de mercadorias vendidas",
+              "detailType": "Suprimentos e materiais - CMV"
+            },
+            {
+              "code": "71.3",
+              "name": "Materiais diversos",
+              "type": "Custo de mercadorias vendidas",
+              "detailType": "Suprimentos e materiais - CMV"
+            },
+            {
+              "code": "71.4",
+              "name": "Embalagens de consumo",
+              "type": "Custo de mercadorias vendidas",
+              "detailType": "Suprimentos e materiais - CMV"
+            },
+            {
+              "code": "71.5",
+              "name": "Outros materiais",
+              "type": "Custo de mercadorias vendidas",
+              "detailType": "Suprimentos e materiais - CMV"
+            },
+            {
+              "code": "71.9",
+              "name": "Transferência para resultados operacionais",
+              "type": "Custo de mercadorias vendidas",
+              "detailType": "Suprimentos e materiais - CMV"
+            }
+          ]
+        },
+        {
+          "code": "72",
+          "name": "Custos com o pessoal",
+          "description": "Personnel costs",
+          "type": "Despesas",
+          "detailType": "Despesas com folha de pagamento",
+          "children": [
+            {
+              "code": "72.1",
+              "name": "Remunerações – Órgãos sociais",
+              "type": "Despesas",
+              "detailType": "Remuneração dos administradores"
+            },
+            {
+              "code": "72.2",
+              "name": "Remunerações – Pessoal",
+              "type": "Despesas",
+              "detailType": "Despesas com folha de pagamento"
+            },
+            {
+              "code": "72.3",
+              "name": "Pensões",
+              "type": "Despesas",
+              "detailType": "Despesas com folha de pagamento",
+              "children": [
+                {
+                  "code": "72.3.1",
+                  "name": "Órgãos sociais",
+                  "type": "Despesas",
+                  "detailType": "Remuneração dos administradores"
+                },
+                {
+                  "code": "72.3.2",
+                  "name": "Pessoal",
+                  "type": "Despesas",
+                  "detailType": "Despesas com folha de pagamento"
+                }
+              ]
+            },
+            {
+              "code": "72.4",
+              "name": "Prémios para pensões",
+              "type": "Despesas",
+              "detailType": "Despesas com folha de pagamento",
+              "children": [
+                {
+                  "code": "72.4.1",
+                  "name": "Órgãos sociais",
+                  "type": "Despesas",
+                  "detailType": "Remuneração dos administradores"
+                },
+                {
+                  "code": "72.4.2",
+                  "name": "Pessoal",
+                  "type": "Despesas",
+                  "detailType": "Despesas com folha de pagamento"
+                }
+              ]
+            },
+            {
+              "code": "72.5",
+              "name": "Encargos sobre remunerações",
+              "type": "Despesas",
+              "detailType": "Despesas com folha de pagamento",
+              "children": [
+                {
+                  "code": "72.5.1",
+                  "name": "Órgãos sociais",
+                  "type": "Despesas",
+                  "detailType": "Remuneração dos administradores"
+                },
+                {
+                  "code": "72.5.2",
+                  "name": "Pessoal",
+                  "type": "Despesas",
+                  "detailType": "Despesas com folha de pagamento"
+                }
+              ]
+            },
+            {
+              "code": "72.6",
+              "name": "Seguros de acidentes de trabalho e doenças profissionais",
+              "type": "Despesas",
+              "detailType": "Seguro",
+              "children": [
+                {
+                  "code": "72.6.1",
+                  "name": "Órgãos sociais",
+                  "type": "Despesas",
+                  "detailType": "Seguro"
+                },
+                {
+                  "code": "72.6.2",
+                  "name": "Pessoal",
+                  "type": "Despesas",
+                  "detailType": "Seguro"
+                }
+              ]
+            },
+            {
+              "code": "72.7",
+              "name": "Formação",
+              "type": "Despesas",
+              "detailType": "Despesas com folha de pagamento",
+              "children": [
+                {
+                  "code": "72.7.1",
+                  "name": "Órgãos sociais",
+                  "type": "Despesas",
+                  "detailType": "Remuneração dos administradores"
+                },
+                {
+                  "code": "72.7.2",
+                  "name": "Pessoal",
+                  "type": "Despesas",
+                  "detailType": "Despesas com folha de pagamento"
+                }
+              ]
+            },
+            {
+              "code": "72.8",
+              "name": "Outras despesas com o pessoal",
+              "type": "Despesas",
+              "detailType": "Despesas com folha de pagamento",
+              "children": [
+                {
+                  "code": "72.8.1",
+                  "name": "Órgãos sociais",
+                  "type": "Despesas",
+                  "detailType": "Remuneração dos administradores"
+                },
+                {
+                  "code": "72.8.2",
+                  "name": "Pessoal",
+                  "type": "Despesas",
+                  "detailType": "Despesas com folha de pagamento"
+                }
+              ]
+            },
+            {
+              "code": "72.9",
+              "name": "Transferência para resultados operacionais",
+              "type": "Despesas",
+              "detailType": "Despesas com folha de pagamento"
+            }
+          ]
+        },
+        {
+          "code": "73",
+          "name": "Amortizações do exercício",
+          "description": "Depreciation for the period",
+          "type": "Despesas",
+          "detailType": "Despesas de amortização",
+          "children": [
+            {
+              "code": "73.1",
+              "name": "Imobilizações corpóreas",
+              "type": "Outras despesas",
+              "detailType": "Depreciação",
+              "children": [
+                {
+                  "code": "73.1.2",
+                  "name": "Edifícios e outras construções",
+                  "type": "Outras despesas",
+                  "detailType": "Depreciação"
+                },
+                {
+                  "code": "73.1.3",
+                  "name": "Equipamento básico",
+                  "type": "Outras despesas",
+                  "detailType": "Depreciação"
+                },
+                {
+                  "code": "73.1.4",
+                  "name": "Equipamento de carga e transporte",
+                  "type": "Outras despesas",
+                  "detailType": "Depreciação"
+                },
+                {
+                  "code": "73.1.5",
+                  "name": "Equipamento administrativo",
+                  "type": "Outras despesas",
+                  "detailType": "Depreciação"
+                },
+                {
+                  "code": "73.1.6",
+                  "name": "Taras e vasilhame",
+                  "type": "Outras despesas",
+                  "detailType": "Depreciação"
+                },
+                {
+                  "code": "73.1.9",
+                  "name": "Outras imobilizações corpóreas",
+                  "type": "Outras despesas",
+                  "detailType": "Depreciação"
+                }
+              ]
+            },
+            {
+              "code": "73.2",
+              "name": "Imobilizações incorpóreas",
+              "type": "Outras despesas",
+              "detailType": "Amortização",
+              "children": [
+                {
+                  "code": "73.2.1",
+                  "name": "Trespasses",
+                  "type": "Outras despesas",
+                  "detailType": "Amortização"
+                },
+                {
+                  "code": "73.2.2",
+                  "name": "Despesas de investigação e desenvolvimento",
+                  "type": "Outras despesas",
+                  "detailType": "Amortização"
+                },
+                {
+                  "code": "73.2.3",
+                  "name": "Propriedade industrial e outros direitos e contratos",
+                  "type": "Outras despesas",
+                  "detailType": "Amortização"
+                },
+                {
+                  "code": "73.2.4",
+                  "name": "Despesas de constituição",
+                  "type": "Outras despesas",
+                  "detailType": "Amortização"
+                },
+                {
+                  "code": "73.2.9",
+                  "name": "Outras imobilizações incorpóreas",
+                  "type": "Outras despesas",
+                  "detailType": "Amortização"
+                }
+              ]
+            },
+            {
+              "code": "73.9",
+              "name": "Transferência para resultados operacionais",
+              "type": "Outras despesas",
+              "detailType": "Amortização"
+            }
+          ]
+        },
+        {
+          "code": "75",
+          "name": "Outros custos e perdas operacionais",
+          "description": "Other operating costs and losses",
+          "type": "Despesas",
+          "detailType": "Despesas gerais de administração/de escritório",
+          "children": [
+            {
+              "code": "75.1",
+              "name": "Sub-contratos",
+              "type": "Custo de mercadorias vendidas",
+              "detailType": "Custo de mão de obra - CMV"
+            },
+            {
+              "code": "75.2",
+              "name": "Fornecimentos e serviços de terceiros",
+              "type": "Despesas",
+              "detailType": "Despesas gerais de administração/de escritório",
+              "children": [
+                {
+                  "code": "75.2.11",
+                  "name": "Água",
+                  "type": "Despesas",
+                  "detailType": "Serviços públicos"
+                },
+                {
+                  "code": "75.2.12",
+                  "name": "Electricidade",
+                  "type": "Despesas",
+                  "detailType": "Serviços públicos"
+                },
+                {
+                  "code": "75.2.13",
+                  "name": "Combustíveis e outros fluídos",
+                  "type": "Despesas",
+                  "detailType": "Automóvel"
+                },
+                {
+                  "code": "75.2.14",
+                  "name": "Conservação e reparação",
+                  "type": "Despesas",
+                  "detailType": "Reparo e manutenção"
+                },
+                {
+                  "code": "75.2.15",
+                  "name": "Material de protecção segurança e conforto",
+                  "type": "Despesas",
+                  "detailType": "Suprimentos e materiais"
+                },
+                {
+                  "code": "75.2.16",
+                  "name": "Ferramentas e utensílios de desgaste rápido",
+                  "type": "Despesas",
+                  "detailType": "Suprimentos e materiais"
+                },
+                {
+                  "code": "75.2.17",
+                  "name": "Material de escritório",
+                  "type": "Despesas",
+                  "detailType": "Despesas gerais de administração/de escritório"
+                },
+                {
+                  "code": "75.2.18",
+                  "name": "Livros e documentação técnica",
+                  "type": "Despesas",
+                  "detailType": "Mensalidades e assinaturas"
+                },
+                {
+                  "code": "75.2.19",
+                  "name": "Outros fornecimentos",
+                  "type": "Despesas",
+                  "detailType": "Suprimentos e materiais"
+                },
+                {
+                  "code": "75.2.20",
+                  "name": "Comunicação",
+                  "type": "Despesas",
+                  "detailType": "Serviços públicos"
+                },
+                {
+                  "code": "75.2.21",
+                  "name": "Rendas e alugueres",
+                  "type": "Despesas",
+                  "detailType": "Aluguel ou arrendamento de prédios"
+                },
+                {
+                  "code": "75.2.22",
+                  "name": "Seguros",
+                  "type": "Despesas",
+                  "detailType": "Seguro"
+                },
+                {
+                  "code": "75.2.23",
+                  "name": "Deslocações e estadas",
+                  "type": "Despesas",
+                  "detailType": "Despesas de viagens - despesas gerais e administrativas"
+                },
+                {
+                  "code": "75.2.24",
+                  "name": "Despesas de representação",
+                  "type": "Despesas",
+                  "detailType": "Refeições e entretenimento"
+                },
+                {
+                  "code": "75.2.26",
+                  "name": "Conservação e reparação",
+                  "type": "Despesas",
+                  "detailType": "Reparo e manutenção"
+                },
+                {
+                  "code": "75.2.27",
+                  "name": "Vigilância e segurança",
+                  "type": "Despesas",
+                  "detailType": "Custo de outros serviços diversos"
+                },
+                {
+                  "code": "75.2.28",
+                  "name": "Limpeza, higiene e conforto",
+                  "type": "Despesas",
+                  "detailType": "Custo de outros serviços diversos"
+                },
+                {
+                  "code": "75.2.29",
+                  "name": "Publicidade e propaganda",
+                  "type": "Despesas",
+                  "detailType": "Publicidade/promoção"
+                },
+                {
+                  "code": "75.2.30",
+                  "name": "Contencioso e notariado",
+                  "type": "Despesas",
+                  "detailType": "Honorários advocatícios e profissionais"
+                },
+                {
+                  "code": "75.2.31",
+                  "name": "Comissões a intermediários",
+                  "type": "Despesas",
+                  "detailType": "Custo de outros serviços diversos"
+                },
+                {
+                  "code": "75.2.32",
+                  "name": "Assistência técnica",
+                  "type": "Despesas",
+                  "detailType": "Reparo e manutenção",
+                  "children": [
+                    {
+                      "code": "75.2.32.1",
+                      "name": "Estrangeira",
+                      "type": "Despesas",
+                      "detailType": "Reparo e manutenção"
+                    },
+                    {
+                      "code": "75.2.32.2",
+                      "name": "Nacional",
+                      "type": "Despesas",
+                      "detailType": "Reparo e manutenção"
+                    }
+                  ]
+                },
+                {
+                  "code": "75.2.33",
+                  "name": "Trabalhos executados no exterior",
+                  "type": "Despesas",
+                  "detailType": "Custo de outros serviços diversos"
+                },
+                {
+                  "code": "75.2.34",
+                  "name": "Honorários e avenças",
+                  "type": "Despesas",
+                  "detailType": "Honorários advocatícios e profissionais"
+                },
+                {
+                  "code": "75.2.35",
+                  "name": "Royalties",
+                  "type": "Despesas",
+                  "detailType": "Despesas gerais de administração/de escritório"
+                },
+                {
+                  "code": "75.2.39",
+                  "name": "Outros serviços",
+                  "type": "Despesas",
+                  "detailType": "Custo de outros serviços diversos"
+                }
+              ]
+            },
+            {
+              "code": "75.3",
+              "name": "Impostos",
+              "type": "Despesas",
+              "detailType": "Impostos pagos",
+              "children": [
+                {
+                  "code": "75.3.1",
+                  "name": "Indirectos",
+                  "type": "Despesas",
+                  "detailType": "Impostos pagos",
+                  "children": [
+                    {
+                      "code": "75.3.1.1",
+                      "name": "Imposto de selo",
+                      "type": "Despesas",
+                      "detailType": "Impostos pagos"
+                    },
+                    {
+                      "code": "75.3.1.2",
+                      "name": "IVA",
+                      "type": "Despesas",
+                      "detailType": "Impostos pagos"
+                    },
+                    {
+                      "code": "75.3.1.9",
+                      "name": "Outros impostos",
+                      "type": "Despesas",
+                      "detailType": "Impostos pagos"
+                    }
+                  ]
+                },
+                {
+                  "code": "75.3.2",
+                  "name": "Directos",
+                  "type": "Despesas",
+                  "detailType": "Impostos pagos",
+                  "children": [
+                    {
+                      "code": "75.3.2.1",
+                      "name": "Imposto de capitais",
+                      "type": "Despesas",
+                      "detailType": "Impostos pagos"
+                    },
+                    {
+                      "code": "75.3.2.2",
+                      "name": "Contribuição predial",
+                      "type": "Despesas",
+                      "detailType": "Impostos pagos"
+                    },
+                    {
+                      "code": "75.3.2.9",
+                      "name": "Outros impostos",
+                      "type": "Despesas",
+                      "detailType": "Impostos pagos"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "75.4",
+              "name": "Despesas confidênciais",
+              "type": "Despesas",
+              "detailType": "Despesas gerais de administração/de escritório"
+            },
+            {
+              "code": "75.5",
+              "name": "Quotizações",
+              "type": "Despesas",
+              "detailType": "Mensalidades e assinaturas"
+            },
+            {
+              "code": "75.6",
+              "name": "Ofertas e Amostras de existências",
+              "type": "Despesas",
+              "detailType": "Publicidade/promoção"
+            },
+            {
+              "code": "75.8",
+              "name": "Outros custos e perdas operacionais",
+              "type": "Despesas",
+              "detailType": "Outras despesas com vendas"
+            },
+            {
+              "code": "75.9",
+              "name": "Transferências para resultados operacionais",
+              "type": "Despesas",
+              "detailType": "Despesas gerais de administração/de escritório"
+            }
+          ]
+        },
+        {
+          "code": "76",
+          "name": "Custos e perdas financeiros gerais",
+          "description": "General financial costs and losses",
+          "type": "Despesas",
+          "detailType": "Custos de financiamento",
+          "children": [
+            {
+              "code": "76.1",
+              "name": "Juros",
+              "type": "Despesas",
+              "detailType": "Juros pagos",
+              "children": [
+                {
+                  "code": "76.1.1",
+                  "name": "De empréstimos",
+                  "type": "Despesas",
+                  "detailType": "Juros pagos",
+                  "children": [
+                    {
+                      "code": "76.1.1.1",
+                      "name": "Bancários",
+                      "type": "Despesas",
+                      "detailType": "Juros pagos"
+                    },
+                    {
+                      "code": "76.1.1.2",
+                      "name": "Obrigações",
+                      "type": "Despesas",
+                      "detailType": "Juros pagos"
+                    },
+                    {
+                      "code": "76.1.1.3",
+                      "name": "Títulos de participação",
+                      "type": "Despesas",
+                      "detailType": "Juros pagos"
+                    }
+                  ]
+                },
+                {
+                  "code": "76.1.2",
+                  "name": "De descobertos bancários",
+                  "type": "Despesas",
+                  "detailType": "Juros pagos"
+                },
+                {
+                  "code": "76.1.3",
+                  "name": "De mora relativos a dívidas a terceiros",
+                  "type": "Despesas",
+                  "detailType": "Juros pagos"
+                },
+                {
+                  "code": "76.1.4",
+                  "name": "De desconto de títulos",
+                  "type": "Despesas",
+                  "detailType": "Custos de financiamento"
+                }
+              ]
+            },
+            {
+              "code": "76.2",
+              "name": "Diferenças de câmbio desfavoráveis",
+              "type": "Outras despesas",
+              "detailType": "Ganho ou perda cambial",
+              "children": [
+                {
+                  "code": "76.2.1",
+                  "name": "Realizadas",
+                  "type": "Outras despesas",
+                  "detailType": "Ganho ou perda cambial"
+                },
+                {
+                  "code": "76.2.2",
+                  "name": "Não realizadas",
+                  "type": "Outras despesas",
+                  "detailType": "Ganho ou perda cambial"
+                }
+              ]
+            },
+            {
+              "code": "76.3",
+              "name": "Descontos de pronto pagamento concedidos",
+              "type": "Despesas",
+              "detailType": "Custos de financiamento"
+            },
+            {
+              "code": "76.4",
+              "name": "Amortizações de investimentos em imóveis",
+              "type": "Outras despesas",
+              "detailType": "Depreciação"
+            },
+            {
+              "code": "76.5",
+              "name": "Provisões para aplicações financeiras",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas",
+              "children": [
+                {
+                  "code": "76.5.1",
+                  "name": "Investimentos financeiros",
+                  "type": "Outras despesas",
+                  "detailType": "Outras despesas",
+                  "children": [
+                    {
+                      "code": "76.5.1.1",
+                      "name": "Subsidiárias",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "76.5.1.2",
+                      "name": "Associadas",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "76.5.1.3",
+                      "name": "Outras empresas",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "76.5.1.4",
+                      "name": "Fundos",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "76.5.1.9",
+                      "name": "Outros investimentos",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    }
+                  ]
+                },
+                {
+                  "code": "76.5.2",
+                  "name": "Aplicações de tesouraria",
+                  "type": "Outras despesas",
+                  "detailType": "Outras despesas",
+                  "children": [
+                    {
+                      "code": "76.5.2.1",
+                      "name": "Títulos negociáveis",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "76.5.2.2",
+                      "name": "Depósitos a prazo",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "76.5.2.3",
+                      "name": "Outros depósitos",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "76.5.2.9",
+                      "name": "Outros",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "76.6",
+              "name": "Perdas na alienação de aplicações financeiras",
+              "type": "Outros lucros",
+              "detailType": "Perdas na alienação de ativos",
+              "children": [
+                {
+                  "code": "76.6.1",
+                  "name": "Investimentos financeiros",
+                  "type": "Outros lucros",
+                  "detailType": "Perdas na alienação de ativos",
+                  "children": [
+                    {
+                      "code": "76.6.1.1",
+                      "name": "Subsidiárias",
+                      "type": "Outros lucros",
+                      "detailType": "Perdas na alienação de ativos"
+                    },
+                    {
+                      "code": "76.6.1.2",
+                      "name": "Associadas",
+                      "type": "Outros lucros",
+                      "detailType": "Perdas na alienação de ativos"
+                    },
+                    {
+                      "code": "76.6.1.3",
+                      "name": "Outras empresas",
+                      "type": "Outros lucros",
+                      "detailType": "Perdas na alienação de ativos"
+                    },
+                    {
+                      "code": "76.6.1.4",
+                      "name": "Fundos",
+                      "type": "Outros lucros",
+                      "detailType": "Perdas na alienação de ativos"
+                    },
+                    {
+                      "code": "76.6.1.9",
+                      "name": "Outros investimentos",
+                      "type": "Outros lucros",
+                      "detailType": "Perdas na alienação de ativos"
+                    }
+                  ]
+                },
+                {
+                  "code": "76.6.2",
+                  "name": "Aplicações de títulos negociáveis",
+                  "type": "Outros lucros",
+                  "detailType": "Perdas na alienação de ativos"
+                }
+              ]
+            },
+            {
+              "code": "76.7",
+              "name": "Serviços bancários",
+              "type": "Despesas",
+              "detailType": "Encargos bancários"
+            },
+            {
+              "code": "76.9",
+              "name": "Transferência para resultados financeiros",
+              "type": "Despesas",
+              "detailType": "Custos de financiamento"
+            }
+          ]
+        },
+        {
+          "code": "77",
+          "name": "Custos e perdas financeiros em filiais e associadas",
+          "description": "Financial costs in subsidiaries and associates",
+          "type": "Despesas",
+          "detailType": "Custos de financiamento",
+          "children": [
+            {
+              "code": "77.9",
+              "name": "Transferência para resultados financeiros",
+              "type": "Despesas",
+              "detailType": "Custos de financiamento"
+            }
+          ]
+        },
+        {
+          "code": "78",
+          "name": "Outros custos e perdas não operacionais",
+          "description": "Other non-operating costs and losses",
+          "type": "Outras despesas",
+          "detailType": "Outras despesas",
+          "children": [
+            {
+              "code": "78.1",
+              "name": "Provisões do exercício",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas",
+              "children": [
+                {
+                  "code": "78.1.1",
+                  "name": "Existências",
+                  "type": "Outras despesas",
+                  "detailType": "Outras despesas",
+                  "children": [
+                    {
+                      "code": "78.1.1.1",
+                      "name": "Matérias-primas subsidiárias e de consumo",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "78.1.1.2",
+                      "name": "Produtos e trabalhos em curso",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "78.1.1.3",
+                      "name": "Produtos acabados e intermédios",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "78.1.1.4",
+                      "name": "Sub-produtos, desperdícios, resíduos e refugos",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "78.1.1.5",
+                      "name": "Mercadorias",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    }
+                  ]
+                },
+                {
+                  "code": "78.1.2",
+                  "name": "Cobranças Duvidosas",
+                  "type": "Despesas",
+                  "detailType": "Créditos de liquidação duvidosa",
+                  "children": [
+                    {
+                      "code": "78.1.2.1",
+                      "name": "Clientes",
+                      "type": "Despesas",
+                      "detailType": "Créditos de liquidação duvidosa"
+                    },
+                    {
+                      "code": "78.1.2.2",
+                      "name": "Clientes – títulos a receber",
+                      "type": "Despesas",
+                      "detailType": "Créditos de liquidação duvidosa"
+                    },
+                    {
+                      "code": "78.1.2.3",
+                      "name": "Clientes – cobrança duvidosa",
+                      "type": "Despesas",
+                      "detailType": "Créditos de liquidação duvidosa"
+                    },
+                    {
+                      "code": "78.1.2.4",
+                      "name": "Saldos devedores de fornecedores",
+                      "type": "Despesas",
+                      "detailType": "Créditos de liquidação duvidosa"
+                    },
+                    {
+                      "code": "78.1.2.5",
+                      "name": "Participantes e participadas",
+                      "type": "Despesas",
+                      "detailType": "Créditos de liquidação duvidosa"
+                    },
+                    {
+                      "code": "78.1.2.6",
+                      "name": "Dívidas do pessoal",
+                      "type": "Despesas",
+                      "detailType": "Créditos de liquidação duvidosa"
+                    },
+                    {
+                      "code": "78.1.2.9",
+                      "name": "Outros saldos a receber",
+                      "type": "Despesas",
+                      "detailType": "Créditos de liquidação duvidosa"
+                    }
+                  ]
+                },
+                {
+                  "code": "78.1.3",
+                  "name": "Riscos e encargos",
+                  "type": "Outras despesas",
+                  "detailType": "Outras despesas",
+                  "children": [
+                    {
+                      "code": "78.1.3.1",
+                      "name": "Pensões",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "78.1.3.2",
+                      "name": "Processos judiciais em curso",
+                      "type": "Outras despesas",
+                      "detailType": "Multas e conciliações"
+                    },
+                    {
+                      "code": "78.1.3.3",
+                      "name": "Acidentes de trabalho",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "78.1.3.4",
+                      "name": "Garantias dadas a clientes",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    },
+                    {
+                      "code": "78.1.3.9",
+                      "name": "Outros riscos e encargos",
+                      "type": "Outras despesas",
+                      "detailType": "Outras despesas"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "78.2",
+              "name": "Amortizações extraordinárias",
+              "type": "Outras despesas",
+              "detailType": "Amortização",
+              "children": [
+                {
+                  "code": "78.2.1",
+                  "name": "Imobilizações Corpóreas",
+                  "type": "Outras despesas",
+                  "detailType": "Depreciação"
+                },
+                {
+                  "code": "78.2.2",
+                  "name": "Imobilizações Incorpóreas",
+                  "type": "Outras despesas",
+                  "detailType": "Amortização"
+                }
+              ]
+            },
+            {
+              "code": "78.3",
+              "name": "Perdas em imobilizações",
+              "type": "Outros lucros",
+              "detailType": "Perdas na alienação de ativos",
+              "children": [
+                {
+                  "code": "78.3.1",
+                  "name": "Venda de imobilizações corpóreas",
+                  "type": "Outros lucros",
+                  "detailType": "Perdas na alienação de ativos"
+                },
+                {
+                  "code": "78.3.2",
+                  "name": "Venda de imobilizações incorpóreas",
+                  "type": "Outros lucros",
+                  "detailType": "Perdas na alienação de ativos"
+                },
+                {
+                  "code": "78.3.3",
+                  "name": "Abates",
+                  "type": "Outros lucros",
+                  "detailType": "Perdas na alienação de ativos"
+                },
+                {
+                  "code": "78.3.9",
+                  "name": "Outras",
+                  "type": "Outros lucros",
+                  "detailType": "Perdas na alienação de ativos"
+                }
+              ]
+            },
+            {
+              "code": "78.4",
+              "name": "Perdas em existências",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas",
+              "children": [
+                {
+                  "code": "78.4.1",
+                  "name": "Quebras",
+                  "type": "Outras despesas",
+                  "detailType": "Outras despesas"
+                }
+              ]
+            },
+            {
+              "code": "78.5",
+              "name": "Dívidas incobráveis",
+              "type": "Despesas",
+              "detailType": "Créditos de liquidação duvidosa"
+            },
+            {
+              "code": "78.6",
+              "name": "Multas e penalidades contratuais",
+              "type": "Outras despesas",
+              "detailType": "Multas e conciliações",
+              "children": [
+                {
+                  "code": "78.6.1",
+                  "name": "Fiscais",
+                  "type": "Outras despesas",
+                  "detailType": "Multas e conciliações"
+                },
+                {
+                  "code": "78.6.2",
+                  "name": "Não fiscais",
+                  "type": "Outras despesas",
+                  "detailType": "Multas e conciliações"
+                },
+                {
+                  "code": "78.6.3",
+                  "name": "Penalidades contratuais",
+                  "type": "Outras despesas",
+                  "detailType": "Multas e conciliações"
+                }
+              ]
+            },
+            {
+              "code": "78.7",
+              "name": "Custos de reestruturação",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas"
+            },
+            {
+              "code": "78.8",
+              "name": "Descontinuidade de operações",
+              "type": "Despesas",
+              "detailType": "Perdas em operações descontinuadas, líquido de imposto"
+            },
+            {
+              "code": "78.9",
+              "name": "Alterações de políticas contabilísticas",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas"
+            },
+            {
+              "code": "78.10",
+              "name": "Correcções relativas a exercícios anteriores",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas",
+              "children": [
+                {
+                  "code": "78.10.1",
+                  "name": "Estimativa impostos",
+                  "type": "Outras despesas",
+                  "detailType": "Outras despesas"
+                }
+              ]
+            },
+            {
+              "code": "78.11",
+              "name": "Outros custos e perdas não operacionais",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas",
+              "children": [
+                {
+                  "code": "78.11.1",
+                  "name": "Donativos",
+                  "type": "Despesas",
+                  "detailType": "Contribuições de caridade"
+                },
+                {
+                  "code": "78.11.2",
+                  "name": "Reembolso de subsídios à exploração",
+                  "type": "Outras despesas",
+                  "detailType": "Outras despesas"
+                },
+                {
+                  "code": "78.11.3",
+                  "name": "Reembolso de subsídios a investimentos",
+                  "type": "Outras despesas",
+                  "detailType": "Outras despesas"
+                }
+              ]
+            },
+            {
+              "code": "78.19",
+              "name": "Transferência para resultados não operacionais",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas"
+            }
+          ]
+        },
+        {
+          "code": "79",
+          "name": "Custos e perdas extraordinárias",
+          "description": "Extraordinary costs and losses",
+          "type": "Outras despesas",
+          "detailType": "Outras despesas",
+          "children": [
+            {
+              "code": "79.1",
+              "name": "Perdas resultantes de catástrofes naturais",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas"
+            },
+            {
+              "code": "79.2",
+              "name": "Perdas resultantes de convulsões políticas",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas"
+            },
+            {
+              "code": "79.3",
+              "name": "Perdas resultantes de expropriações",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas"
+            },
+            {
+              "code": "79.4",
+              "name": "Perdas resultantes de sinistros",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas"
+            },
+            {
+              "code": "79.9",
+              "name": "Transferência para resultados extraordinários",
+              "type": "Outras despesas",
+              "detailType": "Outras despesas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "8",
+      "name": "Resultados",
+      "description": "Results",
+      "accounts": [
+        {
+          "code": "81",
+          "name": "Resultados transitados",
+          "description": "Retained earnings",
+          "type": "Capital do proprietário",
+          "detailType": "Lucros acumulados",
+          "children": [
+            {
+              "code": "81.1",
+              "name": "Ano____",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados",
+              "children": [
+                {
+                  "code": "81.1.1",
+                  "name": "Resultado do ano",
+                  "type": "Capital do proprietário",
+                  "detailType": "Lucros acumulados"
+                },
+                {
+                  "code": "81.1.2",
+                  "name": "Aplicação de resultados",
+                  "type": "Capital do proprietário",
+                  "detailType": "Lucros acumulados"
+                },
+                {
+                  "code": "81.1.3",
+                  "name": "Correcções de erros fundamentais, no exercício seguinte",
+                  "type": "Capital do proprietário",
+                  "detailType": "Lucros acumulados"
+                },
+                {
+                  "code": "81.1.4",
+                  "name": "Efeito das alterações de políticas contabilísticas",
+                  "type": "Capital do proprietário",
+                  "detailType": "Lucros acumulados"
+                },
+                {
+                  "code": "81.1.5",
+                  "name": "Imposto relativo a correcções de erros fundamentais e alterações de políticas contabilísticas",
+                  "type": "Capital do proprietário",
+                  "detailType": "Lucros acumulados"
+                }
+              ]
+            },
+            {
+              "code": "81.2",
+              "name": "Ano____",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados",
+              "children": [
+                {
+                  "code": "81.2.1",
+                  "name": "Resultado do ano",
+                  "type": "Capital do proprietário",
+                  "detailType": "Lucros acumulados"
+                },
+                {
+                  "code": "81.2.2",
+                  "name": "Aplicação de resultados",
+                  "type": "Capital do proprietário",
+                  "detailType": "Lucros acumulados"
+                },
+                {
+                  "code": "81.2.3",
+                  "name": "Correcções de erros fundamentais, no exercício seguinte",
+                  "type": "Capital do proprietário",
+                  "detailType": "Lucros acumulados"
+                },
+                {
+                  "code": "81.2.4",
+                  "name": "Efeito das alterações de políticas contabilísticas",
+                  "type": "Capital do proprietário",
+                  "detailType": "Lucros acumulados"
+                },
+                {
+                  "code": "81.2.5",
+                  "name": "Imposto relativo a correcções de erros fundamentais e alterações de políticas contabilísticas",
+                  "type": "Capital do proprietário",
+                  "detailType": "Lucros acumulados"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "82",
+          "name": "Resultados operacionais",
+          "description": "Operating results",
+          "type": "Capital do proprietário",
+          "detailType": "Lucros acumulados",
+          "children": [
+            {
+              "code": "82.1",
+              "name": "Vendas",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "82.2",
+              "name": "Prestações de serviço",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "82.3",
+              "name": "Outros proveitos operacionais",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "82.4",
+              "name": "Variação nos inventários de produtos acabados e produtos em vias de fabrico",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "82.5",
+              "name": "Trabalhos para a própria empresa",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "82.6",
+              "name": "Custo das mercadorias vendidas e das matérias consumidas",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "82.7",
+              "name": "Custos com o pessoal",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "82.8",
+              "name": "Amortizações do exercício",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "82.9",
+              "name": "Outros custos operacionais",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "82.19",
+              "name": "Transferência para resultados líquidos",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            }
+          ]
+        },
+        {
+          "code": "83",
+          "name": "Resultados financeiros",
+          "description": "Financial results",
+          "type": "Capital do proprietário",
+          "detailType": "Lucros acumulados",
+          "children": [
+            {
+              "code": "83.1",
+              "name": "Proveitos e ganhos financeiros gerais",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "83.2",
+              "name": "Custos e perdas financeiros gerais",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "83.9",
+              "name": "Transferência para resultados líquidos",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            }
+          ]
+        },
+        {
+          "code": "84",
+          "name": "Resultados financeiros em filiais e associadas",
+          "description": "Results from subsidiaries and associates",
+          "type": "Capital do proprietário",
+          "detailType": "Lucros acumulados",
+          "children": [
+            {
+              "code": "84.1",
+              "name": "Proveitos e ganhos em filiais e associadas",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "84.2",
+              "name": "Custos e perdas em filiais e associadas",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "84.9",
+              "name": "Transferência para resultados líquidos",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            }
+          ]
+        },
+        {
+          "code": "85",
+          "name": "Resultados não operacionais",
+          "description": "Non-operating results",
+          "type": "Capital do proprietário",
+          "detailType": "Lucros acumulados",
+          "children": [
+            {
+              "code": "85.1",
+              "name": "Proveitos e ganhos não operacionais",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "85.2",
+              "name": "Custos e perdas não operacionais",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "85.9",
+              "name": "Transferência para resultados líquidos",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            }
+          ]
+        },
+        {
+          "code": "86",
+          "name": "Resultados extraordinários",
+          "description": "Extraordinary results",
+          "type": "Capital do proprietário",
+          "detailType": "Lucros acumulados",
+          "children": [
+            {
+              "code": "86.1",
+              "name": "Proveitos e ganhos extraordinários",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            },
+            {
+              "code": "86.2",
+              "name": "Custos e perdas extraordinários",
+              "type": "Capital do proprietário",
+              "detailType": "Lucros acumulados"
+            }
+          ]
+        },
+        {
+          "code": "87",
+          "name": "Imposto sobre os lucros",
+          "description": "Income tax",
+          "type": "Despesas",
+          "detailType": "Despesas com imposto de renda"
+        },
+        {
+          "code": "88",
+          "name": "Resultado líquido do exercício",
+          "description": "Net income for the period",
+          "type": "Capital do proprietário",
+          "detailType": "Lucros acumulados"
+        },
+        {
+          "code": "89",
+          "name": "Dividendos antecipados",
+          "description": "Advanced dividends",
+          "type": "Capital do proprietário",
+          "detailType": "Dividendos desembolsados"
+        }
+      ]
+    },
+    {
+      "code": "9",
+      "name": "Contabilidade Analítica",
+      "description": "Management accounting (optional use)",
+      "optional": true,
+      "note": "Uso facultativo. Recomendado para empresas industriais.",
+      "accounts": []
+    }
+  ]
+}

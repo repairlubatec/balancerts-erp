@@ -1,0 +1,110 @@
+--- ZIP PDF HEAD ---
+Plano Geral de Contabilidade
+
+         Angolano
+         Decreto n.º 82/01
+
+            de 16 de Novembro
+                                                                                      Índice
+
+
+
+DECRETO N.º 82/01 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  1
+
+
+INTRODUÇÃO . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  2
+
+1 –JUSTIFICAÇÃO:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+2 –PRINCIPAIS ALTERAÇÕES: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+      2.1 — Objectivo externo das demonstrações financeiras:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+      2.2 — Alteração das componentes das demonstrações financeiras:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+      2.3 — Definição de políticas contabilísticas a adoptar na preparação das demonstrações financeiras:  . . . . . . . . . . . . . . . . . . 2
+      2.4 — Alterações na estrutura do balanço:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+      2.5 — Alterações na estrutura da Demonstração de Resultados por Natureza:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+      2.6 — Alterações na estrutura da Demonstração de Resultados por Funções: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+      2.7 — Alterações no quadro e lista de contas da Contabilidade Geral:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+      2.8 — Utilização da Contabilidade Analítica e apresentação da Demonstração de Resultados por Funções: . . . . . . . . . . . . . 3
+      2.9 — Alterações nas instruções de aplicação do Plano Geral de Contabilidade: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+
+3 –ATENÇÕES ESPECIAIS A TER EM CONTA NO PRIMEIRO ANO DE APLICAÇÃO DO PLANO:  . . . . . . . . . . . . 4
+4 –DISPOSIÇÕES TRANSITÓRIAS: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+      4.1 — Suspensões temporárias: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+      4.2 — Exclusões temporárias: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+
+
+DEMONSTRAÇÕES FINANCEIRAS  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  4
+
+1 –OS UTENTES E AS NECESSIDADES DE INFORMAÇÃO: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+2 –OBJECTIVOS DAS DEMONSTRAÇÕES FINANCEIRAS:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+      2.1 — Posição financeira: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+      2.2 — Desempenho: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+      2.3 — Alterações na posição financeira:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+3 –RESPONSABILIDADE PELA PREPARAÇÃO DAS DEMONSTRAÇÕES FINANCEIRAS: . . . . . . . . . . . . . . . . . . . . 5
+4 –COMPONENTES DAS DEMONSTRAÇÕES FINANCEIRAS:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+      1 — Disposições gerais:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+          1.1 — Identificação: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+          1.2 — Nome da entidade que relata: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+          1.3 — Período de relato: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+          1.4 — Moeda de relato e respectiva grandeza: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+          1.5 — Componentes de preparação obrigatória: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+          1.6 — Disposição, nomenclatura e número de ordem:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+          1.7 — Rubricas em valores: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+          1.8 — Notas não aplicáveis:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+          1.9 — Derrogações às políticas contabilísticas:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+      2 — Balanço: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+          2.1 — Conceito: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+          2.2 — Conteúdo: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+          2.3 — Estrutura: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+      3 — Demonstração de resultados . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+          3.1 — Conceito: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+          3.2 — Conteúdo: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+          3.3 — Estrutura: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+      4 — Demonstração de fluxos de caixa . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+          4.1 — Conceito: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+          4.2 — Conteúdo: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+          4.3 — Estrutura: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+      5 — Notas às contas  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+          5.1 — Conceito: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+          5.2 — Disposições especiais: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+          5.3 — Estrutura: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+
+
+POLÍTICAS CONTABILÍSTICAS  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  24
+
+1 –DEFINIÇÃO E OBJECTIVOS: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+
+2 –APLICAÇÃO: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+
+3 –CARACTERÍSTICAS QUALITATIVAS DA INFORMAÇÃO FINANCEIRA:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+      1 — Relevância: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+      2 — Fiabilidade: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+--- PROJECT PDF HEAD ---
+--- KEY TERMS ---
+/tmp/zip-pgc.txt
+1:Plano Geral de Contabilidade
+4:         Decreto n.º 82/01
+11:DECRETO N.º 82/01 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  1
+18:      2.1 — Objectivo externo das demonstrações financeiras:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+19:      2.2 — Alteração das componentes das demonstrações financeiras:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+20:      2.3 — Definição de políticas contabilísticas a adoptar na preparação das demonstrações financeiras:  . . . . . . . . . . . . . . . . . . 2
+22:      2.5 — Alterações na estrutura da Demonstração de Resultados por Natureza:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+24:      2.7 — Alterações no quadro e lista de contas da Contabilidade Geral:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+25:      2.8 — Utilização da Contabilidade Analítica e apresentação da Demonstração de Resultados por Funções: . . . . . . . . . . . . . 3
+26:      2.9 — Alterações nas instruções de aplicação do Plano Geral de Contabilidade: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+28:3 –ATENÇÕES ESPECIAIS A TER EM CONTA NO PRIMEIRO ANO DE APLICAÇÃO DO PLANO:  . . . . . . . . . . . . 4
+34:DEMONSTRAÇÕES FINANCEIRAS  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  4
+37:2 –OBJECTIVOS DAS DEMONSTRAÇÕES FINANCEIRAS:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+42:3 –RESPONSABILIDADE PELA PREPARAÇÃO DAS DEMONSTRAÇÕES FINANCEIRAS: . . . . . . . . . . . . . . . . . . . . 5
+43:4 –COMPONENTES DAS DEMONSTRAÇÕES FINANCEIRAS:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+53:          1.9 — Derrogações às políticas contabilísticas:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+66:      5 — Notas às contas  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+72:POLÍTICAS CONTABILÍSTICAS  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  24
+82:4 –BASES DE APRESENTAÇÃO DAS DEMONSTRAÇÕES FINANCEIRAS: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+86:5 –PRINCÍPIOS CONTABILÍSTICOS: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+92:6 –CRITÉRIOS PARA RECONHECIMENTO DAS CLASSES DAS DEMONSTRAÇÕES FINANCEIRAS:  . . . . . . . . 26
+105:          4.5 — Erros e alterações de políticas contabilísticas: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+110:          5.2 — Erros e alterações de políticas contabilísticas: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+122:           2.6 — Contas a receber: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+123:           2.7 — Contas a pagar:  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+/tmp/project-pgc.txt

@@ -61,7 +61,10 @@ for (const [code, account] of byCode) {
   const parent = parentCode(account);
   if (parent) {
     if (!byCode.has(parent)) errors.push({ code: "PARENT_NOT_FOUND", account: code, parent, message: `Conta pai inexistente: ${parent}.` });
-    else if (!(code === parent || code.startsWith(`${parent}.`))) errors.push({ code: "HIERARCHY_PREFIX_INVALID", account: code, parent, message: `O código ${code} não está hierarquicamente abaixo de ${parent}.` });
+    else {
+      const validPrefix = parent.length === 1 ? code.startsWith(parent) : code.startsWith(`${parent}.`);
+      if (!(code === parent || validPrefix)) errors.push({ code: "HIERARCHY_PREFIX_INVALID", account: code, parent, message: `O código ${code} não está hierarquicamente abaixo de ${parent}.` });
+    }
     const list = children.get(parent) ?? [];
     list.push(code);
     children.set(parent, list);

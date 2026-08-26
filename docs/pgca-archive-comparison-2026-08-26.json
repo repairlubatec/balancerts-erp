@@ -1,0 +1,133 @@
+{
+  "generatedAt": "2026-08-26T08:21:04.670Z",
+  "report": [
+    {
+      "id": "UPLOAD_PGC_ANGOLA_MAIN",
+      "base": "/tmp/pgc-angola-main",
+      "files": {
+        "flat": {
+          "path": "pgc_chart_of_accounts_flat.json",
+          "exists": true,
+          "sha256": "72ca1053eb2d41addea7643e8adcab1d3ac2a8bd9fede4485454ec03d28100c3",
+          "bytes": 120406
+        },
+        "tree": {
+          "path": "pgc_chart_of_accounts.json",
+          "exists": true,
+          "sha256": "43c4558e1bf175fa197a6ffef3dad4cc28dc1abf130d4c91c62914dab010048d",
+          "bytes": 107406
+        },
+        "typed": {
+          "path": "pgc_type_detailType.json",
+          "exists": true,
+          "sha256": "6fd83778c0d78856916f2a6d7ee9a5fd72351da841971ad036c25e9f36855b9d",
+          "bytes": 188322
+        },
+        "text": {
+          "path": "pgc.txt",
+          "exists": true,
+          "sha256": "e9399739d57ffb710dff8bb1c745b73cc3a8ca368c99fec3d51476efec2c946a",
+          "bytes": 617056
+        },
+        "pdf": {
+          "path": "docs/pgc.pdf",
+          "exists": true,
+          "sha256": "4654e5b7524df2ce7bd1be532d88fddee328e570a2c6992b1297bc7d90c1e124",
+          "bytes": 1152359
+        }
+      },
+      "metrics": {
+        "flat": {
+          "entries": 776,
+          "codes": 776,
+          "duplicateCodes": [],
+          "classes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "withNature": 0,
+          "postable": 0,
+          "parentFields": 767
+        },
+        "tree": {
+          "entries": 776,
+          "codes": 776,
+          "duplicateCodes": [],
+          "classes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "withNature": 0,
+          "postable": 0,
+          "parentFields": 767
+        },
+        "typed": {
+          "entries": 776,
+          "codes": 776,
+          "duplicateCodes": [],
+          "classes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "withNature": 0,
+          "postable": 0,
+          "parentFields": 767
+        }
+      }
+    },
+    {
+      "id": "PROJECT_PGCA_CONFIRMED",
+      "base": ".",
+      "files": {
+        "tree": {
+          "path": "docs/normative-sources/pgca-visually-confirmed-accounts.json",
+          "exists": true,
+          "sha256": "abec92e93995b03adacb6d50d9c76d251d939a52882fa2daa5ddcfb52c657177",
+          "bytes": 3567
+        },
+        "text": {
+          "path": "docs/normative-sources/decreto-82-01-pgca.txt",
+          "exists": true,
+          "sha256": "080e953364cf100bb66571252d8cb9225454525ae921e8ea43a0a61000dccd44",
+          "bytes": 97
+        }
+      },
+      "metrics": {
+        "tree": {
+          "entries": 27,
+          "codes": 27,
+          "duplicateCodes": [],
+          "classes": [
+            "1",
+            "4",
+            "6"
+          ],
+          "withNature": 0,
+          "postable": 0,
+          "parentFields": 24
+        }
+      }
+    }
+  ]
+}

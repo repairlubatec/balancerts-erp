@@ -1,0 +1,68 @@
+ZIP: /home/ubuntu/upload/pgc-angola-main.zip
+ee9c532afe652ac7182444db8a1b11711b48059b5f350937e7059078f5dda6e9  /home/ubuntu/upload/pgc-angola-main.zip
+--- CONTENTS ---
+pgc-angola-main/
+pgc-angola-main/.gitignore
+pgc-angola-main/LICENSE
+pgc-angola-main/README.md
+pgc-angola-main/docs/
+pgc-angola-main/docs/IMPLEMENTATION_SUMMARY.md
+pgc-angola-main/docs/README_PGC_CHART.md
+pgc-angola-main/docs/pgc.pdf
+pgc-angola-main/generate_markdown.py
+pgc-angola-main/generate_quickbooks_coa.py
+pgc-angola-main/parse_pgc_improved.py
+pgc-angola-main/pgc.txt
+pgc-angola-main/pgc_chart_of_accounts.json
+pgc-angola-main/pgc_chart_of_accounts.md
+pgc-angola-main/pgc_chart_of_accounts_flat.json
+pgc-angola-main/pgc_type_detailType.json
+pgc-angola-main/quickbooks/
+pgc-angola-main/quickbooks/README.md
+pgc-angola-main/quickbooks/pgc_coa_quickbooks.json
+pgc-angola-main/quickbooks/quickbooks-types-compact.yaml
+pgc-angola-main/quickbooks/quickbooks-types.json
+pgc-angola-main/quickbooks/quickbooks_coa_import.csv
+pgc-angola-main/quickbooks/quickbooks_coa_level_1.csv
+pgc-angola-main/quickbooks/quickbooks_coa_level_2.csv
+pgc-angola-main/quickbooks/quickbooks_coa_level_3.csv
+pgc-angola-main/quickbooks/quickbooks_coa_level_4.csv
+pgc-angola-main/quickbooks/quickbooks_coa_level_5.csv
+pgc-angola-main/quickbooks/quickbooks_coa_level_6.csv
+pgc-angola-main/validate_pgc.py
+--- METADATA ---
+Archive:  /home/ubuntu/upload/pgc-angola-main.zip
+b28db933336358690406ae20e3f0e721a204268c
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  2025-11-27 01:32   pgc-angola-main/
+      503  2025-11-27 01:32   pgc-angola-main/.gitignore
+     1459  2025-11-27 01:32   pgc-angola-main/LICENSE
+     6883  2025-11-27 01:32   pgc-angola-main/README.md
+        0  2025-11-27 01:32   pgc-angola-main/docs/
+     7661  2025-11-27 01:32   pgc-angola-main/docs/IMPLEMENTATION_SUMMARY.md
+     6711  2025-11-27 01:32   pgc-angola-main/docs/README_PGC_CHART.md
+  1152359  2025-11-27 01:32   pgc-angola-main/docs/pgc.pdf
+     4947  2025-11-27 01:32   pgc-angola-main/generate_markdown.py
+     6435  2025-11-27 01:32   pgc-angola-main/generate_quickbooks_coa.py
+    59364  2025-11-27 01:32   pgc-angola-main/parse_pgc_improved.py
+   617056  2025-11-27 01:32   pgc-angola-main/pgc.txt
+   107406  2025-11-27 01:32   pgc-angola-main/pgc_chart_of_accounts.json
+    53123  2025-11-27 01:32   pgc-angola-main/pgc_chart_of_accounts.md
+   120406  2025-11-27 01:32   pgc-angola-main/pgc_chart_of_accounts_flat.json
+   188322  2025-11-27 01:32   pgc-angola-main/pgc_type_detailType.json
+        0  2025-11-27 01:32   pgc-angola-main/quickbooks/
+     6448  2025-11-27 01:32   pgc-angola-main/quickbooks/README.md
+   187517  2025-11-27 01:32   pgc-angola-main/quickbooks/pgc_coa_quickbooks.json
+     9897  2025-11-27 01:32   pgc-angola-main/quickbooks/quickbooks-types-compact.yaml
+   119222  2025-11-27 01:32   pgc-angola-main/quickbooks/quickbooks-types.json
+    84569  2025-11-27 01:32   pgc-angola-main/quickbooks/quickbooks_coa_import.csv
+      607  2025-11-27 01:32   pgc-angola-main/quickbooks/quickbooks_coa_level_1.csv
+     6530  2025-11-27 01:32   pgc-angola-main/quickbooks/quickbooks_coa_level_2.csv
+    28194  2025-11-27 01:32   pgc-angola-main/quickbooks/quickbooks_coa_level_3.csv
+    28076  2025-11-27 01:32   pgc-angola-main/quickbooks/quickbooks_coa_level_4.csv
+    21205  2025-11-27 01:32   pgc-angola-main/quickbooks/quickbooks_coa_level_5.csv
+      227  2025-11-27 01:32   pgc-angola-main/quickbooks/quickbooks_coa_level_6.csv
+     6676  2025-11-27 01:32   pgc-angola-main/validate_pgc.py
+---------                     -------
+  2831803                     29 files

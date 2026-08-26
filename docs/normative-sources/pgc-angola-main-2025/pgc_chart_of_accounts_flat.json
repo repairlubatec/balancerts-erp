@@ -1,0 +1,6219 @@
+[
+  {
+    "code": "1",
+    "name": "Meios fixos e investimentos",
+    "description": "Fixed assets and investments",
+    "level": 1,
+    "parent": null,
+    "type": "class",
+    "optional": false
+  },
+  {
+    "code": "11",
+    "name": "Imobilizações corpóreas",
+    "description": "Tangible fixed assets",
+    "level": 2,
+    "parent": "1",
+    "type": "account"
+  },
+  {
+    "code": "11.1",
+    "name": "Terrenos e recursos naturais",
+    "description": "",
+    "level": 3,
+    "parent": "11",
+    "type": "account"
+  },
+  {
+    "code": "11.1.1",
+    "name": "Terrenos em bruto",
+    "description": "",
+    "level": 4,
+    "parent": "11.1",
+    "type": "account"
+  },
+  {
+    "code": "11.1.2",
+    "name": "Terrenos com arranjos",
+    "description": "",
+    "level": 4,
+    "parent": "11.1",
+    "type": "account"
+  },
+  {
+    "code": "11.1.3",
+    "name": "Subsolos",
+    "description": "",
+    "level": 4,
+    "parent": "11.1",
+    "type": "account"
+  },
+  {
+    "code": "11.1.4",
+    "name": "Terrenos com edifícios",
+    "description": "",
+    "level": 4,
+    "parent": "11.1",
+    "type": "account"
+  },
+  {
+    "code": "11.1.4.1",
+    "name": "Relativos a edifícios industriais",
+    "description": "",
+    "level": 5,
+    "parent": "11.1.4",
+    "type": "account"
+  },
+  {
+    "code": "11.1.4.2",
+    "name": "Relativos a edifícios administrativos e comerciais",
+    "description": "",
+    "level": 5,
+    "parent": "11.1.4",
+    "type": "account"
+  },
+  {
+    "code": "11.1.4.3",
+    "name": "Relativos a outros edifícios",
+    "description": "",
+    "level": 5,
+    "parent": "11.1.4",
+    "type": "account"
+  },
+  {
+    "code": "11.2",
+    "name": "Edifícios e outras construções",
+    "description": "Buildings and other structures",
+    "level": 3,
+    "parent": "11",
+    "type": "account"
+  },
+  {
+    "code": "11.2.1",
+    "name": "Edifícios",
+    "description": "",
+    "level": 4,
+    "parent": "11.2",
+    "type": "account"
+  },
+  {
+    "code": "11.2.1.1",
+    "name": "Integrados em conjuntos industriais",
+    "description": "",
+    "level": 5,
+    "parent": "11.2.1",
+    "type": "account"
+  },
+  {
+    "code": "11.3",
+    "name": "Equipamento básico",
+    "description": "Basic equipment",
+    "level": 3,
+    "parent": "11",
+    "type": "account"
+  },
+  {
+    "code": "11.4",
+    "name": "Equipamento de carga e transporte",
+    "description": "Loading and transport equipment",
+    "level": 3,
+    "parent": "11",
+    "type": "account"
+  },
+  {
+    "code": "11.5",
+    "name": "Equipamento administrativo",
+    "description": "Administrative equipment",
+    "level": 3,
+    "parent": "11",
+    "type": "account"
+  },
+  {
+    "code": "11.6",
+    "name": "Taras e vasilhame",
+    "description": "Containers and packaging",
+    "level": 3,
+    "parent": "11",
+    "type": "account"
+  },
+  {
+    "code": "11.9",
+    "name": "Outras imobilizações corpóreas",
+    "description": "Other tangible fixed assets",
+    "level": 3,
+    "parent": "11",
+    "type": "account"
+  },
+  {
+    "code": "12",
+    "name": "Imobilizações incorpóreas",
+    "description": "Intangible fixed assets",
+    "level": 2,
+    "parent": "1",
+    "type": "account"
+  },
+  {
+    "code": "12.1",
+    "name": "Trespasses",
+    "description": "Goodwill",
+    "level": 3,
+    "parent": "12",
+    "type": "account"
+  },
+  {
+    "code": "12.2",
+    "name": "Despesas de investigação e desenvolvimento",
+    "description": "Research and development expenses",
+    "level": 3,
+    "parent": "12",
+    "type": "account"
+  },
+  {
+    "code": "12.3",
+    "name": "Propriedade industrial e outros direitos e contratos",
+    "description": "Industrial property and other rights",
+    "level": 3,
+    "parent": "12",
+    "type": "account"
+  },
+  {
+    "code": "12.4",
+    "name": "Despesas de constituição",
+    "description": "Incorporation expenses",
+    "level": 3,
+    "parent": "12",
+    "type": "account"
+  },
+  {
+    "code": "12.9",
+    "name": "Outras imobilizações incorpóreas",
+    "description": "Other intangible assets",
+    "level": 3,
+    "parent": "12",
+    "type": "account"
+  },
+  {
+    "code": "13",
+    "name": "Investimentos Financeiros",
+    "description": "Financial investments",
+    "level": 2,
+    "parent": "1",
+    "type": "account"
+  },
+  {
+    "code": "13.1",
+    "name": "Empresas subsidiárias",
+    "description": "Subsidiary companies",
+    "level": 3,
+    "parent": "13",
+    "type": "account"
+  },
+  {
+    "code": "13.1.1",
+    "name": "Partes de capital",
+    "description": "",
+    "level": 4,
+    "parent": "13.1",
+    "type": "account"
+  },
+  {
+    "code": "13.1.2",
+    "name": "Obrigações e títulos de participação",
+    "description": "",
+    "level": 4,
+    "parent": "13.1",
+    "type": "account"
+  },
+  {
+    "code": "13.1.3",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 4,
+    "parent": "13.1",
+    "type": "account"
+  },
+  {
+    "code": "13.2",
+    "name": "Empresas associadas",
+    "description": "Associated companies",
+    "level": 3,
+    "parent": "13",
+    "type": "account"
+  },
+  {
+    "code": "13.2.1",
+    "name": "Partes de capital",
+    "description": "",
+    "level": 4,
+    "parent": "13.2",
+    "type": "account"
+  },
+  {
+    "code": "13.2.2",
+    "name": "Obrigações e títulos de participação",
+    "description": "",
+    "level": 4,
+    "parent": "13.2",
+    "type": "account"
+  },
+  {
+    "code": "13.2.3",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 4,
+    "parent": "13.2",
+    "type": "account"
+  },
+  {
+    "code": "13.3",
+    "name": "Outras empresas",
+    "description": "Other companies",
+    "level": 3,
+    "parent": "13",
+    "type": "account"
+  },
+  {
+    "code": "13.3.1",
+    "name": "Partes de capital",
+    "description": "",
+    "level": 4,
+    "parent": "13.3",
+    "type": "account"
+  },
+  {
+    "code": "13.3.2",
+    "name": "Obrigações e títulos de participação",
+    "description": "",
+    "level": 4,
+    "parent": "13.3",
+    "type": "account"
+  },
+  {
+    "code": "13.3.3",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 4,
+    "parent": "13.3",
+    "type": "account"
+  },
+  {
+    "code": "13.4",
+    "name": "Investimentos em imóveis",
+    "description": "Real estate investments",
+    "level": 3,
+    "parent": "13",
+    "type": "account"
+  },
+  {
+    "code": "13.5",
+    "name": "Fundos",
+    "description": "Funds",
+    "level": 3,
+    "parent": "13",
+    "type": "account"
+  },
+  {
+    "code": "13.9",
+    "name": "Outros investimentos Financeiros",
+    "description": "Other financial investments",
+    "level": 3,
+    "parent": "13",
+    "type": "account"
+  },
+  {
+    "code": "13.9.1",
+    "name": "Diamantes",
+    "description": "",
+    "level": 4,
+    "parent": "13.9",
+    "type": "account"
+  },
+  {
+    "code": "13.9.2",
+    "name": "Ouro",
+    "description": "",
+    "level": 4,
+    "parent": "13.9",
+    "type": "account"
+  },
+  {
+    "code": "13.9.3",
+    "name": "Depósitos bancários",
+    "description": "",
+    "level": 4,
+    "parent": "13.9",
+    "type": "account"
+  },
+  {
+    "code": "14",
+    "name": "Imobilizações em Curso",
+    "description": "Work in progress",
+    "level": 2,
+    "parent": "1",
+    "type": "account"
+  },
+  {
+    "code": "14.1",
+    "name": "Obra em curso",
+    "description": "",
+    "level": 3,
+    "parent": "14",
+    "type": "account"
+  },
+  {
+    "code": "14.2",
+    "name": "Obra em curso",
+    "description": "",
+    "level": 3,
+    "parent": "14",
+    "type": "account"
+  },
+  {
+    "code": "14.7",
+    "name": "Adiantamentos por conta de imobilizado corpóreo",
+    "description": "",
+    "level": 3,
+    "parent": "14",
+    "type": "account"
+  },
+  {
+    "code": "14.8",
+    "name": "Adiantamentos por conta de imobilizado incorpóreo",
+    "description": "",
+    "level": 3,
+    "parent": "14",
+    "type": "account"
+  },
+  {
+    "code": "14.9",
+    "name": "Adiantamentos por conta de investimentos financeiros",
+    "description": "",
+    "level": 3,
+    "parent": "14",
+    "type": "account"
+  },
+  {
+    "code": "18",
+    "name": "Amortizações Acumuladas",
+    "description": "Accumulated depreciation",
+    "level": 2,
+    "parent": "1",
+    "type": "account"
+  },
+  {
+    "code": "18.1",
+    "name": "Imobilizações corpóreas",
+    "description": "",
+    "level": 3,
+    "parent": "18",
+    "type": "account"
+  },
+  {
+    "code": "18.1.1",
+    "name": "Terrenos e recursos naturais",
+    "description": "",
+    "level": 4,
+    "parent": "18.1",
+    "type": "account"
+  },
+  {
+    "code": "18.1.2",
+    "name": "Edifícios e outras construções",
+    "description": "",
+    "level": 4,
+    "parent": "18.1",
+    "type": "account"
+  },
+  {
+    "code": "18.1.3",
+    "name": "Equipamento básico",
+    "description": "",
+    "level": 4,
+    "parent": "18.1",
+    "type": "account"
+  },
+  {
+    "code": "18.1.4",
+    "name": "Equipamento de carga e transporte",
+    "description": "",
+    "level": 4,
+    "parent": "18.1",
+    "type": "account"
+  },
+  {
+    "code": "18.1.5",
+    "name": "Equipamento administrativo",
+    "description": "",
+    "level": 4,
+    "parent": "18.1",
+    "type": "account"
+  },
+  {
+    "code": "18.1.6",
+    "name": "Taras e vasilhame",
+    "description": "",
+    "level": 4,
+    "parent": "18.1",
+    "type": "account"
+  },
+  {
+    "code": "18.1.9",
+    "name": "Outras imobilizações corpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "18.1",
+    "type": "account"
+  },
+  {
+    "code": "18.2",
+    "name": "Imobilizações incorpóreas",
+    "description": "",
+    "level": 3,
+    "parent": "18",
+    "type": "account"
+  },
+  {
+    "code": "18.2.1",
+    "name": "Trespasses",
+    "description": "",
+    "level": 4,
+    "parent": "18.2",
+    "type": "account"
+  },
+  {
+    "code": "18.2.2",
+    "name": "Despesas de investigação e desenvolvimento",
+    "description": "",
+    "level": 4,
+    "parent": "18.2",
+    "type": "account"
+  },
+  {
+    "code": "18.2.3",
+    "name": "Propriedade industrial e outros direitos e contratos",
+    "description": "",
+    "level": 4,
+    "parent": "18.2",
+    "type": "account"
+  },
+  {
+    "code": "18.2.4",
+    "name": "Despesas de constituição",
+    "description": "",
+    "level": 4,
+    "parent": "18.2",
+    "type": "account"
+  },
+  {
+    "code": "18.2.9",
+    "name": "Outras imobilizações incorpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "18.2",
+    "type": "account"
+  },
+  {
+    "code": "18.3",
+    "name": "Investimentos financeiros em imóveis",
+    "description": "",
+    "level": 3,
+    "parent": "18",
+    "type": "account"
+  },
+  {
+    "code": "18.3.1",
+    "name": "Terrenos e recursos naturais",
+    "description": "",
+    "level": 4,
+    "parent": "18.3",
+    "type": "account"
+  },
+  {
+    "code": "18.3.2",
+    "name": "Edifícios e outras construções",
+    "description": "",
+    "level": 4,
+    "parent": "18.3",
+    "type": "account"
+  },
+  {
+    "code": "19",
+    "name": "Provisões para investimentos financeiros",
+    "description": "Provisions for financial investments",
+    "level": 2,
+    "parent": "1",
+    "type": "account"
+  },
+  {
+    "code": "19.1",
+    "name": "Empresas subsidiárias",
+    "description": "",
+    "level": 3,
+    "parent": "19",
+    "type": "account"
+  },
+  {
+    "code": "19.1.1",
+    "name": "Partes de capital",
+    "description": "",
+    "level": 4,
+    "parent": "19.1",
+    "type": "account"
+  },
+  {
+    "code": "19.1.2",
+    "name": "Obrigações e títulos de participação",
+    "description": "",
+    "level": 4,
+    "parent": "19.1",
+    "type": "account"
+  },
+  {
+    "code": "19.1.3",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 4,
+    "parent": "19.1",
+    "type": "account"
+  },
+  {
+    "code": "19.2",
+    "name": "Empresas associadas",
+    "description": "",
+    "level": 3,
+    "parent": "19",
+    "type": "account"
+  },
+  {
+    "code": "19.2.1",
+    "name": "Partes de capital",
+    "description": "",
+    "level": 4,
+    "parent": "19.2",
+    "type": "account"
+  },
+  {
+    "code": "19.2.2",
+    "name": "Obrigações e títulos de participação",
+    "description": "",
+    "level": 4,
+    "parent": "19.2",
+    "type": "account"
+  },
+  {
+    "code": "19.2.3",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 4,
+    "parent": "19.2",
+    "type": "account"
+  },
+  {
+    "code": "19.3",
+    "name": "Outras empresas",
+    "description": "",
+    "level": 3,
+    "parent": "19",
+    "type": "account"
+  },
+  {
+    "code": "19.3.1",
+    "name": "Partes de capital",
+    "description": "",
+    "level": 4,
+    "parent": "19.3",
+    "type": "account"
+  },
+  {
+    "code": "19.3.2",
+    "name": "Obrigações e títulos de participação",
+    "description": "",
+    "level": 4,
+    "parent": "19.3",
+    "type": "account"
+  },
+  {
+    "code": "19.3.3",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 4,
+    "parent": "19.3",
+    "type": "account"
+  },
+  {
+    "code": "19.4",
+    "name": "Fundos",
+    "description": "",
+    "level": 3,
+    "parent": "19",
+    "type": "account"
+  },
+  {
+    "code": "19.4.1",
+    "name": "Partes de capital",
+    "description": "",
+    "level": 4,
+    "parent": "19.4",
+    "type": "account"
+  },
+  {
+    "code": "19.9",
+    "name": "Outros investimentos financeiros",
+    "description": "",
+    "level": 3,
+    "parent": "19",
+    "type": "account"
+  },
+  {
+    "code": "19.9.1",
+    "name": "Diamantes",
+    "description": "",
+    "level": 4,
+    "parent": "19.9",
+    "type": "account"
+  },
+  {
+    "code": "19.9.2",
+    "name": "Ouro",
+    "description": "",
+    "level": 4,
+    "parent": "19.9",
+    "type": "account"
+  },
+  {
+    "code": "19.9.3",
+    "name": "Depósitos bancários",
+    "description": "",
+    "level": 4,
+    "parent": "19.9",
+    "type": "account"
+  },
+  {
+    "code": "2",
+    "name": "Existências",
+    "description": "Inventories",
+    "level": 1,
+    "parent": null,
+    "type": "class",
+    "optional": false
+  },
+  {
+    "code": "21",
+    "name": "Compras",
+    "description": "Purchases",
+    "level": 2,
+    "parent": "2",
+    "type": "account"
+  },
+  {
+    "code": "21.1",
+    "name": "Matérias-primas, subsidiárias e de consumo",
+    "description": "",
+    "level": 3,
+    "parent": "21",
+    "type": "account"
+  },
+  {
+    "code": "21.2",
+    "name": "Mercadorias",
+    "description": "",
+    "level": 3,
+    "parent": "21",
+    "type": "account"
+  },
+  {
+    "code": "21.7",
+    "name": "Devoluções de compras",
+    "description": "",
+    "level": 3,
+    "parent": "21",
+    "type": "account"
+  },
+  {
+    "code": "21.8",
+    "name": "Descontos e abatimentos em compras",
+    "description": "",
+    "level": 3,
+    "parent": "21",
+    "type": "account"
+  },
+  {
+    "code": "22",
+    "name": "Matérias-primas, subsidiárias e de consumo",
+    "description": "Raw materials and consumables",
+    "level": 2,
+    "parent": "2",
+    "type": "account"
+  },
+  {
+    "code": "22.1",
+    "name": "Matérias-primas",
+    "description": "",
+    "level": 3,
+    "parent": "22",
+    "type": "account"
+  },
+  {
+    "code": "22.2",
+    "name": "Matérias subsidiárias",
+    "description": "",
+    "level": 3,
+    "parent": "22",
+    "type": "account"
+  },
+  {
+    "code": "22.3",
+    "name": "Materiais diversos",
+    "description": "",
+    "level": 3,
+    "parent": "22",
+    "type": "account"
+  },
+  {
+    "code": "22.4",
+    "name": "Embalagens de consumo",
+    "description": "",
+    "level": 3,
+    "parent": "22",
+    "type": "account"
+  },
+  {
+    "code": "22.5",
+    "name": "Outros materiais",
+    "description": "",
+    "level": 3,
+    "parent": "22",
+    "type": "account"
+  },
+  {
+    "code": "23",
+    "name": "Produtos e trabalhos em curso",
+    "description": "Work in progress",
+    "level": 2,
+    "parent": "2",
+    "type": "account"
+  },
+  {
+    "code": "24",
+    "name": "Produtos acabados e intermédios",
+    "description": "Finished and intermediate products",
+    "level": 2,
+    "parent": "2",
+    "type": "account"
+  },
+  {
+    "code": "24.1",
+    "name": "Produtos acabados",
+    "description": "",
+    "level": 3,
+    "parent": "24",
+    "type": "account"
+  },
+  {
+    "code": "24.2",
+    "name": "Produtos intermédios",
+    "description": "",
+    "level": 3,
+    "parent": "24",
+    "type": "account"
+  },
+  {
+    "code": "24.9",
+    "name": "Em poder de terceiros",
+    "description": "",
+    "level": 3,
+    "parent": "24",
+    "type": "account"
+  },
+  {
+    "code": "25",
+    "name": "Sub-produtos, desperdícios, resíduos e refugos",
+    "description": "By-products and waste",
+    "level": 2,
+    "parent": "2",
+    "type": "account"
+  },
+  {
+    "code": "25.1",
+    "name": "Sub-produtos",
+    "description": "",
+    "level": 3,
+    "parent": "25",
+    "type": "account"
+  },
+  {
+    "code": "25.2",
+    "name": "Desperdícios, resíduos e refugos",
+    "description": "",
+    "level": 3,
+    "parent": "25",
+    "type": "account"
+  },
+  {
+    "code": "26",
+    "name": "Mercadorias",
+    "description": "Goods",
+    "level": 2,
+    "parent": "2",
+    "type": "account"
+  },
+  {
+    "code": "26.9",
+    "name": "Em poder de terceiros",
+    "description": "",
+    "level": 3,
+    "parent": "26",
+    "type": "account"
+  },
+  {
+    "code": "27",
+    "name": "Matérias-primas, mercadorias e outros materiais em trânsito",
+    "description": "Materials in transit",
+    "level": 2,
+    "parent": "2",
+    "type": "account"
+  },
+  {
+    "code": "27.1",
+    "name": "Matérias-primas",
+    "description": "",
+    "level": 3,
+    "parent": "27",
+    "type": "account"
+  },
+  {
+    "code": "27.2",
+    "name": "Outros materiais",
+    "description": "",
+    "level": 3,
+    "parent": "27",
+    "type": "account"
+  },
+  {
+    "code": "27.3",
+    "name": "Mercadorias",
+    "description": "",
+    "level": 3,
+    "parent": "27",
+    "type": "account"
+  },
+  {
+    "code": "28",
+    "name": "Adiantamentos por conta de compras",
+    "description": "Purchase advances",
+    "level": 2,
+    "parent": "2",
+    "type": "account"
+  },
+  {
+    "code": "28.1",
+    "name": "Matérias-primas e outros materiais",
+    "description": "",
+    "level": 3,
+    "parent": "28",
+    "type": "account"
+  },
+  {
+    "code": "28.2",
+    "name": "Mercadorias",
+    "description": "",
+    "level": 3,
+    "parent": "28",
+    "type": "account"
+  },
+  {
+    "code": "29",
+    "name": "Provisão para depreciação de existências",
+    "description": "Provisions for inventory depreciation",
+    "level": 2,
+    "parent": "2",
+    "type": "account"
+  },
+  {
+    "code": "29.2",
+    "name": "Matérias-primas subsidiárias e de consumo",
+    "description": "",
+    "level": 3,
+    "parent": "29",
+    "type": "account"
+  },
+  {
+    "code": "29.3",
+    "name": "Produtos e trabalhos em curso",
+    "description": "",
+    "level": 3,
+    "parent": "29",
+    "type": "account"
+  },
+  {
+    "code": "29.4",
+    "name": "Produtos acabados e intermédios",
+    "description": "",
+    "level": 3,
+    "parent": "29",
+    "type": "account"
+  },
+  {
+    "code": "29.5",
+    "name": "Sub-produtos, desperdícios, resíduos e refugos",
+    "description": "",
+    "level": 3,
+    "parent": "29",
+    "type": "account"
+  },
+  {
+    "code": "29.6",
+    "name": "Mercadorias",
+    "description": "",
+    "level": 3,
+    "parent": "29",
+    "type": "account"
+  },
+  {
+    "code": "3",
+    "name": "Terceiros",
+    "description": "Third parties",
+    "level": 1,
+    "parent": null,
+    "type": "class",
+    "optional": false
+  },
+  {
+    "code": "31",
+    "name": "Clientes",
+    "description": "Customers",
+    "level": 2,
+    "parent": "3",
+    "type": "account"
+  },
+  {
+    "code": "31.1",
+    "name": "Clientes – correntes",
+    "description": "",
+    "level": 3,
+    "parent": "31",
+    "type": "account"
+  },
+  {
+    "code": "31.1.1",
+    "name": "Grupo",
+    "description": "",
+    "level": 4,
+    "parent": "31.1",
+    "type": "account"
+  },
+  {
+    "code": "31.1.1.1",
+    "name": "Subsidiárias",
+    "description": "",
+    "level": 5,
+    "parent": "31.1.1",
+    "type": "account"
+  },
+  {
+    "code": "31.1.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 5,
+    "parent": "31.1.1",
+    "type": "account"
+  },
+  {
+    "code": "31.1.2",
+    "name": "Não grupo",
+    "description": "",
+    "level": 4,
+    "parent": "31.1",
+    "type": "account"
+  },
+  {
+    "code": "31.1.2.1",
+    "name": "Nacionais",
+    "description": "",
+    "level": 5,
+    "parent": "31.1.2",
+    "type": "account"
+  },
+  {
+    "code": "31.1.2.2",
+    "name": "Estrangeiros",
+    "description": "",
+    "level": 5,
+    "parent": "31.1.2",
+    "type": "account"
+  },
+  {
+    "code": "31.2",
+    "name": "Clientes – títulos a receber",
+    "description": "",
+    "level": 3,
+    "parent": "31",
+    "type": "account"
+  },
+  {
+    "code": "31.2.1",
+    "name": "Grupo",
+    "description": "",
+    "level": 4,
+    "parent": "31.2",
+    "type": "account"
+  },
+  {
+    "code": "31.2.1.1",
+    "name": "Subsidiárias",
+    "description": "",
+    "level": 5,
+    "parent": "31.2.1",
+    "type": "account"
+  },
+  {
+    "code": "31.2.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 5,
+    "parent": "31.2.1",
+    "type": "account"
+  },
+  {
+    "code": "31.2.2",
+    "name": "Não grupo",
+    "description": "",
+    "level": 4,
+    "parent": "31.2",
+    "type": "account"
+  },
+  {
+    "code": "31.2.2.1",
+    "name": "Nacionais",
+    "description": "",
+    "level": 5,
+    "parent": "31.2.2",
+    "type": "account"
+  },
+  {
+    "code": "31.2.2.2",
+    "name": "Estrangeiros",
+    "description": "",
+    "level": 5,
+    "parent": "31.2.2",
+    "type": "account"
+  },
+  {
+    "code": "31.3",
+    "name": "Clientes – títulos descontados",
+    "description": "",
+    "level": 3,
+    "parent": "31",
+    "type": "account"
+  },
+  {
+    "code": "31.3.1",
+    "name": "Grupo",
+    "description": "",
+    "level": 4,
+    "parent": "31.3",
+    "type": "account"
+  },
+  {
+    "code": "31.3.1.1",
+    "name": "Subsidiárias",
+    "description": "",
+    "level": 5,
+    "parent": "31.3.1",
+    "type": "account"
+  },
+  {
+    "code": "31.3.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 5,
+    "parent": "31.3.1",
+    "type": "account"
+  },
+  {
+    "code": "31.3.2",
+    "name": "Não grupo",
+    "description": "",
+    "level": 4,
+    "parent": "31.3",
+    "type": "account"
+  },
+  {
+    "code": "31.3.2.1",
+    "name": "Nacionais",
+    "description": "",
+    "level": 5,
+    "parent": "31.3.2",
+    "type": "account"
+  },
+  {
+    "code": "31.3.2.2",
+    "name": "Estrangeiros",
+    "description": "",
+    "level": 5,
+    "parent": "31.3.2",
+    "type": "account"
+  },
+  {
+    "code": "31.8",
+    "name": "Clientes de cobrança duvidosa",
+    "description": "",
+    "level": 3,
+    "parent": "31",
+    "type": "account"
+  },
+  {
+    "code": "31.8.1",
+    "name": "Clientes – correntes",
+    "description": "",
+    "level": 4,
+    "parent": "31.8",
+    "type": "account"
+  },
+  {
+    "code": "31.8.2",
+    "name": "Clientes – títulos",
+    "description": "",
+    "level": 4,
+    "parent": "31.8",
+    "type": "account"
+  },
+  {
+    "code": "31.9",
+    "name": "Clientes - saldos credores",
+    "description": "",
+    "level": 3,
+    "parent": "31",
+    "type": "account"
+  },
+  {
+    "code": "31.9.1",
+    "name": "Adiantamentos",
+    "description": "",
+    "level": 4,
+    "parent": "31.9",
+    "type": "account"
+  },
+  {
+    "code": "31.9.2",
+    "name": "Embalagens a devolver",
+    "description": "",
+    "level": 4,
+    "parent": "31.9",
+    "type": "account"
+  },
+  {
+    "code": "31.9.3",
+    "name": "Material à consignação",
+    "description": "",
+    "level": 4,
+    "parent": "31.9",
+    "type": "account"
+  },
+  {
+    "code": "32",
+    "name": "Fornecedores",
+    "description": "Suppliers",
+    "level": 2,
+    "parent": "3",
+    "type": "account"
+  },
+  {
+    "code": "32.1",
+    "name": "Fornecedores – correntes",
+    "description": "",
+    "level": 3,
+    "parent": "32",
+    "type": "account"
+  },
+  {
+    "code": "32.1.1",
+    "name": "Grupo",
+    "description": "",
+    "level": 4,
+    "parent": "32.1",
+    "type": "account"
+  },
+  {
+    "code": "32.1.1.1",
+    "name": "Subsidiárias",
+    "description": "",
+    "level": 5,
+    "parent": "32.1.1",
+    "type": "account"
+  },
+  {
+    "code": "32.1.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 5,
+    "parent": "32.1.1",
+    "type": "account"
+  },
+  {
+    "code": "32.1.2",
+    "name": "Não grupo",
+    "description": "",
+    "level": 4,
+    "parent": "32.1",
+    "type": "account"
+  },
+  {
+    "code": "32.1.2.1",
+    "name": "Nacionais",
+    "description": "",
+    "level": 5,
+    "parent": "32.1.2",
+    "type": "account"
+  },
+  {
+    "code": "32.1.2.2",
+    "name": "Estrangeiros",
+    "description": "",
+    "level": 5,
+    "parent": "32.1.2",
+    "type": "account"
+  },
+  {
+    "code": "32.2",
+    "name": "Fornecedores – títulos a pagar",
+    "description": "",
+    "level": 3,
+    "parent": "32",
+    "type": "account"
+  },
+  {
+    "code": "32.2.1",
+    "name": "Grupo",
+    "description": "",
+    "level": 4,
+    "parent": "32.2",
+    "type": "account"
+  },
+  {
+    "code": "32.2.1.1",
+    "name": "Subsidiárias",
+    "description": "",
+    "level": 5,
+    "parent": "32.2.1",
+    "type": "account"
+  },
+  {
+    "code": "32.2.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 5,
+    "parent": "32.2.1",
+    "type": "account"
+  },
+  {
+    "code": "32.2.2",
+    "name": "Não grupo",
+    "description": "",
+    "level": 4,
+    "parent": "32.2",
+    "type": "account"
+  },
+  {
+    "code": "32.2.2.1",
+    "name": "Nacionais",
+    "description": "",
+    "level": 5,
+    "parent": "32.2.2",
+    "type": "account"
+  },
+  {
+    "code": "32.2.2.2",
+    "name": "Estrangeiros",
+    "description": "",
+    "level": 5,
+    "parent": "32.2.2",
+    "type": "account"
+  },
+  {
+    "code": "32.8",
+    "name": "Fornecedores – facturas em recepção e conferência",
+    "description": "",
+    "level": 3,
+    "parent": "32",
+    "type": "account"
+  },
+  {
+    "code": "32.9",
+    "name": "Fornecedores – saldos devedores",
+    "description": "",
+    "level": 3,
+    "parent": "32",
+    "type": "account"
+  },
+  {
+    "code": "32.9.1",
+    "name": "Adiantamentos",
+    "description": "",
+    "level": 4,
+    "parent": "32.9",
+    "type": "account"
+  },
+  {
+    "code": "32.9.2",
+    "name": "Embalagens a devolver",
+    "description": "",
+    "level": 4,
+    "parent": "32.9",
+    "type": "account"
+  },
+  {
+    "code": "32.9.3",
+    "name": "Material à consignação",
+    "description": "",
+    "level": 4,
+    "parent": "32.9",
+    "type": "account"
+  },
+  {
+    "code": "33",
+    "name": "Empréstimos",
+    "description": "Loans",
+    "level": 2,
+    "parent": "3",
+    "type": "account"
+  },
+  {
+    "code": "33.1",
+    "name": "Empréstimos bancários",
+    "description": "",
+    "level": 3,
+    "parent": "33",
+    "type": "account"
+  },
+  {
+    "code": "33.1.1",
+    "name": "Moeda nacional",
+    "description": "",
+    "level": 4,
+    "parent": "33.1",
+    "type": "account"
+  },
+  {
+    "code": "33.1.1.1",
+    "name": "Banco ___",
+    "description": "",
+    "level": 5,
+    "parent": "33.1.1",
+    "type": "account"
+  },
+  {
+    "code": "33.1.2",
+    "name": "Moeda estrangeira",
+    "description": "",
+    "level": 4,
+    "parent": "33.1",
+    "type": "account"
+  },
+  {
+    "code": "33.1.2.1",
+    "name": "Banco ___",
+    "description": "",
+    "level": 5,
+    "parent": "33.1.2",
+    "type": "account"
+  },
+  {
+    "code": "33.2",
+    "name": "Empréstimos por obrigações",
+    "description": "",
+    "level": 3,
+    "parent": "33",
+    "type": "account"
+  },
+  {
+    "code": "33.2.1",
+    "name": "Convertíveis",
+    "description": "",
+    "level": 4,
+    "parent": "33.2",
+    "type": "account"
+  },
+  {
+    "code": "33.2.1.1",
+    "name": "Entidade ___",
+    "description": "",
+    "level": 5,
+    "parent": "33.2.1",
+    "type": "account"
+  },
+  {
+    "code": "33.2.2",
+    "name": "Não convertíveis",
+    "description": "",
+    "level": 4,
+    "parent": "33.2",
+    "type": "account"
+  },
+  {
+    "code": "33.2.2.1",
+    "name": "Entidade ___",
+    "description": "",
+    "level": 5,
+    "parent": "33.2.2",
+    "type": "account"
+  },
+  {
+    "code": "33.3",
+    "name": "Empréstimos por títulos de participação",
+    "description": "",
+    "level": 3,
+    "parent": "33",
+    "type": "account"
+  },
+  {
+    "code": "33.3.1",
+    "name": "Entidade ___",
+    "description": "",
+    "level": 4,
+    "parent": "33.3",
+    "type": "account"
+  },
+  {
+    "code": "33.9",
+    "name": "Outros empréstimos obtidos",
+    "description": "",
+    "level": 3,
+    "parent": "33",
+    "type": "account"
+  },
+  {
+    "code": "33.9.1",
+    "name": "Entidade ___",
+    "description": "",
+    "level": 4,
+    "parent": "33.9",
+    "type": "account"
+  },
+  {
+    "code": "34",
+    "name": "Estado",
+    "description": "Government",
+    "level": 2,
+    "parent": "3",
+    "type": "account"
+  },
+  {
+    "code": "34.1",
+    "name": "Imposto sobre os lucros",
+    "description": "",
+    "level": 3,
+    "parent": "34",
+    "type": "account"
+  },
+  {
+    "code": "34.2",
+    "name": "Imposto de produção e consumo",
+    "description": "",
+    "level": 3,
+    "parent": "34",
+    "type": "account"
+  },
+  {
+    "code": "34.3",
+    "name": "Imposto de rendimento de trabalho",
+    "description": "",
+    "level": 3,
+    "parent": "34",
+    "type": "account"
+  },
+  {
+    "code": "34.4",
+    "name": "Imposto de circulação",
+    "description": "",
+    "level": 3,
+    "parent": "34",
+    "type": "account"
+  },
+  {
+    "code": "34.5",
+    "name": "IVA",
+    "description": "",
+    "level": 3,
+    "parent": "34",
+    "type": "account"
+  },
+  {
+    "code": "34.5.1",
+    "name": "IVA suportado",
+    "description": "",
+    "level": 4,
+    "parent": "34.5",
+    "type": "account"
+  },
+  {
+    "code": "34.5.1.1",
+    "name": "Existências",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.1",
+    "type": "account"
+  },
+  {
+    "code": "34.5.1.2",
+    "name": "Meios fixos e investimentos",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.1",
+    "type": "account"
+  },
+  {
+    "code": "34.5.1.3",
+    "name": "Outros bens e serviços",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.1",
+    "type": "account"
+  },
+  {
+    "code": "34.5.2",
+    "name": "IVA dedutível",
+    "description": "",
+    "level": 4,
+    "parent": "34.5",
+    "type": "account"
+  },
+  {
+    "code": "34.5.2.1",
+    "name": "Existências",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.2",
+    "type": "account"
+  },
+  {
+    "code": "34.5.2.2",
+    "name": "Meios fixos e investimentos",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.2",
+    "type": "account"
+  },
+  {
+    "code": "34.5.2.3",
+    "name": "Outros bens e serviços",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.2",
+    "type": "account"
+  },
+  {
+    "code": "34.5.3",
+    "name": "IVA liquidado",
+    "description": "",
+    "level": 4,
+    "parent": "34.5",
+    "type": "account"
+  },
+  {
+    "code": "34.5.3.1",
+    "name": "Operações gerais",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.3",
+    "type": "account"
+  },
+  {
+    "code": "34.5.3.2",
+    "name": "Operações abrangidas pelo regime de IVA de caixa",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.3",
+    "type": "account"
+  },
+  {
+    "code": "34.5.3.3",
+    "name": "Autoconsumo e operações gratuitas",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.3",
+    "type": "account"
+  },
+  {
+    "code": "34.5.3.4",
+    "name": "Operações especiais",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.3",
+    "type": "account"
+  },
+  {
+    "code": "34.5.4",
+    "name": "IVA regularizações",
+    "description": "",
+    "level": 4,
+    "parent": "34.5",
+    "type": "account"
+  },
+  {
+    "code": "34.5.4.1",
+    "name": "Mensais a favor do sujeito passivo",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.4",
+    "type": "account"
+  },
+  {
+    "code": "34.5.4.2",
+    "name": "Mensais a favor do Estado",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.4",
+    "type": "account"
+  },
+  {
+    "code": "34.5.4.3",
+    "name": "Anual por cálculo do pró rata definitivo",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.4",
+    "type": "account"
+  },
+  {
+    "code": "34.5.4.4",
+    "name": "Outras regularizações anuais",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.4",
+    "type": "account"
+  },
+  {
+    "code": "34.5.5",
+    "name": "IVA apuramento",
+    "description": "",
+    "level": 4,
+    "parent": "34.5",
+    "type": "account"
+  },
+  {
+    "code": "34.5.5.1",
+    "name": "Apuramento do regime de IVA normal",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.5",
+    "type": "account"
+  },
+  {
+    "code": "34.5.5.2",
+    "name": "Apuramento do regime de IVA de caixa",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.5",
+    "type": "account"
+  },
+  {
+    "code": "34.5.6",
+    "name": "IVA a pagar",
+    "description": "",
+    "level": 4,
+    "parent": "34.5",
+    "type": "account"
+  },
+  {
+    "code": "34.5.6.1",
+    "name": "IVA a pagar de apuramento",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.6",
+    "type": "account"
+  },
+  {
+    "code": "34.5.6.2",
+    "name": "IVA a pagar de cativo",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.6",
+    "type": "account"
+  },
+  {
+    "code": "34.5.6.3",
+    "name": "IVA a pagar de liquidações oficiosas",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.6",
+    "type": "account"
+  },
+  {
+    "code": "34.5.7",
+    "name": "IVA a recuperar",
+    "description": "",
+    "level": 4,
+    "parent": "34.5",
+    "type": "account"
+  },
+  {
+    "code": "34.5.7.1",
+    "name": "IVA a recuperar de apuramentos",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.7",
+    "type": "account"
+  },
+  {
+    "code": "34.5.7.2",
+    "name": "IVA a recuperar de cativo",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.7",
+    "type": "account"
+  },
+  {
+    "code": "34.5.8",
+    "name": "IVA reembolsos pedidos",
+    "description": "",
+    "level": 4,
+    "parent": "34.5",
+    "type": "account"
+  },
+  {
+    "code": "34.5.8.1",
+    "name": "Reembolsos pedidos",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.8",
+    "type": "account"
+  },
+  {
+    "code": "34.5.8.2",
+    "name": "Reembolsos deferidos",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.8",
+    "type": "account"
+  },
+  {
+    "code": "34.5.8.3",
+    "name": "Reembolsos indeferidos",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.8",
+    "type": "account"
+  },
+  {
+    "code": "34.5.8.4",
+    "name": "Reembolsos reclamados, recorridos ou impugnados",
+    "description": "",
+    "level": 5,
+    "parent": "34.5.8",
+    "type": "account"
+  },
+  {
+    "code": "34.5.9",
+    "name": "IVA Liquidações oficiosas",
+    "description": "",
+    "level": 4,
+    "parent": "34.5",
+    "type": "account"
+  },
+  {
+    "code": "34.6",
+    "name": "Certificado de crédito fiscal a compensar",
+    "description": "",
+    "level": 3,
+    "parent": "34",
+    "type": "account"
+  },
+  {
+    "code": "34.8",
+    "name": "Subsídios a preços",
+    "description": "",
+    "level": 3,
+    "parent": "34",
+    "type": "account"
+  },
+  {
+    "code": "34.9",
+    "name": "Outros impostos",
+    "description": "",
+    "level": 3,
+    "parent": "34",
+    "type": "account"
+  },
+  {
+    "code": "35",
+    "name": "Entidades participantes e participadas",
+    "description": "Participating entities",
+    "level": 2,
+    "parent": "3",
+    "type": "account"
+  },
+  {
+    "code": "35.1",
+    "name": "Entidades participantes",
+    "description": "",
+    "level": 3,
+    "parent": "35",
+    "type": "account"
+  },
+  {
+    "code": "35.1.1",
+    "name": "Estado",
+    "description": "",
+    "level": 4,
+    "parent": "35.1",
+    "type": "account"
+  },
+  {
+    "code": "35.1.1.1",
+    "name": "c/subscrição",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.1",
+    "type": "account"
+  },
+  {
+    "code": "35.1.1.2",
+    "name": "c/adiantamentos sobre lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.1",
+    "type": "account"
+  },
+  {
+    "code": "35.1.1.3",
+    "name": "c/lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.1",
+    "type": "account"
+  },
+  {
+    "code": "35.1.1.4",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.1",
+    "type": "account"
+  },
+  {
+    "code": "35.1.2",
+    "name": "Empresas do grupo – subsidiárias",
+    "description": "",
+    "level": 4,
+    "parent": "35.1",
+    "type": "account"
+  },
+  {
+    "code": "35.1.2.1",
+    "name": "c/subscrição",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.2",
+    "type": "account"
+  },
+  {
+    "code": "35.1.2.2",
+    "name": "c/adiantamentos sobre lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.2",
+    "type": "account"
+  },
+  {
+    "code": "35.1.2.3",
+    "name": "c/lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.2",
+    "type": "account"
+  },
+  {
+    "code": "35.1.2.4",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.2",
+    "type": "account"
+  },
+  {
+    "code": "35.1.3",
+    "name": "Empresas do grupo – associadas",
+    "description": "",
+    "level": 4,
+    "parent": "35.1",
+    "type": "account"
+  },
+  {
+    "code": "35.1.3.1",
+    "name": "c/subscrição",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.3",
+    "type": "account"
+  },
+  {
+    "code": "35.1.3.2",
+    "name": "c/adiantamentos sobre lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.3",
+    "type": "account"
+  },
+  {
+    "code": "35.1.3.3",
+    "name": "c/lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.3",
+    "type": "account"
+  },
+  {
+    "code": "35.1.3.4",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.3",
+    "type": "account"
+  },
+  {
+    "code": "35.1.4",
+    "name": "Outros",
+    "description": "",
+    "level": 4,
+    "parent": "35.1",
+    "type": "account"
+  },
+  {
+    "code": "35.1.4.1",
+    "name": "c/subscrição",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.4",
+    "type": "account"
+  },
+  {
+    "code": "35.1.4.2",
+    "name": "c/adiantamentos sobre lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.4",
+    "type": "account"
+  },
+  {
+    "code": "35.1.4.3",
+    "name": "c/lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.4",
+    "type": "account"
+  },
+  {
+    "code": "35.1.4.4",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 5,
+    "parent": "35.1.4",
+    "type": "account"
+  },
+  {
+    "code": "35.2",
+    "name": "Entidades participadas",
+    "description": "",
+    "level": 3,
+    "parent": "35",
+    "type": "account"
+  },
+  {
+    "code": "35.2.1",
+    "name": "Estado",
+    "description": "",
+    "level": 4,
+    "parent": "35.2",
+    "type": "account"
+  },
+  {
+    "code": "35.2.1.1",
+    "name": "c/subscrição",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.1",
+    "type": "account"
+  },
+  {
+    "code": "35.2.1.2",
+    "name": "c/adiantamentos sobre lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.1",
+    "type": "account"
+  },
+  {
+    "code": "35.2.1.3",
+    "name": "c/lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.1",
+    "type": "account"
+  },
+  {
+    "code": "35.2.1.4",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.1",
+    "type": "account"
+  },
+  {
+    "code": "35.2.2",
+    "name": "Empresas do grupo – subsidiárias",
+    "description": "",
+    "level": 4,
+    "parent": "35.2",
+    "type": "account"
+  },
+  {
+    "code": "35.2.2.1",
+    "name": "c/subscrição",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.2",
+    "type": "account"
+  },
+  {
+    "code": "35.2.2.2",
+    "name": "c/adiantamentos sobre lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.2",
+    "type": "account"
+  },
+  {
+    "code": "35.2.2.3",
+    "name": "c/lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.2",
+    "type": "account"
+  },
+  {
+    "code": "35.2.2.4",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.2",
+    "type": "account"
+  },
+  {
+    "code": "35.2.3",
+    "name": "Empresas do grupo – associadas",
+    "description": "",
+    "level": 4,
+    "parent": "35.2",
+    "type": "account"
+  },
+  {
+    "code": "35.2.3.1",
+    "name": "c/subscrição",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.3",
+    "type": "account"
+  },
+  {
+    "code": "35.2.3.2",
+    "name": "c/adiantamentos sobre lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.3",
+    "type": "account"
+  },
+  {
+    "code": "35.2.3.3",
+    "name": "c/lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.3",
+    "type": "account"
+  },
+  {
+    "code": "35.2.3.4",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.3",
+    "type": "account"
+  },
+  {
+    "code": "35.2.4",
+    "name": "Outros",
+    "description": "",
+    "level": 4,
+    "parent": "35.2",
+    "type": "account"
+  },
+  {
+    "code": "35.2.4.1",
+    "name": "c/subscrição",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.4",
+    "type": "account"
+  },
+  {
+    "code": "35.2.4.2",
+    "name": "c/adiantamentos sobre lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.4",
+    "type": "account"
+  },
+  {
+    "code": "35.2.4.3",
+    "name": "c/lucros",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.4",
+    "type": "account"
+  },
+  {
+    "code": "35.2.4.4",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 5,
+    "parent": "35.2.4",
+    "type": "account"
+  },
+  {
+    "code": "36",
+    "name": "Pessoal",
+    "description": "Personnel",
+    "level": 2,
+    "parent": "3",
+    "type": "account"
+  },
+  {
+    "code": "36.1",
+    "name": "Pessoal – remunerações",
+    "description": "",
+    "level": 3,
+    "parent": "36",
+    "type": "account"
+  },
+  {
+    "code": "36.1.1",
+    "name": "Órgãos sociais",
+    "description": "",
+    "level": 4,
+    "parent": "36.1",
+    "type": "account"
+  },
+  {
+    "code": "36.1.2",
+    "name": "Empregados",
+    "description": "",
+    "level": 4,
+    "parent": "36.1",
+    "type": "account"
+  },
+  {
+    "code": "36.2",
+    "name": "Pessoal – participação nos resultados",
+    "description": "",
+    "level": 3,
+    "parent": "36",
+    "type": "account"
+  },
+  {
+    "code": "36.2.1",
+    "name": "Órgãos sociais",
+    "description": "",
+    "level": 4,
+    "parent": "36.2",
+    "type": "account"
+  },
+  {
+    "code": "36.2.2",
+    "name": "Empregados",
+    "description": "",
+    "level": 4,
+    "parent": "36.2",
+    "type": "account"
+  },
+  {
+    "code": "36.3",
+    "name": "Pessoal – adiantamentos",
+    "description": "",
+    "level": 3,
+    "parent": "36",
+    "type": "account"
+  },
+  {
+    "code": "36.9",
+    "name": "Pessoal – outros",
+    "description": "",
+    "level": 3,
+    "parent": "36",
+    "type": "account"
+  },
+  {
+    "code": "37",
+    "name": "Outros valores a receber e a pagar",
+    "description": "Other receivables and payables",
+    "level": 2,
+    "parent": "3",
+    "type": "account"
+  },
+  {
+    "code": "37.1",
+    "name": "Compras de imobilizado",
+    "description": "",
+    "level": 3,
+    "parent": "37",
+    "type": "account"
+  },
+  {
+    "code": "37.1.1",
+    "name": "Corpóreo",
+    "description": "",
+    "level": 4,
+    "parent": "37.1",
+    "type": "account"
+  },
+  {
+    "code": "37.1.2",
+    "name": "Incorpóreo",
+    "description": "",
+    "level": 4,
+    "parent": "37.1",
+    "type": "account"
+  },
+  {
+    "code": "37.1.3",
+    "name": "Financeiro",
+    "description": "",
+    "level": 4,
+    "parent": "37.1",
+    "type": "account"
+  },
+  {
+    "code": "37.2",
+    "name": "Vendas de imobilizado",
+    "description": "",
+    "level": 3,
+    "parent": "37",
+    "type": "account"
+  },
+  {
+    "code": "37.2.1",
+    "name": "Corpóreo",
+    "description": "",
+    "level": 4,
+    "parent": "37.2",
+    "type": "account"
+  },
+  {
+    "code": "37.2.2",
+    "name": "Incorpóreo",
+    "description": "",
+    "level": 4,
+    "parent": "37.2",
+    "type": "account"
+  },
+  {
+    "code": "37.2.3",
+    "name": "Financeiro",
+    "description": "",
+    "level": 4,
+    "parent": "37.2",
+    "type": "account"
+  },
+  {
+    "code": "37.3",
+    "name": "Proveitos a facturar",
+    "description": "",
+    "level": 3,
+    "parent": "37",
+    "type": "account"
+  },
+  {
+    "code": "37.3.1",
+    "name": "Vendas",
+    "description": "",
+    "level": 4,
+    "parent": "37.3",
+    "type": "account"
+  },
+  {
+    "code": "37.3.2",
+    "name": "Prestações de serviço",
+    "description": "",
+    "level": 4,
+    "parent": "37.3",
+    "type": "account"
+  },
+  {
+    "code": "37.3.3",
+    "name": "Juros",
+    "description": "",
+    "level": 4,
+    "parent": "37.3",
+    "type": "account"
+  },
+  {
+    "code": "37.4",
+    "name": "Encargos a repartir por períodos futuros",
+    "description": "",
+    "level": 3,
+    "parent": "37",
+    "type": "account"
+  },
+  {
+    "code": "37.4.1",
+    "name": "Descontos de emissão de obrigações",
+    "description": "",
+    "level": 4,
+    "parent": "37.4",
+    "type": "account"
+  },
+  {
+    "code": "37.4.2",
+    "name": "Descontos de emissão de títulos de participação",
+    "description": "",
+    "level": 4,
+    "parent": "37.4",
+    "type": "account"
+  },
+  {
+    "code": "37.5",
+    "name": "Encargos a pagar",
+    "description": "",
+    "level": 3,
+    "parent": "37",
+    "type": "account"
+  },
+  {
+    "code": "37.5.1",
+    "name": "Remunerações",
+    "description": "",
+    "level": 4,
+    "parent": "37.5",
+    "type": "account"
+  },
+  {
+    "code": "37.5.2",
+    "name": "Juros",
+    "description": "",
+    "level": 4,
+    "parent": "37.5",
+    "type": "account"
+  },
+  {
+    "code": "37.6",
+    "name": "Proveitos a repartir por períodos futuros",
+    "description": "",
+    "level": 3,
+    "parent": "37",
+    "type": "account"
+  },
+  {
+    "code": "37.6.1",
+    "name": "Prémios de emissão de obrigações",
+    "description": "",
+    "level": 4,
+    "parent": "37.6",
+    "type": "account"
+  },
+  {
+    "code": "37.6.2",
+    "name": "Prémios de emissão de títulos de participação",
+    "description": "",
+    "level": 4,
+    "parent": "37.6",
+    "type": "account"
+  },
+  {
+    "code": "37.6.3",
+    "name": "Subsídios para investimento",
+    "description": "",
+    "level": 4,
+    "parent": "37.6",
+    "type": "account"
+  },
+  {
+    "code": "37.6.4",
+    "name": "Diferenças de câmbio favoráveis reversíveis",
+    "description": "",
+    "level": 4,
+    "parent": "37.6",
+    "type": "account"
+  },
+  {
+    "code": "37.7",
+    "name": "Contas transitórias",
+    "description": "",
+    "level": 3,
+    "parent": "37",
+    "type": "account"
+  },
+  {
+    "code": "37.7.1",
+    "name": "Transacções entre a sede e as dependências da empresa",
+    "description": "",
+    "level": 4,
+    "parent": "37.7",
+    "type": "account"
+  },
+  {
+    "code": "37.9",
+    "name": "Outros valores a receber e a pagar",
+    "description": "",
+    "level": 3,
+    "parent": "37",
+    "type": "account"
+  },
+  {
+    "code": "38",
+    "name": "Provisões para cobranças duvidosas",
+    "description": "Provisions for doubtful debts",
+    "level": 2,
+    "parent": "3",
+    "type": "account"
+  },
+  {
+    "code": "38.1",
+    "name": "Provisões para clientes",
+    "description": "",
+    "level": 3,
+    "parent": "38",
+    "type": "account"
+  },
+  {
+    "code": "38.1.1",
+    "name": "Clientes – correntes",
+    "description": "",
+    "level": 4,
+    "parent": "38.1",
+    "type": "account"
+  },
+  {
+    "code": "38.1.1.1",
+    "name": "Grupo",
+    "description": "",
+    "level": 5,
+    "parent": "38.1.1",
+    "type": "account"
+  },
+  {
+    "code": "38.1.1.2",
+    "name": "Não grupo",
+    "description": "",
+    "level": 5,
+    "parent": "38.1.1",
+    "type": "account"
+  },
+  {
+    "code": "38.1.2",
+    "name": "Cliente – títulos a receber",
+    "description": "",
+    "level": 4,
+    "parent": "38.1",
+    "type": "account"
+  },
+  {
+    "code": "38.1.2.1",
+    "name": "Grupo",
+    "description": "",
+    "level": 5,
+    "parent": "38.1.2",
+    "type": "account"
+  },
+  {
+    "code": "38.1.2.2",
+    "name": "Não grupo",
+    "description": "",
+    "level": 5,
+    "parent": "38.1.2",
+    "type": "account"
+  },
+  {
+    "code": "38.1.3",
+    "name": "Clientes – cobrança duvidosa",
+    "description": "",
+    "level": 4,
+    "parent": "38.1",
+    "type": "account"
+  },
+  {
+    "code": "38.1.3.1",
+    "name": "Grupo",
+    "description": "",
+    "level": 5,
+    "parent": "38.1.3",
+    "type": "account"
+  },
+  {
+    "code": "38.1.3.2",
+    "name": "Não grupo",
+    "description": "",
+    "level": 5,
+    "parent": "38.1.3",
+    "type": "account"
+  },
+  {
+    "code": "38.2",
+    "name": "Provisões para saldos devedores de fornecedores",
+    "description": "",
+    "level": 3,
+    "parent": "38",
+    "type": "account"
+  },
+  {
+    "code": "38.3",
+    "name": "Provisões p/participantes e participadas",
+    "description": "",
+    "level": 3,
+    "parent": "38",
+    "type": "account"
+  },
+  {
+    "code": "38.3.1",
+    "name": "Participantes",
+    "description": "",
+    "level": 4,
+    "parent": "38.3",
+    "type": "account"
+  },
+  {
+    "code": "38.3.2",
+    "name": "Participadas",
+    "description": "",
+    "level": 4,
+    "parent": "38.3",
+    "type": "account"
+  },
+  {
+    "code": "38.4",
+    "name": "Provisões p/dívidas do pessoal",
+    "description": "",
+    "level": 3,
+    "parent": "38",
+    "type": "account"
+  },
+  {
+    "code": "38.9",
+    "name": "Provisões para outros saldos a receber",
+    "description": "",
+    "level": 3,
+    "parent": "38",
+    "type": "account"
+  },
+  {
+    "code": "38.9.1",
+    "name": "Vendas imobilizado",
+    "description": "",
+    "level": 4,
+    "parent": "38.9",
+    "type": "account"
+  },
+  {
+    "code": "39",
+    "name": "Provisões para outros riscos e encargos",
+    "description": "Provisions for other risks and charges",
+    "level": 2,
+    "parent": "3",
+    "type": "account"
+  },
+  {
+    "code": "39.1",
+    "name": "Provisões para pensões",
+    "description": "",
+    "level": 3,
+    "parent": "39",
+    "type": "account"
+  },
+  {
+    "code": "39.2",
+    "name": "Provisões para processos judiciais em curso",
+    "description": "",
+    "level": 3,
+    "parent": "39",
+    "type": "account"
+  },
+  {
+    "code": "39.3",
+    "name": "Provisões para acidentes de trabalho",
+    "description": "",
+    "level": 3,
+    "parent": "39",
+    "type": "account"
+  },
+  {
+    "code": "39.4",
+    "name": "Provisões para garantias dadas a clientes",
+    "description": "",
+    "level": 3,
+    "parent": "39",
+    "type": "account"
+  },
+  {
+    "code": "39.9",
+    "name": "Provisões para outros riscos e encargos",
+    "description": "",
+    "level": 3,
+    "parent": "39",
+    "type": "account"
+  },
+  {
+    "code": "4",
+    "name": "Meios monetários",
+    "description": "Monetary assets",
+    "level": 1,
+    "parent": null,
+    "type": "class",
+    "optional": false
+  },
+  {
+    "code": "41",
+    "name": "Títulos negociáveis",
+    "description": "Marketable securities",
+    "level": 2,
+    "parent": "4",
+    "type": "account"
+  },
+  {
+    "code": "41.1",
+    "name": "Acções",
+    "description": "",
+    "level": 3,
+    "parent": "41",
+    "type": "account"
+  },
+  {
+    "code": "41.1.1",
+    "name": "Empresas do grupo",
+    "description": "",
+    "level": 4,
+    "parent": "41.1",
+    "type": "account"
+  },
+  {
+    "code": "41.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 4,
+    "parent": "41.1",
+    "type": "account"
+  },
+  {
+    "code": "41.1.3",
+    "name": "Outras empresas",
+    "description": "",
+    "level": 4,
+    "parent": "41.1",
+    "type": "account"
+  },
+  {
+    "code": "41.2",
+    "name": "Obrigações",
+    "description": "",
+    "level": 3,
+    "parent": "41",
+    "type": "account"
+  },
+  {
+    "code": "41.2.1",
+    "name": "Empresas do grupo",
+    "description": "",
+    "level": 4,
+    "parent": "41.2",
+    "type": "account"
+  },
+  {
+    "code": "41.2.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 4,
+    "parent": "41.2",
+    "type": "account"
+  },
+  {
+    "code": "41.2.3",
+    "name": "Outras empresas",
+    "description": "",
+    "level": 4,
+    "parent": "41.2",
+    "type": "account"
+  },
+  {
+    "code": "41.3",
+    "name": "Títulos da dívida pública",
+    "description": "",
+    "level": 3,
+    "parent": "41",
+    "type": "account"
+  },
+  {
+    "code": "42",
+    "name": "Depósitos a prazo",
+    "description": "Time deposits",
+    "level": 2,
+    "parent": "4",
+    "type": "account"
+  },
+  {
+    "code": "42.1",
+    "name": "Moeda nacional",
+    "description": "",
+    "level": 3,
+    "parent": "42",
+    "type": "account"
+  },
+  {
+    "code": "42.1.1",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "42.1",
+    "type": "account"
+  },
+  {
+    "code": "42.1.2",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "42.1",
+    "type": "account"
+  },
+  {
+    "code": "42.2",
+    "name": "Moeda estrangeira",
+    "description": "",
+    "level": 3,
+    "parent": "42",
+    "type": "account"
+  },
+  {
+    "code": "42.2.1",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "42.2",
+    "type": "account"
+  },
+  {
+    "code": "42.2.2",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "42.2",
+    "type": "account"
+  },
+  {
+    "code": "43",
+    "name": "Depósitos à ordem",
+    "description": "Demand deposits",
+    "level": 2,
+    "parent": "4",
+    "type": "account"
+  },
+  {
+    "code": "43.1",
+    "name": "Moeda nacional",
+    "description": "",
+    "level": 3,
+    "parent": "43",
+    "type": "account"
+  },
+  {
+    "code": "43.1.1",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "43.1",
+    "type": "account"
+  },
+  {
+    "code": "43.1.2",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "43.1",
+    "type": "account"
+  },
+  {
+    "code": "43.2",
+    "name": "Moeda estrangeira",
+    "description": "",
+    "level": 3,
+    "parent": "43",
+    "type": "account"
+  },
+  {
+    "code": "43.2.1",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "43.2",
+    "type": "account"
+  },
+  {
+    "code": "43.2.2",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "43.2",
+    "type": "account"
+  },
+  {
+    "code": "44",
+    "name": "Outros depósitos",
+    "description": "Other deposits",
+    "level": 2,
+    "parent": "4",
+    "type": "account"
+  },
+  {
+    "code": "44.1",
+    "name": "Moeda nacional",
+    "description": "",
+    "level": 3,
+    "parent": "44",
+    "type": "account"
+  },
+  {
+    "code": "44.1.1",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "44.1",
+    "type": "account"
+  },
+  {
+    "code": "44.1.2",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "44.1",
+    "type": "account"
+  },
+  {
+    "code": "44.2",
+    "name": "Moeda estrangeira",
+    "description": "",
+    "level": 3,
+    "parent": "44",
+    "type": "account"
+  },
+  {
+    "code": "44.2.1",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "44.2",
+    "type": "account"
+  },
+  {
+    "code": "44.2.2",
+    "name": "Banco ___",
+    "description": "",
+    "level": 4,
+    "parent": "44.2",
+    "type": "account"
+  },
+  {
+    "code": "45",
+    "name": "Caixa",
+    "description": "Cash",
+    "level": 2,
+    "parent": "4",
+    "type": "account"
+  },
+  {
+    "code": "45.1",
+    "name": "Fundo fixo",
+    "description": "",
+    "level": 3,
+    "parent": "45",
+    "type": "account"
+  },
+  {
+    "code": "45.1.1",
+    "name": "Caixa ___",
+    "description": "",
+    "level": 4,
+    "parent": "45.1",
+    "type": "account"
+  },
+  {
+    "code": "45.1.2",
+    "name": "Caixa ___",
+    "description": "",
+    "level": 4,
+    "parent": "45.1",
+    "type": "account"
+  },
+  {
+    "code": "45.2",
+    "name": "Valores para depositar",
+    "description": "",
+    "level": 3,
+    "parent": "45",
+    "type": "account"
+  },
+  {
+    "code": "45.3",
+    "name": "Valores destinados a pagamentos específicos",
+    "description": "",
+    "level": 3,
+    "parent": "45",
+    "type": "account"
+  },
+  {
+    "code": "45.3.1",
+    "name": "Salários",
+    "description": "",
+    "level": 4,
+    "parent": "45.3",
+    "type": "account"
+  },
+  {
+    "code": "48",
+    "name": "Conta transitória",
+    "description": "Transit account",
+    "level": 2,
+    "parent": "4",
+    "type": "account"
+  },
+  {
+    "code": "48.1",
+    "name": "Banco ___",
+    "description": "",
+    "level": 3,
+    "parent": "48",
+    "type": "account"
+  },
+  {
+    "code": "48.2",
+    "name": "Banco ___",
+    "description": "",
+    "level": 3,
+    "parent": "48",
+    "type": "account"
+  },
+  {
+    "code": "49",
+    "name": "Provisões para aplicações de tesouraria",
+    "description": "Provisions for treasury investments",
+    "level": 2,
+    "parent": "4",
+    "type": "account"
+  },
+  {
+    "code": "49.1",
+    "name": "Títulos negociáveis",
+    "description": "",
+    "level": 3,
+    "parent": "49",
+    "type": "account"
+  },
+  {
+    "code": "49.1.1",
+    "name": "Acções",
+    "description": "",
+    "level": 4,
+    "parent": "49.1",
+    "type": "account"
+  },
+  {
+    "code": "49.1.2",
+    "name": "Obrigações",
+    "description": "",
+    "level": 4,
+    "parent": "49.1",
+    "type": "account"
+  },
+  {
+    "code": "49.1.3",
+    "name": "Títulos da dívida pública",
+    "description": "",
+    "level": 4,
+    "parent": "49.1",
+    "type": "account"
+  },
+  {
+    "code": "49.2",
+    "name": "Outras aplicações de tesouraria",
+    "description": "",
+    "level": 3,
+    "parent": "49",
+    "type": "account"
+  },
+  {
+    "code": "5",
+    "name": "Capital e reservas",
+    "description": "Equity",
+    "level": 1,
+    "parent": null,
+    "type": "class",
+    "optional": false
+  },
+  {
+    "code": "51",
+    "name": "Capital",
+    "description": "Capital",
+    "level": 2,
+    "parent": "5",
+    "type": "account"
+  },
+  {
+    "code": "52",
+    "name": "Acções/quotas próprias",
+    "description": "Own shares/quotas",
+    "level": 2,
+    "parent": "5",
+    "type": "account"
+  },
+  {
+    "code": "52.1",
+    "name": "Valor nominal",
+    "description": "",
+    "level": 3,
+    "parent": "52",
+    "type": "account"
+  },
+  {
+    "code": "52.2",
+    "name": "Descontos",
+    "description": "",
+    "level": 3,
+    "parent": "52",
+    "type": "account"
+  },
+  {
+    "code": "52.3",
+    "name": "Prémios",
+    "description": "",
+    "level": 3,
+    "parent": "52",
+    "type": "account"
+  },
+  {
+    "code": "53",
+    "name": "Prémios de emissão",
+    "description": "Share premium",
+    "level": 2,
+    "parent": "5",
+    "type": "account"
+  },
+  {
+    "code": "54",
+    "name": "Prestações suplementares",
+    "description": "Supplementary contributions",
+    "level": 2,
+    "parent": "5",
+    "type": "account"
+  },
+  {
+    "code": "55",
+    "name": "Reservas legais",
+    "description": "Legal reserves",
+    "level": 2,
+    "parent": "5",
+    "type": "account"
+  },
+  {
+    "code": "56",
+    "name": "Reservas de reavaliação",
+    "description": "Revaluation reserves",
+    "level": 2,
+    "parent": "5",
+    "type": "account"
+  },
+  {
+    "code": "56.1",
+    "name": "Legais",
+    "description": "",
+    "level": 3,
+    "parent": "56",
+    "type": "account"
+  },
+  {
+    "code": "56.1.1",
+    "name": "Decreto-Lei n.º ___",
+    "description": "",
+    "level": 4,
+    "parent": "56.1",
+    "type": "account"
+  },
+  {
+    "code": "56.1.2",
+    "name": "Decreto-Lei n.º ___",
+    "description": "",
+    "level": 4,
+    "parent": "56.1",
+    "type": "account"
+  },
+  {
+    "code": "56.2",
+    "name": "Autónomas",
+    "description": "",
+    "level": 3,
+    "parent": "56",
+    "type": "account"
+  },
+  {
+    "code": "56.2.1",
+    "name": "Avaliação",
+    "description": "",
+    "level": 4,
+    "parent": "56.2",
+    "type": "account"
+  },
+  {
+    "code": "56.2.2",
+    "name": "Realização",
+    "description": "",
+    "level": 4,
+    "parent": "56.2",
+    "type": "account"
+  },
+  {
+    "code": "57",
+    "name": "Reservas com fins especiais",
+    "description": "Special purpose reserves",
+    "level": 2,
+    "parent": "5",
+    "type": "account"
+  },
+  {
+    "code": "58",
+    "name": "Reservas livres",
+    "description": "Free reserves",
+    "level": 2,
+    "parent": "5",
+    "type": "account"
+  },
+  {
+    "code": "6",
+    "name": "Proveitos e ganhos por natureza",
+    "description": "Income and gains by nature",
+    "level": 1,
+    "parent": null,
+    "type": "class",
+    "optional": false
+  },
+  {
+    "code": "61",
+    "name": "Vendas",
+    "description": "Sales",
+    "level": 2,
+    "parent": "6",
+    "type": "account"
+  },
+  {
+    "code": "61.1",
+    "name": "Produtos acabados e intermédios",
+    "description": "",
+    "level": 3,
+    "parent": "61",
+    "type": "account"
+  },
+  {
+    "code": "61.1.1",
+    "name": "Mercado nacional",
+    "description": "",
+    "level": 4,
+    "parent": "61.1",
+    "type": "account"
+  },
+  {
+    "code": "61.1.2",
+    "name": "Mercado estrangeiro",
+    "description": "",
+    "level": 4,
+    "parent": "61.1",
+    "type": "account"
+  },
+  {
+    "code": "61.2",
+    "name": "Sub-produtos, desperdícios, resíduos e refugos",
+    "description": "",
+    "level": 3,
+    "parent": "61",
+    "type": "account"
+  },
+  {
+    "code": "61.2.1",
+    "name": "Mercado nacional",
+    "description": "",
+    "level": 4,
+    "parent": "61.2",
+    "type": "account"
+  },
+  {
+    "code": "61.2.2",
+    "name": "Mercado estrangeiro",
+    "description": "",
+    "level": 4,
+    "parent": "61.2",
+    "type": "account"
+  },
+  {
+    "code": "61.3",
+    "name": "Mercadorias",
+    "description": "",
+    "level": 3,
+    "parent": "61",
+    "type": "account"
+  },
+  {
+    "code": "61.3.1",
+    "name": "Mercado nacional",
+    "description": "",
+    "level": 4,
+    "parent": "61.3",
+    "type": "account"
+  },
+  {
+    "code": "61.3.2",
+    "name": "Mercado estrangeiro",
+    "description": "",
+    "level": 4,
+    "parent": "61.3",
+    "type": "account"
+  },
+  {
+    "code": "61.4",
+    "name": "Embalagens de consumo",
+    "description": "",
+    "level": 3,
+    "parent": "61",
+    "type": "account"
+  },
+  {
+    "code": "61.4.1",
+    "name": "Mercado nacional",
+    "description": "",
+    "level": 4,
+    "parent": "61.4",
+    "type": "account"
+  },
+  {
+    "code": "61.4.2",
+    "name": "Mercado estrangeiro",
+    "description": "",
+    "level": 4,
+    "parent": "61.4",
+    "type": "account"
+  },
+  {
+    "code": "61.5",
+    "name": "Subsídios a preços",
+    "description": "",
+    "level": 3,
+    "parent": "61",
+    "type": "account"
+  },
+  {
+    "code": "61.7",
+    "name": "Devoluções",
+    "description": "",
+    "level": 3,
+    "parent": "61",
+    "type": "account"
+  },
+  {
+    "code": "61.7.1",
+    "name": "Mercado nacional",
+    "description": "",
+    "level": 4,
+    "parent": "61.7",
+    "type": "account"
+  },
+  {
+    "code": "61.7.2",
+    "name": "Mercado estrangeiro",
+    "description": "",
+    "level": 4,
+    "parent": "61.7",
+    "type": "account"
+  },
+  {
+    "code": "61.8",
+    "name": "Descontos e abatimentos",
+    "description": "",
+    "level": 3,
+    "parent": "61",
+    "type": "account"
+  },
+  {
+    "code": "61.8.1",
+    "name": "Mercado nacional",
+    "description": "",
+    "level": 4,
+    "parent": "61.8",
+    "type": "account"
+  },
+  {
+    "code": "61.8.2",
+    "name": "Mercado estrangeiro",
+    "description": "",
+    "level": 4,
+    "parent": "61.8",
+    "type": "account"
+  },
+  {
+    "code": "61.9",
+    "name": "Transferência para resultados operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "61",
+    "type": "account"
+  },
+  {
+    "code": "62",
+    "name": "Prestações de serviço",
+    "description": "Services",
+    "level": 2,
+    "parent": "6",
+    "type": "account"
+  },
+  {
+    "code": "62.1",
+    "name": "Serviços principais",
+    "description": "",
+    "level": 3,
+    "parent": "62",
+    "type": "account"
+  },
+  {
+    "code": "62.1.1",
+    "name": "Mercado nacional",
+    "description": "",
+    "level": 4,
+    "parent": "62.1",
+    "type": "account"
+  },
+  {
+    "code": "62.1.2",
+    "name": "Mercado estrangeiro",
+    "description": "",
+    "level": 4,
+    "parent": "62.1",
+    "type": "account"
+  },
+  {
+    "code": "62.2",
+    "name": "Serviços secundários",
+    "description": "",
+    "level": 3,
+    "parent": "62",
+    "type": "account"
+  },
+  {
+    "code": "62.2.1",
+    "name": "Mercado nacional",
+    "description": "",
+    "level": 4,
+    "parent": "62.2",
+    "type": "account"
+  },
+  {
+    "code": "62.2.2",
+    "name": "Mercado estrangeiro",
+    "description": "",
+    "level": 4,
+    "parent": "62.2",
+    "type": "account"
+  },
+  {
+    "code": "62.8",
+    "name": "Descontos e abatimentos",
+    "description": "",
+    "level": 3,
+    "parent": "62",
+    "type": "account"
+  },
+  {
+    "code": "62.8.1",
+    "name": "Mercado nacional",
+    "description": "",
+    "level": 4,
+    "parent": "62.8",
+    "type": "account"
+  },
+  {
+    "code": "62.8.2",
+    "name": "Mercado estrangeiro",
+    "description": "",
+    "level": 4,
+    "parent": "62.8",
+    "type": "account"
+  },
+  {
+    "code": "62.9",
+    "name": "Transferência para resultados operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "62",
+    "type": "account"
+  },
+  {
+    "code": "63",
+    "name": "Outros proveitos operacionais",
+    "description": "Other operating income",
+    "level": 2,
+    "parent": "6",
+    "type": "account"
+  },
+  {
+    "code": "63.1",
+    "name": "Serviços suplementares",
+    "description": "",
+    "level": 3,
+    "parent": "63",
+    "type": "account"
+  },
+  {
+    "code": "63.1.1",
+    "name": "Aluguer de equipamento",
+    "description": "",
+    "level": 4,
+    "parent": "63.1",
+    "type": "account"
+  },
+  {
+    "code": "63.1.2",
+    "name": "Cedência de pessoal",
+    "description": "",
+    "level": 4,
+    "parent": "63.1",
+    "type": "account"
+  },
+  {
+    "code": "63.1.3",
+    "name": "Cedência de energia",
+    "description": "",
+    "level": 4,
+    "parent": "63.1",
+    "type": "account"
+  },
+  {
+    "code": "63.1.4",
+    "name": "Estudos, projectos e assistência técnica",
+    "description": "",
+    "level": 4,
+    "parent": "63.1",
+    "type": "account"
+  },
+  {
+    "code": "63.2",
+    "name": "Royalties",
+    "description": "",
+    "level": 3,
+    "parent": "63",
+    "type": "account"
+  },
+  {
+    "code": "63.3",
+    "name": "Subsídios à exploração",
+    "description": "",
+    "level": 3,
+    "parent": "63",
+    "type": "account"
+  },
+  {
+    "code": "63.4",
+    "name": "Subsídios a investimento",
+    "description": "",
+    "level": 3,
+    "parent": "63",
+    "type": "account"
+  },
+  {
+    "code": "63.5",
+    "name": "IVA",
+    "description": "",
+    "level": 3,
+    "parent": "63",
+    "type": "account"
+  },
+  {
+    "code": "63.8",
+    "name": "Outros proveitos e ganhos operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "63",
+    "type": "account"
+  },
+  {
+    "code": "63.9",
+    "name": "Transferência para resultados operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "63",
+    "type": "account"
+  },
+  {
+    "code": "64",
+    "name": "Variação nos inventários de produtos acabados e de produção em curso",
+    "description": "Change in finished goods and work in progress",
+    "level": 2,
+    "parent": "6",
+    "type": "account"
+  },
+  {
+    "code": "64.1",
+    "name": "Produtos e trabalhos em curso",
+    "description": "",
+    "level": 3,
+    "parent": "64",
+    "type": "account"
+  },
+  {
+    "code": "64.2",
+    "name": "Produtos acabados",
+    "description": "",
+    "level": 3,
+    "parent": "64",
+    "type": "account"
+  },
+  {
+    "code": "64.3",
+    "name": "Produtos intermédios",
+    "description": "",
+    "level": 3,
+    "parent": "64",
+    "type": "account"
+  },
+  {
+    "code": "64.9",
+    "name": "Transferência para resultados operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "64",
+    "type": "account"
+  },
+  {
+    "code": "65",
+    "name": "Trabalhos para a própria empresa",
+    "description": "Work for own entity",
+    "level": 2,
+    "parent": "6",
+    "type": "account"
+  },
+  {
+    "code": "65.1",
+    "name": "Para imobilizado",
+    "description": "",
+    "level": 3,
+    "parent": "65",
+    "type": "account"
+  },
+  {
+    "code": "65.1.1",
+    "name": "Corpóreo",
+    "description": "",
+    "level": 4,
+    "parent": "65.1",
+    "type": "account"
+  },
+  {
+    "code": "65.1.2",
+    "name": "Incorpóreo",
+    "description": "",
+    "level": 4,
+    "parent": "65.1",
+    "type": "account"
+  },
+  {
+    "code": "65.1.3",
+    "name": "Financeiro",
+    "description": "",
+    "level": 4,
+    "parent": "65.1",
+    "type": "account"
+  },
+  {
+    "code": "65.1.4",
+    "name": "Em curso",
+    "description": "",
+    "level": 4,
+    "parent": "65.1",
+    "type": "account"
+  },
+  {
+    "code": "65.2",
+    "name": "Para encargos a repartir por exercícios futuros",
+    "description": "",
+    "level": 3,
+    "parent": "65",
+    "type": "account"
+  },
+  {
+    "code": "65.9",
+    "name": "Transferência para resultados operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "65",
+    "type": "account"
+  },
+  {
+    "code": "66",
+    "name": "Proveitos e ganhos financeiros gerais",
+    "description": "General financial income and gains",
+    "level": 2,
+    "parent": "6",
+    "type": "account"
+  },
+  {
+    "code": "66.1",
+    "name": "Juros",
+    "description": "",
+    "level": 3,
+    "parent": "66",
+    "type": "account"
+  },
+  {
+    "code": "66.1.1",
+    "name": "De investimentos financeiros",
+    "description": "",
+    "level": 4,
+    "parent": "66.1",
+    "type": "account"
+  },
+  {
+    "code": "66.1.1.1",
+    "name": "Obrigações",
+    "description": "",
+    "level": 5,
+    "parent": "66.1.1",
+    "type": "account"
+  },
+  {
+    "code": "66.1.1.3",
+    "name": "Títulos de participação",
+    "description": "",
+    "level": 5,
+    "parent": "66.1.1",
+    "type": "account"
+  },
+  {
+    "code": "66.1.1.4",
+    "name": "Empréstimos",
+    "description": "",
+    "level": 5,
+    "parent": "66.1.1",
+    "type": "account"
+  },
+  {
+    "code": "66.1.1.9",
+    "name": "Outros",
+    "description": "",
+    "level": 5,
+    "parent": "66.1.1",
+    "type": "account"
+  },
+  {
+    "code": "66.1.2",
+    "name": "De mora relativos a dívidas de terceiros",
+    "description": "",
+    "level": 4,
+    "parent": "66.1",
+    "type": "account"
+  },
+  {
+    "code": "66.1.2.1",
+    "name": "Dívidas recebidas a prestações",
+    "description": "",
+    "level": 5,
+    "parent": "66.1.2",
+    "type": "account"
+  },
+  {
+    "code": "66.1.2.2",
+    "name": "De empréstimos a terceiros",
+    "description": "",
+    "level": 5,
+    "parent": "66.1.2",
+    "type": "account"
+  },
+  {
+    "code": "66.1.4",
+    "name": "Desconto de títulos",
+    "description": "",
+    "level": 4,
+    "parent": "66.1",
+    "type": "account"
+  },
+  {
+    "code": "66.1.5",
+    "name": "De aplicações de tesouraria",
+    "description": "",
+    "level": 4,
+    "parent": "66.1",
+    "type": "account"
+  },
+  {
+    "code": "66.2",
+    "name": "Diferenças de câmbio favoráveis",
+    "description": "",
+    "level": 3,
+    "parent": "66",
+    "type": "account"
+  },
+  {
+    "code": "66.2.1",
+    "name": "Realizadas",
+    "description": "",
+    "level": 4,
+    "parent": "66.2",
+    "type": "account"
+  },
+  {
+    "code": "66.2.2",
+    "name": "Não realizadas",
+    "description": "",
+    "level": 4,
+    "parent": "66.2",
+    "type": "account"
+  },
+  {
+    "code": "66.3",
+    "name": "Descontos de pronto pagamento obtidos",
+    "description": "",
+    "level": 3,
+    "parent": "66",
+    "type": "account"
+  },
+  {
+    "code": "66.4",
+    "name": "Rendimentos de investimentos em imóveis",
+    "description": "",
+    "level": 3,
+    "parent": "66",
+    "type": "account"
+  },
+  {
+    "code": "66.5",
+    "name": "Rendimento de participações de capital",
+    "description": "",
+    "level": 3,
+    "parent": "66",
+    "type": "account"
+  },
+  {
+    "code": "66.5.1",
+    "name": "Acções, quotas em outras empresas",
+    "description": "",
+    "level": 4,
+    "parent": "66.5",
+    "type": "account"
+  },
+  {
+    "code": "66.5.2",
+    "name": "Acções, quotas incluídas nos fundos",
+    "description": "",
+    "level": 4,
+    "parent": "66.5",
+    "type": "account"
+  },
+  {
+    "code": "66.5.3",
+    "name": "Acções, quotas incluídas nos títulos negociáveis",
+    "description": "",
+    "level": 4,
+    "parent": "66.5",
+    "type": "account"
+  },
+  {
+    "code": "66.6",
+    "name": "Ganhos na alienação de aplicações financeiras",
+    "description": "",
+    "level": 3,
+    "parent": "66",
+    "type": "account"
+  },
+  {
+    "code": "66.6.1",
+    "name": "Investimentos financeiros",
+    "description": "",
+    "level": 4,
+    "parent": "66.6",
+    "type": "account"
+  },
+  {
+    "code": "66.6.1.1",
+    "name": "Subsidiárias",
+    "description": "",
+    "level": 5,
+    "parent": "66.6.1",
+    "type": "account"
+  },
+  {
+    "code": "66.6.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 5,
+    "parent": "66.6.1",
+    "type": "account"
+  },
+  {
+    "code": "66.6.1.3",
+    "name": "Outras empresas",
+    "description": "",
+    "level": 5,
+    "parent": "66.6.1",
+    "type": "account"
+  },
+  {
+    "code": "66.6.1.4",
+    "name": "Imóveis",
+    "description": "",
+    "level": 5,
+    "parent": "66.6.1",
+    "type": "account"
+  },
+  {
+    "code": "66.6.1.5",
+    "name": "Fundos",
+    "description": "",
+    "level": 5,
+    "parent": "66.6.1",
+    "type": "account"
+  },
+  {
+    "code": "66.6.1.9",
+    "name": "Outros investimentos",
+    "description": "",
+    "level": 5,
+    "parent": "66.6.1",
+    "type": "account"
+  },
+  {
+    "code": "66.6.2",
+    "name": "Títulos negociáveis",
+    "description": "",
+    "level": 4,
+    "parent": "66.6",
+    "type": "account"
+  },
+  {
+    "code": "66.7",
+    "name": "Reposição de provisões",
+    "description": "",
+    "level": 3,
+    "parent": "66",
+    "type": "account"
+  },
+  {
+    "code": "66.7.1",
+    "name": "Investimentos financeiros",
+    "description": "",
+    "level": 4,
+    "parent": "66.7",
+    "type": "account"
+  },
+  {
+    "code": "66.7.1.1",
+    "name": "Subsidiárias",
+    "description": "",
+    "level": 5,
+    "parent": "66.7.1",
+    "type": "account"
+  },
+  {
+    "code": "66.7.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 5,
+    "parent": "66.7.1",
+    "type": "account"
+  },
+  {
+    "code": "66.7.1.3",
+    "name": "Outras empresas",
+    "description": "",
+    "level": 5,
+    "parent": "66.7.1",
+    "type": "account"
+  },
+  {
+    "code": "66.7.1.4",
+    "name": "Fundos",
+    "description": "",
+    "level": 5,
+    "parent": "66.7.1",
+    "type": "account"
+  },
+  {
+    "code": "66.7.1.9",
+    "name": "Outros investimentos",
+    "description": "",
+    "level": 5,
+    "parent": "66.7.1",
+    "type": "account"
+  },
+  {
+    "code": "66.7.2",
+    "name": "Aplicações de tesouraria",
+    "description": "",
+    "level": 4,
+    "parent": "66.7",
+    "type": "account"
+  },
+  {
+    "code": "66.7.2.1",
+    "name": "Títulos negociáveis",
+    "description": "",
+    "level": 5,
+    "parent": "66.7.2",
+    "type": "account"
+  },
+  {
+    "code": "66.7.2.2",
+    "name": "Depósitos a prazo",
+    "description": "",
+    "level": 5,
+    "parent": "66.7.2",
+    "type": "account"
+  },
+  {
+    "code": "66.7.2.3",
+    "name": "Outros depósitos",
+    "description": "",
+    "level": 5,
+    "parent": "66.7.2",
+    "type": "account"
+  },
+  {
+    "code": "66.7.2.9",
+    "name": "Outros investimentos",
+    "description": "",
+    "level": 5,
+    "parent": "66.7.2",
+    "type": "account"
+  },
+  {
+    "code": "66.9",
+    "name": "Transferência para resultados financeiros",
+    "description": "",
+    "level": 3,
+    "parent": "66",
+    "type": "account"
+  },
+  {
+    "code": "67",
+    "name": "Proveitos e ganhos financeiros em filiais e associadas",
+    "description": "Financial income from subsidiaries and associates",
+    "level": 2,
+    "parent": "6",
+    "type": "account"
+  },
+  {
+    "code": "67.1",
+    "name": "Rendimento de participações de capital",
+    "description": "",
+    "level": 3,
+    "parent": "67",
+    "type": "account"
+  },
+  {
+    "code": "67.1.1",
+    "name": "Subsidiárias",
+    "description": "",
+    "level": 4,
+    "parent": "67.1",
+    "type": "account"
+  },
+  {
+    "code": "67.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 4,
+    "parent": "67.1",
+    "type": "account"
+  },
+  {
+    "code": "67.9",
+    "name": "Transferência para resultados em filiais e associadas",
+    "description": "",
+    "level": 3,
+    "parent": "67",
+    "type": "account"
+  },
+  {
+    "code": "68",
+    "name": "Outros proveitos e ganhos não operacionais",
+    "description": "Other non-operating income",
+    "level": 2,
+    "parent": "6",
+    "type": "account"
+  },
+  {
+    "code": "68.1",
+    "name": "Reposição de provisões",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "68.1.1",
+    "name": "Existências",
+    "description": "",
+    "level": 4,
+    "parent": "68.1",
+    "type": "account"
+  },
+  {
+    "code": "68.1.1.1",
+    "name": "Matérias-primas subsidiárias e de consumo",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.1",
+    "type": "account"
+  },
+  {
+    "code": "68.1.1.2",
+    "name": "Produtos e trabalhos em curso",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.1",
+    "type": "account"
+  },
+  {
+    "code": "68.1.1.3",
+    "name": "Produtos acabados e intermédios",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.1",
+    "type": "account"
+  },
+  {
+    "code": "68.1.1.4",
+    "name": "Sub-produtos, desperdícios, resíduos e refugos",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.1",
+    "type": "account"
+  },
+  {
+    "code": "68.1.1.5",
+    "name": "Mercadorias",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.1",
+    "type": "account"
+  },
+  {
+    "code": "68.1.2",
+    "name": "Cobranças duvidosas",
+    "description": "",
+    "level": 4,
+    "parent": "68.1",
+    "type": "account"
+  },
+  {
+    "code": "68.1.2.1",
+    "name": "Clientes",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.2",
+    "type": "account"
+  },
+  {
+    "code": "68.1.2.2",
+    "name": "Clientes – títulos a receber",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.2",
+    "type": "account"
+  },
+  {
+    "code": "68.1.2.3",
+    "name": "Clientes – cobrança duvidosa",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.2",
+    "type": "account"
+  },
+  {
+    "code": "68.1.2.4",
+    "name": "Saldos devedores de fornecedores",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.2",
+    "type": "account"
+  },
+  {
+    "code": "68.1.2.5",
+    "name": "Participantes e participadas",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.2",
+    "type": "account"
+  },
+  {
+    "code": "68.1.2.6",
+    "name": "Dívidas do Pessoal",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.2",
+    "type": "account"
+  },
+  {
+    "code": "68.1.2.9",
+    "name": "Outros saldos a receber",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.2",
+    "type": "account"
+  },
+  {
+    "code": "68.1.3",
+    "name": "Riscos e encargos",
+    "description": "",
+    "level": 4,
+    "parent": "68.1",
+    "type": "account"
+  },
+  {
+    "code": "68.1.3.1",
+    "name": "Pensões",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.3",
+    "type": "account"
+  },
+  {
+    "code": "68.1.3.2",
+    "name": "Processos judiciais em curso",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.3",
+    "type": "account"
+  },
+  {
+    "code": "68.1.3.3",
+    "name": "Acidentes de trabalho",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.3",
+    "type": "account"
+  },
+  {
+    "code": "68.1.3.4",
+    "name": "Garantias dadas a clientes",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.3",
+    "type": "account"
+  },
+  {
+    "code": "68.1.3.9",
+    "name": "Outros riscos e encargos",
+    "description": "",
+    "level": 5,
+    "parent": "68.1.3",
+    "type": "account"
+  },
+  {
+    "code": "68.2",
+    "name": "Anulação de amortizações extraordinárias",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "68.2.1",
+    "name": "Imobilizações corpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "68.2",
+    "type": "account"
+  },
+  {
+    "code": "68.2.2",
+    "name": "Imobilizações incorpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "68.2",
+    "type": "account"
+  },
+  {
+    "code": "68.3",
+    "name": "Ganhos em imobilizações",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "68.3.1",
+    "name": "Venda de imobilizações corpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "68.3",
+    "type": "account"
+  },
+  {
+    "code": "68.3.2",
+    "name": "Venda de imobilizações incorpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "68.3",
+    "type": "account"
+  },
+  {
+    "code": "68.4",
+    "name": "Ganhos em existências",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "68.4.1",
+    "name": "Sobras",
+    "description": "",
+    "level": 4,
+    "parent": "68.4",
+    "type": "account"
+  },
+  {
+    "code": "68.5",
+    "name": "Recuperação de dívidas",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "68.6",
+    "name": "Benefícios de penalidades contratuais",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "68.8",
+    "name": "Descontinuidade de operações",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "68.9",
+    "name": "Alterações de políticas contabilísticas",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "68.10",
+    "name": "Correcções relativas a exercícios anteriores",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "68.10.1",
+    "name": "Estimativa impostos",
+    "description": "",
+    "level": 4,
+    "parent": "68.10",
+    "type": "account"
+  },
+  {
+    "code": "68.10.2",
+    "name": "Restituição de impostos",
+    "description": "",
+    "level": 4,
+    "parent": "68.10",
+    "type": "account"
+  },
+  {
+    "code": "68.11",
+    "name": "Outros ganhos e perdas não operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "68.11.1",
+    "name": "Donativos",
+    "description": "",
+    "level": 4,
+    "parent": "68.11",
+    "type": "account"
+  },
+  {
+    "code": "68.19",
+    "name": "Transferência para resultados não operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "68",
+    "type": "account"
+  },
+  {
+    "code": "69",
+    "name": "Proveitos e ganhos extraordinários",
+    "description": "Extraordinary income and gains",
+    "level": 2,
+    "parent": "6",
+    "type": "account"
+  },
+  {
+    "code": "69.1",
+    "name": "Ganhos resultantes de catástrofes naturais",
+    "description": "",
+    "level": 3,
+    "parent": "69",
+    "type": "account"
+  },
+  {
+    "code": "69.2",
+    "name": "Ganhos resultantes de convulsões políticas",
+    "description": "",
+    "level": 3,
+    "parent": "69",
+    "type": "account"
+  },
+  {
+    "code": "69.3",
+    "name": "Ganhos resultantes de expropriações",
+    "description": "",
+    "level": 3,
+    "parent": "69",
+    "type": "account"
+  },
+  {
+    "code": "69.4",
+    "name": "Ganhos resultantes de sinistros",
+    "description": "",
+    "level": 3,
+    "parent": "69",
+    "type": "account"
+  },
+  {
+    "code": "69.5",
+    "name": "Subsídios",
+    "description": "",
+    "level": 3,
+    "parent": "69",
+    "type": "account"
+  },
+  {
+    "code": "69.6",
+    "name": "Anulação de passivos não exigíveis",
+    "description": "",
+    "level": 3,
+    "parent": "69",
+    "type": "account"
+  },
+  {
+    "code": "69.9",
+    "name": "Transferência para resultados extraordinários",
+    "description": "",
+    "level": 3,
+    "parent": "69",
+    "type": "account"
+  },
+  {
+    "code": "7",
+    "name": "Custos e perdas por natureza",
+    "description": "Costs and losses by nature",
+    "level": 1,
+    "parent": null,
+    "type": "class",
+    "optional": false
+  },
+  {
+    "code": "71",
+    "name": "Custo das existências vendidas",
+    "description": "Cost of goods sold",
+    "level": 2,
+    "parent": "7",
+    "type": "account"
+  },
+  {
+    "code": "71.1",
+    "name": "Matérias-primas",
+    "description": "",
+    "level": 3,
+    "parent": "71",
+    "type": "account"
+  },
+  {
+    "code": "71.2",
+    "name": "Matérias subsidiárias",
+    "description": "",
+    "level": 3,
+    "parent": "71",
+    "type": "account"
+  },
+  {
+    "code": "71.3",
+    "name": "Materiais diversos",
+    "description": "",
+    "level": 3,
+    "parent": "71",
+    "type": "account"
+  },
+  {
+    "code": "71.4",
+    "name": "Embalagens de consumo",
+    "description": "",
+    "level": 3,
+    "parent": "71",
+    "type": "account"
+  },
+  {
+    "code": "71.5",
+    "name": "Outros materiais",
+    "description": "",
+    "level": 3,
+    "parent": "71",
+    "type": "account"
+  },
+  {
+    "code": "71.9",
+    "name": "Transferência para resultados operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "71",
+    "type": "account"
+  },
+  {
+    "code": "72",
+    "name": "Custos com o pessoal",
+    "description": "Personnel costs",
+    "level": 2,
+    "parent": "7",
+    "type": "account"
+  },
+  {
+    "code": "72.1",
+    "name": "Remunerações – Órgãos sociais",
+    "description": "",
+    "level": 3,
+    "parent": "72",
+    "type": "account"
+  },
+  {
+    "code": "72.2",
+    "name": "Remunerações – Pessoal",
+    "description": "",
+    "level": 3,
+    "parent": "72",
+    "type": "account"
+  },
+  {
+    "code": "72.3",
+    "name": "Pensões",
+    "description": "",
+    "level": 3,
+    "parent": "72",
+    "type": "account"
+  },
+  {
+    "code": "72.3.1",
+    "name": "Órgãos sociais",
+    "description": "",
+    "level": 4,
+    "parent": "72.3",
+    "type": "account"
+  },
+  {
+    "code": "72.3.2",
+    "name": "Pessoal",
+    "description": "",
+    "level": 4,
+    "parent": "72.3",
+    "type": "account"
+  },
+  {
+    "code": "72.4",
+    "name": "Prémios para pensões",
+    "description": "",
+    "level": 3,
+    "parent": "72",
+    "type": "account"
+  },
+  {
+    "code": "72.4.1",
+    "name": "Órgãos sociais",
+    "description": "",
+    "level": 4,
+    "parent": "72.4",
+    "type": "account"
+  },
+  {
+    "code": "72.4.2",
+    "name": "Pessoal",
+    "description": "",
+    "level": 4,
+    "parent": "72.4",
+    "type": "account"
+  },
+  {
+    "code": "72.5",
+    "name": "Encargos sobre remunerações",
+    "description": "",
+    "level": 3,
+    "parent": "72",
+    "type": "account"
+  },
+  {
+    "code": "72.5.1",
+    "name": "Órgãos sociais",
+    "description": "",
+    "level": 4,
+    "parent": "72.5",
+    "type": "account"
+  },
+  {
+    "code": "72.5.2",
+    "name": "Pessoal",
+    "description": "",
+    "level": 4,
+    "parent": "72.5",
+    "type": "account"
+  },
+  {
+    "code": "72.6",
+    "name": "Seguros de acidentes de trabalho e doenças profissionais",
+    "description": "",
+    "level": 3,
+    "parent": "72",
+    "type": "account"
+  },
+  {
+    "code": "72.6.1",
+    "name": "Órgãos sociais",
+    "description": "",
+    "level": 4,
+    "parent": "72.6",
+    "type": "account"
+  },
+  {
+    "code": "72.6.2",
+    "name": "Pessoal",
+    "description": "",
+    "level": 4,
+    "parent": "72.6",
+    "type": "account"
+  },
+  {
+    "code": "72.7",
+    "name": "Formação",
+    "description": "",
+    "level": 3,
+    "parent": "72",
+    "type": "account"
+  },
+  {
+    "code": "72.7.1",
+    "name": "Órgãos sociais",
+    "description": "",
+    "level": 4,
+    "parent": "72.7",
+    "type": "account"
+  },
+  {
+    "code": "72.7.2",
+    "name": "Pessoal",
+    "description": "",
+    "level": 4,
+    "parent": "72.7",
+    "type": "account"
+  },
+  {
+    "code": "72.8",
+    "name": "Outras despesas com o pessoal",
+    "description": "",
+    "level": 3,
+    "parent": "72",
+    "type": "account"
+  },
+  {
+    "code": "72.8.1",
+    "name": "Órgãos sociais",
+    "description": "",
+    "level": 4,
+    "parent": "72.8",
+    "type": "account"
+  },
+  {
+    "code": "72.8.2",
+    "name": "Pessoal",
+    "description": "",
+    "level": 4,
+    "parent": "72.8",
+    "type": "account"
+  },
+  {
+    "code": "72.9",
+    "name": "Transferência para resultados operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "72",
+    "type": "account"
+  },
+  {
+    "code": "73",
+    "name": "Amortizações do exercício",
+    "description": "Depreciation for the period",
+    "level": 2,
+    "parent": "7",
+    "type": "account"
+  },
+  {
+    "code": "73.1",
+    "name": "Imobilizações corpóreas",
+    "description": "",
+    "level": 3,
+    "parent": "73",
+    "type": "account"
+  },
+  {
+    "code": "73.1.2",
+    "name": "Edifícios e outras construções",
+    "description": "",
+    "level": 4,
+    "parent": "73.1",
+    "type": "account"
+  },
+  {
+    "code": "73.1.3",
+    "name": "Equipamento básico",
+    "description": "",
+    "level": 4,
+    "parent": "73.1",
+    "type": "account"
+  },
+  {
+    "code": "73.1.4",
+    "name": "Equipamento de carga e transporte",
+    "description": "",
+    "level": 4,
+    "parent": "73.1",
+    "type": "account"
+  },
+  {
+    "code": "73.1.5",
+    "name": "Equipamento administrativo",
+    "description": "",
+    "level": 4,
+    "parent": "73.1",
+    "type": "account"
+  },
+  {
+    "code": "73.1.6",
+    "name": "Taras e vasilhame",
+    "description": "",
+    "level": 4,
+    "parent": "73.1",
+    "type": "account"
+  },
+  {
+    "code": "73.1.9",
+    "name": "Outras imobilizações corpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "73.1",
+    "type": "account"
+  },
+  {
+    "code": "73.2",
+    "name": "Imobilizações incorpóreas",
+    "description": "",
+    "level": 3,
+    "parent": "73",
+    "type": "account"
+  },
+  {
+    "code": "73.2.1",
+    "name": "Trespasses",
+    "description": "",
+    "level": 4,
+    "parent": "73.2",
+    "type": "account"
+  },
+  {
+    "code": "73.2.2",
+    "name": "Despesas de investigação e desenvolvimento",
+    "description": "",
+    "level": 4,
+    "parent": "73.2",
+    "type": "account"
+  },
+  {
+    "code": "73.2.3",
+    "name": "Propriedade industrial e outros direitos e contratos",
+    "description": "",
+    "level": 4,
+    "parent": "73.2",
+    "type": "account"
+  },
+  {
+    "code": "73.2.4",
+    "name": "Despesas de constituição",
+    "description": "",
+    "level": 4,
+    "parent": "73.2",
+    "type": "account"
+  },
+  {
+    "code": "73.2.9",
+    "name": "Outras imobilizações incorpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "73.2",
+    "type": "account"
+  },
+  {
+    "code": "73.9",
+    "name": "Transferência para resultados operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "73",
+    "type": "account"
+  },
+  {
+    "code": "75",
+    "name": "Outros custos e perdas operacionais",
+    "description": "Other operating costs and losses",
+    "level": 2,
+    "parent": "7",
+    "type": "account"
+  },
+  {
+    "code": "75.1",
+    "name": "Sub-contratos",
+    "description": "",
+    "level": 3,
+    "parent": "75",
+    "type": "account"
+  },
+  {
+    "code": "75.2",
+    "name": "Fornecimentos e serviços de terceiros",
+    "description": "",
+    "level": 3,
+    "parent": "75",
+    "type": "account"
+  },
+  {
+    "code": "75.2.11",
+    "name": "Água",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.12",
+    "name": "Electricidade",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.13",
+    "name": "Combustíveis e outros fluídos",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.14",
+    "name": "Conservação e reparação",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.15",
+    "name": "Material de protecção segurança e conforto",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.16",
+    "name": "Ferramentas e utensílios de desgaste rápido",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.17",
+    "name": "Material de escritório",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.18",
+    "name": "Livros e documentação técnica",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.19",
+    "name": "Outros fornecimentos",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.20",
+    "name": "Comunicação",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.21",
+    "name": "Rendas e alugueres",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.22",
+    "name": "Seguros",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.23",
+    "name": "Deslocações e estadas",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.24",
+    "name": "Despesas de representação",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.26",
+    "name": "Conservação e reparação",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.27",
+    "name": "Vigilância e segurança",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.28",
+    "name": "Limpeza, higiene e conforto",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.29",
+    "name": "Publicidade e propaganda",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.30",
+    "name": "Contencioso e notariado",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.31",
+    "name": "Comissões a intermediários",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.32",
+    "name": "Assistência técnica",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.32.1",
+    "name": "Estrangeira",
+    "description": "",
+    "level": 5,
+    "parent": "75.2.32",
+    "type": "account"
+  },
+  {
+    "code": "75.2.32.2",
+    "name": "Nacional",
+    "description": "",
+    "level": 5,
+    "parent": "75.2.32",
+    "type": "account"
+  },
+  {
+    "code": "75.2.33",
+    "name": "Trabalhos executados no exterior",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.34",
+    "name": "Honorários e avenças",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.35",
+    "name": "Royalties",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.2.39",
+    "name": "Outros serviços",
+    "description": "",
+    "level": 4,
+    "parent": "75.2",
+    "type": "account"
+  },
+  {
+    "code": "75.3",
+    "name": "Impostos",
+    "description": "",
+    "level": 3,
+    "parent": "75",
+    "type": "account"
+  },
+  {
+    "code": "75.3.1",
+    "name": "Indirectos",
+    "description": "",
+    "level": 4,
+    "parent": "75.3",
+    "type": "account"
+  },
+  {
+    "code": "75.3.1.1",
+    "name": "Imposto de selo",
+    "description": "",
+    "level": 5,
+    "parent": "75.3.1",
+    "type": "account"
+  },
+  {
+    "code": "75.3.1.2",
+    "name": "IVA",
+    "description": "",
+    "level": 5,
+    "parent": "75.3.1",
+    "type": "account"
+  },
+  {
+    "code": "75.3.1.9",
+    "name": "Outros impostos",
+    "description": "",
+    "level": 5,
+    "parent": "75.3.1",
+    "type": "account"
+  },
+  {
+    "code": "75.3.2",
+    "name": "Directos",
+    "description": "",
+    "level": 4,
+    "parent": "75.3",
+    "type": "account"
+  },
+  {
+    "code": "75.3.2.1",
+    "name": "Imposto de capitais",
+    "description": "",
+    "level": 5,
+    "parent": "75.3.2",
+    "type": "account"
+  },
+  {
+    "code": "75.3.2.2",
+    "name": "Contribuição predial",
+    "description": "",
+    "level": 5,
+    "parent": "75.3.2",
+    "type": "account"
+  },
+  {
+    "code": "75.3.2.9",
+    "name": "Outros impostos",
+    "description": "",
+    "level": 5,
+    "parent": "75.3.2",
+    "type": "account"
+  },
+  {
+    "code": "75.4",
+    "name": "Despesas confidênciais",
+    "description": "",
+    "level": 3,
+    "parent": "75",
+    "type": "account"
+  },
+  {
+    "code": "75.5",
+    "name": "Quotizações",
+    "description": "",
+    "level": 3,
+    "parent": "75",
+    "type": "account"
+  },
+  {
+    "code": "75.6",
+    "name": "Ofertas e Amostras de existências",
+    "description": "",
+    "level": 3,
+    "parent": "75",
+    "type": "account"
+  },
+  {
+    "code": "75.8",
+    "name": "Outros custos e perdas operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "75",
+    "type": "account"
+  },
+  {
+    "code": "75.9",
+    "name": "Transferências para resultados operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "75",
+    "type": "account"
+  },
+  {
+    "code": "76",
+    "name": "Custos e perdas financeiros gerais",
+    "description": "General financial costs and losses",
+    "level": 2,
+    "parent": "7",
+    "type": "account"
+  },
+  {
+    "code": "76.1",
+    "name": "Juros",
+    "description": "",
+    "level": 3,
+    "parent": "76",
+    "type": "account"
+  },
+  {
+    "code": "76.1.1",
+    "name": "De empréstimos",
+    "description": "",
+    "level": 4,
+    "parent": "76.1",
+    "type": "account"
+  },
+  {
+    "code": "76.1.1.1",
+    "name": "Bancários",
+    "description": "",
+    "level": 5,
+    "parent": "76.1.1",
+    "type": "account"
+  },
+  {
+    "code": "76.1.1.2",
+    "name": "Obrigações",
+    "description": "",
+    "level": 5,
+    "parent": "76.1.1",
+    "type": "account"
+  },
+  {
+    "code": "76.1.1.3",
+    "name": "Títulos de participação",
+    "description": "",
+    "level": 5,
+    "parent": "76.1.1",
+    "type": "account"
+  },
+  {
+    "code": "76.1.2",
+    "name": "De descobertos bancários",
+    "description": "",
+    "level": 4,
+    "parent": "76.1",
+    "type": "account"
+  },
+  {
+    "code": "76.1.3",
+    "name": "De mora relativos a dívidas a terceiros",
+    "description": "",
+    "level": 4,
+    "parent": "76.1",
+    "type": "account"
+  },
+  {
+    "code": "76.1.4",
+    "name": "De desconto de títulos",
+    "description": "",
+    "level": 4,
+    "parent": "76.1",
+    "type": "account"
+  },
+  {
+    "code": "76.2",
+    "name": "Diferenças de câmbio desfavoráveis",
+    "description": "",
+    "level": 3,
+    "parent": "76",
+    "type": "account"
+  },
+  {
+    "code": "76.2.1",
+    "name": "Realizadas",
+    "description": "",
+    "level": 4,
+    "parent": "76.2",
+    "type": "account"
+  },
+  {
+    "code": "76.2.2",
+    "name": "Não realizadas",
+    "description": "",
+    "level": 4,
+    "parent": "76.2",
+    "type": "account"
+  },
+  {
+    "code": "76.3",
+    "name": "Descontos de pronto pagamento concedidos",
+    "description": "",
+    "level": 3,
+    "parent": "76",
+    "type": "account"
+  },
+  {
+    "code": "76.4",
+    "name": "Amortizações de investimentos em imóveis",
+    "description": "",
+    "level": 3,
+    "parent": "76",
+    "type": "account"
+  },
+  {
+    "code": "76.5",
+    "name": "Provisões para aplicações financeiras",
+    "description": "",
+    "level": 3,
+    "parent": "76",
+    "type": "account"
+  },
+  {
+    "code": "76.5.1",
+    "name": "Investimentos financeiros",
+    "description": "",
+    "level": 4,
+    "parent": "76.5",
+    "type": "account"
+  },
+  {
+    "code": "76.5.1.1",
+    "name": "Subsidiárias",
+    "description": "",
+    "level": 5,
+    "parent": "76.5.1",
+    "type": "account"
+  },
+  {
+    "code": "76.5.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 5,
+    "parent": "76.5.1",
+    "type": "account"
+  },
+  {
+    "code": "76.5.1.3",
+    "name": "Outras empresas",
+    "description": "",
+    "level": 5,
+    "parent": "76.5.1",
+    "type": "account"
+  },
+  {
+    "code": "76.5.1.4",
+    "name": "Fundos",
+    "description": "",
+    "level": 5,
+    "parent": "76.5.1",
+    "type": "account"
+  },
+  {
+    "code": "76.5.1.9",
+    "name": "Outros investimentos",
+    "description": "",
+    "level": 5,
+    "parent": "76.5.1",
+    "type": "account"
+  },
+  {
+    "code": "76.5.2",
+    "name": "Aplicações de tesouraria",
+    "description": "",
+    "level": 4,
+    "parent": "76.5",
+    "type": "account"
+  },
+  {
+    "code": "76.5.2.1",
+    "name": "Títulos negociáveis",
+    "description": "",
+    "level": 5,
+    "parent": "76.5.2",
+    "type": "account"
+  },
+  {
+    "code": "76.5.2.2",
+    "name": "Depósitos a prazo",
+    "description": "",
+    "level": 5,
+    "parent": "76.5.2",
+    "type": "account"
+  },
+  {
+    "code": "76.5.2.3",
+    "name": "Outros depósitos",
+    "description": "",
+    "level": 5,
+    "parent": "76.5.2",
+    "type": "account"
+  },
+  {
+    "code": "76.5.2.9",
+    "name": "Outros",
+    "description": "",
+    "level": 5,
+    "parent": "76.5.2",
+    "type": "account"
+  },
+  {
+    "code": "76.6",
+    "name": "Perdas na alienação de aplicações financeiras",
+    "description": "",
+    "level": 3,
+    "parent": "76",
+    "type": "account"
+  },
+  {
+    "code": "76.6.1",
+    "name": "Investimentos financeiros",
+    "description": "",
+    "level": 4,
+    "parent": "76.6",
+    "type": "account"
+  },
+  {
+    "code": "76.6.1.1",
+    "name": "Subsidiárias",
+    "description": "",
+    "level": 5,
+    "parent": "76.6.1",
+    "type": "account"
+  },
+  {
+    "code": "76.6.1.2",
+    "name": "Associadas",
+    "description": "",
+    "level": 5,
+    "parent": "76.6.1",
+    "type": "account"
+  },
+  {
+    "code": "76.6.1.3",
+    "name": "Outras empresas",
+    "description": "",
+    "level": 5,
+    "parent": "76.6.1",
+    "type": "account"
+  },
+  {
+    "code": "76.6.1.4",
+    "name": "Fundos",
+    "description": "",
+    "level": 5,
+    "parent": "76.6.1",
+    "type": "account"
+  },
+  {
+    "code": "76.6.1.9",
+    "name": "Outros investimentos",
+    "description": "",
+    "level": 5,
+    "parent": "76.6.1",
+    "type": "account"
+  },
+  {
+    "code": "76.6.2",
+    "name": "Aplicações de títulos negociáveis",
+    "description": "",
+    "level": 4,
+    "parent": "76.6",
+    "type": "account"
+  },
+  {
+    "code": "76.7",
+    "name": "Serviços bancários",
+    "description": "",
+    "level": 3,
+    "parent": "76",
+    "type": "account"
+  },
+  {
+    "code": "76.9",
+    "name": "Transferência para resultados financeiros",
+    "description": "",
+    "level": 3,
+    "parent": "76",
+    "type": "account"
+  },
+  {
+    "code": "77",
+    "name": "Custos e perdas financeiros em filiais e associadas",
+    "description": "Financial costs in subsidiaries and associates",
+    "level": 2,
+    "parent": "7",
+    "type": "account"
+  },
+  {
+    "code": "77.9",
+    "name": "Transferência para resultados financeiros",
+    "description": "",
+    "level": 3,
+    "parent": "77",
+    "type": "account"
+  },
+  {
+    "code": "78",
+    "name": "Outros custos e perdas não operacionais",
+    "description": "Other non-operating costs and losses",
+    "level": 2,
+    "parent": "7",
+    "type": "account"
+  },
+  {
+    "code": "78.1",
+    "name": "Provisões do exercício",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.1.1",
+    "name": "Existências",
+    "description": "",
+    "level": 4,
+    "parent": "78.1",
+    "type": "account"
+  },
+  {
+    "code": "78.1.1.1",
+    "name": "Matérias-primas subsidiárias e de consumo",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.1",
+    "type": "account"
+  },
+  {
+    "code": "78.1.1.2",
+    "name": "Produtos e trabalhos em curso",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.1",
+    "type": "account"
+  },
+  {
+    "code": "78.1.1.3",
+    "name": "Produtos acabados e intermédios",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.1",
+    "type": "account"
+  },
+  {
+    "code": "78.1.1.4",
+    "name": "Sub-produtos, desperdícios, resíduos e refugos",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.1",
+    "type": "account"
+  },
+  {
+    "code": "78.1.1.5",
+    "name": "Mercadorias",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.1",
+    "type": "account"
+  },
+  {
+    "code": "78.1.2",
+    "name": "Cobranças Duvidosas",
+    "description": "",
+    "level": 4,
+    "parent": "78.1",
+    "type": "account"
+  },
+  {
+    "code": "78.1.2.1",
+    "name": "Clientes",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.2",
+    "type": "account"
+  },
+  {
+    "code": "78.1.2.2",
+    "name": "Clientes – títulos a receber",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.2",
+    "type": "account"
+  },
+  {
+    "code": "78.1.2.3",
+    "name": "Clientes – cobrança duvidosa",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.2",
+    "type": "account"
+  },
+  {
+    "code": "78.1.2.4",
+    "name": "Saldos devedores de fornecedores",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.2",
+    "type": "account"
+  },
+  {
+    "code": "78.1.2.5",
+    "name": "Participantes e participadas",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.2",
+    "type": "account"
+  },
+  {
+    "code": "78.1.2.6",
+    "name": "Dívidas do pessoal",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.2",
+    "type": "account"
+  },
+  {
+    "code": "78.1.2.9",
+    "name": "Outros saldos a receber",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.2",
+    "type": "account"
+  },
+  {
+    "code": "78.1.3",
+    "name": "Riscos e encargos",
+    "description": "",
+    "level": 4,
+    "parent": "78.1",
+    "type": "account"
+  },
+  {
+    "code": "78.1.3.1",
+    "name": "Pensões",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.3",
+    "type": "account"
+  },
+  {
+    "code": "78.1.3.2",
+    "name": "Processos judiciais em curso",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.3",
+    "type": "account"
+  },
+  {
+    "code": "78.1.3.3",
+    "name": "Acidentes de trabalho",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.3",
+    "type": "account"
+  },
+  {
+    "code": "78.1.3.4",
+    "name": "Garantias dadas a clientes",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.3",
+    "type": "account"
+  },
+  {
+    "code": "78.1.3.9",
+    "name": "Outros riscos e encargos",
+    "description": "",
+    "level": 5,
+    "parent": "78.1.3",
+    "type": "account"
+  },
+  {
+    "code": "78.2",
+    "name": "Amortizações extraordinárias",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.2.1",
+    "name": "Imobilizações Corpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "78.2",
+    "type": "account"
+  },
+  {
+    "code": "78.2.2",
+    "name": "Imobilizações Incorpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "78.2",
+    "type": "account"
+  },
+  {
+    "code": "78.3",
+    "name": "Perdas em imobilizações",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.3.1",
+    "name": "Venda de imobilizações corpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "78.3",
+    "type": "account"
+  },
+  {
+    "code": "78.3.2",
+    "name": "Venda de imobilizações incorpóreas",
+    "description": "",
+    "level": 4,
+    "parent": "78.3",
+    "type": "account"
+  },
+  {
+    "code": "78.3.3",
+    "name": "Abates",
+    "description": "",
+    "level": 4,
+    "parent": "78.3",
+    "type": "account"
+  },
+  {
+    "code": "78.3.9",
+    "name": "Outras",
+    "description": "",
+    "level": 4,
+    "parent": "78.3",
+    "type": "account"
+  },
+  {
+    "code": "78.4",
+    "name": "Perdas em existências",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.4.1",
+    "name": "Quebras",
+    "description": "",
+    "level": 4,
+    "parent": "78.4",
+    "type": "account"
+  },
+  {
+    "code": "78.5",
+    "name": "Dívidas incobráveis",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.6",
+    "name": "Multas e penalidades contratuais",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.6.1",
+    "name": "Fiscais",
+    "description": "",
+    "level": 4,
+    "parent": "78.6",
+    "type": "account"
+  },
+  {
+    "code": "78.6.2",
+    "name": "Não fiscais",
+    "description": "",
+    "level": 4,
+    "parent": "78.6",
+    "type": "account"
+  },
+  {
+    "code": "78.6.3",
+    "name": "Penalidades contratuais",
+    "description": "",
+    "level": 4,
+    "parent": "78.6",
+    "type": "account"
+  },
+  {
+    "code": "78.7",
+    "name": "Custos de reestruturação",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.8",
+    "name": "Descontinuidade de operações",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.9",
+    "name": "Alterações de políticas contabilísticas",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.10",
+    "name": "Correcções relativas a exercícios anteriores",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.10.1",
+    "name": "Estimativa impostos",
+    "description": "",
+    "level": 4,
+    "parent": "78.10",
+    "type": "account"
+  },
+  {
+    "code": "78.11",
+    "name": "Outros custos e perdas não operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "78.11.1",
+    "name": "Donativos",
+    "description": "",
+    "level": 4,
+    "parent": "78.11",
+    "type": "account"
+  },
+  {
+    "code": "78.11.2",
+    "name": "Reembolso de subsídios à exploração",
+    "description": "",
+    "level": 4,
+    "parent": "78.11",
+    "type": "account"
+  },
+  {
+    "code": "78.11.3",
+    "name": "Reembolso de subsídios a investimentos",
+    "description": "",
+    "level": 4,
+    "parent": "78.11",
+    "type": "account"
+  },
+  {
+    "code": "78.19",
+    "name": "Transferência para resultados não operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "78",
+    "type": "account"
+  },
+  {
+    "code": "79",
+    "name": "Custos e perdas extraordinárias",
+    "description": "Extraordinary costs and losses",
+    "level": 2,
+    "parent": "7",
+    "type": "account"
+  },
+  {
+    "code": "79.1",
+    "name": "Perdas resultantes de catástrofes naturais",
+    "description": "",
+    "level": 3,
+    "parent": "79",
+    "type": "account"
+  },
+  {
+    "code": "79.2",
+    "name": "Perdas resultantes de convulsões políticas",
+    "description": "",
+    "level": 3,
+    "parent": "79",
+    "type": "account"
+  },
+  {
+    "code": "79.3",
+    "name": "Perdas resultantes de expropriações",
+    "description": "",
+    "level": 3,
+    "parent": "79",
+    "type": "account"
+  },
+  {
+    "code": "79.4",
+    "name": "Perdas resultantes de sinistros",
+    "description": "",
+    "level": 3,
+    "parent": "79",
+    "type": "account"
+  },
+  {
+    "code": "79.9",
+    "name": "Transferência para resultados extraordinários",
+    "description": "",
+    "level": 3,
+    "parent": "79",
+    "type": "account"
+  },
+  {
+    "code": "8",
+    "name": "Resultados",
+    "description": "Results",
+    "level": 1,
+    "parent": null,
+    "type": "class",
+    "optional": false
+  },
+  {
+    "code": "81",
+    "name": "Resultados transitados",
+    "description": "Retained earnings",
+    "level": 2,
+    "parent": "8",
+    "type": "account"
+  },
+  {
+    "code": "81.1",
+    "name": "Ano____",
+    "description": "",
+    "level": 3,
+    "parent": "81",
+    "type": "account"
+  },
+  {
+    "code": "81.1.1",
+    "name": "Resultado do ano",
+    "description": "",
+    "level": 4,
+    "parent": "81.1",
+    "type": "account"
+  },
+  {
+    "code": "81.1.2",
+    "name": "Aplicação de resultados",
+    "description": "",
+    "level": 4,
+    "parent": "81.1",
+    "type": "account"
+  },
+  {
+    "code": "81.1.3",
+    "name": "Correcções de erros fundamentais, no exercício seguinte",
+    "description": "",
+    "level": 4,
+    "parent": "81.1",
+    "type": "account"
+  },
+  {
+    "code": "81.1.4",
+    "name": "Efeito das alterações de políticas contabilísticas",
+    "description": "",
+    "level": 4,
+    "parent": "81.1",
+    "type": "account"
+  },
+  {
+    "code": "81.1.5",
+    "name": "Imposto relativo a correcções de erros fundamentais e alterações de políticas contabilísticas",
+    "description": "",
+    "level": 4,
+    "parent": "81.1",
+    "type": "account"
+  },
+  {
+    "code": "81.2",
+    "name": "Ano____",
+    "description": "",
+    "level": 3,
+    "parent": "81",
+    "type": "account"
+  },
+  {
+    "code": "81.2.1",
+    "name": "Resultado do ano",
+    "description": "",
+    "level": 4,
+    "parent": "81.2",
+    "type": "account"
+  },
+  {
+    "code": "81.2.2",
+    "name": "Aplicação de resultados",
+    "description": "",
+    "level": 4,
+    "parent": "81.2",
+    "type": "account"
+  },
+  {
+    "code": "81.2.3",
+    "name": "Correcções de erros fundamentais, no exercício seguinte",
+    "description": "",
+    "level": 4,
+    "parent": "81.2",
+    "type": "account"
+  },
+  {
+    "code": "81.2.4",
+    "name": "Efeito das alterações de políticas contabilísticas",
+    "description": "",
+    "level": 4,
+    "parent": "81.2",
+    "type": "account"
+  },
+  {
+    "code": "81.2.5",
+    "name": "Imposto relativo a correcções de erros fundamentais e alterações de políticas contabilísticas",
+    "description": "",
+    "level": 4,
+    "parent": "81.2",
+    "type": "account"
+  },
+  {
+    "code": "82",
+    "name": "Resultados operacionais",
+    "description": "Operating results",
+    "level": 2,
+    "parent": "8",
+    "type": "account"
+  },
+  {
+    "code": "82.1",
+    "name": "Vendas",
+    "description": "",
+    "level": 3,
+    "parent": "82",
+    "type": "account"
+  },
+  {
+    "code": "82.2",
+    "name": "Prestações de serviço",
+    "description": "",
+    "level": 3,
+    "parent": "82",
+    "type": "account"
+  },
+  {
+    "code": "82.3",
+    "name": "Outros proveitos operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "82",
+    "type": "account"
+  },
+  {
+    "code": "82.4",
+    "name": "Variação nos inventários de produtos acabados e produtos em vias de fabrico",
+    "description": "",
+    "level": 3,
+    "parent": "82",
+    "type": "account"
+  },
+  {
+    "code": "82.5",
+    "name": "Trabalhos para a própria empresa",
+    "description": "",
+    "level": 3,
+    "parent": "82",
+    "type": "account"
+  },
+  {
+    "code": "82.6",
+    "name": "Custo das mercadorias vendidas e das matérias consumidas",
+    "description": "",
+    "level": 3,
+    "parent": "82",
+    "type": "account"
+  },
+  {
+    "code": "82.7",
+    "name": "Custos com o pessoal",
+    "description": "",
+    "level": 3,
+    "parent": "82",
+    "type": "account"
+  },
+  {
+    "code": "82.8",
+    "name": "Amortizações do exercício",
+    "description": "",
+    "level": 3,
+    "parent": "82",
+    "type": "account"
+  },
+  {
+    "code": "82.9",
+    "name": "Outros custos operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "82",
+    "type": "account"
+  },
+  {
+    "code": "82.19",
+    "name": "Transferência para resultados líquidos",
+    "description": "",
+    "level": 3,
+    "parent": "82",
+    "type": "account"
+  },
+  {
+    "code": "83",
+    "name": "Resultados financeiros",
+    "description": "Financial results",
+    "level": 2,
+    "parent": "8",
+    "type": "account"
+  },
+  {
+    "code": "83.1",
+    "name": "Proveitos e ganhos financeiros gerais",
+    "description": "",
+    "level": 3,
+    "parent": "83",
+    "type": "account"
+  },
+  {
+    "code": "83.2",
+    "name": "Custos e perdas financeiros gerais",
+    "description": "",
+    "level": 3,
+    "parent": "83",
+    "type": "account"
+  },
+  {
+    "code": "83.9",
+    "name": "Transferência para resultados líquidos",
+    "description": "",
+    "level": 3,
+    "parent": "83",
+    "type": "account"
+  },
+  {
+    "code": "84",
+    "name": "Resultados financeiros em filiais e associadas",
+    "description": "Results from subsidiaries and associates",
+    "level": 2,
+    "parent": "8",
+    "type": "account"
+  },
+  {
+    "code": "84.1",
+    "name": "Proveitos e ganhos em filiais e associadas",
+    "description": "",
+    "level": 3,
+    "parent": "84",
+    "type": "account"
+  },
+  {
+    "code": "84.2",
+    "name": "Custos e perdas em filiais e associadas",
+    "description": "",
+    "level": 3,
+    "parent": "84",
+    "type": "account"
+  },
+  {
+    "code": "84.9",
+    "name": "Transferência para resultados líquidos",
+    "description": "",
+    "level": 3,
+    "parent": "84",
+    "type": "account"
+  },
+  {
+    "code": "85",
+    "name": "Resultados não operacionais",
+    "description": "Non-operating results",
+    "level": 2,
+    "parent": "8",
+    "type": "account"
+  },
+  {
+    "code": "85.1",
+    "name": "Proveitos e ganhos não operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "85",
+    "type": "account"
+  },
+  {
+    "code": "85.2",
+    "name": "Custos e perdas não operacionais",
+    "description": "",
+    "level": 3,
+    "parent": "85",
+    "type": "account"
+  },
+  {
+    "code": "85.9",
+    "name": "Transferência para resultados líquidos",
+    "description": "",
+    "level": 3,
+    "parent": "85",
+    "type": "account"
+  },
+  {
+    "code": "86",
+    "name": "Resultados extraordinários",
+    "description": "Extraordinary results",
+    "level": 2,
+    "parent": "8",
+    "type": "account"
+  },
+  {
+    "code": "86.1",
+    "name": "Proveitos e ganhos extraordinários",
+    "description": "",
+    "level": 3,
+    "parent": "86",
+    "type": "account"
+  },
+  {
+    "code": "86.2",
+    "name": "Custos e perdas extraordinários",
+    "description": "",
+    "level": 3,
+    "parent": "86",
+    "type": "account"
+  },
+  {
+    "code": "87",
+    "name": "Imposto sobre os lucros",
+    "description": "Income tax",
+    "level": 2,
+    "parent": "8",
+    "type": "account"
+  },
+  {
+    "code": "88",
+    "name": "Resultado líquido do exercício",
+    "description": "Net income for the period",
+    "level": 2,
+    "parent": "8",
+    "type": "account"
+  },
+  {
+    "code": "89",
+    "name": "Dividendos antecipados",
+    "description": "Advanced dividends",
+    "level": 2,
+    "parent": "8",
+    "type": "account"
+  },
+  {
+    "code": "9",
+    "name": "Contabilidade Analítica",
+    "description": "Management accounting (optional use)",
+    "level": 1,
+    "parent": null,
+    "type": "class",
+    "optional": true
+  }
+]

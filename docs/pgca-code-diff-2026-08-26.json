@@ -1,0 +1,4670 @@
+{
+  "fullCount": 776,
+  "confirmedCount": 27,
+  "missingCount": 765,
+  "missingByClass": {
+    "2": 1,
+    "3": 1,
+    "5": 1,
+    "7": 1,
+    "8": 1,
+    "9": 1,
+    "11": 16,
+    "12": 5,
+    "13": 18,
+    "14": 5,
+    "18": 17,
+    "19": 18,
+    "21": 5,
+    "22": 6,
+    "23": 1,
+    "24": 4,
+    "25": 3,
+    "26": 2,
+    "27": 4,
+    "28": 3,
+    "29": 6,
+    "31": 29,
+    "32": 20,
+    "33": 15,
+    "34": 43,
+    "35": 43,
+    "36": 9,
+    "37": 27,
+    "38": 18,
+    "39": 6,
+    "41": 10,
+    "42": 7,
+    "43": 7,
+    "44": 7,
+    "45": 6,
+    "48": 3,
+    "49": 6,
+    "51": 1,
+    "52": 4,
+    "53": 1,
+    "54": 1,
+    "55": 1,
+    "56": 7,
+    "57": 1,
+    "58": 1,
+    "61": 20,
+    "62": 11,
+    "63": 12,
+    "64": 5,
+    "65": 8,
+    "66": 43,
+    "67": 5,
+    "68": 40,
+    "69": 8,
+    "71": 7,
+    "72": 22,
+    "73": 15,
+    "75": 44,
+    "76": 36,
+    "77": 2,
+    "78": 47,
+    "79": 6,
+    "81": 13,
+    "82": 11,
+    "83": 4,
+    "84": 4,
+    "85": 4,
+    "86": 3,
+    "87": 1,
+    "88": 1,
+    "89": 1
+  },
+  "missingCodes": [
+    {
+      "code": "11.1",
+      "name": "Terrenos e recursos naturais",
+      "parentCode": "11",
+      "level": 3
+    },
+    {
+      "code": "11.1.1",
+      "name": "Terrenos em bruto",
+      "parentCode": "11.1",
+      "level": 4
+    },
+    {
+      "code": "11.1.2",
+      "name": "Terrenos com arranjos",
+      "parentCode": "11.1",
+      "level": 4
+    },
+    {
+      "code": "11.1.3",
+      "name": "Subsolos",
+      "parentCode": "11.1",
+      "level": 4
+    },
+    {
+      "code": "11.1.4",
+      "name": "Terrenos com edifícios",
+      "parentCode": "11.1",
+      "level": 4
+    },
+    {
+      "code": "11.1.4.1",
+      "name": "Relativos a edifícios industriais",
+      "parentCode": "11.1.4",
+      "level": 5
+    },
+    {
+      "code": "11.1.4.2",
+      "name": "Relativos a edifícios administrativos e comerciais",
+      "parentCode": "11.1.4",
+      "level": 5
+    },
+    {
+      "code": "11.1.4.3",
+      "name": "Relativos a outros edifícios",
+      "parentCode": "11.1.4",
+      "level": 5
+    },
+    {
+      "code": "11.2",
+      "name": "Edifícios e outras construções",
+      "parentCode": "11",
+      "level": 3
+    },
+    {
+      "code": "11.2.1",
+      "name": "Edifícios",
+      "parentCode": "11.2",
+      "level": 4
+    },
+    {
+      "code": "11.2.1.1",
+      "name": "Integrados em conjuntos industriais",
+      "parentCode": "11.2.1",
+      "level": 5
+    },
+    {
+      "code": "11.3",
+      "name": "Equipamento básico",
+      "parentCode": "11",
+      "level": 3
+    },
+    {
+      "code": "11.4",
+      "name": "Equipamento de carga e transporte",
+      "parentCode": "11",
+      "level": 3
+    },
+    {
+      "code": "11.5",
+      "name": "Equipamento administrativo",
+      "parentCode": "11",
+      "level": 3
+    },
+    {
+      "code": "11.6",
+      "name": "Taras e vasilhame",
+      "parentCode": "11",
+      "level": 3
+    },
+    {
+      "code": "11.9",
+      "name": "Outras imobilizações corpóreas",
+      "parentCode": "11",
+      "level": 3
+    },
+    {
+      "code": "12.1",
+      "name": "Trespasses",
+      "parentCode": "12",
+      "level": 3
+    },
+    {
+      "code": "12.2",
+      "name": "Despesas de investigação e desenvolvimento",
+      "parentCode": "12",
+      "level": 3
+    },
+    {
+      "code": "12.3",
+      "name": "Propriedade industrial e outros direitos e contratos",
+      "parentCode": "12",
+      "level": 3
+    },
+    {
+      "code": "12.4",
+      "name": "Despesas de constituição",
+      "parentCode": "12",
+      "level": 3
+    },
+    {
+      "code": "12.9",
+      "name": "Outras imobilizações incorpóreas",
+      "parentCode": "12",
+      "level": 3
+    },
+    {
+      "code": "13.1",
+      "name": "Empresas subsidiárias",
+      "parentCode": "13",
+      "level": 3
+    },
+    {
+      "code": "13.1.1",
+      "name": "Partes de capital",
+      "parentCode": "13.1",
+      "level": 4
+    },
+    {
+      "code": "13.1.2",
+      "name": "Obrigações e títulos de participação",
+      "parentCode": "13.1",
+      "level": 4
+    },
+    {
+      "code": "13.1.3",
+      "name": "Empréstimos",
+      "parentCode": "13.1",
+      "level": 4
+    },
+    {
+      "code": "13.2",
+      "name": "Empresas associadas",
+      "parentCode": "13",
+      "level": 3
+    },
+    {
+      "code": "13.2.1",
+      "name": "Partes de capital",
+      "parentCode": "13.2",
+      "level": 4
+    },
+    {
+      "code": "13.2.2",
+      "name": "Obrigações e títulos de participação",
+      "parentCode": "13.2",
+      "level": 4
+    },
+    {
+      "code": "13.2.3",
+      "name": "Empréstimos",
+      "parentCode": "13.2",
+      "level": 4
+    },
+    {
+      "code": "13.3",
+      "name": "Outras empresas",
+      "parentCode": "13",
+      "level": 3
+    },
+    {
+      "code": "13.3.1",
+      "name": "Partes de capital",
+      "parentCode": "13.3",
+      "level": 4
+    },
+    {
+      "code": "13.3.2",
+      "name": "Obrigações e títulos de participação",
+      "parentCode": "13.3",
+      "level": 4
+    },
+    {
+      "code": "13.3.3",
+      "name": "Empréstimos",
+      "parentCode": "13.3",
+      "level": 4
+    },
+    {
+      "code": "13.4",
+      "name": "Investimentos em imóveis",
+      "parentCode": "13",
+      "level": 3
+    },
+    {
+      "code": "13.5",
+      "name": "Fundos",
+      "parentCode": "13",
+      "level": 3
+    },
+    {
+      "code": "13.9",
+      "name": "Outros investimentos Financeiros",
+      "parentCode": "13",
+      "level": 3
+    },
+    {
+      "code": "13.9.1",
+      "name": "Diamantes",
+      "parentCode": "13.9",
+      "level": 4
+    },
+    {
+      "code": "13.9.2",
+      "name": "Ouro",
+      "parentCode": "13.9",
+      "level": 4
+    },
+    {
+      "code": "13.9.3",
+      "name": "Depósitos bancários",
+      "parentCode": "13.9",
+      "level": 4
+    },
+    {
+      "code": "14.1",
+      "name": "Obra em curso",
+      "parentCode": "14",
+      "level": 3
+    },
+    {
+      "code": "14.2",
+      "name": "Obra em curso",
+      "parentCode": "14",
+      "level": 3
+    },
+    {
+      "code": "14.7",
+      "name": "Adiantamentos por conta de imobilizado corpóreo",
+      "parentCode": "14",
+      "level": 3
+    },
+    {
+      "code": "14.8",
+      "name": "Adiantamentos por conta de imobilizado incorpóreo",
+      "parentCode": "14",
+      "level": 3
+    },
+    {
+      "code": "14.9",
+      "name": "Adiantamentos por conta de investimentos financeiros",
+      "parentCode": "14",
+      "level": 3
+    },
+    {
+      "code": "18.1",
+      "name": "Imobilizações corpóreas",
+      "parentCode": "18",
+      "level": 3
+    },
+    {
+      "code": "18.1.1",
+      "name": "Terrenos e recursos naturais",
+      "parentCode": "18.1",
+      "level": 4
+    },
+    {
+      "code": "18.1.2",
+      "name": "Edifícios e outras construções",
+      "parentCode": "18.1",
+      "level": 4
+    },
+    {
+      "code": "18.1.3",
+      "name": "Equipamento básico",
+      "parentCode": "18.1",
+      "level": 4
+    },
+    {
+      "code": "18.1.4",
+      "name": "Equipamento de carga e transporte",
+      "parentCode": "18.1",
+      "level": 4
+    },
+    {
+      "code": "18.1.5",
+      "name": "Equipamento administrativo",
+      "parentCode": "18.1",
+      "level": 4
+    },
+    {
+      "code": "18.1.6",
+      "name": "Taras e vasilhame",
+      "parentCode": "18.1",
+      "level": 4
+    },
+    {
+      "code": "18.1.9",
+      "name": "Outras imobilizações corpóreas",
+      "parentCode": "18.1",
+      "level": 4
+    },
+    {
+      "code": "18.2",
+      "name": "Imobilizações incorpóreas",
+      "parentCode": "18",
+      "level": 3
+    },
+    {
+      "code": "18.2.1",
+      "name": "Trespasses",
+      "parentCode": "18.2",
+      "level": 4
+    },
+    {
+      "code": "18.2.2",
+      "name": "Despesas de investigação e desenvolvimento",
+      "parentCode": "18.2",
+      "level": 4
+    },
+    {
+      "code": "18.2.3",
+      "name": "Propriedade industrial e outros direitos e contratos",
+      "parentCode": "18.2",
+      "level": 4
+    },
+    {
+      "code": "18.2.4",
+      "name": "Despesas de constituição",
+      "parentCode": "18.2",
+      "level": 4
+    },
+    {
+      "code": "18.2.9",
+      "name": "Outras imobilizações incorpóreas",
+      "parentCode": "18.2",
+      "level": 4
+    },
+    {
+      "code": "18.3",
+      "name": "Investimentos financeiros em imóveis",
+      "parentCode": "18",
+      "level": 3
+    },
+    {
+      "code": "18.3.1",
+      "name": "Terrenos e recursos naturais",
+      "parentCode": "18.3",
+      "level": 4
+    },
+    {
+      "code": "18.3.2",
+      "name": "Edifícios e outras construções",
+      "parentCode": "18.3",
+      "level": 4
+    },
+    {
+      "code": "19.1",
+      "name": "Empresas subsidiárias",
+      "parentCode": "19",
+      "level": 3
+    },
+    {
+      "code": "19.1.1",
+      "name": "Partes de capital",
+      "parentCode": "19.1",
+      "level": 4
+    },
+    {
+      "code": "19.1.2",
+      "name": "Obrigações e títulos de participação",
+      "parentCode": "19.1",
+      "level": 4
+    },
+    {
+      "code": "19.1.3",
+      "name": "Empréstimos",
+      "parentCode": "19.1",
+      "level": 4
+    },
+    {
+      "code": "19.2",
+      "name": "Empresas associadas",
+      "parentCode": "19",
+      "level": 3
+    },
+    {
+      "code": "19.2.1",
+      "name": "Partes de capital",
+      "parentCode": "19.2",
+      "level": 4
+    },
+    {
+      "code": "19.2.2",
+      "name": "Obrigações e títulos de participação",
+      "parentCode": "19.2",
+      "level": 4
+    },
+    {
+      "code": "19.2.3",
+      "name": "Empréstimos",
+      "parentCode": "19.2",
+      "level": 4
+    },
+    {
+      "code": "19.3",
+      "name": "Outras empresas",
+      "parentCode": "19",
+      "level": 3
+    },
+    {
+      "code": "19.3.1",
+      "name": "Partes de capital",
+      "parentCode": "19.3",
+      "level": 4
+    },
+    {
+      "code": "19.3.2",
+      "name": "Obrigações e títulos de participação",
+      "parentCode": "19.3",
+      "level": 4
+    },
+    {
+      "code": "19.3.3",
+      "name": "Empréstimos",
+      "parentCode": "19.3",
+      "level": 4
+    },
+    {
+      "code": "19.4",
+      "name": "Fundos",
+      "parentCode": "19",
+      "level": 3
+    },
+    {
+      "code": "19.4.1",
+      "name": "Partes de capital",
+      "parentCode": "19.4",
+      "level": 4
+    },
+    {
+      "code": "19.9",
+      "name": "Outros investimentos financeiros",
+      "parentCode": "19",
+      "level": 3
+    },
+    {
+      "code": "19.9.1",
+      "name": "Diamantes",
+      "parentCode": "19.9",
+      "level": 4
+    },
+    {
+      "code": "19.9.2",
+      "name": "Ouro",
+      "parentCode": "19.9",
+      "level": 4
+    },
+    {
+      "code": "19.9.3",
+      "name": "Depósitos bancários",
+      "parentCode": "19.9",
+      "level": 4
+    },
+    {
+      "code": "2",
+      "name": "Existências",
+      "parentCode": null,
+      "level": 1
+    },
+    {
+      "code": "21",
+      "name": "Compras",
+      "parentCode": "2",
+      "level": 2
+    },
+    {
+      "code": "21.1",
+      "name": "Matérias-primas, subsidiárias e de consumo",
+      "parentCode": "21",
+      "level": 3
+    },
+    {
+      "code": "21.2",
+      "name": "Mercadorias",
+      "parentCode": "21",
+      "level": 3
+    },
+    {
+      "code": "21.7",
+      "name": "Devoluções de compras",
+      "parentCode": "21",
+      "level": 3
+    },
+    {
+      "code": "21.8",
+      "name": "Descontos e abatimentos em compras",
+      "parentCode": "21",
+      "level": 3
+    },
+    {
+      "code": "22",
+      "name": "Matérias-primas, subsidiárias e de consumo",
+      "parentCode": "2",
+      "level": 2
+    },
+    {
+      "code": "22.1",
+      "name": "Matérias-primas",
+      "parentCode": "22",
+      "level": 3
+    },
+    {
+      "code": "22.2",
+      "name": "Matérias subsidiárias",
+      "parentCode": "22",
+      "level": 3
+    },
+    {
+      "code": "22.3",
+      "name": "Materiais diversos",
+      "parentCode": "22",
+      "level": 3
+    },
+    {
+      "code": "22.4",
+      "name": "Embalagens de consumo",
+      "parentCode": "22",
+      "level": 3
+    },
+    {
+      "code": "22.5",
+      "name": "Outros materiais",
+      "parentCode": "22",
+      "level": 3
+    },
+    {
+      "code": "23",
+      "name": "Produtos e trabalhos em curso",
+      "parentCode": "2",
+      "level": 2
+    },
+    {
+      "code": "24",
+      "name": "Produtos acabados e intermédios",
+      "parentCode": "2",
+      "level": 2
+    },
+    {
+      "code": "24.1",
+      "name": "Produtos acabados",
+      "parentCode": "24",
+      "level": 3
+    },
+    {
+      "code": "24.2",
+      "name": "Produtos intermédios",
+      "parentCode": "24",
+      "level": 3
+    },
+    {
+      "code": "24.9",
+      "name": "Em poder de terceiros",
+      "parentCode": "24",
+      "level": 3
+    },
+    {
+      "code": "25",
+      "name": "Sub-produtos, desperdícios, resíduos e refugos",
+      "parentCode": "2",
+      "level": 2
+    },
+    {
+      "code": "25.1",
+      "name": "Sub-produtos",
+      "parentCode": "25",
+      "level": 3
+    },
+    {
+      "code": "25.2",
+      "name": "Desperdícios, resíduos e refugos",
+      "parentCode": "25",
+      "level": 3
+    },
+    {
+      "code": "26",
+      "name": "Mercadorias",
+      "parentCode": "2",
+      "level": 2
+    },
+    {
+      "code": "26.9",
+      "name": "Em poder de terceiros",
+      "parentCode": "26",
+      "level": 3
+    },
+    {
+      "code": "27",
+      "name": "Matérias-primas, mercadorias e outros materiais em trânsito",
+      "parentCode": "2",
+      "level": 2
+    },
+    {
+      "code": "27.1",
+      "name": "Matérias-primas",
+      "parentCode": "27",
+      "level": 3
+    },
+    {
+      "code": "27.2",
+      "name": "Outros materiais",
+      "parentCode": "27",
+      "level": 3
+    },
+    {
+      "code": "27.3",
+      "name": "Mercadorias",
+      "parentCode": "27",
+      "level": 3
+    },
+    {
+      "code": "28",
+      "name": "Adiantamentos por conta de compras",
+      "parentCode": "2",
+      "level": 2
+    },
+    {
+      "code": "28.1",
+      "name": "Matérias-primas e outros materiais",
+      "parentCode": "28",
+      "level": 3
+    },
+    {
+      "code": "28.2",
+      "name": "Mercadorias",
+      "parentCode": "28",
+      "level": 3
+    },
+    {
+      "code": "29",
+      "name": "Provisão para depreciação de existências",
+      "parentCode": "2",
+      "level": 2
+    },
+    {
+      "code": "29.2",
+      "name": "Matérias-primas subsidiárias e de consumo",
+      "parentCode": "29",
+      "level": 3
+    },
+    {
+      "code": "29.3",
+      "name": "Produtos e trabalhos em curso",
+      "parentCode": "29",
+      "level": 3
+    },
+    {
+      "code": "29.4",
+      "name": "Produtos acabados e intermédios",
+      "parentCode": "29",
+      "level": 3
+    },
+    {
+      "code": "29.5",
+      "name": "Sub-produtos, desperdícios, resíduos e refugos",
+      "parentCode": "29",
+      "level": 3
+    },
+    {
+      "code": "29.6",
+      "name": "Mercadorias",
+      "parentCode": "29",
+      "level": 3
+    },
+    {
+      "code": "3",
+      "name": "Terceiros",
+      "parentCode": null,
+      "level": 1
+    },
+    {
+      "code": "31",
+      "name": "Clientes",
+      "parentCode": "3",
+      "level": 2
+    },
+    {
+      "code": "31.1",
+      "name": "Clientes – correntes",
+      "parentCode": "31",
+      "level": 3
+    },
+    {
+      "code": "31.1.1",
+      "name": "Grupo",
+      "parentCode": "31.1",
+      "level": 4
+    },
+    {
+      "code": "31.1.1.1",
+      "name": "Subsidiárias",
+      "parentCode": "31.1.1",
+      "level": 5
+    },
+    {
+      "code": "31.1.1.2",
+      "name": "Associadas",
+      "parentCode": "31.1.1",
+      "level": 5
+    },
+    {
+      "code": "31.1.2",
+      "name": "Não grupo",
+      "parentCode": "31.1",
+      "level": 4
+    },
+    {
+      "code": "31.1.2.1",
+      "name": "Nacionais",
+      "parentCode": "31.1.2",
+      "level": 5
+    },
+    {
+      "code": "31.1.2.2",
+      "name": "Estrangeiros",
+      "parentCode": "31.1.2",
+      "level": 5
+    },
+    {
+      "code": "31.2",
+      "name": "Clientes – títulos a receber",
+      "parentCode": "31",
+      "level": 3
+    },
+    {
+      "code": "31.2.1",
+      "name": "Grupo",
+      "parentCode": "31.2",
+      "level": 4
+    },
+    {
+      "code": "31.2.1.1",
+      "name": "Subsidiárias",
+      "parentCode": "31.2.1",
+      "level": 5
+    },
+    {
+      "code": "31.2.1.2",
+      "name": "Associadas",
+      "parentCode": "31.2.1",
+      "level": 5
+    },
+    {
+      "code": "31.2.2",
+      "name": "Não grupo",
+      "parentCode": "31.2",
+      "level": 4
+    },
+    {
+      "code": "31.2.2.1",
+      "name": "Nacionais",
+      "parentCode": "31.2.2",
+      "level": 5
+    },
+    {
+      "code": "31.2.2.2",
+      "name": "Estrangeiros",
+      "parentCode": "31.2.2",
+      "level": 5
+    },
+    {
+      "code": "31.3",
+      "name": "Clientes – títulos descontados",
+      "parentCode": "31",
+      "level": 3
+    },
+    {
+      "code": "31.3.1",
+      "name": "Grupo",
+      "parentCode": "31.3",
+      "level": 4
+    },
+    {
+      "code": "31.3.1.1",
+      "name": "Subsidiárias",
+      "parentCode": "31.3.1",
+      "level": 5
+    },
+    {
+      "code": "31.3.1.2",
+      "name": "Associadas",
+      "parentCode": "31.3.1",
+      "level": 5
+    },
+    {
+      "code": "31.3.2",
+      "name": "Não grupo",
+      "parentCode": "31.3",
+      "level": 4
+    },
+    {
+      "code": "31.3.2.1",
+      "name": "Nacionais",
+      "parentCode": "31.3.2",
+      "level": 5
+    },
+    {
+      "code": "31.3.2.2",
+      "name": "Estrangeiros",
+      "parentCode": "31.3.2",
+      "level": 5
+    },
+    {
+      "code": "31.8",
+      "name": "Clientes de cobrança duvidosa",
+      "parentCode": "31",
+      "level": 3
+    },
+    {
+      "code": "31.8.1",
+      "name": "Clientes – correntes",
+      "parentCode": "31.8",
+      "level": 4
+    },
+    {
+      "code": "31.8.2",
+      "name": "Clientes – títulos",
+      "parentCode": "31.8",
+      "level": 4
+    },
+    {
+      "code": "31.9",
+      "name": "Clientes - saldos credores",
+      "parentCode": "31",
+      "level": 3
+    },
+    {
+      "code": "31.9.1",
+      "name": "Adiantamentos",
+      "parentCode": "31.9",
+      "level": 4
+    },
+    {
+      "code": "31.9.2",
+      "name": "Embalagens a devolver",
+      "parentCode": "31.9",
+      "level": 4
+    },
+    {
+      "code": "31.9.3",
+      "name": "Material à consignação",
+      "parentCode": "31.9",
+      "level": 4
+    },
+    {
+      "code": "32",
+      "name": "Fornecedores",
+      "parentCode": "3",
+      "level": 2
+    },
+    {
+      "code": "32.1",
+      "name": "Fornecedores – correntes",
+      "parentCode": "32",
+      "level": 3
+    },
+    {
+      "code": "32.1.1",
+      "name": "Grupo",
+      "parentCode": "32.1",
+      "level": 4
+    },
+    {
+      "code": "32.1.1.1",
+      "name": "Subsidiárias",
+      "parentCode": "32.1.1",
+      "level": 5
+    },
+    {
+      "code": "32.1.1.2",
+      "name": "Associadas",
+      "parentCode": "32.1.1",
+      "level": 5
+    },
+    {
+      "code": "32.1.2",
+      "name": "Não grupo",
+      "parentCode": "32.1",
+      "level": 4
+    },
+    {
+      "code": "32.1.2.1",
+      "name": "Nacionais",
+      "parentCode": "32.1.2",
+      "level": 5
+    },
+    {
+      "code": "32.1.2.2",
+      "name": "Estrangeiros",
+      "parentCode": "32.1.2",
+      "level": 5
+    },
+    {
+      "code": "32.2",
+      "name": "Fornecedores – títulos a pagar",
+      "parentCode": "32",
+      "level": 3
+    },
+    {
+      "code": "32.2.1",
+      "name": "Grupo",
+      "parentCode": "32.2",
+      "level": 4
+    },
+    {
+      "code": "32.2.1.1",
+      "name": "Subsidiárias",
+      "parentCode": "32.2.1",
+      "level": 5
+    },
+    {
+      "code": "32.2.1.2",
+      "name": "Associadas",
+      "parentCode": "32.2.1",
+      "level": 5
+    },
+    {
+      "code": "32.2.2",
+      "name": "Não grupo",
+      "parentCode": "32.2",
+      "level": 4
+    },
+    {
+      "code": "32.2.2.1",
+      "name": "Nacionais",
+      "parentCode": "32.2.2",
+      "level": 5
+    },
+    {
+      "code": "32.2.2.2",
+      "name": "Estrangeiros",
+      "parentCode": "32.2.2",
+      "level": 5
+    },
+    {
+      "code": "32.8",
+      "name": "Fornecedores – facturas em recepção e conferência",
+      "parentCode": "32",
+      "level": 3
+    },
+    {
+      "code": "32.9",
+      "name": "Fornecedores – saldos devedores",
+      "parentCode": "32",
+      "level": 3
+    },
+    {
+      "code": "32.9.1",
+      "name": "Adiantamentos",
+      "parentCode": "32.9",
+      "level": 4
+    },
+    {
+      "code": "32.9.2",
+      "name": "Embalagens a devolver",
+      "parentCode": "32.9",
+      "level": 4
+    },
+    {
+      "code": "32.9.3",
+      "name": "Material à consignação",
+      "parentCode": "32.9",
+      "level": 4
+    },
+    {
+      "code": "33",
+      "name": "Empréstimos",
+      "parentCode": "3",
+      "level": 2
+    },
+    {
+      "code": "33.1",
+      "name": "Empréstimos bancários",
+      "parentCode": "33",
+      "level": 3
+    },
+    {
+      "code": "33.1.1",
+      "name": "Moeda nacional",
+      "parentCode": "33.1",
+      "level": 4
+    },
+    {
+      "code": "33.1.1.1",
+      "name": "Banco ___",
+      "parentCode": "33.1.1",
+      "level": 5
+    },
+    {
+      "code": "33.1.2",
+      "name": "Moeda estrangeira",
+      "parentCode": "33.1",
+      "level": 4
+    },
+    {
+      "code": "33.1.2.1",
+      "name": "Banco ___",
+      "parentCode": "33.1.2",
+      "level": 5
+    },
+    {
+      "code": "33.2",
+      "name": "Empréstimos por obrigações",
+      "parentCode": "33",
+      "level": 3
+    },
+    {
+      "code": "33.2.1",
+      "name": "Convertíveis",
+      "parentCode": "33.2",
+      "level": 4
+    },
+    {
+      "code": "33.2.1.1",
+      "name": "Entidade ___",
+      "parentCode": "33.2.1",
+      "level": 5
+    },
+    {
+      "code": "33.2.2",
+      "name": "Não convertíveis",
+      "parentCode": "33.2",
+      "level": 4
+    },
+    {
+      "code": "33.2.2.1",
+      "name": "Entidade ___",
+      "parentCode": "33.2.2",
+      "level": 5
+    },
+    {
+      "code": "33.3",
+      "name": "Empréstimos por títulos de participação",
+      "parentCode": "33",
+      "level": 3
+    },
+    {
+      "code": "33.3.1",
+      "name": "Entidade ___",
+      "parentCode": "33.3",
+      "level": 4
+    },
+    {
+      "code": "33.9",
+      "name": "Outros empréstimos obtidos",
+      "parentCode": "33",
+      "level": 3
+    },
+    {
+      "code": "33.9.1",
+      "name": "Entidade ___",
+      "parentCode": "33.9",
+      "level": 4
+    },
+    {
+      "code": "34",
+      "name": "Estado",
+      "parentCode": "3",
+      "level": 2
+    },
+    {
+      "code": "34.1",
+      "name": "Imposto sobre os lucros",
+      "parentCode": "34",
+      "level": 3
+    },
+    {
+      "code": "34.2",
+      "name": "Imposto de produção e consumo",
+      "parentCode": "34",
+      "level": 3
+    },
+    {
+      "code": "34.3",
+      "name": "Imposto de rendimento de trabalho",
+      "parentCode": "34",
+      "level": 3
+    },
+    {
+      "code": "34.4",
+      "name": "Imposto de circulação",
+      "parentCode": "34",
+      "level": 3
+    },
+    {
+      "code": "34.5",
+      "name": "IVA",
+      "parentCode": "34",
+      "level": 3
+    },
+    {
+      "code": "34.5.1",
+      "name": "IVA suportado",
+      "parentCode": "34.5",
+      "level": 4
+    },
+    {
+      "code": "34.5.1.1",
+      "name": "Existências",
+      "parentCode": "34.5.1",
+      "level": 5
+    },
+    {
+      "code": "34.5.1.2",
+      "name": "Meios fixos e investimentos",
+      "parentCode": "34.5.1",
+      "level": 5
+    },
+    {
+      "code": "34.5.1.3",
+      "name": "Outros bens e serviços",
+      "parentCode": "34.5.1",
+      "level": 5
+    },
+    {
+      "code": "34.5.2",
+      "name": "IVA dedutível",
+      "parentCode": "34.5",
+      "level": 4
+    },
+    {
+      "code": "34.5.2.1",
+      "name": "Existências",
+      "parentCode": "34.5.2",
+      "level": 5
+    },
+    {
+      "code": "34.5.2.2",
+      "name": "Meios fixos e investimentos",
+      "parentCode": "34.5.2",
+      "level": 5
+    },
+    {
+      "code": "34.5.2.3",
+      "name": "Outros bens e serviços",
+      "parentCode": "34.5.2",
+      "level": 5
+    },
+    {
+      "code": "34.5.3",
+      "name": "IVA liquidado",
+      "parentCode": "34.5",
+      "level": 4
+    },
+    {
+      "code": "34.5.3.1",
+      "name": "Operações gerais",
+      "parentCode": "34.5.3",
+      "level": 5
+    },
+    {
+      "code": "34.5.3.2",
+      "name": "Operações abrangidas pelo regime de IVA de caixa",
+      "parentCode": "34.5.3",
+      "level": 5
+    },
+    {
+      "code": "34.5.3.3",
+      "name": "Autoconsumo e operações gratuitas",
+      "parentCode": "34.5.3",
+      "level": 5
+    },
+    {
+      "code": "34.5.3.4",
+      "name": "Operações especiais",
+      "parentCode": "34.5.3",
+      "level": 5
+    },
+    {
+      "code": "34.5.4",
+      "name": "IVA regularizações",
+      "parentCode": "34.5",
+      "level": 4
+    },
+    {
+      "code": "34.5.4.1",
+      "name": "Mensais a favor do sujeito passivo",
+      "parentCode": "34.5.4",
+      "level": 5
+    },
+    {
+      "code": "34.5.4.2",
+      "name": "Mensais a favor do Estado",
+      "parentCode": "34.5.4",
+      "level": 5
+    },
+    {
+      "code": "34.5.4.3",
+      "name": "Anual por cálculo do pró rata definitivo",
+      "parentCode": "34.5.4",
+      "level": 5
+    },
+    {
+      "code": "34.5.4.4",
+      "name": "Outras regularizações anuais",
+      "parentCode": "34.5.4",
+      "level": 5
+    },
+    {
+      "code": "34.5.5",
+      "name": "IVA apuramento",
+      "parentCode": "34.5",
+      "level": 4
+    },
+    {
+      "code": "34.5.5.1",
+      "name": "Apuramento do regime de IVA normal",
+      "parentCode": "34.5.5",
+      "level": 5
+    },
+    {
+      "code": "34.5.5.2",
+      "name": "Apuramento do regime de IVA de caixa",
+      "parentCode": "34.5.5",
+      "level": 5
+    },
+    {
+      "code": "34.5.6",
+      "name": "IVA a pagar",
+      "parentCode": "34.5",
+      "level": 4
+    },
+    {
+      "code": "34.5.6.1",
+      "name": "IVA a pagar de apuramento",
+      "parentCode": "34.5.6",
+      "level": 5
+    },
+    {
+      "code": "34.5.6.2",
+      "name": "IVA a pagar de cativo",
+      "parentCode": "34.5.6",
+      "level": 5
+    },
+    {
+      "code": "34.5.6.3",
+      "name": "IVA a pagar de liquidações oficiosas",
+      "parentCode": "34.5.6",
+      "level": 5
+    },
+    {
+      "code": "34.5.7",
+      "name": "IVA a recuperar",
+      "parentCode": "34.5",
+      "level": 4
+    },
+    {
+      "code": "34.5.7.1",
+      "name": "IVA a recuperar de apuramentos",
+      "parentCode": "34.5.7",
+      "level": 5
+    },
+    {
+      "code": "34.5.7.2",
+      "name": "IVA a recuperar de cativo",
+      "parentCode": "34.5.7",
+      "level": 5
+    },
+    {
+      "code": "34.5.8",
+      "name": "IVA reembolsos pedidos",
+      "parentCode": "34.5",
+      "level": 4
+    },
+    {
+      "code": "34.5.8.1",
+      "name": "Reembolsos pedidos",
+      "parentCode": "34.5.8",
+      "level": 5
+    },
+    {
+      "code": "34.5.8.2",
+      "name": "Reembolsos deferidos",
+      "parentCode": "34.5.8",
+      "level": 5
+    },
+    {
+      "code": "34.5.8.3",
+      "name": "Reembolsos indeferidos",
+      "parentCode": "34.5.8",
+      "level": 5
+    },
+    {
+      "code": "34.5.8.4",
+      "name": "Reembolsos reclamados, recorridos ou impugnados",
+      "parentCode": "34.5.8",
+      "level": 5
+    },
+    {
+      "code": "34.5.9",
+      "name": "IVA Liquidações oficiosas",
+      "parentCode": "34.5",
+      "level": 4
+    },
+    {
+      "code": "34.6",
+      "name": "Certificado de crédito fiscal a compensar",
+      "parentCode": "34",
+      "level": 3
+    },
+    {
+      "code": "34.8",
+      "name": "Subsídios a preços",
+      "parentCode": "34",
+      "level": 3
+    },
+    {
+      "code": "34.9",
+      "name": "Outros impostos",
+      "parentCode": "34",
+      "level": 3
+    },
+    {
+      "code": "35",
+      "name": "Entidades participantes e participadas",
+      "parentCode": "3",
+      "level": 2
+    },
+    {
+      "code": "35.1",
+      "name": "Entidades participantes",
+      "parentCode": "35",
+      "level": 3
+    },
+    {
+      "code": "35.1.1",
+      "name": "Estado",
+      "parentCode": "35.1",
+      "level": 4
+    },
+    {
+      "code": "35.1.1.1",
+      "name": "c/subscrição",
+      "parentCode": "35.1.1",
+      "level": 5
+    },
+    {
+      "code": "35.1.1.2",
+      "name": "c/adiantamentos sobre lucros",
+      "parentCode": "35.1.1",
+      "level": 5
+    },
+    {
+      "code": "35.1.1.3",
+      "name": "c/lucros",
+      "parentCode": "35.1.1",
+      "level": 5
+    },
+    {
+      "code": "35.1.1.4",
+      "name": "Empréstimos",
+      "parentCode": "35.1.1",
+      "level": 5
+    },
+    {
+      "code": "35.1.2",
+      "name": "Empresas do grupo – subsidiárias",
+      "parentCode": "35.1",
+      "level": 4
+    },
+    {
+      "code": "35.1.2.1",
+      "name": "c/subscrição",
+      "parentCode": "35.1.2",
+      "level": 5
+    },
+    {
+      "code": "35.1.2.2",
+      "name": "c/adiantamentos sobre lucros",
+      "parentCode": "35.1.2",
+      "level": 5
+    },
+    {
+      "code": "35.1.2.3",
+      "name": "c/lucros",
+      "parentCode": "35.1.2",
+      "level": 5
+    },
+    {
+      "code": "35.1.2.4",
+      "name": "Empréstimos",
+      "parentCode": "35.1.2",
+      "level": 5
+    },
+    {
+      "code": "35.1.3",
+      "name": "Empresas do grupo – associadas",
+      "parentCode": "35.1",
+      "level": 4
+    },
+    {
+      "code": "35.1.3.1",
+      "name": "c/subscrição",
+      "parentCode": "35.1.3",
+      "level": 5
+    },
+    {
+      "code": "35.1.3.2",
+      "name": "c/adiantamentos sobre lucros",
+      "parentCode": "35.1.3",
+      "level": 5
+    },
+    {
+      "code": "35.1.3.3",
+      "name": "c/lucros",
+      "parentCode": "35.1.3",
+      "level": 5
+    },
+    {
+      "code": "35.1.3.4",
+      "name": "Empréstimos",
+      "parentCode": "35.1.3",
+      "level": 5
+    },
+    {
+      "code": "35.1.4",
+      "name": "Outros",
+      "parentCode": "35.1",
+      "level": 4
+    },
+    {
+      "code": "35.1.4.1",
+      "name": "c/subscrição",
+      "parentCode": "35.1.4",
+      "level": 5
+    },
+    {
+      "code": "35.1.4.2",
+      "name": "c/adiantamentos sobre lucros",
+      "parentCode": "35.1.4",
+      "level": 5
+    },
+    {
+      "code": "35.1.4.3",
+      "name": "c/lucros",
+      "parentCode": "35.1.4",
+      "level": 5
+    },
+    {
+      "code": "35.1.4.4",
+      "name": "Empréstimos",
+      "parentCode": "35.1.4",
+      "level": 5
+    },
+    {
+      "code": "35.2",
+      "name": "Entidades participadas",
+      "parentCode": "35",
+      "level": 3
+    },
+    {
+      "code": "35.2.1",
+      "name": "Estado",
+      "parentCode": "35.2",
+      "level": 4
+    },
+    {
+      "code": "35.2.1.1",
+      "name": "c/subscrição",
+      "parentCode": "35.2.1",
+      "level": 5
+    },
+    {
+      "code": "35.2.1.2",
+      "name": "c/adiantamentos sobre lucros",
+      "parentCode": "35.2.1",
+      "level": 5
+    },
+    {
+      "code": "35.2.1.3",
+      "name": "c/lucros",
+      "parentCode": "35.2.1",
+      "level": 5
+    },
+    {
+      "code": "35.2.1.4",
+      "name": "Empréstimos",
+      "parentCode": "35.2.1",
+      "level": 5
+    },
+    {
+      "code": "35.2.2",
+      "name": "Empresas do grupo – subsidiárias",
+      "parentCode": "35.2",
+      "level": 4
+    },
+    {
+      "code": "35.2.2.1",
+      "name": "c/subscrição",
+      "parentCode": "35.2.2",
+      "level": 5
+    },
+    {
+      "code": "35.2.2.2",
+      "name": "c/adiantamentos sobre lucros",
+      "parentCode": "35.2.2",
+      "level": 5
+    },
+    {
+      "code": "35.2.2.3",
+      "name": "c/lucros",
+      "parentCode": "35.2.2",
+      "level": 5
+    },
+    {
+      "code": "35.2.2.4",
+      "name": "Empréstimos",
+      "parentCode": "35.2.2",
+      "level": 5
+    },
+    {
+      "code": "35.2.3",
+      "name": "Empresas do grupo – associadas",
+      "parentCode": "35.2",
+      "level": 4
+    },
+    {
+      "code": "35.2.3.1",
+      "name": "c/subscrição",
+      "parentCode": "35.2.3",
+      "level": 5
+    },
+    {
+      "code": "35.2.3.2",
+      "name": "c/adiantamentos sobre lucros",
+      "parentCode": "35.2.3",
+      "level": 5
+    },
+    {
+      "code": "35.2.3.3",
+      "name": "c/lucros",
+      "parentCode": "35.2.3",
+      "level": 5
+    },
+    {
+      "code": "35.2.3.4",
+      "name": "Empréstimos",
+      "parentCode": "35.2.3",
+      "level": 5
+    },
+    {
+      "code": "35.2.4",
+      "name": "Outros",
+      "parentCode": "35.2",
+      "level": 4
+    },
+    {
+      "code": "35.2.4.1",
+      "name": "c/subscrição",
+      "parentCode": "35.2.4",
+      "level": 5
+    },
+    {
+      "code": "35.2.4.2",
+      "name": "c/adiantamentos sobre lucros",
+      "parentCode": "35.2.4",
+      "level": 5
+    },
+    {
+      "code": "35.2.4.3",
+      "name": "c/lucros",
+      "parentCode": "35.2.4",
+      "level": 5
+    },
+    {
+      "code": "35.2.4.4",
+      "name": "Empréstimos",
+      "parentCode": "35.2.4",
+      "level": 5
+    },
+    {
+      "code": "36",
+      "name": "Pessoal",
+      "parentCode": "3",
+      "level": 2
+    },
+    {
+      "code": "36.1",
+      "name": "Pessoal – remunerações",
+      "parentCode": "36",
+      "level": 3
+    },
+    {
+      "code": "36.1.1",
+      "name": "Órgãos sociais",
+      "parentCode": "36.1",
+      "level": 4
+    },
+    {
+      "code": "36.1.2",
+      "name": "Empregados",
+      "parentCode": "36.1",
+      "level": 4
+    },
+    {
+      "code": "36.2",
+      "name": "Pessoal – participação nos resultados",
+      "parentCode": "36",
+      "level": 3
+    },
+    {
+      "code": "36.2.1",
+      "name": "Órgãos sociais",
+      "parentCode": "36.2",
+      "level": 4
+    },
+    {
+      "code": "36.2.2",
+      "name": "Empregados",
+      "parentCode": "36.2",
+      "level": 4
+    },
+    {
+      "code": "36.3",
+      "name": "Pessoal – adiantamentos",
+      "parentCode": "36",
+      "level": 3
+    },
+    {
+      "code": "36.9",
+      "name": "Pessoal – outros",
+      "parentCode": "36",
+      "level": 3
+    },
+    {
+      "code": "37",
+      "name": "Outros valores a receber e a pagar",
+      "parentCode": "3",
+      "level": 2
+    },
+    {
+      "code": "37.1",
+      "name": "Compras de imobilizado",
+      "parentCode": "37",
+      "level": 3
+    },
+    {
+      "code": "37.1.1",
+      "name": "Corpóreo",
+      "parentCode": "37.1",
+      "level": 4
+    },
+    {
+      "code": "37.1.2",
+      "name": "Incorpóreo",
+      "parentCode": "37.1",
+      "level": 4
+    },
+    {
+      "code": "37.1.3",
+      "name": "Financeiro",
+      "parentCode": "37.1",
+      "level": 4
+    },
+    {
+      "code": "37.2",
+      "name": "Vendas de imobilizado",
+      "parentCode": "37",
+      "level": 3
+    },
+    {
+      "code": "37.2.1",
+      "name": "Corpóreo",
+      "parentCode": "37.2",
+      "level": 4
+    },
+    {
+      "code": "37.2.2",
+      "name": "Incorpóreo",
+      "parentCode": "37.2",
+      "level": 4
+    },
+    {
+      "code": "37.2.3",
+      "name": "Financeiro",
+      "parentCode": "37.2",
+      "level": 4
+    },
+    {
+      "code": "37.3",
+      "name": "Proveitos a facturar",
+      "parentCode": "37",
+      "level": 3
+    },
+    {
+      "code": "37.3.1",
+      "name": "Vendas",
+      "parentCode": "37.3",
+      "level": 4
+    },
+    {
+      "code": "37.3.2",
+      "name": "Prestações de serviço",
+      "parentCode": "37.3",
+      "level": 4
+    },
+    {
+      "code": "37.3.3",
+      "name": "Juros",
+      "parentCode": "37.3",
+      "level": 4
+    },
+    {
+      "code": "37.4",
+      "name": "Encargos a repartir por períodos futuros",
+      "parentCode": "37",
+      "level": 3
+    },
+    {
+      "code": "37.4.1",
+      "name": "Descontos de emissão de obrigações",
+      "parentCode": "37.4",
+      "level": 4
+    },
+    {
+      "code": "37.4.2",
+      "name": "Descontos de emissão de títulos de participação",
+      "parentCode": "37.4",
+      "level": 4
+    },
+    {
+      "code": "37.5",
+      "name": "Encargos a pagar",
+      "parentCode": "37",
+      "level": 3
+    },
+    {
+      "code": "37.5.1",
+      "name": "Remunerações",
+      "parentCode": "37.5",
+      "level": 4
+    },
+    {
+      "code": "37.5.2",
+      "name": "Juros",
+      "parentCode": "37.5",
+      "level": 4
+    },
+    {
+      "code": "37.6",
+      "name": "Proveitos a repartir por períodos futuros",
+      "parentCode": "37",
+      "level": 3
+    },
+    {
+      "code": "37.6.1",
+      "name": "Prémios de emissão de obrigações",
+      "parentCode": "37.6",
+      "level": 4
+    },
+    {
+      "code": "37.6.2",
+      "name": "Prémios de emissão de títulos de participação",
+      "parentCode": "37.6",
+      "level": 4
+    },
+    {
+      "code": "37.6.3",
+      "name": "Subsídios para investimento",
+      "parentCode": "37.6",
+      "level": 4
+    },
+    {
+      "code": "37.6.4",
+      "name": "Diferenças de câmbio favoráveis reversíveis",
+      "parentCode": "37.6",
+      "level": 4
+    },
+    {
+      "code": "37.7",
+      "name": "Contas transitórias",
+      "parentCode": "37",
+      "level": 3
+    },
+    {
+      "code": "37.7.1",
+      "name": "Transacções entre a sede e as dependências da empresa",
+      "parentCode": "37.7",
+      "level": 4
+    },
+    {
+      "code": "37.9",
+      "name": "Outros valores a receber e a pagar",
+      "parentCode": "37",
+      "level": 3
+    },
+    {
+      "code": "38",
+      "name": "Provisões para cobranças duvidosas",
+      "parentCode": "3",
+      "level": 2
+    },
+    {
+      "code": "38.1",
+      "name": "Provisões para clientes",
+      "parentCode": "38",
+      "level": 3
+    },
+    {
+      "code": "38.1.1",
+      "name": "Clientes – correntes",
+      "parentCode": "38.1",
+      "level": 4
+    },
+    {
+      "code": "38.1.1.1",
+      "name": "Grupo",
+      "parentCode": "38.1.1",
+      "level": 5
+    },
+    {
+      "code": "38.1.1.2",
+      "name": "Não grupo",
+      "parentCode": "38.1.1",
+      "level": 5
+    },
+    {
+      "code": "38.1.2",
+      "name": "Cliente – títulos a receber",
+      "parentCode": "38.1",
+      "level": 4
+    },
+    {
+      "code": "38.1.2.1",
+      "name": "Grupo",
+      "parentCode": "38.1.2",
+      "level": 5
+    },
+    {
+      "code": "38.1.2.2",
+      "name": "Não grupo",
+      "parentCode": "38.1.2",
+      "level": 5
+    },
+    {
+      "code": "38.1.3",
+      "name": "Clientes – cobrança duvidosa",
+      "parentCode": "38.1",
+      "level": 4
+    },
+    {
+      "code": "38.1.3.1",
+      "name": "Grupo",
+      "parentCode": "38.1.3",
+      "level": 5
+    },
+    {
+      "code": "38.1.3.2",
+      "name": "Não grupo",
+      "parentCode": "38.1.3",
+      "level": 5
+    },
+    {
+      "code": "38.2",
+      "name": "Provisões para saldos devedores de fornecedores",
+      "parentCode": "38",
+      "level": 3
+    },
+    {
+      "code": "38.3",
+      "name": "Provisões p/participantes e participadas",
+      "parentCode": "38",
+      "level": 3
+    },
+    {
+      "code": "38.3.1",
+      "name": "Participantes",
+      "parentCode": "38.3",
+      "level": 4
+    },
+    {
+      "code": "38.3.2",
+      "name": "Participadas",
+      "parentCode": "38.3",
+      "level": 4
+    },
+    {
+      "code": "38.4",
+      "name": "Provisões p/dívidas do pessoal",
+      "parentCode": "38",
+      "level": 3
+    },
+    {
+      "code": "38.9",
+      "name": "Provisões para outros saldos a receber",
+      "parentCode": "38",
+      "level": 3
+    },
+    {
+      "code": "38.9.1",
+      "name": "Vendas imobilizado",
+      "parentCode": "38.9",
+      "level": 4
+    },
+    {
+      "code": "39",
+      "name": "Provisões para outros riscos e encargos",
+      "parentCode": "3",
+      "level": 2
+    },
+    {
+      "code": "39.1",
+      "name": "Provisões para pensões",
+      "parentCode": "39",
+      "level": 3
+    },
+    {
+      "code": "39.2",
+      "name": "Provisões para processos judiciais em curso",
+      "parentCode": "39",
+      "level": 3
+    },
+    {
+      "code": "39.3",
+      "name": "Provisões para acidentes de trabalho",
+      "parentCode": "39",
+      "level": 3
+    },
+    {
+      "code": "39.4",
+      "name": "Provisões para garantias dadas a clientes",
+      "parentCode": "39",
+      "level": 3
+    },
+    {
+      "code": "39.9",
+      "name": "Provisões para outros riscos e encargos",
+      "parentCode": "39",
+      "level": 3
+    },
+    {
+      "code": "41",
+      "name": "Títulos negociáveis",
+      "parentCode": "4",
+      "level": 2
+    },
+    {
+      "code": "41.1",
+      "name": "Acções",
+      "parentCode": "41",
+      "level": 3
+    },
+    {
+      "code": "41.1.1",
+      "name": "Empresas do grupo",
+      "parentCode": "41.1",
+      "level": 4
+    },
+    {
+      "code": "41.1.2",
+      "name": "Associadas",
+      "parentCode": "41.1",
+      "level": 4
+    },
+    {
+      "code": "41.1.3",
+      "name": "Outras empresas",
+      "parentCode": "41.1",
+      "level": 4
+    },
+    {
+      "code": "41.2",
+      "name": "Obrigações",
+      "parentCode": "41",
+      "level": 3
+    },
+    {
+      "code": "41.2.1",
+      "name": "Empresas do grupo",
+      "parentCode": "41.2",
+      "level": 4
+    },
+    {
+      "code": "41.2.2",
+      "name": "Associadas",
+      "parentCode": "41.2",
+      "level": 4
+    },
+    {
+      "code": "41.2.3",
+      "name": "Outras empresas",
+      "parentCode": "41.2",
+      "level": 4
+    },
+    {
+      "code": "41.3",
+      "name": "Títulos da dívida pública",
+      "parentCode": "41",
+      "level": 3
+    },
+    {
+      "code": "42",
+      "name": "Depósitos a prazo",
+      "parentCode": "4",
+      "level": 2
+    },
+    {
+      "code": "42.1",
+      "name": "Moeda nacional",
+      "parentCode": "42",
+      "level": 3
+    },
+    {
+      "code": "42.1.1",
+      "name": "Banco ___",
+      "parentCode": "42.1",
+      "level": 4
+    },
+    {
+      "code": "42.1.2",
+      "name": "Banco ___",
+      "parentCode": "42.1",
+      "level": 4
+    },
+    {
+      "code": "42.2",
+      "name": "Moeda estrangeira",
+      "parentCode": "42",
+      "level": 3
+    },
+    {
+      "code": "42.2.1",
+      "name": "Banco ___",
+      "parentCode": "42.2",
+      "level": 4
+    },
+    {
+      "code": "42.2.2",
+      "name": "Banco ___",
+      "parentCode": "42.2",
+      "level": 4
+    },
+    {
+      "code": "43",
+      "name": "Depósitos à ordem",
+      "parentCode": "4",
+      "level": 2
+    },
+    {
+      "code": "43.1",
+      "name": "Moeda nacional",
+      "parentCode": "43",
+      "level": 3
+    },
+    {
+      "code": "43.1.1",
+      "name": "Banco ___",
+      "parentCode": "43.1",
+      "level": 4
+    },
+    {
+      "code": "43.1.2",
+      "name": "Banco ___",
+      "parentCode": "43.1",
+      "level": 4
+    },
+    {
+      "code": "43.2",
+      "name": "Moeda estrangeira",
+      "parentCode": "43",
+      "level": 3
+    },
+    {
+      "code": "43.2.1",
+      "name": "Banco ___",
+      "parentCode": "43.2",
+      "level": 4
+    },
+    {
+      "code": "43.2.2",
+      "name": "Banco ___",
+      "parentCode": "43.2",
+      "level": 4
+    },
+    {
+      "code": "44",
+      "name": "Outros depósitos",
+      "parentCode": "4",
+      "level": 2
+    },
+    {
+      "code": "44.1",
+      "name": "Moeda nacional",
+      "parentCode": "44",
+      "level": 3
+    },
+    {
+      "code": "44.1.1",
+      "name": "Banco ___",
+      "parentCode": "44.1",
+      "level": 4
+    },
+    {
+      "code": "44.1.2",
+      "name": "Banco ___",
+      "parentCode": "44.1",
+      "level": 4
+    },
+    {
+      "code": "44.2",
+      "name": "Moeda estrangeira",
+      "parentCode": "44",
+      "level": 3
+    },
+    {
+      "code": "44.2.1",
+      "name": "Banco ___",
+      "parentCode": "44.2",
+      "level": 4
+    },
+    {
+      "code": "44.2.2",
+      "name": "Banco ___",
+      "parentCode": "44.2",
+      "level": 4
+    },
+    {
+      "code": "45.1",
+      "name": "Fundo fixo",
+      "parentCode": "45",
+      "level": 3
+    },
+    {
+      "code": "45.1.1",
+      "name": "Caixa ___",
+      "parentCode": "45.1",
+      "level": 4
+    },
+    {
+      "code": "45.1.2",
+      "name": "Caixa ___",
+      "parentCode": "45.1",
+      "level": 4
+    },
+    {
+      "code": "45.2",
+      "name": "Valores para depositar",
+      "parentCode": "45",
+      "level": 3
+    },
+    {
+      "code": "45.3",
+      "name": "Valores destinados a pagamentos específicos",
+      "parentCode": "45",
+      "level": 3
+    },
+    {
+      "code": "45.3.1",
+      "name": "Salários",
+      "parentCode": "45.3",
+      "level": 4
+    },
+    {
+      "code": "48",
+      "name": "Conta transitória",
+      "parentCode": "4",
+      "level": 2
+    },
+    {
+      "code": "48.1",
+      "name": "Banco ___",
+      "parentCode": "48",
+      "level": 3
+    },
+    {
+      "code": "48.2",
+      "name": "Banco ___",
+      "parentCode": "48",
+      "level": 3
+    },
+    {
+      "code": "49",
+      "name": "Provisões para aplicações de tesouraria",
+      "parentCode": "4",
+      "level": 2
+    },
+    {
+      "code": "49.1",
+      "name": "Títulos negociáveis",
+      "parentCode": "49",
+      "level": 3
+    },
+    {
+      "code": "49.1.1",
+      "name": "Acções",
+      "parentCode": "49.1",
+      "level": 4
+    },
+    {
+      "code": "49.1.2",
+      "name": "Obrigações",
+      "parentCode": "49.1",
+      "level": 4
+    },
+    {
+      "code": "49.1.3",
+      "name": "Títulos da dívida pública",
+      "parentCode": "49.1",
+      "level": 4
+    },
+    {
+      "code": "49.2",
+      "name": "Outras aplicações de tesouraria",
+      "parentCode": "49",
+      "level": 3
+    },
+    {
+      "code": "5",
+      "name": "Capital e reservas",
+      "parentCode": null,
+      "level": 1
+    },
+    {
+      "code": "51",
+      "name": "Capital",
+      "parentCode": "5",
+      "level": 2
+    },
+    {
+      "code": "52",
+      "name": "Acções/quotas próprias",
+      "parentCode": "5",
+      "level": 2
+    },
+    {
+      "code": "52.1",
+      "name": "Valor nominal",
+      "parentCode": "52",
+      "level": 3
+    },
+    {
+      "code": "52.2",
+      "name": "Descontos",
+      "parentCode": "52",
+      "level": 3
+    },
+    {
+      "code": "52.3",
+      "name": "Prémios",
+      "parentCode": "52",
+      "level": 3
+    },
+    {
+      "code": "53",
+      "name": "Prémios de emissão",
+      "parentCode": "5",
+      "level": 2
+    },
+    {
+      "code": "54",
+      "name": "Prestações suplementares",
+      "parentCode": "5",
+      "level": 2
+    },
+    {
+      "code": "55",
+      "name": "Reservas legais",
+      "parentCode": "5",
+      "level": 2
+    },
+    {
+      "code": "56",
+      "name": "Reservas de reavaliação",
+      "parentCode": "5",
+      "level": 2
+    },
+    {
+      "code": "56.1",
+      "name": "Legais",
+      "parentCode": "56",
+      "level": 3
+    },
+    {
+      "code": "56.1.1",
+      "name": "Decreto-Lei n.º ___",
+      "parentCode": "56.1",
+      "level": 4
+    },
+    {
+      "code": "56.1.2",
+      "name": "Decreto-Lei n.º ___",
+      "parentCode": "56.1",
+      "level": 4
+    },
+    {
+      "code": "56.2",
+      "name": "Autónomas",
+      "parentCode": "56",
+      "level": 3
+    },
+    {
+      "code": "56.2.1",
+      "name": "Avaliação",
+      "parentCode": "56.2",
+      "level": 4
+    },
+    {
+      "code": "56.2.2",
+      "name": "Realização",
+      "parentCode": "56.2",
+      "level": 4
+    },
+    {
+      "code": "57",
+      "name": "Reservas com fins especiais",
+      "parentCode": "5",
+      "level": 2
+    },
+    {
+      "code": "58",
+      "name": "Reservas livres",
+      "parentCode": "5",
+      "level": 2
+    },
+    {
+      "code": "61.1",
+      "name": "Produtos acabados e intermédios",
+      "parentCode": "61",
+      "level": 3
+    },
+    {
+      "code": "61.1.1",
+      "name": "Mercado nacional",
+      "parentCode": "61.1",
+      "level": 4
+    },
+    {
+      "code": "61.1.2",
+      "name": "Mercado estrangeiro",
+      "parentCode": "61.1",
+      "level": 4
+    },
+    {
+      "code": "61.2",
+      "name": "Sub-produtos, desperdícios, resíduos e refugos",
+      "parentCode": "61",
+      "level": 3
+    },
+    {
+      "code": "61.2.1",
+      "name": "Mercado nacional",
+      "parentCode": "61.2",
+      "level": 4
+    },
+    {
+      "code": "61.2.2",
+      "name": "Mercado estrangeiro",
+      "parentCode": "61.2",
+      "level": 4
+    },
+    {
+      "code": "61.3",
+      "name": "Mercadorias",
+      "parentCode": "61",
+      "level": 3
+    },
+    {
+      "code": "61.3.1",
+      "name": "Mercado nacional",
+      "parentCode": "61.3",
+      "level": 4
+    },
+    {
+      "code": "61.3.2",
+      "name": "Mercado estrangeiro",
+      "parentCode": "61.3",
+      "level": 4
+    },
+    {
+      "code": "61.4",
+      "name": "Embalagens de consumo",
+      "parentCode": "61",
+      "level": 3
+    },
+    {
+      "code": "61.4.1",
+      "name": "Mercado nacional",
+      "parentCode": "61.4",
+      "level": 4
+    },
+    {
+      "code": "61.4.2",
+      "name": "Mercado estrangeiro",
+      "parentCode": "61.4",
+      "level": 4
+    },
+    {
+      "code": "61.5",
+      "name": "Subsídios a preços",
+      "parentCode": "61",
+      "level": 3
+    },
+    {
+      "code": "61.7",
+      "name": "Devoluções",
+      "parentCode": "61",
+      "level": 3
+    },
+    {
+      "code": "61.7.1",
+      "name": "Mercado nacional",
+      "parentCode": "61.7",
+      "level": 4
+    },
+    {
+      "code": "61.7.2",
+      "name": "Mercado estrangeiro",
+      "parentCode": "61.7",
+      "level": 4
+    },
+    {
+      "code": "61.8",
+      "name": "Descontos e abatimentos",
+      "parentCode": "61",
+      "level": 3
+    },
+    {
+      "code": "61.8.1",
+      "name": "Mercado nacional",
+      "parentCode": "61.8",
+      "level": 4
+    },
+    {
+      "code": "61.8.2",
+      "name": "Mercado estrangeiro",
+      "parentCode": "61.8",
+      "level": 4
+    },
+    {
+      "code": "61.9",
+      "name": "Transferência para resultados operacionais",
+      "parentCode": "61",
+      "level": 3
+    },
+    {
+      "code": "62",
+      "name": "Prestações de serviço",
+      "parentCode": "6",
+      "level": 2
+    },
+    {
+      "code": "62.1",
+      "name": "Serviços principais",
+      "parentCode": "62",
+      "level": 3
+    },
+    {
+      "code": "62.1.1",
+      "name": "Mercado nacional",
+      "parentCode": "62.1",
+      "level": 4
+    },
+    {
+      "code": "62.1.2",
+      "name": "Mercado estrangeiro",
+      "parentCode": "62.1",
+      "level": 4
+    },
+    {
+      "code": "62.2",
+      "name": "Serviços secundários",
+      "parentCode": "62",
+      "level": 3
+    },
+    {
+      "code": "62.2.1",
+      "name": "Mercado nacional",
+      "parentCode": "62.2",
+      "level": 4
+    },
+    {
+      "code": "62.2.2",
+      "name": "Mercado estrangeiro",
+      "parentCode": "62.2",
+      "level": 4
+    },
+    {
+      "code": "62.8",
+      "name": "Descontos e abatimentos",
+      "parentCode": "62",
+      "level": 3
+    },
+    {
+      "code": "62.8.1",
+      "name": "Mercado nacional",
+      "parentCode": "62.8",
+      "level": 4
+    },
+    {
+      "code": "62.8.2",
+      "name": "Mercado estrangeiro",
+      "parentCode": "62.8",
+      "level": 4
+    },
+    {
+      "code": "62.9",
+      "name": "Transferência para resultados operacionais",
+      "parentCode": "62",
+      "level": 3
+    },
+    {
+      "code": "63",
+      "name": "Outros proveitos operacionais",
+      "parentCode": "6",
+      "level": 2
+    },
+    {
+      "code": "63.1",
+      "name": "Serviços suplementares",
+      "parentCode": "63",
+      "level": 3
+    },
+    {
+      "code": "63.1.1",
+      "name": "Aluguer de equipamento",
+      "parentCode": "63.1",
+      "level": 4
+    },
+    {
+      "code": "63.1.2",
+      "name": "Cedência de pessoal",
+      "parentCode": "63.1",
+      "level": 4
+    },
+    {
+      "code": "63.1.3",
+      "name": "Cedência de energia",
+      "parentCode": "63.1",
+      "level": 4
+    },
+    {
+      "code": "63.1.4",
+      "name": "Estudos, projectos e assistência técnica",
+      "parentCode": "63.1",
+      "level": 4
+    },
+    {
+      "code": "63.2",
+      "name": "Royalties",
+      "parentCode": "63",
+      "level": 3
+    },
+    {
+      "code": "63.3",
+      "name": "Subsídios à exploração",
+      "parentCode": "63",
+      "level": 3
+    },
+    {
+      "code": "63.4",
+      "name": "Subsídios a investimento",
+      "parentCode": "63",
+      "level": 3
+    },
+    {
+      "code": "63.5",
+      "name": "IVA",
+      "parentCode": "63",
+      "level": 3
+    },
+    {
+      "code": "63.8",
+      "name": "Outros proveitos e ganhos operacionais",
+      "parentCode": "63",
+      "level": 3
+    },
+    {
+      "code": "63.9",
+      "name": "Transferência para resultados operacionais",
+      "parentCode": "63",
+      "level": 3
+    },
+    {
+      "code": "64",
+      "name": "Variação nos inventários de produtos acabados e de produção em curso",
+      "parentCode": "6",
+      "level": 2
+    },
+    {
+      "code": "64.1",
+      "name": "Produtos e trabalhos em curso",
+      "parentCode": "64",
+      "level": 3
+    },
+    {
+      "code": "64.2",
+      "name": "Produtos acabados",
+      "parentCode": "64",
+      "level": 3
+    },
+    {
+      "code": "64.3",
+      "name": "Produtos intermédios",
+      "parentCode": "64",
+      "level": 3
+    },
+    {
+      "code": "64.9",
+      "name": "Transferência para resultados operacionais",
+      "parentCode": "64",
+      "level": 3
+    },
+    {
+      "code": "65",
+      "name": "Trabalhos para a própria empresa",
+      "parentCode": "6",
+      "level": 2
+    },
+    {
+      "code": "65.1",
+      "name": "Para imobilizado",
+      "parentCode": "65",
+      "level": 3
+    },
+    {
+      "code": "65.1.1",
+      "name": "Corpóreo",
+      "parentCode": "65.1",
+      "level": 4
+    },
+    {
+      "code": "65.1.2",
+      "name": "Incorpóreo",
+      "parentCode": "65.1",
+      "level": 4
+    },
+    {
+      "code": "65.1.3",
+      "name": "Financeiro",
+      "parentCode": "65.1",
+      "level": 4
+    },
+    {
+      "code": "65.1.4",
+      "name": "Em curso",
+      "parentCode": "65.1",
+      "level": 4
+    },
+    {
+      "code": "65.2",
+      "name": "Para encargos a repartir por exercícios futuros",
+      "parentCode": "65",
+      "level": 3
+    },
+    {
+      "code": "65.9",
+      "name": "Transferência para resultados operacionais",
+      "parentCode": "65",
+      "level": 3
+    },
+    {
+      "code": "66",
+      "name": "Proveitos e ganhos financeiros gerais",
+      "parentCode": "6",
+      "level": 2
+    },
+    {
+      "code": "66.1",
+      "name": "Juros",
+      "parentCode": "66",
+      "level": 3
+    },
+    {
+      "code": "66.1.1",
+      "name": "De investimentos financeiros",
+      "parentCode": "66.1",
+      "level": 4
+    },
+    {
+      "code": "66.1.1.1",
+      "name": "Obrigações",
+      "parentCode": "66.1.1",
+      "level": 5
+    },
+    {
+      "code": "66.1.1.3",
+      "name": "Títulos de participação",
+      "parentCode": "66.1.1",
+      "level": 5
+    },
+    {
+      "code": "66.1.1.4",
+      "name": "Empréstimos",
+      "parentCode": "66.1.1",
+      "level": 5
+    },
+    {
+      "code": "66.1.1.9",
+      "name": "Outros",
+      "parentCode": "66.1.1",
+      "level": 5
+    },
+    {
+      "code": "66.1.2",
+      "name": "De mora relativos a dívidas de terceiros",
+      "parentCode": "66.1",
+      "level": 4
+    },
+    {
+      "code": "66.1.2.1",
+      "name": "Dívidas recebidas a prestações",
+      "parentCode": "66.1.2",
+      "level": 5
+    },
+    {
+      "code": "66.1.2.2",
+      "name": "De empréstimos a terceiros",
+      "parentCode": "66.1.2",
+      "level": 5
+    },
+    {
+      "code": "66.1.4",
+      "name": "Desconto de títulos",
+      "parentCode": "66.1",
+      "level": 4
+    },
+    {
+      "code": "66.1.5",
+      "name": "De aplicações de tesouraria",
+      "parentCode": "66.1",
+      "level": 4
+    },
+    {
+      "code": "66.2",
+      "name": "Diferenças de câmbio favoráveis",
+      "parentCode": "66",
+      "level": 3
+    },
+    {
+      "code": "66.2.1",
+      "name": "Realizadas",
+      "parentCode": "66.2",
+      "level": 4
+    },
+    {
+      "code": "66.2.2",
+      "name": "Não realizadas",
+      "parentCode": "66.2",
+      "level": 4
+    },
+    {
+      "code": "66.3",
+      "name": "Descontos de pronto pagamento obtidos",
+      "parentCode": "66",
+      "level": 3
+    },
+    {
+      "code": "66.4",
+      "name": "Rendimentos de investimentos em imóveis",
+      "parentCode": "66",
+      "level": 3
+    },
+    {
+      "code": "66.5",
+      "name": "Rendimento de participações de capital",
+      "parentCode": "66",
+      "level": 3
+    },
+    {
+      "code": "66.5.1",
+      "name": "Acções, quotas em outras empresas",
+      "parentCode": "66.5",
+      "level": 4
+    },
+    {
+      "code": "66.5.2",
+      "name": "Acções, quotas incluídas nos fundos",
+      "parentCode": "66.5",
+      "level": 4
+    },
+    {
+      "code": "66.5.3",
+      "name": "Acções, quotas incluídas nos títulos negociáveis",
+      "parentCode": "66.5",
+      "level": 4
+    },
+    {
+      "code": "66.6",
+      "name": "Ganhos na alienação de aplicações financeiras",
+      "parentCode": "66",
+      "level": 3
+    },
+    {
+      "code": "66.6.1",
+      "name": "Investimentos financeiros",
+      "parentCode": "66.6",
+      "level": 4
+    },
+    {
+      "code": "66.6.1.1",
+      "name": "Subsidiárias",
+      "parentCode": "66.6.1",
+      "level": 5
+    },
+    {
+      "code": "66.6.1.2",
+      "name": "Associadas",
+      "parentCode": "66.6.1",
+      "level": 5
+    },
+    {
+      "code": "66.6.1.3",
+      "name": "Outras empresas",
+      "parentCode": "66.6.1",
+      "level": 5
+    },
+    {
+      "code": "66.6.1.4",
+      "name": "Imóveis",
+      "parentCode": "66.6.1",
+      "level": 5
+    },
+    {
+      "code": "66.6.1.5",
+      "name": "Fundos",
+      "parentCode": "66.6.1",
+      "level": 5
+    },
+    {
+      "code": "66.6.1.9",
+      "name": "Outros investimentos",
+      "parentCode": "66.6.1",
+      "level": 5
+    },
+    {
+      "code": "66.6.2",
+      "name": "Títulos negociáveis",
+      "parentCode": "66.6",
+      "level": 4
+    },
+    {
+      "code": "66.7",
+      "name": "Reposição de provisões",
+      "parentCode": "66",
+      "level": 3
+    },
+    {
+      "code": "66.7.1",
+      "name": "Investimentos financeiros",
+      "parentCode": "66.7",
+      "level": 4
+    },
+    {
+      "code": "66.7.1.1",
+      "name": "Subsidiárias",
+      "parentCode": "66.7.1",
+      "level": 5
+    },
+    {
+      "code": "66.7.1.2",
+      "name": "Associadas",
+      "parentCode": "66.7.1",
+      "level": 5
+    },
+    {
+      "code": "66.7.1.3",
+      "name": "Outras empresas",
+      "parentCode": "66.7.1",
+      "level": 5
+    },
+    {
+      "code": "66.7.1.4",
+      "name": "Fundos",
+      "parentCode": "66.7.1",
+      "level": 5
+    },
+    {
+      "code": "66.7.1.9",
+      "name": "Outros investimentos",
+      "parentCode": "66.7.1",
+      "level": 5
+    },
+    {
+      "code": "66.7.2",
+      "name": "Aplicações de tesouraria",
+      "parentCode": "66.7",
+      "level": 4
+    },
+    {
+      "code": "66.7.2.1",
+      "name": "Títulos negociáveis",
+      "parentCode": "66.7.2",
+      "level": 5
+    },
+    {
+      "code": "66.7.2.2",
+      "name": "Depósitos a prazo",
+      "parentCode": "66.7.2",
+      "level": 5
+    },
+    {
+      "code": "66.7.2.3",
+      "name": "Outros depósitos",
+      "parentCode": "66.7.2",
+      "level": 5
+    },
+    {
+      "code": "66.7.2.9",
+      "name": "Outros investimentos",
+      "parentCode": "66.7.2",
+      "level": 5
+    },
+    {
+      "code": "66.9",
+      "name": "Transferência para resultados financeiros",
+      "parentCode": "66",
+      "level": 3
+    },
+    {
+      "code": "67",
+      "name": "Proveitos e ganhos financeiros em filiais e associadas",
+      "parentCode": "6",
+      "level": 2
+    },
+    {
+      "code": "67.1",
+      "name": "Rendimento de participações de capital",
+      "parentCode": "67",
+      "level": 3
+    },
+    {
+      "code": "67.1.1",
+      "name": "Subsidiárias",
+      "parentCode": "67.1",
+      "level": 4
+    },
+    {
+      "code": "67.1.2",
+      "name": "Associadas",
+      "parentCode": "67.1",
+      "level": 4
+    },
+    {
+      "code": "67.9",
+      "name": "Transferência para resultados em filiais e associadas",
+      "parentCode": "67",
+      "level": 3
+    },
+    {
+      "code": "68",
+      "name": "Outros proveitos e ganhos não operacionais",
+      "parentCode": "6",
+      "level": 2
+    },
+    {
+      "code": "68.1",
+      "name": "Reposição de provisões",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "68.1.1",
+      "name": "Existências",
+      "parentCode": "68.1",
+      "level": 4
+    },
+    {
+      "code": "68.1.1.1",
+      "name": "Matérias-primas subsidiárias e de consumo",
+      "parentCode": "68.1.1",
+      "level": 5
+    },
+    {
+      "code": "68.1.1.2",
+      "name": "Produtos e trabalhos em curso",
+      "parentCode": "68.1.1",
+      "level": 5
+    },
+    {
+      "code": "68.1.1.3",
+      "name": "Produtos acabados e intermédios",
+      "parentCode": "68.1.1",
+      "level": 5
+    },
+    {
+      "code": "68.1.1.4",
+      "name": "Sub-produtos, desperdícios, resíduos e refugos",
+      "parentCode": "68.1.1",
+      "level": 5
+    },
+    {
+      "code": "68.1.1.5",
+      "name": "Mercadorias",
+      "parentCode": "68.1.1",
+      "level": 5
+    },
+    {
+      "code": "68.1.2",
+      "name": "Cobranças duvidosas",
+      "parentCode": "68.1",
+      "level": 4
+    },
+    {
+      "code": "68.1.2.1",
+      "name": "Clientes",
+      "parentCode": "68.1.2",
+      "level": 5
+    },
+    {
+      "code": "68.1.2.2",
+      "name": "Clientes – títulos a receber",
+      "parentCode": "68.1.2",
+      "level": 5
+    },
+    {
+      "code": "68.1.2.3",
+      "name": "Clientes – cobrança duvidosa",
+      "parentCode": "68.1.2",
+      "level": 5
+    },
+    {
+      "code": "68.1.2.4",
+      "name": "Saldos devedores de fornecedores",
+      "parentCode": "68.1.2",
+      "level": 5
+    },
+    {
+      "code": "68.1.2.5",
+      "name": "Participantes e participadas",
+      "parentCode": "68.1.2",
+      "level": 5
+    },
+    {
+      "code": "68.1.2.6",
+      "name": "Dívidas do Pessoal",
+      "parentCode": "68.1.2",
+      "level": 5
+    },
+    {
+      "code": "68.1.2.9",
+      "name": "Outros saldos a receber",
+      "parentCode": "68.1.2",
+      "level": 5
+    },
+    {
+      "code": "68.1.3",
+      "name": "Riscos e encargos",
+      "parentCode": "68.1",
+      "level": 4
+    },
+    {
+      "code": "68.1.3.1",
+      "name": "Pensões",
+      "parentCode": "68.1.3",
+      "level": 5
+    },
+    {
+      "code": "68.1.3.2",
+      "name": "Processos judiciais em curso",
+      "parentCode": "68.1.3",
+      "level": 5
+    },
+    {
+      "code": "68.1.3.3",
+      "name": "Acidentes de trabalho",
+      "parentCode": "68.1.3",
+      "level": 5
+    },
+    {
+      "code": "68.1.3.4",
+      "name": "Garantias dadas a clientes",
+      "parentCode": "68.1.3",
+      "level": 5
+    },
+    {
+      "code": "68.1.3.9",
+      "name": "Outros riscos e encargos",
+      "parentCode": "68.1.3",
+      "level": 5
+    },
+    {
+      "code": "68.2",
+      "name": "Anulação de amortizações extraordinárias",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "68.2.1",
+      "name": "Imobilizações corpóreas",
+      "parentCode": "68.2",
+      "level": 4
+    },
+    {
+      "code": "68.2.2",
+      "name": "Imobilizações incorpóreas",
+      "parentCode": "68.2",
+      "level": 4
+    },
+    {
+      "code": "68.3",
+      "name": "Ganhos em imobilizações",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "68.3.1",
+      "name": "Venda de imobilizações corpóreas",
+      "parentCode": "68.3",
+      "level": 4
+    },
+    {
+      "code": "68.3.2",
+      "name": "Venda de imobilizações incorpóreas",
+      "parentCode": "68.3",
+      "level": 4
+    },
+    {
+      "code": "68.4",
+      "name": "Ganhos em existências",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "68.4.1",
+      "name": "Sobras",
+      "parentCode": "68.4",
+      "level": 4
+    },
+    {
+      "code": "68.5",
+      "name": "Recuperação de dívidas",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "68.6",
+      "name": "Benefícios de penalidades contratuais",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "68.8",
+      "name": "Descontinuidade de operações",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "68.9",
+      "name": "Alterações de políticas contabilísticas",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "68.10",
+      "name": "Correcções relativas a exercícios anteriores",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "68.10.1",
+      "name": "Estimativa impostos",
+      "parentCode": "68.10",
+      "level": 4
+    },
+    {
+      "code": "68.10.2",
+      "name": "Restituição de impostos",
+      "parentCode": "68.10",
+      "level": 4
+    },
+    {
+      "code": "68.11",
+      "name": "Outros ganhos e perdas não operacionais",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "68.11.1",
+      "name": "Donativos",
+      "parentCode": "68.11",
+      "level": 4
+    },
+    {
+      "code": "68.19",
+      "name": "Transferência para resultados não operacionais",
+      "parentCode": "68",
+      "level": 3
+    },
+    {
+      "code": "69",
+      "name": "Proveitos e ganhos extraordinários",
+      "parentCode": "6",
+      "level": 2
+    },
+    {
+      "code": "69.1",
+      "name": "Ganhos resultantes de catástrofes naturais",
+      "parentCode": "69",
+      "level": 3
+    },
+    {
+      "code": "69.2",
+      "name": "Ganhos resultantes de convulsões políticas",
+      "parentCode": "69",
+      "level": 3
+    },
+    {
+      "code": "69.3",
+      "name": "Ganhos resultantes de expropriações",
+      "parentCode": "69",
+      "level": 3
+    },
+    {
+      "code": "69.4",
+      "name": "Ganhos resultantes de sinistros",
+      "parentCode": "69",
+      "level": 3
+    },
+    {
+      "code": "69.5",
+      "name": "Subsídios",
+      "parentCode": "69",
+      "level": 3
+    },
+    {
+      "code": "69.6",
+      "name": "Anulação de passivos não exigíveis",
+      "parentCode": "69",
+      "level": 3
+    },
+    {
+      "code": "69.9",
+      "name": "Transferência para resultados extraordinários",
+      "parentCode": "69",
+      "level": 3
+    },
+    {
+      "code": "7",
+      "name": "Custos e perdas por natureza",
+      "parentCode": null,
+      "level": 1
+    },
+    {
+      "code": "71",
+      "name": "Custo das existências vendidas",
+      "parentCode": "7",
+      "level": 2
+    },
+    {
+      "code": "71.1",
+      "name": "Matérias-primas",
+      "parentCode": "71",
+      "level": 3
+    },
+    {
+      "code": "71.2",
+      "name": "Matérias subsidiárias",
+      "parentCode": "71",
+      "level": 3
+    },
+    {
+      "code": "71.3",
+      "name": "Materiais diversos",
+      "parentCode": "71",
+      "level": 3
+    },
+    {
+      "code": "71.4",
+      "name": "Embalagens de consumo",
+      "parentCode": "71",
+      "level": 3
+    },
+    {
+      "code": "71.5",
+      "name": "Outros materiais",
+      "parentCode": "71",
+      "level": 3
+    },
+    {
+      "code": "71.9",
+      "name": "Transferência para resultados operacionais",
+      "parentCode": "71",
+      "level": 3
+    },
+    {
+      "code": "72",
+      "name": "Custos com o pessoal",
+      "parentCode": "7",
+      "level": 2
+    },
+    {
+      "code": "72.1",
+      "name": "Remunerações – Órgãos sociais",
+      "parentCode": "72",
+      "level": 3
+    },
+    {
+      "code": "72.2",
+      "name": "Remunerações – Pessoal",
+      "parentCode": "72",
+      "level": 3
+    },
+    {
+      "code": "72.3",
+      "name": "Pensões",
+      "parentCode": "72",
+      "level": 3
+    },
+    {
+      "code": "72.3.1",
+      "name": "Órgãos sociais",
+      "parentCode": "72.3",
+      "level": 4
+    },
+    {
+      "code": "72.3.2",
+      "name": "Pessoal",
+      "parentCode": "72.3",
+      "level": 4
+    },
+    {
+      "code": "72.4",
+      "name": "Prémios para pensões",
+      "parentCode": "72",
+      "level": 3
+    },
+    {
+      "code": "72.4.1",
+      "name": "Órgãos sociais",
+      "parentCode": "72.4",
+      "level": 4
+    },
+    {
+      "code": "72.4.2",
+      "name": "Pessoal",
+      "parentCode": "72.4",
+      "level": 4
+    },
+    {
+      "code": "72.5",
+      "name": "Encargos sobre remunerações",
+      "parentCode": "72",
+      "level": 3
+    },
+    {
+      "code": "72.5.1",
+      "name": "Órgãos sociais",
+      "parentCode": "72.5",
+      "level": 4
+    },
+    {
+      "code": "72.5.2",
+      "name": "Pessoal",
+      "parentCode": "72.5",
+      "level": 4
+    },
+    {
+      "code": "72.6",
+      "name": "Seguros de acidentes de trabalho e doenças profissionais",
+      "parentCode": "72",
+      "level": 3
+    },
+    {
+      "code": "72.6.1",
+      "name": "Órgãos sociais",
+      "parentCode": "72.6",
+      "level": 4
+    },
+    {
+      "code": "72.6.2",
+      "name": "Pessoal",
+      "parentCode": "72.6",
+      "level": 4
+    },
+    {
+      "code": "72.7",
+      "name": "Formação",
+      "parentCode": "72",
+      "level": 3
+    },
+    {
+      "code": "72.7.1",
+      "name": "Órgãos sociais",
+      "parentCode": "72.7",
+      "level": 4
+    },
+    {
+      "code": "72.7.2",
+      "name": "Pessoal",
+      "parentCode": "72.7",
+      "level": 4
+    },
+    {
+      "code": "72.8",
+      "name": "Outras despesas com o pessoal",
+      "parentCode": "72",
+      "level": 3
+    },
+    {
+      "code": "72.8.1",
+      "name": "Órgãos sociais",
+      "parentCode": "72.8",
+      "level": 4
+    },
+    {
+      "code": "72.8.2",
+      "name": "Pessoal",
+      "parentCode": "72.8",
+      "level": 4
+    },
+    {
+      "code": "72.9",
+      "name": "Transferência para resultados operacionais",
+      "parentCode": "72",
+      "level": 3
+    },
+    {
+      "code": "73",
+      "name": "Amortizações do exercício",
+      "parentCode": "7",
+      "level": 2
+    },
+    {
+      "code": "73.1",
+      "name": "Imobilizações corpóreas",
+      "parentCode": "73",
+      "level": 3
+    },
+    {
+      "code": "73.1.2",
+      "name": "Edifícios e outras construções",
+      "parentCode": "73.1",
+      "level": 4
+    },
+    {
+      "code": "73.1.3",
+      "name": "Equipamento básico",
+      "parentCode": "73.1",
+      "level": 4
+    },
+    {
+      "code": "73.1.4",
+      "name": "Equipamento de carga e transporte",
+      "parentCode": "73.1",
+      "level": 4
+    },
+    {
+      "code": "73.1.5",
+      "name": "Equipamento administrativo",
+      "parentCode": "73.1",
+      "level": 4
+    },
+    {
+      "code": "73.1.6",
+      "name": "Taras e vasilhame",
+      "parentCode": "73.1",
+      "level": 4
+    },
+    {
+      "code": "73.1.9",
+      "name": "Outras imobilizações corpóreas",
+      "parentCode": "73.1",
+      "level": 4
+    },
+    {
+      "code": "73.2",
+      "name": "Imobilizações incorpóreas",
+      "parentCode": "73",
+      "level": 3
+    },
+    {
+      "code": "73.2.1",
+      "name": "Trespasses",
+      "parentCode": "73.2",
+      "level": 4
+    },
+    {
+      "code": "73.2.2",
+      "name": "Despesas de investigação e desenvolvimento",
+      "parentCode": "73.2",
+      "level": 4
+    },
+    {
+      "code": "73.2.3",
+      "name": "Propriedade industrial e outros direitos e contratos",
+      "parentCode": "73.2",
+      "level": 4
+    },
+    {
+      "code": "73.2.4",
+      "name": "Despesas de constituição",
+      "parentCode": "73.2",
+      "level": 4
+    },
+    {
+      "code": "73.2.9",
+      "name": "Outras imobilizações incorpóreas",
+      "parentCode": "73.2",
+      "level": 4
+    },
+    {
+      "code": "73.9",
+      "name": "Transferência para resultados operacionais",
+      "parentCode": "73",
+      "level": 3
+    },
+    {
+      "code": "75",
+      "name": "Outros custos e perdas operacionais",
+      "parentCode": "7",
+      "level": 2
+    },
+    {
+      "code": "75.1",
+      "name": "Sub-contratos",
+      "parentCode": "75",
+      "level": 3
+    },
+    {
+      "code": "75.2",
+      "name": "Fornecimentos e serviços de terceiros",
+      "parentCode": "75",
+      "level": 3
+    },
+    {
+      "code": "75.2.11",
+      "name": "Água",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.12",
+      "name": "Electricidade",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.13",
+      "name": "Combustíveis e outros fluídos",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.14",
+      "name": "Conservação e reparação",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.15",
+      "name": "Material de protecção segurança e conforto",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.16",
+      "name": "Ferramentas e utensílios de desgaste rápido",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.17",
+      "name": "Material de escritório",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.18",
+      "name": "Livros e documentação técnica",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.19",
+      "name": "Outros fornecimentos",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.20",
+      "name": "Comunicação",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.21",
+      "name": "Rendas e alugueres",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.22",
+      "name": "Seguros",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.23",
+      "name": "Deslocações e estadas",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.24",
+      "name": "Despesas de representação",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.26",
+      "name": "Conservação e reparação",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.27",
+      "name": "Vigilância e segurança",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.28",
+      "name": "Limpeza, higiene e conforto",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.29",
+      "name": "Publicidade e propaganda",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.30",
+      "name": "Contencioso e notariado",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.31",
+      "name": "Comissões a intermediários",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.32",
+      "name": "Assistência técnica",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.32.1",
+      "name": "Estrangeira",
+      "parentCode": "75.2.32",
+      "level": 5
+    },
+    {
+      "code": "75.2.32.2",
+      "name": "Nacional",
+      "parentCode": "75.2.32",
+      "level": 5
+    },
+    {
+      "code": "75.2.33",
+      "name": "Trabalhos executados no exterior",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.34",
+      "name": "Honorários e avenças",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.35",
+      "name": "Royalties",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.2.39",
+      "name": "Outros serviços",
+      "parentCode": "75.2",
+      "level": 4
+    },
+    {
+      "code": "75.3",
+      "name": "Impostos",
+      "parentCode": "75",
+      "level": 3
+    },
+    {
+      "code": "75.3.1",
+      "name": "Indirectos",
+      "parentCode": "75.3",
+      "level": 4
+    },
+    {
+      "code": "75.3.1.1",
+      "name": "Imposto de selo",
+      "parentCode": "75.3.1",
+      "level": 5
+    },
+    {
+      "code": "75.3.1.2",
+      "name": "IVA",
+      "parentCode": "75.3.1",
+      "level": 5
+    },
+    {
+      "code": "75.3.1.9",
+      "name": "Outros impostos",
+      "parentCode": "75.3.1",
+      "level": 5
+    },
+    {
+      "code": "75.3.2",
+      "name": "Directos",
+      "parentCode": "75.3",
+      "level": 4
+    },
+    {
+      "code": "75.3.2.1",
+      "name": "Imposto de capitais",
+      "parentCode": "75.3.2",
+      "level": 5
+    },
+    {
+      "code": "75.3.2.2",
+      "name": "Contribuição predial",
+      "parentCode": "75.3.2",
+      "level": 5
+    },
+    {
+      "code": "75.3.2.9",
+      "name": "Outros impostos",
+      "parentCode": "75.3.2",
+      "level": 5
+    },
+    {
+      "code": "75.4",
+      "name": "Despesas confidênciais",
+      "parentCode": "75",
+      "level": 3
+    },
+    {
+      "code": "75.5",
+      "name": "Quotizações",
+      "parentCode": "75",
+      "level": 3
+    },
+    {
+      "code": "75.6",
+      "name": "Ofertas e Amostras de existências",
+      "parentCode": "75",
+      "level": 3
+    },
+    {
+      "code": "75.8",
+      "name": "Outros custos e perdas operacionais",
+      "parentCode": "75",
+      "level": 3
+    },
+    {
+      "code": "75.9",
+      "name": "Transferências para resultados operacionais",
+      "parentCode": "75",
+      "level": 3
+    },
+    {
+      "code": "76",
+      "name": "Custos e perdas financeiros gerais",
+      "parentCode": "7",
+      "level": 2
+    },
+    {
+      "code": "76.1",
+      "name": "Juros",
+      "parentCode": "76",
+      "level": 3
+    },
+    {
+      "code": "76.1.1",
+      "name": "De empréstimos",
+      "parentCode": "76.1",
+      "level": 4
+    },
+    {
+      "code": "76.1.1.1",
+      "name": "Bancários",
+      "parentCode": "76.1.1",
+      "level": 5
+    },
+    {
+      "code": "76.1.1.2",
+      "name": "Obrigações",
+      "parentCode": "76.1.1",
+      "level": 5
+    },
+    {
+      "code": "76.1.1.3",
+      "name": "Títulos de participação",
+      "parentCode": "76.1.1",
+      "level": 5
+    },
+    {
+      "code": "76.1.2",
+      "name": "De descobertos bancários",
+      "parentCode": "76.1",
+      "level": 4
+    },
+    {
+      "code": "76.1.3",
+      "name": "De mora relativos a dívidas a terceiros",
+      "parentCode": "76.1",
+      "level": 4
+    },
+    {
+      "code": "76.1.4",
+      "name": "De desconto de títulos",
+      "parentCode": "76.1",
+      "level": 4
+    },
+    {
+      "code": "76.2",
+      "name": "Diferenças de câmbio desfavoráveis",
+      "parentCode": "76",
+      "level": 3
+    },
+    {
+      "code": "76.2.1",
+      "name": "Realizadas",
+      "parentCode": "76.2",
+      "level": 4
+    },
+    {
+      "code": "76.2.2",
+      "name": "Não realizadas",
+      "parentCode": "76.2",
+      "level": 4
+    },
+    {
+      "code": "76.3",
+      "name": "Descontos de pronto pagamento concedidos",
+      "parentCode": "76",
+      "level": 3
+    },
+    {
+      "code": "76.4",
+      "name": "Amortizações de investimentos em imóveis",
+      "parentCode": "76",
+      "level": 3
+    },
+    {
+      "code": "76.5",
+      "name": "Provisões para aplicações financeiras",
+      "parentCode": "76",
+      "level": 3
+    },
+    {
+      "code": "76.5.1",
+      "name": "Investimentos financeiros",
+      "parentCode": "76.5",
+      "level": 4
+    },
+    {
+      "code": "76.5.1.1",
+      "name": "Subsidiárias",
+      "parentCode": "76.5.1",
+      "level": 5
+    },
+    {
+      "code": "76.5.1.2",
+      "name": "Associadas",
+      "parentCode": "76.5.1",
+      "level": 5
+    },
+    {
+      "code": "76.5.1.3",
+      "name": "Outras empresas",
+      "parentCode": "76.5.1",
+      "level": 5
+    },
+    {
+      "code": "76.5.1.4",
+      "name": "Fundos",
+      "parentCode": "76.5.1",
+      "level": 5
+    },
+    {
+      "code": "76.5.1.9",
+      "name": "Outros investimentos",
+      "parentCode": "76.5.1",
+      "level": 5
+    },
+    {
+      "code": "76.5.2",
+      "name": "Aplicações de tesouraria",
+      "parentCode": "76.5",
+      "level": 4
+    },
+    {
+      "code": "76.5.2.1",
+      "name": "Títulos negociáveis",
+      "parentCode": "76.5.2",
+      "level": 5
+    },
+    {
+      "code": "76.5.2.2",
+      "name": "Depósitos a prazo",
+      "parentCode": "76.5.2",
+      "level": 5
+    },
+    {
+      "code": "76.5.2.3",
+      "name": "Outros depósitos",
+      "parentCode": "76.5.2",
+      "level": 5
+    },
+    {
+      "code": "76.5.2.9",
+      "name": "Outros",
+      "parentCode": "76.5.2",
+      "level": 5
+    },
+    {
+      "code": "76.6",
+      "name": "Perdas na alienação de aplicações financeiras",
+      "parentCode": "76",
+      "level": 3
+    },
+    {
+      "code": "76.6.1",
+      "name": "Investimentos financeiros",
+      "parentCode": "76.6",
+      "level": 4
+    },
+    {
+      "code": "76.6.1.1",
+      "name": "Subsidiárias",
+      "parentCode": "76.6.1",
+      "level": 5
+    },
+    {
+      "code": "76.6.1.2",
+      "name": "Associadas",
+      "parentCode": "76.6.1",
+      "level": 5
+    },
+    {
+      "code": "76.6.1.3",
+      "name": "Outras empresas",
+      "parentCode": "76.6.1",
+      "level": 5
+    },
+    {
+      "code": "76.6.1.4",
+      "name": "Fundos",
+      "parentCode": "76.6.1",
+      "level": 5
+    },
+    {
+      "code": "76.6.1.9",
+      "name": "Outros investimentos",
+      "parentCode": "76.6.1",
+      "level": 5
+    },
+    {
+      "code": "76.6.2",
+      "name": "Aplicações de títulos negociáveis",
+      "parentCode": "76.6",
+      "level": 4
+    },
+    {
+      "code": "76.7",
+      "name": "Serviços bancários",
+      "parentCode": "76",
+      "level": 3
+    },
+    {
+      "code": "76.9",
+      "name": "Transferência para resultados financeiros",
+      "parentCode": "76",
+      "level": 3
+    },
+    {
+      "code": "77",
+      "name": "Custos e perdas financeiros em filiais e associadas",
+      "parentCode": "7",
+      "level": 2
+    },
+    {
+      "code": "77.9",
+      "name": "Transferência para resultados financeiros",
+      "parentCode": "77",
+      "level": 3
+    },
+    {
+      "code": "78",
+      "name": "Outros custos e perdas não operacionais",
+      "parentCode": "7",
+      "level": 2
+    },
+    {
+      "code": "78.1",
+      "name": "Provisões do exercício",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.1.1",
+      "name": "Existências",
+      "parentCode": "78.1",
+      "level": 4
+    },
+    {
+      "code": "78.1.1.1",
+      "name": "Matérias-primas subsidiárias e de consumo",
+      "parentCode": "78.1.1",
+      "level": 5
+    },
+    {
+      "code": "78.1.1.2",
+      "name": "Produtos e trabalhos em curso",
+      "parentCode": "78.1.1",
+      "level": 5
+    },
+    {
+      "code": "78.1.1.3",
+      "name": "Produtos acabados e intermédios",
+      "parentCode": "78.1.1",
+      "level": 5
+    },
+    {
+      "code": "78.1.1.4",
+      "name": "Sub-produtos, desperdícios, resíduos e refugos",
+      "parentCode": "78.1.1",
+      "level": 5
+    },
+    {
+      "code": "78.1.1.5",
+      "name": "Mercadorias",
+      "parentCode": "78.1.1",
+      "level": 5
+    },
+    {
+      "code": "78.1.2",
+      "name": "Cobranças Duvidosas",
+      "parentCode": "78.1",
+      "level": 4
+    },
+    {
+      "code": "78.1.2.1",
+      "name": "Clientes",
+      "parentCode": "78.1.2",
+      "level": 5
+    },
+    {
+      "code": "78.1.2.2",
+      "name": "Clientes – títulos a receber",
+      "parentCode": "78.1.2",
+      "level": 5
+    },
+    {
+      "code": "78.1.2.3",
+      "name": "Clientes – cobrança duvidosa",
+      "parentCode": "78.1.2",
+      "level": 5
+    },
+    {
+      "code": "78.1.2.4",
+      "name": "Saldos devedores de fornecedores",
+      "parentCode": "78.1.2",
+      "level": 5
+    },
+    {
+      "code": "78.1.2.5",
+      "name": "Participantes e participadas",
+      "parentCode": "78.1.2",
+      "level": 5
+    },
+    {
+      "code": "78.1.2.6",
+      "name": "Dívidas do pessoal",
+      "parentCode": "78.1.2",
+      "level": 5
+    },
+    {
+      "code": "78.1.2.9",
+      "name": "Outros saldos a receber",
+      "parentCode": "78.1.2",
+      "level": 5
+    },
+    {
+      "code": "78.1.3",
+      "name": "Riscos e encargos",
+      "parentCode": "78.1",
+      "level": 4
+    },
+    {
+      "code": "78.1.3.1",
+      "name": "Pensões",
+      "parentCode": "78.1.3",
+      "level": 5
+    },
+    {
+      "code": "78.1.3.2",
+      "name": "Processos judiciais em curso",
+      "parentCode": "78.1.3",
+      "level": 5
+    },
+    {
+      "code": "78.1.3.3",
+      "name": "Acidentes de trabalho",
+      "parentCode": "78.1.3",
+      "level": 5
+    },
+    {
+      "code": "78.1.3.4",
+      "name": "Garantias dadas a clientes",
+      "parentCode": "78.1.3",
+      "level": 5
+    },
+    {
+      "code": "78.1.3.9",
+      "name": "Outros riscos e encargos",
+      "parentCode": "78.1.3",
+      "level": 5
+    },
+    {
+      "code": "78.2",
+      "name": "Amortizações extraordinárias",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.2.1",
+      "name": "Imobilizações Corpóreas",
+      "parentCode": "78.2",
+      "level": 4
+    },
+    {
+      "code": "78.2.2",
+      "name": "Imobilizações Incorpóreas",
+      "parentCode": "78.2",
+      "level": 4
+    },
+    {
+      "code": "78.3",
+      "name": "Perdas em imobilizações",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.3.1",
+      "name": "Venda de imobilizações corpóreas",
+      "parentCode": "78.3",
+      "level": 4
+    },
+    {
+      "code": "78.3.2",
+      "name": "Venda de imobilizações incorpóreas",
+      "parentCode": "78.3",
+      "level": 4
+    },
+    {
+      "code": "78.3.3",
+      "name": "Abates",
+      "parentCode": "78.3",
+      "level": 4
+    },
+    {
+      "code": "78.3.9",
+      "name": "Outras",
+      "parentCode": "78.3",
+      "level": 4
+    },
+    {
+      "code": "78.4",
+      "name": "Perdas em existências",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.4.1",
+      "name": "Quebras",
+      "parentCode": "78.4",
+      "level": 4
+    },
+    {
+      "code": "78.5",
+      "name": "Dívidas incobráveis",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.6",
+      "name": "Multas e penalidades contratuais",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.6.1",
+      "name": "Fiscais",
+      "parentCode": "78.6",
+      "level": 4
+    },
+    {
+      "code": "78.6.2",
+      "name": "Não fiscais",
+      "parentCode": "78.6",
+      "level": 4
+    },
+    {
+      "code": "78.6.3",
+      "name": "Penalidades contratuais",
+      "parentCode": "78.6",
+      "level": 4
+    },
+    {
+      "code": "78.7",
+      "name": "Custos de reestruturação",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.8",
+      "name": "Descontinuidade de operações",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.9",
+      "name": "Alterações de políticas contabilísticas",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.10",
+      "name": "Correcções relativas a exercícios anteriores",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.10.1",
+      "name": "Estimativa impostos",
+      "parentCode": "78.10",
+      "level": 4
+    },
+    {
+      "code": "78.11",
+      "name": "Outros custos e perdas não operacionais",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "78.11.1",
+      "name": "Donativos",
+      "parentCode": "78.11",
+      "level": 4
+    },
+    {
+      "code": "78.11.2",
+      "name": "Reembolso de subsídios à exploração",
+      "parentCode": "78.11",
+      "level": 4
+    },
+    {
+      "code": "78.11.3",
+      "name": "Reembolso de subsídios a investimentos",
+      "parentCode": "78.11",
+      "level": 4
+    },
+    {
+      "code": "78.19",
+      "name": "Transferência para resultados não operacionais",
+      "parentCode": "78",
+      "level": 3
+    },
+    {
+      "code": "79",
+      "name": "Custos e perdas extraordinárias",
+      "parentCode": "7",
+      "level": 2
+    },
+    {
+      "code": "79.1",
+      "name": "Perdas resultantes de catástrofes naturais",
+      "parentCode": "79",
+      "level": 3
+    },
+    {
+      "code": "79.2",
+      "name": "Perdas resultantes de convulsões políticas",
+      "parentCode": "79",
+      "level": 3
+    },
+    {
+      "code": "79.3",
+      "name": "Perdas resultantes de expropriações",
+      "parentCode": "79",
+      "level": 3
+    },
+    {
+      "code": "79.4",
+      "name": "Perdas resultantes de sinistros",
+      "parentCode": "79",
+      "level": 3
+    },
+    {
+      "code": "79.9",
+      "name": "Transferência para resultados extraordinários",
+      "parentCode": "79",
+      "level": 3
+    },
+    {
+      "code": "8",
+      "name": "Resultados",
+      "parentCode": null,
+      "level": 1
+    },
+    {
+      "code": "81",
+      "name": "Resultados transitados",
+      "parentCode": "8",
+      "level": 2
+    },
+    {
+      "code": "81.1",
+      "name": "Ano____",
+      "parentCode": "81",
+      "level": 3
+    },
+    {
+      "code": "81.1.1",
+      "name": "Resultado do ano",
+      "parentCode": "81.1",
+      "level": 4
+    },
+    {
+      "code": "81.1.2",
+      "name": "Aplicação de resultados",
+      "parentCode": "81.1",
+      "level": 4
+    },
+    {
+      "code": "81.1.3",
+      "name": "Correcções de erros fundamentais, no exercício seguinte",
+      "parentCode": "81.1",
+      "level": 4
+    },
+    {
+      "code": "81.1.4",
+      "name": "Efeito das alterações de políticas contabilísticas",
+      "parentCode": "81.1",
+      "level": 4
+    },
+    {
+      "code": "81.1.5",
+      "name": "Imposto relativo a correcções de erros fundamentais e alterações de políticas contabilísticas",
+      "parentCode": "81.1",
+      "level": 4
+    },
+    {
+      "code": "81.2",
+      "name": "Ano____",
+      "parentCode": "81",
+      "level": 3
+    },
+    {
+      "code": "81.2.1",
+      "name": "Resultado do ano",
+      "parentCode": "81.2",
+      "level": 4
+    },
+    {
+      "code": "81.2.2",
+      "name": "Aplicação de resultados",
+      "parentCode": "81.2",
+      "level": 4
+    },
+    {
+      "code": "81.2.3",
+      "name": "Correcções de erros fundamentais, no exercício seguinte",
+      "parentCode": "81.2",
+      "level": 4
+    },
+    {
+      "code": "81.2.4",
+      "name": "Efeito das alterações de políticas contabilísticas",
+      "parentCode": "81.2",
+      "level": 4
+    },
+    {
+      "code": "81.2.5",
+      "name": "Imposto relativo a correcções de erros fundamentais e alterações de políticas contabilísticas",
+      "parentCode": "81.2",
+      "level": 4
+    },
+    {
+      "code": "82",
+      "name": "Resultados operacionais",
+      "parentCode": "8",
+      "level": 2
+    },
+    {
+      "code": "82.1",
+      "name": "Vendas",
+      "parentCode": "82",
+      "level": 3
+    },
+    {
+      "code": "82.2",
+      "name": "Prestações de serviço",
+      "parentCode": "82",
+      "level": 3
+    },
+    {
+      "code": "82.3",
+      "name": "Outros proveitos operacionais",
+      "parentCode": "82",
+      "level": 3
+    },
+    {
+      "code": "82.4",
+      "name": "Variação nos inventários de produtos acabados e produtos em vias de fabrico",
+      "parentCode": "82",
+      "level": 3
+    },
+    {
+      "code": "82.5",
+      "name": "Trabalhos para a própria empresa",
+      "parentCode": "82",
+      "level": 3
+    },
+    {
+      "code": "82.6",
+      "name": "Custo das mercadorias vendidas e das matérias consumidas",
+      "parentCode": "82",
+      "level": 3
+    },
+    {
+      "code": "82.7",
+      "name": "Custos com o pessoal",
+      "parentCode": "82",
+      "level": 3
+    },
+    {
+      "code": "82.8",
+      "name": "Amortizações do exercício",
+      "parentCode": "82",
+      "level": 3
+    },
+    {
+      "code": "82.9",
+      "name": "Outros custos operacionais",
+      "parentCode": "82",
+      "level": 3
+    },
+    {
+      "code": "82.19",
+      "name": "Transferência para resultados líquidos",
+      "parentCode": "82",
+      "level": 3
+    },
+    {
+      "code": "83",
+      "name": "Resultados financeiros",
+      "parentCode": "8",
+      "level": 2
+    },
+    {
+      "code": "83.1",
+      "name": "Proveitos e ganhos financeiros gerais",
+      "parentCode": "83",
+      "level": 3
+    },
+    {
+      "code": "83.2",
+      "name": "Custos e perdas financeiros gerais",
+      "parentCode": "83",
+      "level": 3
+    },
+    {
+      "code": "83.9",
+      "name": "Transferência para resultados líquidos",
+      "parentCode": "83",
+      "level": 3
+    },
+    {
+      "code": "84",
+      "name": "Resultados financeiros em filiais e associadas",
+      "parentCode": "8",
+      "level": 2
+    },
+    {
+      "code": "84.1",
+      "name": "Proveitos e ganhos em filiais e associadas",
+      "parentCode": "84",
+      "level": 3
+    },
+    {
+      "code": "84.2",
+      "name": "Custos e perdas em filiais e associadas",
+      "parentCode": "84",
+      "level": 3
+    },
+    {
+      "code": "84.9",
+      "name": "Transferência para resultados líquidos",
+      "parentCode": "84",
+      "level": 3
+    },
+    {
+      "code": "85",
+      "name": "Resultados não operacionais",
+      "parentCode": "8",
+      "level": 2
+    },
+    {
+      "code": "85.1",
+      "name": "Proveitos e ganhos não operacionais",
+      "parentCode": "85",
+      "level": 3
+    },
+    {
+      "code": "85.2",
+      "name": "Custos e perdas não operacionais",
+      "parentCode": "85",
+      "level": 3
+    },
+    {
+      "code": "85.9",
+      "name": "Transferência para resultados líquidos",
+      "parentCode": "85",
+      "level": 3
+    },
+    {
+      "code": "86",
+      "name": "Resultados extraordinários",
+      "parentCode": "8",
+      "level": 2
+    },
+    {
+      "code": "86.1",
+      "name": "Proveitos e ganhos extraordinários",
+      "parentCode": "86",
+      "level": 3
+    },
+    {
+      "code": "86.2",
+      "name": "Custos e perdas extraordinários",
+      "parentCode": "86",
+      "level": 3
+    },
+    {
+      "code": "87",
+      "name": "Imposto sobre os lucros",
+      "parentCode": "8",
+      "level": 2
+    },
+    {
+      "code": "88",
+      "name": "Resultado líquido do exercício",
+      "parentCode": "8",
+      "level": 2
+    },
+    {
+      "code": "89",
+      "name": "Dividendos antecipados",
+      "parentCode": "8",
+      "level": 2
+    },
+    {
+      "code": "9",
+      "name": "Contabilidade Analítica",
+      "parentCode": null,
+      "level": 1
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "valid": false,
+  "activationEligible": false,
+  "accountCount": 776,
+  "errorCount": 841,
+  "warningCount": 560,
+  "errorsByCode": {
+    "ACCOUNT_NATURE_INVALID": 776,
+    "HIERARCHY_PREFIX_INVALID": 65
+  },
+  "warningsByCode": {
+    "GROUP_WITHOUT_CHILDREN": 560
+  }
+}

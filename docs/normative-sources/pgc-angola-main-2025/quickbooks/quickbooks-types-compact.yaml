@@ -1,0 +1,429 @@
+-
+  type: Contas a pagar (C/P)
+  detailType: Contas a pagar (C/P)
+-
+  type: Contas a receber (C/R)
+  detailType: Contas a Receber (C/R)
+-
+  type: Caixa e equivalentes-caixa
+  detailType: Caixa e equivalentes-caixa
+-
+  type: Caixa e equivalentes-caixa
+  detailType: Dinheiro em caixa
+-
+  type: Caixa e equivalentes-caixa
+  detailType: Banco
+-
+  type: Caixa e equivalentes-caixa
+  detailType: Mercado monetário
+-
+  type: Caixa e equivalentes-caixa
+  detailType: Locações realizadas em confiança
+-
+  type: Caixa e equivalentes-caixa
+  detailType: Poupança
+-
+  type: Caixa e equivalentes-caixa
+  detailType: Conta fiduciária do cliente
+-
+  type: Custo de mercadorias vendidas
+  detailType: Custo de mão de obra - CMV
+-
+  type: Custo de mercadorias vendidas
+  detailType: Locação de equipamentos - CMV
+-
+  type: Custo de mercadorias vendidas
+  detailType: Frete e entrega - CMV
+-
+  type: Custo de mercadorias vendidas
+  detailType: Outros custos das mercadorias vendidas - CMV
+-
+  type: Custo de mercadorias vendidas
+  detailType: Suprimentos e materiais - CMV
+-
+  type: Cartão de crédito
+  detailType: Cartão de crédito
+-
+  type: Capital do proprietário
+  detailType: Ajuste acumulado
+-
+  type: Capital do proprietário
+  detailType: Outros rendimentos abrangentes
+-
+  type: Capital do proprietário
+  detailType: Ações ordinárias
+-
+  type: Capital do proprietário
+  detailType: Dividendos desembolsados
+-
+  type: Capital do proprietário
+  detailType: Capital em ganhos de subsidiárias
+-
+  type: Capital do proprietário
+  detailType: Capital do saldo inicial
+-
+  type: Capital do proprietário
+  detailType: Capital do proprietário
+-
+  type: Capital do proprietário
+  detailType: Capital integralizado ou excedente
+-
+  type: Capital do proprietário
+  detailType: Contribuições de sócios
+-
+  type: Capital do proprietário
+  detailType: Distribuições aos sócios
+-
+  type: Capital do proprietário
+  detailType: Capital do sócio
+-
+  type: Capital do proprietário
+  detailType: Ações preferenciais
+-
+  type: Capital do proprietário
+  detailType: Lucros acumulados
+-
+  type: Capital do proprietário
+  detailType: Capital social
+-
+  type: Capital do proprietário
+  detailType: Ações em tesouraria
+-
+  type: Despesas
+  detailType: Publicidade/promoção
+-
+  type: Despesas
+  detailType: Despesas de amortização
+-
+  type: Despesas
+  detailType: Automóvel
+-
+  type: Despesas
+  detailType: Créditos de liquidação duvidosa
+-
+  type: Despesas
+  detailType: Encargos bancários
+-
+  type: Despesas
+  detailType: Despesas de pagamento de contas não aplicadas
+-
+  type: Despesas
+  detailType: Contribuições de caridade
+-
+  type: Despesas
+  detailType: Honorários e taxas
+-
+  type: Despesas
+  detailType: Custo de mão de obra
+-
+  type: Despesas
+  detailType: Mensalidades e assinaturas
+-
+  type: Despesas
+  detailType: Refeições e entretenimento
+-
+  type: Despesas
+  detailType: Locação de equipamentos
+-
+  type: Despesas
+  detailType: Custos de financiamento
+-
+  type: Despesas
+  detailType: Despesas com impostos
+-
+  type: Despesas
+  detailType: Despesas com imposto de renda
+-
+  type: Despesas
+  detailType: Seguro
+-
+  type: Despesas
+  detailType: Juros pagos
+-
+  type: Despesas
+  detailType: Honorários advocatícios e profissionais
+-
+  type: Despesas
+  detailType: Perdas em operações descontinuadas, líquido de imposto
+-
+  type: Despesas
+  detailType: Remuneração dos administradores
+-
+  type: Despesas
+  detailType: Despesas gerais de administração/de escritório
+-
+  type: Despesas
+  detailType: Custo de outros serviços diversos
+-
+  type: Despesas
+  detailType: Outras despesas com vendas
+-
+  type: Despesas
+  detailType: Despesas com folha de pagamento
+-
+  type: Despesas
+  detailType: Aluguel ou arrendamento de prédios
+-
+  type: Despesas
+  detailType: Reparo e manutenção
+-
+  type: Despesas
+  detailType: Despesas de envio e entrega
+-
+  type: Despesas
+  detailType: Suprimentos e materiais
+-
+  type: Despesas
+  detailType: Impostos pagos
+-
+  type: Despesas
+  detailType: Despesas de viagens - despesas gerais e administrativas
+-
+  type: Despesas
+  detailType: Despesas de viagens - despesas com vendas
+-
+  type: Despesas
+  detailType: Serviços públicos
+-
+  type: Ativos imobilizados
+  detailType: Exaustão acumulada
+-
+  type: Ativos imobilizados
+  detailType: Depreciação acumulada em ativos imobilizados.
+-
+  type: Ativos imobilizados
+  detailType: Prédios
+-
+  type: Ativos imobilizados
+  detailType: Ativos esgotáveis
+-
+  type: Ativos imobilizados
+  detailType: Móveis e utensílios
+-
+  type: Ativos imobilizados
+  detailType: Benfeitorias em arrendamento
+-
+  type: Ativos imobilizados
+  detailType: Máquinas e equipamentos
+-
+  type: Ativos imobilizados
+  detailType: Terreno
+-
+  type: Ativos imobilizados
+  detailType: Outros ativos imobilizados
+-
+  type: Ativos imobilizados
+  detailType: Veículos
+-
+  type: Receita
+  detailType: Receita de pagamento de contas não aplicada
+-
+  type: Receita
+  detailType: Descontos/reembolsos concedidos
+-
+  type: Receita
+  detailType: Receitas sem fins lucrativos
+-
+  type: Receita
+  detailType: Outros rendimentos primários
+-
+  type: Receita
+  detailType: Receita - Geral
+-
+  type: Receita
+  detailType: Receita de venda de produtos
+-
+  type: Receita
+  detailType: Vendas - varejo
+-
+  type: Receita
+  detailType: Vendas - atacado
+-
+  type: Receita
+  detailType: Lucro de serviços/comissão
+-
+  type: Passivos não circulantes
+  detailType: Passivos não circulantes acumulados
+-
+  type: Passivos não circulantes
+  detailType: Feriados acumulados a pagar
+-
+  type: Passivos não circulantes
+  detailType: Passivos relacionados aos ativos mantidos para venda
+-
+  type: Passivos não circulantes
+  detailType: Débito de longo prazo
+-
+  type: Passivos não circulantes
+  detailType: Títulos a pagar
+-
+  type: Passivos não circulantes
+  detailType: Outros passivos não circulantes
+-
+  type: Passivos não circulantes
+  detailType: Títulos a pagar a acionistas
+-
+  type: Ativos não circulantes
+  detailType: Amortização acumulada de ativos não circulantes
+-
+  type: Ativos não circulantes
+  detailType: Ativos mantidos para venda
+-
+  type: Ativos não circulantes
+  detailType: Imposto diferido
+-
+  type: Ativos não circulantes
+  detailType: Ágio
+-
+  type: Ativos não circulantes
+  detailType: Ativos intangíveis
+-
+  type: Ativos não circulantes
+  detailType: Opção de compra
+-
+  type: Ativos não circulantes
+  detailType: Licenças
+-
+  type: Ativos não circulantes
+  detailType: Investimentos de longo prazo
+-
+  type: Ativos não circulantes
+  detailType: Custos de organização
+-
+  type: Ativos não circulantes
+  detailType: Outros ativos não circulantes
+-
+  type: Ativos não circulantes
+  detailType: Depósitos de segurança
+-
+  type: Ativos circulantes
+  detailType: Provisão para créditos de liquidação duvidosa
+-
+  type: Ativos circulantes
+  detailType: Ativos disponíveis para venda
+-
+  type: Ativos circulantes
+  detailType: Custos de empreendimento
+-
+  type: Ativos circulantes
+  detailType: Adiantamentos em dinheiro a funcionários
+-
+  type: Ativos circulantes
+  detailType: Estoque
+-
+  type: Ativos circulantes
+  detailType: Investimentos - Outros
+-
+  type: Ativos circulantes
+  detailType: Empréstimos para diretores
+-
+  type: Ativos circulantes
+  detailType: Empréstimos para terceiros
+-
+  type: Ativos circulantes
+  detailType: Empréstimos para acionistas
+-
+  type: Ativos circulantes
+  detailType: Outros ativos circulantes
+-
+  type: Ativos circulantes
+  detailType: Despesas pagas antecipadamente
+-
+  type: Ativos circulantes
+  detailType: Retenção
+-
+  type: Ativos circulantes
+  detailType: Fundos não depositados
+-
+  type: Passivos circulantes
+  detailType: Obrigações acumuladas
+-
+  type: Passivos circulantes
+  detailType: Outros passivos circulantes
+-
+  type: Passivos circulantes
+  detailType: Parcela circulante de obrigações decorrentes de arrendamento mercantil
+-
+  type: Passivos circulantes
+  detailType: obrigação tributária corrente
+-
+  type: Passivos circulantes
+  detailType: Transferência bancária a pagar
+-
+  type: Passivos circulantes
+  detailType: Dividendos a pagar
+-
+  type: Passivos circulantes
+  detailType: Impostos sobre vendas e serviços a pagar
+-
+  type: Passivos circulantes
+  detailType: Imposto provisório
+-
+  type: Passivos circulantes
+  detailType: Imposto de renda a pagar
+-
+  type: Passivos circulantes
+  detailType: Seguros a pagar
+-
+  type: Passivos circulantes
+  detailType: Linha de crédito
+-
+  type: Passivos circulantes
+  detailType: Empréstimo a pagar
+-
+  type: Passivos circulantes
+  detailType: Compensação da folha de pagamento
+-
+  type: Passivos circulantes
+  detailType: Passivos da folha de pagamento
+-
+  type: Passivos circulantes
+  detailType: Despesas pagas antecipadamente a pagar
+-
+  type: Passivos circulantes
+  detailType: Locações em confiança - Passivo
+-
+  type: Passivos circulantes
+  detailType: Impostos sobre vendas e serviços a pagar
+-
+  type: Passivos circulantes
+  detailType: Contas fiduciárias do cliente - passivo
+-
+  type: Outras despesas
+  detailType: Amortização
+-
+  type: Outras despesas
+  detailType: Depreciação
+-
+  type: Outras despesas
+  detailType: Ganho ou perda cambial
+-
+  type: Outras despesas
+  detailType: Outras despesas
+-
+  type: Outras despesas
+  detailType: Multas e conciliações
+-
+  type: Outros lucros
+  detailType: Receita de dividendos
+-
+  type: Outros lucros
+  detailType: Receita de juros
+-
+  type: Outros lucros
+  detailType: Perdas na alienação de ativos
+-
+  type: Outros lucros
+  detailType: Outra receita de investimento
+-
+  type: Outros lucros
+  detailType: Outras receitas diversas
+-
+  type: Outros lucros
+  detailType: Outros lucros operacionais
+-
+  type: Outros lucros
+  detailType: Juros isentos de imposto
+-
+  type: Outros lucros
+  detailType: Perda não realizada em valores mobiliários, líquido de imposto

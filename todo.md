@@ -3684,3 +3684,13 @@
 - [x] Executar suite completa final após a correcção do caso Cabinda
 - [x] Guardar checkpoint desta continuação
 - [x] Entregar relatório V2, skill e resultado de validação PGCA ao utilizador
+
+
+## Nova revisão PGCA — selecção da versão final activa
+
+- [x] Inventariar o ZIP pgc-angola-main.zip e comparar com todos os documentos PGCA já registados
+- [x] Investigar no browser My Browser a fonte oficial e a cadeia normativa do PGCA, incluindo diplomas antigos ainda vigentes
+- [x] Comparar versões por integridade, completude, hierarquia, natureza, vigência e hash
+- [ ] Activar apenas a versão mais recente e completa se a validação normativa e estrutural for elegível
+- [x] Preservar versões/diplomas históricos ainda vigentes com os respectivos nomes e relações normativas
+- [ ] Validar alterações de base de dados, testes e checkpoint da activação PGCA

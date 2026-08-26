@@ -1,0 +1,49 @@
+--- ZIP PDF/TEXT ---
+4654e5b7524df2ce7bd1be532d88fddee328e570a2c6992b1297bc7d90c1e124  /tmp/pgc-angola-main/docs/pgc.pdf
+e9399739d57ffb710dff8bb1c745b73cc3a8ca368c99fec3d51476efec2c946a  /tmp/pgc-angola-main/pgc.txt
+--- PROJECT PDF/TEXT ---
+04359cb12d48a20cc5326ca001cd0597b1904a7d99d376b1820e8be40f332c89  docs/normative-sources/decreto-82-01-pgca.pdf
+517683f46cb09c0a485424d72389c3d50d9dc56a4f8ea3bf93937dbb67b5fc0b  docs/normative-sources/decreto-82-01-pgca-metadata.txt
+080e953364cf100bb66571252d8cb9225454525ae921e8ea43a0a61000dccd44  docs/normative-sources/decreto-82-01-pgca.txt
+8fdb3c521918e002e54d21c7ecbdf53138016cd3b8de89cb611decbd6141bc7c  docs/normative-sources/decreto-82-01-pgca-ocr.txt
+cf90a9de4d157c0f3adb5cf2562408cd30917de77d13a4d24288da40d1e9d513  docs/normative-sources/decreto-82-01-pgca-account-review.txt
+4421a54ab90a4232374fcb1906bcfa5b0283bf0c0cbe95623c5e5fc9aa81cc8f  docs/normative-sources/pgca-explicado-auxiliar.pdf
+a99d32296fb311b2976a8cf4af099a407d071d114faacf26890f61df0a4fee29  docs/normative-sources/pgca-explicado-auxiliar-ocr.txt
+9ffc43d963ad78958f87e7ffeaf749552af74a867441b872e66d842e18b21a55  docs/normative-sources/pgca-explicado-auxiliar-lista-ocr.txt
+81798cb301da22d92d51600643dfa3f775a8a315b35399e0f8d05bb5d8ba0b49  docs/normative-sources/pgca-upload-movement-pages.txt
+--- PDF PAGE COUNTS ---
+CreationDate:    Fri May  1 12:07:15 2020 UTC
+ModDate:         Fri May  1 12:07:23 2020 UTC
+Pages:           78
+FILE docs/normative-sources/decreto-82-01-pgca.pdf
+CreationDate:    Tue Oct 17 17:35:05 2023 UTC
+ModDate:         Tue Oct 17 17:35:05 2023 UTC
+Pages:           97
+FILE docs/normative-sources/decreto-executivo-134-19-modelos-iva.pdf
+CreationDate:    Wed Jun 12 16:55:28 2019 UTC
+ModDate:         Wed Jun 12 16:55:34 2019 UTC
+Pages:           16
+FILE docs/normative-sources/decreto-presidencial-180-19-iva.pdf
+CreationDate:    Mon May 27 17:32:24 2019 UTC
+ModDate:         Mon May 27 17:32:24 2019 UTC
+Pages:           12
+FILE docs/normative-sources/lei-14-23-iva-oficial-recebida.pdf
+CreationDate:    Fri Dec 29 13:08:04 2023 UTC
+ModDate:         Fri Dec 29 13:08:04 2023 UTC
+Pages:           77
+FILE docs/normative-sources/lei-14-23-iva.pdf
+CreationDate:    Fri Dec 29 13:08:04 2023 UTC
+ModDate:         Fri Dec 29 13:08:04 2023 UTC
+Pages:           77
+FILE docs/normative-sources/lei-17-19-iva.pdf
+CreationDate:    Wed Sep 18 07:42:56 2019 UTC
+ModDate:         Wed Sep 18 07:42:56 2019 UTC
+Pages:           4
+FILE docs/normative-sources/lei-7-19-iva.pdf
+CreationDate:    Fri Apr 26 10:59:07 2019 UTC
+ModDate:         Fri Apr 26 10:59:07 2019 UTC
+Pages:           25
+FILE docs/normative-sources/pgca-explicado-auxiliar.pdf
+CreationDate:    Fri Oct  3 08:55:31 2014 UTC
+ModDate:         Thu Aug 11 14:20:38 2022 UTC
+Pages:           387
