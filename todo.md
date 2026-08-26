@@ -3900,3 +3900,12 @@
 - [x] Integrar a interface na página PGCA com pesquisa, filtros, paginação, estados de loading/erro/sucesso e painel de detalhe.
 - [x] Criar testes Vitest para revisão, aprovação em lote, regras, permissões, auditoria e bloqueios de activação.
 - [x] Validar TypeScript, build, suite completa, interface e guardar checkpoint publicado.
+
+# Exportação, progresso PGCA e parâmetros fiscais — nova implementação
+
+- [x] Exportar contas PGCA confirmadas e regras contabilísticas activas em CSV e Excel.
+- [x] Criar painel visual com progresso das contas confirmadas/pendentes e estado das regras por operação.
+- [x] Expandir o formulário de regras com base de cálculo, tipo de imposto, regime e taxa IVA/IRT apenas quando a fonte normativa estiver confirmada.
+- [x] Persistir os parâmetros fiscais da regra com validação de intervalo, fonte e vigência, mantendo fail-closed.
+- [x] Testar exportações, métricas do painel, parâmetros IVA/IRT e bloqueios normativos.
+- [x] Validar TypeScript, build, interface e publicar checkpoint versionado.

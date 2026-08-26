@@ -41,6 +41,7 @@ import { PgcMovementSimulatorPanel } from "@/components/PgcMovementSimulatorPane
 import { PgcAuditLogPanel } from "@/components/PgcAuditLogPanel";
 import { AccountingRuleFormPanel } from "@/components/AccountingRuleFormPanel";
 import { AccountingRuleActivationPanel } from "@/components/AccountingRuleActivationPanel";
+import { PgcaApprovalProgressPanel } from "@/components/PgcaApprovalProgressPanel";
 import { IvaNormativeReviewPanel } from "@/components/IvaNormativeReviewPanel";
 import { IvaPdfSimulationPanel } from "@/components/IvaPdfSimulationPanel";
 import { PgcCoverageSummary } from "@/components/PgcCoverageSummary";
@@ -512,6 +513,7 @@ export default function Pgca() {
           </CardContent>
         </Card>
         <PgcaExternalSummaryPanel selectedLabel={selectedExternalBlocker} onSelectBlocker={label => setSelectedExternalBlocker(current => current === label ? null : label)} />
+        <PgcaApprovalProgressPanel accounts={accountsQuery.data ?? []} rules={rulesQuery.data ?? []} />
         {undoAction ? <div className="flex items-center justify-between gap-2 rounded-sm border border-blue-200 bg-blue-50 px-3 py-2 text-[11px] text-blue-900"><span>Alteração recente guardada. Pode desfazer durante alguns segundos.</span><Button variant="outline" className="h-7 rounded-sm bg-white px-2 text-[10px]" onClick={undoInlineUpdate} disabled={updateInline.isPending}><Undo2 className="mr-1 h-3 w-3" /> Desfazer</Button></div> : null}
         <PgcaV2StagingPanel />
         <PgcActivationAssistant
