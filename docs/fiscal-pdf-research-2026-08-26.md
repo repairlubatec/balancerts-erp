@@ -110,3 +110,13 @@ A página oficial apresenta regimes de tributação, incidência subjectiva e re
 ### Tentativa de obtenção do PDF primário
 
 Foi aberta a página Lex.AO do Decreto Executivo n.º 134/19 e deslocada até ao fim, onde aparece `DOWNLOAD — Para descarregar o PDF do diploma oficial clique aqui`. O controlo não ficou exposto como elemento interactivo separado no My Browser e não foi possível obter um href directo sem recorrer a análise de HTML fora da página. O ficheiro não foi descarregado. O diploma permanece `PDF_PRIMARIO_PENDENTE`; a página Lex.AO fica apenas como link de localização/conferência.
+
+
+## URLs directos encontrados por inspecção read-only do HTML
+
+Foram encontrados dois URLs directos no domínio secundário `files.lex.ao`:
+
+1. Lei n.º 17/19: https://files.lex.ao/assembleia-nacional/2019/lei-n-o-17-19-de-13-de-agosto/download/lei-n-o-17-19-de-13-de-agosto_assembleia-nacional_lex-ao.pdf
+2. Decreto Executivo n.º 134/19: https://files.lex.ao/ministerio-das-financas/2019/decreto-executivo-n-o-134-19-de-10-de-junho/download/decreto-executivo-n-o-134-19-de-10-de-junho_ministerio-das-financas_lex-ao.pdf
+
+Estes URLs são úteis para o utilizador descarregar e comparar, mas continuam classificados como `SECONDARY_REPOSITORY_COPY`. Não devem ser a única prova documental para activação no ERP. Os restantes diplomas não expuseram URLs `.pdf` no HTML inspeccionado.
