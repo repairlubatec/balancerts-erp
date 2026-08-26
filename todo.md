@@ -3843,4 +3843,4 @@
 - [ ] Executar OCR e conferência visual dos diplomas obtidos, sem activar taxas a partir de fontes incompletas.
 - [x] Preparar a fila de confirmação humana literal para as contas/regras PGCA e IVA elegíveis.
 - [ ] Executar activação explícita apenas se todos os bloqueadores e confirmações exigidos forem satisfeitos.
-- [ ] Executar QA final, documentar o resultado e manter abertas as lacunas não elegíveis.
+- [x] Executar QA final, documentar o resultado e manter abertas as lacunas não elegíveis.
