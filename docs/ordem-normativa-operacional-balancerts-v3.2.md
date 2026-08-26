@@ -207,3 +207,8 @@ Também não foram tratados como leis fiscais autónomas o XSD SAF-T, o catálog
 ## 6. Verificação de qualidade da execução autónoma
 
 Após a inclusão documental da Lei n.º 27/22 e a actualização da ordem normativa, a suite integral do projecto aprovou **153 ficheiros e 611 testes**. A verificação direccionada de PGCA, composição normativa, IVA, readiness e simulação de relatórios aprovou 28 testes. Estes resultados confirmam que a alteração documental não activa automaticamente taxas, regras, posting, emissão fiscal ou a versão PGCA; os bloqueios continuam dependentes de evidência e confirmação elegíveis.
+
+
+## 7. Anexo `pasted_content_9.txt`
+
+O anexo recebido nesta execução reproduz a ordem P1–P13, as dependências e os bloqueios já registados. Não contém URLs novas, PDFs, artigos, tabelas, hashes ou outra evidência primária adicional. Foi utilizado como confirmação dos requisitos operacionais, não como fonte normativa. A ausência de novos documentos não altera a ordem, os estados ou os bloqueios definidos neste mapa.
