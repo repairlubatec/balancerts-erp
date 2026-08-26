@@ -158,3 +158,14 @@ A Lei n.º 7/19 completa a fonte inicial da cadeia `Lei 7/19 → Lei 17/19 → D
 ### Regra de activação
 
 Nenhum valor publicado nas páginas institucionais foi convertido em regra activa. O CGT foi integrado no registo como diploma transversal de procedimento e garantias, mas a activação permanece condicionada à cobertura documental e aprovação humana exigidas pelo modelo fail-closed.
+
+
+## Evidência institucional adicional — cronologia e modelos
+
+| Elemento | Evidência institucional | Limite | Estado seguro |
+|---|---|---|---|
+| Cronologia CIP/CGT/IVM/CII/CIRT | Notícia oficial do Portal confirma datas de publicação/aplicação associadas às Leis n.º 20/20, 21/20, 24/20, 26/20 e 28/20 | A notícia tem uma referência inconsistente ao CII/Código Predial e não substitui os diplomas integrais | `SUPPORTING_EVIDENCE`; não activar |
+| Transição do CIRT em 2020 | Notícia oficial distingue rendimentos até Agosto sob o quadro anterior e rendimentos a partir de Setembro sob a Lei n.º 28/20 | Falta cadeia posterior e tabela corrente aplicável em 2026 | `SUPPORTING_EVIDENCE`; não activar |
+| Modelos fiscais | Página oficial de formulários enumera modelos de II, IRT, IS e IP | Necessário descarregar cada ficheiro, verificar hash, campos, versão e vigência antes de exportar pelo ERP | `OPEN — HIGH` |
+
+As fontes auxiliares reforçam a localização e a cronologia, mas não fecham as lacunas críticas de tabelas, taxas e modelos. O motor permanece fail-closed.

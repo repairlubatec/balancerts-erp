@@ -233,3 +233,10 @@ O estado documental passou para **`VISUALLY_CONFIRMED` no escopo das páginas re
 ## Páginas institucionais do Portal do Contribuinte
 
 As páginas oficiais de Imposto Industrial, IRT, Imposto Predial e Imposto do Selo foram consultadas no navegador e registadas em [portal-contribuinte-fiscal-sources-2026-08-26.md](./portal-contribuinte-fiscal-sources-2026-08-26.md). São referências institucionais operacionais e não substituem os códigos, tabelas anexas, diplomas alteradores e provas de vigência. Os valores apresentados permanecem `SOURCE_CANDIDATE`/`A CONSOLIDAR` até à confirmação da fonte primária correspondente.
+
+
+## Catálogo oficial consultado — cobertura disponível
+
+A biblioteca oficial `https://portaldocontribuinte.minfin.gov.ao/legislacao` foi consultada. O catálogo enumera, entre outros, a Lei n.º 21/20 e a Lei n.º 21/14 para o CGT; a Lei n.º 20/20 para o Imposto Predial; as Leis n.º 26/20 e 19/14 e o DP n.º 194/20 para o Imposto Industrial; as Leis n.º 28/20 e 18/14 e o DP n.º 194/20 para o IRT; a Lei n.º 24/20 para o Imposto sobre Veículos Motorizados; as Leis n.º 8/19 e 18/19 para o IEC; e as Leis n.º 7/19 e 17/19 e o DE n.º 134/19 para o IVA.
+
+O catálogo confirma a existência institucional dos itens e orienta a recolha; não substitui a cópia integral de cada diploma, as suas tabelas/anexos e a conferência de vigência. Os itens sem PDF primário íntegro anexado permanecem `A CONSOLIDAR`/`SOURCE_CANDIDATE`.

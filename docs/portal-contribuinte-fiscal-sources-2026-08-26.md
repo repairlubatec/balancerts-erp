@@ -27,3 +27,11 @@ A página do Imposto Predial foi carregada visualmente no navegador, mas a extra
 
 [3]: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-predial-urbano "Portal do Contribuinte — Imposto Predial"
 [4]: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-de-selo "Portal do Contribuinte — Imposto do Selo"
+
+## Evidência adicional do Portal — notícias e formulários
+
+A notícia oficial [Alterações à Legislação Tributária](https://portaldocontribuinte.minfin.gov.ao/noticia?id=796264) confirma publicamente a existência e datas de aplicação indicadas para a Lei n.º 20/20 (CIP, 9 de Agosto de 2020), Lei n.º 21/20 (CGT, 9 de Julho de 2020), Lei n.º 24/20 (IVM, 13 de Agosto de 2020), Lei n.º 26/20 (alteração do CII, 19 de Agosto de 2020) e Lei n.º 28/20 (alteração do CIRT, 21 de Agosto de 2020). A notícia contém uma referência textual inconsistente ao CII/Código Predial; por isso, foi tratada apenas como evidência de catálogo e cronologia, não como fonte para cálculo.
+
+A notícia oficial [Imposto sobre os Rendimentos do Trabalho](https://portaldocontribuinte.minfin.gov.ao/noticia?id=796284) distingue rendimentos realizados até Agosto, regidos pelo quadro anterior, dos rendimentos a partir de Setembro, regidos pela Lei n.º 28/20. Este marco histórico não foi assumido como regime corrente de 2026 sem confirmar alterações posteriores.
+
+A página [Formulários Editáveis](https://portaldocontribuinte.minfin.gov.ao/formularios-editaveis) confirma a existência de modelos operacionais para II, IRT, IS e IP. Os formulários não foram descarregados nem activados como modelos oficiais do ERP; permanecem referências auxiliares até validação de versão, hash, campos e vigência.
