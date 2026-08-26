@@ -575,6 +575,13 @@
       "when": 1787693354480,
       "tag": "0081_groovy_captain_marvel",
       "breakpoints": true
+    },
+    {
+      "idx": 82,
+      "version": "5",
+      "when": 1787734426576,
+      "tag": "0082_fuzzy_warstar",
+      "breakpoints": true
     }
   ]
 }

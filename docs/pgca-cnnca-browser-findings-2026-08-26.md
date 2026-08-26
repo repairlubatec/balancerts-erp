@@ -37,3 +37,23 @@ A consulta à **Lei n.º 14/23, de 28 de Dezembro** confirmou que é uma lei de 
 **Fontes consultadas:**
 - https://lex.ao/docs/presidente-da-republica/2019/decreto-presidencial-n-o-180-19-de-24-de-maio/
 - https://lex.ao/docs/assembleia-nacional/2023/lei-n-o-14-23-de-28-de-dezembro/
+
+## Cadeia IVA — Lei n.º 7/19 e Lei n.º 17/19
+
+A consulta no My Browser à **Lei n.º 7/19, de 24 de Abril de 2019** confirmou que aprova o Código do IVA. O Artigo 3.º indica entrada em vigor em 1 de Julho de 2019, com aplicação obrigatória a todos os sujeitos passivos a partir de 1 de Janeiro de 2021, sem prejuízo das regras transitórias. A página identifica a publicação no Diário da República I Série n.º 55.
+
+A consulta à **Lei n.º 17/19, de 13 de Agosto de 2019** confirmou que altera a Lei n.º 7/19 e artigos do Código do IVA, incluindo regras do regime transitório; a página identifica a publicação no Diário da República I Série n.º 104. Deve ser preservada na cadeia como alteração histórica de 2019, enquanto a Lei n.º 14/23 é a alteração/republicação posterior do Código.
+
+**Fontes consultadas:**
+- https://lex.ao/docs/assembleia-nacional/2019/lei-n-o-7-19-de-24-de-abril/
+- https://lex.ao/docs/assembleia-nacional/2019/lei-n-o-17-19-de-13-de-agosto/
+
+## Modelos declarativos — Decreto Executivo n.º 134/19
+
+A consulta no My Browser ao **Decreto Executivo n.º 134/19, de 10 de Junho de 2019**, do Ministério das Finanças, confirmou que aprova os modelos declarativos do IVA previstos no artigo 73.º do Código aprovado pela Lei n.º 7/19. O diploma fundamenta-se também no artigo 2.º do Decreto Presidencial n.º 180/19. Inclui declaração de início/alteração/cessação, declaração periódica e anexos, declaração do regime transitório, formulário de restituição, mapa de fornecedores e modelo de regularização de créditos de cobrança duvidosa/incobráveis. O artigo 5.º estabelece entrada em vigor na data da publicação. Não cria nem substitui contas do PGCA; é uma camada declarativa/operacional do IVA.
+
+**Fonte consultada:** https://lex.ao/docs/ministerio-das-financas/2019/decreto-executivo-n-o-134-19-de-10-de-junho/
+
+## Verificação visual do posto PGCA
+
+Foram capturadas a vista desktop e a página completa de `/pgca`. A shell de software mantém navegação lateral e separadores de trabalho; a versão visível é `PGCA-82-01 · Plano Geral de Contabilidade — Decreto n.º 82/01 · Em revisão`, com 27 contas carregadas. O posto apresenta estados de preparação e pendências operacionais sem declarar activação indevida. A página completa contém secções internas e tabelas controladas; não foi introduzido scroll global na shell.

@@ -1,6 +1,6 @@
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { getDb, appendAuditEventForUser, createFileAsset } from "./db";
-import { accountingRules, auditEvents, chartAccounts, companies, fileAssets, fiscalPeriods, organizationMemberships, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcSources, pgcVersions, users } from "../drizzle/schema";
+import { accountingRules, auditEvents, chartAccounts, companies, fileAssets, fiscalPeriods, organizationMemberships, organizations, pgcAccounts, pgcAuditFindings, pgcAuditRuns, pgcEvidenceSubmissions, pgcMigrationMaps, pgcNormativeLayers, pgcSources, pgcVersions, users } from "../drizzle/schema";
 import { randomUUID } from "node:crypto";
 import { angolaNormativeSources } from "./normative";
 import { getAccountingMovementRule, validateDirectionalMovement } from "../shared/accountingMovementRules";
@@ -146,6 +146,13 @@ export async function listPgcSourcesForUser(input: { userId: number; organizatio
   const access = await db.select({ id: pgcVersions.id }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
   if (!access[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
   return db.select().from(pgcSources).where(and(eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId))).orderBy(desc(pgcSources.id)).limit(100);
+}
+
+export async function listPgcNormativeLayersForUser(input: { userId: number; organizationId: number; versionId: number }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const access = await db.select({ id: pgcVersions.id }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!access[0]) throw new Error("PGC_VERSION_NOT_FOUND_OR_FORBIDDEN");
+  return db.select({ layer: pgcNormativeLayers, source: pgcSources }).from(pgcNormativeLayers).innerJoin(pgcSources, eq(pgcNormativeLayers.sourceId, pgcSources.id)).where(and(eq(pgcNormativeLayers.organizationId, input.organizationId), eq(pgcNormativeLayers.baseVersionId, input.versionId))).orderBy(pgcNormativeLayers.effectiveFrom, pgcNormativeLayers.id).limit(100);
 }
 
 export async function reviewPgcSourceForUser(input: { userId: number; organizationId: number; versionId: number; sourceId: number; verificationStatus: "CONFIRMED" | "CONFLICT" | "REJECTED"; conflictNote?: string }) {

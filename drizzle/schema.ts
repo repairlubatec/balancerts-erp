@@ -1580,6 +1580,27 @@ export const pgcSources = mysqlTable("pgcSources", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+/** Camadas normativas aplicadas sobre uma versão canónica do PGC; não substituem o plano-base. */
+export const pgcNormativeLayers = mysqlTable("pgcNormativeLayers", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull().references(() => organizations.id),
+  baseVersionId: int("baseVersionId").notNull().references(() => pgcVersions.id),
+  sourceId: int("sourceId").notNull().references(() => pgcSources.id),
+  code: varchar("code", { length: 80 }).notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  layerType: mysqlEnum("layerType", ["ACCOUNTING_AMENDMENT", "FISCAL_ACCOUNTS", "TAX_CODE", "TAX_AMENDMENT", "DECLARATIVE_MODEL"]).notNull(),
+  description: text("description").notNull(),
+  effectiveFrom: timestamp("effectiveFrom").notNull(),
+  effectiveTo: timestamp("effectiveTo"),
+  status: mysqlEnum("status", ["PENDING", "CONFIRMED", "CONFLICT", "REJECTED"]).default("PENDING").notNull(),
+  evidenceHash: varchar("evidenceHash", { length: 64 }),
+  createdBy: int("createdBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({ layerCodeUnique: uniqueIndex("pgc_normative_layer_code_unique").on(table.organizationId, table.baseVersionId, table.code) }));
+
+export type PgcNormativeLayer = typeof pgcNormativeLayers.$inferSelect;
+
 export const pgcEvidenceSubmissions = mysqlTable("pgcEvidenceSubmissions", {
   id: int("id").autoincrement().primaryKey(),
   organizationId: int("organizationId").notNull().references(() => organizations.id),

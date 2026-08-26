@@ -3694,3 +3694,13 @@
 - [ ] Activar apenas a versão mais recente e completa se a validação normativa e estrutural for elegível
 - [x] Preservar versões/diplomas históricos ainda vigentes com os respectivos nomes e relações normativas
 - [ ] Validar alterações de base de dados, testes e checkpoint da activação PGCA
+
+
+## Arquitectura normativa em camadas — PGCA canónico e alterações posteriores
+
+- [x] Revalidar em fontes oficiais a cadeia PGCA-82-01, Lei n.º 7/19, Lei n.º 17/19, Decreto Presidencial n.º 180/19, Decreto Executivo n.º 134/19 e Lei n.º 14/23
+- [x] Auditar o modelo actual para separar versão canónica PGCA de extensões/alterações contabilísticas e fiscais
+- [x] Modelar e relacionar as contas IVA 34.5, 34.5.x, 34.6, 63.5 e 75.3.1.2 ao Decreto Presidencial n.º 180/19, sem as misturar no PGC-base
+- [x] Aplicar vigência temporal, proveniência, conflitos e estados fail-closed às camadas normativas
+- [x] Actualizar readiness e interface para mostrar PGC canónico, camadas posteriores e lacunas de evidência
+- [ ] Testar, documentar e guardar checkpoint da arquitectura normativa em camadas

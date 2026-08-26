@@ -348,6 +348,7 @@ import {
   listPgcAccountsForUser,
   listPgcAuditRunsForUser,
   listPgcMigrationMapsForUser,
+  listPgcNormativeLayersForUser,
   listPgcVersionsForUser,
   createPgcVersionForUser,
   submitPgcEvidenceForUser,
@@ -5425,6 +5426,11 @@ export const appRouter = router({
       .input(z.object({ organizationId: z.number().int().positive() }).strict())
       .query(({ ctx, input }) =>
         listPgcVersionsForUser({ ...input, userId: ctx.user.id })
+      ),
+    normativeLayers: roleProcedure("accounting", "read")
+      .input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive() }).strict())
+      .query(({ ctx, input }) =>
+        listPgcNormativeLayersForUser({ ...input, userId: ctx.user.id })
       ),
     submitForReview: roleProcedure("accounting", "validate")
       .input(
