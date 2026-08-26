@@ -3860,3 +3860,11 @@
 - [x] Actualizar as cadeias II/IRT/IS/IP e a matriz V3.2 apenas com evidência suficiente.
 - [x] Avaliar quais taxas e regras podem ser promovidas, mantendo bloqueados os itens sem cobertura integral ou aprovação.
 - [x] Executar QA final e guardar checkpoint da validação sem activar normas por inferência.
+
+## Revalidação das novas versões dos quatro PDFs fiscais
+
+- [x] Comparar hash, páginas, tamanho e metadados das novas versões com as cópias anteriores.
+- [x] Confirmar se as novas versões são completas e se o conteúdo coincide com os diplomas já conferidos.
+- [x] Actualizar a proveniência e os estados V3.2 sem transformar nomenclatura do ficheiro em prova institucional.
+- [x] Reavaliar os bloqueios de taxas, regras, PGCA/IVA e activação explícita.
+- [x] Executar QA e guardar checkpoint da revalidação.
