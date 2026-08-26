@@ -3703,4 +3703,12 @@
 - [x] Modelar e relacionar as contas IVA 34.5, 34.5.x, 34.6, 63.5 e 75.3.1.2 ao Decreto Presidencial n.º 180/19, sem as misturar no PGC-base
 - [x] Aplicar vigência temporal, proveniência, conflitos e estados fail-closed às camadas normativas
 - [x] Actualizar readiness e interface para mostrar PGC canónico, camadas posteriores e lacunas de evidência
-- [ ] Testar, documentar e guardar checkpoint da arquitectura normativa em camadas
+- [x] Testar, documentar e guardar checkpoint da arquitectura normativa em camadas
+
+
+## Inventário explicativo de pendências PGCA
+
+- [x] Reabrir salvaguardas e documentos PGCA já analisados
+- [x] Extrair a lista concreta das contas pendentes e agrupá-las por classe/hierarquia
+- [x] Mapear páginas, quadros e regras primárias legíveis necessárias para cada grupo
+- [ ] Entregar ao utilizador uma matriz detalhada de contas, bloqueio e evidência requerida
