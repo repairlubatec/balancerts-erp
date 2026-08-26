@@ -305,3 +305,9 @@ A consequência para o ERP é temporal: DP 292/18 e DP 144/23 ficam preservados 
 A página de localização Lex.AO confirma a Lei n.º 17/24, de 28 de Outubro de 2024, publicada no Diário da República I Série n.º 206, pág. 12128. O diploma aprova a Lei da Actividade de Jogos, define regras de autorização, exploração, regulação e fiscalização e revoga a Lei n.º 5/16, de 17 de Maio. O próprio preâmbulo refere a necessidade de um sistema fiscal especial para o sector, mas a página consultada não substitui a identificação dos artigos fiscais, regulamentação e modelos aplicáveis.
 
 No ERP, a Lei 17/24 fica `A CONSOLIDAR` na camada IEJ/sectorial. Não deve ser convertida automaticamente em taxas ou regras contabilísticas sem os diplomas fiscais complementares, tabelas e modelos oficiais.
+
+## Índice institucional AGT — legislação e materiais 2026
+
+A consulta às páginas institucionais AGT de legislação expôs materiais directos que devem ser mantidos no corpus de controlo, sem os confundir com diplomas normativos. Foram localizados o [Calendário Fiscal 2026](https://www.ucm.minfin.gov.ao/cs/groups/public/documents/document/aw41/mziw/~edisp/minfin5320492.pdf), a [Folha Tributária n.º 94 — Junho de 2026](https://www.ucm.minfin.gov.ao/cs/groups/public/documents/document/aw42/nzm5/~edisp/minfin6739845.pdf), o guia IVM e materiais de consulta pública. A página institucional de legislação fiscal também expõe o ecossistema oficial, mas o conteúdo dos índices dinâmicos não deve ser interpretado como versão consolidada de todos os códigos.
+
+O Calendário Fiscal e a Folha Tributária são referências operacionais/explicativas. Devem servir para localizar obrigações e actualizações, mas não substituem leis, decretos, tabelas ou modelos oficiais com força normativa.

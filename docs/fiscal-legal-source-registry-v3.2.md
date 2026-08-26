@@ -142,3 +142,14 @@ A cadeia não é uma substituição simples: exige determinar o que o DP 71/25 r
 | [Lex.AO — Lei n.º 17/24, de 28 de Outubro](https://lex.ao/docs/assembleia-nacional/2024/lei-n-o-17-24-de-28-de-outubro/) | Aprova a Lei da Actividade de Jogos; publicada no DR I Série n.º 206, pág. 12128; revoga a Lei n.º 5/16. | `A CONSOLIDAR` | Usar como base sectorial. Exigir regulamentação fiscal, tabelas, modelos e artigos específicos antes de criar regras IEJ no motor. |
 
 A menção a um sistema fiscal especial no preâmbulo não é, por si só, uma taxa ou regra de liquidação parametrizável.
+
+
+## 13. Materiais operacionais AGT 2026
+
+| Material | URL institucional | Estado | Limite de uso |
+|---|---|---|---|
+| Calendário Fiscal 2026 | [PDF AGT/MINFIN](https://www.ucm.minfin.gov.ao/cs/groups/public/documents/document/aw41/mziw/~edisp/minfin5320492.pdf) | `REFERÊNCIA OPERACIONAL` | Apoia calendários e obrigações; não substitui a lei nem prova taxas. |
+| Folha Tributária n.º 94 — Junho 2026 | [PDF AGT/MINFIN](https://www.ucm.minfin.gov.ao/cs/groups/public/documents/document/aw42/nzm5/~edisp/minfin6739845.pdf) | `REFERÊNCIA EXPLICATIVA` | Apoia localização de actualizações; não é fonte autónoma para parametrização normativa. |
+| Guia IVM | Link institucional exposto no portal AGT | `REFERÊNCIA OPERACIONAL` | Não substituir o Código/tabelas do IVM; exigir fonte normativa para cálculos. |
+
+Estes materiais são úteis para a camada de controlo e alertas de obrigações, mas permanecem separados da camada de diplomas, tabelas e regras activáveis.
