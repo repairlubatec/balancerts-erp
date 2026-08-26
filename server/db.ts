@@ -85,6 +85,7 @@ import {
   buildReportReconciliation,
   buildSaftReadiness,
   buildSaftAoXml,
+  validateSaftAoXmlAgainstXsd,
   buildTrialBalance,
   buildVatSummary,
   type JournalRow,
@@ -8084,10 +8085,13 @@ export async function getSaftLocalExportForUserCompany(
     sourceDocuments: saftDocuments,
   });
   const contentHash = createHash("sha256").update(xml, "utf8").digest("hex");
+  const xsdValidation = await validateSaftAoXmlAgainstXsd(xml);
   return {
     xml,
     contentHash,
     contentType: "application/xml" as const,
+    xsdValidation,
+    structuralValidation: xsdValidation.valid,
     submissionEligible: false as const,
     externalSubmission: "NOT_CONFIGURED" as const,
     period: { year: period.year, month: period.month },

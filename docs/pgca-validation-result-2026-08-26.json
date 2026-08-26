@@ -1,0 +1,373 @@
+{
+  "valid": false,
+  "activationEligible": false,
+  "checkedAt": "2026-08-26T08:04:03.428Z",
+  "sourceFile": "pgca-visually-confirmed-accounts.json",
+  "accountCount": 27,
+  "errorCount": 51,
+  "warningCount": 16,
+  "errors": [
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "1",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "11",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "12",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "13",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "14",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "18",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "19",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "4",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "45",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "451",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "4511",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "4512",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "453",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "4531",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "6",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "61",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "611",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "6111",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "6112",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "612",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "6121",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "6122",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "613",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "6131",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "614",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "6141",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "ACCOUNT_NATURE_INVALID",
+      "account": "6142",
+      "message": "Natureza inválida ou ausente; use débito, crédito ou mista."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "11",
+      "parent": "1",
+      "message": "O código 11 não está hierarquicamente abaixo de 1."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "12",
+      "parent": "1",
+      "message": "O código 12 não está hierarquicamente abaixo de 1."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "13",
+      "parent": "1",
+      "message": "O código 13 não está hierarquicamente abaixo de 1."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "14",
+      "parent": "1",
+      "message": "O código 14 não está hierarquicamente abaixo de 1."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "18",
+      "parent": "1",
+      "message": "O código 18 não está hierarquicamente abaixo de 1."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "19",
+      "parent": "1",
+      "message": "O código 19 não está hierarquicamente abaixo de 1."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "45",
+      "parent": "4",
+      "message": "O código 45 não está hierarquicamente abaixo de 4."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "451",
+      "parent": "45",
+      "message": "O código 451 não está hierarquicamente abaixo de 45."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "4511",
+      "parent": "451",
+      "message": "O código 4511 não está hierarquicamente abaixo de 451."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "4512",
+      "parent": "451",
+      "message": "O código 4512 não está hierarquicamente abaixo de 451."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "453",
+      "parent": "45",
+      "message": "O código 453 não está hierarquicamente abaixo de 45."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "4531",
+      "parent": "453",
+      "message": "O código 4531 não está hierarquicamente abaixo de 453."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "61",
+      "parent": "6",
+      "message": "O código 61 não está hierarquicamente abaixo de 6."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "611",
+      "parent": "61",
+      "message": "O código 611 não está hierarquicamente abaixo de 61."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "6111",
+      "parent": "611",
+      "message": "O código 6111 não está hierarquicamente abaixo de 611."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "6112",
+      "parent": "611",
+      "message": "O código 6112 não está hierarquicamente abaixo de 611."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "612",
+      "parent": "61",
+      "message": "O código 612 não está hierarquicamente abaixo de 61."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "6121",
+      "parent": "612",
+      "message": "O código 6121 não está hierarquicamente abaixo de 612."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "6122",
+      "parent": "612",
+      "message": "O código 6122 não está hierarquicamente abaixo de 612."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "613",
+      "parent": "61",
+      "message": "O código 613 não está hierarquicamente abaixo de 61."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "6131",
+      "parent": "613",
+      "message": "O código 6131 não está hierarquicamente abaixo de 613."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "614",
+      "parent": "61",
+      "message": "O código 614 não está hierarquicamente abaixo de 61."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "6141",
+      "parent": "614",
+      "message": "O código 6141 não está hierarquicamente abaixo de 614."
+    },
+    {
+      "code": "HIERARCHY_PREFIX_INVALID",
+      "account": "6142",
+      "parent": "614",
+      "message": "O código 6142 não está hierarquicamente abaixo de 614."
+    }
+  ],
+  "warnings": [
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "11",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "12",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "13",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "14",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "18",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "19",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "4511",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "4512",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "4531",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "6111",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "6112",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "6121",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "6122",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "6131",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "6141",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    },
+    {
+      "code": "GROUP_WITHOUT_CHILDREN",
+      "account": "6142",
+      "message": "Conta não lançável sem descendentes; confirmar se é uma conta integradora válida."
+    }
+  ],
+  "decision": "BLOQUEAR"
+}

@@ -269,3 +269,61 @@ export function getFiscalTaxCoverage() {
     sourceUrls: [...tax.sourceUrls],
   }));
 }
+
+
+export type OfficialTaxRateCode = "IVA_GERAL" | "IVA_CABINDA_BENS_IMPORTACAO" | "II_GERAL" | "II_AGRICOLA" | "II_SECTOR_ESPECIAL" | "II_PROVISORIO_VENDAS";
+
+export type OfficialTaxRateDefinition = {
+  code: OfficialTaxRateCode;
+  taxType: "IVA" | "INDUSTRIAL";
+  rate: number;
+  basis: "TAXABLE_AMOUNT" | "TAXABLE_PROFIT" | "SALES_VOLUME";
+  territory?: "AO" | "CABINDA";
+  operation?: "GOODS_OR_IMPORT";
+  sourceUrl: string;
+  observedOn: string;
+  effectiveFrom: string | null;
+  activationState: "SOURCE_CANDIDATE";
+};
+
+/**
+ * Taxas expostas pela página institucional consultada em 26-08-2026.
+ * effectiveFrom permanece nulo quando a página não fornece a data jurídica
+ * de entrada em vigor; isso impede resolução histórica silenciosa.
+ */
+export const officialTaxRateCatalog: readonly OfficialTaxRateDefinition[] = [
+  { code: "IVA_GERAL", taxType: "IVA", rate: 0.14, basis: "TAXABLE_AMOUNT", territory: "AO", sourceUrl: "https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-valor-acrescentado", observedOn: "2026-08-26", effectiveFrom: null, activationState: "SOURCE_CANDIDATE" },
+  { code: "IVA_CABINDA_BENS_IMPORTACAO", taxType: "IVA", rate: 0.02, basis: "TAXABLE_AMOUNT", territory: "CABINDA", operation: "GOODS_OR_IMPORT", sourceUrl: "https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-valor-acrescentado", observedOn: "2026-08-26", effectiveFrom: null, activationState: "SOURCE_CANDIDATE" },
+  { code: "II_GERAL", taxType: "INDUSTRIAL", rate: 0.25, basis: "TAXABLE_PROFIT", territory: "AO", sourceUrl: "https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-industrial", observedOn: "2026-08-26", effectiveFrom: null, activationState: "SOURCE_CANDIDATE" },
+  { code: "II_AGRICOLA", taxType: "INDUSTRIAL", rate: 0.10, basis: "TAXABLE_PROFIT", territory: "AO", sourceUrl: "https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-industrial", observedOn: "2026-08-26", effectiveFrom: null, activationState: "SOURCE_CANDIDATE" },
+  { code: "II_SECTOR_ESPECIAL", taxType: "INDUSTRIAL", rate: 0.35, basis: "TAXABLE_PROFIT", territory: "AO", sourceUrl: "https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-industrial", observedOn: "2026-08-26", effectiveFrom: null, activationState: "SOURCE_CANDIDATE" },
+  { code: "II_PROVISORIO_VENDAS", taxType: "INDUSTRIAL", rate: 0.02, basis: "SALES_VOLUME", territory: "AO", sourceUrl: "https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-industrial", observedOn: "2026-08-26", effectiveFrom: null, activationState: "SOURCE_CANDIDATE" },
+];
+
+function roundFiscalAmount(value: number) { return Math.round(value * 100) / 100; }
+
+export function calculateOfficialIva(input: { taxableAmount: number; territory?: "AO" | "CABINDA"; operation?: "GOODS_OR_IMPORT"; rateCode?: OfficialTaxRateCode }) {
+  if (!Number.isFinite(input.taxableAmount) || input.taxableAmount < 0) throw new Error("FISCAL_BASE_INVALID");
+  const code = input.rateCode ?? (input.territory === "CABINDA" && input.operation === "GOODS_OR_IMPORT" ? "IVA_CABINDA_BENS_IMPORTACAO" : "IVA_GERAL");
+  const rule = officialTaxRateCatalog.find((candidate) => candidate.code === code && candidate.taxType === "IVA");
+  if (!rule) throw new Error("IVA_RATE_RULE_NOT_FOUND");
+  if (rule.code === "IVA_CABINDA_BENS_IMPORTACAO" && (input.territory !== "CABINDA" || input.operation !== "GOODS_OR_IMPORT")) throw new Error("IVA_CABINDA_SCOPE_MISMATCH");
+  const taxAmount = roundFiscalAmount(input.taxableAmount * rule.rate);
+  return { taxType: "IVA" as const, rateCode: rule.code, rate: rule.rate, taxableAmount: input.taxableAmount, taxAmount, totalAmount: roundFiscalAmount(input.taxableAmount + taxAmount), sourceUrl: rule.sourceUrl, activationState: rule.activationState };
+}
+
+export function calculateOfficialIndustrialTax(input: { taxableProfit: number; rateCode?: "II_GERAL" | "II_AGRICOLA" | "II_SECTOR_ESPECIAL" }) {
+  if (!Number.isFinite(input.taxableProfit) || input.taxableProfit < 0) throw new Error("FISCAL_PROFIT_INVALID");
+  const code = input.rateCode ?? "II_GERAL";
+  const rule = officialTaxRateCatalog.find((candidate) => candidate.code === code);
+  if (!rule) throw new Error("INDUSTRIAL_RATE_RULE_NOT_FOUND");
+  const taxAmount = roundFiscalAmount(input.taxableProfit * rule.rate);
+  return { taxType: "INDUSTRIAL" as const, rateCode: rule.code, rate: rule.rate, taxableProfit: input.taxableProfit, taxAmount, sourceUrl: rule.sourceUrl, activationState: rule.activationState };
+}
+
+export function calculateOfficialIndustrialProvisional(input: { salesVolume: number }) {
+  if (!Number.isFinite(input.salesVolume) || input.salesVolume < 0) throw new Error("FISCAL_SALES_VOLUME_INVALID");
+  const rule = officialTaxRateCatalog.find((candidate) => candidate.code === "II_PROVISORIO_VENDAS");
+  if (!rule) throw new Error("INDUSTRIAL_PROVISIONAL_RULE_NOT_FOUND");
+  return { taxType: "INDUSTRIAL" as const, rateCode: rule.code, rate: rule.rate, salesVolume: input.salesVolume, taxAmount: roundFiscalAmount(input.salesVolume * rule.rate), sourceUrl: rule.sourceUrl, activationState: rule.activationState };
+}

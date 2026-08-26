@@ -3662,3 +3662,25 @@
 - [x] Preparar procedimento prático e seguro para activar o PGCA da Repair Lubatec sem alterar dados emitidos
 - [x] Preparar matriz de configuração fiscal e códigos de isenção baseada em fontes verificáveis e com estados de validação
 - [x] Criar apresentação sobre os ficheiros SAF-T e a distinção entre validação estrutural, fiscal, contabilística e homologação
+
+## Implementação solicitada — PGCA, taxas e SAF-T
+- [x] Criar e validar script reutilizável de hierarquia, natureza e lançabilidade PGCA
+- [x] Parametrizar IVA e Imposto Industrial com versões, regimes, vigências e evidência oficial sem activar por inferência
+- [x] Integrar validação XSD no fluxo de exportação SAF-T e bloquear XML estruturalmente inválido
+- [x] Criar e validar a competência reutilizável balancerts-pgca-saft
+
+
+## Continuação Motor Fiscal / PGCA / SAF-T — 2026-08-26
+
+- [x] Validar formalmente a skill reutilizável balancerts-pgca-saft
+- [x] Executar validate-pgca-plan.mjs sobre o inventário de 27 contas visualmente confirmadas
+- [x] Registar o resultado PGCA com 51 erros e 16 avisos; activação permanece bloqueada
+- [x] Catalogar IVA geral 14%, IVA Cabinda 2% no escopo bens/importação e Imposto Industrial 25%/10%/35% com pagamento provisório 2%
+- [x] Cobrir as novas funções de cálculo fiscal com testes Vitest
+- [x] Integrar xsd-schema-validator no fluxo local de validação SAF-T AO
+- [x] Expor resultado XSD e structuralValidation na procedure reports.saftExport
+- [x] Adicionar runtime Java no Dockerfile de produção para validação XSD
+- [x] Verificar TypeScript, testes fiscais/SAF-T e build de produção
+- [x] Executar suite completa final após a correcção do caso Cabinda
+- [x] Guardar checkpoint desta continuação
+- [x] Entregar relatório V2, skill e resultado de validação PGCA ao utilizador

@@ -48,17 +48,25 @@ Para cada imposto não configurado é necessário o diploma oficial aplicável, 
 
 As páginas institucionais consultadas ajudam a delimitar o âmbito, mas não substituem a leitura dos diplomas primários. A página do IEC não forneceu conteúdo utilizável na consulta registada, e as páginas de detalhe de IVA/IVM também não foram suficientes para acrescentar regras novas [3] [4].
 
-## F. Testes
+## F. Continuação técnica: taxas e SAF-T
 
-A validação desta execução concluiu com **152 ficheiros de teste e 603 testes aprovados**; a última execução global ocorreu depois da guarda de activação e a prova específica de proveniência foi ampliada para artigo, página e hash. A suite inclui testes do Motor Fiscal, catálogo integral, integração da Home/Fiscalidade, registo fiscal, rótulos portugueses e não regressão dos módulos existentes. O TypeScript terminou sem erros e o build de produção foi concluído.
+Foram acrescentadas funções explícitas para IVA Geral a 14%, IVA de Cabinda a 2% restrito ao escopo de bens/importação, Imposto Industrial geral a 25%, actividade agrícola a 10%, sector especial a 35% e pagamento provisório sobre vendas a 2%, com arredondamento monetário a duas casas. As definições guardam código, imposto, base, território/operação, URL institucional, data de observação e `effectiveFrom` nulo quando a fonte consultada não fornece a data jurídica de vigência. Por isso, o catálogo está em `SOURCE_CANDIDATE`: pode calcular em chamadas explícitas para testes/preparação, mas não é activado automaticamente como regra normativa vigente. As páginas institucionais utilizadas são o Portal do Contribuinte para IVA e Imposto Industrial [1].
 
-Os testes confirmam que o IVA continua a calcular apenas com regra activa e compatível, que regras pendentes não são usadas, que todos os nove impostos institucionais estão catalogados e que o estado V2 não activa cálculos materiais para impostos sem configuração.
+A exportação SAF-T AO passou a executar `xsd-schema-validator` contra `docs/SAFTAO1.01_01.xsd` e a devolver `xsdValidation` e `structuralValidation` pela procedure `reports.saftExport`. Falhas de schema ou runtime ficam explícitas e alteram o motivo de bloqueio para `XSD_VALIDATION_FAILED`; a submissão externa continua sempre `false`/`NOT_CONFIGURED`. O Dockerfile de produção instala apenas o runtime Java necessário para esta validação e mantém o build integral do frontend e backend.
 
-## G. Bloqueios
+A execução de `validate-pgca-plan.mjs` sobre `pgca-visually-confirmed-accounts.json` encontrou **27 contas, 51 erros e 16 avisos**. O resultado foi guardado em `docs/pgca-validation-result-2026-08-26.json`; a decisão é `BLOQUEAR`, principalmente porque o inventário não contém naturezas válidas para as contas. Nenhuma conta ou versão PGCA foi activada com base neste resultado.
+
+## G. Testes
+
+A validação desta continuação concluiu com **152 ficheiros de teste e 608 testes aprovados**. Foram cobertos o catálogo e cálculo explícito das novas taxas, o escopo de Cabinda, bases inválidas, aceitação do XML do builder pelo validador Node e rejeição de XML estruturalmente incompleto. O TypeScript terminou sem erros e o build de produção foi concluído.
+
+Os testes confirmam que o IVA existente continua a calcular apenas com regra activa e compatível, que regras pendentes não são usadas, que todos os nove impostos institucionais estão catalogados, que as taxas candidatas não mudam o estado de activação V2 e que o exportador SAF-T expõe o resultado XSD sem confundir validação estrutural com homologação AGT.
+
+## H. Bloqueios
 
 Os bloqueios críticos são a ausência de evidência primária suficiente para parametrizar os impostos não IVA, a necessidade de confirmação humana de páginas legíveis quando os documentos estão incompletos ou degradados, e a dependência de homologação/credenciais AGT para a transição externa do IVA. IEC e IVM exigem ainda fontes de detalhe confirmadas. Nenhum destes bloqueios foi contornado por inferência.
 
-## H. Estado final
+## I. Estado final
 
 | Imposto/área | Estado final V2 |
 |---|---|
@@ -77,7 +85,7 @@ A nomenclatura de inteligência documental foi normalizada: `RUNTIME_LOCAL` iden
 
 Nenhum imposto novo foi colocado em `ATIVO`. A sequência obrigatória permanece: evidência legal → configuração → testes → validação → homologação, quando aplicável → activação controlada.
 
-## I. Versão e reversibilidade
+## J. Versão e reversibilidade
 
 A versão anterior de referência é o checkpoint `b9b858b7`. A versão de trabalho V2 inclui os estados formais de cobertura e a guarda de activação controlada, preservando a configuração anterior. A alteração desta execução é uma extensão V2 do catálogo e da apresentação dos estados, sem substituição da lógica IVA. A versão é reversível através do histórico de checkpoints; a reversão elimina apenas a extensão de estado/apresentação desta execução e mantém a configuração anterior do IVA e os dados persistidos conforme o checkpoint escolhido.
 
@@ -88,7 +96,8 @@ Não houve `DROP`, eliminação de dados, sobrescrita irreversível de regra ou 
 [1]: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas — Portal do Contribuinte, Impostos e taxas.  
 [2]: https://agt.minfin.gov.ao/PortalAGT/#!/legislacao/fiscal — Portal da AGT, Legislação Fiscal.  
 [3]: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-especial-de-consumo — Portal do Contribuinte, Imposto Especial de Consumo.  
-[4]: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/impostos-sobre-veiculos-motorizados — Portal do Contribuinte, Impostos sobre Veículos Motorizados.
+[4]: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/impostos-sobre-veiculos-motorizados — Portal do Contribuinte, Impostos sobre Veículos Motorizados.  
+[5]: https://github.com/assoft-portugal/SAF-T-AO/ — repositório técnico associado ao XSD `SAFTAO1.01_01`, usado apenas como referência de schema; não substitui a validação ou homologação AGT.
 
 ## Verificação visual complementar
 

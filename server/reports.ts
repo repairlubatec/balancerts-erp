@@ -1,3 +1,6 @@
+import path from "node:path";
+import { validateXML } from "xsd-schema-validator";
+
 export type PostedLine = {
   accountCode: string;
   accountName: string;
@@ -157,6 +160,29 @@ export function buildCompleteReportReconciliation(input: Parameters<typeof build
 
 export const SAFT_AO_NAMESPACE = "urn:OECD:StandardAuditFile-Tax:AO_1.01_01";
 export const SAFT_AO_SCHEMA_VERSION = "1.01_01";
+export const SAFT_AO_XSD_PATH = path.resolve(process.cwd(), "docs", "SAFTAO1.01_01.xsd");
+
+export type SaftXsdValidationResult = {
+  valid: boolean;
+  validator: "xsd-schema-validator";
+  schemaPath: string;
+  messages: string[];
+};
+
+export async function validateSaftAoXmlAgainstXsd(xml: string, schemaPath = SAFT_AO_XSD_PATH): Promise<SaftXsdValidationResult> {
+  try {
+    const result = await validateXML(xml, schemaPath);
+    return { valid: result.valid, validator: "xsd-schema-validator", schemaPath, messages: result.messages ?? [] };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return { valid: false, validator: "xsd-schema-validator", schemaPath, messages: [`XSD_VALIDATION_RUNTIME_ERROR:${message}`] };
+  }
+}
+
+export function assertSaftXsdValid(validation: SaftXsdValidationResult) {
+  if (!validation.valid) throw new Error(`SAFT_XSD_INVALID:${validation.messages.join(" | ") || "SCHEMA_VALIDATION_FAILED"}`);
+  return true as const;
+}
 
 export type SaftCoverageInput = {
   companyName: string | null;

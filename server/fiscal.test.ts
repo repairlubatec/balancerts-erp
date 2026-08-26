@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { activeFiscalRule, calculateIva, getFiscalTaxCoverage, validateFiscalActivation } from "./fiscal";
+import { activeFiscalRule, calculateIva, calculateOfficialIndustrialProvisional, calculateOfficialIndustrialTax, calculateOfficialIva, getFiscalTaxCoverage, officialTaxRateCatalog, validateFiscalActivation } from "./fiscal";
 
 const at = new Date("2026-01-15");
 
@@ -27,6 +27,29 @@ describe("Angola IVA rule engine", () => {
     expect(calculateIva({ netAmount: 1000, regime: "EXCLUSAO", rule: exclusion }).taxAmount).toBe(0);
     const simplified = { code: "IVA-SIM-2026", regime: "SIMPLIFICADO" as const, validFrom: new Date("2026-01-01"), evidence: "requires-parametrisation" };
     expect(() => calculateIva({ netAmount: 1000, regime: "SIMPLIFICADO", rule: simplified })).toThrow("FISCAL_RULE_RATE_REQUIRED");
+  });
+});
+
+describe("taxas oficiais consultadas do Motor Fiscal", () => {
+  it("expõe IVA geral a 14% e IVA de Cabinda apenas para bens/importação a 2%", () => {
+    expect(officialTaxRateCatalog.find((rule) => rule.code === "IVA_GERAL")?.rate).toBe(0.14);
+    expect(calculateOfficialIva({ taxableAmount: 1000 })).toMatchObject({ rateCode: "IVA_GERAL", taxAmount: 140, totalAmount: 1140 });
+    expect(calculateOfficialIva({ taxableAmount: 1000, territory: "CABINDA", operation: "GOODS_OR_IMPORT" })).toMatchObject({ rateCode: "IVA_CABINDA_BENS_IMPORTACAO", taxAmount: 20, totalAmount: 1020 });
+    expect(() => calculateOfficialIva({ taxableAmount: 1000, territory: "CABINDA", rateCode: "IVA_CABINDA_BENS_IMPORTACAO" })).toThrow("IVA_CABINDA_SCOPE_MISMATCH");
+  });
+
+  it("calcula Imposto Industrial por lucro tributável e pagamento provisório sobre vendas", () => {
+    expect(calculateOfficialIndustrialTax({ taxableProfit: 1000 })).toMatchObject({ rateCode: "II_GERAL", rate: 0.25, taxAmount: 250 });
+    expect(calculateOfficialIndustrialTax({ taxableProfit: 1000, rateCode: "II_AGRICOLA" })).toMatchObject({ rate: 0.1, taxAmount: 100 });
+    expect(calculateOfficialIndustrialTax({ taxableProfit: 1000, rateCode: "II_SECTOR_ESPECIAL" })).toMatchObject({ rate: 0.35, taxAmount: 350 });
+    expect(calculateOfficialIndustrialProvisional({ salesVolume: 1000 })).toMatchObject({ rateCode: "II_PROVISORIO_VENDAS", rate: 0.02, taxAmount: 20 });
+  });
+
+  it("rejeita bases negativas e mantém o estado de fonte candidato", () => {
+    expect(officialTaxRateCatalog.every((rule) => rule.activationState === "SOURCE_CANDIDATE")).toBe(true);
+    expect(() => calculateOfficialIva({ taxableAmount: -1 })).toThrow("FISCAL_BASE_INVALID");
+    expect(() => calculateOfficialIndustrialTax({ taxableProfit: -1 })).toThrow("FISCAL_PROFIT_INVALID");
+    expect(() => calculateOfficialIndustrialProvisional({ salesVolume: -1 })).toThrow("FISCAL_SALES_VOLUME_INVALID");
   });
 });
 

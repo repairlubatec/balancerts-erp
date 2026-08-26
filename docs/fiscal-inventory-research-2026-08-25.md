@@ -99,3 +99,13 @@ A enumeração acima mostra uma distinção importante: **o enum de persistênci
 A ordem segura para expansão é: (1) completar IVA e obrigações AGT; (2) Imposto Industrial, porque se liga directamente ao PGCA, demonstrações financeiras e apuramento anual; (3) IRT, em conjunto com folha e pagamentos; (4) retenções transversais, modeladas como consequência do imposto principal; (5) IAC e Imposto de Selo, ligados a tesouraria, contratos, financiamentos e documentos; (6) IP e SISA, que exigem cadastro patrimonial e transmissões; e (7) IEC e IVM, que exigem catálogos específicos de produtos/veículos e regras de tributação especial.
 
 Esta ordem é uma decisão de arquitectura e não uma conclusão sobre taxas. Cada activação futura deve conter fonte primária, artigo/anexo, página/evidência, vigência, teste de cálculo, regra contabilística e obrigação declarativa. Até lá, a interface deve mostrar **Não configurado** ou **Persistência apenas**, e o servidor deve rejeitar cálculos sem regra activa.
+
+## Taxas oficiais consultadas em 26/08/2026
+
+A página oficial do Portal do Contribuinte sobre IVA apresenta taxa geral de **14%** e, para a Província de Cabinda, **2%** na importação de mercadorias e transmissão de bens. A página também descreve regimes, isenções, IVA cativo e obrigações declarativas; referências a regimes transitórios antigos devem ser tratadas com vigência própria.
+
+A página oficial do Imposto Industrial apresenta taxa geral de **25%**, taxa única de **10%** para rendimentos de actividades exclusivamente agrícolas, aquícolas, apícolas, avícolas, piscatórias, silvícolas e pecuárias, e taxa única de **35%** para actividades bancárias, seguradoras, operadoras de telecomunicações e empresas petrolíferas angolanas. Apresenta ainda pagamento provisório de **2% sobre vendas** dos primeiros seis meses para o Regime Geral, com prazo indicado no último dia útil de Agosto, e liquidação definitiva por regime.
+
+Estes valores são parâmetros candidatos com fonte institucional consultada, não activação automática: cada versão deve guardar imposto, regime, actividade/território, taxa, base, vigência, diploma/artigo, evidência e teste. A fonte oficial não autoriza aplicar a taxa geral a todas as operações ou empresas sem resolver o regime fiscal concreto.
+
+Fontes: [IVA — Portal do Contribuinte](https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-sobre-valor-acrescentado); [Imposto Industrial — Portal do Contribuinte](https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-industrial).
