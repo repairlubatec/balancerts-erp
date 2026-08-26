@@ -261,3 +261,28 @@ Foi preservado o PDF institucional `diario-republica-i-serie-159-2022-08-22.pdf`
 ### Limite verificado do PDF institucional da Lei n.º 27/22
 
 A conferência visual das páginas 19–20 do PDF institucional mostra que a Lei n.º 27/22 começa apenas no final da página oficial 6070. O ficheiro termina nessa mesma página, imediatamente após o preâmbulo e a fórmula de aprovação, sem disponibilizar o artigo 1.º completo, o artigo 73.º integral, eventuais números/alíneas alterados ou o artigo 3.º de entrada em vigor. Portanto, embora o PDF institucional confirme o índice e a publicação do diploma, **não é uma cópia integral utilizável para parametrização**. A Lei n.º 27/22 permanece `A CONSOLIDAR`; a transcrição Lex.AO continua apenas fonte de localização/comparação até existir o texto primário integral.
+
+
+### Pesquisa na Imprensa Nacional — Lei n.º 27/22
+
+Foi consultada a página oficial de Pesquisa Online de Publicações Oficiais da Imprensa Nacional: https://www.imprensanacional.gov.ao/index.php?id=105&serie=1&page=289. A página confirma o serviço de pesquisa da I Série, mas a vista obtida não devolveu o registo da Lei n.º 27/22 nem um link directo para o PDF integral; apresentou resultados de outras publicações. A evidência já preservada do Diário da República I Série n.º 159 continua a ser a referência institucional disponível, embora incompleta para o articulado da Lei n.º 27/22.
+
+
+### Imprensa Nacional — nova verificação
+
+A pesquisa oficial encontrou uma página para a Lei n.º 27/22 (I Série n.º 159, 22 de Agosto de 2022), cujo sumário é “Que altera o Código de Imposto Industrial”, e uma página para a Lei n.º 28/20, cujo sumário é “Que altera o Código do Imposto sobre os Rendimentos do Trabalho”. Contudo, as vistas consultadas da Imprensa Nacional mostraram conjuntos de resultados da respectiva página de pesquisa e não expuseram um botão/URL directo para o PDF integral. As duas entradas são evidência de catalogação oficial, não evidência documental suficiente para activação de taxas ou regras.
+
+
+### Análise HTML dos resultados da Imprensa Nacional
+
+A análise do HTML guardado da página oficial de pesquisa confirmou que os resultados consultados não contêm href para PDF, download ou volume digitalizado; os links identificados são apenas de navegação do próprio catálogo. Assim, a Imprensa Nacional confirma a existência/catalogação dos diplomas, mas não forneceu neste acesso o ficheiro primário integral necessário para OCR, hash e activação normativa.
+
+
+### Imprensa Nacional — correcção da paginação do catálogo
+
+A pesquisa por página devolveu `page=553`, cujo conteúdo visível confirma a **Lei n.º 26/20**, publicada no Diário da República I Série n.º 107 de 20 de Julho de 2020, com o sumário: “Que altera o Código do Imposto Industrial. — Revoga os artigos 8.º, 9.º e 10.º ... e toda a legislação que contrarie o disposto na presente Lei, nomeadamente a Lei n.º 4/19...”. A página não expôs o PDF integral nem confirmou a Lei n.º 20/20; a anterior referência a `page=553` como Lei n.º 20/20 deve ser tratada como erro de indexação/resultado, não como evidência do conteúdo do diploma.
+
+
+### Divergência de indexação — Lei n.º 20/20
+
+Os resultados do motor de pesquisa da Imprensa Nacional associam a Lei n.º 20/20 à URL `index.php?id=105&serie=1&page=553`, mas a abertura efectiva dessa URL apresenta a Lei n.º 26/20 e outros diplomas da I Série n.º 107. A busca interna do navegador não encontrou “Lei n.º 20/20” nessa página. Por conseguinte, o snippet não foi aceite como prova do texto, da edição ou do PDF da Lei n.º 20/20; esta fonte continua `CATALOGUE_REFERENCE`, não `PRIMARY_PDF`.

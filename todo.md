@@ -3835,3 +3835,12 @@
 - [x] Actualizar os documentos V3.2 e o mapa de execução com o resultado e as pendências não executáveis.
 
 - [x] Incorporar a Lei n.º 27/22 na cadeia do Imposto Industrial e manter a taxa de 6,5% bloqueada até validação do diploma integral e alterações posteriores.
+
+## Fecho de PDFs primários, confirmação PGCA/IVA e activação explícita
+
+- [x] Reabrir o registo de fontes e os critérios de elegibilidade para II, IRT, IS, IP e Lei n.º 27/22.
+- [ ] Localizar e preservar os PDFs primários integrais, registando URL, hash, páginas e estado de autenticidade.
+- [ ] Executar OCR e conferência visual dos diplomas obtidos, sem activar taxas a partir de fontes incompletas.
+- [x] Preparar a fila de confirmação humana literal para as contas/regras PGCA e IVA elegíveis.
+- [ ] Executar activação explícita apenas se todos os bloqueadores e confirmações exigidos forem satisfeitos.
+- [ ] Executar QA final, documentar o resultado e manter abertas as lacunas não elegíveis.
