@@ -167,3 +167,8 @@ Os PDFs do Calendário Fiscal 2026 e da Folha Tributária n.º 94 foram obtidos 
 | Lei n.º 14/23, de 28 de Dezembro | `Lein1423mini.pdf` | 77 | `d9fa7e618a32a134853e761126e7851c331f5620a0eee87be4ce7aae380545d6` | Cabeçalho e republicação do Código do IVA nas pp. 1–3; art. 19.º e taxas nas pp. 8–9; arts. 74.º–78.º na p. 24 | `VISUALLY_CONFIRMED` apenas para os artigos/páginas registados; não activar a cadeia completa |
 
 A classificação acima é granular: confirma os trechos visualmente legíveis e não transforma a conferência parcial em aprovação integral de todas as contas, anexos, taxas, isenções ou regras do diploma.
+
+
+### Complemento visual da Lei n.º 14/23
+
+A republicação integral do Código do IVA nas páginas 44–45 confirma o artigo 19.º com a mesma estrutura de taxas observada nas páginas 8–9: 14% geral, 7% regime simplificado, 7% hotelaria/restauração, 5% bens alimentares/insumos dos anexos e 1% Cabinda nas condições indicadas. O n.º 4 fixa a taxa vigente no momento da exigibilidade. Este bloco foi classificado como `VISUALLY_CONFIRMED` no escopo exacto das páginas revistas; a aprovação da regra no motor continua dependente da cadeia normativa completa e da governação prevista.

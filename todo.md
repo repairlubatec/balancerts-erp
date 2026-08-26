@@ -3764,6 +3764,6 @@
 
 - [x] Inventariar Decreto n.º 82/01 e Lei n.º 14/23 com MIME, páginas, tamanho e SHA-256.
 - [x] Extrair e preservar o texto integral dos dois PDFs, identificando páginas sem camada de texto.
-- [ ] Conferir visualmente contas, naturezas, regras de movimento, artigos, taxas e vigência apenas onde a evidência for legível.
+- [x] Conferir visualmente contas, naturezas, regras de movimento, artigos, taxas e vigência apenas onde a evidência for legível.
 - [x] Actualizar o registo V3.2 e as matrizes com os hashes e páginas confirmadas, sem activar regras não aprovadas.
 - [x] Executar testes de validação e guardar checkpoint da revisão dos PDFs anexados.

@@ -389,3 +389,15 @@ Na página 73, é visível a continuidade das regras de saldos e repartições p
 ## Validação direccionada após os anexos
 
 Foram executados os testes do fluxo PGCA, composição normativa, fontes normativas, workflow, IVA e assistentes de activação. Resultado: **8 ficheiros de teste aprovados e 57 testes aprovados**, sem alteração de dados legais ou activação automática.
+
+
+## Conferência visual — artigo 19.º na republicação integral
+
+As páginas 44–45 da Lei n.º 14/23 mostram o artigo 19.º dentro do Capítulo V da republicação integral do Código do IVA. A página 44 confirma **14% como taxa geral** e **7% para o regime simplificado**. A página 45 confirma **7% para serviços de hotelaria e restauração**, **5% para importações e transmissões de bens alimentares de amplo consumo e insumos agrícolas constantes dos Anexos I e II**, e **1% para importações e transmissões sujeitas ao regime tributário especial da Província de Cabinda**, com a excepção dos bens constantes do Anexo III aos quais se aplica a taxa geral. O n.º 4 confirma que a taxa aplicável é a vigente no momento em que o imposto se torna exigível.
+
+A comparação entre as páginas 8–9 e 44–45 confirma consistência entre o bloco de alteração e a republicação integral. O rodapé da página 44 também identifica as notas de alteração relacionadas com a Lei n.º 14/23 e a Lei n.º 17/19. Esta confirmação é material para o motor IVA, mas a cadeia normativa e os anexos completos continuam a exigir validação própria antes de qualquer mudança de estado para `ACTIVE`.
+
+
+## Vigência e republicação — Lei n.º 14/23
+
+A página 25 do PDF anexado confirma visualmente o artigo 3.º, que enumera revogações específicas do Código do IVA; o artigo 4.º, que determina a republicação integral do Código incluindo alterações, aditamentos e revogações; o artigo 5.º sobre dúvidas e omissões; e o artigo 6.º, que declara que a Lei de Revisão entra em vigor na data da sua publicação. A mesma página identifica aprovação em Luanda em 15 de Novembro de 2023, promulgação em 21 de Dezembro de 2023 e publicação.
