@@ -1,0 +1,44 @@
+# Matriz de Lacunas Legais — Angola V3.2
+
+**Data de corte:** 26 de Agosto de 2026  
+**Finalidade:** orientar a auditoria do corpus fiscal do BALANCERTS.ERP.  
+**Princípio:** lacuna documental não é preenchida por inferência, cópia web ou dado de teste.
+
+| Área | Base identificada | Lacuna concreta | Evidência exigida | Impacto no ERP | Estado |
+|---|---|---|---|---|---|
+| PGC/PGCA | Decreto n.º 82/01 e 765 entradas importadas | Natureza, regra débito/crédito, lançabilidade e páginas legíveis ainda não fechadas para todas as contas | PDF oficial legível, página por conta/regra, hash e confirmação humana | Bloqueia activação e posting | `OPEN — CRITICAL` |
+| IVA | Lei 7/19, Lei 17/19, DP 180/19, DE 134/19, Lei 14/23 | Cadeia temporal consolidada, anexos/modelos e vigência de alterações posteriores | PDFs primários, artigos/anexos, tabela de alterações e aprovação | Bloqueia taxas, isenções, contas IVA e modelos declarativos não confirmados | `OPEN — CRITICAL` |
+| IVA — contas | DP 180/19 identifica 34.5, 34.6, 63.5 e 75.3.1.2 em fonte secundária | Conferência visual literal das contas e movimentos no PDF primário | Página do diploma e confirmação humana | Não activar movimentos por texto secundário | `OPEN — HIGH` |
+| Imposto Industrial | Lei 19/14 e Lei 26/20; DE 83/19; DP 194/20 | Regras actuais de taxas, reintegrações, provisões, preços de transferência e autofacturação | Código consolidado e diplomas regulamentares primários, incluindo tabelas/modelos | Motor permanece parametrizado sem activar regras adicionais | `OPEN — HIGH` |
+| IRT | Lei 18/14 e Lei 28/20 | Tabelas actuais por grupo, deduções, isenções e modelos | Código/tabelas/modelos oficiais vigentes | Cálculo salarial não deve presumir escalões | `OPEN — HIGH` |
+| Imposto Predial | Lei 20/20; DP 191/21 | PDF primário, tabelas e eventuais alterações posteriores | Código, regulamento e tabelas oficiais | Avaliação/liquidação predial bloqueada como cálculo legal | `OPEN — HIGH` |
+| IVM | Lei 24/20 | Tabelas, categorias, pagamento, modelos e alterações posteriores | Lei e modelos oficiais primários | Sem cálculo automático de IVM | `OPEN — HIGH` |
+| IEC | Lei 8/19; Lei 18/19 | Anexos I/II, taxas por produto, rectificações e vigência consolidada | PDFs primários com tabelas anexas legíveis | Não activar taxas IEC | `OPEN — CRITICAL` |
+| IAC | DLP 2/14 | Alterações posteriores, incidência, taxas, retenções e modelos | Código/tabelas/modelos oficiais | Cálculo IAC bloqueado | `OPEN — HIGH` |
+| Imposto do Selo | DLP 3/14 e tabela anexa | Tabela actual, alterações por OGE e modelos/procedimentos | Código, tabela anexa e OGE/diplomas oficiais | Cálculo IS bloqueado | `OPEN — CRITICAL` |
+| SISA/Sucessões/Doações | Página oficial de imposto identificada | Diploma base, taxas, isenções, modelos e vigência consolidada | PDFs oficiais e tabelas | Motor não deve inferir transmissões patrimoniais | `OPEN — HIGH` |
+| Legislação geral | Lei 21/14; Lei 21/20; DP 245/21; DE 456/17; DE 372/17 | PDFs primários e relações de alteração/revogação | Fonte institucional e documentos integrais | NIF, execução e impressos permanecem condicionados | `OPEN — HIGH` |
+| Benefícios fiscais | Lei 8/22; DP 213/23 | Âmbito, regimes, condições, limites, certificados e vigência | Código/regulamentos/modelos oficiais | Não aplicar benefício por etiqueta manual sem prova | `OPEN — HIGH` |
+| Facturação | DP 71/25; AGT; DP 292/18 histórico; DE 73/19 | PDF institucional do DP 71/25, entrada em vigor, modelos e certificação; relação com DE 74/19/Rectificação 10/19 | Diploma primário e materiais AGT oficiais | Emissão deve manter estado condicionado até prova de conformidade | `OPEN — CRITICAL` |
+| Autofacturação | DP 194/20 | Regras actuais, âmbito e modelos após novo regime de facturas | Diploma e modelos oficiais | Fluxo de autofacturação não activar por histórico | `OPEN — HIGH` |
+| SAF-T AO | XSD oficial SAFTAO1.01_01.xsd e validação estrutural já integrada | Completar validação semântica, fiscal e de origem; confirmar versão exigida por período | XSD, manual AGT e regras oficiais vigentes | Estrutural pode validar; aceitação fiscal externa continua fora | `OPEN — HIGH` |
+| OGE 2026 | Lei 14/25 e Circular 1 GACA/GJ/AGT/2026 identificadas no índice | Obter PDFs primários e mapear alterações reais por imposto | Lei, circular e anexos oficiais | Não alterar taxas do motor por índice ou notícia | `OPEN — CRITICAL` |
+| Sectores IVRM | Legislação do Imposto sobre Valor dos Recursos Minerais | Diploma, regulamentos, tabelas e procedimentos sectoriais | Fonte ministerial/AGT/Diário da República | Fora do cálculo geral até corpus fechado | `OPEN — MEDIUM` |
+| IEJ | Legislação vigente do Imposto Especial sobre Jogos | Diploma, taxas, tabelas e procedimentos oficiais | Fonte primária e modelos | Não activar cálculo IEJ | `OPEN — MEDIUM` |
+| CEOC | Código/regime de execução e cobrança | Diplomas, prazos e procedimentos actuais | Fonte primária e manuais oficiais | Alertas apenas informativos até confirmação | `OPEN — MEDIUM` |
+
+## Critérios de fecho
+
+Uma linha só pode mudar para `CLOSED` quando a equipa tiver anexado a fonte primária, validado a integridade do PDF, identificado artigos/anexos relevantes, fechado alterações/revogações e vigência, e registado aprovação humana com actor, data, hash e escopo. Para contas PGCA, é ainda obrigatório confirmar código, designação literal, pai, nível hierárquico, natureza, regra de movimentação e se a conta é movimentável.
+
+## Consequência actual
+
+A matriz não autoriza activar o PGCA, IVA, taxas ou modelos. O comportamento correcto é **fail-closed**: permitir pesquisa, revisão, preparação e simulação explicitamente rotuladas, mas rejeitar posting, emissão ou cálculo legal quando a cadeia documental ou a validação normativa estiver incompleta.
+
+## Referências
+
+[1]: https://agt.minfin.gov.ao/PortalAGT/#!/legislacao/fiscal#collapse2391 "AGT — Legislação Fiscal"
+[2]: https://agt.minfin.gov.ao/PortalAGT/#!/servicos-fiscais//novo-menu-3 "AGT — Regime Jurídico das Facturas"
+[3]: https://portaldocontribuinte.minfin.gov.ao/legislacao "Portal do Contribuinte — Legislação"
+[4]: https://lex.ao/docs/presidente-da-republica/2025/decreto-presidencial-n-o-71-25-de-20-de-marco/ "Lex.AO — Decreto Presidencial n.º 71/25"
+[5]: https://lex.ao/docs/assembleia-nacional/2019/lei-n-o-8-19-de-24-de-abril/ "Lex.AO — Lei n.º 8/19"

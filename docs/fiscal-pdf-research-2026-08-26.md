@@ -120,3 +120,120 @@ Foram encontrados dois URLs directos no domínio secundário `files.lex.ao`:
 2. Decreto Executivo n.º 134/19: https://files.lex.ao/ministerio-das-financas/2019/decreto-executivo-n-o-134-19-de-10-de-junho/download/decreto-executivo-n-o-134-19-de-10-de-junho_ministerio-das-financas_lex-ao.pdf
 
 Estes URLs são úteis para o utilizador descarregar e comparar, mas continuam classificados como `SECONDARY_REPOSITORY_COPY`. Não devem ser a única prova documental para activação no ERP. Os restantes diplomas não expuseram URLs `.pdf` no HTML inspeccionado.
+
+
+## Pacote adicional das imagens — confirmação do índice oficial
+
+O índice oficial do Portal do Contribuinte foi consultado no My Browser. A categoria Geral expõe como itens interactivos: Circular n.º 1 GACA_GJ_AGT2026, Lei n.º 21/20, Lei n.º 21/14, Decreto Presidencial n.º 245/21, Decreto Executivo n.º 456/17, Decreto Executivo n.º 372/17 e Despacho n.º 316/17. O índice também expõe categorias OGE, Retenção na Fonte, Taxa de Circulação, FACTA, Aduaneiros, Imposto Predial, Imposto Industrial, IRT, IVM, IEC e IVA.
+
+Foi tentada a abertura da Circular n.º 1 GACA/GJ/AGT/2026. O item permaneceu no índice e não expôs um PDF/direct URL separado no My Browser. Uma tentativa técnica read-only com curl também não obteve HTML utilizável devido à resposta TLS/servidor; não foi feita qualquer operação de escrita nem se inventou um URL.
+
+A imagem adicional também corrige uma referência anterior: o IEC deve ser tratado inicialmente com Lei n.º 8/19 e Lei n.º 18/19, não como Lei n.º 16/21 sem diploma oficial confirmado. Esta correcção foi registada como requisito de verificação, não como conclusão de vigência.
+
+
+## Transcrição visual do pacote adicional — imagens 1 e 2
+
+A imagem `WhatsAppImage2026-08-26at11.30.16(1).jpeg` apresenta os itens 9–20: legislação vigente sobre provisões; legislação vigente sobre preços de transferência; IRT com Lei n.º 18/14, Lei n.º 28/20, Decreto Presidencial n.º 194/20 quando aplicável, tabelas oficiais vigentes e modelos oficiais AGT; IVA com Lei n.º 7/19, Lei n.º 17/19, Decreto Executivo n.º 134/19, alterações posteriores oficialmente confirmadas e regulamentação/modelos vigentes.
+
+A imagem `WhatsAppImage2026-08-26at11.30.16(2).jpeg` confirma os itens IVA 16–20 e acrescenta a Pasta 04 — Imposto Predial: Lei n.º 20/20, Decreto Presidencial n.º 191/21 sobre inscrição/avaliação/reavaliação dos prédios, alterações posteriores oficialmente confirmadas e modelos oficiais. A Pasta 05 — IVM começa na parte inferior, sem os itens seguintes visíveis nesta imagem.
+
+As referências foram transcritas como requisitos de pesquisa; não constituem ainda confirmação de vigência ou autenticidade documental.
+
+
+## Transcrição visual do pacote adicional — imagens 3 e 4
+
+A imagem `WhatsAppImage2026-08-26at11.30.16.jpeg` apresenta a Pasta 00 — Controlo: Lei n.º 14/25 — OGE 2026; Circular n.º 01 GACA/GJ/AGT/2026 — medidas tributárias do OGE 2026; Calendário Fiscal AGT 2026. A Pasta 01 — Imposto Industrial contém Lei n.º 19/14, Lei n.º 26/20, Decreto Executivo n.º 83/19 sobre submissão electrónica da Modelo 1, Decreto Presidencial n.º 194/20 sobre autofacturação, legislação vigente sobre reintegrações/amortizações, provisões e preços de transferência.
+
+A imagem `WhatsAppImage2026-08-26at11.30.17(1).jpeg` regista uma correcção importante: não se deve afirmar que a Lei n.º 16/21 é o Código do IEC sem diploma oficial confirmado; a página oficial consultada apresenta Lei n.º 8/19 e Lei n.º 18/19. A Pasta 07 — IAC contém Decreto Legislativo Presidencial n.º 2/14, alterações posteriores, Código dos Benefícios Fiscais quando aplicável e modelos AGT. A Pasta 08 — Imposto do Selo começa com Decreto Legislativo Presidencial n.º 3/14 e respectiva tabela anexa.
+
+Estas referências permanecem requisitos para pesquisa; a menção nas imagens não prova, por si só, vigência actual.
+
+
+## Transcrição visual do pacote adicional — imagens 5 e 6
+
+A imagem `WhatsAppImage2026-08-26at11.30.17(2).jpeg` conclui a Pasta 08 — Imposto do Selo: Decreto Legislativo Presidencial n.º 3/14, Tabela Anexa, alterações posteriores, modelos/procedimentos oficiais e alterações aplicáveis pelo OGE 2026. Regista também que o Calendário Fiscal 2026 confirma declaração anual e liquidação/pagamento mensal do IS. A Pasta 09 — Legislação Geral começa com Lei n.º 21/14 — Código Geral Tributário, Lei n.º 21/20 — alteração ao CGT, DP n.º 245/21 — NIF, DE n.º 456/17 — modelos de impressos/formulários e DE n.º 372/17 — execução fiscal.
+
+A imagem `WhatsAppImage2026-08-26at11.30.17(3).jpeg` conclui a Pasta 09 com Despacho n.º 316/17 — Grandes Contribuintes, legislação vigente do processo tributário e das execuções fiscais. A Pasta 10 — Benefícios Fiscais contém Lei n.º 8/22, alterações posteriores e regulamentação aplicável. A Pasta 11 — Facturação e SAF-T contém DP n.º 292/18 — facturas e documentos equivalentes, DP n.º 312/18 — submissão electrónica dos elementos contabilísticos, legislação/regulamentação posterior do SAF-T, facturação electrónica e procedimentos oficiais AGT.
+
+
+## Transcrição visual do pacote adicional — imagens 7 e 8
+
+A imagem `WhatsAppImage2026-08-26at11.30.17(4).jpeg` conclui a Pasta 11 com a observação de que o calendário 2026 exige SAF-T em determinadas situações. A Pasta 12 — CEOC contém Lei n.º 14/25, Circular AGT n.º 01/2026 e regulamentação/instruções posteriores oficialmente publicadas. A Pasta 13 — IEJ contém Lei n.º 17/24 — Lei da Actividade de Jogos, regulamentação fiscal/sectorial aplicável, alterações posteriores e modelos/procedimentos oficiais. A Pasta 14 — IVRM/Sectorial contém legislação vigente do Imposto sobre o Valor dos Recursos Minerais, regulamentação mineira fiscal, tabelas e procedimentos oficiais.
+
+A imagem `WhatsAppImage2026-08-26at11.30.17.jpeg` conclui a Pasta 05 — IVM com Lei n.º 24/20 — Imposto sobre Veículos Motorizados, alterações posteriores oficialmente confirmadas, tabelas/procedimentos e modelos IVM. A Pasta 06 — IEC contém Lei n.º 8/19 — Código do IEC, Lei n.º 18/19 — alteração, alterações posteriores que tenham modificado o regime, tabelas de taxas vigentes e modelos/procedimentos AGT. A afirmação visual de que a Lei n.º 24/20 substituiu a antiga Taxa de Circulação é um requisito a conferir na fonte primária.
+
+
+## Transcrição visual final — estado documental
+
+A imagem `WhatsAppImage2026-08-26at11.30.18.jpeg` define quatro estados que devem ser mantidos no ERP: `CONFIRMADO` — fonte oficial localizada e diploma identificado; `A CONSOLIDAR` — diploma oficial identificado, mas alterações/vigência ainda não fechadas; `PDF OFICIAL A LOCALIZAR` — diploma necessário sem PDF oficial directo; `HISTÓRICO` — não deve alimentar o cálculo actual. A imagem indica expressamente que não devem ser inventados URLs directos.
+
+A transcrição visual completa do pacote vai dos itens 1 a 68 e cobre Controlo/OGE, II, IRT, IVA, IP, IVM, IEC, IAC, IS, legislação geral, benefícios fiscais, facturação/SAF-T, CEOC, IEJ e IVRM/Sectorial. Os itens sem diploma nominal continuam a exigir pesquisa individual de fonte, vigência e modelo oficial.
+
+
+## Confirmações de pesquisa adicional — IP e IEC
+
+O Decreto Presidencial n.º 191/21 foi confirmado em página de localização como regulamento das regras de inscrição, avaliação e reavaliação de imóveis para efeitos do Código do Imposto Predial, publicado no Diário da República I Série n.º 150 de 10 de Agosto de 2021, pág. 6402, revogando o DP n.º 81/11 e o Despacho n.º 1069/11.
+
+A Lei n.º 8/19 foi confirmada em página de localização como Código do Imposto Especial de Consumo, publicado no Diário da República I Série n.º 55 de 24 de Abril de 2019, pág. 2947, com entrada em vigor em 1 de Julho de 2019. O texto identifica incidência, isenções, base de cálculo, liquidação, taxas e tabelas anexas. A Lei n.º 18/19 e rectificações/alterações posteriores ainda devem ser consolidadas antes de activar taxas IEC.
+
+A pesquisa confirmou também a página oficial do Portal do Contribuinte com a Lei n.º 26/20 e Lei n.º 19/14 para o Imposto Industrial, e a página Lex.AO da Lei n.º 26/20 como alteração do Código do Imposto Industrial, publicada no Diário da República I Série n.º 107 de 20 de Julho de 2020, pág. 3841. Para IVM e IP, as imagens identificam Lei n.º 24/20 e Lei n.º 20/20; a confirmação de vigência e PDFs primários permanece em curso.
+
+
+## PDFs adicionais descarregados — cópias secundárias Lex.AO
+
+Foram obtidos oito PDFs que responderam `200 application/pdf` através de padrões de download do domínio secundário `files.lex.ao`. A integridade técnica foi verificada com `pdfinfo`; todos permanecem `SECONDARY_REPOSITORY_COPY` até confronto com publicação oficial.
+
+| Ficheiro | Páginas | SHA-256 |
+|---|---:|---|
+| lei-26-20-lexao.pdf | 9 | `06e316a8541ce4b0dcb2de0fcf1c49695d77fbf7820ff86d3673599b7c6a993b` |
+| lei-28-20-lexao.pdf | 25 | `db464c65f7d7c48b5df1ac6c41088c665a15627d23effe674dc5fe700dd9ec2b` |
+| lei-24-20-lexao.pdf | 4 | `a97b844b8dd72cf510a86f1620978ad959ae9e7e487e408cd507968bf9838be8` |
+| lei-18-19-lexao.pdf | 7 | `5324369a16ea6fb89ddd4377a5501be1b6d287309302cdd0f4a820d84e52febf` |
+| decreto-191-21-lexao.pdf | 9 | `8333890d162a9ff2d8ca7b906b7df2bf356008b5a2b35b888cf5a41c7b501112` |
+| decreto-194-20-lexao.pdf | 4 | `a3c281ae8dcaed9f79098b06666ef39a929d8274f93792c80c0483ee36153134` |
+| decreto-312-18-lexao.pdf | 29 | `cdb922c8facd35b7a10deeb91090475e71c74a4a8d9bb70331bdb70c505e71f7` |
+| lei-8-22-lexao.pdf | 12 | `dd112e525311b7d4c42a4cbc1aa2903a4a2390c60da451da06b7f103bd312b9d` |
+
+Os nomes oficiais e as datas devem ser validados contra cada página de origem e contra a publicação no Diário da República antes de classificar vigência.
+
+## Actualização crítica — regime jurídico das facturas
+
+A pesquisa de 26-08-2026 identificou o Decreto Presidencial n.º 71/25, de 20 de Março, como novo regime aplicável à emissão, rectificação, anulação, conservação e arquivamento das facturas e documentos fiscalmente relevantes. A página Lex.AO indica que revoga o Decreto Presidencial n.º 292/18. Este ponto altera a prioridade do corpus de facturação: o DP 292/18 deve ser preservado como histórico/transição, enquanto o DP 71/25 deve ser analisado como candidato vigente, sem activar automaticamente qualquer regra.
+
+Também foram descarregados, como cópias secundárias técnicas, os seguintes PDFs adicionais:
+
+| Ficheiro | Páginas | SHA-256 |
+|---|---:|---|
+| decreto-71-25-lexao.pdf | 21 | `87491719e52d4fb906f7972d0673561218886ff40ab570d4d0d5c0c361ef9ebe` |
+| decreto-92-25-lexao.pdf | 39 | `b96e9accae8d59272f29cb2a29d01727509447a2737f6bb7f6cd1ecd4b8f4139` |
+| decreto-73-19-lexao.pdf | 4 | `f4ecce6ebdfd51c1b471f26fba422fb6f565673abfbe478cb86873312dc171b5` |
+
+O DP 92/25 foi incluído por aparecer como diploma relacionado na pesquisa do regime de facturação; a sua função exacta e vigência devem ser lidas integralmente antes de ser classificado. O DE 73/19 foi incluído por regulamentar requisitos do regime anterior e deve ser ligado temporalmente ao DP 292/18, não tratado como regra autónoma actual.
+
+## Confirmação institucional AGT — facturação
+
+A página oficial da AGT sobre legislação fiscal lista expressamente o `Decreto Presidencial n.º 71/25 de 20 de Março — Lei que Aprova o Regime Jurídico das Facturas`, além do `Decreto Executivo n.º 74/19` sobre regras de validação de sistemas e da Rectificação n.º 10/19. A página operacional da AGT descreve o regime como obrigatório para transmissões onerosas de bens e prestações de serviços, exige identificação fiscal, numeração sequencial/cronológica, discriminação, preço em moeda nacional, impostos ou fundamento da não liquidação, datas, língua portuguesa, identificação do sistema e, quando aplicável, certificação.
+
+A mesma página indica regras de processamento informático, emissão em triplicado, tratamento de 2.ª via, procedimento de inoperacionalidade e conservação de facturas e registos informáticos, com cópias de segurança disponíveis para consulta. Estes requisitos são fonte institucional operacional e devem ser mapeados ao DP 71/25 e às normas de validação AGT, sem copiar cegamente texto histórico do DP 292/18.
+
+## Verificação técnica de camada de texto
+
+A extracção `pdftotext -layout` dos onze PDFs adicionais descarregados não produziu texto útil nos cabeçalhos, indicando que os ficheiros são digitalizações/imagens ou têm camada de texto não acessível. Por isso, não foram inferidos títulos, artigos, taxas, modelos ou vigência a partir dos ficheiros. A próxima validação segura para cada diploma é OCR/revisão visual página a página, com preservação do PDF original e hash, e posterior confronto com a fonte institucional.
+
+## Validação cruzada adicional — IRT, IEC, IVM e Imposto Industrial
+
+A página de localização da Lei n.º 26/20 confirma que altera o Código do Imposto Industrial aprovado pela Lei n.º 19/14, revoga os artigos 8.º, 9.º e 10.º do código anterior e a Lei n.º 4/19. A página identifica publicação no Diário da República I Série n.º 107 de 20 de Julho de 2020, pág. 3841. A alteração inclui matérias de regime geral/simplificado, determinação da matéria colectável, custos, amortizações, provisões, deduções e obrigações electrónicas; não autoriza, por si só, o uso de qualquer taxa fora da cadeia consolidada.
+
+A página da Lei n.º 28/20 confirma que altera o Código do IRT e revoga a Lei n.º 9/19 e a Lei n.º 28/19. Identifica publicação no Diário da República I Série n.º 109 de 22 de Julho de 2020, pág. 3875. O texto consultado contém alterações aos grupos A/B/C, matéria colectável, retenções e tabelas; as tabelas anexas devem ser preservadas e validadas antes de implementar escalões.
+
+A página da Lei n.º 18/19 confirma alteração da Lei n.º 8/19 do IEC, publicada no Diário da República I Série n.º 104 de 13 de Agosto de 2019, pág. 5066, com entrada em vigor em 1 de Outubro de 2019. A alteração inclui veículos automóveis, sacos de plástico, palhinhas e pneumáticos nas tabelas, altera liquidação/entrega e mantém os Anexos I e II de taxas. Por isso, a cadeia IEC mínima é Lei 8/19 → Lei 18/19, sem tratar a referência visual à Lei 16/21 como confirmada.
+
+A página da Lei n.º 24/20 confirma o IVM, publicada no Diário da República I Série n.º 103 de 13 de Julho de 2020, pág. 3803, com entrada em vigor 30 dias após publicação. O diploma revoga diversos regimes anteriores, determina que a taxa é valor fixo nas tabelas anexas e prevê pagamento de Janeiro a Junho. A tabela anexa é necessária para qualquer cálculo e não deve ser substituída por estimativa.
+
+## Correcção após OCR — natureza dos PDFs adicionais
+
+O OCR das primeiras páginas revelou que vários ficheiros descarregados do Lex.AO são edições completas do Diário da República, e não PDFs isolados do diploma. Assim, o número de páginas e o hash continuam a identificar a evidência preservada, mas a análise deve localizar o diploma dentro da edição e verificar a paginação interna.
+
+Foi corrigida uma classificação importante: o Decreto Presidencial n.º 92/25, de 29 de Abril, não é diploma de facturação. O OCR identifica-o como o Estatuto Orgânico da Administração Geral Tributária, revogando, entre outros, os Decretos Presidenciais n.º 324/14, 135/18 e 215/19. Deve ser tratado na camada institucional/AGT e não na cadeia normativa de facturação.
+
+O OCR também confirmou visualmente, nas edições preservadas, referências ao Decreto Presidencial n.º 191/21 sobre inscrição, avaliação e reavaliação de imóveis; ao Decreto Presidencial n.º 312/18 sobre submissão electrónica de elementos contabilísticos; à Lei n.º 8/22 sobre o Código dos Benefícios Fiscais; ao Decreto Presidencial n.º 71/25; e ao Decreto Executivo n.º 73/19. Esta confirmação é de identificação/publicação do Diário, não substitui a revisão integral dos artigos e anexos.
