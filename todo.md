@@ -3774,4 +3774,4 @@
 - [x] Conferir visualmente o lote Activo/Tesouraria, registando código, designação, natureza e movimento apenas quando legíveis.
 - [x] Conferir visualmente o lote Capital Próprio/Passivo, registando código, designação, natureza e movimento apenas quando legíveis.
 - [x] Conferir visualmente o lote Resultados/IVA e confrontar as contas IVA posteriores sem misturar o diploma-base com o DP 180/19.
-- [ ] Actualizar a matriz V3.2, executar testes e guardar checkpoint por lote, mantendo a activação global bloqueada.
+- [x] Actualizar a matriz V3.2, executar testes e guardar checkpoint por lote, mantendo a activação global bloqueada.
