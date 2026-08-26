@@ -331,3 +331,7 @@ A página Lex.AO consultada fornece o texto e os metadados da Lei n.º 17/24, ma
 A verificação final confirmou TypeScript sem erros e build de produção concluído. A inspecção estática do guard de activação confirma que `canActivatePgcVersion` só retorna verdadeiro quando `readiness.ready === true` e a lista de `blockers` está vazia. Os estados `NEEDS_NORMATIVE_VALIDATION` e `SOURCE_CANDIDATE` continuam tratados como não activáveis. A suite de regressão mantém 153 ficheiros e 610 testes aprovados.
 
 O build apresenta apenas avisos de optimização sobre chunks superiores a 500 kB; não há erro de compilação. A pendência documental de PDFs primários não expostos permanece aberta e impede qualquer fecho normativo total.
+
+## Cobertura técnica do registo legal
+
+A revisão do schema confirmou que o ERP já dispõe de estruturas persistentes para `normativeSources`, `normativeSourceRelations`, `ivaNormativeRules`, `ivaAccountMappings` e `pgcNormativeLayers`, com URL, hash, paginação, vigência, estado de verificação e relações temporais. Assim, a auditoria V3.2 pode continuar a utilizar o modelo existente sem criar tabelas duplicadas. O estado documental continua separado do estado `ACTIVE`, e as novas fontes devem entrar como `PENDING`/`OCR_REVIEWED` até aprovação adequada.
