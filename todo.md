@@ -3815,3 +3815,5 @@
 - [x] Classificar os links oficiais de Imposto Industrial, IRT, Imposto Predial e Imposto do Selo como fontes operacionais, sem os tratar como tabelas normativas completas.
 - [x] Actualizar o registo de fontes e a matriz de lacunas V3.2, distinguindo diplomas primários, páginas institucionais e materiais auxiliares.
 - [x] Executar testes e guardar checkpoint sem activar automaticamente taxas ou regras fiscais.
+
+- [x] Corrigir a consulta normativa.ivaAccounts para não enviar a chave regime quando não houver filtro, eliminando o erro tRPC 400 e validar o carregamento do módulo.

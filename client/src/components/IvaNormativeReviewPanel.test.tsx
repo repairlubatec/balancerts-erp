@@ -13,6 +13,7 @@ const mocks = vi.hoisted(() => ({
   downloadBase64File: vi.fn(),
   downloadIvaExport: vi.fn(),
   openIvaExport: vi.fn(() => true),
+  queryInputs: new Map<string, unknown[]>(),
 }));
 
 vi.mock("sonner", () => ({ toast: mocks.toast }));
@@ -61,8 +62,22 @@ vi.mock("@/lib/trpc", () => {
               blockers: ["IVA_CADEIA_NORMATIVA_INCOMPLETA"],
             }),
         },
-        ivaRules: { useQuery: () => query([]) },
-        ivaAccounts: { useQuery: () => query([]) },
+        ivaRules: {
+          useQuery: (input: unknown) => {
+            const values = mocks.queryInputs.get("ivaRules") ?? [];
+            values.push(input);
+            mocks.queryInputs.set("ivaRules", values);
+            return query([]);
+          },
+        },
+        ivaAccounts: {
+          useQuery: (input: unknown) => {
+            const values = mocks.queryInputs.get("ivaAccounts") ?? [];
+            values.push(input);
+            mocks.queryInputs.set("ivaAccounts", values);
+            return query([]);
+          },
+        },
         exportIvaReadinessPdf: mutation("exportIvaReadinessPdf"),
         reviewIvaRule: mutation("reviewIvaRule"),
         reviewIvaAccount: mutation("reviewIvaAccount"),
@@ -89,9 +104,23 @@ afterEach(() => {
   cleanup();
   vi.clearAllMocks();
   mocks.mutations.clear();
+  mocks.queryInputs.clear();
 });
 
 describe("exportação IVA na revisão normativa", () => {
+  it("não envia regime à consulta de contas IVA", () => {
+    renderReviewPanel();
+
+    const accountInputs = mocks.queryInputs.get("ivaAccounts") ?? [];
+    expect(accountInputs[0]).toEqual({
+      organizationId: 3,
+      asOf: new Date("2026-08-23T00:00:00Z"),
+      includePending: true,
+      limit: 100,
+    });
+    expect(accountInputs[0]).not.toHaveProperty("regime");
+  });
+
   it("confirma por toast a preparação do CSV e do PDF", () => {
     renderReviewPanel();
 

@@ -204,8 +204,20 @@ export function IvaNormativeReviewPanel({
     queryInput ?? { organizationId: 0, limit: 1 },
     { enabled: Boolean(organizationId) }
   );
+  const accountsQueryInput = useMemo(
+    () =>
+      organizationId
+        ? {
+            organizationId,
+            asOf: asOfDate,
+            includePending: isAdmin,
+            limit: 100,
+          }
+        : undefined,
+    [organizationId, asOfDate, isAdmin]
+  );
   const accountsQuery = trpc.normative.ivaAccounts.useQuery(
-    queryInput ?? { organizationId: 0, limit: 1 },
+    accountsQueryInput ?? { organizationId: 0, limit: 1 },
     { enabled: Boolean(organizationId) }
   );
   const utils = trpc.useUtils();
