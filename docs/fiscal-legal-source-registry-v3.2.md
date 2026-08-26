@@ -157,3 +157,13 @@ Estes materiais são úteis para a camada de controlo e alertas de obrigações,
 ## 14. Verificação dos materiais AGT 2026
 
 Os PDFs do Calendário Fiscal 2026 e da Folha Tributária n.º 94 foram obtidos do repositório institucional e verificados tecnicamente. Permanecem na categoria `REFERÊNCIA OPERACIONAL/EXPLICATIVA`, sem autoridade autónoma para alterar taxas, isenções ou regras de liquidação.
+
+
+## 15. PDFs primários anexados em 26-08-2026
+
+| Fonte | Ficheiro | Páginas | SHA-256 | Evidência visual confirmada | Estado ERP |
+|---|---|---:|---|---|---|
+| Decreto n.º 82/01, de 16 de Novembro | `Decreton.º82-01de16deNovembro_AprovaoPlanoGeraldeContabilidade.pdf` | 97 | `04359cb12d48a20cc5326ca001cd0597b1904a7d99d376b1820e8be40f332c89` | Cabeçalho do Diário da República e aprovação do PGC nas pp. 1–3; conta 75.3 e subcontas legíveis na p. 55; regras de natureza/movimento legíveis nas pp. 70–73 | `VISUALLY_CONFIRMED` apenas para os trechos registados; não activar o plano global |
+| Lei n.º 14/23, de 28 de Dezembro | `Lein1423mini.pdf` | 77 | `d9fa7e618a32a134853e761126e7851c331f5620a0eee87be4ce7aae380545d6` | Cabeçalho e republicação do Código do IVA nas pp. 1–3; art. 19.º e taxas nas pp. 8–9; arts. 74.º–78.º na p. 24 | `VISUALLY_CONFIRMED` apenas para os artigos/páginas registados; não activar a cadeia completa |
+
+A classificação acima é granular: confirma os trechos visualmente legíveis e não transforma a conferência parcial em aprovação integral de todas as contas, anexos, taxas, isenções ou regras do diploma.

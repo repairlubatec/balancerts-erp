@@ -3759,3 +3759,11 @@
 - [x] Actualizar o relatório documental e guardar checkpoint
 
 - [x] Consolidar o registo de fontes legais V3.2 e a matriz de lacunas com os PDFs adicionais, mantendo o estado fail-closed e sem activar taxas/regras sem fonte primária confirmada.
+
+## Validação dos PDFs primários anexados — 2026-08-26
+
+- [x] Inventariar Decreto n.º 82/01 e Lei n.º 14/23 com MIME, páginas, tamanho e SHA-256.
+- [x] Extrair e preservar o texto integral dos dois PDFs, identificando páginas sem camada de texto.
+- [ ] Conferir visualmente contas, naturezas, regras de movimento, artigos, taxas e vigência apenas onde a evidência for legível.
+- [x] Actualizar o registo V3.2 e as matrizes com os hashes e páginas confirmadas, sem activar regras não aprovadas.
+- [ ] Executar testes de validação e guardar checkpoint da revisão dos PDFs anexados.

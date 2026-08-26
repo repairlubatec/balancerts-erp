@@ -61,3 +61,15 @@ Cada ponto deve ser registado como regra temporal de 2026, com artigo, condiçã
 ## IEJ — actualização normativa
 
 A Lei n.º 17/24, de 28 de Outubro, substitui a Lei n.º 5/16 no plano sectorial da actividade de jogos. A lacuna permanece aberta quanto ao sistema fiscal especial referido no preâmbulo: faltam identificar, obter e validar os artigos fiscais, regulamentos, tabelas e modelos que possam alimentar o motor. A lei sectorial, isoladamente, não autoriza a criação de taxas IEJ.
+
+
+## Evidências primárias anexadas — estado granular
+
+| Área | Evidência confirmada | Lacuna que permanece | Efeito fail-closed |
+|---|---|---|---|
+| PGCA-base | Decreto n.º 82/01: aprovação do PGC nas pp. 1–3; conta 75.3 e subcontas na p. 55; descrições de natureza/movimento nas pp. 70–73; SHA-256 `04359cb12d48a20cc5326ca001cd0597b1904a7d99d376b1820e8be40f332c89` | Conferência integral das 765 contas, hierarquia completa e regras de todas as contas movimentáveis | Não activar PGCA-82-01 globalmente |
+| IVA — taxas | Lei n.º 14/23, art. 19.º, pp. 8–9: 14% geral, 7% simplificado, 7% hotelaria/restauração, 5% bens alimentares/insumos dos anexos e 1% regime especial de Cabinda nos termos visíveis; SHA-256 `d9fa7e618a32a134853e761126e7851c331f5620a0eee87be4ce7aae380545d6` | Confronto com toda a cadeia 7/19, 17/19, DP 180/19, DE 134/19 e demais alterações; tabelas/anexos completos | Manter regras como candidatas/pendentes até a cadeia completa estar aprovada |
+| IVA — regras especiais | Lei n.º 14/23, arts. 74.º–78.º, p. 24: Imposto do Selo, não aceitação do IVA dedutível, reporte TPA, comércio electrónico e pagamento diferido | Mapeamento jurídico e operacional detalhado, modelos declarativos e dependências externas | Não activar automaticamente estes comportamentos |
+| Contas IVA específicas | O Decreto n.º 82/01 anexado confirma o quadro-base e a p. 55 não contém as contas posteriores 34.5/34.6/63.5/75.3.1.2 | Conferência do DP 180/19 e prova primária das contas IVA posteriores | Preservar camadas separadas; não substituir o plano-base |
+
+A matriz passou a distinguir **trecho primário visualmente confirmado** de **cobertura integral ainda pendente**. Nenhuma lacuna foi preenchida por inferência.

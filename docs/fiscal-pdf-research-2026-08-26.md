@@ -339,3 +339,53 @@ A revisão do schema confirmou que o ERP já dispõe de estruturas persistentes 
 ## Verificação read-only da persistência
 
 Foram executadas consultas read-only à tabela `normativeSources` para inventariar fontes, estados, vigência, paginação e hashes, e uma agregação por organização/estado. Ambas concluíram com ligação ao MySQL/TiDB, sem inserções, actualizações ou alterações de schema. A verificação não altera o princípio de que documentos novos devem entrar em estado pendente e só podem alcançar `ACTIVE` após a governação normativa prevista.
+
+=== Decreton.º82-01de16deNovembro_AprovaoPlanoGeraldeContabilidade.pdf ===
+ 0 97 /tmp/decreto-82-01-anexo.txt
+
+=== Lein1423mini.pdf ===
+ 0 77 /tmp/lei-14-23-anexo.txt
+
+## PDFs primários anexados — inventário técnico
+
+O Decreto n.º 82/01 anexado tem 97 páginas, 5 921 045 bytes, MIME `application/pdf`, PDF 1.5, produtor GPL Ghostscript 9.18, autor indicado `Jurisnet`, SHA-256 `04359cb12d48a20cc5326ca001cd0597b1904a7d99d376b1820e8be40f332c89`. A Lei n.º 14/23 anexada tem 77 páginas, 5 266 953 bytes, MIME `application/pdf`, PDF 1.5, produtor GPL Ghostscript 9.18, autor indicado `Jurisnet`, SHA-256 `d9fa7e618a32a134853e761126e7851c331f5620a0eee87be4ce7aae380545d6`.
+
+A origem técnica dos ficheiros é preservada como metadado de proveniência; a classificação jurídica como fonte primária exige ainda conferência visual do conteúdo, completude, páginas e correspondência com o diploma oficial.
+
+
+## Conferência visual inicial dos PDFs primários anexados
+
+A revisão visual das páginas 1–3 do **Decreto n.º 82/01, de 16 de Novembro**, confirma o cabeçalho **Diário da República, I Série, n.º 52**, de 16 de Novembro de 2001, e identifica o acto do **Conselho de Ministros** que aprova o **Plano Geral de Contabilidade**. O artigo 1.º aprova o plano em anexo e o artigo 2.º declara a sua aplicação obrigatória às entidades abrangidas. As páginas 2–3 confirmam a introdução e o enquadramento do plano.
+
+A revisão visual das páginas 1–3 da **Lei n.º 14/23, de 28 de Dezembro**, confirma o cabeçalho **Diário da República, I Série, n.º 246**, de 28 de Dezembro de 2023. O sumário identifica expressamente a alteração ao Código do IVA, as revogações, os aditamentos aos artigos 69.º-A a 69.º-D e 74.º a 78.º, além da republicação integral do Código. As páginas 2–3 confirmam o preâmbulo legislativo, o artigo 1.º e o início da nova redacção do Código.
+
+Estes achados visuais confirmam correspondência forte entre os ficheiros anexados e os diplomas indicados. A confirmação de contas, taxas, vigência operacional e regras activáveis exige a revisão visual dirigida das páginas materiais, não apenas o OCR.
+
+
+## Conferência visual dirigida — contas e taxa IVA
+
+Na página 55 do PDF anexado do Decreto n.º 82/01, o quadro do plano apresenta a classe 75 e, no lado direito, a rubrica **75.3 Impostos**, com **75.3.1 Indirectos**, **75.3.1.1 Imposto de selo**, **75.3.1.9 Outros impostos**, **75.3.2 Directos**, **75.3.2.1 Imposto de capitais**, **75.3.2.2 Contribuição predial** e **75.3.2.9 Outros impostos**. A página é legível para estas designações e confirma que a conta 75.3 pertence ao quadro-base de 2001; não contém, nesta página, as contas IVA 34.5/34.6/63.5 específicas do regulamento posterior.
+
+Na página 8 do PDF anexado da Lei n.º 14/23, o artigo 19.º, sob o título **Taxas do imposto**, começa por declarar que as taxas são as seguintes e mostra claramente a alínea a): **14%, como taxa geral, para as importações, transmissões de bens e prestações de serviços**. A continuação da taxa especial de Cabinda encontra-se na página seguinte e será conferida separadamente. Esta evidência confirma a taxa geral no diploma anexado, mas não autoriza por si só a activação de todos os regimes, isenções ou parametrizações sem conferir as restantes páginas e a vigência temporal aplicável.
+
+
+## Conferência visual dirigida — continuação Lei n.º 14/23
+
+Na página 9 do PDF anexado, o artigo 19.º mostra claramente: **7% para o regime simplificado**; **7% para prestações de serviços de hotelaria e restauração**; **5% para importações e transmissões de bens alimentares de amplo consumo e insumos agrícolas constantes dos Anexos I e II**; e **1% para importações e transmissões de bens sujeitas ao regime tributário especial aplicável à Província de Cabinda**, com a excepção indicada no Anexo III. A mesma página contém o n.º 4, segundo o qual a taxa aplicável é a vigente no momento em que o imposto se torna exigível. Estes valores foram registados como evidência do diploma anexado, sem alteração automática do motor.
+
+Na página 24, os artigos 74.º a 78.º estão legíveis. O artigo 74.º prevê, para sujeitos passivos do regime geral que pratiquem exclusivamente operações isentas sem direito à dedução, Imposto do Selo sobre recibo de quitação à taxa de 1%, referindo a verba 23.3 do Código do Imposto do Selo aprovado pelo Decreto Legislativo Presidencial n.º 3/14. O artigo 75.º estabelece que o IVA dedutível não é custo dedutível em sede de imposto sobre os rendimentos, com regra específica para sociedades petrolíferas. O artigo 76.º trata do reporte trimestral de operações TPA; o artigo 77.º do IVA no comércio electrónico internacional; e o artigo 78.º do diferimento/pagamento parcelado do IVA relativo a equipamentos industriais, mediante solicitação e aprovação da Administração Tributária. Estas disposições exigem mapeamento jurídico próprio e não foram activadas automaticamente.
+
+
+## Conferência visual dirigida — natureza e movimento no Decreto n.º 82/01
+
+A revisão visual das páginas 70–73 do Decreto n.º 82/01 confirma, de forma legível, várias descrições normativas de **natureza devedora** e **natureza credora** aplicadas a contas concretas do plano. Entre os exemplos claramente visíveis, a página 70 identifica **Fornecedores — saldos devedores — Material à consignação (conta 32.9.3)** como conta de natureza devedora, criada por contrapartida da respectiva conta de fornecedores correntes. A mesma página mostra **Imposto sobre os lucros (conta 34.1)** com descrição do registo da dívida relativa ao imposto e **Imposto de rendimentos do trabalho (conta 34.3)** como conta de natureza credora, destinada ao imposto deduzido aos empregados pelo rendimento do seu trabalho.
+
+Na página 71, as rubricas **Entidades participantes — conta subscrição** e **Entidades participantes — conta adiantamento sobre lucros** aparecem expressamente como contas de natureza credora; a rubrica **Entidades participantes — conta observação** e as rubricas **conta adiantamento sobre lucros** e **conta lucros** incluem descrições de natureza devedora/credora e formas de saldar por contrapartida de meios monetários ou resultados transitados. Na mesma página, **Pessoal — Remunerações (conta 36.1)** surge como conta de natureza credora, registando processamento e pagamento de remunerações.
+
+Na página 72, **Pessoal — Participação nos resultados (conta 36.2)** é descrita como conta de natureza credora e **Pessoal — Adiantamentos (conta 36.3)** como conta de natureza devedora. Também se confirmam **Compras de imobilizado (conta 37.1)** e **Vendas de imobilizado (conta 37.2)** como contas de natureza devedora, além de **Encargos a repartir por períodos futuros (conta 37.4)** como conta de natureza devedora e **Encargos a pagar (conta 37.5)** como conta de natureza credora.
+
+Na página 73, é visível a continuidade das regras de saldos e repartições por períodos futuros, com referência a rubricas de natureza credora, devedora e situações em que o saldo poderá assumir uma das duas naturezas conforme o caso. Estas páginas são, portanto, evidência primária legível de que o diploma base contém descrições textuais de movimentação e natureza para contas específicas. A activação global continua, porém, dependente da conferência sistemática de cada conta/regra aplicável e da sua transcrição controlada para o registo normativo.
+
+## Validação direccionada após os anexos
+
+Foram executados os testes do fluxo PGCA, composição normativa, fontes normativas, workflow, IVA e assistentes de activação. Resultado: **8 ficheiros de teste aprovados e 57 testes aprovados**, sem alteração de dados legais ou activação automática.
