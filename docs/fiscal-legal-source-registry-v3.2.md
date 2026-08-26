@@ -341,3 +341,8 @@ O OCR integral foi preservado em `/tmp/legal-candidates-ocr/`. A obtenção dest
 | Lei n.º 28/20 — candidato IRT | 25 páginas | SHA-256 `db464c65f7d7c48b5df1ac6c41088c665a15627d23effe674dc5fe700dd9ec2b` | PDF alojado em `files.lex.ao`; metadados `Jurisnet`/`GPL Ghostscript 9.18`; OCR identifica revogações da Lei 9/19 e Lei 28/19, grupos A/B/C, alteração de tabela e taxas de 6,5%/25% | Secundário; não activar |
 
 O OCR integral foi preservado em `/tmp/legal-candidates-ocr/lei-28-20/ocr.txt`. A Lei n.º 28/20 foi acrescentada à ficha técnica do IRT, mas nenhuma taxa, grupo ou regra salarial foi activada.
+
+
+### Pesquisa por edição do Diário da República — resultado sem PDF institucional
+
+Foi repetida a pesquisa por número de série e página dos diplomas candidatos — Lei n.º 20/20, Lei n.º 28/20 e DLP n.º 3/14. Não foi encontrado um PDF integral autenticável alojado no MINFIN, AGT ou Imprensa Nacional. O único resultado adicional relevante foi uma newsletter jurídica de 2014 que apenas referencia o DLP n.º 3/14, sem substituir o Diário da República. As cópias Lex/Jurisnet continuam classificadas como fontes secundárias de localização.
