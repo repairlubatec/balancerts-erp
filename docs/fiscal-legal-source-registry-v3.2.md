@@ -286,3 +286,8 @@ A pesquisa por página devolveu `page=553`, cujo conteúdo visível confirma a *
 ### Divergência de indexação — Lei n.º 20/20
 
 Os resultados do motor de pesquisa da Imprensa Nacional associam a Lei n.º 20/20 à URL `index.php?id=105&serie=1&page=553`, mas a abertura efectiva dessa URL apresenta a Lei n.º 26/20 e outros diplomas da I Série n.º 107. A busca interna do navegador não encontrou “Lei n.º 20/20” nessa página. Por conseguinte, o snippet não foi aceite como prova do texto, da edição ou do PDF da Lei n.º 20/20; esta fonte continua `CATALOGUE_REFERENCE`, não `PRIMARY_PDF`.
+
+
+### Lei n.º 28/20 — verificação final do catálogo
+
+A URL oficial consultada `https://www.imprensanacional.gov.ao/index.php?id=105&serie=1&page=551` apresenta a I Série n.º 115 de 30 de Julho de 2020 e resultados de actos não fiscais; o conteúdo extraído não contém a Lei n.º 28/20 nem um link directo para o seu PDF. O sumário da Lei n.º 28/20 foi confirmado apenas pelo snippet do motor de pesquisa e não por texto integral nesta página. Estado mantido: `CATALOGUE_REFERENCE`, não `PRIMARY_PDF`.
