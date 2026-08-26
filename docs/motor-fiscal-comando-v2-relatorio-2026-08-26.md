@@ -89,3 +89,7 @@ Não houve `DROP`, eliminação de dados, sobrescrita irreversível de regra ou 
 [2]: https://agt.minfin.gov.ao/PortalAGT/#!/legislacao/fiscal — Portal da AGT, Legislação Fiscal.  
 [3]: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/imposto-especial-de-consumo — Portal do Contribuinte, Imposto Especial de Consumo.  
 [4]: https://portaldocontribuinte.minfin.gov.ao/impostos-e-taxas/impostos-sobre-veiculos-motorizados — Portal do Contribuinte, Impostos sobre Veículos Motorizados.
+
+## Verificação visual complementar
+
+A rota `/fiscalidade` foi verificada em viewport desktop de 1280×720. O posto apresenta a empresa activa, a área de normas versionadas e os cartões de preparação/homologação com estados distinguíveis. A interface mantém o carácter de software desktop, sem transformar a página numa apresentação comercial; as mensagens visíveis não confundem preparação local com certificação AGT e os bloqueios de comunicação, credenciais e validação oficial permanecem explícitos.

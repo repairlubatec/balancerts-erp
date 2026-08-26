@@ -3656,3 +3656,4 @@
 - [x] Executar validação local completa dos fluxos críticos, isolamento multi-tenant e ausência de fallbacks demonstrativos
 - [x] Actualizar a documentação de estado, separando entregas locais concluídas das dependências externas adiadas
 - [x] Normalizar as origens de extracção documental para distinguir runtime local de extracção heurística local, sem rótulos de fallback ou dados demonstrativos
+- [x] Rever visualmente o posto Fiscalidade após a continuação local e confirmar estados externos explicitamente visíveis
