@@ -237,3 +237,27 @@ O OCR das primeiras páginas revelou que vários ficheiros descarregados do Lex.
 Foi corrigida uma classificação importante: o Decreto Presidencial n.º 92/25, de 29 de Abril, não é diploma de facturação. O OCR identifica-o como o Estatuto Orgânico da Administração Geral Tributária, revogando, entre outros, os Decretos Presidenciais n.º 324/14, 135/18 e 215/19. Deve ser tratado na camada institucional/AGT e não na cadeia normativa de facturação.
 
 O OCR também confirmou visualmente, nas edições preservadas, referências ao Decreto Presidencial n.º 191/21 sobre inscrição, avaliação e reavaliação de imóveis; ao Decreto Presidencial n.º 312/18 sobre submissão electrónica de elementos contabilísticos; à Lei n.º 8/22 sobre o Código dos Benefícios Fiscais; ao Decreto Presidencial n.º 71/25; e ao Decreto Executivo n.º 73/19. Esta confirmação é de identificação/publicação do Diário, não substitui a revisão integral dos artigos e anexos.
+
+## OGE 2026 — fonte institucional localizada
+
+A pesquisa localizou no domínio institucional `cms.minfin.gov.ao` um asset associado ao enquadramento do OGE 2026. O resultado de pesquisa descreve a Lei n.º 14/25 como aprovação da estimativa de receitas e fixação dos limites de despesas do exercício económico de 2026. O asset abriu no My Browser sem texto ou elementos visíveis, pelo que permanece `OFFICIAL_REFERENCE_ONLY` até ser descarregado através do fluxo institucional e validado por hash/paginação. A página oficial de circulares da AGT também lista `OGE DE 2026.pdf` e a Lei n.º 14/25.
+
+Não foi feita qualquer activação de alterações fiscais do OGE. A Circular AGT 01/2026 e os seus anexos continuam pendentes de PDF primário legível e de mapeamento artigo-a-artigo.
+
+## URLs institucionais directos descobertos — AGT/OGE 2026
+
+A análise read-only do HTML da página oficial de Circulares da AGT expôs URLs reais no domínio institucional `ucm.minfin.gov.ao`. O PDF que a página associa à Lei n.º 14/25/OGE 2026 é:
+
+`https://www.ucm.minfin.gov.ao/cs/groups/public/documents/document/aw41/mje2/~edisp/minfin5216784.pdf`
+
+A mesma página expôs links institucionais para vários documentos AGT de 2026, incluindo circulares GACA/GJ/AGT, listas de softwares certificados e materiais operacionais. Nesta fase, o OGE 2026 foi o único link prioritário isolado com segurança pelo texto do HTML. Os restantes links devem ser associados ao título exacto antes de serem descarregados, para evitar trocar circular, manual ou lista certificada.
+
+## PDF primário institucional obtido — OGE 2026
+
+Foi descarregado do domínio institucional `ucm.minfin.gov.ao` o ficheiro associado pela AGT à Lei n.º 14/25/OGE 2026: `lei-14-25-oge-2026-minfin.pdf`. A verificação técnica devolveu `application/pdf`, 773 páginas, produtor `Adobe PDF Library 17.0` e SHA-256 `a99bf947bd3f5c7767ad2a4280c2483f51754520414930e90f4d2ba76c78004c`.
+
+O documento é uma edição extensa e deve ser indexado para localizar os artigos, mapas e anexos fiscais relevantes. A obtenção do PDF não significa que todas as alterações materiais estejam identificadas; o motor mantém o estado fail-closed até ao mapeamento artigo-a-artigo e aprovação.
+
+## Indexação inicial do OGE 2026
+
+O PDF institucional `lei-14-25-oge-2026-minfin.pdf` possui camada de texto extraível, 773 páginas e foi indexado localmente. A pesquisa textual encontrou referências a benefícios fiscais, política fiscal e várias áreas tributárias, mas a amostra contém também ocorrências genéricas de termos como «consumo» e «taxas». Por isso, o índice deve ser refinado por artigos, capítulos, anexos e páginas do diploma antes de concluir qualquer alteração de taxa ou regra. O OGE continua como fonte obtida, mas não como conjunto de regras já activadas.

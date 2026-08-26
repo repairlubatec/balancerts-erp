@@ -75,3 +75,13 @@ O motor deve manter `SOURCE_CANDIDATE`, `UNDER_REVIEW` ou estado equivalente at�
 | Facturação histórica | Decreto Executivo n.º 73/19, de 6 de Março | Regulamentação/requisitos associados ao regime anterior; deve ser temporalmente ligada ao DP 292/18. | `HISTÓRICO / A CONSOLIDAR` |
 
 A ausência de texto extraível nos PDFs secundários não invalida a sua preservação, mas impede a confirmação automática de artigos, tabelas e taxas. A próxima etapa deve usar OCR/revisão visual e confronto institucional, não importação directa para o motor fiscal.
+
+
+## 7. OGE 2026 e circulares AGT
+
+| Área | Referência | Evidência localizada | Estado seguro | Acção pendente |
+|---|---|---|---|---|
+| OGE 2026 | Lei n.º 14/25 | [Portal AGT — Circulares](https://agt.minfin.gov.ao/PortalAGT/#!/legislacao/circulares#collapse2398) lista `OGE DE 2026.pdf`; [asset MINFIN](https://cms.minfin.gov.ao/api/assets/portal-minfin/8983392b-8784-45d7-a23d-1aa35cf938b4/) localizado por pesquisa institucional | `OFFICIAL_REFERENCE_ONLY` | Obter o PDF legível, hash, artigos com impacto fiscal e anexos |
+| Medidas tributárias 2026 | Circular n.º 01 GACA/GJ/AGT/2026 | Listada no índice do Portal do Contribuinte e nas imagens do utilizador; PDF directo ainda não confirmado | `PDF OFICIAL A LOCALIZAR` | Obter circular e anexos; mapear apenas alterações expressas |
+
+A localização institucional não equivale a validação do conteúdo do asset. O motor fiscal deve continuar a usar apenas versões normativas aprovadas e não deve alterar taxas por referência ao OGE até o confronto documental estar fechado.
