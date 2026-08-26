@@ -73,3 +73,16 @@ A Lei n.º 17/24, de 28 de Outubro, substitui a Lei n.º 5/16 no plano sectorial
 | Contas IVA específicas | O Decreto n.º 82/01 anexado confirma o quadro-base e a p. 55 não contém as contas posteriores 34.5/34.6/63.5/75.3.1.2 | Conferência do DP 180/19 e prova primária das contas IVA posteriores | Preservar camadas separadas; não substituir o plano-base |
 
 A matriz passou a distinguir **trecho primário visualmente confirmado** de **cobertura integral ainda pendente**. Nenhuma lacuna foi preenchida por inferência.
+
+
+## Lote Resultados/IVA — conferência visual dirigida
+
+| Elemento | Evidência primária conferida | Estado | Limite de activação |
+|---|---|---|---|
+| Classe 8 — Resultados | Decreto n.º 82/01, p. 57: contas 81–89 e subcontas de resultados transitados, operacionais, financeiros, extraordinários, imposto sobre lucros e resultado líquido | `VISUALLY_CONFIRMED` no escopo da página | Não activar sem confirmar natureza/movimento de cada conta movimentável |
+| Classes 6–7 e conta 75.3 | Decreto n.º 82/01, pp. 51–56: proveitos, custos, impostos e conta 75.3 — Impostos, incluindo subcontas legíveis de Imposto do Selo, Imposto de Capitais, Contribuição Predial e Outros Impostos | `VISUALLY_CONFIRMED` no escopo das páginas revistas | Não interpretar 75.3 como substituto das contas criadas por diplomas IVA posteriores |
+| Critérios de valorização e reconhecimento | Decreto n.º 82/01, pp. 63–67: existências, métodos de custeio, valor realizável líquido, contratos de construção e percentagem de acabamento | `VISUALLY_CONFIRMED` | Regras interpretativas não são activadas como parametrização automática |
+| Taxas e vigência IVA | Lei n.º 14/23, pp. 8–9, 25 e 44–45: taxas e entrada em vigor/republicação | `VISUALLY_CONFIRMED` no escopo revisto | Cadeia histórica e anexos ainda exigem confronto integral |
+| Contas IVA posteriores | DP 180/19 não está entre os dois PDFs anexados; as contas 34.5/34.6/63.5/75.3.1.2 não são atribuídas ao Decreto n.º 82/01 | `SOURCE_CANDIDATE`/pendente | Requer PDF primário legível do DP 180/19 e conferência visual própria |
+
+A separação entre **Resultados/IVA do plano-base** e **camada IVA posterior** foi mantida sem sobreposição de códigos ou regras.
