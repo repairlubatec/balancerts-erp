@@ -49,7 +49,7 @@ export function extractDocumentFieldsOffline(extractedText: string) {
   const metrics: Array<{ section: string; metric: string; value: number; page: number | null; field: string | null }> = [];
   const patterns: Array<[string, RegExp]> = [["total", /(?:Total|Valor total|Total geral)[\s:€KzA-Z]*([0-9][0-9 .]*[,\.]?[0-9]*)/i], ["iva", /(?:IVA|Imposto)[\s:%KzA-Z]*([0-9][0-9 .]*[,\.]?[0-9]*)/i], ["receita", /(?:Receita|Vendas|Proveitos)[\s:KzA-Z]*([0-9][0-9 .]*[,\.]?[0-9]*)/i], ["despesas", /(?:Despesas|Custos|Gastos)[\s:KzA-Z]*([0-9][0-9 .]*[,\.]?[0-9]*)/i]];
   for (const [metric, pattern] of patterns) { const match = text.match(pattern); const value = match?.[1] ? normaliseNumber(match[1]) : null; if (value !== null) metrics.push({ section: documentType, metric, value, page: null, field: metric }); }
-  return { documentType, periodYear: yearMatch ? Number(yearMatch[1]) : null, companyName: companyMatch?.[1]?.trim() ?? null, nif: nifMatch?.[1] ?? null, metrics, provider: "REGRAS_LOCAIS", model: "parser-offline-v1", confidence: metrics.length > 0 ? 0.72 : 0.35 };
+  return { documentType, periodYear: yearMatch ? Number(yearMatch[1]) : null, companyName: companyMatch?.[1]?.trim() ?? null, nif: nifMatch?.[1] ?? null, metrics, provider: "EXTRACAO_HEURISTICA_LOCAL", model: "parser-offline-v1", confidence: metrics.length > 0 ? 0.72 : 0.35 };
 }
 
 async function tryLocalModelSuggestion(text: string) {
@@ -75,7 +75,7 @@ export async function suggestSaadiDocumentExtraction(input: { userId: number; or
   const extractionJson = JSON.stringify({ ...extraction, requiresHumanValidation: true, onlineCalls: false });
   await db.update(saadiStudyDocuments).set({ extractionStatus: "EXTRAIDO", extractionJson }).where(and(eq(saadiStudyDocuments.id, input.documentId), eq(saadiStudyDocuments.studyId, input.studyId), eq(saadiStudyDocuments.organizationId, input.organizationId)));
   await appendAuditEventForUser({ organizationId: input.organizationId, companyId: 0, actorUserId: input.userId, action: "BALANCERTS_IA_DOCUMENT_EXTRACTED_OFFLINE", entityType: "saadiStudyDocument", entityId: String(input.documentId), beforeState: null, afterState: extractionJson, correlationId: `balancerts-ia-extraction:${input.documentId}:${Date.now()}` });
-  return { status: "EXTRAIDO" as const, extractionJson, provider: localSuggestion ? "RUNTIME_LOCAL" : "REGRAS_LOCAIS", message: "Extraído localmente — necessita de validação humana." };
+  return { status: "EXTRAIDO" as const, extractionJson, provider: localSuggestion ? "RUNTIME_LOCAL" : "EXTRACAO_HEURISTICA_LOCAL", message: "Extraído localmente — necessita de validação humana." };
 }
 
 export async function reprocessSaadiStudyDocument(input: { userId: number; organizationId: number; studyId: number; documentId: number; extractedText: string }) {

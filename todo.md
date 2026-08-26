@@ -3655,3 +3655,4 @@
 - [x] Rever as pendências locais de fiscalidade, contabilidade, relatórios e segurança e concluir as que não dependem de recursos externos
 - [x] Executar validação local completa dos fluxos críticos, isolamento multi-tenant e ausência de fallbacks demonstrativos
 - [x] Actualizar a documentação de estado, separando entregas locais concluídas das dependências externas adiadas
+- [x] Normalizar as origens de extracção documental para distinguir runtime local de extracção heurística local, sem rótulos de fallback ou dados demonstrativos

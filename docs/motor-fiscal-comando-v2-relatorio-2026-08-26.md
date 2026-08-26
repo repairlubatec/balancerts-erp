@@ -73,6 +73,8 @@ Os bloqueios críticos são a ausência de evidência primária suficiente para 
 | IVM | NÃO CONFIGURADO |
 | Retenções transversais | NÃO CONFIGURADO como motor autónomo |
 
+A nomenclatura de inteligência documental foi normalizada: `RUNTIME_LOCAL` identifica o runtime configurado e `EXTRACAO_HEURISTICA_LOCAL` identifica o parser local determinístico, sempre com validação humana obrigatória. O antigo rótulo de fallback demonstrativo deixou de ser usado em produção.
+
 Nenhum imposto novo foi colocado em `ATIVO`. A sequência obrigatória permanece: evidência legal → configuração → testes → validação → homologação, quando aplicável → activação controlada.
 
 ## I. Versão e reversibilidade

@@ -34,7 +34,7 @@ export function extractStructuredDocument(input: { filename: string; mimeType: s
 }
 
 export function buildDocumentIntelligenceWorkbook(rows: Array<{ field: string; value: string | number | null; confidence?: number; source?: string }>) {
-  const sheet = XLSX.utils.json_to_sheet(rows.map((row) => ({ Campo: row.field, Valor: row.value ?? "", Confiança: row.confidence ?? 0, Origem: row.source ?? "REGRAS_LOCAIS" })));
+  const sheet = XLSX.utils.json_to_sheet(rows.map((row) => ({ Campo: row.field, Valor: row.value ?? "", Confiança: row.confidence ?? 0, Origem: row.source ?? "EXTRACAO_HEURISTICA_LOCAL" })));
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, sheet, "Extracção");
   return XLSX.write(workbook, { type: "buffer", bookType: "xlsx" }) as Buffer;
