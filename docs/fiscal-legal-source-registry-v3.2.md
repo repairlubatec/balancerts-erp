@@ -172,3 +172,13 @@ A classificação acima é granular: confirma os trechos visualmente legíveis e
 ### Complemento visual da Lei n.º 14/23
 
 A republicação integral do Código do IVA nas páginas 44–45 confirma o artigo 19.º com a mesma estrutura de taxas observada nas páginas 8–9: 14% geral, 7% regime simplificado, 7% hotelaria/restauração, 5% bens alimentares/insumos dos anexos e 1% Cabinda nas condições indicadas. O n.º 4 fixa a taxa vigente no momento da exigibilidade. Este bloco foi classificado como `VISUALLY_CONFIRMED` no escopo exacto das páginas revistas; a aprovação da regra no motor continua dependente da cadeia normativa completa e da governação prevista.
+
+
+## Decreto Presidencial n.º 180/19 — camada contabilística IVA
+
+**Ficheiro anexado:** `/home/ubuntu/upload/DecretoPresidencialn180.19.pdf`  
+**Integridade:** PDF 1.5, 12 páginas, A4, 1 809 578 bytes, produtor `GPL Ghostscript 9.18`, autor/metadado `Jurisnet`, SHA-256 `1178226f04a13abf6fbd9ab4e6830a92f7d5a5bcc2ae826457ee8eeb273b5694`.  
+**Classificação:** diploma de camada contabilística do IVA, relacionado com a base PGCA-82-01; não substitui o Decreto n.º 82/01.  
+**Páginas visualmente confirmadas:** pp. 8–11, incluindo 34.5.4–34.5.9, 34.6, 63.5, 75.3.1.2 e o Anexo II com 4640–4647.
+
+O estado documental passou de `SOURCE_CANDIDATE` para **`VISUALLY_CONFIRMED` no escopo das páginas 8–11**. A aprovação operacional das regras no motor permanece condicionada à conferência da cadeia completa, vigência aplicável, anexos/modelos e aprovação formal prevista pelo fluxo fail-closed.

@@ -501,3 +501,18 @@ A página 67 continua com conceitos de **custo de reposição**, **contratos de 
 ## Regressão após conferência dos lotes
 
 A suite completa foi executada depois da actualização da matriz V3.2: **153 ficheiros de teste aprovados e 610 testes aprovados**, sem alteração da guarda fail-closed, sem activação automática do PGCA e sem promoção de regras `SOURCE_CANDIDATE`.
+
+
+## Conferência visual — camada contabilística IVA no Decreto Presidencial n.º 180/19 (páginas 8–11)
+
+As páginas 8–11 do Decreto Presidencial n.º 180/19 confirmam visualmente, com legibilidade suficiente, a criação e a disciplina contabilística específica do IVA como **camada normativa posterior** ao plano-base. A página 8 mostra o bloco **34.5.4 — IVA regularizações**, distinguindo subcontas a favor do sujeito passivo, a favor do Estado, cálculo anual do pro-rata definitivo e outras regularizações anuais, bem como **34.5.5 — IVA apuramento** e **34.5.6 — IVA a pagar**. O texto confirma movimentos a débito e a crédito por contrapartida das subcontas de IVA dedutível, IVA liquidado, regularizações e IVA a recuperar, no apuramento periódico.
+
+A página 9 confirma literalmente **34.5.7 — IVA a recuperar**, **34.5.8 — IVA reembolsos pedidos**, **34.5.9 — IVA liquidações oficiosas**, **34.6 — Certificado de Crédito Fiscal a Compensar**, **63.5 — IVA** e **75.3.1.2 — IVA**. Na descrição da rubrica **75.3.1.2 — IVA**, o diploma identifica que esta se destina ao montante do IVA não dedutível e a regularizações que não possam ser imputadas especificamente a uma subconta de referência, admitindo ainda abertura analítica para regularizações anuais por cálculo do pro-rata.
+
+A página 10, no **Anexo II**, apresenta a correspondência contabilística no formato **4640 — IVA suportado**, **4641 — IVA dedutível**, **4642 — IVA liquidado**, **4643 — IVA regularizações** e **4644 — IVA apuramento**. O texto confirma que **IVA suportado** regista o imposto suportado em aquisições, imobilizações e investimentos; **IVA dedutível** tem natureza devedora; **IVA liquidado** tem natureza credora; e o saldo destas contas é transferido para **IVA apuramento** no período de tributação. A mesma página confirma que certas contrapartidas passam pela rubrica **6624 — IVA** nesta nomenclatura anexa.
+
+A página 11 continua o anexo e confirma **4645 — IVA a pagar** e **4646 — IVA a recuperar**, com respectivas subcontas de apuramento, cativo, reembolsos pedidos, reembolsos deferidos, indeferidos, reclamados, recorridos ou impugnados. O texto confirma ainda a lógica de liquidações oficiosas e as contrapartidas por depósitos à ordem, caixa ou certificado de crédito fiscal a compensar. Estas páginas demonstram que o diploma cria uma camada de contas IVA separada do Decreto n.º 82/01 e que não deve ser fundida no plano-base sem rastreabilidade normativa própria.
+
+## Regressão após integração documental do DP 180/19
+
+Foram executados os testes direccionados de fontes normativas, composição PGCA, validação/workflow PGCA, assistente e readiness IVA e exportação normativa. Resultado: **9 ficheiros de teste aprovados e 60 testes aprovados**. O DP 180/19 foi tratado apenas como evidência documental/camada normativa; nenhuma conta ou regra foi activada automaticamente.

@@ -86,3 +86,16 @@ A matriz passou a distinguir **trecho primário visualmente confirmado** de **co
 | Contas IVA posteriores | DP 180/19 não está entre os dois PDFs anexados; as contas 34.5/34.6/63.5/75.3.1.2 não são atribuídas ao Decreto n.º 82/01 | `SOURCE_CANDIDATE`/pendente | Requer PDF primário legível do DP 180/19 e conferência visual própria |
 
 A separação entre **Resultados/IVA do plano-base** e **camada IVA posterior** foi mantida sem sobreposição de códigos ou regras.
+
+
+## DP 180/19 — evidência da camada contabilística IVA
+
+| Elemento | Evidência primária | Estado | Limite de activação |
+|---|---|---|---|
+| Contas da classe 34.5 | DP 180/19, pp. 8–9: IVA regularizações, apuramento, a pagar, a recuperar, reembolsos pedidos e liquidações oficiosas | `VISUALLY_CONFIRMED` no escopo pp. 8–9 | Requer mapeamento integral das subcontas e aprovação da cadeia |
+| 34.6 | DP 180/19, p. 9: Certificado de Crédito Fiscal a Compensar, natureza devedora e contrapartidas visíveis | `VISUALLY_CONFIRMED` no escopo p. 9 | Não activar sem confirmar os fluxos de reembolso/compensação completos |
+| 63.5 | DP 180/19, p. 9: rubrica IVA para regularizações anuais por cálculo do pro-rata | `VISUALLY_CONFIRMED` no escopo p. 9 | Confirmar subcontas analíticas e vigência operacional |
+| 75.3.1.2 | DP 180/19, p. 9: IVA não dedutível e regularizações sem imputação específica | `VISUALLY_CONFIRMED` no escopo p. 9 | Não confundir com a 75.3 do Decreto n.º 82/01 |
+| Anexo II 4640–4647 | DP 180/19, pp. 10–11: IVA suportado, dedutível, liquidado, regularizações, apuramento, a pagar, a recuperar e reembolsos | `VISUALLY_CONFIRMED` no escopo pp. 10–11 | Confirmar se a nomenclatura anexa é aplicável ao âmbito actual do ERP antes de parametrizar |
+
+A prova do DP 180/19 fecha a existência documental da camada contabilística IVA, mas **não autoriza activação automática**. O estado de governação permanece dependente da cadeia normativa consolidada, dos anexos e da aprovação humana formal.

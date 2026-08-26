@@ -3775,3 +3775,11 @@
 - [x] Conferir visualmente o lote Capital Próprio/Passivo, registando código, designação, natureza e movimento apenas quando legíveis.
 - [x] Conferir visualmente o lote Resultados/IVA e confrontar as contas IVA posteriores sem misturar o diploma-base com o DP 180/19.
 - [x] Actualizar a matriz V3.2, executar testes e guardar checkpoint por lote, mantendo a activação global bloqueada.
+
+## Validação do Decreto Presidencial n.º 180/19 — camada IVA
+
+- [x] Inventariar o DP 180/19 anexado com MIME, páginas, tamanho, produtor e SHA-256.
+- [x] Extrair o texto integral e localizar contas IVA, regras de contabilização, anexos e vigência.
+- [x] Conferir visualmente as contas 34.5, 34.6, 63.5, 75.3.1.2 e regras relevantes apenas onde legíveis.
+- [x] Actualizar o registo de fontes e a matriz V3.2, mantendo o DP 180/19 como camada separada do PGCA-base.
+- [ ] Executar testes e guardar checkpoint sem activar automaticamente contas ou regras.
