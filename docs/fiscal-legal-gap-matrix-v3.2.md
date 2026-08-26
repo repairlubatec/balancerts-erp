@@ -176,3 +176,15 @@ As fontes auxiliares reforçam a localização e a cronologia, mas não fecham a
 O PDF fornecido tem 3 páginas, é byte-a-byte idêntico ao candidato Lex e foi conferido visualmente. A página 3 confirma a alteração do artigo 73.º do Código do Imposto Industrial, a taxa de 6,5% sobre a matéria colectável e a entrada em vigor em 1 de Janeiro de 2023. A evidência do conteúdo do diploma fica `VISUALLY_CONFIRMED_PRIMARY_CONTENT`, com proveniência `HOSTED_COPY_LEX`.
 
 A confirmação não fecha o CII completo nem as alterações e tabelas associadas. Permanecem obrigatórios a validação integral da cadeia do Imposto Industrial, a cobertura das regras dependentes, o registo de aprovação normativa e o readiness sem bloqueadores. A taxa de 6,5% continua `BLOCKED` para cálculo, facturação, posting e relatórios oficiais.
+
+
+### Actualização após recepção dos quatro PDFs — confirmação de conteúdo, não activação
+
+| Área | PDF fornecido | Conteúdo visual confirmado | Estado seguro |
+|---|---|---|---|
+| Imposto Industrial | Lei n.º 19/14, 19 páginas | CII, regime transitório, revogações, entrada em vigor, artigo 73.º base e regras de liquidação | `VISUALLY_CONFIRMED_PRIMARY_CONTENT`; cálculo global ainda condicionado à cadeia posterior |
+| IRT | Lei n.º 28/20, 25 páginas | Alteração do CIRT, grupos A/B/C, taxa de 6,5% e 25% nos grupos B/C, tabela do Grupo A e entrada em vigor | `VISUALLY_CONFIRMED_PRIMARY_CONTENT`; tabelas posteriores e vigência corrente ainda condicionadas |
+| Imposto do Selo | DLP n.º 3/14, 11 páginas | Código republicado, revogações, obrigações, fiscalização e Anexo A com actos e taxas | `VISUALLY_CONFIRMED_PRIMARY_CONTENT`; alterações/tabela corrente ainda condicionadas |
+| Imposto Predial | Lei n.º 20/20, 10 páginas | Código, revogações, entrada em vigor, taxas-base, liquidação, transmissões e obrigações | `VISUALLY_CONFIRMED_PRIMARY_CONTENT`; cadastro, regulamentação e actualizações ainda condicionados |
+
+Os quatro ficheiros fornecidos são byte-a-byte idênticos aos candidatos Lex/Jurisnet anteriormente preservados. A confirmação visual do conteúdo reduz as lacunas documentais, mas não autoriza a promoção automática de taxas, porque a proveniência do ficheiro não é uma descarga institucional verificável, as alterações posteriores e tabelas vigentes não estão todas fechadas e a aprovação normativa formal não foi registada.

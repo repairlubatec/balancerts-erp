@@ -226,3 +226,12 @@ Enquanto existirem contas pendentes, fontes não confirmadas, códigos/níveis/p
 A Lei n.º 27/22 foi inventariada, comparada byte-a-byte com o candidato anterior e conferida visualmente. O artigo 1.º confirma a alteração do artigo 73.º do Código do Imposto Industrial, incluindo a taxa de 6,5% sobre a matéria colectável, e o artigo 3.º confirma a entrada em vigor em 1 de Janeiro de 2023.
 
 **Decisão:** conteúdo material confirmado; activação não elegível. A alteração foi ligada à cadeia Lei n.º 19/14 → Lei n.º 26/20 → Lei n.º 27/22, mas a taxa de 6,5% continua bloqueada para cálculo, posting, facturação e relatórios oficiais. Permanecem necessários o fecho integral do CII e diplomas regulamentares, a cobertura das regras dependentes do artigo 73.º, a aprovação normativa explícita e readiness sem bloqueadores. O sistema permite apenas consulta, revisão e simulação rotuladas.
+
+
+## Validação dos quatro PDFs fiscais recebidos — 26-08-2026
+
+Os PDFs fornecidos pelo utilizador de Lei n.º 19/14, Lei n.º 28/20, DLP n.º 3/14 e Lei n.º 20/20 foram comparados com os candidatos anteriores: todos são byte-a-byte idênticos, com hashes, páginas e metadados já registados. A conferência visual e OCR confirmaram, respectivamente, o CII e artigo 73.º de base, as alterações do CIRT e tabelas de grupos, o Código do Imposto de Selo e o seu Anexo A, e o Código do Imposto Predial com taxas-base, liquidação e obrigações.
+
+O resultado é **conteúdo material visualmente confirmado** para os quatro diplomas. A proveniência continua marcada como cópia hospedada em Lex/Jurisnet; por isso, os documentos não são apresentados como descarga institucional independente. A confirmação melhora o corpus e permite revisão técnica das cadeias II/IRT/IS/IP, mas não autoriza activar taxas, tabelas ou cálculos automaticamente.
+
+A decisão operacional é: manter II, IRT, IS e IP em estado de catálogo confirmado/parametrização condicionada; manter bloqueados cálculo legal, posting fiscal, emissão oficial e relatórios fiscais até fechar alterações posteriores, vigência corrente, modelos, tabelas aplicáveis e aprovação normativa explícita. O fail-closed permanece obrigatório.

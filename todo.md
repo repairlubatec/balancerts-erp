@@ -3852,3 +3852,11 @@
 - [x] Actualizar a cadeia II e a matriz V3.2 apenas se o documento for materialmente coincidente e suficientemente autenticável.
 - [x] Avaliar se a Lei n.º 27/22 desbloqueia a taxa de 6,5% ou se continuam a faltar requisitos de activação.
 - [x] Executar QA final e guardar o resultado sem activar PGCA/II por inferência.
+
+## Validação dos quatro PDFs fiscais fornecidos
+
+- [x] Inventariar e comparar os PDFs fornecidos de II, IRT, Imposto do Selo e Imposto Predial com os candidatos anteriores.
+- [x] Executar OCR e conferência visual dos artigos, tabelas, revogações e vigência de cada diploma.
+- [x] Actualizar as cadeias II/IRT/IS/IP e a matriz V3.2 apenas com evidência suficiente.
+- [x] Avaliar quais taxas e regras podem ser promovidas, mantendo bloqueados os itens sem cobertura integral ou aprovação.
+- [x] Executar QA final e guardar checkpoint da validação sem activar normas por inferência.
