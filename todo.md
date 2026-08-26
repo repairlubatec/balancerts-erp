@@ -3880,3 +3880,12 @@
 - [x] Manter fail-closed para obrigações condicionais, prazos relativos ou linhas cuja fonte não esteja suficientemente confirmada.
 - [x] Criar testes Vitest para derivação de datas, estados de alerta, isolamento por empresa e bloqueio de obrigações não confirmadas.
 - [x] Validar a interface no navegador, executar TypeScript, build e suite completa, e guardar checkpoint publicado.
+
+# Reavaliação de activação normativa solicitada
+
+- [x] Reavaliar a classificação de proveniência institucional dos PDFs de II, IRT, IP e IS à luz da evidência fornecida pelo utilizador.
+- [x] Revalidar cadeia temporal, vigência, cobertura de regras e dependências antes de activar qualquer diploma ou taxa.
+- [x] Auditar os guardas de activação de PGCA/IVA/II/IRT/IP/IS e separar o que é elegível do que continua bloqueado.
+- [ ] Activar apenas as taxas e regras comprovadas, com aprovação normativa e auditoria append-only.
+- [x] Testar cálculo, posting fiscal e emissão oficial depois de qualquer activação elegível, sem executar operações produtivas irreversíveis.
+- [x] Documentar a decisão final de activação ou bloqueio e publicar checkpoint versionado.
