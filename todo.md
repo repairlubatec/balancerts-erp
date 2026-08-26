@@ -3711,4 +3711,12 @@
 - [x] Reabrir salvaguardas e documentos PGCA já analisados
 - [x] Extrair a lista concreta das contas pendentes e agrupá-las por classe/hierarquia
 - [x] Mapear páginas, quadros e regras primárias legíveis necessárias para cada grupo
-- [ ] Entregar ao utilizador uma matriz detalhada de contas, bloqueio e evidência requerida
+- [x] Entregar ao utilizador uma matriz detalhada de contas, bloqueio e evidência requerida
+
+
+## Reformulação formal do relatório PGCA — escopo global versus empresa de teste
+
+- [x] Auditar o relatório anterior e remover a associação indevida das pendências exclusivamente à Repair Lubatec
+- [x] Classificar cada pendência como global do software, específica de empresa/tenant ou dependência externa
+- [x] Reformular o relatório com a disponibilidade normativa para todas as empresas cadastradas
+- [ ] Validar, guardar checkpoint e entregar o relatório reformulado
