@@ -3935,7 +3935,7 @@
 - [x] Usar a Colectânea angolana e os PDFs submetidos para fechar regras contabilísticas, excepto em conflito legal concreto ou lacuna essencial.
 - [ ] Resolver os bloqueadores restantes das 765 contas e da cobertura de regras com revisão baseada nos documentos submetidos.
 - [ ] Completar simulação de cálculo, posting, emissão e SAF-T e promover apenas o que passar o readiness.
-- [ ] Validar suite, build, documentar as decisões e publicar checkpoint.
+- [x] Validar suite, build, documentar as decisões e publicar checkpoint.
 
 - [x] Registar no catálogo normativo os quatro PDFs primários submetidos — II (Lei n.º 19/14), IRT (Lei n.º 28/20), IP (Lei n.º 20/20) e IS (DLP n.º 3/14) — com escopo limitado e alterações posteriores separadas.
 - [x] Cobrir por testes a resolução dos quatro códigos primários e preservar a fronteira entre fonte confirmada e activação operacional.
