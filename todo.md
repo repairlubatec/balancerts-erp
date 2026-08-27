@@ -4178,3 +4178,11 @@
 
 - [x] Executar suite integral e build após acrescentar as medidas fiscais OGE 2026: 155 ficheiros e 631 testes aprovados.
 - [ ] Guardar checkpoint das medidas OGE 2026 após revisão do TODO.
+
+- [ ] Integrar no painel Fiscalidade as medidas OGE 2026 por imposto com artigo, condição e estado REFERENCE_ONLY/PENDING.
+- [ ] Cobrir a apresentação visual para impedir que medidas anuais sejam confundidas com taxas gerais activas.
+
+- [x] Integrar no painel Fiscalidade as medidas OGE 2026 por imposto, artigo, condição e estado REFERENCE_ONLY.
+- [x] Cobrir a apresentação visual e corrigir a nota opcional sem permitir confusão com taxas activas.
+- [x] Validar TypeScript, suite integral e build: 155 ficheiros e 631 testes aprovados.
+- [ ] Guardar checkpoint da integração visual OGE 2026 após revisão do TODO.

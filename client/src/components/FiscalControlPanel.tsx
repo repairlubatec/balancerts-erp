@@ -71,6 +71,7 @@ export function FiscalControlPanel({ companyId, regime }: FiscalControlPanelProp
   const irtChain = trpc.normative.taxChains.useQuery({ tax: "IRT" });
   const ipChain = trpc.normative.taxChains.useQuery({ tax: "IP" });
   const isChain = trpc.normative.taxChains.useQuery({ tax: "IS" });
+  const ogeMeasures = trpc.normative.oge2026Measures.useQuery({});
   const updateChecklist = trpc.fiscal.updateChecklist.useMutation({
     onSuccess: (result) => {
       toast.success(result.blocked ? "Item mantido bloqueado" : "Checklist actualizado", { description: result.blocked ? "A fonte normativa ainda não foi confirmada." : "A alteração foi registada na auditoria." });
@@ -117,6 +118,11 @@ export function FiscalControlPanel({ companyId, regime }: FiscalControlPanelProp
           </div>
           <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
             {normativeChains.map((chain, index) => { const [code, label] = normativeLabels[index]; const loading = chain.isLoading; const sources = chain.data?.sources ?? []; return <div key={code} className="border border-[#e5edf5] bg-[#f8fbff] px-2.5 py-2" title={loading ? "A consultar catálogo normativo" : `${sources.length} fonte(s) catalogada(s)`}><div className="flex items-center justify-between gap-2"><span className="text-[11px] font-semibold text-[#102a43]">{code}</span><span className={cn("h-2 w-2 rounded-full", loading ? "bg-slate-300" : sources.length ? "bg-emerald-500" : "bg-amber-500")} /></div><p className="mt-1 truncate text-[10px] text-slate-500">{label}</p><p className="mt-1 text-[10px] font-medium text-slate-600">{loading ? "A consultar…" : `${sources.length} fonte(s) no catálogo`}</p></div>; })}
+          </div>
+          <div className="mt-3 border-t border-[#e5edf5] pt-3">
+            <div className="flex flex-wrap items-center justify-between gap-2"><p className="text-xs font-semibold text-[#102a43]">Medidas fiscais OGE 2026</p><Badge className="rounded-sm bg-amber-100 text-amber-800">REFERENCE_ONLY</Badge></div>
+            <p className="mt-1 text-[11px] text-slate-500">Artigos anuais condicionados; não substituem os códigos tributários nem activam taxas ou posting.</p>
+            <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">{(ogeMeasures.data?.measures ?? []).map((measure) => <div key={measure.code} className="border border-amber-100 bg-amber-50/40 px-2.5 py-2" title={"note" in measure ? measure.note : `${measure.tax} · ${measure.article}`}><div className="flex items-center justify-between gap-2"><span className="text-[11px] font-semibold text-[#102a43]">{measure.tax}</span><span className="text-[10px] font-mono text-amber-700">{measure.article}</span></div><p className="mt-1 line-clamp-2 text-[10px] text-slate-600">{measure.factPattern.replaceAll("_", " ")}</p></div>)}</div>
           </div>
         </div>
         <div className="grid gap-2 md:grid-cols-5">

@@ -268,7 +268,7 @@ import {
   evaluatePeriodClose,
   validateReopenReason,
 } from "./closing";
-import { buildDecree71Coverage, normativeEvidence, TAX_NORMATIVE_CHAINS, validateNormativeCoverage } from "./normative";
+import { buildDecree71Coverage, getOfficialOge2026MeasureReferences, normativeEvidence, TAX_NORMATIVE_CHAINS, validateNormativeCoverage } from "./normative";
 import { convertToFunctionalCurrency } from "./currency";
 import { buildReversalLines, reversalDescription } from "./reversal";
 import {
@@ -3104,6 +3104,13 @@ export const appRouter = router({
         sourceCodes: TAX_NORMATIVE_CHAINS[input.tax],
         sources: TAX_NORMATIVE_CHAINS[input.tax].map(normativeEvidence).filter(Boolean),
         activation: "READINESS_ONLY",
+      })),
+    oge2026Measures: roleProcedure("normative", "read")
+      .input(z.object({ tax: z.enum(["IVA", "II", "IRT", "IP", "IS"]).optional() }).strict())
+      .query(({ input }) => ({
+        tax: input.tax ?? "TODOS",
+        measures: getOfficialOge2026MeasureReferences(input.tax),
+        activation: "REFERENCE_ONLY",
       })),
     sources: roleProcedure("normative", "read")
       .input(
