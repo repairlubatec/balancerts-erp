@@ -4087,3 +4087,9 @@
 - [x] Validar o painel Fiscalidade com TypeScript, testes e build de produção.
 - [ ] Expor na interface os bloqueadores de regras activas por operação PGCA, mantendo aprovação humana obrigatória.
 - [ ] Preparar a simulação de cálculo/posting com as contas persistentes confirmadas, sem permitir publicação.
+
+- [x] Executar testes dirigidos dos três níveis de simulação PGCA e garantir canPost sempre falso no modo de simulação.
+- [x] Validar o workflow de activação PGCA com bloqueadores de contas, fontes e cobertura de operações.
+- [x] Validar a saída SAF-T AO contra o XSD SAFTAO1.01_01 em testes determinísticos.
+- [ ] Executar simulação integrada com dados persistentes elegíveis quando existirem regras activas aprovadas.
+- [ ] Completar validação semântica SAF-T contra movimentos e documentos reais antes de submissão.
