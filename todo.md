@@ -3909,3 +3909,10 @@
 - [x] Persistir os parâmetros fiscais da regra com validação de intervalo, fonte e vigência, mantendo fail-closed.
 - [x] Testar exportações, métricas do painel, parâmetros IVA/IRT e bloqueios normativos.
 - [x] Validar TypeScript, build, interface e publicar checkpoint versionado.
+
+# Auditoria automática de prontidão fiscal — pedido de activação
+
+- [x] Auditar automaticamente a prontidão das versões PGCA/IVA/II/IRT/IP/IS sem activar efeitos fiscais consequentes durante a auditoria.
+- [x] Classificar bloqueadores de contas, regras, vigência, cadeia normativa, facturação, emissão e SAF-T.
+- [x] Documentar a confirmação do utilizador sobre a proveniência institucional dos quatro PDFs sem substituir os restantes critérios de elegibilidade.
+- [x] Entregar mapa final do que pode ser promovido e do que permanece bloqueado, com testes de segurança.
