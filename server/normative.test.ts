@@ -67,6 +67,16 @@ describe("Angola normative evidence", () => {
     });
   });
 
+  it("reconhece os quatro diplomas primários submetidos no escopo exacto", () => {
+    for (const code of ["II-LAW-19-14", "IRT-LAW-28-20", "IP-LAW-20-20", "IS-DLP-3-14"]) {
+      expect(normativeEvidence(code)).toMatchObject({ verificationStatus: "CONFIRMED" });
+    }
+    expect(normativeEvidence("II-LAW-19-14")?.scope).toContain("alterações posteriores");
+    expect(normativeEvidence("IRT-LAW-28-20")?.scope).toContain("tabelas");
+    expect(normativeEvidence("IP-LAW-20-20")?.scope).toContain("tabelas");
+    expect(normativeEvidence("IS-DLP-3-14")?.scope).toContain("tabela anexa");
+  });
+
   it("avalia prontidão IVA bloqueada quando não existem entradas activas", () => {
     expect(
       evaluateIvaReadiness({ rules: [], mappings: [], sources: [] })

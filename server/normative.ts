@@ -81,6 +81,34 @@ export const angolaNormativeSources = [
     url: "https://portaldocontribuinte.minfin.gov.ao/legislacao",
     verificationStatus: "CONFIRMED" as const,
   },
+  {
+    code: "II-LAW-19-14",
+    title: "Lei n.º 19/14, de 22 de Outubro — Código do Imposto Industrial",
+    scope: "Texto do Código do Imposto Industrial no escopo do PDF primário submetido; alterações posteriores devem ser aplicadas por camada própria.",
+    url: "https://portaldocontribuinte.minfin.gov.ao/legislacao",
+    verificationStatus: "CONFIRMED" as const,
+  },
+  {
+    code: "IRT-LAW-28-20",
+    title: "Lei n.º 28/20, de 22 de Julho — Código do IRT",
+    scope: "Texto do Código do Imposto sobre os Rendimentos do Trabalho no escopo do PDF primário submetido; tabelas e alterações posteriores mantêm escopo próprio.",
+    url: "https://portaldocontribuinte.minfin.gov.ao/legislacao",
+    verificationStatus: "CONFIRMED" as const,
+  },
+  {
+    code: "IP-LAW-20-20",
+    title: "Lei n.º 20/20, de 09 de Julho — Código do Imposto Predial",
+    scope: "Texto do Código do Imposto Predial no escopo do PDF primário submetido; alterações e tabelas posteriores devem ser ligadas separadamente.",
+    url: "https://portaldocontribuinte.minfin.gov.ao/legislacao",
+    verificationStatus: "CONFIRMED" as const,
+  },
+  {
+    code: "IS-DLP-3-14",
+    title: "Decreto Legislativo Presidencial n.º 3/14, de 21 de Outubro — Código do Imposto do Selo",
+    scope: "Texto do Código e tabela anexa do Imposto do Selo no escopo do PDF primário submetido; actualizações posteriores mantêm escopo próprio.",
+    url: "https://portaldocontribuinte.minfin.gov.ao/legislacao",
+    verificationStatus: "CONFIRMED" as const,
+  },
 ] as const;
 
 export function normativeEvidence(code: string) {

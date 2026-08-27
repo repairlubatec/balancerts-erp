@@ -8,7 +8,7 @@
 
 ## Conclusão executiva
 
-A auditoria automática não encontrou condições para activar globalmente as versões nem os efeitos fiscais consequentes. A confirmação do utilizador de que os quatro PDFs são documentos oficiais foi registada como confirmação humana de proveniência para fins de revisão, mas não elimina os restantes requisitos técnicos: cobertura integral das contas, regras de movimentação, vigência consolidada, tabelas/modelos, transição da versão PGCA e cobertura das regras contabilísticas.
+A auditoria automática não encontrou condições para activar globalmente as versões nem os efeitos fiscais consequentes. Nesta continuação, os quatro PDFs submetidos foram também ligados no catálogo de código aos códigos `II-LAW-19-14`, `IRT-LAW-28-20`, `IP-LAW-20-20` e `IS-DLP-3-14`, com escopo limitado ao texto confirmado e sem inferir alterações posteriores. A confirmação do utilizador de que os quatro PDFs são documentos oficiais foi registada como confirmação humana de proveniência para fins de revisão, mas não elimina os requisitos técnicos: regras de movimentação, vigência consolidada, tabelas/modelos, transição da versão PGCA e cobertura das regras contabilísticas.
 
 A decisão segura é manter o motor em **fail-closed**. O sistema pode continuar a permitir consulta, preparação, simulação e revisão auditável, mas deve rejeitar cálculo legal produtivo, posting fiscal e emissão oficial enquanto os bloqueadores abaixo não forem encerrados.
 
@@ -17,17 +17,21 @@ A decisão segura é manter o motor em **fail-closed**. O sistema pode continuar
 | Componente | Estado observado | Consequência |
 |---|---|---|
 | PGCA-82-01 | `UNDER_REVIEW`; sem `activatedAt` | Não pode ser `ACTIVE` |
-| Contas PGCA | 27 `CONFIRMED`; 765 `NEEDS_NORMATIVE_VALIDATION` | Faltam 765 confirmações literais |
-| Regras contabilísticas | Nenhuma regra activa na versão auditada | Não existe cobertura para posting automático |
-| Fontes PGCA/IVA registadas | Registos com `CONFIRMED` para Decreto 82/01, Lei 7/19, Lei 17/19, DP 180/19, DE 134/19 e Lei 14/23 | Podem sustentar revisão/preparação no escopo registado |
+| Contas PGCA | 792 `CONFIRMED` de 792 registadas | Confirmação documental consolidada; não substitui as regras operacionais |
+| Regras contabilísticas | 0 regras activas na versão persistente | Não existe cobertura para posting automático; permanecem exigidas as operações COMPRAS, VENDAS, STOCK, TESOURARIA, SALARIOS e IMOBILIZADO |
+| Fontes PGCA/IVA/fiscais registadas | 10 de 10 fontes `CONFIRMED`, incluindo PGCA, cinco peças IVA e os quatro PDFs II/IRT/IP/IS | Podem sustentar revisão/preparação no escopo registado; não provam por si só todas as alterações posteriores |
 | Versão activa | Nenhuma promoção automática executada | O bloqueio mantém-se intencionalmente |
-| Migração de parâmetros IVA/IRT | Campos `taxType`, `calculationBase` e `taxRate` disponíveis; taxa não é pré-preenchida | Permite configurar rascunhos com fonte e vigência |
+| Migração de parâmetros IVA/IRT | Campos `taxType`, `calculationBase` e `taxRate` disponíveis; taxa não é pré-preenchida | Permite configurar rascunhos com fonte e vigência, sem inventar taxas |
+
+## Resultado desta continuação
+
+A base persistente actualmente consultada contém **792 contas**, todas com estado `CONFIRMED`, **10 fontes**, todas com estado `CONFIRMED`, e **0 regras contabilísticas activas** para `PGCA-82-01`, que permanece em `UNDER_REVIEW`. O catálogo de evidências passou a reconhecer explicitamente os quatro códigos primários II/IRT/IP/IS acima indicados. Não foi feita qualquer mutação de estado produtivo, cálculo fiscal, posting, emissão oficial ou alteração destrutiva da base de dados.
 
 ## O que falta para cada promoção
 
 | Promoção pretendida | Pré-requisitos ainda em falta | Resultado seguro actual |
 |---|---|---|
-| **PGCA-82-01 para `VALIDATED`/`ACTIVE`** | Confirmar as 765 contas: código, designação literal, pai, nível, natureza, regra débito/crédito e lançabilidade; fechar todos os bloqueadores estruturais; cobrir regras contabilísticas; registar aprovação auditável | Bloqueado |
+| **PGCA-82-01 para `VALIDATED`/`ACTIVE`** | Definir, validar e aprovar regras contabilísticas para as seis operações exigidas; fechar eventuais bloqueadores estruturais; registar aprovação auditável e executar a transição ordenada | Bloqueado |
 | **IVA operacional** | Fechar a cadeia Lei 7/19 → Lei 17/19 → DP 180/19 → DE 134/19 → Lei 14/23; mapear alterações/revogações e vigência; validar anexos/modelos; confirmar as contas IVA posteriores no escopo do ERP | Preparação/revisão apenas |
 | **II** | Ligar Lei 19/14, Lei 26/20 e Lei 27/22 ao regime actual; validar taxas, artigo 73.º, reintegrações, provisões, preços de transferência, modelos e vigência | Bloqueado para cálculo produtivo |
 | **IRT** | Validar Lei 18/14 e Lei 28/20, tabelas por grupo, deduções, isenções, retenções, modelos e vigência actual | Bloqueado para cálculo salarial legal |
@@ -51,4 +55,4 @@ Ela não autoriza, por si só, a activação global. Um PDF pode provar o texto 
 5. Testar cálculo e posting em ambiente de simulação, depois testar emissão e SAF-T com validação estrutural e semântica.
 6. Só depois habilitar efeitos produtivos para utilizadores autorizados, com auditoria append-only e possibilidade de revogação controlada.
 
-Nenhuma taxa foi inventada ou activada por esta auditoria. A classificação documental e a activação normativa continuam separadas para preservar a integridade do ERP.
+Nenhuma taxa foi inventada ou activada por esta auditoria. A classificação documental e a activação normativa continuam separadas para preservar a integridade do ERP. A suite validada nesta continuação ficou em **154 ficheiros / 619 testes aprovados**, com TypeScript e build de produção aprovados; o aviso de chunks frontend superiores a 500 kB é não bloqueante e foi registado separadamente.
