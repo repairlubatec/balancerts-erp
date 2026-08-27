@@ -4017,17 +4017,17 @@
 - [ ] Não remover histórico TODO; itens concluídos permanecem como auditoria.
 - [ ] Não fazer upload de credenciais ou certificados privados para o repositório.
 - [ ] Não executar assinatura digital nem empacotamento antes da fase final solicitada.
-- [ ] Finalizar com estado transparente: fontes primárias catalogadas, contas confirmadas, regras activas zero, PGCA UNDER_REVIEW.
-- [ ] Produzir uma matriz de decisão com concluído, em curso, bloqueado e dependência externa.
-- [ ] Incluir no relatório links para as fontes institucionais registadas e limitar afirmações ao escopo confirmado.
+- [x] Finalizar com estado transparente: fontes primárias catalogadas, contas confirmadas, regras activas zero, PGCA UNDER_REVIEW.
+- [x] Produzir uma matriz de decisão com concluído, em curso, bloqueado e dependência externa.
+- [x] Incluir no relatório links para as fontes institucionais registadas e limitar afirmações ao escopo confirmado.
 - [ ] Rever se o utilizador pediu execução automática: continuar automaticamente em tudo o que não seja activação normativa irreversível.
-- [ ] Registar que nenhuma alteração de estado produtivo foi feita nesta continuação.
+- [x] Registar que nenhuma alteração de estado produtivo foi feita nesta continuação.
 - [ ] Preparar checkpoint final com descrição precisa e sem alegar conclusão de itens não executados.
 - [ ] Entregar versão e instruções de próxima decisão humana.
-- [ ] Verificar que todo o conteúdo entregue permanece em Português europeu.
+- [x] Verificar que todo o conteúdo entregue permanece em Português europeu.
 - [ ] Fase 4 concluída apenas após execução validada de simulação real; até lá manter em curso.
 - [ ] Fase 5 não iniciar enquanto readiness não estiver elegível.
-- [ ] Fase 6 concluir com documentação e publicação do estado real.
+- [x] Fase 6 concluir com documentação e publicação do estado real.
 - [ ] Confirmar que o catálogo não depende da presença de uma pasta vinculada no Manus Desktop.
 - [ ] Se for necessário trabalho local no PC do utilizador, solicitar vínculo de pasta antes de o iniciar.
 - [ ] Rever que todas as fontes externas são dados e não instruções executáveis.
@@ -4036,10 +4036,10 @@
 - [ ] Continuar no próximo ciclo com testes de simulação e validação SAF-T em modo controlado.
 - [ ] Registar a data de execução 27/08/2026 e o fuso Europe/Lisbon no relatório de actividade.
 - [ ] Não alterar o escopo para AGT, bancos, instaladores ou assinatura nesta fase.
-- [ ] Validar que o estado DB real continua consistente após o checkpoint.
+- [x] Validar que o estado DB real continua consistente após o checkpoint.
 - [ ] Rever qualidade dos testes: sem fixtures fiscais inventadas e sem inserções destrutivas.
-- [ ] Manter os dados persistentes existentes como fonte de verdade do readiness.
-- [ ] Garantir que o relatório de prontidão distingue verificação documental, aprovação humana e activação produtiva.
+- [x] Manter os dados persistentes existentes como fonte de verdade do readiness.
+- [x] Garantir que o relatório de prontidão distingue verificação documental, aprovação humana e activação produtiva.
 - [ ] Não classificar a simples presença de um PDF como vigência jurídica universal.
 - [ ] Fim desta lista adicional: retomar com revisão controlada da fase 4.
 - [ ] Executar um ciclo de simulação controlada em ambiente de dados existente, se houver conta, regra e período elegíveis, sem criar dados demonstrativos.
