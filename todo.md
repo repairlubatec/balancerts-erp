@@ -4199,3 +4199,12 @@
 
 - [x] Executar suite integral e build após a extensão CEC: 155 ficheiros e 632 testes aprovados.
 - [ ] Guardar checkpoint da cadeia CEC após revisão do TODO.
+
+- [ ] Mostrar a cadeia CEC no painel Fiscalidade como camada anual separada, com estado PENDING/READINESS ONLY e sem confundi-la com os cinco impostos base.
+
+- [x] Mostrar a cadeia CEC no painel Fiscalidade como camada anual separada, com estado READINESS ONLY/PENDING.
+- [x] Validar a UI CEC, catálogo e integração Home: TypeScript e 48 testes dirigidos aprovados.
+- [ ] Executar suite completa e build antes do checkpoint da UI CEC.
+
+- [x] Executar suite integral e build após integrar a UI CEC: 155 ficheiros e 632 testes aprovados.
+- [ ] Guardar checkpoint da UI CEC após revisão final do TODO.
