@@ -4054,7 +4054,7 @@
 - [ ] Revalidar a lista oficial de cinco diplomas IVA na fase de readiness IVA.
 - [x] Preservar a cobertura normativa e a suite integral actualizada: 157 ficheiros e 643 testes aprovados.
 - [ ] Fazer checkpoint após o relatório final da presente continuação.
-- [ ] Não publicar uma activação PGCA prematura.
+- [x] Não publicar uma activação PGCA prematura.
 - [ ] Confirmar que as 792 contas incluem as 765 anteriormente pendentes já confirmadas em lotes auditáveis.
 - [ ] Manter a distinção entre o plano interno de contas e o PGCA canónico normativo.
 - [ ] Fazer validação visual apenas quando a interface tiver alterações visíveis nesta fase.
