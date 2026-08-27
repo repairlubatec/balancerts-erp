@@ -188,3 +188,10 @@ A confirmação não fecha o CII completo nem as alterações e tabelas associad
 | Imposto Predial | Lei n.º 20/20, 10 páginas | Código, revogações, entrada em vigor, taxas-base, liquidação, transmissões e obrigações | `VISUALLY_CONFIRMED_PRIMARY_CONTENT`; cadastro, regulamentação e actualizações ainda condicionados |
 
 Os quatro ficheiros fornecidos são byte-a-byte idênticos aos candidatos Lex/Jurisnet anteriormente preservados. A confirmação visual do conteúdo reduz as lacunas documentais, mas não autoriza a promoção automática de taxas, porque a proveniência do ficheiro não é uma descarga institucional verificável, as alterações posteriores e tabelas vigentes não estão todas fechadas e a aprovação normativa formal não foi registada.
+
+
+## Actualização de 27-08-2026 — fontes técnicas complementares
+
+A Colectânea de Legislação da Contabilidade de Angola e o Manual de Contabilidade submetidos pelo utilizador foram catalogados como fontes técnicas/documentais complementares. A matriz deixa de exigir que cada regra geral de partida dobrada, natureza, diário, razão, depreciação, provisão ou demonstração tenha um diploma autónomo. Essas regras podem ser configuradas como regras técnicas com referência bibliográfica, desde que o seu escopo seja compatível com o PGCA-82-01 e não contradiga diploma ou instrução vigente.
+
+Esta atualização não fecha a lacuna de confirmação das 765 contas. A confirmação de uma conta continua a exigir código, designação, hierarquia, natureza, movimento e lançabilidade confirmados no respectivo escopo documental. Também não autoriza importar códigos, taxas ou regimes do Manual brasileiro para Angola, nem activar regras fiscais IVA/IRT/II/IP/IS apenas por referência bibliográfica.

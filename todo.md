@@ -3916,3 +3916,14 @@
 - [x] Classificar bloqueadores de contas, regras, vigência, cadeia normativa, facturação, emissão e SAF-T.
 - [x] Documentar a confirmação do utilizador sobre a proveniência institucional dos quatro PDFs sem substituir os restantes critérios de elegibilidade.
 - [x] Entregar mapa final do que pode ser promovido e do que permanece bloqueado, com testes de segurança.
+
+# Colectâneas e manual de contabilidade — nova análise
+
+- [x] Catalogar os dois livros submetidos, com hashes, páginas e limitações de OCR.
+- [x] Ler integralmente a Colectânea de Legislação da Contabilidade de Angola e o Manual de Contabilidade.
+- [x] Extrair regras de natureza, débito/crédito, lançamentos, encerramento e apresentação aplicáveis ao PGCA.
+- [x] Cruzar as regras dos livros com o Decreto 82/01 e identificar conflitos concretos com legislação vigente.
+- [x] Incorporar regras não legais como regras técnicas documentadas, com fonte bibliográfica, vigência e escopo.
+- [x] Implementar sem bloqueio artificial as regras tecnicamente comprovadas e manter revisão apenas para conflitos ou lacunas essenciais.
+- [ ] Validar revisão das 765 contas, regras, cálculo, posting e emissão em ambiente de simulação.
+- [ ] Executar suite, build, validação visual, documentar decisão e publicar checkpoint.

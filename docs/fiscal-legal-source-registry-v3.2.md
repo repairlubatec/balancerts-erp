@@ -415,3 +415,13 @@ A página 10 termina a Lei n.º 20/20 e já inicia a Lei n.º 21/20, o que confi
 ## Revalidação das versões fornecidas pelo utilizador — 26-08-2026
 
 As quatro novas cópias fornecidas foram comparadas com os candidatos já preservados e são byte-a-byte idênticas, sem alteração de conteúdo ou completude: Lei n.º 19/14, 19 páginas, SHA-256 `ce79dac281609f0c8a684f7811ac93e77609a9f741b6c352cfcf817dee23d196`; Lei n.º 20/20, 10 páginas, SHA-256 `0c38176f9919866bc47913eb56a511cbc0d7f0c03a103c2606f8fcb197cab255`; Lei n.º 28/20, 25 páginas, SHA-256 `db464c65f7d7c48b5df1ac6c41088c665a15627d23effe674dc5fe700dd9ec2b`; DLP n.º 3/14, 11 páginas, SHA-256 `dc49e1c574e103a24c501d9b9b7b6b65c92f61f2d3a4eb012cf90d82f3508f83`. Todos mantêm `Author: Jurisnet`, `Producer: GPL Ghostscript 9.18` e datas de criação em 2023. A nova nomenclatura dos ficheiros não prova emissão institucional; os diplomas permanecem como conteúdo visualmente confirmado/proveniência hospedada, não como fonte institucional independente. Nenhuma taxa, regra ou activação foi promovida.
+
+
+## 15. Fontes técnicas contabilísticas complementares recebidas em 27-08-2026
+
+| Fonte | Natureza | Utilização segura | Exclusões |
+|---|---|---|---|
+| `3colectaneadalegislacaodacontabilidadeangola.pdf` — SHA-256 `87526b191af0eb4eca846f674218e74dc1718315127f6870f0ef7cd7679567ac`, 401 páginas | Compilação angolana editada pelo Centro de Estudos Kanjaya em 2020 | Repositório de localização, reprodução documental e regras contabilísticas angolanas transcritas; inclui referência ao Decreto 82/01 e transcrição do DP 180/19 com Anexos I/II | Não substituir a conferência dos diplomas; a própria obra aconselha confronto com o Diário da República e declara carácter informativo |
+| `manualdecontabilidadeabibliaosnihoss.pdf` — SHA-256 `74674941d2f42b7f967943fb6b99677f0aa54b0cd2481bb27cc6eb45540d56fc`, 898 páginas | Manual didáctico brasileiro, 5.ª edição, Osni Hoss, 2020 | Fundamentar regras técnicas gerais: partidas dobradas, diário/razão, natureza devedora/credora, plano de contas, depreciação, provisões e demonstrações, sempre confrontadas com o PGCA | Não é fonte de lei angolana; excluir códigos brasileiros, ICMS, IRPF, FGTS, taxas, regimes e exemplos monetários do motor fiscal angolano |
+
+Estas obras passam a ser aceites como **fontes técnicas/documentais complementares** para reduzir bloqueios artificiais na definição de regras contabilísticas. Uma regra pode ser preparada e validada com referência bibliográfica quando não houver diploma específico, desde que não contrarie o Decreto n.º 82/01, a legislação fiscal angolana vigente, a cadeia IVA ou uma instrução sectorial aplicável. A aceitação bibliográfica não altera automaticamente o estado de uma conta nem activa cálculo, posting ou emissão.

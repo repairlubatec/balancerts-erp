@@ -7,6 +7,8 @@ export type AccountingMovementRule = {
   creditLabel: string;
   automaticPosting: "ALLOWED" | "REQUIRES_CONFIRMED_RULE" | "BLOCKED";
   explanation: string;
+  evidence: string;
+  evidenceScope: "PGCA_COMPATIBLE_TECHNICAL_RULE" | "SOURCE_CONFIRMATION_REQUIRED" | "NOT_APPLICABLE";
 };
 
 const rules: Record<AccountingNature, AccountingMovementRule> = {
@@ -16,6 +18,8 @@ const rules: Record<AccountingNature, AccountingMovementRule> = {
     creditLabel: "Diminuições, saídas, consumo, alienações ou regularizações redutoras",
     automaticPosting: "ALLOWED",
     explanation: "A conta de natureza devedora aumenta a débito e diminui a crédito.",
+    evidence: "Manual de Contabilidade: A Bíblia, capítulo de escrituração; Colectânea, regras gerais confrontadas com o PGCA-82-01.",
+    evidenceScope: "PGCA_COMPATIBLE_TECHNICAL_RULE",
   },
   CREDIT: {
     nature: "CREDIT",
@@ -23,13 +27,17 @@ const rules: Record<AccountingNature, AccountingMovementRule> = {
     creditLabel: "Aumentos, constituição de obrigações ou acréscimos",
     automaticPosting: "ALLOWED",
     explanation: "A conta de natureza credora aumenta a crédito e diminui a débito.",
+    evidence: "Manual de Contabilidade: A Bíblia, capítulo de escrituração; Colectânea, regras gerais confrontadas com o PGCA-82-01.",
+    evidenceScope: "PGCA_COMPATIBLE_TECHNICAL_RULE",
   },
   MIXED: {
     nature: "MIXED",
     debitLabel: "Depende da regra específica confirmada",
     creditLabel: "Depende da regra específica confirmada",
     automaticPosting: "REQUIRES_CONFIRMED_RULE",
-    explanation: "A conta mista pode assumir comportamento devedor ou credor; exige regra de movimentação confirmada na fonte primária.",
+    explanation: "A conta mista pode assumir comportamento devedor ou credor; exige regra de movimentação confirmada na fonte.",
+    evidence: "Regra técnica geral complementada pelas regras específicas do PGCA/DP 180/19 quando aplicável.",
+    evidenceScope: "SOURCE_CONFIRMATION_REQUIRED",
   },
   NOT_APPLICABLE: {
     nature: "NOT_APPLICABLE",
@@ -37,6 +45,8 @@ const rules: Record<AccountingNature, AccountingMovementRule> = {
     creditLabel: "Não definido",
     automaticPosting: "BLOCKED",
     explanation: "A natureza não está definida para movimentação automática.",
+    evidence: "Sem evidência suficiente.",
+    evidenceScope: "NOT_APPLICABLE",
   },
 };
 

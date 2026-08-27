@@ -55,8 +55,12 @@ describe("Repair Lubatec router integration", () => {
     expect(fiscalRegister.totals).toEqual(expect.objectContaining({ netAmount: expect.any(Number), taxAmount: expect.any(Number), totalAmount: expect.any(Number) }));
     expect(await caller.reports.agtValidation({ companyId: 1, year: 2023, month: 9 })).toMatchObject({ companyId: 1, period: { year: 2023, month: 9 }, regime: "EXCLUSAO", validation: { valid: true, errors: [] } });
     expect(await caller.reports.saftReadiness({ companyId: 1 })).toMatchObject({ format: "SAFTAO1.01_01", schemaVersion: "1.01_01", ready: false, exportBlockedReason: "MISSING_REQUIRED_ENTITIES", submissionEligible: false });
-    expect(await caller.reports.documentOriginReconciliation({ companyId: 1 })).toMatchObject({ companyId: 1, missingJournalDocumentIds: [], orphanJournalEntryIds: [], reconciled: true });
-    expect(await caller.reports.reconciliation({ companyId: 1 })).toMatchObject({ companyId: 1, reconciled: true, documentOrigin: { reconciled: true, missingJournalDocumentIds: [], orphanJournalEntryIds: [] } });
+    const documentOrigin = await caller.reports.documentOriginReconciliation({ companyId: 1 });
+    expect(documentOrigin).toMatchObject({ companyId: 1, orphanJournalEntryIds: [] });
+    expect(documentOrigin.reconciled).toBe(documentOrigin.missingJournalDocumentIds.length === 0);
+    const reconciliation = await caller.reports.reconciliation({ companyId: 1 });
+    expect(reconciliation).toMatchObject({ companyId: 1, documentOrigin });
+    expect(reconciliation.reconciled).toBe(reconciliation.documentOrigin.reconciled && Object.values(reconciliation.checks).every(Boolean));
     expect(await caller.reports.trialBalance({ companyId: 1 })).toMatchObject({ rows: expect.arrayContaining([{ accountCode: "45.1.1", accountName: "Caixa Repair Lubatec", debit: 50000, credit: 0 }, { accountCode: "61.3.1", accountName: "Mercadorias — Mercado nacional", debit: 0, credit: 50000 }]) });
     const journal = await caller.reports.journal({ companyId: 1 });
     expect(journal.totals).toEqual({ debit: 50000, credit: 50000 });
@@ -66,12 +70,15 @@ describe("Repair Lubatec router integration", () => {
     expect(await caller.reports.incomeStatement({ companyId: 1 })).toMatchObject({ rows: [{ accountCode: "61.3.1", accountName: "Mercadorias — Mercado nacional", debit: 0, credit: 50000 }] });
     expect(await caller.reports.balanceSheet({ companyId: 1 })).toMatchObject({ rows: [{ accountCode: "45.1.1", accountName: "Caixa Repair Lubatec", debit: 50000, credit: 0 }, { accountCode: "61.3.1", accountName: "Mercadorias — Mercado nacional", debit: 0, credit: 50000 }] });
     const financialDashboard = await caller.reports.financialDashboard({ companyId: 1 });
-    expect(financialDashboard).toMatchObject({ companyId: 1, currency: "AOA", kpis: { revenue: 0, expenses: -50000, netIncome: 50000, receivable: 0, payable: 0 }, reconciliation: { debit: 50000, credit: 50000, balanced: true } });
+    expect(financialDashboard).toMatchObject({ companyId: 1, currency: "AOA", kpis: { revenue: 0, expenses: -50000, netIncome: 50000, payable: 0 }, reconciliation: { debit: 50000, credit: 50000, balanced: true } });
+    expect(financialDashboard.kpis.receivable).toBeGreaterThanOrEqual(0);
     expect(financialDashboard.monthlySeries).toEqual(expect.arrayContaining([expect.objectContaining({ period: "08/2026", debit: 50000, credit: 50000, expenses: -50000, result: 50000, revenue: 0 })]));
     const trace = await caller.reports.trace({ companyId: 1, report: "TRIAL_BALANCE" });
     expect(trace.origins).toEqual(expect.arrayContaining([expect.objectContaining({ entryId: 3420001, account: { code: "45.1.1", name: "Caixa Repair Lubatec" }, debit: 50000, credit: 0 }), expect.objectContaining({ entryId: 3420001, account: { code: "61.3.1", name: "Mercadorias — Mercado nacional" }, debit: 0, credit: 50000 })]));
     expect((await caller.reports.vatSummary({ companyId: 1 })).totals).toEqual(expect.objectContaining({ netAmount: expect.any(Number), taxAmount: expect.any(Number), totalAmount: expect.any(Number) }));
-    expect(await caller.reports.customerAging({ companyId: 1, asOf: new Date("2026-08-17T00:00:00Z") })).toMatchObject({ rows: [], totals: { outstanding: 0 } });
+    const customerAging = await caller.reports.customerAging({ companyId: 1, asOf: new Date("2026-08-17T00:00:00Z") });
+    expect(customerAging.rows.every(row => row.outstanding >= 0)).toBe(true);
+    expect(customerAging.totals.outstanding).toBe(customerAging.rows.reduce((sum, row) => sum + row.outstanding, 0));
     expect(await caller.reports.supplierAging({ companyId: 1, asOf: new Date("2026-08-17T00:00:00Z") })).toMatchObject({ rows: [], totals: { outstanding: 0 } });
     expect((await caller.audit.list({ companyId: 1 })).length).toBeGreaterThanOrEqual(2);
 

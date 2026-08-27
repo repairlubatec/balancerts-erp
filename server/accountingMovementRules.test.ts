@@ -7,13 +7,17 @@ describe("regras-base de movimentação contabilística", () => {
     expect(rule.debitLabel).toContain("Aumentos");
     expect(rule.creditLabel).toContain("Diminuições");
     expect(rule.automaticPosting).toBe("ALLOWED");
+    expect(rule.evidence).toContain("Manual de Contabilidade");
+    expect(rule.evidenceScope).toBe("PGCA_COMPATIBLE_TECHNICAL_RULE");
   });
   it("descreve natureza credora como aumento a crédito e diminuição a débito", () => {
     const rule = getAccountingMovementRule("CREDIT");
     expect(rule.debitLabel).toContain("Diminuições");
     expect(rule.creditLabel).toContain("Aumentos");
+    expect(rule.evidenceScope).toBe("PGCA_COMPATIBLE_TECHNICAL_RULE");
   });
   it("bloqueia natureza mista sem regra confirmada e aceita-a com regra", () => {
+    expect(getAccountingMovementRule("MIXED").evidenceScope).toBe("SOURCE_CONFIRMATION_REQUIRED");
     expect(validateDirectionalMovement({ debitNature: "MIXED", creditNature: "CREDIT" }).ok).toBe(false);
     expect(validateDirectionalMovement({ debitNature: "MIXED", creditNature: "CREDIT", hasConfirmedRule: true }).ok).toBe(true);
   });

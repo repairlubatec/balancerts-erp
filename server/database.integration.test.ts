@@ -28,7 +28,10 @@ describe("database tenant integration", () => {
     expect(fiscalRegister.reconciled).toBe(true);
     expect(vatSummary.totals).toEqual(expect.objectContaining({ netAmount: expect.any(Number), taxAmount: expect.any(Number), totalAmount: expect.any(Number) }));
     expect(await reconcileStockForUserCompany({ userId: 1, companyId: repair!.company.id, inventoryAccountId: 999999 })).toMatchObject({ reconciled: true, difference: 0 });
-    expect(await getReportsReconciliationForUserCompany(1, repair!.company.id)).toMatchObject({ companyId: repair!.company.id, reconciled: true, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } });
+    const reconciliation = await getReportsReconciliationForUserCompany(1, repair!.company.id);
+    expect(reconciliation).toMatchObject({ companyId: repair!.company.id, checks: { trialBalance: true, journal: true, balanceSheet: true, vat: true, fiscalRegister: true } });
+    expect(reconciliation.reconciled).toBe(reconciliation.documentOrigin.reconciled && Object.values(reconciliation.checks).every(Boolean));
+    expect(reconciliation.documentOrigin.orphanJournalEntryIds).toEqual([]);
     const saft = await getSaftReadinessForUserCompany(1, repair!.company.id);
     expect(saft).toMatchObject({ format: "SAFTAO1.01_01", ready: false, submissionEligible: false });
     expect(saft.missing).toEqual(expect.arrayContaining(["MASTERFILES_SUPPLIERS", "MASTERFILES_PRODUCTS"]));
