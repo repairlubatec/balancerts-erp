@@ -4056,9 +4056,9 @@
 - [ ] Fazer checkpoint após o relatório final da presente continuação.
 - [x] Não publicar uma activação PGCA prematura.
 - [ ] Confirmar que as 792 contas incluem as 765 anteriormente pendentes já confirmadas em lotes auditáveis.
-- [ ] Manter a distinção entre o plano interno de contas e o PGCA canónico normativo.
+- [x] Manter a distinção entre o plano interno de contas e o PGCA canónico normativo.
 - [ ] Fazer validação visual apenas quando a interface tiver alterações visíveis nesta fase.
-- [ ] Concluir fase 4 ou documentar a impossibilidade técnica sem alterar o estado produtivo.
+- [x] Concluir fase 4 ou documentar a impossibilidade técnica sem alterar o estado produtivo.
 - [ ] Concluir fase 5 apenas após confirmação de readiness completo.
 - [ ] Entregar relatório final anexado e versão publicada.
 - [ ] Continuar trabalho autónomo dentro dos limites de segurança e da aprovação humana exigida.
