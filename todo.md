@@ -4041,7 +4041,7 @@
 - [x] Manter os dados persistentes existentes como fonte de verdade do readiness.
 - [x] Garantir que o relatório de prontidão distingue verificação documental, aprovação humana e activação produtiva.
 - [x] Não classificar a simples presença de um PDF como vigência jurídica universal.
-- [ ] Fim desta lista adicional: retomar com revisão controlada da fase 4.
+- [x] Fim desta lista adicional: retomar com revisão controlada da fase 4.
 - [ ] Executar um ciclo de simulação controlada em ambiente de dados existente, se houver conta, regra e período elegíveis, sem criar dados demonstrativos.
 - [x] Se não houver regra activa, reportar bloqueio de simulação normativa e não criar regra por inferência.
 - [x] Confirmar que o SAF-T de ensaio não é submissão AGT nem emissão oficial.
