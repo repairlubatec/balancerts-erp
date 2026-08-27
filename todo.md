@@ -4075,3 +4075,10 @@
 - [ ] Não remover o manual brasileiro do armazenamento histórico se for necessário para auditoria; apenas excluí-lo da lógica operacional.
 - [ ] Fechar análise sem erros TypeScript e com build aprovado.
 - [ ] Fim.
+
+- [x] Expor consulta read-only das cadeias normativas IVA, II, IRT, IP e IS no router, limitada a códigos e evidências catalogadas.
+- [x] Validar o endpoint de cadeias fiscais com TypeScript e testes de permissões sem permitir mutações.
+- [ ] Integrar a consulta de cadeias fiscais na interface Fiscalidade com estados claros por imposto, sem apresentar vigência posterior não confirmada.
+- [ ] Criar regras contabilísticas operacionais por operação somente após definição das contas e aprovação humana.
+- [ ] Executar simulação de cálculo/posting com dados persistentes elegíveis, sem criar dados de teste.
+- [ ] Validar SAF-T AO estrutural e semântico depois de existirem movimentos e regras aprovadas.

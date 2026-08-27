@@ -268,7 +268,7 @@ import {
   evaluatePeriodClose,
   validateReopenReason,
 } from "./closing";
-import { buildDecree71Coverage, validateNormativeCoverage } from "./normative";
+import { buildDecree71Coverage, normativeEvidence, TAX_NORMATIVE_CHAINS, validateNormativeCoverage } from "./normative";
 import { convertToFunctionalCurrency } from "./currency";
 import { buildReversalLines, reversalDescription } from "./reversal";
 import {
@@ -3097,6 +3097,14 @@ export const appRouter = router({
         void input;
         return buildDecree71Coverage({});
       }),
+    taxChains: roleProcedure("normative", "read")
+      .input(z.object({ tax: z.enum(["IVA", "II", "IRT", "IP", "IS"]) }).strict())
+      .query(({ input }) => ({
+        tax: input.tax,
+        sourceCodes: TAX_NORMATIVE_CHAINS[input.tax],
+        sources: TAX_NORMATIVE_CHAINS[input.tax].map(normativeEvidence).filter(Boolean),
+        activation: "READINESS_ONLY",
+      })),
     sources: roleProcedure("normative", "read")
       .input(
         z
