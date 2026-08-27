@@ -4052,7 +4052,7 @@
 - [ ] Fechar a sessão com todas as limitações materiais visíveis ao utilizador.
 - [ ] Registar fonte de código: server/normative.ts e teste server/normative.test.ts.
 - [ ] Revalidar a lista oficial de cinco diplomas IVA na fase de readiness IVA.
-- [ ] Preservar o teste de 11 casos normativos e suite total de 619 testes.
+- [x] Preservar a cobertura normativa e a suite integral actualizada: 157 ficheiros e 643 testes aprovados.
 - [ ] Fazer checkpoint após o relatório final da presente continuação.
 - [ ] Não publicar uma activação PGCA prematura.
 - [ ] Confirmar que as 792 contas incluem as 765 anteriormente pendentes já confirmadas em lotes auditáveis.
@@ -4209,12 +4209,12 @@
 - [x] Executar suite integral e build após integrar a UI CEC: 155 ficheiros e 632 testes aprovados.
 - [ ] Guardar checkpoint da UI CEC após revisão final do TODO.
 
-- [ ] Corrigir o guard de activação para localizar tanto parâmetros gerais como medidas anuais OGE 2026/CEC e devolver bloqueadores específicos.
-- [ ] Acrescentar regressões que confirmem que medidas OGE/CEC conhecidas não são tratadas como parâmetros inexistentes nem activadas sem cadeia e vigência.
+- [x] Corrigir o guard de activação para localizar tanto parâmetros gerais como medidas anuais OGE 2026/CEC e devolver bloqueadores específicos.
+- [x] Acrescentar regressões que confirmem que medidas OGE/CEC conhecidas não são tratadas como parâmetros inexistentes nem activadas sem cadeia e vigência.
 
 - [x] Corrigir o guard de activação para localizar parâmetros gerais e medidas anuais OGE 2026/CEC.
 - [x] Acrescentar regressões de reconhecimento e bloqueio seguro: 21 testes normativos aprovados.
-- [ ] Executar suite completa e build antes do checkpoint do guard normativo.
+- [x] Executar suite completa e build antes do checkpoint do guard normativo.
 
 - [x] Executar suite integral e build após corrigir o guard OGE/CEC: 155 ficheiros e 633 testes aprovados.
 - [x] Guardar checkpoint da correcção do guard após revisão do TODO.
