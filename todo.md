@@ -4186,3 +4186,6 @@
 - [x] Cobrir a apresentação visual e corrigir a nota opcional sem permitir confusão com taxas activas.
 - [x] Validar TypeScript, suite integral e build: 155 ficheiros e 631 testes aprovados.
 - [ ] Guardar checkpoint da integração visual OGE 2026 após revisão do TODO.
+
+- [x] Documentar os artigos fiscais 16.º, 21.º–23.º, 27.º e 30.º do OGE 2026 com condições e fontes institucionais.
+- [ ] Avaliar formalmente a extensão futura da Contribuição Especial sobre Operações Cambiais, incluindo cadeia normativa e impacto no escopo de impostos do ERP.
