@@ -71,3 +71,7 @@ A pesquisa também confirmou a necessidade de distinguir a taxa geral do II dos 
 ## Busca institucional adicional — Imposto do Selo
 
 A pesquisa adicional em páginas AGT/MINFIN encontrou o Guia do Sistema Tributário Angolano 2017 e referências institucionais ao DLP n.º 3/14, mas o Guia declara não substituir a legislação integral. A página AGT de impostos disponibiliza o Calendário Fiscal 2026 e notícias operacionais, sem expor a tabela integral de verbas do IS. Um activo CMS localizado na pesquisa corresponde a uma proposta/documento do OGE 2022, não ao OGE 2026 nem à tabela do IS, pelo que não foi incorporado como fonte fiscal vigente. O bloqueio da tabela integral permanece legítimo.
+
+## OGE 2026 — confirmação institucional adicional
+
+A pesquisa no MINFIN encontrou a página oficial de propostas do OGE 2026: https://www.minfin.gov.ao/oge/proposta-oge. Também encontrou a comunicação oficial do MINFIN que identifica o OGE 2026 como aprovado pela **Lei n.º 14/25, de 30 de Dezembro**: https://www.minfin.gov.ao/sala-de-imprensa/noticias/noticia/rigor-na-execucao-do-oge-2026. O activo CMS institucional com o texto da lei aparece em https://cms.minfin.gov.ao/api/assets/portal-minfin/8983392b-8784-45d7-a23d-1aa35cf938b4/. Esta confirmação é suficiente para catalogar a Lei do OGE 2026 como camada anual de referência e vigência do exercício, mas não autoriza assumir que alterou taxas gerais de II, IRT, IVA, IP ou IS sem ler os artigos tributários específicos do diploma. A camada OGE continua separada das tabelas gerais e de regras de posting.

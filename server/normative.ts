@@ -341,10 +341,130 @@ export const OFFICIAL_TAX_PARAMETER_REFERENCES = [
   },
 ] as const;
 
+export const OFFICIAL_OGE_2026_MEASURE_REFERENCES = [
+  {
+    code: "OGE26-IRT-GC-6_5",
+    tax: "IRT" as const,
+    article: "21.º/1",
+    factPattern: "CONTRIBUINTE_GRUPO_C_VOLUME_2025_ATE_10M_KZ_SEM_RETENCAO",
+    parameter: { ratePercent: 6.5, base: "VENDAS_BENS_SERVICOS_NAO_SUJEITOS_RETENCAO" },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+    note: "Camada anual OGE 2026; exige verificação de grupo, volume, exercício e sujeição a retenção.",
+  },
+  {
+    code: "OGE26-IRT-GC-ISENCAO-150K",
+    tax: "IRT" as const,
+    article: "21.º/3",
+    factPattern: "RENDIMENTO_ATE_150000_KZ_CONFORME_ANEXO_I",
+    parameter: { thresholdAmount: 150000, currency: "AOA" },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+    note: "A aplicação depende da tabela do Anexo I e da qualificação do rendimento.",
+  },
+  {
+    code: "OGE26-IRT-GC-AGRO-10",
+    tax: "IRT" as const,
+    article: "21.º/4",
+    factPattern: "GRUPO_C_AGRICOLA_SILVICOLA_PECUARIA_PISCATORIA_ACIMA_LIMIAR",
+    parameter: { ratePercent: 10 },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+  },
+  {
+    code: "OGE26-II-DECLARACAO-ELECTRONICA",
+    tax: "II" as const,
+    article: "22.º/1",
+    factPattern: "SUJEITO_PASSIVO_REGIME_GERAL_OU_SIMPLIFICADO",
+    parameter: { obligation: "SUBMISSAO_DECLARACAO_VIA_ELECTRONICA" },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+  },
+  {
+    code: "OGE26-II-AMORTIZACAO-AGRO-5",
+    tax: "II" as const,
+    article: "22.º/2-3",
+    factPattern: "CUSTO_INFRAESTRUTURA_AGRICOLA_OU_PECUARIA_AUTORIZADO_DOCUMENTADO",
+    parameter: { amortizationYears: 5, requiresPriorTaxAuthorityApproval: true },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+  },
+  {
+    code: "OGE26-II-AMORTIZACAO-MOVEL-8",
+    tax: "II" as const,
+    article: "22.º/4",
+    factPattern: "PLATAFORMA_FINANCEIRA_MOVEL_JUSTIFICADA_TECNICA_CONTABILISTICAMENTE",
+    parameter: { amortizationYearsMaximum: 8 },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+  },
+  {
+    code: "OGE26-IVA-EQUIPAMENTO-5",
+    tax: "IVA" as const,
+    article: "23.º/1",
+    factPattern: "IMPORTACAO_OU_TRANSMISSAO_EQUIPAMENTO_INDUSTRIAL_PELO_FABRICANTE",
+    parameter: { ratePercent: 5, requiresTaxAuthorityApproval: true },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+    note: "Exige solicitação e aprovação da Administração Tributária e prova da finalidade industrial.",
+  },
+  {
+    code: "OGE26-IVA-MUDANCA-REGIME-FIM-MES",
+    tax: "IVA" as const,
+    article: "23.º/2-3",
+    factPattern: "ULTRAPASSAGEM_LIMIARES_REGIME_EXCLUSAO_OU_SIMPLIFICADO",
+    parameter: { deadline: "FIM_DO_MES_SEGUINTE", authorityMayChangeRegime: true },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+  },
+  {
+    code: "OGE26-IP-HABITACAO-ATE-40M-ISENCAO",
+    tax: "IP" as const,
+    article: "27.º/1",
+    factPattern: "TRANSMISSAO_IMOVEL_HABITACIONAL_ATE_40M_KZ",
+    parameter: { thresholdAmount: 40000000, currency: "AOA", treatment: "ISENCAO" },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+  },
+  {
+    code: "OGE26-IP-HABITACAO-40M-100M-REDUCAO",
+    tax: "IP" as const,
+    article: "27.º/2",
+    factPattern: "TRANSMISSAO_IMOVEL_HABITACIONAL_ACIMA_40M_ATE_100M_KZ",
+    parameter: { lowerThresholdAmount: 40000000, upperThresholdAmount: 100000000, reductionPercent: 50, currency: "AOA" },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+  },
+  {
+    code: "OGE26-IS-MMI-VERBA-16-ISENCAO",
+    tax: "IS" as const,
+    article: "30.º/1",
+    factPattern: "OPERACAO_MERCADO_MONETARIO_INTERBANCARIO",
+    parameter: { treatment: "ISENCAO", referencedScheduleEntry: "16" },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+  },
+  {
+    code: "OGE26-IS-AUMENTO-CAPITAL-VERBA-7_3-ISENCAO",
+    tax: "IS" as const,
+    article: "30.º/2",
+    factPattern: "AUMENTO_CAPITAL_SOCIEDADE_COMERCIAL_LEGALMENTE_CONSTITUIDA",
+    parameter: { treatment: "ISENCAO", referencedScheduleEntry: "7.3" },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+  },
+] as const;
+
 export function getOfficialTaxParameterReferences(tax?: FiscalRegimeCode) {
   return tax
     ? OFFICIAL_TAX_PARAMETER_REFERENCES.filter(row => row.tax === tax)
     : OFFICIAL_TAX_PARAMETER_REFERENCES;
+}
+
+export function getOfficialOge2026MeasureReferences(tax?: FiscalRegimeCode) {
+  return tax
+    ? OFFICIAL_OGE_2026_MEASURE_REFERENCES.filter(row => row.tax === tax)
+    : OFFICIAL_OGE_2026_MEASURE_REFERENCES;
 }
 
 export function canActivateTaxParameterReference(input: {

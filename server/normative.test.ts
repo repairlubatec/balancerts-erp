@@ -3,6 +3,7 @@ import {
   evaluateIvaReadiness,
   evaluateTaxReadiness,
   getOfficialTaxParameterReferences,
+  getOfficialOge2026MeasureReferences,
   getOfficialTaxObligationReferences,
   canActivateTaxParameterReference,
   normativeEvidence,
@@ -115,6 +116,26 @@ describe("Angola normative evidence", () => {
     expect(getOfficialTaxParameterReferences("IP")).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ code: "IP-TRANSMISSAO-2", ratePercent: 2 }),
+      ])
+    );
+  });
+
+  it("expõe as medidas fiscais do OGE 2026 como camada anual não activa", () => {
+    expect(getOfficialOge2026MeasureReferences("IRT")).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "OGE26-IRT-GC-6_5", article: "21.º/1", status: "REFERENCE_ONLY" }),
+        expect.objectContaining({ code: "OGE26-IRT-GC-ISENCAO-150K", status: "REFERENCE_ONLY" }),
+      ])
+    );
+    expect(getOfficialOge2026MeasureReferences("IVA")).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "OGE26-IVA-EQUIPAMENTO-5", status: "REFERENCE_ONLY" }),
+      ])
+    );
+    expect(getOfficialOge2026MeasureReferences("IS")).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "OGE26-IS-MMI-VERBA-16-ISENCAO", status: "REFERENCE_ONLY" }),
+        expect.objectContaining({ code: "OGE26-IS-AUMENTO-CAPITAL-VERBA-7_3-ISENCAO", status: "REFERENCE_ONLY" }),
       ])
     );
   });

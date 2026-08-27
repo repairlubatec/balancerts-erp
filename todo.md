@@ -4169,3 +4169,12 @@
 
 - [x] Executar suite completa e build após expor o resultado semântico SAF-T: 155 ficheiros e 630 testes aprovados.
 - [ ] Guardar checkpoint desta melhoria com a árvore de trabalho validada.
+
+- [x] Confirmar no MINFIN a Lei n.º 14/25, de 30 de Dezembro, como diploma do OGE 2026 e catalogá-la como camada anual de referência.
+- [ ] Ler os artigos tributários específicos da Lei n.º 14/25 antes de concluir qualquer alteração de taxa geral.
+
+- [x] Validar TypeScript e a consulta filtrada das medidas fiscais OGE 2026: 19 testes normativos aprovados.
+- [ ] Executar suite completa e build antes do checkpoint das medidas OGE 2026.
+
+- [x] Executar suite integral e build após acrescentar as medidas fiscais OGE 2026: 155 ficheiros e 631 testes aprovados.
+- [ ] Guardar checkpoint das medidas OGE 2026 após revisão do TODO.
