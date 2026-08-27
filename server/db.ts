@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { validateAuditSnapshotShape } from "./audit-chain";
+import { validateAgtPrivateKeyReference } from "./agt-key-security";
 import { validateFixedAssetLifecycle } from "./fixed-assets";
 import { buildFiscalCalendar2026, FISCAL_CALENDAR_2026_DEFINITIONS } from "./tax-compliance";
 import { calculateFiscalResult, validateFiscalInput } from "./fiscal";
@@ -1689,15 +1690,14 @@ export async function createAgtSignatureKeyReferenceForUser(input: {
     organizationId: input.organizationId,
     companyId: input.companyId,
   });
-  if (/BEGIN (RSA |EC )?PRIVATE KEY/.test(input.privateKeyReference ?? ""))
-    throw new Error("AGT_PRIVATE_KEY_MATERIAL_FORBIDDEN");
+  const privateKeyReference = validateAgtPrivateKeyReference(input.privateKeyReference);
   const inserted = await db.insert(agtSignatureKeys).values({
     organizationId: input.organizationId,
     companyId: input.companyId,
     keyType: input.keyType,
     signatureVersion: input.signatureVersion,
     publicKeyReference: input.publicKeyReference.trim(),
-    privateKeyReference: input.privateKeyReference?.trim(),
+    privateKeyReference,
     effectiveFrom: input.effectiveFrom,
     createdBy: input.userId,
   });
@@ -1713,9 +1713,7 @@ export async function createAgtSignatureKeyReferenceForUser(input: {
     afterState: JSON.stringify({
       ...input,
       userId: undefined,
-      privateKeyReference: input.privateKeyReference
-        ? "configured-reference"
-        : null,
+      privateKeyReference: privateKeyReference ? "configured-reference" : null,
       id,
     }),
     correlationId: `agt-key:${input.companyId}:${input.signatureVersion}`,

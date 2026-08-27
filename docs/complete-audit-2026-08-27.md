@@ -173,3 +173,11 @@ O estado actual deve ser comunicado como:
 > **BALANCERTS.ERP — ambiente operacional controlado, com motor fiscal e contabilístico em preparação auditada; PGCA, posting produtivo, submissão AGT, bancos e instaladores assinados ainda não aceites para produção.**
 
 A recomendação é **não remover os bloqueios vermelhos**. O próximo avanço seguro é concluir e aprovar as regras dos seis modelos operacionais, depois executar a simulação integrada com dados elegíveis e só então iniciar a transição normativa e a homologação externa.
+
+## 10. Acção correctiva executada durante a auditoria
+
+O achado `AUD-009` foi endurecido sem activar qualquer integração AGT. Foi criado um validador que aceita apenas referências com esquema `secret://`, `vault://` ou `kms://`, rejeitando material PEM, credenciais brutas, caminhos locais e referências sem formato permitido. A referência persistida continua a ser apenas um identificador de secret store e não conteúdo de chave privada.
+
+A regressão específica passou com 3 testes. A validação integral posterior passou com **157 ficheiros e 639 testes**, o TypeScript passou e o build de produção passou. O preflight AGT continua a indicar homologação e configuração externa pendentes.
+
+O achado `AUD-009` passa de “risco de segurança a endurecer” para **controlo implementado, dependência de secret store ainda pendente**. Os restantes achados e bloqueadores mantêm-se inalterados.

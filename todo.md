@@ -4234,3 +4234,5 @@
 - [x] Auditar integralmente funcionalidades, bloqueadores, dependências externas, falhas de runtime, testes, build, base de dados, segurança e documentação.
 - [x] Produzir relatório de auditoria com classificação Implementado, Parcial, Bloqueado, Dependente de configuração e Não funcional.
 - [x] Definir prioridades de correcção com evidência técnica e impacto operacional.
+
+- [x] Restringir `privateKeyReference` AGT a referências não secretas de secret store, rejeitando conteúdo PEM, caminhos locais e credenciais brutas, com regressão de segurança.
