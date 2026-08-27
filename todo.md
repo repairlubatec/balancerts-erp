@@ -4112,3 +4112,6 @@
 
 - [x] Verificar páginas oficiais 2025/2026 para possíveis alterações posteriores e documentar que regimes MPME/OGE são camadas próprias.
 - [ ] Modelar camadas especiais MPME/OGE apenas com diploma, elegibilidade, vigência e cálculo confirmados.
+
+- [x] Implementar modelos DRAFT_ONLY para Compras, Vendas, Stock, Tesouraria, Salários e Imobilizado.
+- [x] Garantir por testes que os modelos exigem aprovação humana e não seleccionam contas ou taxas por inferência.

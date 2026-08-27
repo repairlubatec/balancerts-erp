@@ -68,3 +68,87 @@ export function validateDirectionalMovement(input: { debitNature: string | null 
     reason: !debitCompatible ? "A conta a débito não tem natureza devedora compatível." : !creditCompatible ? "A conta a crédito não tem natureza credora compatível." : mixedNeedsRule ? "Uma conta mista exige regra de movimentação confirmada." : "Natureza compatível.",
   };
 }
+
+
+export type OperationalRuleOperation =
+  | "PURCHASE"
+  | "SALE"
+  | "STOCK"
+  | "TREASURY"
+  | "PAYROLL"
+  | "FIXED_ASSET";
+
+export type OperationalRulePreparation = {
+  operation: OperationalRuleOperation;
+  label: string;
+  debitRequirement: string;
+  creditRequirement: string;
+  taxRequirement: string;
+  postingStatus: "DRAFT_ONLY";
+  requiresHumanApproval: true;
+};
+
+/**
+ * Modelos de preparação, não regras contabilísticas prontas para posting.
+ * Não escolhem códigos de conta nem calculam imposto por inferência.
+ */
+export const operationalRulePreparations: readonly OperationalRulePreparation[] = [
+  {
+    operation: "PURCHASE",
+    label: "Compras",
+    debitRequirement: "Conta de compra/inventário confirmada; IVA dedutível apenas quando elegível",
+    creditRequirement: "Fornecedor ou tesouraria confirmado pelo documento",
+    taxRequirement: "Regime IVA, dedutibilidade, localização e eventual IS/verba",
+    postingStatus: "DRAFT_ONLY",
+    requiresHumanApproval: true,
+  },
+  {
+    operation: "SALE",
+    label: "Vendas",
+    debitRequirement: "Cliente ou tesouraria confirmado pelo documento",
+    creditRequirement: "Conta de vendas confirmada; IVA liquidado apenas quando devido",
+    taxRequirement: "Regime IVA, taxa aplicável, isenção, exportação/Cabinda e documento",
+    postingStatus: "DRAFT_ONLY",
+    requiresHumanApproval: true,
+  },
+  {
+    operation: "STOCK",
+    label: "Stock",
+    debitRequirement: "Conta de inventário/regularização confirmada e evento identificado",
+    creditRequirement: "Conta de contrapartida confirmada pelo movimento de stock",
+    taxRequirement: "Sem taxa genérica; fiscalidade herdada do documento de entrada/saída",
+    postingStatus: "DRAFT_ONLY",
+    requiresHumanApproval: true,
+  },
+  {
+    operation: "TREASURY",
+    label: "Tesouraria",
+    debitRequirement: "Conta de natureza devedora para entrada ou liquidação documentada",
+    creditRequirement: "Conta de contrapartida confirmada; saída reduz conta de natureza devedora",
+    taxRequirement: "IVA/IRT/IS apenas quando o pagamento liquidar obrigação documentada",
+    postingStatus: "DRAFT_ONLY",
+    requiresHumanApproval: true,
+  },
+  {
+    operation: "PAYROLL",
+    label: "Salários",
+    debitRequirement: "Gasto/remuneração confirmado pelo processamento salarial",
+    creditRequirement: "Salários, IRT e encargos a pagar com contas de retenção confirmadas",
+    taxRequirement: "Grupo IRT, tabela vigente, deduções e retenções do trabalhador",
+    postingStatus: "DRAFT_ONLY",
+    requiresHumanApproval: true,
+  },
+  {
+    operation: "FIXED_ASSET",
+    label: "Imobilizado",
+    debitRequirement: "Activo confirmado por classe e tipo, com IVA dedutível quando elegível",
+    creditRequirement: "Fornecedor/tesouraria ou resultado de alienação confirmado",
+    taxRequirement: "IVA, IP e IS dependem do tipo de activo, acto e verba aplicável",
+    postingStatus: "DRAFT_ONLY",
+    requiresHumanApproval: true,
+  },
+] as const;
+
+export function getOperationalRulePreparation(operation: string) {
+  return operationalRulePreparations.find(row => row.operation === operation);
+}
