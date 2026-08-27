@@ -4208,3 +4208,13 @@
 
 - [x] Executar suite integral e build após integrar a UI CEC: 155 ficheiros e 632 testes aprovados.
 - [ ] Guardar checkpoint da UI CEC após revisão final do TODO.
+
+- [ ] Corrigir o guard de activação para localizar tanto parâmetros gerais como medidas anuais OGE 2026/CEC e devolver bloqueadores específicos.
+- [ ] Acrescentar regressões que confirmem que medidas OGE/CEC conhecidas não são tratadas como parâmetros inexistentes nem activadas sem cadeia e vigência.
+
+- [x] Corrigir o guard de activação para localizar parâmetros gerais e medidas anuais OGE 2026/CEC.
+- [x] Acrescentar regressões de reconhecimento e bloqueio seguro: 21 testes normativos aprovados.
+- [ ] Executar suite completa e build antes do checkpoint do guard normativo.
+
+- [x] Executar suite integral e build após corrigir o guard OGE/CEC: 155 ficheiros e 633 testes aprovados.
+- [ ] Guardar checkpoint da correcção do guard após revisão do TODO.

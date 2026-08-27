@@ -495,9 +495,10 @@ export function canActivateTaxParameterReference(input: {
   ruleApproved: boolean;
   effectiveFrom?: string | null;
 }) {
-  const parameter = OFFICIAL_TAX_PARAMETER_REFERENCES.find(
-    row => row.code === input.parameterCode
-  );
+  const parameter = [
+    ...OFFICIAL_TAX_PARAMETER_REFERENCES,
+    ...OFFICIAL_OGE_2026_MEASURE_REFERENCES,
+  ].find(row => row.code === input.parameterCode);
   const blockers: string[] = [];
   if (!parameter) blockers.push("PARAMETRO_INEXISTENTE");
   if (!input.sourceConfirmed) blockers.push("FONTE_NAO_CONFIRMADA");

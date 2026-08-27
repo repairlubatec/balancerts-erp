@@ -188,6 +188,23 @@ describe("Angola normative evidence", () => {
     );
   });
 
+  it("reconhece medidas OGE e CEC no guard sem permitir activação incompleta", () => {
+    for (const parameterCode of ["OGE26-IVA-EQUIPAMENTO-5", "OGE26-CEC-PESSOA-COLECTIVA-10"]) {
+      const result = canActivateTaxParameterReference({
+        parameterCode,
+        sourceConfirmed: false,
+        chainComplete: false,
+        ruleApproved: false,
+      });
+      expect(result.parameter).toBeDefined();
+      expect(result.eligible).toBe(false);
+      expect(result.blockers).toEqual(
+        expect.arrayContaining(["FONTE_NAO_CONFIRMADA", "CADEIA_INCOMPLETA", "REGRA_NAO_APROVADA", "VIGENCIA_NAO_DEFINIDA"])
+      );
+      expect(result.blockers).not.toContain("PARAMETRO_INEXISTENTE");
+    }
+  });
+
   it("não aceita parâmetro desconhecido mesmo com todos os sinais fornecidos", () => {
     const result = canActivateTaxParameterReference({
       parameterCode: "UNKNOWN",
