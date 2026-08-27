@@ -4274,3 +4274,5 @@
 - [x] Verificar externamente a referência institucional CNNCA/MINFIN e a identificação/PDF integral do Decreto n.º 82/01 via fonte legislativa acessível, sem inferir contas novas.
 
 - [x] Corrigir o validador estrutural PGCA para percorrer envelopes hierárquicos `classes/accounts` e distinguir ausência de natureza de erro estrutural.
+
+- [x] Adicionar regressão Vitest do validador estrutural PGCA para o envelope real `classes/accounts`, sem inferência normativa.
