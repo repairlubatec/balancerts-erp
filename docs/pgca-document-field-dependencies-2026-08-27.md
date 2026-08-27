@@ -99,3 +99,13 @@ Isto não significa que os PDFs tenham sido perdidos. Significa que a rastreabil
 Os documentos já preenchem a **evidência de existência e confirmação da estrutura**. O que ainda falta é transformar essa evidência em regras operacionais completas, ligadas a eventos e contas concretas, com vigência, condição fiscal, aprovação humana e teste ponta a ponta.
 
 Portanto, a próxima actividade correcta não é enviar simplesmente mais uma cópia do PGCA. É preencher, para cada uma das seis operações, os campos `operation`, `debitAccountId`, `creditAccountId`, `ivaAccountId` quando aplicável, `taxType`, `taxRate` quando juridicamente confirmado, fonte, vigência, documento de origem e aprovação. Só então o guard poderá permitir `VALIDATED` e, depois, `ACTIVE`.
+
+## 8. Regra de movimentação fornecida pelo utilizador
+
+Fica formalmente reconhecida no motor a seguinte convenção fornecida pelo utilizador:
+
+> As contas do Activo debitam-se pelos aumentos, entradas e aquisições, e creditam-se pelas diminuições, saídas, consumo, alienações ou regularizações redutoras. As contas do Passivo e do Capital Próprio creditam-se pelos aumentos, constituição de obrigações ou acréscimos, e debitam-se pelas diminuições, liquidações, distribuições ou reduções.
+
+Esta regra já está representada em `shared/accountingMovementRules.ts` para naturezas `DEBIT` e `CREDIT`, com explicação, evidência técnica e validação direccional. Contas de natureza `MIXED` continuam a exigir uma regra específica confirmada.
+
+O alcance desta regra é **a natureza e o sentido da movimentação**. Ela não determina, sem informação adicional, quais duas contas devem ser usadas em cada operação, qual documento originou o lançamento, qual imposto se aplica, qual taxa é válida, qual conta IVA deve ser utilizada ou qual período deve ser considerado. Assim, ela é suficiente para validar a direcção de um lançamento quando as contas e a operação já estão definidas, mas não substitui as seis regras operacionais necessárias para activar o posting do PGCA-82-01.

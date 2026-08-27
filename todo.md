@@ -4240,3 +4240,6 @@
 - [x] Verificar quais versões PGCA estão incorporadas e explicar os bloqueadores exactos para activar uma versão produtiva.
 
 - [x] Mapear os campos normativos, contabilísticos, fiscais e externos que dependem das fontes documentais recebidas e explicar a sua utilização no fluxo de activação.
+
+- [x] Confrontar e formalizar as regras de movimentação fornecidas pelo utilizador para Activo, Passivo e Capital Próprio, identificando o que ainda falta para regras por operação.
+- [x] Verificar se as regras fornecidas cobrem os seis códigos operacionais exigidos pelo guard PGCA; não activar por inferência.
