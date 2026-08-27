@@ -4243,3 +4243,13 @@
 
 - [x] Confrontar e formalizar as regras de movimentação fornecidas pelo utilizador para Activo, Passivo e Capital Próprio, identificando o que ainda falta para regras por operação.
 - [x] Verificar se as regras fornecidas cobrem os seis códigos operacionais exigidos pelo guard PGCA; não activar por inferência.
+
+- [ ] Pesquisar fontes angolanas e documentos já reunidos para construir regras concretas de Compras, Vendas, Stock, Tesouraria, Salários e Imobilizado.
+- [ ] Mapear em cada regra as contas PGCA, documento, natureza, débito/crédito, imposto, taxa, vigência e fonte sem inventar dados.
+- [ ] Criar apenas rascunhos DRAFT_ONLY e submeter as regras elegíveis à aprovação humana auditada.
+
+- [ ] Completar a importação/confirmação literal das contas movimentáveis PGCA em falta (fornecedores, clientes, existências, impostos, gastos e imobilizado), sem classificar natureza por inferência.
+- [ ] Criar rascunhos de regras operacionais apenas depois de existirem os pares de contas lançáveis confirmados no ERP.
+
+- [x] Acrescentar aos modelos DRAFT_ONLY os movimentos explicitamente encontrados no Decreto 82/01 para Compras, Vendas, Stock, Tesouraria, Salários e Imobilizado.
+- [x] Validar os modelos documentais com TypeScript, 157 ficheiros e 639 testes, e build de produção aprovado.
