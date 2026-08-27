@@ -19,7 +19,7 @@ export function PgcCoverageSummary({ coverage }: { coverage?: Coverage }) {
       <div aria-label="Modelos de regras contabilísticas" className="flex flex-wrap gap-1 text-slate-500">
         <span className="font-semibold">Modelos de regra:</span>
         {operationalRulePreparations.map((rule) => (
-          <span key={rule.operation} title={`${rule.label}: ${rule.taxRequirement}`} className="rounded-sm border border-slate-200 bg-slate-50 px-1.5 py-0 text-[10px]">
+          <span key={rule.operation} title={`${rule.label}: ${rule.taxRequirement}. Códigos PGCA requeridos: ${rule.requiredAccountCodes.join(", ")}. ${rule.sourceBackedMovement}`} className="rounded-sm border border-slate-200 bg-slate-50 px-1.5 py-0 text-[10px]">
             {rule.label} · RASCUNHO
           </span>
         ))}
