@@ -4130,3 +4130,9 @@
 
 - [x] Catalogar obrigações oficiais do IS: pagamento até ao fim do mês seguinte e declaração anual até ao último dia útil de Março, sempre como REFERENCE_ONLY.
 - [x] Acrescentar e executar regressões normativas: 22 testes dirigidos aprovados e TypeScript sem erros.
+
+- [ ] Catalogar as páginas/documentos oficiais de OGE 2026 e regimes MPME como fontes pendentes, sem os tratar como taxa geral.
+- [ ] Testar que camadas especiais catalogadas não desbloqueiam readiness nem posting por si só.
+
+- [x] Catalogar as páginas/documentos oficiais de OGE 2026 e medidas MPME como fontes PENDING, sem as tratar como taxa geral.
+- [x] Testar que as fontes especiais PENDING não alteram readiness nem desbloqueiam posting por si só; 18 testes normativos aprovados.

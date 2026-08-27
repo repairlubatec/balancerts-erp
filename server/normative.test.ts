@@ -81,6 +81,12 @@ describe("Angola normative evidence", () => {
     expect(normativeEvidence("IS-DLP-3-14")?.scope).toContain("tabela anexa");
   });
 
+  it("mantém OGE 2026 e regimes MPME como fontes pendentes", () => {
+    expect(normativeEvidence("AGT-OGE-2026")).toMatchObject({ verificationStatus: "PENDING" });
+    expect(normativeEvidence("AGT-MPME-REGIMES")).toMatchObject({ verificationStatus: "PENDING" });
+    expect(normativeEvidence("AGT-MPME-REGIMES")?.scope).toContain("elegibilidade");
+  });
+
   it("avalia II, IRT, IP e IS sem activar regras por inferência documental", () => {
     const sourceByTax = {
       II: "II-LAW-19-14",

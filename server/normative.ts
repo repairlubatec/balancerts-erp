@@ -109,6 +109,20 @@ export const angolaNormativeSources = [
     url: "https://portaldocontribuinte.minfin.gov.ao/legislacao",
     verificationStatus: "CONFIRMED" as const,
   },
+  {
+    code: "AGT-OGE-2026",
+    title: "AGT/MINFIN — OGE 2026 e medidas fiscais anuais",
+    scope: "Medidas temporais, prazos e eventuais alterações anuais; não substitui os códigos tributários nem define taxa universal.",
+    url: "https://agt.minfin.gov.ao/#!/oge/OGE25/medidas-fiscais#pergunta-380",
+    verificationStatus: "PENDING" as const,
+  },
+  {
+    code: "AGT-MPME-REGIMES",
+    title: "AGT/MINFIN — Regimes especiais para MPME",
+    scope: "Regimes especiais sujeitos a elegibilidade, zona, actividade, volume e vigência próprios; parâmetros ainda não activados.",
+    url: "https://portaldocontribuinte.minfin.gov.ao/legislacao",
+    verificationStatus: "PENDING" as const,
+  },
 ] as const;
 
 export function normativeEvidence(code: string) {
