@@ -4040,11 +4040,11 @@
 - [x] Rever qualidade dos testes: sem fixtures fiscais inventadas e sem inserções destrutivas.
 - [x] Manter os dados persistentes existentes como fonte de verdade do readiness.
 - [x] Garantir que o relatório de prontidão distingue verificação documental, aprovação humana e activação produtiva.
-- [ ] Não classificar a simples presença de um PDF como vigência jurídica universal.
+- [x] Não classificar a simples presença de um PDF como vigência jurídica universal.
 - [ ] Fim desta lista adicional: retomar com revisão controlada da fase 4.
 - [ ] Executar um ciclo de simulação controlada em ambiente de dados existente, se houver conta, regra e período elegíveis, sem criar dados demonstrativos.
-- [ ] Se não houver regra activa, reportar bloqueio de simulação normativa e não criar regra por inferência.
-- [ ] Confirmar que o SAF-T de ensaio não é submissão AGT nem emissão oficial.
+- [x] Se não houver regra activa, reportar bloqueio de simulação normativa e não criar regra por inferência.
+- [x] Confirmar que o SAF-T de ensaio não é submissão AGT nem emissão oficial.
 - [ ] Manter a versão ad46bc0a como ponto anterior até ao checkpoint seguinte.
 - [ ] Criar novo checkpoint somente após actualizar relatório de prontidão.
 - [ ] Preparar entrega com versão manus-webdev://<version_id>.
