@@ -612,3 +612,51 @@ export function getOfficialTaxObligationReferences(tax?: FiscalRegimeCode) {
     ? OFFICIAL_TAX_OBLIGATION_REFERENCES.filter(row => row.tax === tax)
     : OFFICIAL_TAX_OBLIGATION_REFERENCES;
 }
+
+
+export type NormativeTraceabilityInput = {
+  catalogCode: string;
+  persistedSourceCode?: string | null;
+  sourceVerificationStatus?:
+    | "PENDING"
+    | "OCR_REVIEWED"
+    | "VISUALLY_CONFIRMED"
+    | "HUMAN_APPROVED"
+    | "ACTIVE"
+    | "SUPERSEDED"
+    | "REJECTED"
+    | null;
+  approvedRelationCount?: number;
+  requiredRelation?: boolean;
+  effectiveFrom?: string | Date | null;
+  sourceEffectiveFrom?: string | Date | null;
+};
+
+/**
+ * Verifica os pré-requisitos mínimos de rastreabilidade antes de activar
+ * uma versão ou regra. Não altera estados e não substitui a aprovação humana.
+ */
+export function validateNormativeTraceability(input: NormativeTraceabilityInput) {
+  const catalogEntry = normativeEvidence(input.catalogCode);
+  const missing: string[] = [];
+
+  if (!catalogEntry) missing.push("CATALOG_CODE_UNKNOWN");
+  if (!input.persistedSourceCode) missing.push("PERSISTED_SOURCE_MISSING");
+  if (input.persistedSourceCode && input.persistedSourceCode !== input.catalogCode) {
+    missing.push("PERSISTED_SOURCE_CODE_MISMATCH");
+  }
+  if (input.sourceVerificationStatus !== "HUMAN_APPROVED" && input.sourceVerificationStatus !== "ACTIVE") {
+    missing.push("SOURCE_HUMAN_APPROVAL_MISSING");
+  }
+  if (input.requiredRelation && !(input.approvedRelationCount && input.approvedRelationCount > 0)) {
+    missing.push("APPROVED_RELATION_MISSING");
+  }
+  if (!input.effectiveFrom) missing.push("EFFECTIVE_FROM_MISSING");
+  if (!input.sourceEffectiveFrom) missing.push("SOURCE_EFFECTIVE_FROM_MISSING");
+
+  return {
+    valid: missing.length === 0,
+    missing,
+    catalogEntry,
+  };
+}

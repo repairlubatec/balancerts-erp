@@ -8,6 +8,7 @@ import {
   canActivateTaxParameterReference,
   normativeEvidence,
   validateNormativeCoverage,
+  validateNormativeTraceability,
 } from "./normative";
 
 describe("Angola normative evidence", () => {
@@ -319,4 +320,52 @@ it("bloqueia uma cadeia IVA incompleta mesmo com regras e mapeamentos activos", 
   expect(result.ready).toBe(false);
   expect(result.missingChainSources).toContain("IVA-DP-180-19");
   expect(result.blockers).toContain("IVA_CADEIA_NORMATIVA_INCOMPLETA");
+});
+
+
+describe("Normative traceability guard", () => {
+  it("bloqueia uma cadeia sem fonte persistida e sem aprovação humana", () => {
+    const result = validateNormativeTraceability({
+      catalogCode: "PGC-AO-82-01",
+      requiredRelation: true,
+      approvedRelationCount: 0,
+    });
+    expect(result.valid).toBe(false);
+    expect(result.missing).toEqual(
+      expect.arrayContaining([
+        "PERSISTED_SOURCE_MISSING",
+        "SOURCE_HUMAN_APPROVAL_MISSING",
+        "APPROVED_RELATION_MISSING",
+        "EFFECTIVE_FROM_MISSING",
+        "SOURCE_EFFECTIVE_FROM_MISSING",
+      ])
+    );
+  });
+
+  it("aceita a cadeia somente com catálogo, fonte persistida aprovada, relação e vigência", () => {
+    const result = validateNormativeTraceability({
+      catalogCode: "IVA-DP-180-19",
+      persistedSourceCode: "IVA-DP-180-19",
+      sourceVerificationStatus: "HUMAN_APPROVED",
+      approvedRelationCount: 1,
+      requiredRelation: true,
+      effectiveFrom: "2019-07-01",
+      sourceEffectiveFrom: "2019-07-01",
+    });
+    expect(result.valid).toBe(true);
+    expect(result.missing).toEqual([]);
+    expect(result.catalogEntry?.title).toContain("180/19");
+  });
+
+  it("rejeita divergência entre o código do catálogo e a fonte persistida", () => {
+    const result = validateNormativeTraceability({
+      catalogCode: "PGC-AO-82-01",
+      persistedSourceCode: "IVA-DP-180-19",
+      sourceVerificationStatus: "ACTIVE",
+      effectiveFrom: "2001-11-16",
+      sourceEffectiveFrom: "2001-11-16",
+    });
+    expect(result.valid).toBe(false);
+    expect(result.missing).toContain("PERSISTED_SOURCE_CODE_MISMATCH");
+  });
 });

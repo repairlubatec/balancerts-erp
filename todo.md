@@ -4268,3 +4268,5 @@
 - [ ] Obter e importar candidatos analíticos adicionais apenas quando código, designação, pai, natureza e página forem legíveis e ainda não existirem na base.
 - [x] Confirmar visualmente as páginas 1026–1027 do Decreto n.º 82/01 para a estrutura literal de Vendas, Devoluções, Descontos, Serviços e Trabalhos para a própria empresa.
 - [ ] Obter evidência literal legível adicional para classificar como movimentáveis as contas analíticas de Vendas, Clientes, Fornecedores, Stock, IVA, Pessoal e Imobilizado.
+
+- [x] Implementar e testar guarda pura de rastreabilidade normativa antes da activação: catálogo, fonte persistida, aprovação humana, relação e vigência.
