@@ -4260,9 +4260,9 @@
 - [x] Criar matriz de lacunas operacionais com os códigos exigidos, os dez códigos lançáveis existentes e a consequência para cada operação.
 - [ ] Completar o mapeamento final de cada regra com IDs de contas lançáveis, documento, imposto, taxa e vigência depois de confirmar as contas em falta.
 
-- [ ] Seleccionar as contas candidatas PGCA com código, nome, hierarquia, natureza e páginas de evidência confirmadas.
+- [x] Seleccionar as contas candidatas PGCA com código, nome, hierarquia, natureza e páginas de evidência confirmadas.
 - [ ] Importar as contas candidatas com estado NEEDS_NORMATIVE_VALIDATION, sem as marcar como confirmadas ou lançáveis.
-- [ ] Validar duplicados, pais, fonte, isolamento organizacional e ausência de activação após a importação.
+- [x] Validar duplicados, pais, fonte, isolamento organizacional e ausência de activação após a importação.
 
 - [x] Executar a via protegida de importação pendente com 24 candidatos visuais; resultado auditado: 0 criados, 24 códigos já existentes ignorados, sem duplicados nem alteração de estados.
 - [ ] Obter e importar candidatos analíticos adicionais apenas quando código, designação, pai, natureza e página forem legíveis e ainda não existirem na base.
