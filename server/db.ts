@@ -91,6 +91,7 @@ import {
   validateSaftAoXmlAgainstXsd,
   buildTrialBalance,
   buildVatSummary,
+  validateSaftAoExportInput,
   type JournalRow,
   type SaftAoAccount,
   type SaftAoJournalEntry,
@@ -8076,7 +8077,7 @@ export async function getSaftLocalExportForUserCompany(
   const periodEnd = new Date(
     Date.UTC(period.year, period.month, 0, 23, 59, 59, 999)
   );
-  const xml = buildSaftAoXml({
+  const saftInput = {
     companyName: company.name,
     nif: company.nif ?? "",
     companyId: String(company.id),
@@ -8086,8 +8087,10 @@ export async function getSaftLocalExportForUserCompany(
     accounts: saftAccounts,
     journalEntries: saftEntries,
     sourceDocuments: saftDocuments,
-    semanticMode: "REPORT_ONLY",
-  });
+    semanticMode: "REPORT_ONLY" as const,
+  };
+  const semanticValidation = validateSaftAoExportInput(saftInput);
+  const xml = buildSaftAoXml(saftInput);
   const contentHash = createHash("sha256").update(xml, "utf8").digest("hex");
   const xsdValidation = await validateSaftAoXmlAgainstXsd(xml);
   return {
@@ -8095,6 +8098,7 @@ export async function getSaftLocalExportForUserCompany(
     contentHash,
     contentType: "application/xml" as const,
     xsdValidation,
+    semanticValidation,
     structuralValidation: xsdValidation.valid,
     submissionEligible: false as const,
     externalSubmission: "NOT_CONFIGURED" as const,

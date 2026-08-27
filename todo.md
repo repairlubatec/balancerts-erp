@@ -4162,3 +4162,10 @@
 
 - [x] Reexecutar suite completa e build após a integração SAF-T: 155 ficheiros e 630 testes aprovados.
 - [ ] Integrar o resultado semântico no retorno da exportação local para mostrar alertas ao contabilista sem permitir submissão externa.
+
+- [x] Integrar o resultado semântico no retorno da exportação local, com lista de issues e submissão externa sempre false.
+- [x] Validar TypeScript, exportação expandida, relatórios, semântica e XSD: 19 testes dirigidos aprovados.
+- [ ] Executar suite completa e build antes do checkpoint desta melhoria.
+
+- [x] Executar suite completa e build após expor o resultado semântico SAF-T: 155 ficheiros e 630 testes aprovados.
+- [ ] Guardar checkpoint desta melhoria com a árvore de trabalho validada.

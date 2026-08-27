@@ -280,8 +280,8 @@ function customerIdFor(document: SaftAoSourceDocument) { return `C${document.id}
 function sourceDocumentStatus(status: string) { return status === "CANCELLED" ? "A" : "N"; }
 function sourceBilling() { return "P"; }
 
-export function buildSaftAoXml(input: SaftAoExportInput) {
-  const semanticValidation = validateSaftAoSemantics({
+export function validateSaftAoExportInput(input: SaftAoExportInput) {
+  return validateSaftAoSemantics({
     functionalCurrency: input.functionalCurrency,
     periodStart: input.periodStart,
     periodEnd: input.periodEnd,
@@ -301,6 +301,10 @@ export function buildSaftAoXml(input: SaftAoExportInput) {
       ivaRegime: document.ivaRegime === "GERAL" || document.ivaRegime === "SIMPLIFICADO" ? document.ivaRegime : "EXCLUSAO",
     })),
   });
+}
+
+export function buildSaftAoXml(input: SaftAoExportInput) {
+  const semanticValidation = validateSaftAoExportInput(input);
   if (!semanticValidation.valid && (input.semanticMode ?? "ENFORCE") === "ENFORCE") {
     throw new Error(`SAFT_SEMANTIC_INVALID:${semanticValidation.issues.map((issue) => issue.code).join(",")}`);
   }
