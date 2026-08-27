@@ -4270,3 +4270,5 @@
 - [ ] Obter evidência literal legível adicional para classificar como movimentáveis as contas analíticas de Vendas, Clientes, Fornecedores, Stock, IVA, Pessoal e Imobilizado.
 
 - [x] Implementar e testar guarda pura de rastreabilidade normativa antes da activação: catálogo, fonte persistida, aprovação humana, relação e vigência.
+
+- [x] Verificar externamente a referência institucional CNNCA/MINFIN e a identificação/PDF integral do Decreto n.º 82/01 via fonte legislativa acessível, sem inferir contas novas.
