@@ -4101,3 +4101,8 @@
 
 - [x] Incorporar como parâmetros de referência não activos os valores fiscais expressamente publicados nas páginas oficiais pesquisadas, com imposto, facto tributário, regime, vigência e evidência.
 - [x] Testar o catálogo de parâmetros para impedir activação por inferência e exigir fonte/cadeia/regra completas.
+
+- [x] Criar matriz auditável das operações Compras, Vendas, Stock, Tesouraria, Salários e Imobilizado com evidência PGCA e condições fiscais pesquisadas.
+- [x] Separar parâmetros fiscais publicados de regras de débito/crédito e de posting automático.
+- [ ] Associar cada operação a contas lançáveis PGCA, documento, condição fiscal e vigência numa regra pronta para aprovação humana.
+- [ ] Submeter regras preparadas ao fluxo de aprovação humana antes de qualquer activação.
