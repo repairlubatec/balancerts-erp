@@ -3957,7 +3957,7 @@
 - [ ] Não fabricar avaliações, depoimentos, taxas, contas ou dados fiscais demonstrativos.
 - [ ] Preservar estado fail-closed para activação, cálculo produtivo, posting e emissão enquanto existirem bloqueadores.
 - [ ] Exigir auditoria append-only, actor, correlação, anterior/posterior e revogação controlada em cada activação normativa.
-- [ ] Registar no relatório final as limitações do trabalho offline e a necessidade de revisão jurídica/contabilística local para vigência posterior.
+- [x] Registar no relatório final as limitações do trabalho offline e a necessidade de revisão jurídica/contabilística local para vigência posterior.
 - [x] Confirmar o estado publicado após checkpoint e disponibilizar a versão ao utilizador.
 - [x] Actualizar o relatório docs/fiscal-activation-readiness-2026-08-27.md com o catálogo dos quatro diplomas primários e o estado operacional actual.
 - [ ] Rever e confirmar todos os itens TODO antes de cada checkpoint.
