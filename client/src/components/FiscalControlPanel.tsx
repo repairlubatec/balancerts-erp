@@ -66,6 +66,11 @@ export function FiscalControlPanel({ companyId, regime }: FiscalControlPanelProp
   const [taxFilter, setTaxFilter] = useState("TODOS");
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const calendarQuery = trpc.fiscal.calendar.useQuery({ companyId: companyId ?? 0, year, regime }, { enabled: Boolean(companyId) });
+  const ivaChain = trpc.normative.taxChains.useQuery({ tax: "IVA" });
+  const iiChain = trpc.normative.taxChains.useQuery({ tax: "II" });
+  const irtChain = trpc.normative.taxChains.useQuery({ tax: "IRT" });
+  const ipChain = trpc.normative.taxChains.useQuery({ tax: "IP" });
+  const isChain = trpc.normative.taxChains.useQuery({ tax: "IS" });
   const updateChecklist = trpc.fiscal.updateChecklist.useMutation({
     onSuccess: (result) => {
       toast.success(result.blocked ? "Item mantido bloqueado" : "Checklist actualizado", { description: result.blocked ? "A fonte normativa ainda não foi confirmada." : "A alteração foi registada na auditoria." });
@@ -85,6 +90,14 @@ export function FiscalControlPanel({ companyId, regime }: FiscalControlPanelProp
   const selected = checklist.find((item) => item.id === selectedId) ?? filteredChecklist[0];
   const summary = data?.summary ?? { total: 0, pending: 0, blocked: 0, completed: 0, overdue: 0 };
   const readiness = summary.total ? Math.round((summary.completed / summary.total) * 100) : 0;
+  const normativeChains = [ivaChain, iiChain, irtChain, ipChain, isChain];
+  const normativeLabels = [
+    ["IVA", "IVA"],
+    ["II", "Imposto Industrial"],
+    ["IRT", "Rendimentos do Trabalho"],
+    ["IP", "Imposto Predial"],
+    ["IS", "Imposto do Selo"],
+  ] as const;
 
   if (!companyId) return null;
   return (
@@ -97,6 +110,15 @@ export function FiscalControlPanel({ companyId, regime }: FiscalControlPanelProp
         <label className="shrink-0 text-xs font-medium text-slate-600">Exercício<Input aria-label="Exercício fiscal" type="number" min="2025" max="2100" value={year} onChange={(event) => setYear(Number(event.target.value) || 2026)} className="mt-1 h-8 w-24 bg-white text-xs" /></label>
       </CardHeader>
       <CardContent className="space-y-4 pt-4">
+        <div className="border border-[#dbe5f1] bg-white px-3 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div><p className="text-xs font-semibold text-[#102a43]">Cadeias normativas por imposto</p><p className="text-[11px] text-slate-500">Consulta read-only do catálogo; não constitui activação, homologação ou declaração.</p></div>
+            <Badge className="rounded-sm bg-slate-100 text-slate-700">READINESS ONLY</Badge>
+          </div>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+            {normativeChains.map((chain, index) => { const [code, label] = normativeLabels[index]; const loading = chain.isLoading; const sources = chain.data?.sources ?? []; return <div key={code} className="border border-[#e5edf5] bg-[#f8fbff] px-2.5 py-2" title={loading ? "A consultar catálogo normativo" : `${sources.length} fonte(s) catalogada(s)`}><div className="flex items-center justify-between gap-2"><span className="text-[11px] font-semibold text-[#102a43]">{code}</span><span className={cn("h-2 w-2 rounded-full", loading ? "bg-slate-300" : sources.length ? "bg-emerald-500" : "bg-amber-500")} /></div><p className="mt-1 truncate text-[10px] text-slate-500">{label}</p><p className="mt-1 text-[10px] font-medium text-slate-600">{loading ? "A consultar…" : `${sources.length} fonte(s) no catálogo`}</p></div>; })}
+          </div>
+        </div>
         <div className="grid gap-2 md:grid-cols-5">
           <div className="border-l-2 border-blue-500 bg-white px-3 py-2"><p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Itens</p><p className="mt-1 text-xl font-semibold text-[#102a43]">{summary.total}</p></div>
           <div className="border-l-2 border-slate-400 bg-white px-3 py-2"><p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Por cumprir</p><p className="mt-1 text-xl font-semibold text-slate-700">{summary.pending}</p></div>

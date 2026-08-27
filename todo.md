@@ -4082,3 +4082,8 @@
 - [ ] Criar regras contabilísticas operacionais por operação somente após definição das contas e aprovação humana.
 - [ ] Executar simulação de cálculo/posting com dados persistentes elegíveis, sem criar dados de teste.
 - [ ] Validar SAF-T AO estrutural e semântico depois de existirem movimentos e regras aprovadas.
+
+- [x] Integrar a consulta de cadeias fiscais na interface Fiscalidade com estados claros por imposto e indicação READINESS ONLY.
+- [x] Validar o painel Fiscalidade com TypeScript, testes e build de produção.
+- [ ] Expor na interface os bloqueadores de regras activas por operação PGCA, mantendo aprovação humana obrigatória.
+- [ ] Preparar a simulação de cálculo/posting com as contas persistentes confirmadas, sem permitir publicação.
