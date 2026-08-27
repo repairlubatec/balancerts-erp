@@ -109,3 +109,10 @@ Estas consultas confirmam a proveniência e os pontos de acesso, mas não substi
 Foi identificado no conjunto documental local o ficheiro `docs/normative-sources/pgc-angola-main-2025/docs/pgc.pdf`, com 78 páginas e texto extraível. A análise localiza a apresentação das classes e secções sobre Clientes, Fornecedores, Existências, Meios Monetários, Capital Próprio, Proveitos e Custos, além de referências textuais a regras de movimentação e às contas IVA 34.5/34.5.2.
 
 Esta evidência melhora a base de análise para preparação de rascunhos, mas não autoriza activação. O motor continua a exigir ligação por conta a página legível, código, designação, pai, natureza, lançabilidade, regra, fonte, vigência e aprovação humana. Nenhum registo persistente foi alterado com base nesta extracção.
+
+
+## Confirmação read-only da base — 27/08/2026
+
+A consulta corrigida ao schema confirmou directamente na base: `PGCA-82-01` tem estado `UNDER_REVIEW`, **792 contas registadas**, **792 confirmadas**, **10 contas movimentáveis** e **0 regras contabilísticas activas**. As consultas anteriores que referiam a tabela inexistente `pgcOperationalRules` falharam sem executar mutações; o schema correcto usa `accountingRules` e a coluna `active`.
+
+Esta confirmação mantém os bloqueadores já documentados: não existe cobertura operacional suficiente para os seis códigos, não há pares completos de contas lançáveis e a promoção da versão continua proibida pelo guard fail-closed.
