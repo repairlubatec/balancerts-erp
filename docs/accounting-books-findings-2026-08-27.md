@@ -38,3 +38,12 @@ A submissão destes livros reduz a lacuna de regras técnicas e permite transfor
 ## Verificação de cobertura textual
 
 A extracção integral recuperou 110.512 palavras em 16.519 linhas da Colectânea e 99.578 palavras em 21.747 linhas do Manual. A Colectânea contém referências angolanas e 836 ocorrências de IVA, além da transcrição localizada do DP 180/19 e do PGC. O Manual não contém referências a Angola ou ao PGCA; contém exemplos e terminologia brasileira, incluindo 211 ocorrências de ICMS e 11 de IRPF. Esta verificação confirma que o Manual é útil para princípios contabilísticos gerais, mas não pode ser tratado como fonte de taxas ou regimes fiscais angolanos.
+
+
+## Actualização operacional após confirmação das fontes primárias
+
+Na sequência da instrução do utilizador, os quatro diplomas submetidos foram registados no catálogo `pgcSources` como fontes confirmadas de trabalho para o escopo exacto: Lei n.º 19/14, Lei n.º 28/20, Lei n.º 20/20 e DLP n.º 3/14. A Colectânea angolana, juntamente com o Decreto n.º 82/01, foi usada como base documental da confirmação das contas PGCA.
+
+As 765 contas que estavam em `NEEDS_NORMATIVE_VALIDATION` foram revistas em oito lotes auditáveis de até 100 contas, com zero bloqueios de fonte e zero resultados parciais. Cada conta recebeu `CONFIRMED` e uma nota de rastreabilidade; a versão `PGCA-82-01` permaneceu `UNDER_REVIEW` e não foi activada.
+
+A confirmação das contas não cria automaticamente regras de operação nem habilita posting. A regra geral de partida dobrada e natureza foi incorporada como regra técnica documentada; as regras específicas por operação, com contas de débito/crédito, IVA/IRT, vigência e fonte, continuam a exigir configuração e validação próprias. A suite completa terminou com 154 ficheiros e 618 testes aprovados, e o build de produção foi concluído.

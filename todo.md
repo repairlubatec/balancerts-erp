@@ -3927,3 +3927,12 @@
 - [x] Implementar sem bloqueio artificial as regras tecnicamente comprovadas e manter revisão apenas para conflitos ou lacunas essenciais.
 - [ ] Validar revisão das 765 contas, regras, cálculo, posting e emissão em ambiente de simulação.
 - [x] Executar suite, build, validação visual, documentar decisão e publicar checkpoint.
+
+# Orientação de fontes primárias — nova consolidação
+
+- [x] Reclassificar os PDFs submetidos como fontes primárias de trabalho no registo V3.2, preservando hash, diploma, páginas e escopo.
+- [x] Excluir o Manual brasileiro de qualquer regra fiscal, código de conta, taxa ou modelo operacional.
+- [x] Usar a Colectânea angolana e os PDFs submetidos para fechar regras contabilísticas, excepto em conflito legal concreto ou lacuna essencial.
+- [ ] Resolver os bloqueadores restantes das 765 contas e da cobertura de regras com revisão baseada nos documentos submetidos.
+- [ ] Completar simulação de cálculo, posting, emissão e SAF-T e promover apenas o que passar o readiness.
+- [ ] Validar suite, build, documentar as decisões e publicar checkpoint.

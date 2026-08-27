@@ -9,7 +9,7 @@ describe("catálogo composto PGCA + camadas IVA", () => {
     expect(result.layers).toHaveLength(5);
     expect(result.activeLayerCount).toBe(5);
     expect(result.pendingLayerCount).toBe(0);
-    expect(result.accounts.some((account) => account.validationStatus === "NEEDS_NORMATIVE_VALIDATION")).toBe(true);
+    expect(result.accounts.some((account) => account.validationStatus === "NEEDS_NORMATIVE_VALIDATION")).toBe(false);
     expect(result.postingReady).toBe(false);
   });
 
