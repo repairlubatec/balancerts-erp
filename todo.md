@@ -4139,3 +4139,6 @@
 
 - [x] Executar regressão integral após catalogar OGE 2026 e MPME: 154 ficheiros e 627 testes aprovados.
 - [x] Executar build de produção aprovado; os chunks grandes permanecem apenas como aviso de optimização não bloqueante.
+
+- [x] Executar os quatro testes de validação estrutural SAF-T AO contra SAFTAO1.01_01.xsd; rejeição de XML incompleto confirmada.
+- [ ] Validar coerência semântica SAF-T com movimentos/documentos reais após regras contabilísticas activas e aprovação.
