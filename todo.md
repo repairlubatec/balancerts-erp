@@ -4189,3 +4189,13 @@
 
 - [x] Documentar os artigos fiscais 16.º, 21.º–23.º, 27.º e 30.º do OGE 2026 com condições e fontes institucionais.
 - [ ] Avaliar formalmente a extensão futura da Contribuição Especial sobre Operações Cambiais, incluindo cadeia normativa e impacto no escopo de impostos do ERP.
+
+- [ ] Catalogar a Contribuição Especial sobre Operações Cambiais como cadeia fiscal separada, com os parâmetros do artigo 16.º apenas como referência anual.
+- [ ] Expor a nova cadeia CEC no router e cobrir readiness bloqueado pela fonte OGE PENDING.
+
+- [x] Catalogar a Contribuição Especial sobre Operações Cambiais como cadeia fiscal separada, com parâmetros do artigo 16.º apenas como referência anual.
+- [x] Expor a cadeia CEC no router e cobrir readiness bloqueado pela fonte OGE PENDING; 20 testes normativos aprovados.
+- [ ] Executar suite completa e build antes do checkpoint da cadeia CEC.
+
+- [x] Executar suite integral e build após a extensão CEC: 155 ficheiros e 632 testes aprovados.
+- [ ] Guardar checkpoint da cadeia CEC após revisão do TODO.

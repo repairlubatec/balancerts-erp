@@ -220,6 +220,7 @@ export const TAX_NORMATIVE_CHAINS = {
   IRT: ["IRT-LAW-28-20"] as const,
   IP: ["IP-LAW-20-20"] as const,
   IS: ["IS-DLP-3-14"] as const,
+  CEC: ["AGT-OGE-2026"] as const,
 } as const;
 
 export type FiscalRegimeCode = keyof typeof TAX_NORMATIVE_CHAINS;
@@ -342,6 +343,26 @@ export const OFFICIAL_TAX_PARAMETER_REFERENCES = [
 ] as const;
 
 export const OFFICIAL_OGE_2026_MEASURE_REFERENCES = [
+  {
+    code: "OGE26-CEC-PESSOA-SINGULAR-2_5",
+    tax: "CEC" as const,
+    article: "16.º/7/a",
+    factPattern: "TRANSFERENCIA_ABRANGIDA_POR_CONTRATO_SERVICO_PESSOA_SINGULAR_DOMICILIADA_ANGOLA",
+    parameter: { ratePercent: 2.5, base: "MONTANTE_EM_MOEDA_NACIONAL_DA_TRANSFERENCIA", settlement: "NO_PROCESSAMENTO_BANCARIO" },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+    note: "Contribuição Especial sobre Operações Cambiais; exclusões e isenções do artigo 16.º devem ser avaliadas antes de aplicar.",
+  },
+  {
+    code: "OGE26-CEC-PESSOA-COLECTIVA-10",
+    tax: "CEC" as const,
+    article: "16.º/7/b",
+    factPattern: "TRANSFERENCIA_ABRANGIDA_POR_CONTRATO_SERVICO_PESSOA_COLECTIVA_DOMICILIADA_ANGOLA",
+    parameter: { ratePercent: 10, base: "MONTANTE_EM_MOEDA_NACIONAL_DA_TRANSFERENCIA", settlement: "NO_PROCESSAMENTO_BANCARIO" },
+    status: "REFERENCE_ONLY" as const,
+    source: "AGT-OGE-2026",
+    note: "Contribuição Especial sobre Operações Cambiais; não se confunde com II, IVA, IRT, IP ou IS.",
+  },
   {
     code: "OGE26-IRT-GC-6_5",
     tax: "IRT" as const,

@@ -3098,7 +3098,7 @@ export const appRouter = router({
         return buildDecree71Coverage({});
       }),
     taxChains: roleProcedure("normative", "read")
-      .input(z.object({ tax: z.enum(["IVA", "II", "IRT", "IP", "IS"]) }).strict())
+      .input(z.object({ tax: z.enum(["IVA", "II", "IRT", "IP", "IS", "CEC"]) }).strict())
       .query(({ input }) => ({
         tax: input.tax,
         sourceCodes: TAX_NORMATIVE_CHAINS[input.tax],
@@ -3106,7 +3106,7 @@ export const appRouter = router({
         activation: "READINESS_ONLY",
       })),
     oge2026Measures: roleProcedure("normative", "read")
-      .input(z.object({ tax: z.enum(["IVA", "II", "IRT", "IP", "IS"]).optional() }).strict())
+      .input(z.object({ tax: z.enum(["IVA", "II", "IRT", "IP", "IS", "CEC"]).optional() }).strict())
       .query(({ input }) => ({
         tax: input.tax ?? "TODOS",
         measures: getOfficialOge2026MeasureReferences(input.tax),

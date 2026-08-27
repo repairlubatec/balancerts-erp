@@ -140,6 +140,21 @@ describe("Angola normative evidence", () => {
     );
   });
 
+  it("mantém a cadeia CEC separada e bloqueada pela camada anual pendente", () => {
+    expect(getOfficialOge2026MeasureReferences("CEC")).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "OGE26-CEC-PESSOA-SINGULAR-2_5", status: "REFERENCE_ONLY" }),
+        expect.objectContaining({ code: "OGE26-CEC-PESSOA-COLECTIVA-10", status: "REFERENCE_ONLY" }),
+      ])
+    );
+    expect(evaluateTaxReadiness({ tax: "CEC", rules: [], sources: [] })).toMatchObject({
+      tax: "CEC",
+      ready: false,
+      activeRules: 0,
+      missingSourceCodes: ["AGT-OGE-2026"],
+    });
+  });
+
   it("regista as obrigações oficiais do IS como referências de calendário", () => {
     expect(getOfficialTaxObligationReferences("IS")).toEqual(
       expect.arrayContaining([
