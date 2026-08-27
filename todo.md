@@ -3926,4 +3926,4 @@
 - [x] Incorporar regras não legais como regras técnicas documentadas, com fonte bibliográfica, vigência e escopo.
 - [x] Implementar sem bloqueio artificial as regras tecnicamente comprovadas e manter revisão apenas para conflitos ou lacunas essenciais.
 - [ ] Validar revisão das 765 contas, regras, cálculo, posting e emissão em ambiente de simulação.
-- [ ] Executar suite, build, validação visual, documentar decisão e publicar checkpoint.
+- [x] Executar suite, build, validação visual, documentar decisão e publicar checkpoint.

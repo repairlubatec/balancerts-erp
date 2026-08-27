@@ -32,6 +32,23 @@ describe("PGCA activation readiness", () => {
     expect(getAccountingRuleCoverage({ activeRuleOperations: ["COMPRA", "VENDA", "ESTOQUE", "PAGAMENTO", "FOLHA", "DEPRECIAÇÃO"] })).toMatchObject({ complete: true, missing: [], active: ["COMPRAS", "VENDAS", "STOCK", "TESOURARIA", "SALARIOS", "IMOBILIZADO"] });
   });
 
+  it("reproduz o estado real de revisão das 765 contas sem activar a versão", () => {
+    const blockers = getPgcReadinessBlockers({
+      status: "UNDER_REVIEW",
+      accountCount: 792,
+      confirmedAccountCount: 27,
+      sourceCount: 6,
+      confirmedSourceCount: 6,
+      accountingRuleCount: 0,
+      accountingRuleOperations: [],
+    });
+    expect(blockers).toEqual(expect.arrayContaining([
+      "PGC_VERSION_MUST_BE_VALIDATED",
+      "PGC_VERSION_HAS_UNVALIDATED_ACCOUNTS",
+      "PGC_VERSION_WITHOUT_ACCOUNTING_RULES",
+    ]));
+  });
+
   it("bloqueia activação com regras parciais", () => {
     expect(getPgcReadinessBlockers({ status: "VALIDATED", accountCount: 20, confirmedAccountCount: 20, sourceCount: 1, confirmedSourceCount: 1, accountingRuleCount: 2, accountingRuleOperations: ["COMPRAS", "VENDAS"] })).toContain("PGC_VERSION_ACCOUNTING_RULE_COVERAGE_INCOMPLETE");
   });
