@@ -3987,9 +3987,9 @@
 - [ ] Fazer checkpoint final somente com todo o trabalho técnico concluído ou com bloqueadores explicitamente documentados.
 - [x] Fechar fase 3 com catálogo fiscal confirmado e avançar para fase 4 em modo de simulação fail-closed.
 - [ ] Não confundir fontes confirmadas com regras activas: sourceCount confirmado actual = 10, activeRuleCount actual = 0.
-- [ ] Confirmar contas PGCA actuais: 792 totais e 792 CONFIRMED; manter confirmação separada de activação.
-- [ ] Manter o plano de contas PGCA canónico e aplicar alterações IVA como camadas versionadas, sem substituir o plano-base.
-- [ ] Manter os quatro diplomas II/IRT/IP/IS como fontes de trabalho confirmadas, com alterações posteriores fora do escopo automático.
+- [x] Confirmar contas PGCA actuais: 792 totais e 792 CONFIRMED; manter confirmação separada de activação.
+- [x] Manter o plano de contas PGCA canónico e aplicar alterações IVA como camadas versionadas, sem substituir o plano-base.
+- [x] Manter os quatro diplomas II/IRT/IP/IS como fontes de trabalho confirmadas, com alterações posteriores fora do escopo automático.
 - [ ] Não usar datas, taxas ou regimes não suportados por evidência normativa registada.
 - [x] Executar revisão visual final do painel PGCA e do painel de prontidão IVA após reinício, se houver alterações de UI.
 - [x] Rever logs do servidor se a validação visual ou simulação reportar erros.
