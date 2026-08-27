@@ -4272,3 +4272,5 @@
 - [x] Implementar e testar guarda pura de rastreabilidade normativa antes da activação: catálogo, fonte persistida, aprovação humana, relação e vigência.
 
 - [x] Verificar externamente a referência institucional CNNCA/MINFIN e a identificação/PDF integral do Decreto n.º 82/01 via fonte legislativa acessível, sem inferir contas novas.
+
+- [x] Corrigir o validador estrutural PGCA para percorrer envelopes hierárquicos `classes/accounts` e distinguir ausência de natureza de erro estrutural.

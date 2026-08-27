@@ -72,3 +72,26 @@ A validação visual das rotas `/pgca` e `/fiscalidade` confirmou que o posto de
 ### Nota de actualização da suite
 
 A referência histórica de 155 ficheiros / 633 testes na linha anterior foi superada. A validação mais recente passou com **157 ficheiros e 643 testes**, além do build de produção e da verificação visual. Esta actualização corrige apenas a métrica de qualidade; não altera o estado normativo: PGCA-82-01 continua `UNDER_REVIEW`, sem regras activas e sem posting produtivo.
+
+
+## Actualização do validador estrutural — 27/08/2026
+
+O validador estrutural PGCA foi corrigido para percorrer o formato hierárquico real do ficheiro `pgc_chart_of_accounts.json`, incluindo os envelopes `classes` e `accounts`. A execução contra o ficheiro institucional existente encontrou **776 registos**, **0 erros estruturais** e **1 336 avisos de revisão humana**. Os avisos correspondem à ausência de natureza explícita no ficheiro estrutural e a grupos sem descendentes; não foram convertidos em natureza, lançabilidade ou regra de movimentação por inferência.
+
+O resultado é `REVISÃO_HUMANA`, não elegibilidade para activação. A alteração melhora a detecção estrutural e não muda contas persistidas, fontes, regras, estados de versão, cálculo fiscal, posting, emissão ou SAF-T produtivo.
+
+A suite integral posterior passou com **157 ficheiros e 643 testes**, o TypeScript não apresentou erros e o build de produção foi concluído. O aviso de chunks frontend superiores a 500 kB permanece não bloqueante.
+
+### Evidência técnica
+
+| Verificação | Resultado |
+|---|---:|
+| Ficheiro analisado | `pgc_chart_of_accounts.json` |
+| Registos hierárquicos percorridos | 776 |
+| Erros estruturais | 0 |
+| Avisos de revisão humana | 1 336 |
+| Decisão do validador | `REVISÃO_HUMANA` |
+| Activação PGCA | Continua bloqueada |
+| Regras contabilísticas activas | 0 |
+
+A evidência JSON completa fica em `docs/pgca-structural-validation-2026-08-27.json`. Este artefacto é diagnóstico e não constitui confirmação normativa nem aprovação humana.

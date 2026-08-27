@@ -30,8 +30,31 @@ try {
   fail(`não foi possível ler JSON: ${error instanceof Error ? error.message : String(error)}`);
 }
 
-const accounts = Array.isArray(document) ? document : document.accounts;
-if (!Array.isArray(accounts)) fail("o JSON deve ser uma lista ou um objecto com a propriedade accounts");
+const flattenHierarchy = (nodes, parentCode = "", result = []) => {
+  for (const node of nodes) {
+    if (!node || typeof node !== "object") {
+      result.push(node);
+      continue;
+    }
+    const flattened = { ...node };
+    if (parentCode && flattened.parentCode == null && flattened.parent == null) flattened.parentCode = parentCode;
+    delete flattened.children;
+    result.push(flattened);
+    const childNodes = Array.isArray(node.children) ? node.children : Array.isArray(node.accounts) ? node.accounts : null;
+    if (childNodes) flattenHierarchy(childNodes, String(node.code ?? "").trim(), result);
+  }
+  return result;
+};
+
+const isStructuralEnvelope = !Array.isArray(document) && Array.isArray(document.classes);
+const accounts = Array.isArray(document)
+  ? document
+  : Array.isArray(document.accounts)
+    ? document.accounts
+    : Array.isArray(document.classes)
+      ? flattenHierarchy(document.classes)
+      : null;
+if (!Array.isArray(accounts)) fail("o JSON deve ser uma lista ou um objecto com accounts/classes");
 
 const errors = [];
 const warnings = [];
@@ -53,7 +76,10 @@ for (const [index, account] of accounts.entries()) {
   else if (byCode.has(code)) errors.push({ code: "ACCOUNT_CODE_DUPLICATE", account: code, message: `Código repetido: ${code}.` });
   else byCode.set(code, account);
   if (!String(account.name ?? account.description ?? account.designation ?? "").trim()) errors.push({ code: "ACCOUNT_NAME_MISSING", account: code || `#${index}`, message: "A conta não tem designação." });
-  if (!validNatures.has(nature(account))) errors.push({ code: "ACCOUNT_NATURE_INVALID", account: code || `#${index}`, message: "Natureza inválida ou ausente; use débito, crédito ou mista." });
+  if (!validNatures.has(nature(account))) {
+    const issue = { code: "ACCOUNT_NATURE_INVALID", account: code || `#${index}`, message: "Natureza inválida ou ausente; use débito, crédito ou mista." };
+    (isStructuralEnvelope ? warnings : errors).push(issue);
+  }
 }
 
 const children = new Map();
