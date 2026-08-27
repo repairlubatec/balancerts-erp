@@ -3958,11 +3958,11 @@
 - [ ] Preservar estado fail-closed para activação, cálculo produtivo, posting e emissão enquanto existirem bloqueadores.
 - [ ] Exigir auditoria append-only, actor, correlação, anterior/posterior e revogação controlada em cada activação normativa.
 - [ ] Registar no relatório final as limitações do trabalho offline e a necessidade de revisão jurídica/contabilística local para vigência posterior.
-- [ ] Confirmar o estado publicado após checkpoint e disponibilizar a versão ao utilizador.
+- [x] Confirmar o estado publicado após checkpoint e disponibilizar a versão ao utilizador.
 - [ ] Actualizar o relatório docs/fiscal-activation-readiness-2026-08-27.md com o catálogo dos quatro diplomas primários e o estado operacional actual.
 - [ ] Rever e confirmar todos os itens TODO antes de cada checkpoint.
-- [ ] Validar TypeScript, suite Vitest e build de produção após cada alteração relevante.
-- [ ] Executar screenshot das áreas PGCA e Fiscalidade antes da aceitação visual final.
+- [x] Validar TypeScript, suite Vitest e build de produção após cada alteração relevante.
+- [x] Executar screenshot das áreas PGCA e Fiscalidade antes da aceitação visual final.
 - [ ] Produzir relatório final de escopo, alterações, testes, bloqueadores e próxima ordem segura de activação.
 - [ ] Entregar checkpoint publicado manus-webdev://<version_id> ao utilizador.
 - [ ] Não usar o fallback raiz experimental para leituras fiscais; usar apenas tabelas de domínio e dados persistentes tenant-aware.
@@ -3992,12 +3992,12 @@
 - [ ] Manter os quatro diplomas II/IRT/IP/IS como fontes de trabalho confirmadas, com alterações posteriores fora do escopo automático.
 - [ ] Não usar datas, taxas ou regimes não suportados por evidência normativa registada.
 - [ ] Executar revisão visual final do painel PGCA e do painel de prontidão IVA após reinício, se houver alterações de UI.
-- [ ] Rever logs do servidor se a validação visual ou simulação reportar erros.
+- [x] Rever logs do servidor se a validação visual ou simulação reportar erros.
 - [ ] Não pedir nova confirmação ao utilizador para tarefas técnicas não destrutivas já autorizadas, mas parar antes da aprovação normativa final.
 - [ ] Entregar lista exacta dos bloqueadores actuais e passos necessários para os remover.
 - [ ] Manter separação entre configuração global do ERP e dados de teste Repair Lubatec.
 - [ ] Revalidar este TODO completo antes do próximo checkpoint.
-- [ ] Fechar a presente execução com testes 154 ficheiros / 619 testes e build aprovado registados.
+- [x] Fechar a presente execução com testes 154 ficheiros / 620 testes e build aprovado registados.
 - [ ] Guardar checkpoint automático após actualizar relatório e validar UI.
 - [ ] Usar a versão publicada do checkpoint como artefacto de entrega.
 - [ ] Retomar deste ponto no próximo ciclo: fase 4, simulação fiscal, posting e SAF-T sem publicação produtiva.
