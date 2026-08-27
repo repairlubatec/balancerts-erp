@@ -430,3 +430,29 @@ export function evaluateIvaReadiness(input: {
     blockers,
   };
 }
+
+
+export const OFFICIAL_TAX_OBLIGATION_REFERENCES = [
+  {
+    code: "IS-PAYMENT-END-NEXT-MONTH",
+    tax: "IS" as const,
+    obligation: "LIQUIDACAO_E_PAGAMENTO",
+    rule: "Até ao final do mês seguinte à constituição da obrigação tributária",
+    evidence: "Portal do Contribuinte — Imposto de Selo",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "IS-ANNUAL-DECLARATION-END-MARCH",
+    tax: "IS" as const,
+    obligation: "DECLARACAO_ANUAL_DISCRIMINATIVA",
+    rule: "Até ao último dia útil de Março do ano seguinte ao da realização dos actos/operações",
+    evidence: "Portal do Contribuinte — Imposto de Selo",
+    status: "REFERENCE_ONLY" as const,
+  },
+] as const;
+
+export function getOfficialTaxObligationReferences(tax?: FiscalRegimeCode) {
+  return tax
+    ? OFFICIAL_TAX_OBLIGATION_REFERENCES.filter(row => row.tax === tax)
+    : OFFICIAL_TAX_OBLIGATION_REFERENCES;
+}

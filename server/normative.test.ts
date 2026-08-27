@@ -3,6 +3,7 @@ import {
   evaluateIvaReadiness,
   evaluateTaxReadiness,
   getOfficialTaxParameterReferences,
+  getOfficialTaxObligationReferences,
   canActivateTaxParameterReference,
   normativeEvidence,
   validateNormativeCoverage,
@@ -108,6 +109,15 @@ describe("Angola normative evidence", () => {
     expect(getOfficialTaxParameterReferences("IP")).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ code: "IP-TRANSMISSAO-2", ratePercent: 2 }),
+      ])
+    );
+  });
+
+  it("regista as obrigações oficiais do IS como referências de calendário", () => {
+    expect(getOfficialTaxObligationReferences("IS")).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "IS-PAYMENT-END-NEXT-MONTH", status: "REFERENCE_ONLY" }),
+        expect.objectContaining({ code: "IS-ANNUAL-DECLARATION-END-MARCH", status: "REFERENCE_ONLY" }),
       ])
     );
   });

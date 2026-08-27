@@ -4127,3 +4127,6 @@
 - [x] Documentar que prazos e obrigações anuais devem ser versionados por exercício/regime, separados de taxas e posting.
 
 - [x] Reiniciar o servidor após a correcção do import e confirmar arranque limpo sem erro novo de Vite.
+
+- [x] Catalogar obrigações oficiais do IS: pagamento até ao fim do mês seguinte e declaração anual até ao último dia útil de Março, sempre como REFERENCE_ONLY.
+- [x] Acrescentar e executar regressões normativas: 22 testes dirigidos aprovados e TypeScript sem erros.
