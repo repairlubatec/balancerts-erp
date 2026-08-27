@@ -4051,7 +4051,7 @@
 - [ ] Não adicionar novas fontes externas sem necessidade e sem registo de proveniência.
 - [ ] Fechar a sessão com todas as limitações materiais visíveis ao utilizador.
 - [x] Registar fonte de código: server/normative.ts e teste server/normative.test.ts.
-- [ ] Revalidar a lista oficial de cinco diplomas IVA na fase de readiness IVA.
+- [x] Revalidar a lista oficial de cinco diplomas IVA na fase de readiness IVA.
 - [x] Preservar a cobertura normativa e a suite integral actualizada: 157 ficheiros e 643 testes aprovados.
 - [ ] Fazer checkpoint após o relatório final da presente continuação.
 - [x] Não publicar uma activação PGCA prematura.
