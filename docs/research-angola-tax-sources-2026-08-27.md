@@ -39,3 +39,11 @@ Consequentemente, o código deve incorporar estes parâmetros como catálogo ver
 ## Confirmação visual no navegador
 
 Em 27/08/2026, a página oficial **Legislação | Portal do Contribuinte** foi aberta e visualmente confirmada. O índice apresenta as secções Imposto Predial, Imposto Industrial, Imposto sobre os Rendimentos do Trabalho, Imposto Especial de Consumo e Imposto sobre o Valor Acrescentado, além das áreas Geral, OGE 2026, Retenção na Fonte, Aduaneiros e outras. Esta verificação confirma que o catálogo institucional é uma fonte navegável do MINFIN, mas a página de índice não substitui a leitura das leis e tabelas anexas.
+
+## Verificação persistente do motor — 27/08/2026
+
+Foi executada uma consulta somente de leitura no destino TiDB configurado. O resultado confirmou uma versão `PGCA-82-01` em estado `UNDER_REVIEW`, zero registos activos em `accountingRules` e um registo em `journalEntries`. A existência de um lançamento persistente isolado não é suficiente para simulação fiscal integrada: sem regras activas e sem readiness normativo completo, o motor deve rejeitar cálculo/posting produtivo e permitir apenas os testes controlados já cobertos pela suite. Nenhum dado foi inserido, alterado ou apagado.
+
+## Nota de logs e separação do ambiente de teste
+
+A revisão dos logs após a consulta read-only mostrou um `request.aborted` isolado durante actualização de dados, sem erro TypeScript e com o servidor a continuar operacional. Os logs também contêm eventos históricos da empresa de teste `Repair Lubatec`/`BALANCERTS Ambiente de Testes`, incluindo documentos e lançamentos de teste. Esses eventos não são evidência de readiness fiscal global e não foram usados para activar regras. A separação entre dados de teste e configuração normativa global permanece obrigatória.
