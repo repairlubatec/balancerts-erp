@@ -4125,3 +4125,5 @@
 
 - [x] Confirmar na página AGT de 27/08/2026 o comunicado do pagamento provisório do II e a disponibilidade do Calendário Fiscal 2026.
 - [x] Documentar que prazos e obrigações anuais devem ser versionados por exercício/regime, separados de taxas e posting.
+
+- [x] Reiniciar o servidor após a correcção do import e confirmar arranque limpo sem erro novo de Vite.
