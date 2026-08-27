@@ -5325,6 +5325,8 @@ export const appRouter = router({
           exportBlockedReason: local.structuralValidation ? readiness.exportBlockedReason : "XSD_VALIDATION_FAILED",
           xsdValidation: local.xsdValidation,
           structuralValidation: local.structuralValidation,
+          semanticValidation: local.semanticValidation,
+          semanticMode: "REPORT_ONLY" as const,
           xml: local.xml,
           contentType: local.contentType,
           contentHash: local.contentHash,

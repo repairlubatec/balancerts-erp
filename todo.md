@@ -4225,3 +4225,8 @@
 - [x] Executar simulação controlada REPORT_ONLY com cenário sem dados persistentes: inconsistência semântica identificada, XML preparado sem excepção e submissão externa não elegível.
 - [x] Confirmar na regressão que a validação XSD, a validação semântica e o modo REPORT_ONLY não activam emissão AGT nem posting produtivo.
 - [ ] Executar simulação integrada com movimentos/documentos persistentes elegíveis quando existirem regras activas aprovadas.
+
+- [x] Criar painel de controlo interactivo para resultados da simulação REPORT_ONLY, com métricas, inconsistências e estado de submissão.
+- [x] Criar interface intuitiva de revisão e aprovação auditada das regras PGCA-82-01, sem aprovação automática nem activação por inferência.
+- [x] Criar página detalhada de readiness com bloqueadores, cobertura PGCA/regras e métricas verificáveis de testes.
+- [x] Validar as três interfaces com testes Vitest, TypeScript, build e verificação visual.

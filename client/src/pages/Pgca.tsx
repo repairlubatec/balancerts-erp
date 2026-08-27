@@ -49,6 +49,8 @@ import { PgcaV2StagingPanel } from "@/components/PgcaV2StagingPanel";
 import { PgcaExternalSummaryPanel } from "@/components/PgcaExternalSummaryPanel";
 import { PgcActivationAssistant } from "@/components/PgcActivationAssistant";
 import { PgcReportSimulationPanel } from "@/components/PgcReportSimulationPanel";
+import { ReportOnlyControlPanel } from "@/components/ReportOnlyControlPanel";
+import { PgcaReadinessDetailPanel } from "@/components/PgcaReadinessDetailPanel";
 import {
   filterPgcAccountsByStatus,
   pgcAccountStatusClass,
@@ -530,6 +532,8 @@ export default function Pgca() {
           versionStatus={activeVersion?.status}
           accounts={(accountsQuery.data ?? []) as Array<{ code: string; name: string }>}
         />
+        <ReportOnlyControlPanel companyId={resolvedCompanyId} />
+        <PgcaReadinessDetailPanel readiness={readinessQuery.data} versionCode={activeVersion?.code} />
         <NormativeConfirmationDashboard />
         <IvaNormativeReviewPanel
           organizationId={organizationId}
