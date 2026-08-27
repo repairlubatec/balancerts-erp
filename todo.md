@@ -4093,3 +4093,8 @@
 - [x] Validar a saída SAF-T AO contra o XSD SAFTAO1.01_01 em testes determinísticos.
 - [ ] Executar simulação integrada com dados persistentes elegíveis quando existirem regras activas aprovadas.
 - [ ] Completar validação semântica SAF-T contra movimentos e documentos reais antes de submissão.
+
+- [x] Pesquisar primeiro fontes angolanas oficiais e corpus documental submetido para completar regras operacionais, sem perguntas prematuras.
+- [ ] Confrontar regras por operação com PGCA, diplomas fiscais e vigência aplicável antes de propor activação.
+- [x] Registar URLs, PDFs, páginas e conclusões da pesquisa em relatório auditável.
+- [x] Só solicitar decisão ao utilizador se persistir contradição legal real ou decisão irreversível não determinável pelas fontes.
