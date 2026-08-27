@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assertSaftExportReady, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftAoXml, buildSaftReadiness, buildTrialBalance, buildVatSummary } from "./reports";
+import { assertSaftExportReady, buildBalanceSheet, buildCompleteReportReconciliation, buildDocumentOriginReconciliation, buildFiscalRegister, buildIncomeStatement, buildJournal, buildLedger, buildReportReconciliation, buildSaftAoXml, buildSaftReadiness, buildTrialBalance, buildVatSummary, validateSaftAoExportInput } from "./reports";
 
 describe("reconciliable reports", () => {
   it("aggregates account movements and reconciles totals", () => {
@@ -102,6 +102,24 @@ describe("reconciliable reports", () => {
     expect(xml).toContain("<DebitLine>");
     expect(xml).toContain("<CreditLine>");
     expect(xml).not.toContain("<AccountType>");
+  });
+
+  it("mantém REPORT_ONLY para preparação e identifica inconsistências sem submissão", () => {
+    const input = {
+      companyName: "Repair Lubatec",
+      nif: "5001121871",
+      functionalCurrency: "AOA",
+      periodStart: new Date("2026-01-01T00:00:00Z"),
+      periodEnd: new Date("2026-01-31T23:59:59Z"),
+      accounts: [{ id: 1, code: "11", description: "Caixa", postable: true }],
+      journalEntries: [{ id: 1, transactionDate: new Date("2026-01-05T00:00:00Z"), description: "Preparação", lines: [{ accountCode: "11", debit: 100, credit: 0 }] }],
+      sourceDocuments: [],
+      semanticMode: "REPORT_ONLY" as const,
+    };
+    const validation = validateSaftAoExportInput(input);
+    expect(validation.valid).toBe(false);
+    expect(validation.issues.map(issue => issue.code)).toContain("UNBALANCED_ENTRY");
+    expect(() => buildSaftAoXml(input)).not.toThrow();
   });
 
   it("reconciles document origins with journal sourceDocumentId", () => {

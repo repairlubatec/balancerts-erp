@@ -4221,3 +4221,7 @@
 
 - [x] Expor no router a matriz read-only dos seis modelos DRAFT_ONLY de regras operacionais.
 - [x] Cobrir a consulta para garantir que nenhum modelo devolve contas, taxas ou estado ACTIVE por inferência.
+
+- [x] Executar simulação controlada REPORT_ONLY com cenário sem dados persistentes: inconsistência semântica identificada, XML preparado sem excepção e submissão externa não elegível.
+- [x] Confirmar na regressão que a validação XSD, a validação semântica e o modo REPORT_ONLY não activam emissão AGT nem posting produtivo.
+- [ ] Executar simulação integrada com movimentos/documentos persistentes elegíveis quando existirem regras activas aprovadas.
