@@ -4037,7 +4037,7 @@
 - [ ] Registar a data de execução 27/08/2026 e o fuso Europe/Lisbon no relatório de actividade.
 - [x] Não alterar o escopo para AGT, bancos, instaladores ou assinatura nesta fase.
 - [x] Validar que o estado DB real continua consistente após o checkpoint.
-- [ ] Rever qualidade dos testes: sem fixtures fiscais inventadas e sem inserções destrutivas.
+- [x] Rever qualidade dos testes: sem fixtures fiscais inventadas e sem inserções destrutivas.
 - [x] Manter os dados persistentes existentes como fonte de verdade do readiness.
 - [x] Garantir que o relatório de prontidão distingue verificação documental, aprovação humana e activação produtiva.
 - [ ] Não classificar a simples presença de um PDF como vigência jurídica universal.
