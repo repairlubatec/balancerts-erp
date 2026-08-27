@@ -3991,7 +3991,7 @@
 - [ ] Manter o plano de contas PGCA canónico e aplicar alterações IVA como camadas versionadas, sem substituir o plano-base.
 - [ ] Manter os quatro diplomas II/IRT/IP/IS como fontes de trabalho confirmadas, com alterações posteriores fora do escopo automático.
 - [ ] Não usar datas, taxas ou regimes não suportados por evidência normativa registada.
-- [ ] Executar revisão visual final do painel PGCA e do painel de prontidão IVA após reinício, se houver alterações de UI.
+- [x] Executar revisão visual final do painel PGCA e do painel de prontidão IVA após reinício, se houver alterações de UI.
 - [x] Rever logs do servidor se a validação visual ou simulação reportar erros.
 - [ ] Não pedir nova confirmação ao utilizador para tarefas técnicas não destrutivas já autorizadas, mas parar antes da aprovação normativa final.
 - [ ] Entregar lista exacta dos bloqueadores actuais e passos necessários para os remover.
