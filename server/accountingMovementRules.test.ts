@@ -7,7 +7,8 @@ describe("regras-base de movimentação contabilística", () => {
     expect(rule.debitLabel).toContain("Aumentos");
     expect(rule.creditLabel).toContain("Diminuições");
     expect(rule.automaticPosting).toBe("ALLOWED");
-    expect(rule.evidence).toContain("Manual de Contabilidade");
+    expect(rule.evidence).toContain("Colectânea de Legislação da Contabilidade de Angola");
+    expect(rule.evidence).not.toContain("Manual de Contabilidade");
     expect(rule.evidenceScope).toBe("PGCA_COMPATIBLE_TECHNICAL_RULE");
   });
   it("descreve natureza credora como aumento a crédito e diminuição a débito", () => {

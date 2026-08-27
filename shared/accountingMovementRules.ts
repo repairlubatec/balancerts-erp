@@ -18,7 +18,7 @@ const rules: Record<AccountingNature, AccountingMovementRule> = {
     creditLabel: "Diminuições, saídas, consumo, alienações ou regularizações redutoras",
     automaticPosting: "ALLOWED",
     explanation: "A conta de natureza devedora aumenta a débito e diminui a crédito.",
-    evidence: "Manual de Contabilidade: A Bíblia, capítulo de escrituração; Colectânea, regras gerais confrontadas com o PGCA-82-01.",
+    evidence: "Colectânea de Legislação da Contabilidade de Angola e Decreto n.º 82/01, regras gerais confrontadas com o PGCA-82-01.",
     evidenceScope: "PGCA_COMPATIBLE_TECHNICAL_RULE",
   },
   CREDIT: {
@@ -27,7 +27,7 @@ const rules: Record<AccountingNature, AccountingMovementRule> = {
     creditLabel: "Aumentos, constituição de obrigações ou acréscimos",
     automaticPosting: "ALLOWED",
     explanation: "A conta de natureza credora aumenta a crédito e diminui a débito.",
-    evidence: "Manual de Contabilidade: A Bíblia, capítulo de escrituração; Colectânea, regras gerais confrontadas com o PGCA-82-01.",
+    evidence: "Colectânea de Legislação da Contabilidade de Angola e Decreto n.º 82/01, regras gerais confrontadas com o PGCA-82-01.",
     evidenceScope: "PGCA_COMPATIBLE_TECHNICAL_RULE",
   },
   MIXED: {
