@@ -4217,7 +4217,7 @@
 - [ ] Executar suite completa e build antes do checkpoint do guard normativo.
 
 - [x] Executar suite integral e build após corrigir o guard OGE/CEC: 155 ficheiros e 633 testes aprovados.
-- [ ] Guardar checkpoint da correcção do guard após revisão do TODO.
+- [x] Guardar checkpoint da correcção do guard após revisão do TODO.
 
 - [x] Expor no router a matriz read-only dos seis modelos DRAFT_ONLY de regras operacionais.
 - [x] Cobrir a consulta para garantir que nenhum modelo devolve contas, taxas ou estado ACTIVE por inferência.
