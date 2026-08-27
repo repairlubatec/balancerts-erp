@@ -3,6 +3,7 @@ import {
   getAccountingMovementRule,
   getOperationalRulePreparation,
   operationalRulePreparations,
+  IVA_SOURCE_BACKED_MOVEMENTS,
   validateDirectionalMovement,
 } from "../shared/accountingMovementRules";
 
@@ -40,6 +41,19 @@ describe("regras-base de movimentação contabilística", () => {
     expect(operationalRulePreparations.every(row => row.postingStatus === "DRAFT_ONLY" && row.requiresHumanApproval)).toBe(true);
     expect(operationalRulePreparations.every(row => row.sourceBackedMovement.startsWith("PGCA:"))).toBe(true);
     expect(operationalRulePreparations.every(row => !/\\b\\d{2,}(?:\\.\\d+)+\\b/.test(`${row.debitRequirement} ${row.creditRequirement}`))).toBe(true);
+  });
+
+  it("mantém os movimentos IVA do Decreto 180/19 como referências DRAFT_ONLY", () => {
+    expect(IVA_SOURCE_BACKED_MOVEMENTS.map(row => row.code)).toEqual([
+      "34.5.1",
+      "34.5.2",
+      "34.5.3.1",
+      "34.5.5.1",
+      "34.5.6.1",
+      "34.5.7.1",
+    ]);
+    expect(IVA_SOURCE_BACKED_MOVEMENTS.every(row => row.source.includes("180/19") && row.status === "DRAFT_ONLY")).toBe(true);
+    expect(IVA_SOURCE_BACKED_MOVEMENTS.find(row => row.code === "34.5.5.1")?.nature).toBe("MIXED");
   });
 
   it("rejeita natureza não aplicável e direcção incompatível", () => {
