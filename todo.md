@@ -4230,3 +4230,7 @@
 - [x] Criar interface intuitiva de revisão e aprovação auditada das regras PGCA-82-01, sem aprovação automática nem activação por inferência.
 - [x] Criar página detalhada de readiness com bloqueadores, cobertura PGCA/regras e métricas verificáveis de testes.
 - [x] Validar as três interfaces com testes Vitest, TypeScript, build e verificação visual.
+
+- [x] Auditar integralmente funcionalidades, bloqueadores, dependências externas, falhas de runtime, testes, build, base de dados, segurança e documentação.
+- [x] Produzir relatório de auditoria com classificação Implementado, Parcial, Bloqueado, Dependente de configuração e Não funcional.
+- [x] Definir prioridades de correcção com evidência técnica e impacto operacional.
