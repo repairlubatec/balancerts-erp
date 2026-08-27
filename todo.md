@@ -4085,8 +4085,8 @@
 
 - [x] Integrar a consulta de cadeias fiscais na interface Fiscalidade com estados claros por imposto e indicação READINESS ONLY.
 - [x] Validar o painel Fiscalidade com TypeScript, testes e build de produção.
-- [ ] Expor na interface os bloqueadores de regras activas por operação PGCA, mantendo aprovação humana obrigatória.
-- [ ] Preparar a simulação de cálculo/posting com as contas persistentes confirmadas, sem permitir publicação.
+- [x] Expor na interface os bloqueadores de regras activas por operação PGCA, mantendo aprovação humana obrigatória.
+- [x] Preparar a simulação de cálculo/posting com as contas persistentes confirmadas, sem permitir publicação.
 
 - [x] Executar testes dirigidos dos três níveis de simulação PGCA e garantir canPost sempre falso no modo de simulação.
 - [x] Validar o workflow de activação PGCA com bloqueadores de contas, fontes e cobertura de operações.
