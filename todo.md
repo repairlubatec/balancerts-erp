@@ -4143,8 +4143,8 @@
 - [x] Executar os quatro testes de validação estrutural SAF-T AO contra SAFTAO1.01_01.xsd; rejeição de XML incompleto confirmada.
 - [ ] Validar coerência semântica SAF-T com movimentos/documentos reais após regras contabilísticas activas e aprovação.
 
-- [ ] Implementar validador semântico SAF-T para referências internas, equilíbrio de débitos/créditos, datas, moeda e coerência fiscal.
-- [ ] Cobrir o validador semântico com casos válidos e inválidos sem inserir dados na base.
+- [x] Implementar validador semântico SAF-T para referências internas, equilíbrio de débitos/créditos, datas, moeda e coerência fiscal.
+- [x] Cobrir o validador semântico com casos válidos e inválidos sem inserir dados na base.
 
 - [x] Implementar validador semântico SAF-T AO para moeda AOA, período, contas, lançamentos, documentos e coerência básica de IVA.
 - [x] Cobrir o validador semântico com casos válidos e inválidos; 7 testes SAF-T dirigidos aprovados.
@@ -4158,14 +4158,14 @@
 
 - [x] Corrigir a integração semântica SAF-T: exportação local usa REPORT_ONLY para expor inconsistências históricas; o construtor padrão mantém ENFORCE.
 - [x] Validar o fluxo expandido, relatórios, semântica e XSD: 19 testes dirigidos aprovados.
-- [ ] Reexecutar suite completa e build antes do checkpoint da integração SAF-T.
+- [x] Reexecutar suite completa e build antes do checkpoint da integração SAF-T.
 
 - [x] Reexecutar suite completa e build após a integração SAF-T: 155 ficheiros e 630 testes aprovados.
-- [ ] Integrar o resultado semântico no retorno da exportação local para mostrar alertas ao contabilista sem permitir submissão externa.
+- [x] Integrar o resultado semântico no retorno da exportação local para mostrar alertas ao contabilista sem permitir submissão externa.
 
 - [x] Integrar o resultado semântico no retorno da exportação local, com lista de issues e submissão externa sempre false.
 - [x] Validar TypeScript, exportação expandida, relatórios, semântica e XSD: 19 testes dirigidos aprovados.
-- [ ] Executar suite completa e build antes do checkpoint desta melhoria.
+- [x] Executar suite completa e build antes do checkpoint desta melhoria.
 
 - [x] Executar suite completa e build após expor o resultado semântico SAF-T: 155 ficheiros e 630 testes aprovados.
 - [ ] Guardar checkpoint desta melhoria com a árvore de trabalho validada.
