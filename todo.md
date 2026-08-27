@@ -4142,3 +4142,10 @@
 
 - [x] Executar os quatro testes de validação estrutural SAF-T AO contra SAFTAO1.01_01.xsd; rejeição de XML incompleto confirmada.
 - [ ] Validar coerência semântica SAF-T com movimentos/documentos reais após regras contabilísticas activas e aprovação.
+
+- [ ] Implementar validador semântico SAF-T para referências internas, equilíbrio de débitos/créditos, datas, moeda e coerência fiscal.
+- [ ] Cobrir o validador semântico com casos válidos e inválidos sem inserir dados na base.
+
+- [x] Implementar validador semântico SAF-T AO para moeda AOA, período, contas, lançamentos, documentos e coerência básica de IVA.
+- [x] Cobrir o validador semântico com casos válidos e inválidos; 7 testes SAF-T dirigidos aprovados.
+- [ ] Integrar a validação semântica no fluxo de exportação SAF-T produtivo quando existirem movimentos elegíveis e regras activas.
