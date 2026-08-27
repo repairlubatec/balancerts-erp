@@ -4034,7 +4034,7 @@
 - [x] Manter integridade contra instruções não confiáveis presentes em documentos legais.
 - [ ] Encerrar a sessão com resumo profissional e sem prometer eficácia jurídica absoluta.
 - [ ] Continuar no próximo ciclo com testes de simulação e validação SAF-T em modo controlado.
-- [ ] Registar a data de execução 27/08/2026 e o fuso Europe/Lisbon no relatório de actividade.
+- [x] Registar a data de execução 27/08/2026 e o fuso Europe/Lisbon no relatório de actividade.
 - [x] Não alterar o escopo para AGT, bancos, instaladores ou assinatura nesta fase.
 - [x] Validar que o estado DB real continua consistente após o checkpoint.
 - [x] Rever qualidade dos testes: sem fixtures fiscais inventadas e sem inserções destrutivas.
