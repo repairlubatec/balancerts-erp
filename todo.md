@@ -4149,3 +4149,16 @@
 - [x] Implementar validador semântico SAF-T AO para moeda AOA, período, contas, lançamentos, documentos e coerência básica de IVA.
 - [x] Cobrir o validador semântico com casos válidos e inválidos; 7 testes SAF-T dirigidos aprovados.
 - [ ] Integrar a validação semântica no fluxo de exportação SAF-T produtivo quando existirem movimentos elegíveis e regras activas.
+
+- [ ] Corrigir o fixture do teste reports.test.ts para alinhar postable com o lançamento e preservar a guarda semântica contra contas de grupo.
+
+- [x] Corrigir o fixture do teste reports.test.ts para alinhar postable com o lançamento e preservar a guarda contra contas de grupo.
+- [x] Validar integração do exportador SAF-T com TypeScript e 17 testes dirigidos aprovados.
+- [ ] Executar regressão completa e build antes do checkpoint desta integração.
+
+- [x] Corrigir a integração semântica SAF-T: exportação local usa REPORT_ONLY para expor inconsistências históricas; o construtor padrão mantém ENFORCE.
+- [x] Validar o fluxo expandido, relatórios, semântica e XSD: 19 testes dirigidos aprovados.
+- [ ] Reexecutar suite completa e build antes do checkpoint da integração SAF-T.
+
+- [x] Reexecutar suite completa e build após a integração SAF-T: 155 ficheiros e 630 testes aprovados.
+- [ ] Integrar o resultado semântico no retorno da exportação local para mostrar alertas ao contabilista sem permitir submissão externa.

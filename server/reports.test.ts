@@ -83,7 +83,7 @@ describe("reconciliable reports", () => {
       periodEnd: new Date("2026-01-31T23:59:59Z"),
       accounts: [
         { id: 2, code: "12", description: "Banco", postable: true },
-        { id: 1, code: "11", description: "Caixa", postable: false },
+        { id: 1, code: "11", description: "Caixa", postable: true },
         { id: 3, code: "71", description: "Serviços", postable: true },
       ],
       journalEntries: [{ id: 7, transactionDate: new Date("2026-01-05T00:00:00Z"), description: "Venda & serviço", sourceDocumentId: 4, lines: [{ accountCode: "11", debit: 114, credit: 0 }, { accountCode: "71", debit: 0, credit: 114 }] }],

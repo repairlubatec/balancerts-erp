@@ -1,5 +1,6 @@
 import path from "node:path";
 import { validateXML } from "xsd-schema-validator";
+import { validateSaftAoSemantics } from "./saftSemantic";
 
 export type PostedLine = {
   accountCode: string;
@@ -268,6 +269,7 @@ export type SaftAoExportInput = {
   productId?: string;
   productVersion?: string;
   dateCreated?: Date;
+  semanticMode?: "ENFORCE" | "REPORT_ONLY";
 };
 
 function xmlEscape(value: string | number | null | undefined) { return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&apos;"); }
@@ -279,6 +281,29 @@ function sourceDocumentStatus(status: string) { return status === "CANCELLED" ? 
 function sourceBilling() { return "P"; }
 
 export function buildSaftAoXml(input: SaftAoExportInput) {
+  const semanticValidation = validateSaftAoSemantics({
+    functionalCurrency: input.functionalCurrency,
+    periodStart: input.periodStart,
+    periodEnd: input.periodEnd,
+    accounts: input.accounts.map((account) => ({ code: account.code, postable: account.postable })),
+    journalEntries: input.journalEntries.map((entry) => ({
+      id: entry.id,
+      transactionDate: entry.transactionDate,
+      lines: entry.lines.map((line) => ({ accountCode: line.accountCode, debit: line.debit, credit: line.credit })),
+    })),
+    sourceDocuments: input.sourceDocuments.map((document) => ({
+      documentNumber: document.documentNumber,
+      documentType: document.documentType,
+      issueDate: document.issueDate,
+      netAmount: document.netAmount,
+      taxAmount: document.taxAmount,
+      totalAmount: document.totalAmount,
+      ivaRegime: document.ivaRegime === "GERAL" || document.ivaRegime === "SIMPLIFICADO" ? document.ivaRegime : "EXCLUSAO",
+    })),
+  });
+  if (!semanticValidation.valid && (input.semanticMode ?? "ENFORCE") === "ENFORCE") {
+    throw new Error(`SAFT_SEMANTIC_INVALID:${semanticValidation.issues.map((issue) => issue.code).join(",")}`);
+  }
   const accounts = [...input.accounts].sort((a, b) => a.code.localeCompare(b.code));
   const entries = [...input.journalEntries].sort((a, b) => a.id - b.id);
   const documents = [...input.sourceDocuments].sort((a, b) => a.id - b.id);

@@ -8086,6 +8086,7 @@ export async function getSaftLocalExportForUserCompany(
     accounts: saftAccounts,
     journalEntries: saftEntries,
     sourceDocuments: saftDocuments,
+    semanticMode: "REPORT_ONLY",
   });
   const contentHash = createHash("sha256").update(xml, "utf8").digest("hex");
   const xsdValidation = await validateSaftAoXmlAgainstXsd(xml);
