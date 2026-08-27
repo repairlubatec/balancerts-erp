@@ -4136,3 +4136,6 @@
 
 - [x] Catalogar as páginas/documentos oficiais de OGE 2026 e medidas MPME como fontes PENDING, sem as tratar como taxa geral.
 - [x] Testar que as fontes especiais PENDING não alteram readiness nem desbloqueiam posting por si só; 18 testes normativos aprovados.
+
+- [x] Executar regressão integral após catalogar OGE 2026 e MPME: 154 ficheiros e 627 testes aprovados.
+- [x] Executar build de produção aprovado; os chunks grandes permanecem apenas como aviso de optimização não bloqueante.
