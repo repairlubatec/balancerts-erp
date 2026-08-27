@@ -95,3 +95,10 @@ A suite integral posterior passou com **157 ficheiros e 643 testes**, o TypeScri
 | Regras contabilísticas activas | 0 |
 
 A evidência JSON completa fica em `docs/pgca-structural-validation-2026-08-27.json`. Este artefacto é diagnóstico e não constitui confirmação normativa nem aprovação humana.
+
+
+## Verificação pública adicional de fontes — 27/08/2026
+
+Foi consultado o [portal institucional do Conselho Nacional de Normalização Contabilística de Angola](https://cnnca.minfin.gov.ao/sobre), que identifica o PGCA aprovado pelo Decreto n.º 82/01, e foi consultada a página do [Calendário Fiscal 2026 da AGT/MINFIN](https://agt.minfin.gov.ao/PortalAGT/#!/servicos-fiscais//calendario-fiscal), que disponibiliza o calendário anual para download. A página pública do diploma no [Lex Angola](https://lex.ao/docs/conselho-de-ministros/2001/decreto-n-o-82-01-de-16-de-novembro/) identifica a publicação do Decreto n.º 82/01 no Diário da República I Série n.º 52, de 16 de Novembro de 2001, e disponibiliza o PDF.
+
+Estas consultas confirmam a proveniência e os pontos de acesso, mas não substituem a leitura literal das páginas necessárias para natureza, lançabilidade, regra de movimento, vigência, taxas ou modelos. Por isso, não alteram o estado `UNDER_REVIEW`, não criam contas e não activam regras.
