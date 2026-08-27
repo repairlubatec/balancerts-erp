@@ -315,6 +315,16 @@ export const OFFICIAL_TAX_PARAMETER_REFERENCES = [
     evidence: "IVA-LAW-14-23",
     status: "REFERENCE_ONLY" as const,
   },
+  {
+    code: "IS-VERBA-23-3-RECIBO-1",
+    tax: "IS" as const,
+    factPattern: "RECIBO_QUITACAO_VERBA_23_3_QUANDO_APLICAVEL",
+    ratePercent: 1,
+    rateKind: "PERCENT" as const,
+    evidence: "IVA-LAW-14-23",
+    status: "REFERENCE_ONLY" as const,
+    note: "Referência cruzada expressa à verba 23.3; não substitui a tabela integral do Código do IS.",
+  },
 ] as const;
 
 export function getOfficialTaxParameterReferences(tax?: FiscalRegimeCode) {

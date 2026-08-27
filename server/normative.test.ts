@@ -112,6 +112,17 @@ describe("Angola normative evidence", () => {
     );
   });
 
+  it("regista a referência condicionada do IS sem a transformar em taxa universal", () => {
+    expect(getOfficialTaxParameterReferences("IS")).toEqual([
+      expect.objectContaining({
+        code: "IS-VERBA-23-3-RECIBO-1",
+        ratePercent: 1,
+        status: "REFERENCE_ONLY",
+        note: expect.stringContaining("tabela integral"),
+      }),
+    ]);
+  });
+
   it("bloqueia activação de parâmetro sem cadeia, vigência e aprovação", () => {
     const result = canActivateTaxParameterReference({
       parameterCode: "IVA-GERAL-14",

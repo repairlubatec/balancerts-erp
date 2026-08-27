@@ -47,3 +47,9 @@ Foi executada uma consulta somente de leitura no destino TiDB configurado. O res
 ## Nota de logs e separação do ambiente de teste
 
 A revisão dos logs após a consulta read-only mostrou um `request.aborted` isolado durante actualização de dados, sem erro TypeScript e com o servidor a continuar operacional. Os logs também contêm eventos históricos da empresa de teste `Repair Lubatec`/`BALANCERTS Ambiente de Testes`, incluindo documentos e lançamentos de teste. Esses eventos não são evidência de readiness fiscal global e não foram usados para activar regras. A separação entre dados de teste e configuração normativa global permanece obrigatória.
+
+## Imposto do Selo — leitura adicional
+
+Foi localizada a referência institucional AGT ao **Guia do Sistema Tributário Angolano 2017**, que identifica o Decreto Legislativo Presidencial n.º 3/14 como diploma do Código do Imposto do Selo, mas o próprio guia declara que não reproduz integralmente a legislação e não substitui os códigos vigentes. Foi também lido o texto do DLP n.º 3/14 disponibilizado pela Lex Angola: o artigo 1.º estabelece que os actos, contratos, documentos, títulos, operações e outros factos estão sujeitos nos termos da tabela anexa ou de leis especiais; o diploma determina a entrada em vigor na data da publicação. O texto confirma que o IS exige classificação por acto/verba e não uma taxa única.
+
+No OCR local da Lei n.º 14/23, a referência cruzada à verba 23.3 indica taxa de 1% para o recibo de quitação nas condições do regime descrito. O ERP registou esta informação somente como `IS-VERBA-23-3-RECIBO-1`, `REFERENCE_ONLY`, com nota de que a tabela integral do Código do IS continua necessária. Não foi criada uma regra geral de IS.

@@ -4106,3 +4106,6 @@
 - [x] Separar parâmetros fiscais publicados de regras de débito/crédito e de posting automático.
 - [ ] Associar cada operação a contas lançáveis PGCA, documento, condição fiscal e vigência numa regra pronta para aprovação humana.
 - [ ] Submeter regras preparadas ao fluxo de aprovação humana antes de qualquer activação.
+
+- [ ] Registar a tabela/verba do Imposto do Selo apenas quando a fonte integral permitir identificar facto tributário, base, taxa e vigência.
+- [x] Incorporar como referência condicionada a verba 23.3 a 1% quando aplicável ao recibo de quitação, com origem na Lei n.º 14/23, sem generalizar para outros actos.
