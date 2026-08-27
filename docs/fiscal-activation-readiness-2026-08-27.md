@@ -27,6 +27,8 @@ A decisão segura é manter o motor em **fail-closed**. O sistema pode continuar
 
 A base persistente actualmente consultada contém **792 contas**, todas com estado `CONFIRMED`, **10 fontes**, todas com estado `CONFIRMED`, e **0 regras contabilísticas activas** para `PGCA-82-01`, que permanece em `UNDER_REVIEW`. O catálogo de evidências passou a reconhecer explicitamente os quatro códigos primários II/IRT/IP/IS acima indicados. Não foi feita qualquer mutação de estado produtivo, cálculo fiscal, posting, emissão oficial ou alteração destrutiva da base de dados.
 
+A matriz read-only dos seis modelos operacionais foi exposta no router com estado permanente `DRAFT_ONLY` e aprovação humana obrigatória. Foi executado um cenário controlado `REPORT_ONLY`: a validação semântica identificou um lançamento desequilibrado, o XML de preparação foi gerado sem excepção e a submissão externa permaneceu inelegível. A validação XSD e os testes semânticos continuam separados da autorização de posting.
+
 ## O que falta para cada promoção
 
 | Promoção pretendida | Pré-requisitos ainda em falta | Resultado seguro actual |
@@ -55,4 +57,4 @@ Ela não autoriza, por si só, a activação global. Um PDF pode provar o texto 
 5. Testar cálculo e posting em ambiente de simulação, depois testar emissão e SAF-T com validação estrutural e semântica.
 6. Só depois habilitar efeitos produtivos para utilizadores autorizados, com auditoria append-only e possibilidade de revogação controlada.
 
-Nenhuma taxa foi inventada ou activada por esta auditoria. A classificação documental e a activação normativa continuam separadas para preservar a integridade do ERP. A suite validada nesta continuação ficou em **154 ficheiros / 619 testes aprovados**, com TypeScript e build de produção aprovados; o aviso de chunks frontend superiores a 500 kB é não bloqueante e foi registado separadamente.
+Nenhuma taxa foi inventada ou activada por esta auditoria. A classificação documental e a activação normativa continuam separadas para preservar a integridade do ERP. A suite mais recente ficou em **155 ficheiros / 633 testes aprovados**, com TypeScript e build de produção aprovados. Os testes dirigidos adicionais da simulação REPORT_ONLY, relatórios e SAF-T passaram. O aviso de chunks frontend superiores a 500 kB é não bloqueante e foi registado separadamente.
