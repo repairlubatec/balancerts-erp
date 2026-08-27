@@ -1,0 +1,48 @@
+import { importPendingPgcAccountsForUser } from "../server/pgc.ts";
+
+const accounts = [
+  ["21.1", "Matérias-primas, subsidiárias e de consumo", "21", 1019],
+  ["21.2", "Mercadorias", "21", 1019],
+  ["21.7", "Devoluções de compras", "21", 1019],
+  ["21.8", "Descontos e abatimentos em compras", "21", 1019],
+  ["22.1", "Matérias-primas", "22", 1019],
+  ["22.2", "Matérias subsidiárias", "22", 1019],
+  ["22.3", "Materiais diversos", "22", 1019],
+  ["22.4", "Embalagens de consumo", "22", 1019],
+  ["22.5", "Outros materiais", "22", 1019],
+  ["24.1", "Produtos acabados", "24", 1020],
+  ["24.2", "Produtos intermédios", "24", 1020],
+  ["24.9", "Em poder de terceiros", "24", 1020],
+  ["25.1", "Sub-produtos", "25", 1020],
+  ["25.2", "Desperdícios, resíduos e refugos", "25", 1020],
+  ["27.1", "Matérias-primas", "27", 1020],
+  ["27.2", "Outros materiais", "27", 1020],
+  ["27.3", "Mercadorias", "27", 1020],
+  ["28.1", "Matérias-primas e outros materiais", "28", 1020],
+  ["28.2", "Mercadorias", "28", 1020],
+  ["29.2", "Matérias-primas subsidiárias e de consumo", "29", 1020],
+  ["29.3", "Produtos e trabalhos em curso", "29", 1020],
+  ["29.4", "Produtos acabados e intermédios", "29", 1020],
+  ["29.5", "Sub-produtos, desperdícios, resíduos e refugos", "29", 1020],
+  ["29.6", "Mercadorias", "29", 1020],
+].map(([code, name, parentCode, page]) => ({
+  code, name, parentCode, page,
+  description: `Subgrupo PGCA visualmente legível; nível analítico inferior requer confirmação separada. Página impressa ${page}.`,
+  classCode: code.split(".")[0],
+  level: code.split(".").length,
+  accountType: "GROUP",
+  nature: "NOT_APPLICABLE",
+  balanceType: "NOT_APPLICABLE",
+  acceptsEntries: false,
+  acceptsChildren: true,
+  fiscal: false,
+  iva: false,
+  balanceSheet: true,
+  incomeStatement: false,
+  validFrom: new Date("2001-11-16T00:00:00.000Z"),
+  sourceId: 1,
+  notes: `Candidato importado da confirmação visual do Decreto n.º 82/01, página ${page}; estado obrigatório NEEDS_NORMATIVE_VALIDATION.`,
+}));
+
+const result = await importPendingPgcAccountsForUser({ userId: 1, organizationId: 1, versionId: 1, accounts });
+console.log(JSON.stringify(result));

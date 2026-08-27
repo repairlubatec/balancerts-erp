@@ -4263,3 +4263,6 @@
 - [ ] Seleccionar as contas candidatas PGCA com código, nome, hierarquia, natureza e páginas de evidência confirmadas.
 - [ ] Importar as contas candidatas com estado NEEDS_NORMATIVE_VALIDATION, sem as marcar como confirmadas ou lançáveis.
 - [ ] Validar duplicados, pais, fonte, isolamento organizacional e ausência de activação após a importação.
+
+- [x] Executar a via protegida de importação pendente com 24 candidatos visuais; resultado auditado: 0 criados, 24 códigos já existentes ignorados, sem duplicados nem alteração de estados.
+- [ ] Obter e importar candidatos analíticos adicionais apenas quando código, designação, pai, natureza e página forem legíveis e ainda não existirem na base.
