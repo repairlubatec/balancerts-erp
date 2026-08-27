@@ -200,6 +200,43 @@ export const IVA_NORMATIVE_CHAIN_SOURCE_CODES = [
   "IVA-LAW-14-23",
 ] as const;
 
+export const TAX_NORMATIVE_CHAINS = {
+  IVA: IVA_NORMATIVE_CHAIN_SOURCE_CODES,
+  II: ["II-LAW-19-14"] as const,
+  IRT: ["IRT-LAW-28-20"] as const,
+  IP: ["IP-LAW-20-20"] as const,
+  IS: ["IS-DLP-3-14"] as const,
+} as const;
+
+export type FiscalRegimeCode = keyof typeof TAX_NORMATIVE_CHAINS;
+
+export function evaluateTaxReadiness(input: {
+  tax: FiscalRegimeCode;
+  rules: Array<{ verificationStatus: string; taxType?: string | null }>;
+  sources: Array<{ verificationStatus: string; code?: string }>;
+}) {
+  const activeRules = input.rules.filter(row => row.verificationStatus === "ACTIVE");
+  const confirmedSources = input.sources.filter(row =>
+    ["CONFIRMED", "VISUALLY_CONFIRMED", "HUMAN_APPROVED", "ACTIVE"].includes(row.verificationStatus)
+  );
+  const confirmedSourceCodes = new Set(
+    confirmedSources.map(row => row.code).filter((code): code is string => Boolean(code))
+  );
+  const missingSourceCodes = TAX_NORMATIVE_CHAINS[input.tax].filter(code => !confirmedSourceCodes.has(code));
+  const blockers: string[] = [];
+  if (!activeRules.length) blockers.push(`${input.tax}_SEM_REGRA_ACTIVE`);
+  if (!confirmedSources.length) blockers.push(`${input.tax}_SEM_FONTE_CONFIRMADA`);
+  if (missingSourceCodes.length) blockers.push(`${input.tax}_CADEIA_NORMATIVA_INCOMPLETA`);
+  return {
+    tax: input.tax,
+    ready: blockers.length === 0,
+    activeRules: activeRules.length,
+    confirmedSources: confirmedSources.length,
+    missingSourceCodes,
+    blockers,
+  };
+}
+
 export function evaluateIvaReadiness(input: {
   rules: Array<{ verificationStatus: string; regime: string }>;
   mappings: Array<{ verificationStatus: string }>;

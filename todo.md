@@ -3966,14 +3966,14 @@
 - [ ] Produzir relatório final de escopo, alterações, testes, bloqueadores e próxima ordem segura de activação.
 - [ ] Entregar checkpoint publicado manus-webdev://<version_id> ao utilizador.
 - [ ] Não usar o fallback raiz experimental para leituras fiscais; usar apenas tabelas de domínio e dados persistentes tenant-aware.
-- [ ] Validar que os quatro códigos II/IRT/IP/IS são consumidos pelo classificador quando a interface de prontidão fiscal for expandida.
+- [x] Validar que os quatro códigos II/IRT/IP/IS são consumidos pelo classificador quando a interface de prontidão fiscal for expandida.
 - [ ] Não activar automaticamente regras ou versões apenas por confirmação de fonte; exigir regras operacionais completas e aprovação explícita.
 - [ ] Não executar mutações SQL destrutivas sem pedido e verificação de dependências.
 - [ ] Manter o motor fiscal sem taxas novas não presentes nas fontes submetidas.
 - [ ] Manter emissão AGT e credenciais/documentação AGT em preparação final, fora do caminho crítico.
 - [ ] Manter bancos/integradores externos pendentes de decisão de fase final.
 - [ ] Validar a matriz de cadeias fiscais quando II/IRT/IP/IS tiverem fontes posteriores vigentes identificadas.
-- [ ] Registar as quatro fontes primárias também no relatório de prontidão, sem lhes atribuir escopo superior ao texto confirmado.
+- [x] Registar as quatro fontes primárias também no relatório de prontidão, sem lhes atribuir escopo superior ao texto confirmado.
 - [ ] Rever os avisos de bundle e planear carregamento diferido das páginas de maior peso.
 - [ ] Confirmar que o workspace desktop usa scroll interno por módulo e não scroll global.
 - [ ] Confirmar que a interface mantém 100% Português em todas as áreas novas e alteradas.
@@ -3985,7 +3985,7 @@
 - [ ] Manter histórico de alterações desta execução para auditoria de continuidade.
 - [ ] Preparar resumo executivo final para o utilizador em Português europeu.
 - [ ] Fazer checkpoint final somente com todo o trabalho técnico concluído ou com bloqueadores explicitamente documentados.
-- [ ] Fechar fase 3 com catálogo fiscal confirmado e avançar para fase 4 em modo de simulação fail-closed.
+- [x] Fechar fase 3 com catálogo fiscal confirmado e avançar para fase 4 em modo de simulação fail-closed.
 - [ ] Não confundir fontes confirmadas com regras activas: sourceCount confirmado actual = 10, activeRuleCount actual = 0.
 - [ ] Confirmar contas PGCA actuais: 792 totais e 792 CONFIRMED; manter confirmação separada de activação.
 - [ ] Manter o plano de contas PGCA canónico e aplicar alterações IVA como camadas versionadas, sem substituir o plano-base.

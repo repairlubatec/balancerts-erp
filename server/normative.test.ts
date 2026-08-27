@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   evaluateIvaReadiness,
+  evaluateTaxReadiness,
   normativeEvidence,
   validateNormativeCoverage,
 } from "./normative";
@@ -75,6 +76,24 @@ describe("Angola normative evidence", () => {
     expect(normativeEvidence("IRT-LAW-28-20")?.scope).toContain("tabelas");
     expect(normativeEvidence("IP-LAW-20-20")?.scope).toContain("tabelas");
     expect(normativeEvidence("IS-DLP-3-14")?.scope).toContain("tabela anexa");
+  });
+
+  it("avalia II, IRT, IP e IS sem activar regras por inferência documental", () => {
+    const sourceByTax = {
+      II: "II-LAW-19-14",
+      IRT: "IRT-LAW-28-20",
+      IP: "IP-LAW-20-20",
+      IS: "IS-DLP-3-14",
+    } as const;
+    for (const tax of ["II", "IRT", "IP", "IS"] as const) {
+      const result = evaluateTaxReadiness({
+        tax,
+        rules: [],
+        sources: [{ verificationStatus: "CONFIRMED", code: sourceByTax[tax] }],
+      });
+      expect(result).toMatchObject({ tax, ready: false, activeRules: 0, missingSourceCodes: [] });
+      expect(result.blockers).toContain(`${tax}_SEM_REGRA_ACTIVE`);
+    }
   });
 
   it("avalia prontidão IVA bloqueada quando não existem entradas activas", () => {
