@@ -4118,3 +4118,7 @@
 
 - [x] Mostrar no resumo PGCA os seis modelos de regras como RASCUNHO, com tooltip fiscal e sem indicação enganosa de activação.
 - [x] Corrigir o import partilhado e validar TypeScript, resumo PGCA e regras de movimentação.
+
+- [x] Executar regressão integral após a pesquisa e os modelos operacionais: 154 ficheiros e 625 testes aprovados.
+- [x] Executar build de produção aprovado após a integração fiscal e contabilística.
+- [ ] Melhorar code-splitting dos chunks grandes; aviso actual não bloqueia execução nem publicação.
