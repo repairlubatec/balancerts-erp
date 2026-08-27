@@ -4266,3 +4266,5 @@
 
 - [x] Executar a via protegida de importação pendente com 24 candidatos visuais; resultado auditado: 0 criados, 24 códigos já existentes ignorados, sem duplicados nem alteração de estados.
 - [ ] Obter e importar candidatos analíticos adicionais apenas quando código, designação, pai, natureza e página forem legíveis e ainda não existirem na base.
+- [x] Confirmar visualmente as páginas 1026–1027 do Decreto n.º 82/01 para a estrutura literal de Vendas, Devoluções, Descontos, Serviços e Trabalhos para a própria empresa.
+- [ ] Obter evidência literal legível adicional para classificar como movimentáveis as contas analíticas de Vendas, Clientes, Fornecedores, Stock, IVA, Pessoal e Imobilizado.
