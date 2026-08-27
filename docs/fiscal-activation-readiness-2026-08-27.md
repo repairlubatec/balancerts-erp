@@ -67,3 +67,8 @@ A suite integral mais recente passou com **157 ficheiros e 643 testes**, e o bui
 A verificação read-only da base confirmou: `PGCA-82-01:UNDER_REVIEW`; 792 contas `CONFIRMED`, das quais 10 aceitam movimentos; 0 regras activas; e 0 fontes normativas persistidas com estado `HUMAN_APPROVED`/`ACTIVE`. A ausência de fontes normativas persistidas não contradiz o catálogo de código: são camadas de rastreabilidade diferentes e a activação exige ambas, quando aplicável.
 
 A validação visual das rotas `/pgca` e `/fiscalidade` confirmou que o posto de trabalho apresenta os bloqueadores reais e não comunica homologação AGT concluída. O painel permanece preparado para revisão e simulação, mas o cálculo legal produtivo, posting, emissão oficial e transição `UNDER_REVIEW → VALIDATED → ACTIVE` continuam bloqueados até serem fornecidas as contas analíticas legíveis, regras por operação aprovadas e fontes persistidas aprovadas.
+
+
+### Nota de actualização da suite
+
+A referência histórica de 155 ficheiros / 633 testes na linha anterior foi superada. A validação mais recente passou com **157 ficheiros e 643 testes**, além do build de produção e da verificação visual. Esta actualização corrige apenas a métrica de qualidade; não altera o estado normativo: PGCA-82-01 continua `UNDER_REVIEW`, sem regras activas e sem posting produtivo.
