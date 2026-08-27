@@ -4057,7 +4057,7 @@
 - [x] Não publicar uma activação PGCA prematura.
 - [ ] Confirmar que as 792 contas incluem as 765 anteriormente pendentes já confirmadas em lotes auditáveis.
 - [x] Manter a distinção entre o plano interno de contas e o PGCA canónico normativo.
-- [ ] Fazer validação visual apenas quando a interface tiver alterações visíveis nesta fase.
+- [x] Fazer validação visual apenas quando a interface tiver alterações visíveis nesta fase.
 - [x] Concluir fase 4 ou documentar a impossibilidade técnica sem alterar o estado produtivo.
 - [ ] Concluir fase 5 apenas após confirmação de readiness completo.
 - [ ] Entregar relatório final anexado e versão publicada.
