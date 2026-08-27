@@ -37,6 +37,8 @@ describe("regras-base de movimentação contabilística", () => {
       });
     }
     expect(getOperationalRulePreparation("UNKNOWN")).toBeUndefined();
+    expect(operationalRulePreparations.every(row => row.postingStatus === "DRAFT_ONLY" && row.requiresHumanApproval)).toBe(true);
+    expect(operationalRulePreparations.every(row => !/\\b\\d{2,}(?:\\.\\d+)+\\b/.test(`${row.debitRequirement} ${row.creditRequirement}`))).toBe(true);
   });
 
   it("rejeita natureza não aplicável e direcção incompatível", () => {

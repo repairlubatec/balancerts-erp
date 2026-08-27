@@ -269,6 +269,7 @@ import {
   validateReopenReason,
 } from "./closing";
 import { buildDecree71Coverage, getOfficialOge2026MeasureReferences, normativeEvidence, TAX_NORMATIVE_CHAINS, validateNormativeCoverage } from "./normative";
+import { operationalRulePreparations } from "../shared/accountingMovementRules";
 import { convertToFunctionalCurrency } from "./currency";
 import { buildReversalLines, reversalDescription } from "./reversal";
 import {
@@ -3111,6 +3112,13 @@ export const appRouter = router({
         tax: input.tax ?? "TODOS",
         measures: getOfficialOge2026MeasureReferences(input.tax),
         activation: "REFERENCE_ONLY",
+      })),
+    operationalRulePreparations: roleProcedure("normative", "read")
+      .input(z.object({ operation: z.enum(["PURCHASE", "SALE", "STOCK", "TREASURY", "PAYROLL", "FIXED_ASSET"]).optional() }).strict())
+      .query(({ input }) => ({
+        preparations: input.operation ? operationalRulePreparations.filter(row => row.operation === input.operation) : operationalRulePreparations,
+        postingStatus: "DRAFT_ONLY",
+        requiresHumanApproval: true,
       })),
     sources: roleProcedure("normative", "read")
       .input(
