@@ -61,3 +61,9 @@ A pesquisa de notícias e páginas oficiais do MINFIN/AGT encontrou o índice de
 ## Conferência adicional no navegador — DLP n.º 3/14
 
 A página consultada apresenta o DLP n.º 3/14 como revisão e republicação do Código do Imposto do Selo, publicado no Diário da República I Série n.º 191 de 21 de Outubro de 2014. O texto visível confirma no artigo 1.º a incidência segundo a tabela anexa ou leis especiais e no artigo 12.º que as taxas são as constantes da tabela anexa em vigor no momento em que o imposto é devido. A busca visual directa pela expressão `23.3` não devolveu uma ocorrência navegável no recorte actual; por isso, a verba 23.3 a 1% permanece suportada pela remissão legível no OCR da Lei n.º 14/23, não pela tabela integral do DLP nesta consulta. O ERP mantém essa referência condicionada e não cria uma taxa universal de IS.
+
+## Confirmação oficial AGT em 27/08/2026
+
+A leitura actualizada da página AGT mostrou a Folha Tributária n.º 94, edição Junho de 2026, e o Calendário Fiscal 2026 disponíveis para download. A mesma página exibe o comunicado de 27/08/2026 sobre liquidação e pagamento provisório do Imposto Industrial para contribuintes do regime geral, indicando o termo do prazo em 31 de Agosto de 2026. Este achado reforça que prazos e obrigações devem ser versionados no calendário fiscal por exercício e regime, não codificados como constantes fiscais universais. O motor já mantém o calendário separado da taxa e das regras contabilísticas.
+
+A pesquisa também confirmou a necessidade de distinguir a taxa geral do II dos regimes especiais e das medidas fiscais anuais. Nenhuma nova regra de posting ou taxa de OGE/MPME foi activada nesta etapa.

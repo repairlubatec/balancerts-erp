@@ -4122,3 +4122,6 @@
 - [x] Executar regressão integral após a pesquisa e os modelos operacionais: 154 ficheiros e 625 testes aprovados.
 - [x] Executar build de produção aprovado após a integração fiscal e contabilística.
 - [ ] Melhorar code-splitting dos chunks grandes; aviso actual não bloqueia execução nem publicação.
+
+- [x] Confirmar na página AGT de 27/08/2026 o comunicado do pagamento provisório do II e a disponibilidade do Calendário Fiscal 2026.
+- [x] Documentar que prazos e obrigações anuais devem ser versionados por exercício/regime, separados de taxas e posting.
