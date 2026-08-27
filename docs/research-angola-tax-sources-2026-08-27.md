@@ -67,3 +67,7 @@ A página consultada apresenta o DLP n.º 3/14 como revisão e republicação do
 A leitura actualizada da página AGT mostrou a Folha Tributária n.º 94, edição Junho de 2026, e o Calendário Fiscal 2026 disponíveis para download. A mesma página exibe o comunicado de 27/08/2026 sobre liquidação e pagamento provisório do Imposto Industrial para contribuintes do regime geral, indicando o termo do prazo em 31 de Agosto de 2026. Este achado reforça que prazos e obrigações devem ser versionados no calendário fiscal por exercício e regime, não codificados como constantes fiscais universais. O motor já mantém o calendário separado da taxa e das regras contabilísticas.
 
 A pesquisa também confirmou a necessidade de distinguir a taxa geral do II dos regimes especiais e das medidas fiscais anuais. Nenhuma nova regra de posting ou taxa de OGE/MPME foi activada nesta etapa.
+
+## Busca institucional adicional — Imposto do Selo
+
+A pesquisa adicional em páginas AGT/MINFIN encontrou o Guia do Sistema Tributário Angolano 2017 e referências institucionais ao DLP n.º 3/14, mas o Guia declara não substituir a legislação integral. A página AGT de impostos disponibiliza o Calendário Fiscal 2026 e notícias operacionais, sem expor a tabela integral de verbas do IS. Um activo CMS localizado na pesquisa corresponde a uma proposta/documento do OGE 2022, não ao OGE 2026 nem à tabela do IS, pelo que não foi incorporado como fonte fiscal vigente. O bloqueio da tabela integral permanece legítimo.
