@@ -4259,3 +4259,7 @@
 
 - [x] Criar matriz de lacunas operacionais com os códigos exigidos, os dez códigos lançáveis existentes e a consequência para cada operação.
 - [ ] Completar o mapeamento final de cada regra com IDs de contas lançáveis, documento, imposto, taxa e vigência depois de confirmar as contas em falta.
+
+- [ ] Seleccionar as contas candidatas PGCA com código, nome, hierarquia, natureza e páginas de evidência confirmadas.
+- [ ] Importar as contas candidatas com estado NEEDS_NORMATIVE_VALIDATION, sem as marcar como confirmadas ou lançáveis.
+- [ ] Validar duplicados, pais, fonte, isolamento organizacional e ausência de activação após a importação.

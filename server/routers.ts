@@ -335,6 +335,7 @@ import {
 } from "./saadi-documents";
 import {
   addPgcAccountDraftForUser,
+  importPendingPgcAccountsForUser,
   addPgcAccountVisualConfirmedForUser,
   addPgcSourceForUser,
   auditLegacyChartForUser,
@@ -5812,6 +5813,41 @@ export const appRouter = router({
     addComment: roleProcedure("accounting", "read")
       .input(z.object({ organizationId: z.number().int().positive(), versionId: z.number().int().positive(), accountId: z.number().int().positive(), comment: z.string().trim().min(1).max(4000) }).strict())
       .mutation(({ ctx, input }) => addPgcAccountCommentForUser({ ...input, userId: ctx.user.id })),
+    importPendingAccounts: roleProcedure("accounting", "create")
+      .input(
+        z
+          .object({
+            organizationId: z.number().int().positive(),
+            versionId: z.number().int().positive(),
+            accounts: z.array(
+              z.object({
+                code: z.string().trim().min(1).max(32),
+                name: z.string().trim().min(1).max(180),
+                description: z.string().trim().max(5000).optional(),
+                classCode: z.string().trim().min(1).max(4),
+                parentCode: z.string().trim().max(32).nullable().optional(),
+                level: z.number().int().min(1).max(10),
+                accountType: z.enum(["CLASS", "GROUP", "MOVEMENT", "ANALYTICAL"]),
+                nature: z.enum(["DEBIT", "CREDIT", "MIXED", "NOT_APPLICABLE"]),
+                balanceType: z.enum(["DEBIT", "CREDIT", "VARIABLE", "NOT_APPLICABLE"]),
+                acceptsEntries: z.boolean(),
+                acceptsChildren: z.boolean(),
+                fiscal: z.boolean().optional(),
+                iva: z.boolean().optional(),
+                balanceSheet: z.boolean().optional(),
+                incomeStatement: z.boolean().optional(),
+                validFrom: z.coerce.date(),
+                validTo: z.coerce.date().nullable().optional(),
+                sourceId: z.number().int().positive().nullable().optional(),
+                notes: z.string().trim().max(4000).optional(),
+              }).strict()
+            ).min(1).max(500),
+          })
+          .strict()
+      )
+      .mutation(({ ctx, input }) =>
+        importPendingPgcAccountsForUser({ ...input, userId: ctx.user.id })
+      ),
     addAccountDraft: roleProcedure("accounting", "create")
       .input(
         z

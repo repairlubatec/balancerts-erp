@@ -211,6 +211,28 @@ export function validatePgcAccountDraft(account: PgcAccountDraft) {
   return true as const;
 }
 
+export async function importPendingPgcAccountsForUser(input: { userId: number; organizationId: number; versionId: number; accounts: PgcAccountDraft[] }) {
+  const db = await getDb(); if (!db) throw new Error("Database unavailable");
+  const version = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), eq(pgcVersions.status, "UNDER_REVIEW"), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
+  if (!version[0]) throw new Error("PGC_VERSION_NOT_REVIEWABLE_OR_FORBIDDEN");
+  if (!input.accounts.length || input.accounts.length > 500) throw new Error("PGC_PENDING_IMPORT_BATCH_INVALID");
+  const createdIds: number[] = [];
+  for (const account of input.accounts) {
+    validatePgcAccountDraft(account);
+    if (!account.sourceId) throw new Error("PGC_PENDING_IMPORT_SOURCE_REQUIRED");
+    const source = await db.select({ id: pgcSources.id, verificationStatus: pgcSources.verificationStatus }).from(pgcSources).where(and(eq(pgcSources.id, account.sourceId), eq(pgcSources.organizationId, input.organizationId), eq(pgcSources.versionId, input.versionId))).limit(1);
+    if (!source[0] || source[0].verificationStatus !== "CONFIRMED") throw new Error("PGC_PENDING_IMPORT_SOURCE_NOT_CONFIRMED");
+    const parent = account.parentCode ? await db.select({ id: pgcAccounts.id }).from(pgcAccounts).where(and(eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId), eq(pgcAccounts.code, account.parentCode))).limit(1) : [];
+    if (account.parentCode && !parent[0]) throw new Error("PGC_PARENT_NOT_FOUND");
+    const duplicate = await db.select({ id: pgcAccounts.id }).from(pgcAccounts).where(and(eq(pgcAccounts.organizationId, input.organizationId), eq(pgcAccounts.versionId, input.versionId), eq(pgcAccounts.code, account.code))).limit(1);
+    if (duplicate[0]) throw new Error(`PGC_ACCOUNT_CODE_ALREADY_EXISTS:${account.code}`);
+    const result = await db.insert(pgcAccounts).values({ organizationId: input.organizationId, versionId: input.versionId, sourceId: account.sourceId, code: account.code, name: account.name.trim(), description: account.description?.trim() || null, classCode: account.classCode, parentId: parent[0]?.id ?? null, parentCode: account.parentCode ?? null, level: account.level, accountType: account.accountType, nature: account.nature, balanceType: account.balanceType, acceptsEntries: account.acceptsEntries ? 1 : 0, acceptsChildren: account.acceptsChildren ? 1 : 0, active: 1, fiscal: account.fiscal ? 1 : 0, iva: account.iva ? 1 : 0, balanceSheet: account.balanceSheet ? 1 : 0, incomeStatement: account.incomeStatement ? 1 : 0, validFrom: account.validFrom, validTo: account.validTo ?? null, validationStatus: "NEEDS_NORMATIVE_VALIDATION", notes: `${account.notes?.trim() || ""} Importação pendente: requer confirmação visual humana antes de posting; acceptsEntries representa apenas a estrutura candidata.`.trim(), createdBy: input.userId });
+    const id = Number(result[0].insertId); createdIds.push(id);
+    await appendAuditEventForUser({ organizationId: input.organizationId, actorUserId: input.userId, action: "PGC_ACCOUNT_PENDING_IMPORTED", entityType: "pgcAccount", entityId: String(id), beforeState: null, afterState: JSON.stringify({ ...account, validationStatus: "NEEDS_NORMATIVE_VALIDATION", humanReviewRequired: true }), correlationId: `pgc-pending-import:${id}` });
+  }
+  return { versionId: input.versionId, createdIds, createdCount: createdIds.length, status: "NEEDS_NORMATIVE_VALIDATION" as const, humanReviewRequired: true as const };
+}
+
 export async function addPgcAccountDraftForUser(input: { userId: number; organizationId: number; versionId: number; account: PgcAccountDraft }) {
   const db = await getDb(); if (!db) throw new Error("Database unavailable");
   const version = await db.select({ version: pgcVersions }).from(pgcVersions).innerJoin(organizations, eq(pgcVersions.organizationId, organizations.id)).where(and(eq(pgcVersions.id, input.versionId), eq(pgcVersions.organizationId, input.organizationId), eq(pgcVersions.status, "DRAFT"), sql`(${organizations.ownerUserId} = ${input.userId} OR EXISTS (SELECT 1 FROM organizationMemberships AS om WHERE om.organizationId = ${organizations.id} AND om.userId = ${input.userId} AND om.status = 'ACTIVE'))`)).limit(1);
