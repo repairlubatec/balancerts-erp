@@ -4095,6 +4095,9 @@
 - [ ] Completar validação semântica SAF-T contra movimentos e documentos reais antes de submissão.
 
 - [x] Pesquisar primeiro fontes angolanas oficiais e corpus documental submetido para completar regras operacionais, sem perguntas prematuras.
-- [ ] Confrontar regras por operação com PGCA, diplomas fiscais e vigência aplicável antes de propor activação.
+- [x] Confrontar parâmetros por operação com PGCA, diplomas fiscais e vigência aplicável antes de propor activação; a activação permanece pendente onde a tabela legal ou o mapeamento de contas não é universalmente determinável.
 - [x] Registar URLs, PDFs, páginas e conclusões da pesquisa em relatório auditável.
 - [x] Só solicitar decisão ao utilizador se persistir contradição legal real ou decisão irreversível não determinável pelas fontes.
+
+- [x] Incorporar como parâmetros de referência não activos os valores fiscais expressamente publicados nas páginas oficiais pesquisadas, com imposto, facto tributário, regime, vigência e evidência.
+- [x] Testar o catálogo de parâmetros para impedir activação por inferência e exigir fonte/cadeia/regra completas.

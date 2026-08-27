@@ -210,6 +210,142 @@ export const TAX_NORMATIVE_CHAINS = {
 
 export type FiscalRegimeCode = keyof typeof TAX_NORMATIVE_CHAINS;
 
+/**
+ * Parâmetros publicados nas páginas oficiais pesquisadas.
+ * São referências de modelação e nunca constituem regra activa por si só:
+ * a activação exige vigência, cadeia completa, regra operacional e aprovação.
+ */
+export const OFFICIAL_TAX_PARAMETER_REFERENCES = [
+  {
+    code: "II-GERAL-25",
+    tax: "II" as const,
+    factPattern: "LUCRO_REGIME_GERAL",
+    ratePercent: 25,
+    rateKind: "PERCENT" as const,
+    evidence: "II-LAW-19-14",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "II-AGRICOLA-10",
+    tax: "II" as const,
+    factPattern: "ACTIVIDADE_EXCLUSIVAMENTE_AGRICOLA_AQUICOLA_APICOLA_AVICOLA_PISCATORIA_SILVICOLA_PECUARIA",
+    ratePercent: 10,
+    rateKind: "PERCENT" as const,
+    evidence: "II-LAW-19-14",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "II-SECTORES-35",
+    tax: "II" as const,
+    factPattern: "ACTIVIDADE_BANCARIA_SEGUROS_TELECOMUNICACOES_PETROLIFERA_ANGOLANA",
+    ratePercent: 35,
+    rateKind: "PERCENT" as const,
+    evidence: "II-LAW-19-14",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "II-PROVISORIO-VENDAS-2",
+    tax: "II" as const,
+    factPattern: "PAGAMENTO_PROVISORIO_VOLUME_VENDAS_PRIMEIROS_SEIS_MESES",
+    ratePercent: 2,
+    rateKind: "PERCENT" as const,
+    evidence: "II-LAW-19-14",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "IRT-B-C-SEM_RETENCAO-25",
+    tax: "IRT" as const,
+    factPattern: "RENDIMENTO_GRUPO_B_OU_C_NAO_SUJEITO_RETENCAO",
+    ratePercent: 25,
+    rateKind: "PERCENT" as const,
+    evidence: "IRT-LAW-28-20",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "IRT-B-C-RETENCAO-6_5",
+    tax: "IRT" as const,
+    factPattern: "RENDIMENTO_GRUPO_B_OU_C_SUJEITO_RETENCAO",
+    ratePercent: 6.5,
+    rateKind: "PERCENT" as const,
+    evidence: "IRT-LAW-28-20",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "IP-TERRENO-CONSTRUCAO-0_6",
+    tax: "IP" as const,
+    factPattern: "DETENCAO_TERRENO_PARA_CONSTRUCAO",
+    ratePercent: 0.6,
+    rateKind: "PERCENT" as const,
+    evidence: "IP-LAW-20-20",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "IP-ARRENDADO-25",
+    tax: "IP" as const,
+    factPattern: "RENDA_PREDIO_ARRENDADO",
+    ratePercent: 25,
+    rateKind: "PERCENT" as const,
+    evidence: "IP-LAW-20-20",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "IP-TRANSMISSAO-2",
+    tax: "IP" as const,
+    factPattern: "TRANSMISSAO_BEM_IMOVEL",
+    ratePercent: 2,
+    rateKind: "PERCENT" as const,
+    evidence: "IP-LAW-20-20",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "IVA-GERAL-14",
+    tax: "IVA" as const,
+    factPattern: "OPERACAO_TRIBUTAVEL_REGIME_GERAL_FORA_CABINDA",
+    ratePercent: 14,
+    rateKind: "PERCENT" as const,
+    evidence: "IVA-LAW-14-23",
+    status: "REFERENCE_ONLY" as const,
+  },
+  {
+    code: "IVA-CABINDA-2",
+    tax: "IVA" as const,
+    factPattern: "IMPORTACAO_MERCADORIA_OU_TRANSMISSAO_BENS_CABINDA",
+    ratePercent: 2,
+    rateKind: "PERCENT" as const,
+    evidence: "IVA-LAW-14-23",
+    status: "REFERENCE_ONLY" as const,
+  },
+] as const;
+
+export function getOfficialTaxParameterReferences(tax?: FiscalRegimeCode) {
+  return tax
+    ? OFFICIAL_TAX_PARAMETER_REFERENCES.filter(row => row.tax === tax)
+    : OFFICIAL_TAX_PARAMETER_REFERENCES;
+}
+
+export function canActivateTaxParameterReference(input: {
+  parameterCode: string;
+  sourceConfirmed: boolean;
+  chainComplete: boolean;
+  ruleApproved: boolean;
+  effectiveFrom?: string | null;
+}) {
+  const parameter = OFFICIAL_TAX_PARAMETER_REFERENCES.find(
+    row => row.code === input.parameterCode
+  );
+  const blockers: string[] = [];
+  if (!parameter) blockers.push("PARAMETRO_INEXISTENTE");
+  if (!input.sourceConfirmed) blockers.push("FONTE_NAO_CONFIRMADA");
+  if (!input.chainComplete) blockers.push("CADEIA_INCOMPLETA");
+  if (!input.ruleApproved) blockers.push("REGRA_NAO_APROVADA");
+  if (!input.effectiveFrom) blockers.push("VIGENCIA_NAO_DEFINIDA");
+  return {
+    parameter,
+    eligible: Boolean(parameter) && blockers.length === 0,
+    blockers,
+  };
+}
+
 export function evaluateTaxReadiness(input: {
   tax: FiscalRegimeCode;
   rules: Array<{ verificationStatus: string; taxType?: string | null }>;

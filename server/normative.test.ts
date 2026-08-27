@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   evaluateIvaReadiness,
   evaluateTaxReadiness,
+  getOfficialTaxParameterReferences,
+  canActivateTaxParameterReference,
   normativeEvidence,
   validateNormativeCoverage,
 } from "./normative";
@@ -94,6 +96,45 @@ describe("Angola normative evidence", () => {
       expect(result).toMatchObject({ tax, ready: false, activeRules: 0, missingSourceCodes: [] });
       expect(result.blockers).toContain(`${tax}_SEM_REGRA_ACTIVE`);
     }
+  });
+
+  it("expõe os parâmetros oficiais pesquisados por imposto sem os activar", () => {
+    expect(getOfficialTaxParameterReferences("II")).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "II-GERAL-25", ratePercent: 25, status: "REFERENCE_ONLY" }),
+        expect.objectContaining({ code: "II-PROVISORIO-VENDAS-2", ratePercent: 2, status: "REFERENCE_ONLY" }),
+      ])
+    );
+    expect(getOfficialTaxParameterReferences("IP")).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "IP-TRANSMISSAO-2", ratePercent: 2 }),
+      ])
+    );
+  });
+
+  it("bloqueia activação de parâmetro sem cadeia, vigência e aprovação", () => {
+    const result = canActivateTaxParameterReference({
+      parameterCode: "IVA-GERAL-14",
+      sourceConfirmed: true,
+      chainComplete: false,
+      ruleApproved: false,
+    });
+    expect(result.eligible).toBe(false);
+    expect(result.blockers).toEqual(
+      expect.arrayContaining(["CADEIA_INCOMPLETA", "REGRA_NAO_APROVADA", "VIGENCIA_NAO_DEFINIDA"])
+    );
+  });
+
+  it("não aceita parâmetro desconhecido mesmo com todos os sinais fornecidos", () => {
+    const result = canActivateTaxParameterReference({
+      parameterCode: "UNKNOWN",
+      sourceConfirmed: true,
+      chainComplete: true,
+      ruleApproved: true,
+      effectiveFrom: "2026-01-01",
+    });
+    expect(result.eligible).toBe(false);
+    expect(result.blockers).toContain("PARAMETRO_INEXISTENTE");
   });
 
   it("avalia prontidão IVA bloqueada quando não existem entradas activas", () => {
