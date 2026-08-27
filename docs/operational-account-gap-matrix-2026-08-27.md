@@ -37,3 +37,13 @@ A activação deve aguardar a confirmação literal das contas movimentáveis em
 
 [1]: https://lex.ao/docs/conselho-de-ministros/2001/decreto-n-o-82-01-de-16-de-novembro/ "Decreto n.º 82/01 de 16 de Novembro"
 [2]: https://lex.ao/docs/presidente-da-republica/2019/decreto-presidencial-n-o-180-19-de-24-de-maio/ "Decreto Presidencial n.º 180/19 de 24 de Maio"
+
+## Resultado da importação pendente e evidência adicional
+
+A via protegida de importação foi executada na versão `PGCA-82-01` em `UNDER_REVIEW` com 24 candidatos de subgrupos visualmente legíveis. O resultado foi `createdCount = 0` e `skippedCount = 24`: todos os códigos já existiam na base e foram ignorados, sem duplicação, sem mudança de estado e sem activação.
+
+A consulta persistente mantém 792 contas confirmadas: 9 classes, 773 grupos e 10 contas `MOVEMENT` com `acceptsEntries = 1`. As páginas 1021–1022 do Decreto n.º 82/01 acrescentam códigos de Clientes, Fornecedores, Estado e Pessoal, mas muitos últimos níveis não apresentam uma designação analítica suficientemente legível para importação automática.
+
+As regras adicionais confirmadas no bloco textual do diploma incluem: `32.8` saldada por Fornecedores — correntes; `32.9.2` de natureza devedora, saldada por Fornecedores — correntes ou Compras; `34.1` com pagamentos e retenções a débito e estimativa a crédito; `34.3` credora, saldada por Meios monetários; `36.1` credora, creditada por custos e saldada por adiantamentos ou Meios monetários; `36.3` devedora, debitada por Meios monetários e saldada por `36.1`; `37.1` credora, creditada por Imobilizado e saldada por Meios monetários; e `37.2` devedora, debitada por Resultados e saldada por Meios monetários.
+
+Conclusão: a falha restante é de **contas analíticas movimentáveis e confirmadas**, não de ausência dos diplomas. A nova rota já permite importar futuros candidatos como `NEEDS_NORMATIVE_VALIDATION`, mas os 24 candidatos legíveis já estão presentes e os candidatos analíticos restantes não devem ser inseridos enquanto código, designação, pai e natureza não forem legíveis e não duplicarem contas existentes.
