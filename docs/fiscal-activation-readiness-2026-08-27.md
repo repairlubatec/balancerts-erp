@@ -102,3 +102,10 @@ A evidência JSON completa fica em `docs/pgca-structural-validation-2026-08-27.j
 Foi consultado o [portal institucional do Conselho Nacional de Normalização Contabilística de Angola](https://cnnca.minfin.gov.ao/sobre), que identifica o PGCA aprovado pelo Decreto n.º 82/01, e foi consultada a página do [Calendário Fiscal 2026 da AGT/MINFIN](https://agt.minfin.gov.ao/PortalAGT/#!/servicos-fiscais//calendario-fiscal), que disponibiliza o calendário anual para download. A página pública do diploma no [Lex Angola](https://lex.ao/docs/conselho-de-ministros/2001/decreto-n-o-82-01-de-16-de-novembro/) identifica a publicação do Decreto n.º 82/01 no Diário da República I Série n.º 52, de 16 de Novembro de 2001, e disponibiliza o PDF.
 
 Estas consultas confirmam a proveniência e os pontos de acesso, mas não substituem a leitura literal das páginas necessárias para natureza, lançabilidade, regra de movimento, vigência, taxas ou modelos. Por isso, não alteram o estado `UNDER_REVIEW`, não criam contas e não activam regras.
+
+
+## Evidência textual PGCA disponível — 27/08/2026
+
+Foi identificado no conjunto documental local o ficheiro `docs/normative-sources/pgc-angola-main-2025/docs/pgc.pdf`, com 78 páginas e texto extraível. A análise localiza a apresentação das classes e secções sobre Clientes, Fornecedores, Existências, Meios Monetários, Capital Próprio, Proveitos e Custos, além de referências textuais a regras de movimentação e às contas IVA 34.5/34.5.2.
+
+Esta evidência melhora a base de análise para preparação de rascunhos, mas não autoriza activação. O motor continua a exigir ligação por conta a página legível, código, designação, pai, natureza, lançabilidade, regra, fonte, vigência e aprovação humana. Nenhum registo persistente foi alterado com base nesta extracção.
