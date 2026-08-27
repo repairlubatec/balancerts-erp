@@ -4256,3 +4256,6 @@
 
 - [x] Expor no resumo de cobertura os códigos PGCA requeridos por operação e a evidência dos movimentos, sem indicar activação.
 - [x] Validar a checklist operacional e o resumo PGCA com TypeScript e 7 testes dirigidos.
+
+- [x] Criar matriz de lacunas operacionais com os códigos exigidos, os dez códigos lançáveis existentes e a consequência para cada operação.
+- [ ] Completar o mapeamento final de cada regra com IDs de contas lançáveis, documento, imposto, taxa e vigência depois de confirmar as contas em falta.
