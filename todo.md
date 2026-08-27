@@ -4236,3 +4236,7 @@
 - [x] Definir prioridades de correcção com evidência técnica e impacto operacional.
 
 - [x] Restringir `privateKeyReference` AGT a referências não secretas de secret store, rejeitando conteúdo PEM, caminhos locais e credenciais brutas, com regressão de segurança.
+
+- [x] Verificar quais versões PGCA estão incorporadas e explicar os bloqueadores exactos para activar uma versão produtiva.
+
+- [x] Mapear os campos normativos, contabilísticos, fiscais e externos que dependem das fontes documentais recebidas e explicar a sua utilização no fluxo de activação.
