@@ -58,3 +58,12 @@ Ela não autoriza, por si só, a activação global. Um PDF pode provar o texto 
 6. Só depois habilitar efeitos produtivos para utilizadores autorizados, com auditoria append-only e possibilidade de revogação controlada.
 
 Nenhuma taxa foi inventada ou activada por esta auditoria. A classificação documental e a activação normativa continuam separadas para preservar a integridade do ERP. A suite mais recente ficou em **155 ficheiros / 633 testes aprovados**, com TypeScript e build de produção aprovados. Os testes dirigidos adicionais da simulação REPORT_ONLY, relatórios e SAF-T passaram. O aviso de chunks frontend superiores a 500 kB é não bloqueante e foi registado separadamente.
+
+
+## Actualização pós-verificação — 27/08/2026
+
+A suite integral mais recente passou com **157 ficheiros e 643 testes**, e o build de produção foi concluído. Foi adicionada uma guarda pura de rastreabilidade normativa que exige correspondência entre catálogo e fonte persistida, aprovação humana, relação aprovada quando necessária e vigências definidas. A guarda não muda estados nem substitui a aprovação humana.
+
+A verificação read-only da base confirmou: `PGCA-82-01:UNDER_REVIEW`; 792 contas `CONFIRMED`, das quais 10 aceitam movimentos; 0 regras activas; e 0 fontes normativas persistidas com estado `HUMAN_APPROVED`/`ACTIVE`. A ausência de fontes normativas persistidas não contradiz o catálogo de código: são camadas de rastreabilidade diferentes e a activação exige ambas, quando aplicável.
+
+A validação visual das rotas `/pgca` e `/fiscalidade` confirmou que o posto de trabalho apresenta os bloqueadores reais e não comunica homologação AGT concluída. O painel permanece preparado para revisão e simulação, mas o cálculo legal produtivo, posting, emissão oficial e transição `UNDER_REVIEW → VALIDATED → ACTIVE` continuam bloqueados até serem fornecidas as contas analíticas legíveis, regras por operação aprovadas e fontes persistidas aprovadas.
