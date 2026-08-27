@@ -3986,7 +3986,7 @@
 - [ ] Preparar resumo executivo final para o utilizador em Português europeu.
 - [ ] Fazer checkpoint final somente com todo o trabalho técnico concluído ou com bloqueadores explicitamente documentados.
 - [x] Fechar fase 3 com catálogo fiscal confirmado e avançar para fase 4 em modo de simulação fail-closed.
-- [ ] Não confundir fontes confirmadas com regras activas: sourceCount confirmado actual = 10, activeRuleCount actual = 0.
+- [x] Não confundir fontes confirmadas com regras activas: sourceCount confirmado actual = 10, activeRuleCount actual = 0.
 - [x] Confirmar contas PGCA actuais: 792 totais e 792 CONFIRMED; manter confirmação separada de activação.
 - [x] Manter o plano de contas PGCA canónico e aplicar alterações IVA como camadas versionadas, sem substituir o plano-base.
 - [x] Manter os quatro diplomas II/IRT/IP/IS como fontes de trabalho confirmadas, com alterações posteriores fora do escopo automático.
