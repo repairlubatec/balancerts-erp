@@ -4001,8 +4001,8 @@
 - [ ] Guardar checkpoint automático após actualizar relatório e validar UI.
 - [ ] Usar a versão publicada do checkpoint como artefacto de entrega.
 - [ ] Retomar deste ponto no próximo ciclo: fase 4, simulação fiscal, posting e SAF-T sem publicação produtiva.
-- [ ] Documentar que a confirmação dos quatro PDFs foi incorporada no catálogo de código, mas as tabelas fiscais de II/IRT/IP/IS não foram inventadas nem activadas.
-- [ ] Manter a cadeia IVA de cinco diplomas intacta e já coberta por testes.
+- [x] Documentar que a confirmação dos quatro PDFs foi incorporada no catálogo de código, mas as tabelas fiscais de II/IRT/IP/IS não foram inventadas nem activadas.
+- [x] Manter a cadeia IVA de cinco diplomas intacta e já coberta por testes.
 - [ ] Rever a contagem de fontes no readiness e garantir que a nova catalogação não duplica nem substitui registos persistentes.
 - [ ] Conservar todas as fontes institucionais e PDFs no corpus, com proveniência e hash auditáveis.
 - [ ] Não activar versão PGCA enquanto a cobertura das seis operações contabilísticas exigidas estiver incompleta.
