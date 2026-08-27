@@ -3953,9 +3953,9 @@
 - [ ] Finalizar a classificação de documentos de facturação/emissão exigida pelo Decreto Presidencial n.º 71/25 e requisitos AGT quando as evidências institucionais estiverem disponíveis.
 - [ ] Fechar validação semântica SAF-T AO, incluindo regras XSD e coerência contabilística/fiscal por documento.
 - [ ] Manter a empresa de teste Repair Lubatec separada da configuração global do ERP.
-- [ ] Não usar o manual brasileiro em taxas, códigos, modelos, regras fiscais ou evidências operacionais.
-- [ ] Não fabricar avaliações, depoimentos, taxas, contas ou dados fiscais demonstrativos.
-- [ ] Preservar estado fail-closed para activação, cálculo produtivo, posting e emissão enquanto existirem bloqueadores.
+- [x] Não usar o manual brasileiro em taxas, códigos, modelos, regras fiscais ou evidências operacionais.
+- [x] Não fabricar avaliações, depoimentos, taxas, contas ou dados fiscais demonstrativos.
+- [x] Preservar estado fail-closed para activação, cálculo produtivo, posting e emissão enquanto existirem bloqueadores.
 - [ ] Exigir auditoria append-only, actor, correlação, anterior/posterior e revogação controlada em cada activação normativa.
 - [x] Registar no relatório final as limitações do trabalho offline e a necessidade de revisão jurídica/contabilística local para vigência posterior.
 - [x] Confirmar o estado publicado após checkpoint e disponibilizar a versão ao utilizador.
