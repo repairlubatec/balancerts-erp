@@ -4115,3 +4115,6 @@
 
 - [x] Implementar modelos DRAFT_ONLY para Compras, Vendas, Stock, Tesouraria, Salários e Imobilizado.
 - [x] Garantir por testes que os modelos exigem aprovação humana e não seleccionam contas ou taxas por inferência.
+
+- [x] Mostrar no resumo PGCA os seis modelos de regras como RASCUNHO, com tooltip fiscal e sem indicação enganosa de activação.
+- [x] Corrigir o import partilhado e validar TypeScript, resumo PGCA e regras de movimentação.
