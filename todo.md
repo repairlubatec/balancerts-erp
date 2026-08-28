@@ -4276,3 +4276,8 @@
 - [x] Corrigir o validador estrutural PGCA para percorrer envelopes hierárquicos `classes/accounts` e distinguir ausência de natureza de erro estrutural.
 
 - [x] Adicionar regressão Vitest do validador estrutural PGCA para o envelope real `classes/accounts`, sem inferência normativa.
+
+- [ ] Pausar formalmente o trabalho normativo anterior sem alterar estados PGCA/IVA, dados persistentes ou regras produtivas.
+- [ ] Auditar ficheiros versionáveis, segredos e artefactos antes da exportação para GitHub.
+- [ ] Criar e publicar o projecto integral num repositório GitHub privado associado à conta do utilizador.
+- [ ] Verificar o repositório remoto, o acesso privado e a integridade do conteúdo exportado.
